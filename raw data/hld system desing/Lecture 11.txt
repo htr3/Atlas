@@ -1,0 +1,1615 @@
+# tactiq.io free youtube transcript
+# Low-Level Design: Interview Questions and Tips
+# https://www.youtube.com/watch/VdwkFAhLEHo
+
+00:00:01.560 okay go live
+00:00:08.179 hey folks
+00:00:10.559 today is a special day because today we
+00:00:12.599 are going to be making a rather large
+00:00:14.540 announcement uh live
+00:00:17.520 so welcome to the stream and
+00:00:20.880 on this Tuesday 7 00 PM you have chosen
+00:00:23.880 to come for low level design questions
+00:00:26.359 to know some popular closer design
+00:00:28.740 questions and also about some tips and
+00:00:30.599 tricks
+00:00:31.800 um that will be happening apart from
+00:00:33.719 that if you have any doubts or queries
+00:00:37.980 or uh any kind of
+00:00:41.219 you know uh any kind of questions that
+00:00:44.040 you have you can post it in the chat and
+00:00:46.500 we'll be looking at it
+00:00:48.360 hi Rishi hi shubham hi crazy soul
+00:00:51.899 welcome to the stream uh with us we have
+00:00:54.600 Arun goyal Arun as you probably know by
+00:00:57.539 now is uh sd2 at atlasian he's worked
+00:01:01.199 with us in building the interview ready
+00:01:04.140 low-level design course he's
+00:01:06.060 extremely good when it comes to low
+00:01:07.680 level design
+00:01:08.880 and yes that's what we are going to be
+00:01:10.979 talking about today
+00:01:12.900 Adam do you want to say hi to
+00:01:15.180 the audience
+00:01:16.860 hey everyone
+00:01:18.720 I hope you must be knowing me by now uh
+00:01:22.080 and you're gonna see me forever I feel
+00:01:24.299 is that right girl
+00:01:27.960 if you live forever yes
+00:01:31.520 your course will live our course will
+00:01:33.960 live forever live forever yes
+00:01:41.460 okay okay so some
+00:01:43.860 are there any questions on the chat guys
+00:01:45.659 we can see on the chat actually I've
+00:01:47.159 taken a poll
+00:01:48.840 121
+00:01:50.460 votes have come
+00:01:52.020 43 of
+00:01:54.119 the audience is sd1
+00:01:57.299 okay so that is roughly 50 50 out of 120
+00:02:01.380 or 130 people are ld1
+00:02:05.159 okay now actually votes are pouring in
+00:02:07.200 now also but college undergrads and sd2
+00:02:09.959 are
+00:02:11.340 second they are both in the same place
+00:02:13.080 at 22 percent
+00:02:14.400 uh that's like
+00:02:16.379 that's 26 27 people
+00:02:18.420 and then we have
+00:02:20.700 sd3 which is at 15 percent
+00:02:23.520 so most of our audience is sd1
+00:02:26.340 and probably
+00:02:28.620 then we have the right target
+00:02:33.780 the
+00:02:35.220 lular design usually is asked for sd1
+00:02:38.760 sd2
+00:02:40.080 even College undergrads the kind of
+00:02:42.599 lower design which is asked for sd3 is
+00:02:44.640 slightly different it's more on machine
+00:02:46.019 coding or an expectation of you know you
+00:02:48.780 looking at the code and trying to
+00:02:50.160 optimize it not just in terms of memory
+00:02:54.060 and time but actually optimizing it in
+00:02:56.220 terms of making it more uh correct
+00:02:58.680 making it more
+00:03:00.599 reliable those kind of things
+00:03:03.660 but uh before you do that you need your
+00:03:06.239 basics
+00:03:08.160 Crystal viewer and that's what we are
+00:03:10.560 going to be talking about today
+00:03:12.239 how do you take requirements and
+00:03:13.680 actually convert them into
+00:03:15.420 code
+00:03:18.860 so okay guys we'll wait for two more
+00:03:23.159 minutes for everyone else to join and
+00:03:25.440 for your questions
+00:03:27.480 please feel free to post on the chat
+00:03:31.800 otherwise we'll take our own set of
+00:03:33.480 questions yes
+00:03:38.580 we will show our agenda yes
+00:03:41.840 every question will be measured and
+00:03:44.519 carefully
+00:03:48.480 nitin has asked a question it's more of
+00:03:50.640 a statement
+00:03:53.340 shubham is talking about with surprise
+00:03:54.840 are you talking about okay
+00:03:56.659 it's not a surprise anymore
+00:03:59.700 it's not a surprise anymore but
+00:04:02.459 it is something which is on
+00:04:06.180 Shivam is asking is it as any course
+00:04:08.400 been launched
+00:04:11.519 very good questions here yes
+00:04:18.238 Rohit uh hello I am a fresh graduate
+00:04:20.760 should I focus on system design
+00:04:23.460 or
+00:04:24.900 more on DSA
+00:04:29.040 also can you tell me what will be the
+00:04:30.540 future score
+00:04:35.100 okay I'm just putting this message maybe
+00:04:36.900 we can answer that in a minute
+00:04:43.620 let's wait for another minute uh
+00:04:47.040 select the other questions also come in
+00:04:48.780 when will this course be fully completed
+00:04:52.560 so the low level design course I think
+00:04:55.020 it's another interesting
+00:04:56.280 question
+00:04:59.880 is there a roadmap or document to
+00:05:01.560 Kickstart system design both high and
+00:05:02.940 low level anyways we'll check out
+00:05:05.580 okay this is a good question
+00:05:17.479 is asking can you create course for low
+00:05:20.940 level design system design
+00:05:25.400 okay we will get to you next
+00:05:28.560 first let's go for crazy soul is there
+00:05:30.479 any roadmap or document to Kickstart
+00:05:32.220 system design both high level and low
+00:05:34.320 level
+00:05:35.940 check out interview ready that's that's
+00:05:38.400 good uh what do you think is there any
+00:05:40.979 yeah
+00:05:43.080 yes I feel first of all uh each and
+00:05:46.199 every person should have basic uh good
+00:05:48.840 basic knowledge of DSA
+00:05:50.940 good knowledge about oops this is
+00:05:53.580 something which is very important then
+00:05:55.440 you should go on
+00:05:57.180 when you mean the essay you mean data
+00:05:58.860 structures and algorithms and oopsies
+00:06:00.360 yes
+00:06:01.400 programming yes oops is really important
+00:06:04.800 make a Concepts crystal clear in that
+00:06:07.560 and basic DSA of course everyone should
+00:06:10.740 know about which data structures what do
+00:06:12.300 they do is one thing
+00:06:16.400 what would uh be inside oops
+00:06:21.120 solid classes interface
+00:06:23.400 abstract classes solid principles
+00:06:36.900 composition Association
+00:06:39.360 aggregation
+00:06:43.740 so if I read all these theoretical
+00:06:45.780 things will that be enough
+00:06:48.080 basically you should be having good
+00:06:49.860 knowledge about oops Concepts right
+00:06:52.680 you should be well versed with all of
+00:06:54.300 these Concepts basic DS and algo which
+00:06:57.240 means that you should know which data
+00:06:58.979 structure does what thing how you can
+00:07:01.199 improve storage uh how you can improve
+00:07:03.600 time to insert time to delete time to
+00:07:07.020 update
+00:07:08.520 okay and then I feel that you can go
+00:07:11.759 ahead and start picking up systems small
+00:07:14.819 systems maybe let's say load balancer
+00:07:17.460 okay or cash cash is not small but you
+00:07:19.979 can pick up one or two requirements and
+00:07:21.660 then you can start building on that okay
+00:07:24.000 for example we have taken social media
+00:07:25.919 we've taken cash as well social media
+00:07:28.199 take two requirements user profile and
+00:07:31.139 posting of a user right and start
+00:07:34.139 writing the system about like how how
+00:07:36.599 will a user follow any other user when a
+00:07:39.240 user will post uh basically let's say an
+00:07:42.599 image how will the other use how will it
+00:07:44.880 get feed into the other users feed wall
+00:07:49.139 two or three requirements build it check
+00:07:51.780 it out and this could be a Kickstarter
+00:07:55.560 and later on you can go ahead and check
+00:07:58.860 out the course or interview ready low
+00:08:01.259 level design after you are done with low
+00:08:03.180 level design
+00:08:04.380 move on like when you have good
+00:08:06.300 knowledge when you know about systems
+00:08:07.979 move on to the high level design
+00:08:11.340 or you can do both of them in parallel
+00:08:13.259 also
+00:08:17.780 [Music]
+00:08:19.020 there's no chronology right there's like
+00:08:20.879 it's just yes
+00:08:22.280 okay yeah this is this there's no
+00:08:25.259 chronology because uh I remember seeing
+00:08:28.680 your videos first and then Building
+00:08:30.120 Systems so there's no chronology you can
+00:08:32.399 go ahead and see hid first and then come
+00:08:34.740 to the low level design
+00:08:36.659 we look at them in parallel because the
+00:08:40.679 these two things are quite different
+00:08:43.440 okay
+00:08:46.680 so um
+00:08:48.060 is there any
+00:08:49.440 language specific construct that you
+00:08:51.959 look out for while implementing designs
+00:08:54.600 design patterns rather
+00:08:56.399 are there any constructs you benefit
+00:08:57.839 from by using Java this has been asked
+00:09:00.480 by pankaj
+00:09:02.839 so for example if there's a common
+00:09:05.940 question that Python and Java
+00:09:08.720 I took a poll on LinkedIn there were a
+00:09:11.160 few thousand votes I think five thousand
+00:09:12.420 votes and most
+00:09:15.120 prefer to use Java for low level design
+00:09:17.760 but there's like 20 for C plus plus and
+00:09:21.060 20 for
+00:09:22.440 python
+00:09:23.880 python so I guess it's basically because
+00:09:26.940 20 of the college going audiences
+00:09:30.180 uh C plus plus
+00:09:32.220 and uh python it seems to be quite
+00:09:34.680 popular but then it's not popular enough
+00:09:36.420 we had like 50 it was Java I think yeah
+00:09:39.180 goal was very low C sharp was also
+00:09:43.380 so do you think there's any uh language
+00:09:45.899 specific constructs like in Python
+00:09:47.760 there's a particular way of doing things
+00:09:49.500 the factory pattern will change in
+00:09:51.600 Python
+00:09:52.620 or there is another pattern which is
+00:09:54.420 only specific to Java not for python
+00:09:58.080 okay
+00:09:59.399 I'm not used python that much because
+00:10:02.120 having said that
+00:10:04.200 having said that
+00:10:06.300 puts Remains the Same I feel for C plus
+00:10:09.300 Java
+00:10:11.220 there could be few things here and there
+00:10:13.380 for sure there would be few things here
+00:10:15.120 and there but mostly if you see looking
+00:10:18.120 at making the use case diagram from the
+00:10:20.880 system requirements is language agnostic
+00:10:23.100 okay then moving on using that use case
+00:10:26.339 diagram to make the class diagram again
+00:10:28.440 is language agnostic
+00:10:30.839 then writing the code using that class
+00:10:33.420 diagram depends on language
+00:10:36.180 you know for python you would Implement
+00:10:38.700 in in a certain way Java would implement
+00:10:41.459 it in a certain way but if you see 80
+00:10:44.220 percent of the task is done in the first
+00:10:46.740 two steps now remaining third that is
+00:10:49.800 just the 20 I feel which is just writing
+00:10:52.560 the code signatures and just telling the
+00:10:54.480 interviewer okay this function will do
+00:10:56.100 this
+00:10:58.700 I think everyone can have a good hold on
+00:11:02.160 their language which they are quoting in
+00:11:03.779 for a long time and first two steps I
+00:11:06.660 feel are the major ones where you know
+00:11:08.880 people face a lot of difficulty but
+00:11:11.100 definitely I would love to hear what
+00:11:13.079 people has to say about it maybe I am
+00:11:15.480 unaware of
+00:11:16.800 few of the issues that people are facing
+00:11:18.660 and would be really happy to take them
+00:11:20.399 up
+00:11:21.839 yeah I also have not heard anything
+00:11:24.480 which is very specific to
+00:11:27.060 punch that is it's not like the
+00:11:30.300 some things are different maybe package
+00:11:31.980 structure is different maybe you call
+00:11:34.079 the function in a different way but it
+00:11:36.180 doesn't seem like the factory pattern is
+00:11:37.620 very different
+00:11:38.700 it doesn't seem like the design patterns
+00:11:41.220 change a lot yes it's not object
+00:11:42.839 oriented language
+00:11:46.640 is asking hi gaurav can you provide
+00:11:49.980 uh if
+00:11:52.680 sorry for that
+00:11:54.959 can you provide if we have Collective
+00:11:57.720 course discounts
+00:12:01.140 so if you buy low level and high level
+00:12:02.700 in system design then you have any
+00:12:04.740 discounts
+00:12:05.880 okay I think some of the
+00:12:07.860 questions are
+00:12:09.959 interesting uh
+00:12:11.940 I'll just sign out sign in with
+00:12:16.980 I think there's a discount that is
+00:12:18.720 running on the collective course and I
+00:12:20.640 think you should show all the people
+00:12:22.079 that how they can take benefit of uh
+00:12:26.279 this new coupon code that comes on when
+00:12:30.000 you take a combo pack
+00:12:32.160 that's true so what I'll do is first you
+00:12:35.040 just head to uh the interview ready
+00:12:37.620 course
+00:12:38.880 right and then
+00:12:42.600 I'll do this just for this live stream
+00:12:44.820 after this live stream again you can
+00:12:46.260 stop this
+00:12:48.240 which is enable a special discount for
+00:12:50.040 you guys
+00:12:56.519 okay yeah
+00:12:58.740 that's right here
+00:13:04.860 let's see how this does
+00:13:08.459 what do you think is a good discount
+00:13:09.600 coupon
+00:13:12.120 um
+00:13:14.060 let's put yt's sale I think it sounds
+00:13:16.740 good it's uh
+00:13:18.860 amazingly large discount okay okay I've
+00:13:21.839 enabled it here
+00:13:23.279 uh now let's go over here
+00:13:26.279 we go to your account
+00:13:28.200 and now this
+00:13:29.700 three options this is something new
+00:13:32.399 which we'll be announcing tomorrow but
+00:13:34.500 it's hours here closer to design
+00:13:37.440 yes this is the course that you're
+00:13:38.639 looking at you're looking for you get to
+00:13:40.500 learn where to apply which design
+00:13:41.639 pattern we cover popular LED designs
+00:13:43.920 from major categories you gain the
+00:13:45.180 confidence to practicality it is very
+00:13:46.680 simple very basic like three bullets
+00:13:50.220 very simple this is what we do that's it
+00:13:53.519 are we selling you a Fan Company no I'll
+00:13:56.220 be selling you a dream job though we are
+00:13:58.079 just talking about you will upskill
+00:13:59.459 yourself it will be useful to you both
+00:14:01.260 in interviews and at work okay let's say
+00:14:04.200 you want to purchase this go over here
+00:14:06.839 and then on the way you say that listen
+00:14:08.940 I actually need to know about hello
+00:14:10.560 design also and machine coding and
+00:14:13.560 uh you know the fundamentals of system
+00:14:15.360 design that's a little expensive
+00:14:17.880 let me try to add this to the
+00:14:20.459 to the cart
+00:14:21.660 oh I get a bundle discount
+00:14:24.060 so anytime you're purchasing more than
+00:14:26.100 one course yes you get a bundle discount
+00:14:28.440 that answers your question Akshay and
+00:14:30.720 yes if you apply
+00:14:34.260 wrong
+00:14:38.100 foreign
+00:14:43.019 you get an amazing discount of
+00:14:46.680 25 this is massive we'll just keep it on
+00:14:49.980 for this live stream guys it's just for
+00:14:52.440 you
+00:14:53.279 and uh
+00:14:55.019 yes so let me now purchase this
+00:15:00.600 okay now I'll just enter my details
+00:15:04.019 my credit card number Mobile number
+00:15:07.500 and everything in fact let me
+00:15:09.839 yeah let me do that so you can see the
+00:15:12.420 course price is mentioned over here
+00:15:15.120 uh you can see what we are looking to do
+00:15:17.339 also next
+00:15:20.220 this
+00:15:21.779 all sorts of uh standing material it's
+00:15:24.120 just us okay
+00:15:30.720 so on the other hand now if I if I then
+00:15:33.480 go to my uh my page
+00:15:37.019 if you're ready
+00:15:40.079 now if I look inside this is a person
+00:15:42.480 who has already purchased the courses
+00:15:45.120 um let's go to low level design
+00:15:48.120 over here
+00:15:51.420 and we can start from here also
+00:15:54.899 you can see that this is loadable Design
+00:15:56.339 This is the course offerings if you
+00:15:58.079 don't uh you know if you're not very
+00:15:59.459 convinced about purchasing it
+00:16:01.199 one of the things that you can do is you
+00:16:02.399 can say okay wait wait wait let's relax
+00:16:03.959 let's go back
+00:16:09.000 and now uh yeah you can see our
+00:16:10.920 affiliate name also
+00:16:13.320 okay uh we we press uh course preview
+00:16:17.399 okay and over here you will know what we
+00:16:20.160 offer
+00:16:21.959 like local design is over here
+00:16:24.120 uh also you should be able to see this
+00:16:26.639 here itself
+00:16:30.899 so this video will basically be telling
+00:16:32.579 you what we offer to fresh graduates sd1
+00:16:34.620 sd2 senior software engineers
+00:16:38.160 watch this video it's really useful the
+00:16:41.220 basic idea is the outcomes of this
+00:16:43.079 course something which you are really
+00:16:44.040 interested in is where to apply which
+00:16:45.300 design pattern that is
+00:16:47.220 explained in a in a really good way we
+00:16:49.440 talk about certain trade-offs also
+00:16:51.079 Proficiency in popular low-level design
+00:16:53.279 questions
+00:16:54.240 yes that's going to happen and uh your
+00:16:56.759 Boost or in confidence and knowledge for
+00:16:59.459 interviews
+00:17:00.480 you can see even in the free preview you
+00:17:02.820 can see that there are
+00:17:04.199 designed patent trade-offs that we are
+00:17:05.760 adding here and there are certain design
+00:17:07.919 patterns that we have already added
+00:17:09.359 these are already mentioned in these
+00:17:12.959 chapters
+00:17:14.400 okay car parking chat app payment
+00:17:16.859 Gateway e-commerce
+00:17:19.140 e-commerce is like Amazon basically
+00:17:20.819 social media is like Facebook or
+00:17:23.339 Instagram
+00:17:24.480 that is what we have to offer it's a
+00:17:27.540 very
+00:17:28.740 very simple thing uh you know if you go
+00:17:31.919 to your account page you'll be able to
+00:17:33.179 purchase this
+00:17:34.799 one thing we have noticed a lot uh is
+00:17:37.200 along with Google design folks are
+00:17:39.240 purchasing behavioral interview course
+00:17:40.820 which does make sense because
+00:17:43.500 as mentioned over here from 0 to 10
+00:17:45.120 years of experience if you're applying
+00:17:46.980 for a job you'll be really really
+00:17:48.660 surprised by
+00:17:49.980 what a behavioral interview is so you're
+00:17:52.559 purchasing both
+00:17:55.140 you get a common discount firstly
+00:17:57.720 amazing
+00:18:00.539 same is going to make it actually
+00:18:02.220 cheaper than the asking price here
+00:18:05.700 it's less than three thousand
+00:18:07.500 okay
+00:18:09.059 amazing guys YT sale is what you need to
+00:18:11.340 do
+00:18:13.200 and
+00:18:14.539 what do you think was that
+00:18:18.720 this is
+00:18:24.780 just to uh you know be frank you have
+00:18:28.320 already purchased the course before all
+00:18:29.940 this like long back years ago
+00:18:33.900 yeah yeah yeah so it is worth it uh I
+00:18:37.679 think
+00:18:38.280 it's quite obvious
+00:18:40.620 ly
+00:18:41.419 just one more thing uh people should
+00:18:44.640 definitely watch uh first of all that
+00:18:46.919 playlist which you have on system design
+00:18:48.900 people have watched and I think they
+00:18:50.640 should watch after they have watched
+00:18:52.740 that now I would highly recommend each
+00:18:54.660 and everyone to go and watch system
+00:18:56.280 design course on interview ready
+00:18:59.100 trust me on this everyone it is worth
+00:19:02.220 paying it is worth paying your round
+00:19:05.220 will get clear I'm pretty sure you'll
+00:19:07.380 get a good idea about how to give a
+00:19:09.000 system design interview and the amount
+00:19:12.120 of money which you get or the upgraded
+00:19:14.880 money which you get when you transition
+00:19:16.140 from sd1 to HD2 or if you shift from one
+00:19:18.780 company to another where you get let's
+00:19:20.760 say 20 to 30 percent raise minimum
+00:19:23.520 that this amount would look really
+00:19:26.220 really really small this would come out
+00:19:28.559 to be a really good investment so I
+00:19:31.080 would highly recommend each and everyone
+00:19:32.340 to see the system design course
+00:19:35.160 yeah another thing that is very
+00:19:37.200 interesting to me personally is
+00:19:40.020 uh if you if you think about what is a
+00:19:43.080 good course like what is the best course
+00:19:45.120 out there for system design
+00:19:47.039 this is it
+00:19:48.780 I've checked out the other courses like
+00:19:51.059 you can talk about
+00:19:52.500 there's lots of other courses I don't
+00:19:54.120 know if I should name them but you know
+00:19:56.100 uh there's a very popular one which is
+00:19:57.419 blocking the system design interview
+00:19:58.500 that is systems expert yes I've gone
+00:20:00.539 through these courses in my personal
+00:20:01.740 opinion
+00:20:04.580 it doesn't make sense it's like you know
+00:20:07.460 that tiny incremental additional cost is
+00:20:10.620 going to give you so much more we we
+00:20:13.740 have zoom classes twice a month which is
+00:20:15.900 in itself a product but we are just yes
+00:20:18.900 adding that so it's
+00:20:20.820 I can compare both of them by the way
+00:20:22.799 because I was first your student if you
+00:20:25.919 didn't yeah okay yeah so let me compare
+00:20:27.720 both of them I had learned from both the
+00:20:29.760 courses your course also in brocking
+00:20:31.380 also I had okay so grocking first of all
+00:20:34.200 doesn't have video lectures at all okay
+00:20:36.600 they only have the content which looks
+00:20:38.700 like a PDF of a certain topic now second
+00:20:42.120 is in your video we have talked about
+00:20:44.160 trade-offs you have talked about each
+00:20:45.780 and every possibility that could be
+00:20:47.760 there why you are choosing this way why
+00:20:50.160 you are not choosing that way in
+00:20:51.660 grocking scores there's just one single
+00:20:53.880 PDF where there's no trade-offs they
+00:20:56.039 have just given you one solution which
+00:20:57.900 you can of course uh if you read it
+00:21:00.240 you'll get a slight perspective but not
+00:21:03.600 you will be not that good
+00:21:05.880 if you read from grocking thirdly just
+00:21:09.000 by reading just by reading uh I
+00:21:12.179 personally feel really bored here you
+00:21:14.880 have video lectures in your uh where it
+00:21:17.820 keeps us engaged fourth thing is after
+00:21:20.520 each and every lecture on your course
+00:21:23.280 which you've built there are quizzes
+00:21:25.140 Which are helping in great retention by
+00:21:27.299 the way okay now in grocking it feels
+00:21:30.780 like cramming
+00:21:32.220 it feels like I'm not saying I'm
+00:21:33.960 cramming or somebody else would cram it
+00:21:35.880 feels like when you read it to read it
+00:21:37.919 again
+00:21:39.539 so I think these three four points are
+00:21:42.120 there which I feel makes your course
+00:21:44.940 outstanding
+00:21:46.260 but yeah if they come like I think they
+00:21:49.080 should think of
+00:21:50.460 something yeah exactly no thank you so
+00:21:52.380 much for sharing that for and you're
+00:21:54.240 absolutely right it
+00:21:55.860 it's very hard to know whether you are
+00:21:58.320 doing ballet system design without
+00:21:59.820 actually being tested for retention
+00:22:02.400 comprehension these kind of things are
+00:22:04.740 like very very important and the
+00:22:08.100 question quality here is also
+00:22:10.200 in my opinion we don't ask you questions
+00:22:12.059 like what happened
+00:22:14.299 if you are asked to do this then will
+00:22:16.740 you do that use a method no we actually
+00:22:19.080 ask you the core concept so
+00:22:21.840 it's taken a long time it's it was not
+00:22:24.179 the world's best course when it came out
+00:22:25.559 but now yes uh it's been it's been a
+00:22:28.440 while it is
+00:22:30.659 yes now it is if you if you guys you can
+00:22:33.299 go and see each and every chapter is
+00:22:35.580 rated more than four it's either 4.5 or
+00:22:38.580 5 you would hardly find any lesson in
+00:22:41.640 the chapter less than 4.5 and guys there
+00:22:45.000 are I can see the course there are new
+00:22:47.220 chapters that are coming up every one
+00:22:49.740 month let's say and this course is going
+00:22:51.720 bigger and bigger so I would highly
+00:22:53.760 recommend each and everyone right now
+00:22:55.679 lifetime subscription is available go
+00:22:58.200 ahead and purchase it there are doubt
+00:22:59.880 sessions that are happening every week
+00:23:02.419 twice in a month actually
+00:23:04.860 right where you can have one-on-one
+00:23:06.840 conversation with him which is I feel a
+00:23:09.480 great uh way to start a conversation
+00:23:12.120 conversation where you can ask your
+00:23:14.220 personal doubts and you can ask a number
+00:23:16.559 of doubts he is not stopping you at all
+00:23:19.740 go ahead see it come with your doubts
+00:23:22.740 he'll take it
+00:23:24.240 or you might see me as well so please
+00:23:26.880 please I would highly recommend
+00:23:29.820 go ahead and look at this course just
+00:23:32.220 have a look and right now it is uh being
+00:23:34.799 sold at an amazing price amazing price
+00:23:37.500 where you're getting combo deals 3DS
+00:23:40.140 behavioral interviews LED uh course
+00:23:44.039 system design course I would highly
+00:23:46.260 recommend not because
+00:23:48.780 my course is also there but system
+00:23:51.419 design course is really good
+00:23:54.240 yeah thank you for that um
+00:23:56.340 uh amazing it would
+00:23:58.020 thank you so much we uh
+00:24:00.600 yeah I don't need to explain this but we
+00:24:02.640 have not planned for uh you know I don't
+00:24:05.280 know a comparison right or between any
+00:24:07.860 of the different platforms nor have we
+00:24:09.960 thought of pitching it uh in this way I
+00:24:12.539 mean you're doing it uh thank you for
+00:24:14.640 that seriously it's amazing uh hearing
+00:24:16.679 this
+00:24:17.460 uh there is one question from Anish for
+00:24:20.820 the new course which is low level design
+00:24:22.320 uh does this have design pattern section
+00:24:25.380 and will there be video lectures on it
+00:24:27.480 so again let me just share the
+00:24:31.140 share my screen
+00:24:33.780 here
+00:24:34.860 this is
+00:24:37.020 this is what we have
+00:24:44.100 okay
+00:24:47.880 okay let's go inside
+00:24:50.520 does it have design pattern videos
+00:24:53.460 we have specifically purposely not
+00:24:55.679 chosen design pattern videos
+00:24:57.659 and we were speaking about this today I
+00:25:00.419 and urban were talking about this today
+00:25:01.559 the reason we did this is because when
+00:25:03.900 it comes to design patterns
+00:25:05.940 this theory is helpful only in hindsight
+00:25:10.380 okay
+00:25:11.760 it's helpful only when you know that it
+00:25:14.159 can be applied somewhere if I tell you
+00:25:16.440 about some shoes which really help you
+00:25:18.600 run like you can hear about it only and
+00:25:20.880 the theory is just the theory
+00:25:22.620 I'll tell you where the practice is
+00:25:25.380 like in Singleton design pattern uh
+00:25:30.299 so here
+00:25:32.220 this is a place where you have code you
+00:25:35.220 actually go through all this you have
+00:25:36.600 the class diagram also you know
+00:25:37.679 downloadable and everything
+00:25:39.299 all this is all right if you like light
+00:25:40.799 mode sure
+00:25:42.059 whatever you like
+00:25:45.179 but once you go through these
+00:25:48.179 once you go through the entire lesson
+00:25:49.500 you know where to apply the Singleton
+00:25:50.880 design pattern that's the important bit
+00:25:52.740 we can make a video for this out of we
+00:25:55.740 can make a video out of this for you
+00:25:56.880 it's going to take you more time to
+00:25:58.500 comprehend and it's going to take us
+00:26:00.179 more time to explain you the same
+00:26:01.200 concept
+00:26:02.520 it's that simple
+00:26:04.260 over here you can skim through certain
+00:26:06.120 things
+00:26:07.020 places which need detail we use video
+00:26:09.120 places which need quick skimming through
+00:26:12.419 we use PDFs so
+00:26:15.480 by design it has been chosen not to go
+00:26:17.880 for videos in this part
+00:26:20.159 tomorrow in future maybe the I don't
+00:26:22.380 think we'll go for videos ever because
+00:26:24.000 it's a like we have thought it through
+00:26:26.580 uh and videos are not going to help you
+00:26:29.700 when it comes to learning about design
+00:26:30.900 patterns it's not going to help you when
+00:26:32.340 it comes to learning about frankly like
+00:26:34.260 learning about binary search or
+00:26:35.520 something like that sometimes it does
+00:26:36.900 help just for the in your first time in
+00:26:38.760 your life you're seeing a concept but
+00:26:41.760 what's going on with Observer pattern
+00:26:43.440 seems very low rate what happened
+00:26:46.799 I'll have a look okay yeah
+00:26:49.740 that's the attitude we have also by
+00:26:52.799 God what's going on with the reading you
+00:26:54.480 have to fix this it's not like you
+00:26:55.980 purchased the course and we are uh you
+00:26:58.140 know our job is done like whether you
+00:26:59.820 get into Google or you get into uh any
+00:27:02.279 company of your choice does not matter
+00:27:03.539 to me that's not the case we are
+00:27:05.039 actually making sure that it
+00:27:07.200 it helps you
+00:27:09.419 so Singleton design okay let's see
+00:27:13.620 the ratings in these design patterns are
+00:27:16.080 not the world's best
+00:27:18.299 yeah but the
+00:27:20.159 true video is fine what's going on here
+00:27:22.080 yeah I guess the videos have been
+00:27:23.640 highlighted maybe there's something
+00:27:25.260 which is missing maybe it's not
+00:27:26.400 downloadable I'll just have a look
+00:27:30.480 okay
+00:27:34.320 yeah we can we can have a look at this
+00:27:36.240 maybe it's small texture
+00:27:39.960 yeah it's really small text is that the
+00:27:41.880 reason why
+00:27:43.380 because we reviewed this
+00:27:46.320 possibly
+00:27:48.360 or there might be some technical
+00:27:54.600 it's not going to hurt you yeah we keep
+00:27:56.880 updating the stuff
+00:27:58.559 based on quality
+00:28:00.360 okay awesome
+00:28:03.059 uh thanks for the question we
+00:28:06.720 will skip back to the
+00:28:09.179 questions here
+00:28:14.580 in case you're asking a question
+00:28:17.159 yes if you buy courses how can we get
+00:28:20.100 our doubt result since it's a video
+00:28:22.020 course
+00:28:31.940 uh so the thing is uh
+00:28:34.559 since it's a video content uh whenever
+00:28:36.900 you see a video below it you can see a
+00:28:39.000 discussion panel over there where you
+00:28:40.679 can post your comment or any question
+00:28:42.480 which you have you can get your answer
+00:28:44.159 first of all there secondly if you if
+00:28:46.799 you're still not clear about the answer
+00:28:48.299 or you haven't understood what what what
+00:28:50.700 the answers is every uh twice in every
+00:28:54.840 month we are having these Zoom sessions
+00:28:56.700 where you can come and you can have
+00:28:58.500 one-on-one conversation with us in the
+00:29:00.539 zoom session where you can ask your
+00:29:02.100 questions and get your doubts clarified
+00:29:04.620 so these are the two ways
+00:29:08.039 right right
+00:29:09.179 yeah those are the two major ways
+00:29:11.820 there's one that you can just ask
+00:29:15.120 suggest that you you come to the zoom
+00:29:16.980 session others might also have the same
+00:29:19.140 doubt if you can't wait of course just
+00:29:21.419 post it in the discussion tab we try our
+00:29:24.120 little best to answer the question ASAP
+00:29:26.100 but uh Frankly Speaking it might take a
+00:29:28.679 little bit of time however the in the
+00:29:31.140 zoom class you can directly ask and that
+00:29:33.240 is every 15 days approximately
+00:29:41.120 there was this one uh question which was
+00:29:44.880 about a real life scenario okay
+00:29:47.159 a lot of containers which were being
+00:29:49.020 hosted in some uh
+00:29:51.480 in some Cloud solution providers area so
+00:29:55.020 they asked us a question uh on the Zoom
+00:29:58.679 class and everybody uh saw the the
+00:30:03.000 problem and they had different
+00:30:04.200 suggestions
+00:30:05.580 it was not just me who was telling that
+00:30:08.100 you should do it this way you should do
+00:30:09.360 it that way there's like 10 people who
+00:30:11.640 were looking into the problem and then
+00:30:13.380 this person was sharing screen uh not
+00:30:16.320 sharing screen they shared an image link
+00:30:18.000 which I was sharing through interesting
+00:30:20.159 and it was really interesting all of us
+00:30:21.960 were having a good time like we were
+00:30:24.360 laughing we were we were like this uh we
+00:30:27.480 were not laughing at the problem or
+00:30:28.500 anything we were just
+00:30:30.480 having fun we were just joking so it's
+00:30:32.880 amazing so you should you should
+00:30:34.860 definitely try one of these Zoom
+00:30:35.820 sessions
+00:30:36.779 very interesting I love it
+00:30:38.700 I I look forward to these
+00:30:43.620 okay uh
+00:30:45.419 digressing a little bit here but okay uh
+00:30:47.820 can you suggest if I should go with full
+00:30:49.860 stack JS or node I have to experience uh
+00:30:55.440 does your low level design or system
+00:30:58.020 design course cover front-end aspects as
+00:31:00.120 well this is Manish
+00:31:02.520 so somewhere we have talked about we
+00:31:05.279 just have talked about we have just
+00:31:07.500 nudged how the front end would act upon
+00:31:09.840 it just nudged this is not a front-end
+00:31:12.720 design course uh me and gaurav had a
+00:31:15.840 chat about it which we might take up
+00:31:18.539 later on
+00:31:20.220 but right now this just little bit
+00:31:23.220 nudging we haven't talked about front
+00:31:25.799 end in this
+00:31:27.299 if you're looking for a front-end system
+00:31:29.039 design we haven't
+00:31:30.600 exactly yeah guys if you are looking for
+00:31:33.179 devops
+00:31:34.799 front-end
+00:31:36.480 um
+00:31:37.620 something specific to the database right
+00:31:39.600 now we don't really have much to offer
+00:31:41.399 you devops of course this is to design
+00:31:42.720 if you're interested in that you can do
+00:31:44.159 that but low level design is specific to
+00:31:50.159 sd1 uh
+00:31:52.440 college undergrads and up to sdd
+00:31:55.799 and not front end that's how we will put
+00:31:59.460 it
+00:32:01.380 there's one very common question which
+00:32:04.200 has been asked has asked it uh Dubai has
+00:32:07.740 also asked it is it uh uh is the parity
+00:32:10.380 for Lifetime
+00:32:14.880 you can answer this later yes it is for
+00:32:18.600 now
+00:32:19.559 and I'm not joking uh it is
+00:32:22.559 for now for Lifetime
+00:32:27.600 we'll we'll never take away the option
+00:32:30.659 of Lifetime validity from you especially
+00:32:33.000 folks who have purchase the course you
+00:32:34.679 never need to worry it is Lifetime we
+00:32:36.299 have made a promise you are going to
+00:32:37.260 keep it uh unless you know we are going
+00:32:39.299 bankrupt or something
+00:32:40.679 but otherwise it's a promise we are
+00:32:42.360 going to keep it lifetime validity means
+00:32:44.100 lifetimality having said that yes moving
+00:32:46.679 forward we might give you the option of
+00:32:48.059 do you not want lifetime already
+00:32:50.760 um
+00:32:51.360 sure okay uh and moving even more
+00:32:55.080 forward we might say that okay there is
+00:32:56.279 no such thing as lifetime validity for
+00:32:57.539 new users
+00:32:58.679 so now is a good time
+00:33:00.720 actually to to make that decision
+00:33:06.539 okay uh I believe there should be a
+00:33:09.360 discount coupon for someone who has
+00:33:10.559 already purchased your courses
+00:33:11.700 previously
+00:33:13.500 we actually did send an email Supriya
+00:33:17.880 yeah and you had an amazing discount uh
+00:33:21.179 when uh you might see it on your email
+00:33:23.399 list actually
+00:33:24.480 yes we started with
+00:33:27.539 interview ready premium customers big in
+00:33:30.659 the beginning where I was selling the
+00:33:32.460 course at 75 discount if you see
+00:33:36.299 right and I think you might have missed
+00:33:40.019 it but right now also it's not a bad
+00:33:42.059 deal to be honest yes we are operating
+00:33:45.480 at more than 50 discount oh no no not 50
+00:33:48.899 25 discount yeah
+00:33:52.200 yeah 32 you still can purchase it
+00:33:56.039 it's amazing
+00:33:59.000 Shetty is asking uh okay just before
+00:34:01.679 that I believe there should be a
+00:34:02.880 discount coupon okay that is taken care
+00:34:04.140 of uh let's put it
+00:34:07.260 I believe they should be discomfortable
+00:34:08.760 for someone who has uh that why am I
+00:34:11.399 reading it again again gaurav bought the
+00:34:12.780 course today Arun goyal's audio is so
+00:34:15.179 noisy in those lectures better if you
+00:34:16.619 record it to the good mic what do you
+00:34:18.659 have to say for this
+00:34:20.339 Okay I uh I also got this feedback in
+00:34:22.800 one or two videos
+00:34:26.159 so which we are getting re-shot so guys
+00:34:29.040 need not to worry the content each each
+00:34:31.679 and every problem which you have with
+00:34:33.119 the content will get improved for sure
+00:34:36.659 I'll I'll actually you know why why not
+00:34:40.080 uh share this
+00:34:43.980 let me share my screen
+00:34:52.859 testimonials
+00:35:04.980 okay
+00:35:07.260 yes this is it these are unedited
+00:35:10.740 reviews
+00:35:12.540 simply
+00:35:14.700 for the low level design course just
+00:35:16.440 formula design okay there are reviews
+00:35:19.320 which are
+00:35:21.000 negative there are reviews which are
+00:35:22.980 positive I think we can also filter
+00:35:24.599 according to negative and positive there
+00:35:26.160 must be some sort of a filter here
+00:35:34.380 is there any filter for
+00:35:37.260 no there is no
+00:35:39.000 fine you can also submit your
+00:35:40.020 testimonial once you have done this
+00:35:42.000 check your host progress and based on
+00:35:43.980 that just add you
+00:35:46.020 but there are positive ones there are
+00:35:48.359 negative ones some folks have absolutely
+00:35:50.520 loved it
+00:35:51.599 lots of folks have loved it actually if
+00:35:54.480 you see on average the rating is above
+00:35:56.280 four like we mentioned there's been some
+00:35:58.859 amazingly good feedback yeah thank you
+00:36:00.900 so much for this today we are going
+00:36:02.099 through your feedback
+00:36:04.380 there was also Muhammad had some really
+00:36:06.119 good feedback uh ayush had some
+00:36:09.540 really really good feedback he's like
+00:36:11.280 the course but he still had a lot of you
+00:36:14.040 know you can improve here you can
+00:36:15.240 improve that these are genuine
+00:36:16.800 testimonials go through them if you are
+00:36:18.660 convinced
+00:36:19.920 sure so worldwide investment
+00:36:23.339 some of them have images
+00:36:25.680 I think a lot of them though have
+00:36:27.480 LinkedIn profiles also so you can
+00:36:29.640 connect with them separately if you want
+00:36:31.859 so
+00:36:33.240 great amazing
+00:36:35.180 I'll just share this link on the chat
+00:36:40.920 for your reference
+00:36:45.359 okay
+00:36:47.880 live session is also for Lifetime nitin
+00:36:51.000 is asking this yes
+00:36:54.300 for now
+00:36:55.740 and this one is like probably the first
+00:36:58.200 thing that's going to go off in terms of
+00:36:59.880 Lifetime valuity
+00:37:01.200 the first thing which will go is
+00:37:02.280 something which is going to be taken
+00:37:03.900 every uh twice a month
+00:37:06.780 so live sessions are something which is
+00:37:08.820 really worth
+00:37:11.339 uh in itself actually
+00:37:13.440 what are the prerequisites for this
+00:37:14.820 course is asking this
+00:37:17.820 I think we have to take we've looked
+00:37:20.280 upon yourself in all of the previous
+00:37:22.440 guys
+00:37:25.079 how long can I access the course content
+00:37:26.520 that forever
+00:37:28.859 thanks guys purchase two more so have
+00:37:31.079 all three I need to start the courses
+00:37:32.400 now yes
+00:37:34.320 that is the only thing that's going to
+00:37:36.240 make the impact right paying up I have
+00:37:38.220 paid up for machine learning courses 50k
+00:37:40.700 more for uh like I want to udemy Udacity
+00:37:46.020 paying is one part of the thing
+00:37:48.180 you might think that after paying you
+00:37:49.980 know you will be super interested but
+00:37:52.079 you may not be it's partly our
+00:37:54.180 responsibility to keep you engaged we
+00:37:55.740 send you weekly uh weekly actually
+00:37:58.619 bi-weekly I think mailers so twice a
+00:38:01.380 week we keep trying to get you engaged
+00:38:03.420 but it has to come largely from you we
+00:38:07.740 can also we are starting to take
+00:38:09.180 permission on WhatsApp that we can be
+00:38:11.040 paying you so that we can keep you on
+00:38:12.300 track can we help you by booking some
+00:38:14.220 slot in your Google calendar these are
+00:38:15.720 all ideas but you know what's going to
+00:38:17.880 differentiate use you actually going
+00:38:19.560 through the course and studying
+00:38:22.320 especially the
+00:38:25.260 okay all three are really good actually
+00:38:26.940 uh but I'm very excited about low level
+00:38:29.099 design and behavioral right now because
+00:38:31.020 they are new and they are so different
+00:38:32.940 right now
+00:38:36.720 how long can I
+00:38:38.220 I looked into the contents why not first
+00:38:40.560 go ground up explain the different
+00:38:42.180 patterns theoretically and letting the
+00:38:44.040 students participate in choosing
+00:38:45.420 patterns for software construction this
+00:38:47.339 is
+00:38:52.500 interesting idea what do you think
+00:38:56.579 so uh please first do design patterns
+00:39:03.240 so recent uh so what you need to say is
+00:39:05.760 students let student participate in
+00:39:08.099 choosing patterns for the software
+00:39:09.540 Construction
+00:39:11.040 how can we implement it like do we want
+00:39:13.920 us to talk about each and every pattern
+00:39:17.280 and then let the student decide what he
+00:39:20.040 wants to choose or
+00:39:24.960 I think that's
+00:39:26.700 that's the part I I think you can leave
+00:39:28.500 the second one maybe that's
+00:39:31.560 maybe it needs more context second part
+00:39:33.599 of the question is not very clear how do
+00:39:35.339 you choose because it may be an
+00:39:37.380 incorrect pattern for like you can't
+00:39:39.359 take the Singleton pattern and apply it
+00:39:40.680 anywhere you like so
+00:39:42.540 let's just take the first part which is
+00:39:44.339 uh hey why don't you uh talk about the
+00:39:46.680 design patterns first and then talk
+00:39:48.180 about the loose cases
+00:39:49.859 so uh so there are PDFs like we have
+00:39:52.079 showed for the design patterns now we
+00:39:54.960 are explaining the use of the design
+00:39:56.460 pattern using the uh question which we
+00:39:58.619 have taken or the software which we have
+00:40:00.359 taken up and I I personally feel that
+00:40:03.300 this would give much more better clarity
+00:40:05.880 making a separate uh video on each and
+00:40:09.540 every design pattern is going to
+00:40:10.980 increase time of understanding for for
+00:40:14.880 you guys
+00:40:16.079 and these are very small curated content
+00:40:18.300 hardly one and a half page hardly one
+00:40:20.760 and a half page out of which mostly is
+00:40:22.980 the code okay so yeah just looking at it
+00:40:26.160 would give you a great Insight uh good
+00:40:29.700 understanding of what that design
+00:40:31.619 pattern is and even we have talked about
+00:40:34.680 it this design patterns comparison with
+00:40:37.380 other design patterns okay for example
+00:40:39.660 Observer versus publisher
+00:40:42.300 right uh looks similar but there is a
+00:40:46.200 difference that's why these are two
+00:40:47.820 different design patterns and we have
+00:40:49.320 talked about it there's a difference
+00:40:50.579 over there which you can see in the
+00:40:52.260 course
+00:40:53.099 yeah trade-offs
+00:40:54.839 trade-offs
+00:40:59.040 so guys you can have a look and
+00:41:02.280 yeah I
+00:41:03.720 think that is uh one question are new
+00:41:06.660 LED questions going to be added to the
+00:41:08.160 LED course yes yes so this this new
+00:41:11.940 question which has ADD which is already
+00:41:13.560 added when we launched the course there
+00:41:15.300 were only four now there's payment
+00:41:17.040 Gateway which is uh razor based right uh
+00:41:20.880 Zeta all these payment gateways yes so
+00:41:25.619 there's one chapter which is already
+00:41:27.359 added now there are many more in the
+00:41:30.060 pipelines for example cash is coming up
+00:41:31.980 Zoom is coming up Google Calendar is
+00:41:34.560 coming up stock broking app which is
+00:41:36.839 zero the is coming up now zero is very
+00:41:39.599 simple like I'm not saying zero zeros
+00:41:41.339 are similar to up stocks right you know
+00:41:43.380 grow where there is live trading going
+00:41:45.960 on and it was the X
+00:41:50.780 well you can see prices
+00:41:53.640 uh prices uh changing every
+00:41:57.180 second right so
+00:42:00.300 so we are not picking up any particular
+00:42:03.119 software we're trying to pick up a
+00:42:05.400 category so if you take about the
+00:42:07.740 existing chapters which are the
+00:42:08.880 e-commerce now we haven't picked any
+00:42:11.099 particular e-commerce Amazon is one such
+00:42:14.040 example zepto is another such example
+00:42:15.720 Pharmacy is another example of
+00:42:18.119 e-commerce which you can use uh in that
+00:42:21.060 categy that falls in that category net
+00:42:22.859 meds big basket so Snapdeal myntra so
+00:42:27.240 you can see all the different e-commerce
+00:42:28.920 platform one is for electronics one is
+00:42:30.960 for clothing one is one is for fashion
+00:42:34.800 so we have tried to pick up categories
+00:42:36.839 we're not picking up individual
+00:42:39.260 softwares yeah otherwise it gets tedious
+00:42:42.540 and you don't learn actually you learn
+00:42:44.820 yeah 30 different techniques to uh do a
+00:42:48.359 karate job instead of understanding that
+00:42:50.160 okay this is a general idea of uh of an
+00:42:54.000 attack or a defense or you know this is
+00:42:56.640 this is how a chalk works so
+00:43:00.060 okay there's there's uh ankish has
+00:43:03.300 purchased the course amazing thank you
+00:43:05.700 so much for that ankish all the best
+00:43:07.560 we'll see in the next Zoom class Zoom
+00:43:11.160 can we have a group so that we know
+00:43:12.960 about the zoom classes
+00:43:15.119 till now WhatsApp numbers we have we
+00:43:17.640 have been very very careful not to ping
+00:43:19.260 you on WhatsApp because we want to
+00:43:21.660 really really be sure that you know we
+00:43:24.359 get your consent so for that we are
+00:43:26.880 working through something
+00:43:28.680 check your mailer
+00:43:30.180 you will get a zoom link of course you
+00:43:32.520 will also see it when you log into the
+00:43:33.960 website right you'll be able to see on
+00:43:35.099 the banner
+00:43:36.060 the zoom link just in three days before
+00:43:38.280 you'll get and also for rollable design
+00:43:41.339 we are coming up with a regular
+00:43:43.380 bye every month so in system design we
+00:43:46.920 have first Sunday 9 pm and third Monday
+00:43:50.040 7 PM IST both times
+00:43:52.859 for low level design we are just coming
+00:43:54.540 up because it's a small you know section
+00:43:56.819 right now I think only 600 700 people
+00:43:58.500 are purchased so we need a little bit of
+00:44:01.440 feedback from you that what is the right
+00:44:02.760 time and then we'll go ahead with it
+00:44:06.060 okay but yeah uh let's catch up on Kish
+00:44:08.700 next time
+00:44:10.970 [Music]
+00:44:12.960 Abdul is asking a very interesting
+00:44:14.700 question this is
+00:44:16.740 both easy and difficult to answer
+00:44:18.300 courses on interview ready Are For Those
+00:44:20.160 preparing for interviews or any software
+00:44:21.900 engineer can benefit from them
+00:44:25.920 are we making you first just need to be
+00:44:27.960 ready yes
+00:44:29.700 first of all uh
+00:44:32.280 to the second part of the question any
+00:44:34.380 software engineer can benefit from them
+00:44:36.060 I feel yes any software engineer can
+00:44:38.940 benefit from them
+00:44:40.740 second thing
+00:44:42.540 a course on interview ready Are For
+00:44:44.880 Preparing interviews now as a part of
+00:44:48.119 learning through that course the side
+00:44:51.180 part which you get is that you will
+00:44:53.780 succeed in your interviews okay except
+00:44:58.500 it's on the side
+00:45:00.599 once you do the course
+00:45:03.599 you get the benefit
+00:45:05.819 okay
+00:45:07.380 I hope I'm able to answer in the right
+00:45:09.720 way if you have any other specific
+00:45:11.280 question please do come again
+00:45:13.560 yeah absolutely that's
+00:45:15.359 that's a really good question and uh I
+00:45:17.700 think
+00:45:18.599 there's a joke that we have at interview
+00:45:20.460 ready
+00:45:22.020 we should make it our tagline
+00:45:23.520 that's my secret Captain I'm always
+00:45:25.260 interview ready
+00:45:26.700 so like in the Hulk says that that you
+00:45:29.760 know I'm always interview ready the only
+00:45:31.800 way you can be always need to be ready
+00:45:33.359 is if you are if you're actually uh
+00:45:35.520 upskilling yourself
+00:45:37.020 so it's not that you want to change your
+00:45:38.760 job it's not that you want
+00:45:40.560 some you know short-term quickly
+00:45:42.780 understanding questions and then going
+00:45:44.700 and
+00:45:46.020 solving some questions it's actually
+00:45:47.819 you're getting ready upskilling yourself
+00:45:50.040 for your job
+00:45:52.680 that's that's our aim and we uh ask for
+00:45:56.460 Ratings also in that way we don't say
+00:45:58.020 that did you like this question did it
+00:45:59.940 come in an interview
+00:46:02.460 it's not just that
+00:46:05.400 are learning orders what's the
+00:46:07.680 difference what's the difference between
+00:46:08.640 low level design course and system
+00:46:10.020 design course
+00:46:11.220 foreign
+00:46:38.960 why do you need to design it
+00:46:41.940 the thing is there would be many more
+00:46:43.980 developers that would be coming in to
+00:46:45.780 add code to it okay so first thing the
+00:46:48.660 new developers that come in should be
+00:46:50.339 able to understand your code read your
+00:46:51.960 code make changes to the code so that
+00:46:54.780 rest of the part of the code which
+00:46:57.599 you need not to change there is no other
+00:47:00.000 thing which you need to add that add
+00:47:01.740 there
+00:47:02.579 okay designing there is really important
+00:47:04.800 second is code should look readable
+00:47:08.819 that is why we need lld third third part
+00:47:11.700 is how do you implement the system for
+00:47:14.400 example you have talked about social
+00:47:15.960 media you've talked about everything but
+00:47:17.940 here comes the real implementation go
+00:47:20.579 ahead and code okay how do you divide
+00:47:23.220 the big chunk into separate separate
+00:47:26.099 services so that which you can assign it
+00:47:28.440 to separate teams okay for example in
+00:47:30.900 e-commerce let's talk about checking out
+00:47:33.720 and searching
+00:47:35.520 so when you search a product it shows
+00:47:37.680 you a list of products and shows your
+00:47:38.940 product page now this is completely
+00:47:40.740 independent uh feature of an e-commerce
+00:47:43.500 app if you compare it to the delivery
+00:47:45.420 feature where you are able to see the
+00:47:47.160 progress okay this product has come till
+00:47:49.200 here this product has come till here
+00:47:51.359 right so these are two separate Services
+00:47:53.579 now how do you make them separate how do
+00:47:56.040 you make different teams work upon them
+00:47:57.839 separately
+00:47:59.700 this is what we talk about
+00:48:02.040 maybe what we can add on to it
+00:48:04.859 yeah
+00:48:06.720 um
+00:48:07.920 okay the existing course on system
+00:48:11.280 design and the low level design course
+00:48:13.859 very simply put the existing course low
+00:48:16.619 level design is
+00:48:18.480 much more geared towards machine coding
+00:48:21.060 so there is unit tests for each
+00:48:25.319 problem that we have we have three
+00:48:26.460 problems there machine coding a cache
+00:48:28.500 machine coding event bus and machine
+00:48:30.720 coding of splitwise
+00:48:33.000 test cases exist concurrency exists
+00:48:35.640 ordering is a thing we talk about how do
+00:48:38.220 you you know have apis over here which
+00:48:41.040 will be working generics
+00:48:44.040 oh yeah what they are good for
+00:48:46.920 specifically are sd3 and plus rules
+00:48:51.119 for SD one two you will not be able to
+00:48:54.359 understand those Concepts if you don't
+00:48:55.680 know about this
+00:48:57.060 like we don't talk about design patterns
+00:48:58.680 over there because that is a
+00:48:59.760 prerequisite like that's
+00:49:01.680 that's expected so
+00:49:04.440 if you go through this
+00:49:06.720 low level design course which is one of
+00:49:08.760 the things that we got from users right
+00:49:10.079 we didn't just come up with a low level
+00:49:11.640 design course we actually spoke to
+00:49:12.960 people and they said that I'm not
+00:49:14.280 understanding this low level Design This
+00:49:15.540 is actually pretty complex what you have
+00:49:16.740 out here so I need something on the
+00:49:18.480 basics tell me about solid principles
+00:49:20.520 design patterns something which helps me
+00:49:22.380 actually
+00:49:23.579 you know behave like an engineer when
+00:49:25.140 some requirements are given I am
+00:49:27.240 so this course is targeted not for sd3
+00:49:30.119 plus level it is targeted for
+00:49:31.859 College undergrads sd1 sd2
+00:49:34.680 that's where we are going and
+00:49:37.560 yeah that is the difference
+00:49:42.240 so it's it's good okay
+00:49:45.000 um
+00:49:46.260 there's one interesting message akshat
+00:49:48.240 is giving feedback
+00:49:50.520 I bought your course but somehow I feel
+00:49:52.740 there can be more visual representation
+00:49:54.300 of how processes code and Concepts
+00:49:56.339 happen
+00:49:58.319 we can work on this although I thought
+00:50:00.780 that we were doing okay here
+00:50:03.420 but we can work on this maybe we can
+00:50:05.099 speak to our editing team and you know
+00:50:07.260 have a more visual representation
+00:50:12.619 so would it be
+00:50:14.940 I think
+00:50:16.980 the code also you want to see visually
+00:50:18.839 happening
+00:50:20.040 we usually are very close to the code
+00:50:22.319 like when we are coding we just have the
+00:50:23.880 code in front of it because that is what
+00:50:25.079 will happen in real life so that was the
+00:50:27.420 idea
+00:50:28.920 okay that's an interesting feedback
+00:50:30.480 thank you uh
+00:50:32.520 we
+00:50:33.960 we look into it more
+00:50:36.599 I don't need to dismiss the feedback so
+00:50:38.520 we will we have already noted it great
+00:50:40.619 are there any prerequisites apart from
+00:50:42.780 oops and DSE that is required to start
+00:50:44.280 with the LED and SDS course
+00:50:47.400 you don't even need hoops
+00:50:50.040 frankly we have taken care of all three
+00:50:52.859 inside and if they are so for each
+00:50:56.339 question we have taken care of the real
+00:50:57.540 questions other do you think the same or
+00:51:00.059 do you think something uh
+00:51:02.819 basic basic knowledge of course uh is
+00:51:05.760 required very basic and even if you
+00:51:08.520 don't or if you have forgotten what
+00:51:10.020 inheritance how is inheritance different
+00:51:11.819 from a truck right we've taken care of
+00:51:14.339 that you can you need not to hop on any
+00:51:16.619 other side you will not give you a
+00:51:18.420 chance that you'll need to hop on any
+00:51:20.520 other site and check out what the
+00:51:22.440 difference is we have provided a
+00:51:24.359 document over there now if there is
+00:51:27.599 of course you can put there in the
+00:51:29.460 comment section and we will take that up
+00:51:31.680 by mistakenly we would have forgotten or
+00:51:34.800 like for example design pattern was
+00:51:36.780 something that we thought that people
+00:51:38.400 might have known but we got this
+00:51:40.020 feedback that okay we want it right here
+00:51:42.000 so we have curated the content
+00:51:45.119 and we have gone over it again and again
+00:51:47.339 okay so we have added it so any of the
+00:51:50.520 thing which you find missing or you want
+00:51:52.380 us to add please put it we'll take it up
+00:51:57.000 awesome
+00:51:59.760 yeah as close as you can get to the
+00:52:02.040 instructor is sitting right here
+00:52:04.260 for their instructors I'm also sodas I
+00:52:08.040 have also done
+00:52:12.119 I think how many are five are released
+00:52:14.940 till now and I
+00:52:16.319 three are from me I'm just saying yeah
+00:52:20.579 yeah
+00:52:23.460 that's because the editing team is
+00:52:25.500 closely you know speaking with me so
+00:52:29.099 I get to push out videos faster than
+00:52:31.559 Arun actually comes up with the course
+00:52:33.780 content and then he goes to the editing
+00:52:35.339 team and uh I'm like I have just posted
+00:52:38.460 this video would you like to look at it
+00:52:41.520 foreign
+00:52:49.220 should I first watch all additional free
+00:52:52.079 resources available on your system
+00:52:53.640 design course it's not necessary for
+00:52:55.200 only design everything all the previous
+00:52:56.760 exams are already in the course
+00:53:01.760 design is worth it because I like your
+00:53:04.319 implementation part which is most
+00:53:05.579 important thing in the whole course
+00:53:06.480 because implementation is always better
+00:53:08.099 than Theory
+00:53:09.420 amazing thank you so much for that
+00:53:10.800 nikhil it really validates our thought
+00:53:12.720 process
+00:53:13.880 we we were thinking about this right
+00:53:16.980 that once you apply something you learn
+00:53:18.960 it so much better that's why we have PDF
+00:53:21.420 design patterns and video uh
+00:53:23.640 explanations examples
+00:53:25.740 although this feels good right
+00:53:27.839 yeah it does
+00:53:30.180 still has our back
+00:53:33.420 ishan is asking can we do a low level
+00:53:35.460 design on Counter-Strike
+00:53:37.559 vehicle infotainment systems
+00:53:41.040 this would be good yeah
+00:53:44.940 I guess
+00:53:46.619 it should be pretty intense also because
+00:53:50.720 you know moving the game physics or
+00:53:52.859 something over here
+00:53:55.140 I can think of many designs oh by the
+00:53:57.059 way
+00:53:57.780 being really Frank uh some of the most
+00:54:00.599 intense code and design patterns and
+00:54:03.300 algorithms and maths is applied in games
+00:54:07.800 yes
+00:54:10.260 I've seen gamer uh programmers there
+00:54:13.740 like crazy when it comes to their their
+00:54:17.520 code is really well written also in
+00:54:19.740 terms of design patterns and everything
+00:54:21.059 but it's like pretty intense also like
+00:54:24.180 it's got physics in it it's got an
+00:54:26.880 object when it's hit it has to move in a
+00:54:28.500 certain way uh
+00:54:31.020 an event comes in you have to consider
+00:54:33.780 that event as you know person shot here
+00:54:37.079 and the person is moving the other
+00:54:38.640 person is moving so
+00:54:39.900 you have to bring them back on that
+00:54:42.300 timeline and see if the shot hit their
+00:54:43.859 head
+00:54:44.640 at the right time so
+00:54:46.980 apart from all the physics and all that
+00:54:48.720 you also have to look at concurrency and
+00:54:49.980 everything so it's pretty intense very
+00:54:52.260 very interesting
+00:54:53.819 and it could look good also if you take
+00:54:55.980 it because GK CS I think people don't
+00:54:58.619 know what the full form is
+00:55:01.380 CS yeah
+00:55:03.480 could it becomes
+00:55:07.260 short answer yes
+00:55:10.380 yes Abdul thank you for clarifying uh
+00:55:12.420 have a plan to purchase
+00:55:14.819 Dewey is always better than planning but
+00:55:16.800 yes button
+00:55:18.839 I'm not pushing you to the purchase I'm
+00:55:20.700 actually telling you like for example if
+00:55:22.200 you purchase and you say
+00:55:24.359 I have a plan to study no
+00:55:26.520 start just do it go ahead book your
+00:55:29.760 calendar
+00:55:30.780 and start studying
+00:55:33.480 okay
+00:55:34.500 that's great
+00:55:35.819 better to do local design before doing
+00:55:38.160 system design what should be the
+00:55:39.540 sequence of learning please guide the
+00:55:40.859 audience caustic it kind of depends if
+00:55:43.260 you are
+00:55:45.900 there is no chronology
+00:55:51.559 both are important
+00:55:53.700 you can start with ether
+00:55:57.180 I don't is there any chronology that you
+00:55:59.040 would suggest
+00:56:01.020 no I think they can do anything yeah
+00:56:05.640 yeah getting server when I try to sign
+00:56:07.440 up using Google account
+00:56:09.480 oh man
+00:56:12.059 crazy Soul are you trying to use the
+00:56:13.980 in-app
+00:56:15.000 link
+00:56:16.260 just go to Chrome and try to open it
+00:56:19.559 I have seen this ever today in fact we
+00:56:21.839 discovered this error uh
+00:56:23.819 that's not true a day before yesterday I
+00:56:25.619 think somebody messaged me saying that
+00:56:27.660 I am not able to log in 403 unauthorized
+00:56:30.780 HTTP code because I'm trying a Google
+00:56:33.119 sign in so then we looked into it and
+00:56:34.920 then we saw okay it's like through
+00:56:36.599 Instagram that link they're trying to
+00:56:38.700 access it and so Instagram uh has its
+00:56:41.520 own user agent
+00:56:42.900 which is not allowed when Google Sees
+00:56:45.119 does this Instagram guy who's opened his
+00:56:46.980 own browser and is trying to get me
+00:56:48.359 authenticated through Google I'm not
+00:56:50.040 gonna allow it the Google watch does not
+00:56:52.260 work so just open it on your Chrome
+00:56:53.640 browser simply
+00:56:54.900 and you'll be able to access you'll be
+00:56:56.579 able to use your Google sign-in we are
+00:56:58.680 looking into this by the way you get it
+00:57:00.540 fixed but it will waste your time so you
+00:57:03.000 do it this way
+00:57:06.059 these projects also covered in course
+00:57:08.339 uh I don't know what you mean by that I
+00:57:10.500 wish we do take questions though in the
+00:57:14.040 course ytcl coupon is it only available
+00:57:16.020 for this training yes
+00:57:22.920 I haven't watched the course much yet
+00:57:25.380 can we also had solid principles
+00:57:27.300 implementation specifying in one lld
+00:57:30.000 problem if it is not dead
+00:57:32.760 yeah we spoke about this today I think
+00:57:39.000 crazy soul is saying from chrome only I
+00:57:41.339 tried not by link that is crazy
+00:57:44.640 that is crazy wait I'll I'll just try to
+00:57:47.520 access the course
+00:57:48.839 thanks for letting me know
+00:57:50.700 and let's try
+00:57:52.079 and sign in Google
+00:57:58.680 okay
+00:58:00.780 I am able to sign in
+00:58:05.400 but I'm not one of those guys who says
+00:58:07.619 scheme it's working on my local machine
+00:58:09.480 so
+00:58:10.740 let me actually try uh
+00:58:14.460 using another account
+00:58:22.319 should work
+00:58:24.780 this is called live debugging guys
+00:58:27.000 whether you call it user feedback or
+00:58:28.859 just
+00:58:31.319 pure
+00:58:35.220 it is working for two Google accounts
+00:58:37.079 for me uh
+00:58:39.059 so I look into this separately then
+00:58:43.140 thanks for reporting it really
+00:58:45.119 but if you have a screenshot please
+00:58:46.500 share it with us at contact interview
+00:58:47.819 ready
+00:58:49.920 that will really really help
+00:58:53.819 okay
+00:58:55.319 yes Ajay is saying enabled third party
+00:58:57.480 sign in in Chrome check your settings
+00:59:02.460 smart yeah that's also true if you are
+00:59:04.680 coming in through Incognito especially
+00:59:07.380 um
+00:59:08.160 no browser can actually just you know
+00:59:10.380 give you a Google third party
+00:59:12.359 cookies
+00:59:13.920 I mean unless we give you a token
+00:59:16.619 token based author is also possible
+00:59:18.240 that's what we are doing we are actually
+00:59:19.740 adding it to your cookie
+00:59:25.619 yes reply server error please try again
+00:59:28.559 later
+00:59:32.099 this is good
+00:59:36.240 ticket
+00:59:39.240 I can open GitHub right now and start
+00:59:40.859 beat bugging but I'll do that later
+00:59:42.420 thank you so much for this crazy soul
+00:59:44.460 and uh
+00:59:46.079 connect with us separately you know we
+00:59:49.020 can probably give you a special discount
+00:59:50.579 here because you tried right now to log
+00:59:53.760 in and you are not able to if you can
+00:59:55.740 log into GitHub that's okay or if you
+00:59:57.720 can log in through username and password
+00:59:58.859 I agree but it's a little tedious but
+01:00:00.960 it's a it's good
+01:00:02.819 but do connect with us separately crazy
+01:00:04.859 soul
+01:00:06.540 thank you so much for this thank you for
+01:00:08.040 letting us know
+01:00:09.059 any discounts
+01:00:11.700 yes uh YT sale is on
+01:00:20.819 okay any other questions guys before we
+01:00:25.020 walk into the sunset at 8 00 pm
+01:00:29.099 this Tuesday
+01:00:31.740 evening
+01:00:34.680 thank you so much for listening firstly
+01:00:36.359 uh for for coming here I know all of you
+01:00:39.240 are interested in low level design
+01:00:41.460 in learning in upskilling in
+01:00:44.819 possibly adding value to your team
+01:00:46.319 possibly switching companies whatever be
+01:00:48.000 the case our intent is through this
+01:00:50.760 course to be able to help you
+01:00:53.160 upskill yourself
+01:00:55.260 okay and it's a lifetime annuity course
+01:00:58.200 for now which means that if you purchase
+01:01:00.180 it now at any point in time if you tell
+01:01:02.160 us that you know this needs Improvement
+01:01:03.660 we are there we are listening and we
+01:01:06.000 make sure that the course content
+01:01:07.500 quality is high
+01:01:10.740 trust me we actually get together every
+01:01:12.540 day we have a stand up
+01:01:16.319 that's not bad early in the morning we
+01:01:17.880 are like
+01:01:18.660 okay now
+01:01:22.920 no big deal for me I wake up at five so
+01:01:26.040 but yeah even I wake up around seven
+01:01:29.640 okay
+01:01:30.660 he's going to get jealous here
+01:01:35.040 but now we have changed the timings
+01:01:38.119 yes I have a kid now so
+01:01:41.760 yeah it's okay
+01:01:44.940 yeah it's good it's really good it's
+01:01:47.400 good I've not been happier in my life
+01:01:48.900 actually
+01:01:50.940 but I can now understand why
+01:01:54.119 fathers actually
+01:01:56.940 are so happy
+01:01:59.480 there was this recently I was going to a
+01:02:02.280 chess tournament in Hyderabad
+01:02:04.440 and some people are driven from
+01:02:06.119 Bangalore
+01:02:07.619 for the chess tournament of their kids
+01:02:09.599 okay okay that's no I mean you can just
+01:02:12.780 do this online dude like it's chess like
+01:02:15.240 it's no big deal
+01:02:18.420 but
+01:02:19.319 but now I think I can understand like
+01:02:21.540 maybe a little bit
+01:02:23.099 they are excited they're so happy so
+01:02:25.500 then kids are small eight year
+01:02:27.599 eight-year-old ten-year-olds
+01:02:30.359 the parents are
+01:02:31.920 excited but it makes sense also like
+01:02:33.599 what what more important role do you
+01:02:36.540 have
+01:02:40.380 yeah okay
+01:02:43.200 kaushik Mishra is saying winter sale and
+01:02:45.000 ytcl both can be applied winter sale is
+01:02:47.700 10 cautious if you purchase multiple
+01:02:50.579 courses you get a former discount of 10
+01:02:52.380 additional
+01:02:54.240 so you don't need to apply with the sale
+01:02:56.099 uh go for YT sale and combo discount is
+01:03:00.180 auto applied
+01:03:01.980 to purchase multiple courses so yeah
+01:03:06.119 yeah can simple web server based
+01:03:07.559 application State be recovered in case
+01:03:09.059 the disk space reaches 100 of the host
+01:03:11.160 the application is running on my card
+01:03:12.900 shishi is a really
+01:03:15.740 specific question
+01:03:20.339 I I don't think I can answer this
+01:03:25.500 I mean I I would suggest you actually
+01:03:28.140 connect with
+01:03:30.420 the Cloud solution provider you have it
+01:03:32.339 looks like you have a Cloud solution
+01:03:33.660 provider if not then
+01:03:35.280 what are you using uh are you using Java
+01:03:38.700 it has its own tools to try to recover
+01:03:41.880 state
+01:03:43.799 disk space uh hundred percent oh
+01:03:48.780 okay can you do you have any backups
+01:03:52.799 can you what can you do
+01:03:55.380 maybe maybe talk to folks in your
+01:03:58.079 company that will help I in your place I
+01:04:00.119 would have
+01:04:01.559 you know I lead this to AWS basically if
+01:04:04.319 it is at 100
+01:04:05.760 this space which is crazy
+01:04:09.059 then we start looking at why is there so
+01:04:10.680 much data being pushed in
+01:04:12.480 uh and can we delete some records like
+01:04:15.780 most likely you have a lot of useless
+01:04:17.099 data hanging around unless you have
+01:04:18.960 really under provisioned
+01:04:21.599 because persisting data should be very
+01:04:23.940 cheap
+01:04:25.140 you should
+01:04:26.280 not have that problem
+01:04:28.140 prerequisites for this course nothing is
+01:04:29.700 there Aman Gupta has purchased the
+01:04:30.960 course yay okay on that happy note
+01:04:34.020 guys thank you so much for coming
+01:04:36.720 and thank you for making this a
+01:04:38.400 wonderful evening for us I can see that
+01:04:41.160 you know a lot of you have
+01:04:44.099 uh purchased the courses
+01:04:50.460 10 11 12 13 14 in 15 16
+01:04:55.140 .
+01:04:57.299 oh my God there's been like 20 purchases
+01:05:00.359 it's just flown in right now
+01:05:02.400 okay and I I'm just going up and it's
+01:05:05.040 not ending so thank you so much for this
+01:05:06.900 uh
+01:05:08.220 let us know how you find it we'll see
+01:05:10.260 you in the next Zoom class
+01:05:12.359 and uh let's stay connected thank you
+01:05:14.400 guys Arun any final thoughts
+01:05:17.460 thank you so much each and every one I
+01:05:20.760 hope we answered your queries uh
+01:05:23.460 whichever questions you had I hope those
+01:05:26.339 are cleared if you have any other
+01:05:27.599 questions you can again come up and ask
+01:05:30.059 us
+01:05:31.140 you purchase the course we this would
+01:05:33.599 make us really happy to provide us
+01:05:35.099 feedback we would have a look on each
+01:05:37.920 and every feedback and we'll try to work
+01:05:39.960 upon them
+01:05:42.420 awesome okay thank you so much you guys
+01:05:44.520 have a great
+01:05:47.099 week ahead take care bye

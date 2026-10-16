@@ -1,0 +1,101 @@
+# tactiq.io free youtube transcript
+# What is a CDN (Content Delivery Network)?
+# https://www.youtube.com/watch/b4_6thkYZXs
+
+00:00:00.300 In this video we talk aboutcontent delivery networks.
+00:00:03.180 These are things which makeyour system cheaper and faster.
+00:00:05.910 So that's the end result,and to know about that,
+00:00:08.790 one of the prerequisites isto know about caching. Also,
+00:00:12.390 some knowledge about thedistributed systems is useful.
+00:00:14.730 So if you haven't gone through a highlevel of what a distributed system is,
+00:00:18.540 or what caching is, then go through thosevideos first. Then we'll come to this.
+00:00:22.830 So let's say some users want to connectto your website. I'll take interviewready.io,
+00:00:26.340 as an example here. They firstresolve the address with the DNS.
+00:00:29.910 Then ask what the www.interviewready.io maps to.
+00:00:33.750 They get an IP address. Now theytry to connect to that IP address.
+00:00:37.800 So with a very simple system,we will keep a server here,
+00:00:42.240 which is going to serve web pages.
+00:00:44.880 So the page that you see rendered onyour browser is going to be an HTML page,
+00:00:48.840 and that's going to be servedby a machine called a sergo.
+00:00:52.170 I think the HTML web pages arebeing stored in its file system,
+00:00:54.960 which it can read andreturn as a response.
+00:00:58.560 Since this is a common operation, youwant to do this operation quickly.
+00:01:03.540 And so one of the things that you canuse concept and computer science is
+00:01:07.050 caching.
+00:01:08.040 You can keep the web pages in memory oryou can keep them very close in local
+00:01:12.240 storage itself instead of keepingit in a distributed file store.
+00:01:16.230 And when a person asks for apage, you just return it quickly.
+00:01:20.730 The problem with this approach isthat to get a webpage takes time.
+00:01:25.440 If a person is connecting from Japan,if a person is connecting from the us,
+00:01:29.310 if they're connecting from India,
+00:01:30.600 there is no single server which isgoing to be quick to connect to.
+00:01:34.980 So let's say you have the server inIndia and most of your clients are from
+00:01:38.130 India. For the Indians, this serveris going to be reasonably fast,
+00:01:42.960 but for the Americans, they haveto connect from across continents.
+00:01:46.980 So the latency for the pace to be renderedon the browser is going to be very
+00:01:50.340 high. If you move it somewhere centrally,
+00:01:53.550 then both parties are not going to be toohappy and people in Japan may be quite
+00:01:57.450 unhappy, right?
+00:01:58.380 So there is no single grace in the worldwhere having a server is going to make
+00:02:01.565 everyone happy. It's going to costlatency to some of the parties.
+00:02:05.730 The second problem is that you may havelocal regulations which say that the
+00:02:09.539 data of this country is only goingto be displayed in that country.
+00:02:14.400 For example, if you have certainmovies that you can only show in India,
+00:02:18.960 you can't show that in the us.You can't show that in Japan.
+00:02:21.390 Then you want some sort of localstorage for that country. Similarly,
+00:02:26.190 us may have some movies which areallowed to be air only in the US region,
+00:02:30.810 not in India. And so for thesereasons, we can take our cash,
+00:02:34.950 the large cash that we had connectingto the suburb and distribute it into
+00:02:38.855 smaller chunks around the globe. So kine,
+00:02:42.720 which is make in Japan, can be closerto n Kine, which is make to India,
+00:02:46.500 can be closer to India and so on.
+00:02:50.160 The benefit of this isthat this is much faster.
+00:02:52.860 If the Americans wantto connect to a page,
+00:02:55.230 they no longer have togo to a server in Japan.
+00:02:57.240 They can just connect to a local.
+00:02:58.650 Server. This is very importantwhen you're running a business,
+00:03:02.410 if there's a delay of even half a second.Most users, they use a lot of trust,
+00:03:07.180 and this is two studies that Amazon andGoogle have done that if you're able to
+00:03:10.870 render the webpage quickly on the browser,
+00:03:13.780 people feel like this website is veryprofessional, so speed is important.
+00:03:18.310 The second thing is that youmay have some local regulations,
+00:03:20.560 and we talked about those can bemet individually in the local caches
+00:03:24.670 themselves, and you're able to servecontent which is relevant to the user.
+00:03:28.540 So there may be movies which are popularin India but are not so popular in the
+00:03:32.715 us. Since this is a cache,
+00:03:34.660 it can't store all the movies thatyou have in your file store behind,
+00:03:38.950 you're going to keep only relevantdata in these local caches.
+00:03:43.180 Important thing to remember is thatthis cache is very similar to a server.
+00:03:47.380 It is actually a server. Youcan connect to that IP address.
+00:03:50.950 You can hit an API and it'sgoing to connect to the response.
+00:03:54.640 So it is running a serverinternally, it has a file system,
+00:03:58.420 and that file system can bemanipulated by the mother server.
+00:04:02.500 This entire solution is called aCD N or Content Delivery Network.
+00:04:07.330 CDNs usually are made by large companiesbecause it's not easy to take your
+00:04:11.410 servers industry around the world.
+00:04:13.480 It's definitely not easy to do this in away that you can make a business out of
+00:04:16.690 it because the servers have to be cheapso that you can charge businesses less
+00:04:21.010 and they also have to be fast sothat your customers are happy.
+00:04:24.790 The best CDN solutionsprovide three things.
+00:04:26.920 One is that they have boxes in manycases close to their potential flights.
+00:04:31.240 They're able to followregulations quite well.
+00:04:32.890 So you don't have to as a businesscreate these rule engines.
+00:04:36.370 The CDN is quite efficient at that,
+00:04:39.070 and the content patient inthe CN is using Make Easy,
+00:04:42.580 if you see the HTML page is that sectionof show the server doesn't really want
+00:04:46.630 to make an H TM L page,
+00:04:48.460 and then the CDN know ideally wants tojust put it in the store and have it even
+00:04:53.230 triggered automatically. One exampleof A CVN will be Amazon CloudFront.
+00:04:57.700 It's cheap, it's reliable,it's easy to use.
+00:04:59.830 We actually use it at InterviewReady, so I can kind of vouch for it.
+00:05:04.240 The best thing about I think,
+00:05:05.380 CloudFront is that it has integrationwith Amazon S3 when you just have to
+00:05:10.960 make a new file and the eventis triggered. As a engineer,
+00:05:14.565 you don't have to manage this.
+00:05:16.060 So most cloud solutions like GCPAzure will give you this anyway.
+00:05:19.720 All you have to do is think aboutwhat data you want to send to the cd.
+00:05:23.860 Usually this data is staticdata, like videos, images, files,
+00:05:29.080 so that's it. That is acontent degree network.
+00:05:31.780 It is a black box which storesstatic content close to all of your
+00:05:36.760 clients. It's usually very cheap and very,
+00:05:39.190 very efficient for fast data access.

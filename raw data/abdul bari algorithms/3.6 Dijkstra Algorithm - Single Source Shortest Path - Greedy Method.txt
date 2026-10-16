@@ -1,0 +1,799 @@
+# 3.6 Dijkstra Algorithm - Single Source Shortest Path - Greedy Method
+
+# https://www.youtube.com/watch/XB4MIexjvY0
+
+
+
+00:00:00.560 topic is dtra algorithm this algorithm
+
+00:00:04.400 is for single Source shortest path
+
+00:00:08.440 problem if a weighted graph is given
+
+00:00:11.320 then we have to find our shortest path
+
+00:00:13.440 from some starting vertex to all of the
+
+00:00:15.519 vertexes let us say I'm selecting
+
+00:00:17.720 starting vertex as one then I have to
+
+00:00:19.480 find out shortest path to all the
+
+00:00:21.400 vertexes maybe a direct path or via
+
+00:00:25.119 other vertices and I can select any one
+
+00:00:28.039 of the vertex as a source vertex
+
+00:00:31.080 as we have to find out a shortest path
+
+00:00:32.800 so it's a minimization problem and the
+
+00:00:36.040 minimization problem is an optimization
+
+00:00:38.800 problem so optimization problems can be
+
+00:00:41.480 solved using greedy method greedy method
+
+00:00:44.879 says that a problem should be solved in
+
+00:00:47.280 stages by taking one step at a time and
+
+00:00:49.879 considering one input at a time to get a
+
+00:00:52.600 optimal solution and in Greedy method
+
+00:00:56.000 there are predefined procedures and we
+
+00:00:58.399 follow that procedure to get a
+
+00:01:00.440 optimal
+
+00:01:01.640 solution so Dix algorithm gives a
+
+00:01:04.640 procedure for getting a optimal solution
+
+00:01:07.200 that is minimum result that is shortest
+
+00:01:09.439 part in this video I will show how a
+
+00:01:12.640 dixar algorithms works and the disra
+
+00:01:15.159 algorithm can work on a directed as well
+
+00:01:18.040 as non-directed graph and also I will
+
+00:01:21.000 show you the drawback of dixa
+
+00:01:24.200 algorithm let us see the approach of
+
+00:01:26.560 dixar algorithm for that I'll show you
+
+00:01:29.400 the base basic thing that is followed by
+
+00:01:31.920 dexra so for that first of all I'll take
+
+00:01:34.159 a very small example and show
+
+00:01:36.960 you to show the approach of Dix
+
+00:01:40.399 algorithm I have taken a very small
+
+00:01:42.560 graph here from this we will understand
+
+00:01:45.799 what is the approach of thra if I say
+
+00:01:48.799 one is the starting vertex and I want to
+
+00:01:50.880 find the shortest path to two as well as
+
+00:01:53.920 three so if you see from this graph
+
+00:01:56.479 there is a direct path to Vex 2 so its
+
+00:01:58.960 cost is 2 and there is no direct path to
+
+00:02:02.000 three so we don't know what is the
+
+00:02:04.920 path first of all we consider a direct
+
+00:02:07.560 Edge path but now if we follow this
+
+00:02:11.200 algorithm we'll be selecting first the
+
+00:02:13.520 shortest path vertex so this is shortest
+
+00:02:16.519 because this is two that is infinity so
+
+00:02:18.200 we'll select this one and Di says that
+
+00:02:22.239 once you have selected one of the
+
+00:02:23.680 shortest path then check via that vertex
+
+00:02:26.879 from that vertex there is any shortest
+
+00:02:29.560 path to other vertices so let us check
+
+00:02:32.760 who is connected to two so from two we
+
+00:02:34.879 can go three this is 2 + 4 that is 6 and
+
+00:02:38.560 right now it is infinity yes this
+
+00:02:41.200 Infinity can be changed to six this
+
+00:02:43.959 means that there is a shortest path from
+
+00:02:46.360 verx 1 to 3 of distance 6 no doubt it's
+
+00:02:51.000 not a direct path it's coming via two
+
+00:02:53.800 but there is a path that's how the Dix
+
+00:02:57.159 algorithm always select a Vertex with a
+
+00:02:59.599 short shortest path then it will update
+
+00:03:01.920 the shortest path to other vertices if
+
+00:03:05.280 possible and this updation is called as
+
+00:03:10.040 relaxation let me show you how this
+
+00:03:12.239 relaxation works for that I will call
+
+00:03:14.840 this vertex as U and this vertex as V
+
+00:03:17.920 and this is distance of U and this is
+
+00:03:21.159 distance of V initially it was Infinity
+
+00:03:23.239 now it is change to six and this is cost
+
+00:03:26.120 of an H from U to V so here relaxation
+
+00:03:29.799 means if the distance of vertex U + cost
+
+00:03:33.680 of an edge U comma V is less than
+
+00:03:37.319 distance of vertex V see here the
+
+00:03:41.159 distance of U was 2 and the cost of an
+
+00:03:43.519 edge was 4 and this was initially
+
+00:03:45.879 Infinity so this 2 + 4 is less than
+
+00:03:48.439 infinity yes so we have modified this to
+
+00:03:51.360 six so we'll modify this one that is
+
+00:03:54.000 distance of V is modified to distance of
+
+00:03:57.239 U Plus cost of an edge U comma
+
+00:04:03.319 V this what we followed and this is
+
+00:04:06.239 called as relaxation and we do
+
+00:04:08.720 relaxation for the vertices whenever we
+
+00:04:11.400 select a shortest path we will try to
+
+00:04:13.599 relax other
+
+00:04:15.440 vertices now let us follow this
+
+00:04:17.918 procedure and solve this graph problem
+
+00:04:21.040 to find the shortest
+
+00:04:22.759 path let me solve this graph problem for
+
+00:04:26.160 this I will select this vertex as the
+
+00:04:27.840 source vertex starting vertex s starting
+
+00:04:30.759 vertex now I will give the distances for
+
+00:04:33.280 all the vertices by considering just
+
+00:04:35.560 single edge so I will label the
+
+00:04:37.800 distances above those vertices only this
+
+00:04:40.479 distance is zero and this distance is
+
+00:04:43.479 two this distance is
+
+00:04:46.759 4 from 1 to 4 there is no direct catch
+
+00:04:51.280 Infinity from 1 to 5 there is no direct
+
+00:04:54.800 Edge Infinity similarly six is also
+
+00:04:58.080 Infinity
+
+00:05:00.400 except two and three all are Infinity
+
+00:05:03.160 this is the initial thing that we should
+
+00:05:05.199 do for any
+
+00:05:07.080 graph now let us start the repeating
+
+00:05:11.240 steps now the steps will be repeating
+
+00:05:13.759 First Step select a shortest path out of
+
+00:05:17.600 2 4 infinity infinity infinity this is
+
+00:05:21.280 smallest select this one once we
+
+00:05:24.280 selected this we should perform
+
+00:05:26.720 relaxation what is that check who are
+
+00:05:29.240 connected three and four are connected
+
+00:05:32.840 just check the distance of U that is 2 +
+
+00:05:35.840 1 3 and this is 4 3 is less than 4
+
+00:05:40.039 modify
+
+00:05:41.759 this then this is also connected 2 + 7 7
+
+00:05:46.080 is this is N9 and this is infinity
+
+00:05:48.919 modify this
+
+00:05:51.199 nine that's all some vertices are
+
+00:05:54.800 relaxed they may or may not relax but we
+
+00:05:57.800 should check this one now second step
+
+00:06:01.000 now the step is repeating same thing I
+
+00:06:02.960 should do select the smallest one 3
+
+00:06:05.919 Infinity 9 Infinity which one is the
+
+00:06:08.280 smallest shortest this one select this
+
+00:06:10.280 one now check if any vertex get relaxed
+
+00:06:13.800 so there is only one connected it's 3 +
+
+00:06:16.240 3 6 this is infinity so change
+
+00:06:20.000 it now select the shortest out of what 6
+
+00:06:23.720 9 Infinity which one is shortest this
+
+00:06:26.360 one select this one and see who are
+
+00:06:28.840 connected and try to relax them so 6 + 2
+
+00:06:33.080 is 8 and is 9 so this is more smaller
+
+00:06:36.000 modifi it 6 + 5 is 11 this is infinity
+
+00:06:41.120 modified so two vertices are modified
+
+00:06:43.960 they are relaxed now who are remaining
+
+00:06:46.759 four and six who is minimum eight select
+
+00:06:50.120 this
+
+00:06:50.919 one and check if anything gets relaxed 8
+
+00:06:54.199 + 1 is 9 it's already 11 modified
+
+00:07:00.680 so here I have taken an example most of
+
+00:07:02.599 the time the vertices are modifying
+
+00:07:04.479 their distances are modifying they may
+
+00:07:06.759 or may not modify now the last one is
+
+00:07:09.199 remaining is six so now we have the
+
+00:07:11.120 shortest part from starting vertex one
+
+00:07:14.120 to all the vertexes so what are the
+
+00:07:15.960 other vertices 2 3 4 5 and 6 what are
+
+00:07:21.479 the distances I got for 2 it is 2 and
+
+00:07:24.120 three it is three and four it is 8 five
+
+00:07:29.160 is six and 6 is 9 these are the
+
+00:07:32.680 distances of all the vertices and these
+
+00:07:34.520 are the set of vertices these are DVS
+
+00:07:37.160 and these are
+
+00:07:39.199 vertices so that's how a Tex algorithm
+
+00:07:42.680 works on a graph to find the shortest
+
+00:07:46.080 path let us little bit analyze and find
+
+00:07:49.159 out the time complexity of this
+
+00:07:51.479 algorithm if you analyze what it is
+
+00:07:53.840 doing it is finding shortest path to all
+
+00:07:56.960 the vertices how many vertices are there
+
+00:08:00.240 these are the vertices or we can also
+
+00:08:02.400 say n number of vertices so for all
+
+00:08:05.520 vertices it's finding shortest path
+
+00:08:07.680 while doing so what it is doing it is
+
+00:08:10.280 relaxing relaxing which vertexes when it
+
+00:08:13.280 is on three it is relaxed it has relaxed
+
+00:08:15.479 only five when it was on two it has
+
+00:08:17.599 relax only three and four so total how
+
+00:08:20.479 many veres it may be relaxing we don't
+
+00:08:22.800 know it depends on the graph okay at
+
+00:08:25.240 most how many vertices it may be
+
+00:08:26.960 relaxing all n vertices suppose two is
+
+00:08:30.720 connecting to all then it may be
+
+00:08:33.519 relaxing all of them it may be checking
+
+00:08:35.080 all of them so again it is V so it means
+
+00:08:39.240 n into n n for vertices and N vertices
+
+00:08:44.640 are relaxed so when it will happen that
+
+00:08:47.680 from two all are connected then again
+
+00:08:49.600 three all are connected that will be a
+
+00:08:51.760 complete graph in case of complete graph
+
+00:08:54.560 it will take n into n time and this will
+
+00:08:57.320 be n²
+
+00:08:59.880 so this is the worst case time of this
+
+00:09:03.399 algorithm maximum time it may be order
+
+00:09:06.079 of
+
+00:09:07.279 n² I can write it as Theta of v² or
+
+00:09:12.760 Theta of n² the worst case time and I
+
+00:09:16.040 can use Theta there once I know that
+
+00:09:18.519 function that is n² and it belongs to
+
+00:09:21.279 some class that is n sare class
+
+00:09:23.120 quadratic class so this is Theta of n²
+
+00:09:26.320 here I have a weighted directed graph
+
+00:09:28.760 commonly found in textbooks on this we
+
+00:09:31.079 will run the extra algorithm to solve
+
+00:09:33.760 single Source shortest spot problem so I
+
+00:09:36.279 will not be updating the distances upon
+
+00:09:38.680 the vertices itself but I will be
+
+00:09:40.360 writing them in the table so let us see
+
+00:09:43.480 how I can prepare this table so instead
+
+00:09:45.399 of writing there I'm writing here so
+
+00:09:47.760 initially I should find the direct Edge
+
+00:09:49.519 passs to all the vertices so for two it
+
+00:09:51.680 is 5 53 it is 45 likewise all the parts
+
+00:09:54.880 are given and one thing to mention here
+
+00:09:57.560 the starting vertex is one so in the
+
+00:09:59.839 graph you can see 1 to 2 50 1 to 3 45 1
+
+00:10:04.399 to 4 10 1 to 5 no Edge 1 to six no Edge
+
+00:10:09.440 so 50 45 10 infinity infinity already
+
+00:10:13.240 given let us solve it the smallest
+
+00:10:16.399 vertex is four so I select vertex four
+
+00:10:19.880 so the selected vertex is four then once
+
+00:10:22.839 the vertex four is selected see from
+
+00:10:25.160 four five is connected so can we relax
+
+00:10:27.959 this one so four is is a 10 10 + 15 25
+
+00:10:31.680 yes five can be modified and we got a
+
+00:10:34.519 path that is infinity so it is 25 now
+
+00:10:37.760 and this remains infinity and this is 10
+
+00:10:40.639 which is already selected 45 and 50 they
+
+00:10:44.000 remains as it is now select the next
+
+00:10:46.880 smallest one so this one Vex 5 is
+
+00:10:50.320 selected so Vex 5 when it is selected
+
+00:10:53.079 there's an H to three and there's an H
+
+00:10:55.079 to two so if I take two how much is five
+
+00:10:58.560 25 now so I did not mention here 25 + 20
+
+00:11:02.720 45 and this distance is already 50 This
+
+00:11:06.680 Is 50 but now we have a shorter path V
+
+00:11:09.760 five that is 45 so modify this
+
+00:11:13.639 45 and this is also 45 this 10 is
+
+00:11:17.519 selected 25 is selected this Still
+
+00:11:20.680 Remains
+
+00:11:22.639 Infinity now I have to select the next
+
+00:11:24.839 shortest one so I have 45 45 Infinity so
+
+00:11:28.240 I can pick up any one so I'll select the
+
+00:11:30.680 second vertex 2 once vertex 2 is
+
+00:11:33.800 selected from there the connected vertex
+
+00:11:36.120 is three so + 10 45 + 10 55 but already
+
+00:11:42.040 the distance to three is
+
+00:11:44.480 45 so 45 + 10 will be 55 so this is
+
+00:11:48.839 smaller no change so this remains as it
+
+00:11:52.000 is 45 is already selected this remains
+
+00:11:54.440 45 only 10 is selected 25 is selected
+
+00:11:57.880 and infinity
+
+00:11:59.880 now select next minimum so three three
+
+00:12:03.040 is selected now from three there's an
+
+00:12:06.160 edge coming towards five but five is
+
+00:12:09.040 already in the selected vertex don't
+
+00:12:11.839 check it if you check also it's of no
+
+00:12:14.760 use see 30 is how 3 is how much 45 45 +
+
+00:12:19.240 30 will
+
+00:12:20.480 be uh
+
+00:12:22.600 75 so already five is having its weight
+
+00:12:26.160 as distance as 25 so no use of ch it so
+
+00:12:30.000 nothing is relaxed and this is selected
+
+00:12:33.160 that's all so 45 selected 46 this also
+
+00:12:37.000 selected 10 selected 25 selected
+
+00:12:42.199 Infinity now who is remaining Infinity
+
+00:12:44.920 is remaining so six is also selected so
+
+00:12:47.920 the path to verx 6 has remained Infinity
+
+00:12:50.720 only because there is no incoming Ed on
+
+00:12:53.600 six so we cannot reach six the path to
+
+00:12:57.760 verx 6 is infin only this is how the
+
+00:13:00.880 extra algorithm works the extra
+
+00:13:04.040 algorithm can work on non-directed graph
+
+00:13:06.320 also suppose you have a graph simple
+
+00:13:08.519 example I will take
+
+00:13:10.959 here simple example I have taken here
+
+00:13:13.880 now how it works on this one so if
+
+00:13:15.680 you're not comfortable with non-directed
+
+00:13:18.040 edges you can convert them into directed
+
+00:13:21.320 by adding parallel edges so you can say
+
+00:13:23.920 this is three and this is also
+
+00:13:27.720 three now it becomes a directed graph so
+
+00:13:31.040 you can convert a non-directed graph to
+
+00:13:33.000 directed graph right so it can work on
+
+00:13:36.120 both directed well as non-directed graph
+
+00:13:39.399 now I will show you the drawback of dixa
+
+00:13:42.160 algorithm let us see the drawback of
+
+00:13:44.560 dixa algorithm for that I have taken a
+
+00:13:46.639 very simple graph and it is having a
+
+00:13:50.240 negative weighted Edge the weight of
+
+00:13:54.079 this Edge is negative so weight of an
+
+00:13:56.720 edge how it can be negative see it is
+
+00:13:59.399 not distance so distance is not not
+
+00:14:01.480 measured in POS negative right but any
+
+00:14:05.920 problem or any business problem we can
+
+00:14:08.800 represent it using graphs like usually
+
+00:14:11.880 when we want to explain something to our
+
+00:14:13.800 friend then what we do we just take a
+
+00:14:15.959 paper and draw something so what is that
+
+00:14:17.800 it looks like a graph only so most of
+
+00:14:20.199 the problems from Real World are mapped
+
+00:14:22.600 in the form of a graph so when you are
+
+00:14:25.160 representing something in the form of a
+
+00:14:27.160 graph it may have positive and negative
+
+00:14:29.199 values also so this is not exactly
+
+00:14:32.199 distance that is measured by tape but
+
+00:14:34.639 this is some value so those values can
+
+00:14:36.800 be negative also so actually drra has
+
+00:14:39.560 not considered that if there are
+
+00:14:41.399 negative edes then what we should do he
+
+00:14:43.199 has not considered let us see what
+
+00:14:45.320 happens if you follow his procedures on
+
+00:14:47.440 this one let us start if I say this is
+
+00:14:50.440 the starting vertex then the distance is
+
+00:14:52.839 zero the direct Edge path is three and
+
+00:14:55.000 the direct Edge path is five and there
+
+00:14:57.160 is no direct Edge path so this is
+
+00:14:58.720 infinity
+
+00:15:00.040 this is the initial setup of JRA now let
+
+00:15:02.399 us solve this one which one I should
+
+00:15:04.279 select the smallest one the shortest
+
+00:15:06.360 path is two select this one are there
+
+00:15:09.880 any connected vertices to this one so
+
+00:15:12.560 that I can relax no there is no outgoing
+
+00:15:14.600 adj just from to leave it next select
+
+00:15:17.920 the next smallest so five and infinity
+
+00:15:19.880 so five is smallest so select four if we
+
+00:15:22.839 select this four then will it relax any
+
+00:15:25.360 vertex yes the connected vertex is three
+
+00:15:27.920 so what is that part
+
+00:15:29.480 5 + 2 7 so this is
+
+00:15:33.240 7 now both are selected third one is
+
+00:15:36.600 remaining select that one also once this
+
+00:15:39.839 is selected shall we relax that one no
+
+00:15:42.720 no need already we learned that when
+
+00:15:44.800 already vertex is already relaxed no
+
+00:15:46.560 need to check it let us check it once 7
+
+00:15:49.680 3 is 4 no already it is three so
+
+00:15:52.680 that's
+
+00:15:53.839 better so all the things are perfect the
+
+00:15:57.079 answer is perfect so this algorithm has
+
+00:15:59.959 worked even when there is a negative
+
+00:16:02.759 weight
+
+00:16:04.199 Edge now I'll make a small change I'll
+
+00:16:07.279 restart
+
+00:16:10.600 again I'll start over again and now I
+
+00:16:13.839 will make this Edge as minus 10 let's
+
+00:16:16.800 see what happens now I'm again finding
+
+00:16:20.160 the shortest part to all the vertices
+
+00:16:21.759 this is the source vertex so it is zero
+
+00:16:23.880 and this is three and this is five and
+
+00:16:27.160 there is no direct Edge path Infinity
+
+00:16:30.199 I'm performing this TR once again
+
+00:16:31.839 because I have changed an edge now let
+
+00:16:34.079 us see select the minimum one so two is
+
+00:16:37.000 minimum selected anything get modified
+
+00:16:39.480 no next minimum is this one anything get
+
+00:16:42.000 modified that's 5 + 2 is 7 modify this
+
+00:16:46.399 next minimum is this one and this is the
+
+00:16:48.759 last one shall I Rel that no it's
+
+00:16:51.160 already selected but let us check it
+
+00:16:53.279 once 7 - 10 - 3 now actually the path we
+
+00:16:58.920 found was three but now we realize that
+
+00:17:01.680 when we come along these vertices and
+
+00:17:04.640 reach here it is minus
+
+00:17:06.480 3 so we were in a hurry to select the
+
+00:17:09.280 shortest path to vertex 2 and we select
+
+00:17:11.599 it as three it was wrong if you would
+
+00:17:15.359 have tried the other way we would have
+
+00:17:17.280 got the better answer so actual correct
+
+00:17:20.959 answer is minus 3 but distra has given
+
+00:17:23.400 us the wrong answer and also ask us not
+
+00:17:26.079 to check those vertices which are
+
+00:17:27.919 already relaxed we should not check them
+
+00:17:30.559 because no need to check you will not
+
+00:17:32.400 find any better answer but here we are
+
+00:17:34.880 finding a better answer the reason is we
+
+00:17:36.880 have a Negative Edge so Dix algorithm
+
+00:17:40.679 may work or may not work in case of
+
+00:17:44.080 negative
+
+00:17:45.440 edges that's all about single Source
+
+00:17:47.640 shortest spot problem and the approach
+
+00:17:49.679 was greedy you can see you can see the
+
+00:17:51.799 greediness here that see it is not
+
+00:17:54.039 trying all possibilities and selecting
+
+00:17:56.120 the minimum one it found that this
+
+00:17:57.919 minimum selected
+
+00:18:00.360 right this what the greedy approach so
+
+00:18:02.000 greedy approach has failed here when
+
+00:18:03.720 there are negative
+
+00:18:05.120 edges all right there's another solution
+
+00:18:07.799 for this single Source shortest paath
+
+00:18:10.000 problem that is bman Ford's algorithm we
+
+00:18:12.799 will see that in dynamic
+
+00:18:14.960 programming all right so next video will
+
+00:18:18.600 be on dynamic programming these are the
+
+00:18:21.200 topics I have covered from gry method
+
+00:18:23.960 leave your comment so that I can know
+
+00:18:26.559 how you are following the videos right
+
+00:18:29.440 if any suggestion just give me I'll try
+
+00:18:32.400 to implement them in my next videos

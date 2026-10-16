@@ -1,0 +1,507 @@
+# 1. Introduction to Algorithms
+
+# https://www.youtube.com/watch/0IAPZzGSbME
+
+
+
+00:00:00.030 hello friends I'm going to start a
+
+00:00:02.460 course on algorithms and whoever messes
+
+00:00:05.850 up cake algorithm is a common subject
+
+00:00:09.360 for computer science engineering
+
+00:00:11.340 students most of the universities offer
+
+00:00:13.920 this course as a part of syllabus and
+
+00:00:16.260 this is a very cool subject and very
+
+00:00:19.289 important subject and students face some
+
+00:00:23.070 difficulties in some of the topics in
+
+00:00:24.869 this one they could not understand them
+
+00:00:26.580 very clearly so here I am going to make
+
+00:00:30.029 the subject more and more simple so that
+
+00:00:31.980 you can easily understand and even you
+
+00:00:34.140 can practice that and also remember it
+
+00:00:37.890 easily the importance of the subject is
+
+00:00:40.620 that apart from theoretical examination
+
+00:00:43.050 it is also important for competitive
+
+00:00:46.800 exams and even programming contests most
+
+00:00:50.550 of them are designed from this subject
+
+00:00:52.410 only if any programming challenge is
+
+00:00:54.239 there they mostly people come to
+
+00:00:56.309 questions from this subject so this one
+
+00:00:59.010 of the challenging subject for the
+
+00:01:00.270 student because they get a chance to
+
+00:01:02.070 solve different types of problems and
+
+00:01:04.290 they give the strategy or approach for
+
+00:01:06.840 solving the problem so some students
+
+00:01:10.710 fail to understand it properly so they
+
+00:01:13.740 could not get the approach for the
+
+00:01:15.720 strategy for solving the problems and
+
+00:01:17.670 they feel that they are lacking in the
+
+00:01:20.330 logic development or strategy
+
+00:01:22.979 development of a program so I'll be
+
+00:01:26.490 covering in depth each and everything
+
+00:01:28.290 right from the basics to the dead okay
+
+00:01:33.420 so that you will be able to answer any
+
+00:01:35.369 type of question from this forum I will
+
+00:01:39.060 cover the topics such that just you look
+
+00:01:41.790 at the question you can get asked that I
+
+00:01:46.049 guarantee you right so the thing is I
+
+00:01:50.700 will cover those points which are useful
+
+00:01:52.530 for solving the motions some job
+
+00:01:56.549 interviews or even for any other exam or
+
+00:01:59.070 some entrance exams like eight exam the
+
+00:02:01.950 cushions
+
+00:02:02.500 thing from algorithms also what is also
+
+00:02:04.570 one of the key subject there so you will
+
+00:02:08.020 be able to answer any type of question
+
+00:02:09.610 from there not all the lectures in the
+
+00:02:12.580 order I'll be giving the numbers for
+
+00:02:15.220 each topic so that you follow that order
+
+00:02:17.380 you follow the sequence because I may be
+
+00:02:19.240 breaking the major topic into small
+
+00:02:21.520 topics and one more important leanness
+
+00:02:24.850 your feedback is very important for me
+
+00:02:26.860 because alchemy I have made for you
+
+00:02:28.600 prepare few videos using presentations
+
+00:02:31.630 and other tools but now I'm giving a
+
+00:02:34.510 lecture on whiteboard so maybe i'm new
+
+00:02:37.840 for the video quality and audio quality
+
+00:02:39.880 all these things so technically once i
+
+00:02:43.120 get set up so i need your feedback so i
+
+00:02:45.580 can make my videos more and more better
+
+00:02:47.580 so your feedback is important for me to
+
+00:02:51.070 know how the video quality and other
+
+00:02:54.130 quality you are getting it on your
+
+00:02:55.630 devices because what i have checked on
+
+00:02:57.520 different devices and i found that the
+
+00:02:59.590 results are different so what because
+
+00:03:02.350 you are using what i should improve
+
+00:03:03.880 voice or what so any of your feedback
+
+00:03:07.470 let us start with just introduction what
+
+00:03:10.870 is the main part on what is the length
+
+00:03:13.330 autumn why this return when it is
+
+00:03:16.060 written who will write it let us get
+
+00:03:18.280 answers forties see algorithm as a
+
+00:03:21.730 definition it's a common definition
+
+00:03:23.200 everybody knows that it's a step by step
+
+00:03:25.090 procedure for solving a computational
+
+00:03:28.299 problem yes it is a step by step
+
+00:03:30.760 procedure for solving a computational
+
+00:03:32.320 problem then what is the program program
+
+00:03:35.799 is also establish the procedure for
+
+00:03:37.930 solving a problem then what is the
+
+00:03:41.110 difference between program and Anegada
+
+00:03:42.850 so by comparing program and Elgort or I
+
+00:03:46.360 can make you understand the importance
+
+00:03:48.070 for the meaning of a god let us take it
+
+00:04:06.200 here's an angora and here's a program
+
+00:04:11.120 let us see the first thing first
+
+00:04:13.890 difference if you know the software
+
+00:04:17.039 development lifecycle means the phases
+
+00:04:19.470 of developing a software project in the
+
+00:04:22.949 phases of development of the project
+
+00:04:24.720 there are two important phases design
+
+00:04:27.449 phase and the implementation phase if
+
+00:04:30.810 you are not aware of it let me get you
+
+00:04:32.580 whatever you want to manufacture or
+
+00:04:34.830 construct something by engineering
+
+00:04:37.800 procedures then for step one if one of
+
+00:04:41.070 the important step is designing first
+
+00:04:43.650 you know designing make your design
+
+00:04:46.259 perfect and thorough so that you can
+
+00:04:48.270 understand what you are going to
+
+00:04:49.500 construct what you are going to develop
+
+00:04:51.120 and here near sure what you are going to
+
+00:04:53.520 develop then you start the development
+
+00:04:55.580 you can't develop anything you cannot
+
+00:04:58.530 construct anything on trial and error
+
+00:05:01.139 basis like you construct there's
+
+00:05:03.570 something naughty endomorphs wrong
+
+00:05:05.160 destroyed and I get create a new one so
+
+00:05:07.979 no but it is easy easy in software
+
+00:05:10.560 engineering software engineer can write
+
+00:05:12.870 some program and change the mind delete
+
+00:05:15.330 the program and again started in over
+
+00:05:17.310 there so that's why we cannot get the
+
+00:05:20.010 feeling that we have this set amount so
+
+00:05:22.199 much amount of time in writing so
+
+00:05:23.990 useless program so the point is first
+
+00:05:27.990 you design and then you write the
+
+00:05:30.389 program so at the design time what do
+
+00:05:33.599 you use so you're not reading a program
+
+00:05:36.090 then what do you write so that same
+
+00:05:38.070 program we write it in simple English
+
+00:05:40.560 like statements that are easy to
+
+00:05:42.599 understand without using proper syntax
+
+00:05:45.090 and we may not be ready
+
+00:05:46.750 machine that is not computer remember I
+
+00:05:48.970 came on paper or even if you're using a
+
+00:05:52.720 machine also then you will not be
+
+00:05:54.490 writing in some language you can you be
+
+00:05:56.350 writing in ms word or notepad like
+
+00:05:58.690 application so just you are getting
+
+00:06:01.210 familiar how your program going to work
+
+00:06:04.210 so that's nothing but an algorithm so
+
+00:06:07.020 algorithm sorry is written at design
+
+00:06:13.390 time and when the programs are done they
+
+00:06:16.990 are internet implementation time the
+
+00:06:26.920 design time an implementation time so
+
+00:06:31.150 first you make a design what your
+
+00:06:32.980 procedures going to do what your
+
+00:06:34.720 software is going to do come up with
+
+00:06:36.580 some design and that design your program
+
+00:06:40.830 then what do you call the person who who
+
+00:06:43.870 designing whatever program where doesn't
+
+00:06:45.970 that yes if programmer is capable of
+
+00:06:48.130 doing that he can do it otherwise the
+
+00:06:50.590 person who will do this one should have
+
+00:06:53.710 the domain knowledge the problems
+
+00:06:56.860 knowledge knowledge about the
+
+00:06:58.210 problematic solution
+
+00:06:59.680 he can give a solution the one who
+
+00:07:01.840 understand the problem and has the
+
+00:07:04.390 domain knowledge
+
+00:07:05.020 suppose you are developing a software or
+
+00:07:07.000 a network come on a program for account
+
+00:07:09.550 the accountant can understand accounting
+
+00:07:12.400 better or if you are writing an
+
+00:07:14.919 application or develop an application
+
+00:07:16.750 for hospital then doctors of the
+
+00:07:20.350 administrative staff of an Hospital
+
+00:07:22.240 canvass and the system better than a
+
+00:07:24.880 programmer so mostly the one who is
+
+00:07:27.460 having a knowledge about the domain for
+
+00:07:30.130 which the application is being developed
+
+00:07:32.050 they can write on that so the person who
+
+00:07:34.780 I should have
+
+00:07:43.130 domain knowledge who would like to
+
+00:07:46.830 program program so programmers can also
+
+00:07:54.810 have the mid knowledge they can also
+
+00:07:56.550 have the mandamus that he is acting as a
+
+00:07:58.560 designer and here he is acting as a
+
+00:08:01.620 programmer thanks what is the language
+
+00:08:05.940 used for writing algorithm you can use
+
+00:08:08.850 any language any language any English
+
+00:08:15.240 language or you can use some
+
+00:08:16.979 mathematical rotations if you are ready
+
+00:08:19.919 English let language it will be like
+
+00:08:21.510 reading power or somebody but don't
+
+00:08:24.120 write if you can if you want you can use
+
+00:08:26.630 mathematical notations also expect I
+
+00:08:28.949 refuse mathematical notations so a
+
+00:08:32.370 language have you used any language
+
+00:08:33.779 means English language or some
+
+00:08:35.458 mathematical notations can be use as
+
+00:08:37.169 long as it is understandable by those
+
+00:08:39.719 people who are using it like if a
+
+00:08:43.409 designer has written an algorithm that
+
+00:08:45.150 the programmer will be right in a
+
+00:08:46.529 program fire so designers should
+
+00:08:49.110 understand and also programmers should
+
+00:08:50.700 understand that one right so the team of
+
+00:08:53.520 programmers who are working on that
+
+00:08:55.650 project should be able to understand it
+
+00:08:57.830 then this is written only using
+
+00:09:00.510 programming language like C C++ Java
+
+00:09:05.640 Python right so you can use different
+
+00:09:10.080 languages for developing a program the
+
+00:09:15.330 next one more important thing is when
+
+00:09:19.860 you write an algorithm is going to be
+
+00:09:21.870 hardware and software means operating
+
+00:09:25.589 system independent it's not dependent on
+
+00:09:28.290 hardware what's machine you are going to
+
+00:09:30.240 use what is the configuration of the
+
+00:09:32.310 she were to the operating system me that
+
+00:09:34.080 the Linux operating system or Windows
+
+00:09:36.630 operating system we don't bother about
+
+00:09:38.370 it but when you write the program it is
+
+00:09:40.920 a dependent on hardware and operating
+
+00:09:43.890 system so any other program you have to
+
+00:09:46.950 sell it some hardware I'll be showing to
+
+00:09:48.930 them and also you have to select some
+
+00:09:52.080 operating system you may be doing it for
+
+00:09:54.089 Linux or you will be need for Windows so
+
+00:09:57.210 the method will be different and the
+
+00:09:59.190 environment side-effect so is the
+
+00:10:02.130 important the next after adding an
+
+00:10:06.690 algorithm we analyze an imaginary part
+
+00:10:10.380 on means you will study them to find out
+
+00:10:13.170 are perfectly normal and our algorithm
+
+00:10:18.089 is efficient or not in terms of time and
+
+00:10:21.089 space we will see what does it mean by
+
+00:10:22.830 now and access so we will analyze an
+
+00:10:29.820 airport what do we do with the program
+
+00:10:33.270 so you don't have to study the program
+
+00:10:35.490 already program is there just run it and
+
+00:10:38.130 check it so we don't
+
+00:10:41.990 testing testing of the programs that's
+
+00:10:47.400 it these are few differences between
+
+00:10:51.020 algorithm and program these differences
+
+00:10:54.360 will be help you understand what our
+
+00:10:56.339 algorithms alright now one more thing I
+
+00:11:02.220 will tell you the syntax of the language
+
+00:11:03.720 that we use any language can be use but
+
+00:11:07.170 who actually write algorithms and who
+
+00:11:09.930 use them and who write the programs of
+
+00:11:12.360 programmers who are coming from
+
+00:11:13.710 university graduates mostly Union City
+
+00:11:17.610 graduate knows at least C language so
+
+00:11:20.910 note is mostly in the name of algorithm
+
+00:11:23.459 we write C language program only so the
+
+00:11:26.760 benefit is better and what is that
+
+00:11:28.350 everybody knows C language now so
+
+00:11:30.930 instead of reading some other language
+
+00:11:32.700 to confuse we can use C language movie
+
+00:11:36.510 so that everybody can understand so even
+
+00:11:39.450 at a school level C language is being
+
+00:11:41.100 taught so everybody
+
+00:11:42.320 so emergency language so I don't using C
+
+00:11:45.410 language syntax for it in algorithms

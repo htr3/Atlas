@@ -1,0 +1,425 @@
+# tactiq.io free youtube transcript
+# Distributed Consensus and Data Replication strategies on the server
+# https://www.youtube.com/watch/GeGxgmPTe4c
+
+00:00:00.030 everyone this is GK CS today we are
+00:00:02.700 talking about the master/slave
+00:00:03.750 architecture and what I'm going to be
+00:00:05.370 doing is talking about a scenario which
+00:00:08.099 ends up with us using the master/slave
+00:00:11.370 architecture to solve the problem right
+00:00:13.170 and this is the problem the problem is
+00:00:14.519 that we have four cell phones as you can
+00:00:16.230 see and you have a load balancer which
+00:00:18.270 is going to be redirecting these
+00:00:19.740 requests from the cell phones to our
+00:00:21.689 servers now this is a very common
+00:00:24.060 diagram so to speak in interviews that
+00:00:25.800 people draw a lots of servers but they
+00:00:27.930 have just one database so whenever you
+00:00:30.570 see a single thing like this load
+00:00:32.308 balancer or this database the first
+00:00:34.200 thing that should strike you is that
+00:00:35.579 this is a single point of failure so
+00:00:37.620 when you're seeing a database it can
+00:00:39.480 crash now if it does crash then your
+00:00:42.719 business stops because everything all
+00:00:45.000 the requests depend on data in the
+00:00:46.950 service which is being pulled from the
+00:00:48.629 databases basically so to avoid that
+00:00:51.059 kind of a problem there's many things
+00:00:52.590 you can do but the simplest solution so
+00:00:55.320 to speak is just to replicate the data
+00:00:57.840 that you have in that database and store
+00:00:59.730 it somewhere else right just have a copy
+00:01:01.410 so that's what we are going to do we are
+00:01:03.270 just going to make a copy
+00:01:05.850 this copy is preferably stored in some
+00:01:09.190 other hardware component yeah because if
+00:01:11.799 that Hardware crashes then you shouldn't
+00:01:14.830 have the copy also crashing so I'm
+00:01:16.000 assuming that since some other raid card
+00:01:20.060 now that you have this copy how are you
+00:01:21.950 going to pull data from this original
+00:01:23.360 database this two ways mainly
+00:01:25.780 synchronously or asynchronously if it is
+00:01:29.930 asynchronously the good thing is there's
+00:01:31.909 not too much load on the database over
+00:01:33.530 here you know there's not somebody
+00:01:34.940 continuously asking for an update every
+00:01:37.369 time there is an update on the original
+00:01:38.750 database so that's one advantage one
+00:01:40.909 disadvantage of that is it's going to be
+00:01:43.190 out of sync yeah that's what
+00:01:44.330 asynchronously means so if there is a
+00:01:46.580 transaction let's say in the original
+00:01:47.840 one in this database it may not reflect
+00:01:49.970 in this one before it crashes so in that
+00:01:53.960 case you're going to have some sort of
+00:01:55.009 inconsistent data but maybe that's okay
+00:01:58.369 maybe you can do you can deal with that
+00:02:00.710 so a synchronous is good for you if you
+00:02:02.479 can't then you're looking for something
+00:02:04.130 called synchronous copies the thing with
+00:02:07.220 synchronous copies is you know there's
+00:02:08.869 no such thing as a synchronous copy so
+00:02:10.220 to speak unless it's enforced by human
+00:02:12.350 beings through code what's going to
+00:02:14.030 happen is whenever this is update on the
+00:02:16.160 original database it's going to be
+00:02:17.780 sending a message to this guy over here
+00:02:20.180 that hey I got an update and in your
+00:02:23.090 transaction log you can make this change
+00:02:25.220 you can add this command so for example
+00:02:28.220 ad 102 user ID 1 is a command that the
+00:02:32.540 master got yeah
+00:02:33.680 finally we're getting to the technical
+00:02:35.180 terms this is the master and this is the
+00:02:38.480 slave you can probably guess the kind of
+00:02:40.250 roles that they have
+00:02:42.709 so the master gets the command and it
+00:02:46.040 sends it to the slave to be copied so
+00:02:48.739 all the slave needs at any point of time
+00:02:50.150 is a command and it can just read on
+00:02:52.219 this command to have the same consistent
+00:02:54.200 state as the master because all the
+00:02:55.459 commands are the same and in the same
+00:02:56.780 serial order that's an assumption that
+00:02:58.609 I'm making here here's an interesting
+00:03:00.500 thought what if one of the server's
+00:03:03.200 wants to update this slave so s3 sends
+00:03:06.439 an update command to the slave I'm going
+00:03:08.450 to be adding 200 rupees to user ID 2 if
+00:03:12.620 this is the case the slave needs a way
+00:03:15.200 to tell the master that there's a change
+00:03:17.180 and that has to be propagated upwards
+00:03:19.459 there's 2 ways to solve this problem and
+00:03:21.620 the first way is to just ignore the
+00:03:23.239 problem or to just never let the problem
+00:03:25.310 happen so the way you can do that is to
+00:03:28.159 never allow write operations to come
+00:03:29.870 over here yes so this operation is
+00:03:32.599 impossible the slave never gets any
+00:03:34.370 write operations it just copies data the
+00:03:36.650 second thing you can do is actually
+00:03:38.689 allow this allow that add 200 to user ID
+00:03:41.419 2 and propagate this to the master in
+00:03:44.450 this case the slave has actually taken
+00:03:46.729 over the role of the master and it's no
+00:03:49.370 longer a master slave relation but it's
+00:03:51.919 a peer-to-peer relation in which case
+00:03:53.359 both of them are masters
+00:03:56.900 the key point here is that the master is
+00:03:59.150 the only person who can take write
+00:04:00.680 operations so any any database copy
+00:04:03.140 which is taking in write operations is a
+00:04:05.209 master so over here we have a master
+00:04:07.099 master architecture now in a master
+00:04:09.200 master architecture what's going to
+00:04:10.190 happen is you will have some propagation
+00:04:11.959 like we said so there's going to be back
+00:04:14.930 and forth between the two nodes now this
+00:04:18.079 seems really nice it feels like these
+00:04:20.269 two databases are equal and you know
+00:04:22.790 there's write operations happening on
+00:04:24.020 both of them so there is some load
+00:04:25.130 balancing on the write operations also
+00:04:26.990 and the best thing about this feels that
+00:04:29.870 you know what happens if this database
+00:04:31.940 crashes no problem everyone can redirect
+00:04:34.729 their requests to this database and if
+00:04:38.030 this one crashes then of course they can
+00:04:39.410 do vice versa and so it seems like a
+00:04:41.389 very resilient and strong system however
+00:04:44.540 there's a problem and the problem is in
+00:04:47.510 a distributed system nothing is sure
+00:04:49.760 because of the network partition thing
+00:04:51.260 now because of communication can fail so
+00:04:53.960 if a and B are both masters and they
+00:04:59.090 talk to each other and they make sure
+00:05:00.229 that they are in sync if B fails our
+00:05:03.229 assumption is that a will take up the
+00:05:05.270 role of the entire database right
+00:05:08.169 what happens if B has not failed but the
+00:05:12.590 router between them has failed yeah they
+00:05:14.900 were sending a message this router had
+00:05:17.270 some issue so now they are unable to
+00:05:19.070 send messages to each other in this case
+00:05:21.889 a assumes that I am the master I know
+00:05:24.530 everything about the world so I'm going
+00:05:26.479 to be accepting read and write
+00:05:27.530 operations and that's ok and that's
+00:05:31.280 exactly what B also assumes you know B
+00:05:33.139 thinks that I'm the master I'm going to
+00:05:34.789 be taking read and write operations and
+00:05:36.169 you know what's going to happen over
+00:05:37.669 here if user user X sends a message to
+00:05:42.020 deduct 100 rupees from their account and
+00:05:45.020 then they send on the message over here
+00:05:46.729 to deduct 50 rupees from their account
+00:05:48.800 and let's assume that they have a
+00:05:50.150 balance of 120 so in a balance of 120
+00:05:53.330 they actually deducted 150 so they
+00:05:58.430 actually went into the negative balance
+00:05:59.599 this problem is called the split-brain
+00:06:02.030 problem yeah when you split your brain
+00:06:07.320 interestingly the split-brain problem
+00:06:09.460 can be solved by adding a third node to
+00:06:12.280 the original architecture so a and B had
+00:06:14.440 problems with the split-brain if you add
+00:06:16.660 in C then you can solve the problem so
+00:06:19.480 to speak it's just that it's based on
+00:06:21.580 assumption and the assumption is this
+00:06:23.560 that the chance of a node crashing and
+00:06:26.980 the router between the other two nodes
+00:06:28.660 crashing is highly highly unlikely so
+00:06:30.400 we're going to assume it never happens
+00:06:32.490 so what could possibly happen if C
+00:06:35.860 crashes then a and B are masters and
+00:06:38.500 they're staying in sync
+00:06:40.090 they're sending messages to each other
+00:06:41.290 and making sure that the world is in a
+00:06:43.180 consistent state for the two of them so
+00:06:44.590 that's fine and when she comes back up
+00:06:46.180 they can read from a or B when the link
+00:06:50.470 between a and B goes down which is the
+00:06:53.440 basis of the split-brain problem what
+00:06:55.570 happens it gets a write request so that
+00:06:59.470 sends the state of a into let's say X it
+00:07:04.990 propagates this state to see it tries to
+00:07:07.570 propagate this see state to B but it's
+00:07:10.540 not it's not allowed so initially the
+00:07:12.610 state is s 0 is 0 and s0 it moves to
+00:07:15.820 state X so now the state is SX and over
+00:07:19.180 here the state has moved to SX be hits
+00:07:22.960 the write operation its move state moves
+00:07:25.060 to sy it tries to propagate this state
+00:07:28.030 to C but that doesn't happen the reason
+00:07:31.300 it doesn't happen is because C says
+00:07:33.580 what's your previous state so from s 0 8
+00:07:36.580 9 / sy C see is that this is this is not
+00:07:40.450 the same state as I am in which is SX
+00:07:42.730 and what it can say is maybe you need to
+00:07:45.040 update your state you need to update
+00:07:46.450 your state to this and then you can have
+00:07:48.730 a successful transaction so then these
+00:07:50.950 transaction can fail and instead of
+00:07:53.380 moving to sy it rolls it back it's a
+00:07:55.090 rollback on the transaction and it syncs
+00:07:57.580 up with SX right and at this point what
+00:08:01.630 can happen is the user is fine the
+00:08:03.610 transaction did not go through so that's
+00:08:05.410 expected and they can send the request
+00:08:07.510 again with the new state sx b can then
+00:08:10.600 run the transaction reach a state sy ask
+00:08:13.540 C to go there and now a when it gets a
+00:08:18.370 new transaction let's say sending it to
+00:08:20.080 SZ
+00:08:20.710 can have the same procedure with it
+00:08:22.000 there's lots of interesting scenarios
+00:08:23.830 here of course what happens with B sends
+00:08:25.300 a request to C to update itself and it
+00:08:27.310 crashes with the with a new estate well
+00:08:29.320 it can't have this state permanently
+00:08:31.660 because it's a transaction it can roll
+00:08:33.070 it back before it's committed so only
+00:08:35.830 after all other nodes have actually
+00:08:39.039 committed the transaction can you call
+00:08:41.080 this to be the state of this node so
+00:08:42.940 I've just used it for representational
+00:08:44.470 purposes the other thing you can think
+00:08:46.270 here is that a can never make a
+00:08:47.950 transaction which doesn't have the
+00:08:49.839 updated state from B also because that
+00:08:51.640 is being propagated by C and we are
+00:08:53.140 assuming that either one router or one
+00:08:55.630 node fails you know two things don't
+00:08:56.980 happen at the same time as you can see
+00:08:58.959 this is heading into the land of
+00:09:00.790 distributed consensus and I'll be
+00:09:03.730 speaking on this when you guys vote for
+00:09:06.520 this topic so take your time and there's
+00:09:08.649 other topics also but yeah we can speak
+00:09:10.660 on this when you like dispute consensus
+00:09:12.910 is a way in which multiple nodes agree
+00:09:16.480 on a particular value and that's what's
+00:09:18.520 happening over here B a and C are
+00:09:20.260 agreeing at the final state which is sy
+00:09:23.490 right and there's many protocols you
+00:09:26.830 have for distribution census I have
+00:09:28.900 tried to simplify it over here there's
+00:09:30.880 if you have lots of nodes then 2pc is a
+00:09:33.250 very popular protocol although there's
+00:09:35.470 some serious drawbacks here that it's
+00:09:37.180 really slow two-phase commit you can
+00:09:39.130 read up on that this three phase commit
+00:09:41.740 one interesting protocol which I really
+00:09:44.260 like is MVCC which is multi-version
+00:09:47.290 concurrency control it's a long name but
+00:09:49.240 it's used by post grace the good thing
+00:09:51.970 about MVCC is that as you can see multi
+00:09:54.279 version that means that it keeps
+00:09:55.839 multiple versions of the same data so if
+00:09:59.020 I send multiple update commands on the
+00:10:00.820 same data it keeps multiple copies yeah
+00:10:03.190 the reason for this is that depending on
+00:10:05.650 your requirement it behaves in a certain
+00:10:08.170 way so if you are okay with dirty reads
+00:10:10.270 then it's going to keep our older
+00:10:11.500 version of the data and someone can go
+00:10:12.670 and read it but if you say that no I
+00:10:14.650 want really nice serializable reads no
+00:10:16.390 phantom reads and all that then it's
+00:10:18.040 going to of course make it slower but
+00:10:20.260 it's going to ensure that that data is
+00:10:21.670 consistent with everything else okay it
+00:10:24.220 might be heavy to understand so but have
+00:10:27.130 a look at MVCC it's a really nice way to
+00:10:29.850 get some sort of lock on the data
+00:10:32.920 another interesting
+00:10:34.940 protocol used by Microsoft for the game
+00:10:37.730 halo is saga yeah this is saga as you
+00:10:41.780 can think of is a long transaction so
+00:10:44.660 it's like a long story I'll give you a
+00:10:47.060 few examples on saga let's say you have
+00:10:49.490 a food ordering app and a person makes
+00:10:51.680 an order now the restaurant has not
+00:10:53.210 actually agreed on that order so the
+00:10:55.970 transaction is not really complete so to
+00:10:57.800 speak
+00:10:58.670 they may not have been drawn the funds
+00:11:00.350 what they want to do is lock your funds
+00:11:02.690 so if you have made a order for 200
+00:11:04.550 rupees they go to your bank and say look
+00:11:06.950 these 200 rupees from my customer until
+00:11:10.520 I get a confirmation I'm actually not
+00:11:11.870 going to withdraw this money if the
+00:11:14.000 transaction fails then I'm going to just
+00:11:16.010 keep the money you know you don't need
+00:11:17.600 to go through the whole transaction
+00:11:18.590 process and settlements at the end of
+00:11:20.330 the day and everything this is one use
+00:11:22.430 case the second use case is if you have
+00:11:25.130 a phone app right and a person makes a
+00:11:28.250 call so you need to charge the person
+00:11:29.750 but the thing is it might last for 30
+00:11:32.030 minutes so you can break it into smaller
+00:11:34.190 transactions of one minute each in which
+00:11:36.590 you are you're not going to charge the
+00:11:38.030 customer but you're going to lock funds
+00:11:39.830 every minute a little more and a little
+00:11:41.480 more and at the end of the thing you're
+00:11:43.130 going to decide whether the caller's a
+00:11:44.330 failure or a success and based on that
+00:11:45.950 you're going to charge the customer okay
+00:11:48.680 so that's a really long transaction
+00:11:51.920 which at any point can fail and you may
+00:11:54.260 need to roll it back okay interesting
+00:11:56.930 concept we will be talking about that
+00:11:58.430 when we do get to distribute consensus I
+00:12:00.860 think I'm really pushing very hard for
+00:12:02.420 this topic now now enough of all the
+00:12:04.790 negative things that we can think about
+00:12:05.930 in the master/slave architecture why
+00:12:08.450 would you ever go for this kind of an
+00:12:09.890 architecture the first reason is that
+00:12:11.990 you have this nice replica of the data
+00:12:14.420 so that's back up the second thing is
+00:12:16.880 that you can scale out your read
+00:12:19.040 operations so if you have to do some
+00:12:21.560 sort of analytics you don't really care
+00:12:23.060 about real-time so much you can keep
+00:12:25.070 pulling data from the master to the
+00:12:27.050 slave and then you can run some sort of
+00:12:29.210 an analytics engine through the data
+00:12:30.560 another good thing over here is that you
+00:12:32.660 can add many slaves you can add maybe
+00:12:34.820 ten slaves 20 slaves and just do read
+00:12:37.730 operations on all of them so if your
+00:12:39.500 data is not critical let's say Facebook
+00:12:41.030 you know you are adding a comment it
+00:12:42.590 doesn't really matter if it doesn't
+00:12:43.970 reflect immediately I mean it reflects
+00:12:45.650 on the master but the slaves will take
+00:12:47.300 some time to
+00:12:48.050 get that data you can make video
+00:12:49.910 operations on the slaves and basically
+00:12:52.610 scale out based on how many slaves you
+00:12:55.790 add to that one master and the final
+00:12:58.399 thing you can do to mitigate this
+00:12:59.420 problem is to use a concept called
+00:13:01.940 sharding there's a video I made on that
+00:13:03.680 you can check it out through sharding
+00:13:05.240 what you are doing is you're breaking
+00:13:06.829 down your responsibilities to particular
+00:13:08.899 nodes so a is going to be handling users
+00:13:11.480 from 0 to 100 B is going to be handling
+00:13:13.700 users from 100 to 200 C is going to be
+00:13:15.980 handling users from 200 to all the way
+00:13:18.890 around to 0 so it goes up to 300 and
+00:13:20.990 then basically hits zero what are you
+00:13:22.880 effectively doing is you're reducing the
+00:13:24.529 range of the damage that you can have if
+00:13:26.120 one of the nodes fail so if node C fails
+00:13:29.180 then all the users between 200 and 300
+00:13:31.430 are affected to mitigate that we can
+00:13:33.740 actually have a slave over here which
+00:13:35.209 will take up the role of a master when C
+00:13:37.610 crashes so you have some sort of
+00:13:39.200 coordinator over here when C crashes it
+00:13:41.360 points to C slip which becomes the new
+00:13:43.700 master and then you can try to bring
+00:13:45.200 this node back up or add another node
+00:13:46.730 depending on what the requirement is but
+00:13:49.480 what you have done effectively is using
+00:13:52.490 some sort of a - PC protocol you can
+00:13:54.980 make sure that these two are in sync
+00:13:56.690 with each other always and if there is
+00:13:58.550 one node failure your system will still
+00:14:01.339 work fine so as you can see there's lots
+00:14:03.920 of algorithms and a lot of thinking
+00:14:06.200 which goes behind making these systems
+00:14:07.760 reliable scalable and everything else if
+00:14:10.579 you are looking for system design for
+00:14:12.589 your interviews you are probably also
+00:14:13.910 looking for a refresher course on your
+00:14:15.920 algorithms and here's the point when I
+00:14:18.050 actually place a product on my video
+00:14:20.149 this is algo expert it's actually
+00:14:23.089 extremely good more than anything if you
+00:14:25.490 are looking for a slightly senior role
+00:14:27.589 but also have some sort of algorithms to
+00:14:29.120 answer this is a really good product I
+00:14:31.370 actually went through the questions that
+00:14:33.020 they have there 65 hand-picked ones and
+00:14:34.790 they also have lots of explanations for
+00:14:37.130 each of these questions which includes
+00:14:38.930 the coding and the white board
+00:14:41.209 explanations the price for this is 65
+00:14:44.149 dollars either once or $20 a month so it
+00:14:47.959 depends on how much you can cram in but
+00:14:49.279 my suggestion would be if you do have
+00:14:51.350 some cash then go for the $65 option oh
+00:14:53.630 yeah by the ways it's not 65 if you are
+00:14:56.570 going through this channel because you
+00:14:58.670 will be getting 30% off
+00:15:01.350 so that turns out to be forty five point
+00:15:02.820 five USD that's a discounted price you
+00:15:05.460 get if you use the promo code god of so
+00:15:11.040 there's a link in the description below
+00:15:12.240 of course explaining the the pricing and
+00:15:14.880 everything else about algo export the
+00:15:17.430 main thing I want to say is that I
+00:15:18.540 really like this site that's it on the
+00:15:20.910 master/slave architecture I'm sure you
+00:15:22.950 have lots of doubts and suggestions so
+00:15:24.360 you can leave them in the comments below
+00:15:25.470 I'll answer as many as I can I take a
+00:15:27.930 poll every week for what do you want to
+00:15:30.270 see next so I'll be putting that in the
+00:15:32.700 community tab and you can vote for what
+00:15:34.350 you want to see next as the video of
+00:15:35.820 course if you like this video then hit
+00:15:37.680 the like button and if you want
+00:15:38.790 notifications for further videos hit the
+00:15:40.920 subscribe button I'll see you next time

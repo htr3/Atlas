@@ -1,0 +1,162 @@
+# tactiq.io free youtube transcript
+# Grundy Numbers - Combinatorial Game Theory - I
+# https://www.youtube.com/watch/MboYbpE76js
+
+00:00:02.060 Hi everyone, this is gkcs!
+00:00:03.060 We are going to be talking about CombinatorialGame Theory today.
+00:00:07.859 So, the games that we are going to be focusingon are impartial games.
+00:00:11.940 You have games like chess or tic tac toe.
+00:00:16.170 And those games are partial, so they are morefun to play with in a way.
+00:00:19.460 Because you have, in chess, you have pieceswhich are specific to you.
+00:00:22.880 So you can't move your opponents pieces.
+00:00:25.089 Similarly in tic tac toe, you have symbolswhich are specific to yourself.
+00:00:29.820 You can't use your opponent's symbol overhere to make your own streak.
+00:00:34.600 You can't of course, use your opponent's symbol.
+00:00:37.610 This looks ridiculous, but that's what a partialgame is.
+00:00:42.580 You can't use anything specific to your opponentbecause all the game states have everything
+00:00:47.050 generic.
+00:00:48.050 The most common example of an impartial game,let's write that down, is the game of Nim.
+00:01:01.760 So Nim has these piles of coins, and you haveN piles of stones or coins or anything that
+00:01:09.539 you like.
+00:01:12.080 And you have to take out zero, no zero isnot allowed in fact.
+00:01:14.233 You have to take out one or equal to one coinfrom a specific pile.
+00:01:22.750 So you come across these piles.
+00:01:26.470 And lets say these have A1, A2 and A3 coins.
+00:01:31.149 And you choose a pile first, so lets say youchoose A2.
+00:01:33.570 And then you can take out one or more thanone coins from this pile.
+00:01:38.520 And the objective of the game is that youtake away the last coin from all the piles.
+00:01:44.590 No. not exactly.
+00:01:46.090 'You take away all possibilities of your opponent'is the objective of the game.
+00:01:52.869 So you have these three piles and essentiallyyou reach a state where two of the piles need
+00:01:58.399 to be zero.
+00:01:59.399 And one the piles needs to be non-zero.
+00:02:02.569 So that if you take out all the coins andgive your opponent this state, in which they
+00:02:07.319 can make no moves and lose.
+00:02:08.330 So that is the objective of the game of Nim.
+00:02:12.400 And the reason why I am stressing on impartialityis because the theory that we are going to
+00:02:17.935 be talking about is very specific to onlythese impartial games.
+00:02:21.920 Alright, so let's start!
+00:02:22.920 The first operation that we need to know aboutis called 'Minimum Excludant'.
+00:02:29.730 MEX is the short form for it, and it standsfor 'Minimum Excludant'.
+00:02:43.120 This is an operation that you need to performon a set.
+00:02:46.650 So you have a set of numbers, which are non-negativeand if you perform this operation on this
+00:02:59.110 set, you get a single number.
+00:03:02.090 You get the smallest number which does notexist in this set.
+00:03:05.489 So 0, 1 exist, those integers exist.
+00:03:08.569 And two does not.
+00:03:10.610 So this is the smallest number which doesnot exist in the set.
+00:03:14.650 The reason why you might want to use thisis because this tells you...
+00:03:19.189 S gives you the set of moves that you canplay.
+00:03:27.099 MEX tells you the smallest move, the firstmove that you can never play.
+00:03:32.170 That might be useful information to have.
+00:03:34.260 And so that is the operation we will keepin mind.
+00:03:37.230 Using this very operation we can calculatesomething called Grundy Numbers.
+00:03:43.109 Grundy Numbers are core to impartial games.
+00:03:47.390 A Grundy Number defines the entire game state.
+00:03:51.130 If you have a board or if you have a pileof coins, N piles of coins with different
+00:03:55.489 coins in each one, a single Grundy Numbercan define the entire game state.
+00:04:01.290 Even impartial game has this Grundy Number.
+00:04:04.090 The way to calculate it is, you take the minimumexcludant
+00:04:20.209 of your set.
+00:04:24.139 If your set is empty, thats the base condition.
+00:04:35.670 Then MEX(0) is equal to zero.
+00:04:38.370 MEX({ }) is zero.
+00:04:44.450 And MEX of anything else is equal to the waythat we have defined above.
+00:04:46.660 You take the numbers, you take the next numberwhich comes up and that's what you give out.
+00:04:53.840 MEX(S) over here is 2.
+00:04:55.860 Alright?
+00:04:56.860 Let's just go through a quick example.
+00:04:59.970 You have this MEX operation that you knowabout.
+00:05:02.310 And Grundy is MEX of a set of moves that wecan play.
+00:05:07.440 Lets say you have a pile of 10 coins, andthe only kinds of moves that you can make
+00:05:15.330 is: either take one or two or three coins.
+00:05:20.190 So these are the number of coins you can take.
+00:05:22.590 And the termination condition is if you haveno more coins to take, if you have no move
+00:05:26.490 possible, then you lose the game.
+00:05:28.120 So 0 is losing.
+00:05:31.080 So, you need to play optimally from 10 coinssuch that your opponent loses.
+00:05:35.435 So Grundy(10) is what we are looking at.
+00:05:37.900 And that is defined by MEX of all possiblestates that you can have from this state.
+00:05:50.949 So you might think that this is 9,8 and 7.
+00:05:55.100 Because those are the positions that you cango to.
+00:05:56.810 But that won't define the game states, thatwould define just numbers.
+00:06:02.560 What you really need is game states.
+00:06:05.550 So this is incorrect.
+00:06:08.180 What we have instead is Grundy(9), Grundy(8),Grundy(7).
+00:06:15.040 So what you are seeing is that this functionis recursive in nature.
+00:06:29.169 Grundy(9) in turn will call 8, 7 and 6.
+00:06:33.050 And so on and so forth.
+00:06:34.730 You know what?
+00:06:35.730 I am just going to simplify this a littlebit.
+00:06:36.730 I am going to keep at Grundy(5)...
+00:06:39.169 Yeah, 5 seems to be good.
+00:06:45.550 And here we will have then 5, 4 and 3.
+00:06:52.720 So lets pick the scenario where there is Grundy(3).
+00:06:56.480 Which is MEX of Grundy(2), Grundy(1) and Grundy(0).
+00:07:07.460 Grundy(0) is losing.
+00:07:10.530 So that is zero.
+00:07:12.030 You have no more moves to play when you havejust 0 coins remaining.
+00:07:15.650 So this is 0.
+00:07:19.280 Grundy(1)... what could that be?
+00:07:26.570 Well, you could move to state 0.
+00:07:30.100 You have just one coin.
+00:07:31.340 In fact, you have just one choice.
+00:07:33.530 So if you have one coin you have to take itand then you move to this state which is losing
+00:07:39.530 for the other player.
+00:07:41.050 So 0 is in your set, the next number whichis missing from you set is 1.
+00:07:46.229 So this is 1.
+00:07:48.110 Grundy(2) on the other hand, if you have twocoins, you can either go to 1 or you can go
+00:07:59.750 to 0.
+00:08:00.860 So you can either go to 1 or 0.
+00:08:06.759 This is your set.
+00:08:11.229 You can of course do grundy over here also.
+00:08:14.490 Grundy(0) is 0 and Grundy(1) is one.
+00:08:17.240 But you don't need to do that, because theseare the base conditions.
+00:08:25.610 MEX of this is equal to 2.
+00:08:29.560 So thats what Grundy(2) is.
+00:08:32.280 Its 2.
+00:08:33.530 Alright, and we have Grundy(3) giving us : betweenzero one and two, we need to take the MEX.
+00:08:41.130 So MEX of this is 3.
+00:08:43.990 Grundy(3) gives us 3.
+00:08:47.760 Lets replace that.
+00:08:52.860 Similarly Grundy(4) is going to give us MEXof Grundy(3), Grundy(2) and Grundy(1).
+00:09:04.250 We know Grundy(1) is 1.
+00:09:07.550 And Grundy(2) is 2.
+00:09:10.200 And Grundy(3) is 3.
+00:09:11.490 So, they become 3, 2 and 1.
+00:09:16.110 Now, interestingly, it might seem like theMEX is now 4.
+00:09:22.089 But we have missed the integer 0.
+00:09:25.040 So the smallest number which does not existin this set is 0 now.
+00:09:29.600 Great, so Grundy(4) turns out to be surprisingly0.
+00:09:34.540 And this makes logical sense.
+00:09:35.880 Because if you have 4 coins, there is nothingyou can do apart from losing.
+00:09:41.600 If you take out one coin, you reach 3, youropponent takes out 3 coins.
+00:09:43.529 If you take out 2 coins, 2 coins are remaining.
+00:09:46.470 Your opponent takes those.
+00:09:48.120 And if you take out all 3, there is just onecoin remaining and your opponent takes that
+00:09:51.460 out to put you in the losing state.
+00:09:53.670 So you should be at 0, and that's what weare seeing over here, in the theory.
+00:10:02.390 Alright, Grundy(5) gives us Grundy(4), Grundy(3)and Grundy(2).
+00:10:07.830 We need to take the MEX of these three.
+00:10:10.779 So Grundy(2) we know is equal to 2.
+00:10:14.750 Grundy(3) is equal to 3.
+00:10:18.240 And Grundy(4) surprisingly is 0.
+00:10:22.040 So 0, 3 and 2 are your numbers in the set.
+00:10:27.250 What we get from this is that 1 is missing.
+00:10:29.910 Because we are taking the MEX operation.
+00:10:31.019 So, Grundy(5) turns out to be 1.
+00:10:34.480 Oh!
+00:10:35.480 Well, I think I have found out the Grundy(5)....
+00:10:40.900 Ah well, we are in luck!
+00:10:45.930 We are going to be using 6 coins then.
+00:10:51.020 But you see how to calculate this.
+00:10:56.030 Grundy(6) now is equal to the MEX of 0, 1and 3.
+00:11:04.560 So that is 2.
+00:11:09.529 So Grundy(6) turns out to be 2.
+00:11:10.529 And this is just the basic theory.
+00:11:13.829 Using this, we are actually going to be solvingNim games.
+00:11:15.800 And this is just the basic theory about impartialgames.
+00:11:20.230 I am sorry there is no practical implementationyet, but that will be very soon in the very
+00:11:23.500 next video.
+00:11:24.500 So hang on!
+00:11:25.500 Its coming soon!

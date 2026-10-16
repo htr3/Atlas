@@ -1,0 +1,201 @@
+# No title found
+
+# https://www.youtube.com/watch/5v-tKX2uRAk
+
+
+
+00:00:00.170 he returned those classes of functions
+
+00:00:03.030 in the increasing order of their weight
+
+00:00:05.370 each this means God and this always less
+
+00:00:10.980 than n log N and that's always less than
+
+00:00:13.620 n square or Laura's Locker is less than
+
+00:00:16.500 root n as well as and naturally it's
+
+00:00:19.080 less than all of them
+
+00:00:20.310 so n poetry that goes on in port 4 or 5
+
+00:00:24.600 or up 200 also that is less than 2 power
+
+00:00:27.869 N and the water is less than T for him
+
+00:00:30.750 so that's how they are written in the
+
+00:00:32.279 increasing order of derivative now to
+
+00:00:35.219 prove that I will take few terms from
+
+00:00:37.620 this one few tight classes runs from let
+
+00:00:39.840 us say log n N and square to BA in Paris
+
+00:00:48.300 France if I take n value as one long one
+
+00:00:53.039 will be 0 and this will be 1 and this
+
+00:00:56.280 will be 2 2 4 1 is true if I take this
+
+00:01:02.160 as true the log to base 2 is 1 this is 1
+
+00:01:07.530 and this is 4 and this is also fool if I
+
+00:01:13.380 take n value is 8 then this is 3 and if
+
+00:01:24.689 I take my word for then this will be 16
+
+00:01:27.869 and the password is also 16 and this is
+
+00:01:31.200 true if I take n value as 8 this will be
+
+00:01:37.320 3 and this will be 64 and this is 2
+
+00:01:41.700 power 8 that is 256 so you can see that
+
+00:01:45.060 is a sudden change see I have taken 8
+
+00:01:48.320 so there's a slower growth and it's a
+
+00:01:50.360 very faster go to the money so that's
+
+00:01:54.050 true poor hand and you can see that nori
+
+00:01:56.720 sheet go on putting the values this is
+
+00:01:58.520 less than this one and this is less than
+
+00:02:00.229 this one doesn't let them visible but if
+
+00:02:03.320 you observe this up to here up to here
+
+00:02:06.320 these two values are equal and here also
+
+00:02:09.229 this rural values name equal right and
+
+00:02:11.870 this time it was delayed again this
+
+00:02:14.690 greater so sometimes it was less or
+
+00:02:16.970 greater or equal whatever it may be but
+
+00:02:19.310 from this point onwards we can't
+
+00:02:21.290 guarantee that - poor hand will be
+
+00:02:23.450 moving with a faster speed right so if I
+
+00:02:29.750 gave you nine here that some law of nine
+
+00:02:32.900 maybe I may be getting 3.1 something but
+
+00:02:35.660 here 81 and this will be 512 - 4 - 5
+
+00:02:40.580 further right so around 20 values around
+
+00:02:46.760 16 or 15 is added here so that much
+
+00:02:49.010 increase but that there you can see that
+
+00:02:52.070 there's a bigger change in the value
+
+00:02:54.080 it's a double indicator okay so obvious
+
+00:02:58.430 - Warren is greater and above that is
+
+00:03:00.650 greater than that is three more n and
+
+00:03:02.540 the highest is to go and border so from
+
+00:03:05.180 this we can say that for some levels of
+
+00:03:07.489 n this is smaller than this one or this
+
+00:03:10.040 is greater than this one so they are
+
+00:03:11.750 arranged in the order okay so even if
+
+00:03:15.560 you have n per hundred that's also less
+
+00:03:19.010 than beforehand you write anything to
+
+00:03:22.610 the power of n power key key can be
+
+00:03:25.430 anything the value that you can imagine
+
+00:03:27.170 you can write of that and that's going
+
+00:03:29.420 to be
+
+00:03:30.040 than before how come C n means don't
+
+00:03:34.299 assume the values of n very small that
+
+00:03:36.760 is starting from one or two or ten
+
+00:03:38.760 usually n means we imagine it as ten not
+
+00:03:41.890 fail you like that you know and can be
+
+00:03:44.109 any number
+
+00:03:44.890 so n can be 0 to infinity right so for
+
+00:03:49.359 large values of n at some point n power
+
+00:03:53.739 100 will be smaller than 2 power and
+
+00:03:58.299 from that point onwards to power n will
+
+00:04:01.060 be always greater so definitely some
+
+00:04:03.549 starting value of n for which that will
+
+00:04:05.319 be dead weight on the graph for n
+
+00:04:08.470 suppose this is log in this line is
+
+00:04:11.590 showing N and this line is showing n
+
+00:04:14.260 square so this is log N and this is n
+
+00:04:16.988 this is showing and square and this is
+
+00:04:19.539 showing and Q then this will show the
+
+00:04:22.810 war end to say pretends to power n so
+
+00:04:27.910 initially the value of the poem may be
+
+00:04:29.710 smaller than certainly it will have a
+
+00:04:31.509 higher rate of increase right so it's
+
+00:04:38.199 not the power force in x and y values so
+
+00:04:40.900 just n values I have it doesn't have to
+
+00:04:42.729 run some lines here okay so representing
+
+00:04:47.050 this is the smaller than this one so
+
+00:04:48.580 this is smaller than this one is greater
+
+00:04:50.050 than this it isn't it so make that good
+
+00:04:51.909 power is greater so initially may be
+
+00:04:53.740 smaller for some values of n then
+
+00:04:56.199 certainly main trees so this inequality
+
+00:05:00.820 is very very important this is very
+
+00:05:05.260 important the arrangement the order in
+
+00:05:08.169 which they are arranged that is very
+
+00:05:09.820 important

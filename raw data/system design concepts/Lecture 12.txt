@@ -1,0 +1,185 @@
+# tactiq.io free youtube transcript
+# System Design: Content Delivery Networks (Simplified)
+# https://www.youtube.com/watch/8zX0rue2Hic
+
+00:00:00.250 Hey everyone! Today we are going totalk about content delivery networks.
+00:00:12.310 And specifically, let's take this example.
+00:00:14.890 Let's say that you have users fromthree different countries, India, USA,
+00:00:19.240 and Netherlands. Andwe also have a server,
+00:00:22.450 which has HTML pages that isserved for all of these users.
+00:00:26.170 When you type in facebook.com,
+00:00:27.820 you get an HTML page through whichyou interact with the server.
+00:00:32.051 Also you have databases.
+00:00:34.090 These databases are going to be storinginformation like user information,
+00:00:37.901 session information,
+00:00:39.400 anything which is specificto your application anddynamic is going to be stored
+00:00:43.511 here in this database.
+00:00:46.120 While you have a lot of staticinformation like HTML pages and so on.
+00:00:50.770 The problem is that whenever personneeds to connect to our server,
+00:00:54.730 it goes and hits our server to askfor an HTML page. So this is fine.
+00:00:59.711 I mean, if you have a fewusers that you're catering to.
+00:01:02.980 But not only could youmake this much more fast,
+00:01:05.830 you could also make itmuch more efficient,
+00:01:08.350 by using ideas that we commonlyuse in computer science.
+00:01:12.820 So firstly,
+00:01:14.620 you're seeing that there's a lot ofdistance that'll be travelled every time a
+00:01:19.060 user is actually callingfor a single page.
+00:01:21.370 So can we use the firstprinciple of caching things.
+00:01:26.620 That's idea 1:
+00:01:27.491 we want to cache static pages onto theserver so that we don't need to make
+00:01:32.081 this call every time. Maybe thisis in a distributed file system.
+00:01:38.170 The second thing is that youmay have different types of HTML
+00:01:42.911 pages that we want to send to differenttypes of devices. So this is a desktop.
+00:01:47.410 This is a mobile. The HTML page for amobile is going to be a little more than,
+00:01:51.631 let's say, smaller and longer.
+00:01:54.070 It's also going to be maybe moreresponsive. Depending on the device,
+00:01:58.600 you are changing therequirements of the page.
+00:02:00.701 So there is customizeddata that you want to send
+00:02:05.770 (and this is accordingto device or location).
+00:02:09.580 So how many devices do youhave for the application?
+00:02:14.590 Maybe you note down 50 devices ormaybe you note down just 5 devices:
+00:02:20.500 Desktop, Laptop, etc... Youget five combinations that way.
+00:02:25.180 And for each combination you'relooking at the location. So there's,
+00:02:28.510 let's say 200 countries.
+00:02:30.280 So you have at most (if you're servingall 200 countries with unique webpages)
+00:02:35.110 then you have 1000 unique datapoints that we'll be serving.
+00:02:40.330 So, which is a manageable number.
+00:02:42.190 You can actually keep this in the cachethat they we are going to be keeping.
+00:02:46.110 The other thing, point 3 isthat you want this to be fast.
+00:02:50.860 You want your web pages to beserved to the users quickly,
+00:02:54.011 because if they're decided on buyingsomething on Amazon, let's say,
+00:02:58.330 if it takes two seconds to load theirinterest in the product will reduce
+00:03:03.160 dramatically. The same thinghappened to the Google search.
+00:03:05.621 When you open a new tab,and you type something,
+00:03:07.750 you want the search to completequickly. Otherwise it's irritating.
+00:03:10.680 It causes some cognitive load.
+00:03:14.080 So you want this to be relatively fast.
+00:03:17.770 So taking this stuff up,
+00:03:21.130 what principals can use? Firstly, we don'tneed to keep the cache on the server.
+00:03:25.750 We could keep a specialized global cache,
+00:03:28.750 which is going to be taking all theserequests for HTML pages and serving them.
+00:03:33.640 So before this over, you haveanother entity, which is a cache,
+00:03:39.730 and this is just takingstatic information.
+00:03:41.590 Let's say that we don't want to dealwith the problem of dynamic data,
+00:03:45.610 and us invalidating thecache, and stuff like that.
+00:03:48.010 We just want to use that information.Sounds simple enough: "write once",
+00:03:52.870 "delete never", "update never" cache.
+00:03:55.780 So all the requests for gettingan HTML page or for getting
+00:04:00.761 static content are now redirectedto this cache and all the other more
+00:04:04.630 interesting requests are beingsent directly to the server,
+00:04:07.420 which then consults the database to getrelevant information and send it back.
+00:04:14.170 There's one possible problem withthis cache. Whenever you see this nice
+00:04:20.351 bottleneck in the system,
+00:04:21.221 the first thing that should probablystrike you is that this is a single point
+00:04:25.751 of failure. If this crashes everythingcrashes, the whole system collapses.
+00:04:29.890 So what can you do tomitigate this problem?
+00:04:32.800 We can make it a distributed cache!
+00:04:35.500 All you need to do is draw a couple ofextra boxes on the background and it
+00:04:39.430 becomes a distributed cache.At least on the whiteboard.
+00:04:43.901 You have a distributed cache.
+00:04:45.130 Let us assume that distributedconsensus is no longer a problem:
+00:04:47.861 you have Paxos and you haveRaft to take care of that.
+00:04:51.670 Even then we have some issues. If.
+00:04:54.040 We take users from India, they areonly concerned about five pages,
+00:04:59.920 five Indian pages.
+00:05:01.480 And we are storing a lot of irrelevantinformation in this cache for no
+00:05:06.211 reason. When it comes to Indian users.
+00:05:09.580 So if you going to split thiscache (we can horizontally shard,
+00:05:11.680 that will be sharding),
+00:05:15.490 based on country. Based on location.
+00:05:18.310 So you might have states within the U.S.Maybe California and maybe Texas need
+00:05:22.691 to be shown different pages. Butyou have states within the U.S,
+00:05:26.620 which will be served differentpages based on the location of the
+00:05:31.990 user.
+00:05:34.960 So we understand that thiscache is a distributed system.
+00:05:38.680 It has this group consensus.
+00:05:39.881 But more importantly you're takingrequests from different users and treating
+00:05:44.310 them differently.
+00:05:44.771 So the green user is going tothe green part of the cache (one
+00:05:50.321 of those boxes) and the blue one isgoing to the blue part of the cache.
+00:05:55.660 So one instance. This makes sense.
+00:06:00.890 However there is still a problem.
+00:06:03.170 The problem is that you have thedistributed global cache in your cloud
+00:06:08.151 (in your system).
+00:06:10.610 Which is probably hosted ina single country like USA.
+00:06:14.450 So the Indian users are being sentto a group of nodes which are caches.
+00:06:19.610 But it's still not serving the purpose.
+00:06:22.161 Because the Indians arestill sending a message,
+00:06:24.471 which is travelling all the way thatthe US and then coming back to them.
+00:06:27.200 Just to get a silly HTML page.So you don't want to do that.
+00:06:31.040 What you want to do is: (1) You want toeither construct a data center in India,
+00:06:35.901 which is how things.
+00:06:37.310 Seem to be going, or you can (2)Create a cache in India. Through
+00:06:43.430 which Indian users.
+00:06:45.770 Can access the HTML page.
+00:06:47.210 With that change you are able to serveIndian users using an Indian cache,
+00:06:51.680 which is placed very close to themgeographically. Which is basically India,
+00:06:55.281 let's say, or somewhere in Asia. So therequest and response times are quick.
+00:06:59.600 The latency is less, which meansthat the system is now fast.
+00:07:03.920 That is one requirementthat is taken care of.
+00:07:05.570 Similarly for the U.S users andsimilarly for the Netherlands users.
+00:07:09.140 The second thing is that this customizeddata is now stored in the relevant
+00:07:13.590 places, according to the locationof that data. So Indians,
+00:07:17.840 Chinese, people in Asia can be served bya single cache, which is close to them.
+00:07:23.260 While the people in USA, maybethey speak a different language.
+00:07:25.820 Maybe they want to see differentthings on the Amazon page.
+00:07:29.510 They can see it here in the U.S.cache. And similarly in Netherlands.
+00:07:34.490 So this is taken care of. Andthe third thing is "Caching".
+00:07:39.020 So why are we talking about a cache?Well, in any distributed system,
+00:07:43.010 there needs to be asingle source of truth,
+00:07:46.310 which is here and here.
+00:07:48.650 So your server always hasaccess to that source of truth.
+00:07:53.540 What is being stored here inthese boxes is not, let's say,
+00:07:57.650 the source of truth.
+00:07:58.640 Because if someone needs to know whatexactly InterviewReady is talking about,
+00:08:02.390 they don't go to the CDN andsee what they're talking about.
+00:08:04.401 They actually ask the server.
+00:08:05.840 Which makes the data in theseboxes copies of the original data,
+00:08:09.710 of that source of truth.So that will be called
+00:08:14.441 replication or a copy.
+00:08:16.580 But because these blocksof data and be removed,
+00:08:20.840 we call this a cache. And I'd said"insert once remove never". Well,
+00:08:24.771 that's not practical.
+00:08:25.491 Because if you are going tochange the page (HTML page also)
+00:08:30.020 for a particular country,you have to remove that page.
+00:08:32.450 Or at least you have to versionit and then put it out of service.
+00:08:35.690 We are bringing in a new page.So these are effectively caches.
+00:08:41.059 As a small company like it InterviewReady,
+00:08:44.330 how do you afford to buildcaches in different countries?
+00:08:46.940 How do you make sure that thatregulations have been followed?
+00:08:49.310 How do you make sure that these areinvalidated in the right time? Ta-da!
+00:08:53.630 People have already done it.
+00:08:55.290 If you have a look at certainspecialized solutions like Akamai,
+00:09:00.600 what they provide is acontent delivery network.
+00:09:05.100 A content delivery networktakes care of all of this stuff.
+00:09:12.540 Hosting boxes close to the usersis something that specialize in.
+00:09:17.370 Making sure that they followthat country's regulationsis something that they
+00:09:20.251 specialize in.
+00:09:21.210 And also invalidation orposting content in these
+00:09:25.531 boxes is easy because they provide anice little UI. This does this for you.
+00:09:30.750 If you are an engineer here,
+00:09:32.580 all you need to do is use the UI thatthey are providing to fill out these boxes
+00:09:36.691 in different places.
+00:09:38.400 And then you don't need to worry aboutwhen and how you'll be able to handle
+00:09:42.181 these caches. Most of thesecaches have "time to live" also.
+00:09:45.151 Sometimes you want data toonly exist for 60 seconds or 30
+00:09:49.981 minutes. Whatever we like: I mean,
+00:09:53.311 you get a nice UI to set this up.
+00:09:56.520 Otherwise you would need toactually create a cache andthen have some sort of a
+00:10:00.630 cron or you would have some sortof a check on every "Get" request
+00:10:05.460 that: "Hey, is this invalidated or not?
+00:10:07.260 And if it is then go and fetch data fromhere." All that stuff is taken care of
+00:10:11.280 by the solution provider, whichis a content delivery network.
+00:10:15.360 The most popular contentdelivery network, I think is S3.
+00:10:20.310 We use this at InterviewReadyto host our files.
+00:10:23.460 So in case you are seeing some sortof "system design" or any kind of
+00:10:27.061 "architecture" diagram, it's on S3.
+00:10:30.630 And the reason we use it isbecause (A) It's super cheap.
+00:10:34.200 (B) It's very reliable.And (C) It's easy to use.
+00:10:37.980 So all of the three things for a businessare ticked marked when you use S3.
+00:10:43.590 But if you have any othersolutions that you know about,
+00:10:46.290 do let me know in the comments. Of course,
+00:10:48.331 if you haven't doubts or suggestions onthis video, let me know in the comments.
+00:10:52.350 If you want more detailedvideos on system design,
+00:10:54.751 you can head tohttps://get.interviewready.io! And if you like the video,
+00:10:59.101 make sure to hit the like button!I'll see you next time. Bye-bye.

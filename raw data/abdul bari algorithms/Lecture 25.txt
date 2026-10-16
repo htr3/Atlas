@@ -1,0 +1,297 @@
+# 2.3.2 Recurrence Relation Dividing [ T(n)=T(n/2)+ n].   #2
+
+# https://www.youtube.com/watch/XcZw01FuH18
+
+
+
+00:00:00.320 Hi.
+
+00:00:01.400 Now, one more recurrence relation I'll
+
+00:00:03.360 solve.
+
+00:00:04.480 I have not written any algorithm.
+
+00:00:05.920 Directly I have taken a recurrence
+
+00:00:07.400 relation, and this is dividing function.
+
+00:00:11.080 T n is divided. I'll solve this using
+
+00:00:14.600 recursion tree method.
+
+00:00:18.840 See, T n.
+
+00:00:21.800 There are two steps in this one.
+
+00:00:24.120 T n by 2
+
+00:00:26.880 and n.
+
+00:00:28.680 n is the time taken in this step plus
+
+00:00:31.440 the time taken here also.
+
+00:00:33.920 Then what this will be? This will be
+
+00:00:35.960 taking n by 2 time, and also it will be
+
+00:00:39.680 T n by 2 squared.
+
+00:00:43.280 Then what this will be?
+
+00:00:45.400 It will be taking n by 2 squared time.
+
+00:00:50.560 And T n by 2 cubed.
+
+00:00:55.000 This way I'll be going reducing.
+
+00:00:58.240 I'll be going reducing. How long? How
+
+00:01:00.920 long? And for K times.
+
+00:01:04.800 n by 2 power K times. I'll repeat until
+
+00:01:08.720 here.
+
+00:01:11.080 Then when it is n by 2 power K, I assume
+
+00:01:14.160 that this has became one because what is
+
+00:01:16.720 the smaller value I have? n equal to
+
+00:01:18.760 one. So, I assume that I have reduced it
+
+00:01:21.720 up to one.
+
+00:01:24.160 Now, what this will be?
+
+00:01:26.680 If I take these times and add them in
+
+00:01:29.360 each step, so it will be n, and it is n
+
+00:01:33.800 by 2, it's n by 2 squared, and goes on
+
+00:01:38.600 to n by 2 power K.
+
+00:01:45.920 Right? See, the last step will be n by 2
+
+00:01:49.080 power K, right? See, this is n cubed,
+
+00:01:52.240 and this is n squared. So, this will be
+
+00:01:54.440 last will be 2 power K minus 1. So, for
+
+00:01:56.680 this sum something will be there, some
+
+00:01:58.240 function will be there here, and it will
+
+00:02:00.200 be n by 2 power K minus 1. And when it
+
+00:02:04.040 is n by 2 power K, it stops. So,
+
+00:02:06.880 approximately I am taking it till n by 2
+
+00:02:09.840 power K or K minus 1 also I can take it.
+
+00:02:13.880 Now, let me add all these to get the
+
+00:02:16.959 answer. So, this is n plus n by 2 plus n
+
+00:02:22.400 by 2 square plus
+
+00:02:25.080 n by 2 cube
+
+00:02:28.840 plus goes on to n by 2 power K.
+
+00:02:33.320 This will be TN.
+
+00:02:36.920 What this is equal to?
+
+00:02:39.120 n common
+
+00:02:41.040 1 plus 1 by 2 plus 1 by 2 square plus 1
+
+00:02:45.000 by 2 cube plus goes on to
+
+00:02:48.400 1 by 2 power K.
+
+00:02:54.360 This is n sigma
+
+00:02:59.600 1 by 2 power i.
+
+00:03:02.360 i takes the values from
+
+00:03:04.680 0 to K.
+
+00:03:07.200 What is this equal to?
+
+00:03:09.040 This will be equal to 1. Remember this.
+
+00:03:13.000 This will be equal to 1. So, this is n
+
+00:03:15.560 into 1. So, TN answer is n. So, this is
+
+00:03:20.959 big O of n or theta of n, anything you
+
+00:03:24.120 can say. For explanation, I'll take one
+
+00:03:27.080 circle.
+
+00:03:29.600 And this is half of a circle.
+
+00:03:34.200 This is
+
+00:03:35.480 1/4 of a circle.
+
+00:03:37.800 This is 1/8 of a circle. This is 1/16 of
+
+00:03:42.080 a circle. If I continue, goes on. So, it
+
+00:03:44.800 means 1 by 2 plus 1 by 2 square plus 1
+
+00:03:49.680 by 2 cube plus 1 by 2 power 4 plus goes
+
+00:03:53.880 on up to infinity. If I add all these
+
+00:03:56.920 pieces, it is equal to one circle. This
+
+00:03:59.480 one circle.
+
+00:04:02.760 Half, 1/4, 1/8 and all. If you add them
+
+00:04:05.920 up to infinity is one. So, this is
+
+00:04:08.160 approximately equal to one. So, we round
+
+00:04:10.560 it up to one.
+
+00:04:12.200 n into one, so it is order of n.
+
+00:04:17.358 So, this is one method. Now, next method
+
+00:04:19.680 I'll use substitution method. Now, using
+
+00:04:22.000 substitution method.
+
+00:04:26.440 T n is equals to
+
+00:04:29.880 T n by 2 plus n.
+
+00:04:33.680 Now, if I use this method also, I'll get
+
+00:04:35.600 the same series. In the tree, I was
+
+00:04:37.919 getting it vertically and and I was
+
+00:04:40.360 adding it. Here, I'll get it
+
+00:04:41.640 horizontally.
+
+00:04:43.280 It's the same thing.
+
+00:04:46.240 What is a T n by 2?
+
+00:04:48.600 This will be
+
+00:04:51.120 T n by 2 square
+
+00:04:54.320 plus n by 2
+
+00:04:57.400 and this is n.
+
+00:05:00.080 If I open it,
+
+00:05:02.480 T n by 2 square plus
+
+00:05:06.040 n by 2 plus n. If this was the first
+
+00:05:09.480 equation, then this is the second
+
+00:05:11.040 equation.
+
+00:05:14.240 I'm not showing here how to substitute
+
+00:05:16.480 and get the
+
+00:05:17.800 next expression, next equation.
+
+00:05:20.600 Already, we have done in previous
+
+00:05:22.160 recurrence relation. Maybe you have
+
+00:05:23.720 watched them.
+
+00:05:27.280 Next,
+
+00:05:29.120 if I substitute this further, then this
+
+00:05:31.160 will be T n by 2 cube plus
+
+00:05:35.160 n by 2 square plus n by 2
+
+00:05:39.120 plus n.
+
+00:05:40.680 If I continue for k times, then it will
+
+00:05:43.120 be
+
+00:05:45.040 T n by 2 power K plus N by 2 power K
+
+00:05:49.960 minus 1
+
+00:05:51.880 plus N by 2 power K minus 2
+
+00:05:55.720 plus goes on to N by 2 plus N.
+
+00:06:00.960 That's it. I'm getting the same thing.
+
+00:06:03.320 What is this equal to? This is equal to
+
+00:06:05.920 1.
+
+00:06:07.600 T N is equals to
+
+00:06:10.440 T N by 2 power K plus
+
+00:06:14.960 N by 2 power K minus 1 plus goes on to N
+
+00:06:19.880 by 2 squared plus N by 2
+
+00:06:23.480 plus N.
+
+00:06:25.000 We assume that
+
+00:06:28.520 N by 2 power K is equals to 1. We say
+
+00:06:31.440 that this we have reached till 1 and
+
+00:06:33.480 equal to 1. Therefore, N equal to 2
+
+00:06:36.240 power K and K is equals to log N.
+
+00:06:41.720 If I substitute this in this recurrence
+
+00:06:44.240 relation, then this is a T1 plus N is a
+
+00:06:47.040 common 1 by 2 power K minus 1 plus 1 by
+
+00:06:51.120 2 power K minus 2 plus goes on to 1 by 2
+
+00:06:55.280 plus 1.
+
+00:06:57.640 Then what is this approximately equal
+
+00:06:59.680 to? T N plus this is 1 plus N and this
+
+00:07:04.720 whole thing is 1 and this plus 1 is also
+
+00:07:07.680 there, plus 1.
+
+00:07:09.120 So this is 1 plus 2 N.
+
+00:07:15.640 This is
+
+00:07:17.080 big O of N.
+
+00:07:21.560 Our answer is same, order of N.

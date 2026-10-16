@@ -1,0 +1,387 @@
+# tactiq.io free youtube transcript
+# Google Borg: Billions of Distributed Linux Containers
+# https://www.youtube.com/watch/l35hqwTY5W0
+
+00:00:00.033 Hi everyone, this is GKCS.
+00:00:01.433 In today's videowe go through Google Borg.
+00:00:03.600 This is a paper from 2015.
+00:00:05.466 But Google Borg has been therefor two decades at Google since 2005.
+00:00:09.933 And the reason why it's lasted so longis because it is an absolute
+00:00:13.400 all system of Google.
+00:00:15.266 It provides compute and memory
+00:00:18.900 for processes.
+00:00:21.766 98% of all the servers
+00:00:23.933 at Google are running because of Borg.
+00:00:28.633 So Borg manages
+00:00:29.500 the entire lifecycle of a processfrom start to finish.
+00:00:32.732 If you're an application developer,all you have to worry about is your code.
+00:00:36.500 And once you're ready, you just deploy
+00:00:39.133 what goes and finds a different datascientist to deploy this tool.
+00:00:42.300 It finds the right number of resourcesthat have to be allocated.
+00:00:45.766 It makes sure that in case itcrashes, it's restarted.
+00:00:48.866 And in case it's just failing a lot,then it has to be migrated.
+00:00:52.400 Everything end to end is managed by Borg.
+00:00:54.500 It's so goodand so popular that, open source project.
+00:00:58.233 You might have heard of this.
+00:00:59.700 Kubernetesis developed by the engineers at Google
+00:01:02.933 who built Borg,and this is extremely similar to work.
+00:01:06.100 I would say 90% of the internalarchitecture is understandable
+00:01:10.300 if you go to this paper.
+00:01:11.466 So by the end of this video,I hope that, you know,
+00:01:13.300 Kubernetes is also easy to understand.
+00:01:14.866 And as with Kubernetes, Borghas similar requirements.
+00:01:18.633 It does load balancing.
+00:01:20.000 Make sure that.
+00:01:20.866 So this is deployed across the hardware
+00:01:24.100 that you have judiciouslyutilized the money that you've spent
+00:01:27.266 the other thingit does is process lifecycle management.
+00:01:32.966 Part of this is service discovery
+00:01:35.600 meaning you have to identifywhere the process exists.
+00:01:38.700 Borg has a list of this.
+00:01:40.500 If you deploy your application,let's say Google Maps,
+00:01:43.533 and you deploy this in two clustersand you have 50 total servers
+00:01:47.500 which are running,this Borg is going to note down
+00:01:49.400 where they are running in case one of themcrashes, then it's going to restart it.
+00:01:52.900 But also if you'rethe application developer
+00:01:54.533 and want to know where exactly they arerunning, you can see the entire list.
+00:01:57.500 So Borg has something called Borg naming.
+00:02:01.100 So DNS, DNS, they have everything.
+00:02:05.400 It also manages autoscaling.
+00:02:08.265 And this day and age 2025 it.
+00:02:10.233 This seems simple, but in 2005this is a big deal.
+00:02:14.433 And Google used to manageGoogle scale autoscaling at that time.
+00:02:18.566 And the final thing is capacity
+00:02:21.166 planning.
+00:02:22.433 This to me seems like a more machineor hardware problem.
+00:02:25.666 But what can help you do that?
+00:02:27.466 By giving you the proper metricsand observability
+00:02:31.700 for a DevOps engineer, you can look atthe amount of services which, application
+00:02:36.333 needs, and based on that,you can go and buy a fleet of servers.
+00:02:40.400 If you need to.
+00:02:41.166 You can basically make good businessdecisions based on this.
+00:02:43.766 So these are the features of Borg.
+00:02:45.433 What's the scale like?
+00:02:48.233 He's pretty big.
+00:02:50.066 4 billion containers
+00:02:54.166 are deployed
+00:02:56.100 every week at Google.
+00:02:58.666 4 billion containers.
+00:03:00.300 These are like 4 billion processes.
+00:03:02.100 As you can expect,it is highly configurable
+00:03:04.566 because you have all the engineersat Google,
+00:03:06.433 pretty much everybody at Google using whatthey have their own requirements.
+00:03:10.200 If you give them an extensible,configurable system,
+00:03:12.766 then they are going to use it.
+00:03:14.033 Otherwisethey will find their own solutions.
+00:03:15.666 So you don't want that to happen.
+00:03:17.033 You want the system to be easily usable,but at the same time extensible.
+00:03:21.900 And finally it is highly available.
+00:03:24.300 The way to think ofthis is everything runs on Borg, so
+00:03:27.733 GFS runs on board spanner.
+00:03:31.766 You're right, it runs on Borg
+00:03:33.566 everything including Bigtable
+00:03:36.866 which basically managesGoogle search runs on this application.
+00:03:40.500 If Borg fails then Google is down.
+00:03:42.600 So that can't happen.
+00:03:44.000 That has to happen extremely rarely,and you will see the kind of things
+00:03:48.166 that what does to make surethat this doesn't happen.
+00:03:50.066 Okay.
+00:03:50.266 Before we startwith the internals of Borg,
+00:03:51.833 I'll just tell you the differencesbetween Borg and Kubernetes.
+00:03:54.566 Maybe you can skip this partif you are not interested in Kubernetes,
+00:03:57.766 but because this isa very popular project,
+00:03:59.766 I'll just mention the high leveldifferences.
+00:04:02.266 The first thing is Kubernetes is opensource, Borg isn't.
+00:04:04.900 Borg is set to be deployedin very large cells or clusters.
+00:04:08.800 Kubernetes can be deployedat almost any scale.
+00:04:11.200 The main benefit of Kubernetesis not just that it's open source.
+00:04:14.833 It's also easier to learn.
+00:04:15.933 It has better documentation,and it has better APIs.
+00:04:19.533 That is, APIs are designedwith generic terms.
+00:04:22.132 Borg has very Google specificor Borg terms.
+00:04:24.466 The other thing is that Kuberneteshas decentralized orchestration.
+00:04:27.600 So Borg has a central server, Borg master,which tells
+00:04:31.800 you will do thistask, you will do this task.
+00:04:33.966 But Kubernetes has a set of microserviceswhich manage different parts
+00:04:37.866 of the cluster.
+00:04:39.366 And so it is you can say better,more modern, but Borg also works.
+00:04:44.166 So it's just a more of a design choice.
+00:04:46.500 One interesting point that I noticed aboutKubernetes is you can actually tag
+00:04:50.333 the odds that you have in Kubernetes.
+00:04:52.966 Those are called Borg.
+00:04:54.000 Let's your odds and Borg lids.
+00:04:56.033 They're the same concept.
+00:04:57.100 But in Kubernetes you can say thatthese pods are part of Google Maps.
+00:05:01.833 But here you can't okay.
+00:05:03.400 You have to go and actually queryfor with a particular edge.
+00:05:06.566 Also you can say that this is productionor you can say that this is in India.
+00:05:10.566 All of those tags can be givenin Kubernetes.
+00:05:12.600 But Borg doesn'thave such a rich language.
+00:05:14.900 Querying and debugging and observabilityis slightly improved here.
+00:05:18.633 For all I know, it's 2025.
+00:05:20.400 Borg has probably taken all of these opensource ideas and already moved it here.
+00:05:23.866 They are not going to mentionthat in the paper.
+00:05:25.900 What do you see?That is a small difference.
+00:05:27.733 Okay, let's getinto the internals of Borg.
+00:05:33.466 Every job has a state which is defined by
+00:05:37.033 the priority of the task.
+00:05:39.566 So this might be production level
+00:05:42.633 or batch level or just free.
+00:05:45.766 Three is basically or thingswhich don't really matter
+00:05:49.633 as much as a MapReduce job in prodor real time application in prod.
+00:05:54.066 And even before this,there is actually monitoring.
+00:05:57.000 So monitoring is most important
+00:05:58.566 because if things failthen these jobs have to exist.
+00:06:01.633 So that's at the highest priority level.
+00:06:03.366 What happens is if you have a jobwhich is running,
+00:06:06.000 let's say at priority batchand you have an incoming job
+00:06:09.600 of production, thenthis job is going to be preempted, it's
+00:06:12.733 going to be killed, and this machineis actually going to pick up this new job.
+00:06:16.033 Okay. This is a simple algorithm.
+00:06:17.966 Low priority jobs are kicked out.
+00:06:19.633 Sometimes this can become really bad.
+00:06:21.433 Let's sayyou have a monitoring job come in
+00:06:23.100 and you have a production job over here.
+00:06:25.200 Then this job is going to get killed andmove to some other place, which is batch.
+00:06:29.100 And then this job is going to get killedand move
+00:06:31.233 to some other place which is running free,resulting in a lot of jobs being killed.
+00:06:34.800 And so to avoid this production, jobscannot be preempted.
+00:06:38.433 Okay.
+00:06:38.733 You can only kick out existing batchor free jobs.
+00:06:42.400 Now, this is just a wayto avoid the cascade.
+00:06:45.100 There's other thingsalso that a bug job can contain.
+00:06:47.766 One of them is rules or constraints.
+00:06:51.200 So you may specify the type
+00:06:53.300 of operating system that you needand basically generic rules.
+00:06:57.100 You can talk aboutthe IP addresses and so on.
+00:07:01.166 Now this
+00:07:01.533 can look like a linear programing problemright.
+00:07:04.666 That you want the region to be Indiabut you want ten large servers and so on.
+00:07:09.833 And then border has to figure outhow to allocate these things
+00:07:12.166 in the most efficient way possible.
+00:07:13.633 Yes, it can be.
+00:07:15.266 So the engineers can provide constraints,but most engineers don't.
+00:07:18.433 They don't really needthese kind of constraints.
+00:07:20.233 Most use cases are that,you know, just run this job
+00:07:23.233 somewhere and things are fine.
+00:07:24.633 But the constraints are a possibility.
+00:07:26.733 Now when we say running a job,where is this?
+00:07:30.466 What is this exactly?
+00:07:31.900 Is it a virtual machine?
+00:07:33.833 Well, it can be,but most jobs are not running on a VM.
+00:07:37.766 This VM is too slow,like a windows VM is a bit slow.
+00:07:41.733 So instead what you can do is use
+00:07:45.300 a Linux container.
+00:07:47.800 The security is managed by C root gene.
+00:07:51.100 If you know about these thingsthen congratulations.
+00:07:53.533 You know quite a bit about Linux.
+00:07:55.200 And resources are managed by C Group.
+00:07:58.200 These are Linux specific terms.
+00:07:59.966 This is basically a way
+00:08:01.500 to make sure that some resourcesare allocated to a particular container.
+00:08:05.400 And this is to make surethat nobody else gets access to this.
+00:08:08.600 In fact, you might have done
+00:08:09.933 C mod in your lifesometime and changing file permissions.
+00:08:13.600 Think of it like that.
+00:08:15.366 And here C groupyou can think of how much network
+00:08:19.133 how much file storagedo I give this container.
+00:08:22.233 So in this way you make sure that
+00:08:24.766 an engineer who's a applicationengineer can run their application.
+00:08:29.066 Knowing that I need at leastthis much file storage just for logs.
+00:08:33.066 Let's say once they have definedthat here, you can execute this
+00:08:36.966 on a VM or in this container,if you have to restart the process,
+00:08:41.533 send a signal
+00:08:43.765 term signal here which is basically till
+00:08:46.800 -15 means please die.
+00:08:49.566 And if you do not diethen there are other ways
+00:08:52.733 which is signal.
+00:08:55.166 That's a n minus nine.
+00:08:57.166 Okay. Againthings that you might have used in Linux.
+00:08:59.633 It forces the container to shut downand then it can be
+00:09:02.866 restarted.
+00:09:06.600 Gog has the concept of a cellwhich is about
+00:09:11.100 10,000 machines at Google scale.
+00:09:13.466 This 10,000 machinessounds like a small cell, but
+00:09:17.366 this is a pretty big number.
+00:09:19.066 So single cell has one master.
+00:09:21.666 Okay, it's a single point of failure,but we will see why availability
+00:09:24.300 is not affected much,even if it goes down.
+00:09:26.433 The basic idea isif a block master goes down,
+00:09:28.266 then the bottlenecks continue
+00:09:29.333 functioning and a block mastersets up the configuration
+00:09:33.266 of the power plates, which are basicallylike pods in Kubernetes.
+00:09:36.600 It tries to assign these taskswhich come to it okay, these are commands
+00:09:40.866 which are sent that pleaseexecute this application on 5000 machines.
+00:09:45.633 Once a cell is chosen, one masterthen tries to spread this application
+00:09:49.300 for high fault tolerance.
+00:09:50.800 So you have different powerdomains, you have different regions.
+00:09:53.766 And this is actually a beanpacking problem.
+00:09:56.533 The basic idea isif you have an application running here
+00:10:00.000 up one and you have another applicationrunning here up to,
+00:10:03.033 and the third applicationis coming in one of these two,
+00:10:05.900 then which one do you choose?
+00:10:07.166 So you choose no one.
+00:10:08.933 Which has a perfect fit with app three.
+00:10:12.166 So then what happens isthis is running at 100% capacity.
+00:10:15.300 Best fit maximum usage.
+00:10:18.533 Or do you try to find any onewhich can take care of app three?
+00:10:22.433 So let us say there's 60% computeremaining here.
+00:10:26.366 And here you only had30% remaining app three required 30%.
+00:10:30.000 You gave 30%.
+00:10:30.933 It's the best fit,but you could have put it here as well.
+00:10:33.366 It didn't matter.
+00:10:34.166 So this would have been faster, lowerassignment, but it would be a bad fit.
+00:10:39.166 So at scale,maybe the compute power would be wasted
+00:10:41.966 if the next process has 40%compute power required
+00:10:44.800 and you put 30% in here,then you have only 30% remaining.
+00:10:48.000 And with both of these, with 30,this new app can't fit anywhere.
+00:10:52.666 This looks like a really bad idea,but the idea with Borg is
+00:10:56.266 they want to quicklyassign tasks to the Borg.
+00:10:59.333 Let's.
+00:11:00.066 And the second thingis, best fit has a risk.
+00:11:02.833 In case this app takes more than 30%,it claims that I can do it 30%,
+00:11:07.200 but if it takes 35%, as is commonwith MapReduce
+00:11:10.200 jobs, you kind of underplaythe requirements you need.
+00:11:13.333 Then this app is going to crash.
+00:11:15.166 So resilience is a problem here. Borg.
+00:11:17.400 What it tries to do isit takes a hybrid of these two approaches,
+00:11:20.800 and it tries to fit the applicationin a place which has some space remaining.
+00:11:26.266 So let's say 40% or 50%,but it also tries to fit them snugly.
+00:11:30.400 So that's the approachhybrid fit algorithm.
+00:11:34.200 Now once an application is assignedto a model it once it is running here
+00:11:38.400 there is a mappingadded in a service called BNS.
+00:11:43.200 It stands for Borg Naming Service.
+00:11:48.300 Okay.
+00:11:48.900 Very similar to a domain name server.
+00:11:50.533 This keeps a server
+00:11:53.233 to IP mapping.
+00:11:56.100 So in this caseyou're going to have something like
+00:11:59.000 let's saythis is the 30th server of app one.
+00:12:01.633 So that's going to be 30 dot app one dot.
+00:12:06.700 The user who has executedthis command on board master
+00:12:11.166 the cell id.borg.google.com.
+00:12:17.533 I don't know why they have this part,they can just sounds cool or something,
+00:12:21.200 but in this way you can, you know,have some sort of a regex
+00:12:24.633 which says not on google.comas at the end for this cell ID.
+00:12:28.800 So you're doing an inverse,the reverse rejects this cell ID,
+00:12:32.433 this user who has startedthe task for this application
+00:12:35.466 get me all the serversand then we can store these in a file.
+00:12:41.333 With their states.
+00:12:42.900 So this application is currently pendingmeaning it has to be picked up.
+00:12:46.466 It has to be assigned to some late.
+00:12:48.300 This one is running
+00:12:51.000 and this one is stopped okay.
+00:12:52.600 So different statesand also the health of the model.
+00:12:57.033 It can be noted down over here.
+00:12:58.466 All the metadata aroundexecution is stored in chubby.
+00:13:01.900 Chubby in case you don't know is a Paxos
+00:13:05.566 based persistent store.
+00:13:09.666 This is used by Google.
+00:13:10.633 It is a key value store.
+00:13:11.600 The problem with chubbynow is that they have Google Spanner,
+00:13:15.833 which is a highly consistent,
+00:13:17.066 highly available systemwhich is a distributed lock service.
+00:13:20.833 So it is highly consistentif you have all of your rights on chubby.
+00:13:25.366 But I'm not sure blogmaster has actually moved to spanner.
+00:13:27.933 Now, another interesting pointis these Borg nets when they are running
+00:13:31.366 the applications,store the logs of these files
+00:13:36.466 in a local file.
+00:13:37.366 I was expecting thatthese will go to Google file system, but
+00:13:40.066 no, these are just local filesand they are rotated.
+00:13:43.100 So every day or every hour
+00:13:45.833 the frequency is not mentionedbut the files are actually deleted.
+00:13:49.266 So after the botnet has finishedprocessing this app
+00:13:52.600 or moved it from one place to another,these logs will be deleted.
+00:13:55.533 So within 1 or 2 daysafter the movement logs are purged.
+00:13:59.100 It's interestingto note that metrics from this application
+00:14:02.266 are also emitted earlier.
+00:14:05.400 There used to be something called Borgman.
+00:14:07.033 Now there is something called monad.
+00:14:09.500 You can check out the videoexplaining this time series data store.
+00:14:13.033 The basic idea here is ithelps in observability
+00:14:17.200 of the system, and if you're lookingfor business decisions,
+00:14:20.966 then these app metricsare again sent to Dremel.
+00:14:26.300 So here you can find
+00:14:27.400 SQL queriesto see how much capacity do you need.
+00:14:30.366 Or you know what kind of applicationsare taking up most of the compute power
+00:14:34.566 based on thiswe can make business decisions.
+00:14:36.866 The funny thing is, if a machineis running out of some sort of resource,
+00:14:41.700 let's say you're running out of memory,then you can't avoid it.
+00:14:45.100 Like you can't get more memoryin the same machine.
+00:14:47.233 So Borg starts
+00:14:48.000 killing processes, and the first onesit kills are the ones with low priority.
+00:14:51.833 So batch jobs or free jobs,those are taken care of in case it's
+00:14:55.333 a temporary issue, like CPU usage is 100%or I was completely choked out.
+00:15:00.600 In that case, Borgactually waits for a while.
+00:15:02.733 But again, if things don't improve,then processes start to die,
+00:15:05.466 starting with low as too high a priority.
+00:15:07.500 Now you might be wondering what happensif Borg Master dies.
+00:15:10.233 Yes, Borg, let's continue functioning.
+00:15:11.800 But one issue is if it dies, thenno new task can come in.
+00:15:15.800 So it's important not to let it die.
+00:15:17.366 And you have basically replicasof what master.
+00:15:20.900 So these are in-memory replicasand the five of these
+00:15:25.466 they have read using Paxos.
+00:15:28.000 What happens is since they are in sync,in case one board master dies,
+00:15:32.033 then another is selected and then it takescare of the provisioning.
+00:15:35.733 Here with the bottlenecks,this is mostly taken care of again
+00:15:38.866 by chubby, which storesall the state of the Borg master.
+00:15:45.600 Finally, there are some optimizationsthat Borg has for scaling up.
+00:15:48.233 One of them is caching.
+00:15:49.633 Very heavy use of caching.
+00:15:51.133 The idea is a Borg.
+00:15:52.533 It has some parameters. It's in a region.
+00:15:55.666 It is of a particular size,
+00:15:57.100 the server has a particular sizeand maybe it has a power outlet.
+00:16:01.066 It's connected to this.
+00:16:02.400 So all of these things are common.
+00:16:04.700 You do not have to recompute itagain and again
+00:16:06.833 unless you are changing the configurationor the physical server.
+00:16:10.000 You do not have to change the scoreor the definition of this bond. Let.
+00:16:15.166 So all of this config information
+00:16:18.200 is cached in mod master.
+00:16:21.200 So when it's making a decisionwhere should I send this application to.
+00:16:24.200 It has all of this config cached.
+00:16:26.400 It has this scores
+00:16:29.100 of each model it cached.
+00:16:30.533 And so it can quickly make a decisionas to where to send this application to.
+00:16:36.366 Similarly,applications are not very different.
+00:16:39.500 You know you have Google Maps,which is a kind of an application.
+00:16:42.733 You will have email,which is a kind of an application.
+00:16:45.333 Many of these are going to be similar.
+00:16:47.166 So instead of having each applicationspecific requirements,
+00:16:50.566 you have a class of applications.
+00:16:53.300 So one might be IO intensive.
+00:16:56.900 Another might be memory intensive.
+00:17:01.700 Another might be CPU intensive.
+00:17:05.366 So now based onthe class of the app are running
+00:17:08.866 you can find the appropriate blocklike this again is something that you can
+00:17:12.599 constrain in the number of variationsand also cache.
+00:17:16.133 And lastly, when an applicationis going to be assigned
+00:17:18.400 more tries to find bottlenecks
+00:17:19.833 which already have the libraries requiredfor that application.
+00:17:22.833 This is similar to Bazelwhich caches the libraries.
+00:17:26.900 So instead of youcaching the libraries in every bottle, it
+00:17:29.166 of course you find the best fitbased on already
+00:17:32.400 installed libraries, and this reduces thestart time from 25 seconds
+00:17:37.800 to just five seconds.
+00:17:40.500 So deploying an applicationacross thousands of servers
+00:17:43.600 becomes a very fast process.
+00:17:48.133 So that's it for Google Blog.
+00:17:49.300 It's a very interesting and simple system.
+00:17:51.133 Most of Google runs on it. 98% of Googleruns on it.
+00:17:54.000 What I find interesting about itis it's got this concept of cells.
+00:17:58.266 It's got this concept of both masterand portlet.
+00:18:00.866 That's almost all of the containerizationlogic that you have.
+00:18:04.666 Everything else is external.
+00:18:06.500 And this was made in 2005.
+00:18:08.100 So concepts
+00:18:08.733 like autoscaling and cross-region faulttolerance were not very common back then.
+00:18:13.500 But Google solved this problem.
+00:18:15.566 The principal engineers went ahead
+00:18:17.166 and actually made this system,which has lasted for two decades now.
+00:18:20.600 So thank you for watching this video.
+00:18:21.900 If you have any doubts or suggestions,do let me know in the comments.
+00:18:24.766 If you liked the videothen do hit the like button.
+00:18:26.600 And if you want notificationsfor further videos
+00:18:28.533 like this, hit the subscribe button.I'll see you next time. Bye bye!

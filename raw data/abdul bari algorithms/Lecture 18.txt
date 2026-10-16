@@ -1,0 +1,295 @@
+# 2 Divide And Conquer
+
+# https://www.youtube.com/watch/2Rr2tW9zvRg
+
+
+
+00:00:00.030 hello friends I'm going to start an
+
+00:00:02.760 extra peak in algorithms that is divide
+
+00:00:05.640 and conquer strategy the first topic was
+
+00:00:08.840 analysis of algorithm in that topic I
+
+00:00:11.610 have shown you how to write an algorithm
+
+00:00:13.290 and how to analyze an algorithm and what
+
+00:00:16.320 is the purpose of analysis now the next
+
+00:00:20.730 topic is divide and conquer this topic
+
+00:00:24.390 is related to a strategy for solving a
+
+00:00:28.199 problem like this we have other
+
+00:00:30.960 strategies also in the subject like 3d
+
+00:00:34.500 method dynamic programming backtracking
+
+00:00:38.300 branch and bound so this is one of the
+
+00:00:41.820 strategy so let us understand what is
+
+00:00:45.660 the strategy strategy is a approach or a
+
+00:00:49.469 design for solving a problem for solving
+
+00:00:54.120 any problem computational problem you
+
+00:00:57.300 can adopt this strategy for solving the
+
+00:01:00.570 problem if the strategy is suitable for
+
+00:01:03.989 the problem so by practice you can come
+
+00:01:09.090 to know there is no formula that this is
+
+00:01:11.040 the problem this strategy is applicable
+
+00:01:13.100 though there are a few guidelines so we
+
+00:01:15.990 can follow those guidelines and we can
+
+00:01:18.390 apply the strategy for solving a problem
+
+00:01:20.930 if a problem of some size is given let
+
+00:01:25.290 us say size is n the sizes size of the
+
+00:01:29.640 input for a problem so if a problem P is
+
+00:01:32.939 there of some size and if we say that
+
+00:01:36.390 this problem is large then you can break
+
+00:01:39.450 this problem into smaller subproblems p1
+
+00:01:43.259 p2 p3 goes on as many problems as
+
+00:01:47.850 possible that depends on you so let us
+
+00:01:50.520 say K subproblems
+
+00:01:53.600 now the last problem is broken down into
+
+00:01:57.210 smaller subproblems so the size was
+
+00:02:01.049 larger so we have broken to smaller
+
+00:02:03.270 sized problems now these problems sub
+
+00:02:07.259 problems can be solved to obtain their
+
+00:02:10.348 solutions
+
+00:02:11.490 so for this solution one solution two
+
+00:02:13.830 and solution three and so on for this
+
+00:02:16.620 solution K all these are individually
+
+00:02:21.420 solved now once you have the solutions
+
+00:02:24.240 for these you can combine these
+
+00:02:26.520 solutions to get a solution for mean
+
+00:02:30.570 problem so if a problem is large divide
+
+00:02:37.500 the problem into subproblems and solve
+
+00:02:40.320 those subproblems and combine the
+
+00:02:42.660 solutions of subproblems to get the
+
+00:02:45.270 solution for main problem so it means if
+
+00:02:47.670 a problem cannot be solved if it is too
+
+00:02:49.680 big break it into subproblems and solve
+
+00:02:52.050 it if a subproblem is also large then do
+
+00:02:56.220 the same thing apply divide and conquer
+
+00:02:58.890 strategy on subproblems also if it is
+
+00:03:01.350 large again do the same thing break it
+
+00:03:02.910 into sub sub problems and find the
+
+00:03:05.550 solutions combined the solution now one
+
+00:03:09.240 important thing about divide and conquer
+
+00:03:11.810 whatever the problem is the subproblems
+
+00:03:15.330 will be same as that problem for example
+
+00:03:18.870 if problem is to sort then the
+
+00:03:22.080 subproblems should also be sorted each
+
+00:03:25.350 and every sub-problem should be sought
+
+00:03:27.120 only it cannot convert into some other
+
+00:03:30.930 problem like example if problem is I'll
+
+00:03:35.580 take some real example for problem is to
+
+00:03:38.640 conduct the workshop at a college then
+
+00:03:43.020 it's a big work so you can divide the
+
+00:03:45.630 work preparing invitations preparing
+
+00:03:49.200 posters inviting guests and inviting
+
+00:03:52.680 resource persons arranging resource
+
+00:03:54.390 person it is a different task each is a
+
+00:03:57.720 different task no this is not divide and
+
+00:04:00.510 conquer if example this is sort then the
+
+00:04:04.620 sub problem should also be sought only
+
+00:04:06.860 then we call it as divide and conquer
+
+00:04:09.390 strategy so if a major problem cannot be
+
+00:04:13.440 solved divided and those problems should
+
+00:04:16.230 also be same so this how it is recursive
+
+00:04:19.978 in nature like this problem sorting then
+
+00:04:24.030 these problems are
+
+00:04:24.990 so sorting so divide-and-conquer
+
+00:04:27.449 algorithms when you write our strategy
+
+00:04:29.819 when you take it will be a recursive so
+
+00:04:32.610 it says that you recursively solve the
+
+00:04:34.979 problem if it is too big
+
+00:04:36.330 recursively solve it and one important
+
+00:04:39.180 thing is when you have broken the
+
+00:04:40.860 problem into sub problem you should have
+
+00:04:43.050 some method for combining their
+
+00:04:45.180 solutions to get a main solution if you
+
+00:04:47.520 are unable to combine then you cannot
+
+00:04:49.169 adopt this strategy so this is a
+
+00:04:52.199 guideline you can see see if any problem
+
+00:04:54.330 how you can understand can I apply
+
+00:04:55.979 divide and conquer on this one or not so
+
+00:04:58.020 if you break it - the problem should
+
+00:04:59.580 remain same then I get then you can
+
+00:05:01.680 apply divide and conquer or you should
+
+00:05:03.750 keep it same then divide and conquer
+
+00:05:05.970 strategy is applicable and you should
+
+00:05:08.340 have a method for combining them so this
+
+00:05:12.180 is the approach of a divide and conquer
+
+00:05:14.460 strategy here is a general method for
+
+00:05:17.090 divide and conquer strategy divide and
+
+00:05:20.970 conquer upon the problem P if small P if
+
+00:05:24.840 the problem is small then directly solve
+
+00:05:27.120 it yes definitely there must be a
+
+00:05:29.430 solution for small problem if it is
+
+00:05:31.229 large you are breaking it if it is small
+
+00:05:33.240 then what solve it directly if it is
+
+00:05:36.750 large divide the problem into
+
+00:05:38.159 subproblems P 1 P 2 P K and apply divide
+
+00:05:41.940 and conquer on each this is recursive
+
+00:05:45.210 then whatever the solutions you get you
+
+00:05:48.750 combine these solutions ok combine the
+
+00:05:52.409 solutions of the results of dividing
+
+00:05:54.330 conquer of P 1 divide and conquer of P 2
+
+00:05:56.370 and so on combine them together to get
+
+00:05:58.620 the solution for main problem so here
+
+00:06:00.930 you can see that it has having a
+
+00:06:02.789 recursive property so the procedures are
+
+00:06:05.310 recursive algorithms are recursive these
+
+00:06:11.190 are the problems that are there under
+
+00:06:12.960 this topic binary search finding maximum
+
+00:06:16.650 and minimum Mirsad quicksort strassens
+
+00:06:21.810 matrix multiplication we will look at
+
+00:06:25.560 all these problems that will be over
+
+00:06:27.599 different videos divided into multiple
+
+00:06:29.430 videos and one more thing is divided
+
+00:06:32.819 conquer strategies
+
+00:06:34.150 cursive so we should know how to write
+
+00:06:36.610 recursive algorithms how to write
+
+00:06:39.190 recursive functions and how to analyze
+
+00:06:41.560 them how to find the time complexities
+
+00:06:44.350 for them so for that we use a recurrence
+
+00:06:46.780 relations so my next video will be on
+
+00:06:49.480 recurrence relation so I'll be having
+
+00:06:52.030 multiple videos on them so I will be
+
+00:06:53.950 showing various type of recurrence
+
+00:06:55.690 relations and their solutions so you
+
+00:06:58.420 watch all of them so that you can get a
+
+00:07:00.670 complete idea about recurrence relations

@@ -1,0 +1,2 @@
+Lecture 8	https://www.youtube.com/watch?v=kKlZ9B3cS14	2D Segment Tree - Data Structure and Algorithms
+Lecture 22	https://www.youtube.com/watch?v=sCwokuCoQB8	Digit dynamic programming with a SPOJ example

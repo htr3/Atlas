@@ -1,0 +1,403 @@
+# tactiq.io free youtube transcript
+# Meet in the Middle Algorithm
+# https://www.youtube.com/watch/57SUNQL4JFA
+
+00:00:00.000 hi everyone this is Gigi ACS remember to
+00:00:02.310 do Becky today called meet in the middle
+00:00:03.780 and this is very similar to divide poker
+00:00:06.330 let's have a look let's take an example
+00:00:09.240 now which is trying find four numbers in
+00:00:13.710 an alley such that number a plus number
+00:00:17.250 B plus number C plus number D is equal
+00:00:20.220 to some some okay capital S so these
+00:00:23.130 four numbers a b c and d belong to an
+00:00:28.410 array that's from P divided by Q so P is
+00:00:34.710 an array which needs to contain these
+00:00:36.360 four numbers
+00:00:36.930 and we need to find the phone numbers
+00:00:39.320 satisfying are given some so the brute
+00:00:43.890 force way to do this of course the
+00:00:45.210 absolute way to do this is to search for
+00:00:47.730 all numbers e in this Alec P and let's
+00:00:50.879 say P has size n then this gives us that
+00:00:56.370 to find that a we need to do n
+00:00:59.070 operations for each of these operations
+00:01:01.530 we need to find a particular P which is
+00:01:04.379 going to take any more operations
+00:01:05.280 another C and more operations and D so
+00:01:08.369 this is going to be n into n into n into
+00:01:13.380 n which is order n is the power 4 so how
+00:01:19.830 can we improve on this so let's try to
+00:01:22.950 simplify the problem let's say that a
+00:01:25.590 plus B is equal to some variable X and C
+00:01:28.829 plus D is equal to some variable Y so
+00:01:30.920 what do you have is X plus y should be
+00:01:34.020 equal to this function sum S which has
+00:01:36.299 been fine for you define some questions
+00:01:38.340 so using X can take n square values
+00:01:41.640 because a and B are taking ones from
+00:01:43.950 your originality so it x8 against our
+00:01:47.790 values and yn take the exact same n
+00:01:49.530 square values right each of these sets
+00:01:51.810 is of size n square but if you change
+00:01:54.450 the equation again what you get is X is
+00:01:57.119 equal to s minus y I just put Y on the
+00:01:59.399 right hand side and s minus y then n
+00:02:02.969 take n square values itself so if I here
+00:02:06.930 s minus y a particular value alpha you
+00:02:10.080 have X is equal to alpha
+00:02:12.990 have a look at this equation what you're
+00:02:15.970 trying to do is find some values X which
+00:02:19.870 might alpha that's all a very simple
+00:02:22.360 equation one of the number of values
+00:02:25.240 that X can take n square so why not it
+00:02:28.030 rate them all out we go over all the
+00:02:30.400 values that a plus B can take so in this
+00:02:32.950 ayah we can just have a for loop for
+00:02:34.660 every element between I 0 to n and then
+00:02:40.570 for every element between J I plus 1 to
+00:02:46.570 N this is note down all values of this
+00:02:49.150 stone the possible values of X let's say
+00:02:53.140 that so this X dot and what do we have P
+00:02:58.870 of I plus P of J that's it that's all
+00:03:03.820 you do and what you have now is in this
+00:03:06.160 set X you have stored all values that
+00:03:09.130 that's going to be like spending let's
+00:03:10.840 let's call this capital X so in this
+00:03:13.060 sine X you have all the values that
+00:03:15.730 small extending okay in the exact same
+00:03:19.870 deal you know very next time other you
+00:03:22.300 can you can say that alpha so let's call
+00:03:26.800 the set alpha will add this variable X
+00:03:33.270 minus P of I my plus p mg so what you
+00:03:45.220 just did is you took values C plus D
+00:03:49.020 okay and subtract that from s and you
+00:03:52.960 are adding that to one of the values
+00:03:54.370 that alpha KD because that's exactly
+00:03:56.290 what it is right
+00:03:57.160 s minus y is the value that alpha
+00:03:59.380 contain so now that you have these two
+00:04:02.440 sets you have two sets of size n square
+00:04:05.680 each okay so tacky legs and alpha are
+00:04:11.860 two cents
+00:04:12.550 having size n square each and you need
+00:04:16.959 to find the intersection of these two
+00:04:18.548 sets
+00:04:19.089 which is actually very very simple
+00:04:21.160 because what you can one one idea is
+00:04:23.830 just sorting X I'm sorting alpha and
+00:04:26.290 then finding out the common elements you
+00:04:27.730 can do that in a pretty efficient way
+00:04:29.590 but even better would be if you use a
+00:04:31.389 hash set a hash set in which you pick up
+00:04:36.820 every element of X each and every
+00:04:38.680 element of X and you check if it exists
+00:04:40.840 in alpha if it exists an alpha then you
+00:04:43.419 have one combination already done okay
+00:04:46.120 so that's how simple it is for every
+00:04:49.030 element in X you search in alpha if that
+00:04:52.419 already exists if it exists you have one
+00:04:55.360 possibility in it so another thing you
+00:05:01.990 need to know this is what if they ask
+00:05:03.700 you to find a B C and T well that can be
+00:05:06.610 done pretty easily too with us when
+00:05:08.140 you're storing in X this is just a sec
+00:05:10.000 so I might but you can store it in a map
+00:05:11.919 also so for every team gets stored the
+00:05:14.800 possible values that it can have in fact
+00:05:17.830 the code in the description is going to
+00:05:19.090 have that that map implementation
+00:05:21.550 because the set accreditation is a
+00:05:23.200 little simplistic so when he sees that
+00:05:24.940 from in these to power 4 which is always
+00:05:27.310 no complexity we are going to do X equal
+00:05:30.850 to alpha which we saw is comparing two
+00:05:33.729 sets finding the intersection of two
+00:05:36.010 sets of and each element is going to
+00:05:38.200 take you order one I the number of
+00:05:41.320 elements in this set X is order n square
+00:05:44.169 so multiplying is to be get from a list
+00:05:48.910 about four as you complexity we have
+00:05:51.100 change that n is about to so before we
+00:05:53.770 move to the more interesting is up and
+00:05:55.030 let's try to understand what we do
+00:05:56.200 actually is it's taking a larger problem
+00:05:59.530 breaking it into two parts like we saw
+00:06:02.020 and then trying to find a solution for
+00:06:04.930 those two parts efficiently again like
+00:06:07.330 we saw in this order one time you were
+00:06:09.190 able to compare each element and
+00:06:10.570 therefore you bought number that
+00:06:11.560 complexity so in general using written
+00:06:14.140 will you bring down the back of
+00:06:15.220 lexically from some number a raised to
+00:06:18.700 power B to a is the power P by P that's
+00:06:22.960 all it does because what you do is you
+00:06:24.940 break it into two sets as you try to
+00:06:26.860 merge them efficiently this merging
+00:06:29.169 operation is usually done on aggregate
+00:06:31.599 for
+00:06:32.410 okay remember that aggregate functions
+00:06:34.690 are things like Sully the she didn't
+00:06:37.750 feel exactly summing this average there
+00:06:41.259 is finding the minimum is finding the
+00:06:43.000 maximum and so forth you can have a list
+00:06:46.569 of accurate functions which are used in
+00:06:47.830 the database as an example but two sites
+00:06:50.470 try to merge them using an aggregate
+00:06:53.169 function probably meaning but is the way
+00:06:55.479 to go
+00:06:56.009 except when things are very simple
+00:06:58.660 because it is power B has to be pretty
+00:07:01.630 small for you to even bring it out
+00:07:03.639 dangerous for B by 2 and still keep it
+00:07:06.009 you know useful if I give you a as 2 and
+00:07:09.870 B as 100 so it's 2 is 400 even if I make
+00:07:15.370 enough complexity per just to waste
+00:07:16.930 above 50 this cannot be computed by
+00:07:19.930 modern computers it's a very very large
+00:07:22.300 number so meet-in-the-middle
+00:07:25.630 is more sensible men b is somewhere
+00:07:29.320 around 60 nets in so you can bring this
+00:07:31.449 down to just 30 and this can be computed
+00:07:33.849 in the box to clean one second okay so
+00:07:37.389 now let's move on to the more
+00:07:38.470 interesting something
+00:07:39.820 let's have a look at the knapsack
+00:07:41.080 problem you have n items and each of
+00:07:45.400 these items has a price and in all cells
+00:07:48.580 of it so you can have a look into this
+00:07:50.620 in detail description of this problem
+00:07:52.780 it's a very common one you can carry at
+00:07:54.820 most capital W weight and you want the
+00:07:57.699 maximum price of these items are needed
+00:07:59.340 so the the standard brute force we need
+00:08:03.099 to do this is to raise to power n this
+00:08:05.919 is the order complexity because you are
+00:08:07.780 trying to pick up each item take its
+00:08:10.150 price into account take it to make it
+00:08:12.250 into town and check whether you can pick
+00:08:14.560 up the entire second another people
+00:08:16.930 supposed to this is a super model of
+00:08:20.199 your purchases order Capulin into
+00:08:23.139 capital W and this is usually much more
+00:08:26.289 efficient but W can be pretty large so
+00:08:29.349 if I put W and steady super 50 you are
+00:08:33.909 in big trouble
+00:08:34.479 and in fact 10 is 50 simplified with you
+00:08:36.429 but yeah in general if W is large then
+00:08:39.490 you never know what the complexity will
+00:08:42.969 be
+00:08:43.360 so this is super polynomial in the sense
+00:08:44.829 that it seems polynomial but this is
+00:08:47.860 also a variable okay so we're going to
+00:08:51.610 use me to figure what you can do is put
+00:08:54.910 out all the items in front of you okay
+00:08:56.410 let's say you're in items put them out
+00:08:59.290 as n by 2 and my two items again two
+00:09:02.800 sets which you need to come my things
+00:09:04.810 and how we combine them but you just add
+00:09:07.380 the prices of the two items and also add
+00:09:10.060 the weights of the two items so it's
+00:09:11.470 pretty simple now these two cells are
+00:09:14.470 going to be containing some items it's a
+00:09:16.839 1 2 8 17 so on and so forth and here
+00:09:22.000 will be 20 to 30 31 exciter but
+00:09:27.700 important to know is that the number of
+00:09:30.610 the nexus of these items can go from 0
+00:09:33.970 to N by 2 and from here they can go to N
+00:09:36.579 by 2 plus 1 to n so that's very
+00:09:40.480 important you've completely separated
+00:09:42.010 the two sets and now you're trying to
+00:09:44.560 merge them together ok so 0 the N by 2
+00:09:48.519 exact same logic as in the boot post
+00:09:50.740 knapsack how many possibilities of sets
+00:09:53.140 can you have to raise to power n by 2
+00:09:56.529 sets and the exact same procedure says
+00:09:59.680 to mr. Bar n by 2 sets can be mean
+00:10:02.610 through brute force for these two sets
+00:10:05.709 okay the sizes of the two sets are 2 is
+00:10:09.100 PI by 2 now for each each entry in this
+00:10:14.680 set you need to have the total price of
+00:10:18.820 all items okay and the total weight of
+00:10:25.390 all those items so total price and total
+00:10:28.329 bit that's all you need to have so this
+00:10:33.820 will be a pair total mate comma total
+00:10:36.399 price for each entry in this set of size
+00:10:40.149 2 is 5 by 2 and then exact same here so
+00:10:45.010 you have 2 sets and all you're going to
+00:10:46.540 Muslim
+00:10:47.649 and the lights on so though the Bears
+00:10:51.550 here that you have is safe are exactly
+00:10:54.129 similar to the pens that you have in
+00:10:55.389 this set which is total weight and total
+00:10:57.879 price for each entries and when you are
+00:11:01.629 trying to voice these two sets you take
+00:11:03.430 every entry in this set okay check for
+00:11:06.910 every entry in the other set whether the
+00:11:10.269 total weight so I have this quantity W
+00:11:13.170 total weight from the first set plus
+00:11:15.730 total weight from the second set should
+00:11:18.249 be less than equal to the maximum weight
+00:11:20.619 that you can carry and total price from
+00:11:24.579 the first set plus total price from
+00:11:26.319 second side
+00:11:26.949 if this condition satisfies you check
+00:11:28.899 for this if this is greater than the
+00:11:32.019 maximum price you are getting till now
+00:11:35.230 so maximum price initially will be 0 if
+00:11:37.899 this condition occurs then you just set
+00:11:40.179 max face to propyl price 1 plus total
+00:11:45.399 price - okay so this happens for every
+00:11:48.009 entry in the first set now of course if
+00:11:51.579 you are doing this in a brute force way
+00:11:53.350 it's not going to work because nevermind
+00:11:55.269 trees here that - based by n by 2 for
+00:11:57.790 every entry you're checking to inspire
+00:11:59.559 by two entries which is going to be
+00:12:00.879 overall time complexity of order up to
+00:12:03.279 this power N and then might be free to
+00:12:05.199 the brute force itself you can do this
+00:12:08.769 marker you see that for every entry here
+00:12:12.189 we are searching for transponding in
+00:12:14.050 fees in the second set but in the brute
+00:12:16.870 force way it seemed too much time so
+00:12:18.540 what you can do is sort these entries
+00:12:22.980 sort them by the total weights by by the
+00:12:27.550 total weights because your condition
+00:12:29.410 your first condition is that the total
+00:12:31.629 weight of one iota mated to the sum of
+00:12:34.089 these two must be less than W so the
+00:12:36.459 total weight of one is known to you this
+00:12:41.399 TW one capital W minus Z w1 is equal to
+00:12:45.519 some number X for every entry so you
+00:12:48.179 have these and now you can buy any
+00:12:51.730 search for X so this is the maximum
+00:12:54.339 weight that you can get maximum w2
+00:12:56.290 weight that you can carry so because you
+00:12:59.170 have sorted this second set
+00:13:01.370 by the total waves once you get this
+00:13:03.800 actually once you get the insertion
+00:13:04.910 point basically you go there and all
+00:13:08.560 entries above it and final there okay
+00:13:13.820 you have to check with all it is about
+00:13:15.760 this fertile entry that we found having
+00:13:18.620 made less than or equal to X ok so now
+00:13:24.350 amongst these entries you want a minimum
+00:13:26.530 let's not do that let's not do that
+00:13:28.520 immediately let's look at this second
+00:13:30.410 entry that we have again you have a
+00:13:31.820 particular total 8 again you will do the
+00:13:35.060 same thing you are going to find this
+00:13:36.170 value X 1 because W minus the total
+00:13:38.930 weight of this is going to give you and
+00:13:40.760 you might be of X which you buy any
+00:13:42.440 source will say forms over here let's
+00:13:44.780 say you do the same thing for the third
+00:13:45.890 one it falls over here so on and so
+00:13:47.630 forth but the interesting thing is that
+00:13:49.760 whenever you find the entry all values
+00:13:52.490 off of it are to be considered all that
+00:13:54.950 is below it are not to be considered and
+00:13:56.810 which values are powered well amongst
+00:14:00.560 the values above it what you want is the
+00:14:02.420 maximum price okay the the entry which
+00:14:06.740 gives you maximum price having total bit
+00:14:09.050 less than the value of x ok let's if
+00:14:14.060 that's clear then the whole problem is
+00:14:15.680 very simple actually
+00:14:16.670 after you solve it then you just need to
+00:14:19.280 find the prefix minimums the prefix
+00:14:25.820 minimums means basically from from this
+00:14:30.140 point to a point I so for every point I
+00:14:33.680 what you try to do is you find the in
+00:14:37.340 fact the prefix maximum so maximum
+00:14:41.380 because you're going to find the maximum
+00:14:43.430 price yeah so for every entry you check
+00:14:47.450 that if it is the maximum is it now and
+00:14:49.340 if it is of course you set it as a
+00:14:51.080 maximum otherwise you keep moving
+00:14:52.520 forward that's all so super good for
+00:14:54.830 prefix maximum is very simple what you
+00:14:57.170 do is ill now for I equal to 0 to n you
+00:15:02.660 have an idea of prefix Maxim's like you
+00:15:04.370 said so if the prefix maximum up to
+00:15:09.920 point I minus 1 is actually less than
+00:15:12.800 the current element
+00:15:15.020 which is it's a peon money okay if this
+00:15:21.140 happens then prefix of I should be equal
+00:15:26.660 to P or fine otherwise prefix of I is
+00:15:33.140 equal to P fixer I minus 1 so this one
+00:15:38.839 from 0 to n this is an order n
+00:15:40.279 computation and because when I say
+00:15:42.770 author it's basically the size of the
+00:15:44.300 set so because this set is of size 2 v
+00:15:46.640 square by 2 this is order who is 2 power
+00:15:48.470 n by 2 so you find a prefix maximums you
+00:15:52.399 sorted this set after that you finally
+00:15:54.140 fix Maxim's and for every element in
+00:15:57.110 this say you find the corresponding
+00:16:00.800 prefix maximum entry in the insertion
+00:16:03.380 point that we found oh yeah ok I'll just
+00:16:05.899 write that down because it's confusing
+00:16:08.930 sometimes
+00:16:09.649 so using this technique and after
+00:16:13.670 iterating over all elements you will
+00:16:15.350 find the best possible value which
+00:16:17.899 satisfies this constraint and has the
+00:16:20.180 maximum price so the knapsack problem
+00:16:22.820 will be solved having complexity
+00:16:25.240 generating the set X order to whisper n
+00:16:29.720 by 2 time the same for this side and
+00:16:32.620 finding the prefix comes the biggest
+00:16:35.240 maximum is who is special so this is 3
+00:16:38.750 into 2 raised power n by 2 which is the
+00:16:40.490 constant factor it will get out plus 2
+00:16:43.040 raised to power n by 2 into log of 2 is
+00:16:47.570 Phi by 2 why that because we started to
+00:16:50.750 set
+00:16:51.170 ok sorting is n log n for a set of size
+00:16:54.440 n this is what your sex sizes so this is
+00:16:59.329 the overall time complexity of algorithm
+00:17:01.540 and we're not really for every element
+00:17:06.559 you are finding your body searching in
+00:17:08.449 this set so my research takes log n time
+00:17:12.650 where n is the size of the set so for
+00:17:15.050 every element which is going to give you
+00:17:17.030 plus n into binary search in this
+00:17:23.550 so of course I keep it in physics
+00:17:26.680 actually size in the side so who is
+00:17:28.810 about n by 2 into log of 2 is my
+00:17:36.100 invective okay so this is the overtime
+00:17:40.240 of exit easy and that is equal to plus
+00:17:43.600 PI by 2 into 3 can be 2 pi n by 2 in
+00:17:47.590 common these two factors are in comments
+00:17:51.970 with that constant will also God you
+00:17:53.650 have no over to mr. power n by 2 which
+00:17:55.420 is going to be n by 2 itself
+00:17:58.710 ok so overall time complexity finally
+00:18:01.090 comes out to be 2 raised to power n by 2
+00:18:04.800 into n so that's a fine line for
+00:18:08.950 disappear and it's improved from order n
+00:18:13.600 into 2 booster power in okay this is a
+00:18:16.450 factor of n also when you are doing the
+00:18:18.910 standard knapsack problem 0 1 apps icon
+00:18:21.580 so important with an complexity by quite
+00:18:24.640 a bit actually because if n is for T
+00:18:28.450 then this is going to time out to most
+00:18:31.450 computers it's reading about 30 seconds
+00:18:33.010 and this is going to take much much
+00:18:36.400 smaller time so this is the significant
+00:18:39.310 improvement as long as n is small enough
+00:18:40.980 okay once the tsunamis you can cry is
+00:18:43.540 bi-directional BFS we're meeting Billy
+00:18:45.760 does work and you can also try something
+00:18:48.220 like travelling salesman using me to the
+00:18:50.560 middle where I don't think we will build
+00:18:52.900 work so that's it for me to the middle
+00:18:55.150 if you have any bounce these positions
+00:18:56.470 you can meet them in the comments below
+00:18:57.550 if you want notifications for for the
+00:18:59.470 videos you can subscribe and I will be
+00:19:01.420 sharing the phone and the links in the
+00:19:02.800 description below so actual x times you

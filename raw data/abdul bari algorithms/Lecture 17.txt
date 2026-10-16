@@ -1,0 +1,1069 @@
+# 1.12 Disjoint Sets Data Structure - Weighted Union and Collapsing Find
+
+# https://www.youtube.com/watch/wU6udHRIkcc
+
+
+
+00:00:00.160 the topic is disjoint
+
+00:00:02.439 sets in this video I will cover the
+
+00:00:05.120 following things first is what are
+
+00:00:06.960 disjoint sets and the operations on them
+
+00:00:09.800 then detecting a cycle see disjoint sets
+
+00:00:13.200 are useful for detecting a cycle in
+
+00:00:16.560 nondirected graph or undirected graph so
+
+00:00:19.359 we will take an example and learn how to
+
+00:00:21.720 detect a cycle in a non-directed graph
+
+00:00:25.400 then graphically how to represent these
+
+00:00:27.880 disjoint sets and how it can be
+
+00:00:30.439 represented using array and lastly the
+
+00:00:33.760 time efficient operations on disjoint
+
+00:00:36.040 sets are weighted Union and collapsing
+
+00:00:38.520 find that are based on the ranks or
+
+00:00:41.000 weights we will see that disjoint sets
+
+00:00:44.480 are similar to sets Topic in mathematics
+
+00:00:47.520 but not exactly they are little bit
+
+00:00:50.199 change for making them useful in
+
+00:00:53.640 algorithms so the famous algorithm that
+
+00:00:56.160 uses disjoint set is cuscal algorithm
+
+00:00:59.399 which detects a cycle in a graph so let
+
+00:01:02.840 us see how these disjoint sets are
+
+00:01:04.959 different from normal sets of
+
+00:01:08.119 mathematics let us understand what are
+
+00:01:10.320 disjoint sets see here I have a
+
+00:01:13.439 nonconnected and non-directed graph
+
+00:01:16.799 there are two components it's not
+
+00:01:18.439 connected graph two components I have
+
+00:01:20.200 taken and each component I have
+
+00:01:23.159 represented it as a set set S1 is having
+
+00:01:26.439 1 2 3 4 these are the vertices of this
+
+00:01:28.920 component and set two is having 5 6 7 8
+
+00:01:32.200 these are the vertices of second
+
+00:01:34.920 component so the two different
+
+00:01:37.320 components are representing two
+
+00:01:38.880 different sets and what is a disjoint
+
+00:01:41.720 here so no Vex is common here the
+
+00:01:44.520 numbers are not common here so if you
+
+00:01:47.399 take intersection of these two S1 and S2
+
+00:01:52.159 then you will not get anything five
+
+00:01:54.680 empty set so that is disjoint disjoint
+
+00:01:58.039 set means two sets are not having having
+
+00:02:00.159 anything
+
+00:02:01.320 common then how we use them what are the
+
+00:02:04.159 operations on them see we prefer
+
+00:02:06.479 performing only two operations that are
+
+00:02:08.720 find and Union I'll show what does it
+
+00:02:11.599 mean by these operations so first
+
+00:02:13.400 operation find I want to know Vex 5
+
+00:02:17.920 belongs to which set it's not here yeah
+
+00:02:21.640 it's here so it belongs to set two find
+
+00:02:25.519 operation is to find out any element or
+
+00:02:28.280 a Vertex belonging to V set it's like a
+
+00:02:31.920 set membership operation also means that
+
+00:02:35.000 element is member of which set so like I
+
+00:02:38.360 want to find out seven 7even doesn't
+
+00:02:41.280 belong here okay here it belongs so it
+
+00:02:43.760 belongs to set two then three find three
+
+00:02:47.280 find three where it is here so it is set
+
+00:02:50.120 one so that's it find operation is very
+
+00:02:52.840 simple so you have to find out in which
+
+00:02:54.760 set it belongs to so I'm showing you
+
+00:02:56.920 just mathematically later we will come
+
+00:02:59.000 to the data structure
+
+00:03:00.879 now let us look at Union operation see
+
+00:03:04.360 for showing you Union operation I'll try
+
+00:03:07.000 to connect these two with an
+
+00:03:10.640 edge I have added this Edge this Edge
+
+00:03:15.080 that is 4 to 8 so when you add an edge
+
+00:03:20.120 then what we do here is we perform Union
+
+00:03:24.000 operation so we connected
+
+00:03:26.799 what 4A 8 we have connected Now find
+
+00:03:31.640 four four yeah it belongs to set one
+
+00:03:35.400 find eight
+
+00:03:37.680 8 yeah here it belongs so it is in set
+
+00:03:40.680 to so find four and find 8 they belong
+
+00:03:44.840 to two different sets so perform Union
+
+00:03:48.519 S1 Union S2 so now we get a set that is
+
+00:03:52.120 1 2 3 4 5 6 7
+
+00:03:57.599 8 this is Union operation see in
+
+00:04:00.280 mathematics simply we perform Union on
+
+00:04:01.959 two sets but here there is a reason of
+
+00:04:03.720 Performing Union what is the reason if
+
+00:04:06.400 there is an edge U comma V find out U it
+
+00:04:09.920 to which set it belongs and find out V
+
+00:04:12.439 to which set it belongs and if they
+
+00:04:14.120 belong to different sets then perform
+
+00:04:16.720 Union of those two sets this is the
+
+00:04:19.399 purpose of Performing union now why we
+
+00:04:21.918 are doing this let us see next I'll add
+
+00:04:24.800 one more Edge one to5 so this is 1 to5
+
+00:04:29.840 now we don't have these sets that are
+
+00:04:32.880 union and we got a new set let us call
+
+00:04:35.560 this as set three so we have a new set
+
+00:04:38.600 those elements are gone this is the
+
+00:04:40.520 final set now 1 comma 5 1 yes find one
+
+00:04:47.360 it's present here find five yes it is
+
+00:04:50.639 present here now both these vertices or
+
+00:04:54.680 numbers are belonging to same set and if
+
+00:04:58.080 they belong to same set means
+
+00:05:00.199 there is a
+
+00:05:02.160 cycle that's it this is the way we find
+
+00:05:05.120 out a cycle in a graph so what are the
+
+00:05:07.960 things we learn what is find operation
+
+00:05:10.120 what is Union operation and what is the
+
+00:05:11.880 purpose of Union operation then how we
+
+00:05:14.400 can know that there's a cycle in a graph
+
+00:05:16.840 if you take any Edge and both the
+
+00:05:18.639 vertices are belonging to same set then
+
+00:05:21.680 there is a cycle in a graph so this for
+
+00:05:23.800 a very simple example I have shown you
+
+00:05:25.560 what does it mean by find and Union now
+
+00:05:28.039 we will take one example graph and we
+
+00:05:30.039 will see from the beginning how we can
+
+00:05:31.800 detect a cycle in a graph I will form
+
+00:05:34.759 all the sets right from the beginning I
+
+00:05:36.360 will add all the edges one by one let us
+
+00:05:39.039 take an example and find out how we can
+
+00:05:41.280 find a cycle how we can detect a cycle
+
+00:05:43.400 in a graph by with the help of disjoint
+
+00:05:45.479 sets here I have taken one example graph
+
+00:05:49.000 and in this I have labeled the vertices
+
+00:05:51.039 so let us say these are some weights so
+
+00:05:53.919 just like let us find a minimum cost of
+
+00:05:56.280 spanning tree from this one otherwise
+
+00:05:58.360 you can also say that I have number them
+
+00:06:00.160 so first Edge that I'll be taking is
+
+00:06:02.120 this one then this one second one then
+
+00:06:04.199 third and fourth in this way I will
+
+00:06:06.599 include all the edges of a graph now how
+
+00:06:11.280 we can take the help of disjoint sets
+
+00:06:13.639 for finding finding a cycle let us check
+
+00:06:17.360 see there are eight vertices I have
+
+00:06:19.360 taken a universal set with eight
+
+00:06:22.280 vertices each element you considered it
+
+00:06:25.039 as a set now let us start what we'll be
+
+00:06:28.680 doing is we will be going on taking
+
+00:06:30.960 edges including edges and forming the
+
+00:06:33.240 sets for them one by one so the first
+
+00:06:35.880 Edge is 1 comma 2 so the first Ed is 1A
+
+00:06:39.039 2 so find one one is here and find two
+
+00:06:43.919 it is here so actually they are in
+
+00:06:45.880 Universal set so form a set for them
+
+00:06:49.240 take one and two so perform Union on one
+
+00:06:53.240 and two so from this Universal set they
+
+00:06:55.759 are removed and they are brought into
+
+00:06:58.160 set One S one
+
+00:07:01.160 now next Edge next Edge is 3A 4 so 3A
+
+00:07:07.919 4 three is in Universal set remove this
+
+00:07:11.599 find four this is in this Universal set
+
+00:07:14.240 remove it so form a set that is set two
+
+00:07:18.479 with three and
+
+00:07:20.520 four then third Edge 5 6 so this is 5A 6
+
+00:07:26.840 and they belong to Universal set remove
+
+00:07:28.960 them from this there and form a set for
+
+00:07:32.160 them 5 six the next one is fourth edges
+
+00:07:35.759 78 so take seven and 8 and find seven it
+
+00:07:40.039 is here find eight it is here they are
+
+00:07:42.560 in Universal set form a set for them
+
+00:07:45.479 that is 7 and
+
+00:07:48.080 8 now the next Edge after the fourth
+
+00:07:50.879 Edge this is the fifth Edge I'm going to
+
+00:07:52.720 take that is 2 comma 4 now you can see
+
+00:07:55.159 that all these vertices are removed
+
+00:07:57.240 numbers are removed they are in
+
+00:07:58.479 different sets now Now find two it's not
+
+00:08:01.400 there just forget this one find two it
+
+00:08:04.000 is here find four it is here so they are
+
+00:08:08.360 in two different sets perform Union so I
+
+00:08:11.440 will form a new set that is set five by
+
+00:08:14.039 taking Union of these two 1 2 3 4 I have
+
+00:08:17.800 performed Union on these two sets so now
+
+00:08:19.759 you can see that Union is being
+
+00:08:21.280 performed let us go to our next Edge
+
+00:08:24.479 after 2A 4 this one 2A 4 sixth one is
+
+00:08:29.000 this one that is 2A 5 so 2 comma 5 find
+
+00:08:34.240 two so two is in this set now these are
+
+00:08:37.559 union remove
+
+00:08:39.440 them this is in set five and five is in
+
+00:08:44.039 set three perform Union of these two and
+
+00:08:46.880 form a set six so what are those
+
+00:08:49.000 vertices 1 2 3 4 and these two 5 six see
+
+00:08:55.320 the reason of Performing Union is we are
+
+00:08:57.600 including an hedge considering an ed
+
+00:09:00.279 so this set is also gone we have a union
+
+00:09:02.640 this is also gone now we have only two
+
+00:09:04.720 sets
+
+00:09:06.000 now right now after this Edge seventh
+
+00:09:10.399 edges this one 1A 3 1 comma 3 I'll
+
+00:09:14.720 remove these sets and I'll just write
+
+00:09:16.600 two sets here find one it belongs to set
+
+00:09:20.160 six find three it belongs to same set so
+
+00:09:24.440 when they both belong to same set it
+
+00:09:26.519 means there is a cycle yes you can see
+
+00:09:29.120 that by taking this Edge I'll be forming
+
+00:09:31.760 cycle I will highlight the edges that I
+
+00:09:34.480 have included so far see I have included
+
+00:09:36.720 these edges I have included these I have
+
+00:09:39.760 included these edges right now if I
+
+00:09:42.600 include this Edge this will form a cycle
+
+00:09:44.920 so don't include this that's how the
+
+00:09:47.920 edge which is forming a cycle don't
+
+00:09:49.680 include it we have detected one cycle
+
+00:09:52.320 let us continue after that seventh Edge
+
+00:09:54.720 the next Edge eth one is this one so
+
+00:09:57.200 eight is what six and eight 6 and
+
+00:10:01.079 8 let us see find six find six six
+
+00:10:05.320 belongs here find eight eight belongs to
+
+00:10:08.640 this one so they are in different sets
+
+00:10:10.839 perform union now we'll get seventh set
+
+00:10:14.160 and what is that 1 2 3 4 5 6 from this
+
+00:10:18.120 set and 7 eight from this set seven and8
+
+00:10:21.480 from this set so these two are
+
+00:10:24.480 gone so this is also included now the
+
+00:10:28.160 last Edge remaining is n9th one 5A 7 5
+
+00:10:32.959 comma 7 find five it is in the set find
+
+00:10:36.880 S this is also in this set both all are
+
+00:10:38.920 in same set only now as they both belong
+
+00:10:41.480 to same set there is a cycle so this is
+
+00:10:45.079 how cuscal algorithm also uses it in the
+
+00:10:47.720 same way for finding a spanning tree
+
+00:10:50.399 like you may be knowing that in cuscal
+
+00:10:52.279 algorithm always we select a minimum
+
+00:10:54.160 cost hedge now shall we select it or not
+
+00:10:57.160 is it forming a cycle or not how we can
+
+00:10:59.639 know by checking into the sets so this
+
+00:11:02.519 was like a working of csal algorithm
+
+00:11:06.120 only now how it is done graphically and
+
+00:11:10.360 how it is represented using array that
+
+00:11:13.000 we have to see so I'll take the same
+
+00:11:14.920 graph and show you let us quickly look
+
+00:11:17.079 at how we can show the sets graphically
+
+00:11:20.399 so I will do the same thing I have the
+
+00:11:21.920 same graph and the vertices these
+
+00:11:24.240 instead of universal set I have shown
+
+00:11:26.040 them as vertices here that is I have
+
+00:11:28.000 taken notes now will go on including the
+
+00:11:30.800 edges so the first Edge is 1A 2 if I
+
+00:11:33.800 include Edge 1A 2 you remember I was
+
+00:11:36.279 making a set as 1 2 now actually we
+
+00:11:39.120 don't need a set we are not performing
+
+00:11:41.560 mathematical operations here like
+
+00:11:43.639 intersection Union difference we are not
+
+00:11:46.440 performing that one so what we want is
+
+00:11:49.639 just we want to dedu a cycle so we want
+
+00:11:51.480 to do it in an easy way so instead of
+
+00:11:53.680 showing it like this graphically we will
+
+00:11:55.519 take one and two basically we don't need
+
+00:11:58.519 the name of of a set we need just one
+
+00:12:01.480 representative of a set so we will make
+
+00:12:04.959 whatx one as a parent of set and two as
+
+00:12:08.079 a child if you like you can make two as
+
+00:12:10.880 a parent and one as a child
+
+00:12:13.399 also so let me show you other edges that
+
+00:12:16.399 is 3 comma 4 so if I take 3 comma 4 and
+
+00:12:20.120 make a set 3 4 so three as a parent and
+
+00:12:23.800 four as a child of it now third set that
+
+00:12:28.240 is 5 six
+
+00:12:30.480 then set
+
+00:12:31.639 four 7A 8 I have included four edges I
+
+00:12:37.800 got four set graphically they are shown
+
+00:12:40.079 like this now let me include the next
+
+00:12:42.399 one from here you can get the clear
+
+00:12:44.240 picture Edge 2 comma 4 fifth one 2 comma
+
+00:12:49.040 4 so where is two two is here who is the
+
+00:12:52.800 parent of two one the next is four find
+
+00:12:57.160 four four is here who is a parent of
+
+00:12:59.199 four three so these are in two different
+
+00:13:01.920 sets so you remember we perform Union
+
+00:13:04.519 how to perform Union so we'll select one
+
+00:13:07.279 as a parent and two as a child here and
+
+00:13:10.440 it's a child is a three and
+
+00:13:14.600 four so we made the parent of one set as
+
+00:13:18.600 a child of the parent of another set so
+
+00:13:22.079 you may be asking that why didn't you
+
+00:13:23.959 select three as a parent if you want you
+
+00:13:25.920 select that one also it makes no
+
+00:13:27.760 difference it makes makes no difference
+
+00:13:29.839 whether you take three as a parent and
+
+00:13:32.000 one you make it as a child of three it
+
+00:13:34.120 makes no
+
+00:13:35.560 difference then next one after fifth
+
+00:13:38.639 sixth one is a 2 comma 5 two is here who
+
+00:13:42.560 is the parent of this one one then five
+
+00:13:45.519 is here so they are in two different
+
+00:13:48.000 sets these are in two different sets so
+
+00:13:50.680 we'll include that five we will bring it
+
+00:13:52.880 here and six
+
+00:13:55.199 here actually these are gone I'll remove
+
+00:13:57.800 them now again one more thing here also
+
+00:14:01.880 you can ask a question why didn't you
+
+00:14:03.320 select five as a parent see here I have
+
+00:14:05.800 a strong answer that before including
+
+00:14:08.759 this see how many nodes are there four
+
+00:14:10.880 nodes are there so weight of this set is
+
+00:14:14.160 more and this weight is less so we will
+
+00:14:17.320 make this as a parent and this as child
+
+00:14:20.480 earlier all the both the sets were
+
+00:14:22.480 having the same number of elements but
+
+00:14:24.199 now this is set 1 2 3 4 is having more
+
+00:14:27.040 number of elements 5 6 is having
+
+00:14:29.800 just two elements so this is
+
+00:14:31.480 representing this set you see 1 2 3 4 5
+
+00:14:36.800 6 this is fifth sixth set if you
+
+00:14:41.320 remember already we have done this so
+
+00:14:43.519 now this is
+
+00:14:44.759 gone now next is 7th one 1A
+
+00:14:49.800 3 1 comma 3 one is the parent itself and
+
+00:14:54.519 three its parent is one so both of their
+
+00:14:57.600 parent is one only it it is one only so
+
+00:15:00.000 they belong to set one so both belong to
+
+00:15:02.839 same set so it's a
+
+00:15:04.839 cycle that's enough I'll not go further
+
+00:15:07.720 so this is how we detect whether there
+
+00:15:09.800 is a cycle or not graphically I have
+
+00:15:12.519 shown you now let us see the same thing
+
+00:15:15.440 again with the help of an array how it
+
+00:15:18.839 is done using array now I'll show you
+
+00:15:21.680 the graphical representation as well as
+
+00:15:23.759 array representation see for
+
+00:15:25.959 representing a set we don't need the
+
+00:15:28.240 name of a set we are not performing
+
+00:15:30.440 actual Union intersection or set
+
+00:15:33.519 difference operations of mathematics we
+
+00:15:36.839 just want to perform find and Union our
+
+00:15:40.240 objective is to detect a cycle so for
+
+00:15:43.160 that for all eight vertices we will take
+
+00:15:46.440 a single array called parent and the
+
+00:15:49.680 indices are representing these eight
+
+00:15:52.440 vertices and each is having value minus
+
+00:15:55.240 one means each vertex is in its own set
+
+00:15:59.639 next to show you graphically how it
+
+00:16:01.560 looks like I have even taken these eight
+
+00:16:05.519 notes now let us perform the same thing
+
+00:16:08.199 on this graph and see how we will
+
+00:16:11.639 represent sets in a array and also I'll
+
+00:16:14.680 show it graphically so first Edge 1A
+
+00:16:19.079 2 1A 2 1 who is a parent of 1 minus one
+
+00:16:24.399 itself two find two go to index two and
+
+00:16:28.519 see what is there minus one so who is a
+
+00:16:30.639 parent of two itself so how much time it
+
+00:16:33.560 has taken for finding one and finding
+
+00:16:35.600 two find one it's minus one find two
+
+00:16:39.560 it's minus one so constant time so they
+
+00:16:43.279 belong to two different sets now perform
+
+00:16:45.680 Union how we perform Union so
+
+00:16:48.040 graphically I will show I will select
+
+00:16:50.160 one as a parent and two as a child so
+
+00:16:52.880 two is a child of one so here we will
+
+00:16:55.279 write one so who is a perent of two now
+
+00:16:57.920 one and what is 1 minus one so there's a
+
+00:17:00.759 parent so if there's minus one or
+
+00:17:03.399 negative value then it's a parent now
+
+00:17:05.839 I'll do one more thing total how many
+
+00:17:07.880 nodes are there two nodes are there so
+
+00:17:09.919 instead of writing just minus one I'll
+
+00:17:12.319 write negative only so min-2 so there
+
+00:17:15.000 are two things minus shows that it's a
+
+00:17:17.199 parent and two shows that there are two
+
+00:17:19.520 nodes
+
+00:17:21.160 here that's it let us continue repeat
+
+00:17:24.160 the same thing for all of them next Ed
+
+00:17:27.079 is 3A 4 3A 4 find 3 - one itself is a
+
+00:17:34.000 parent 4 - 1 itself is a parent so for a
+
+00:17:38.520 set so who is a parent of four three and
+
+00:17:41.520 what is a three it's parent but there
+
+00:17:43.919 are two notes in this one 5A 6 third one
+
+00:17:48.200 so find five this is -1 find 6 - 1 so
+
+00:17:53.160 five here and six here so this is five
+
+00:17:57.039 and this is min -2 now the the next Edge
+
+00:17:59.679 is this one 7 comma 8 find seven itself
+
+00:18:03.880 as a parent find 8 itself as a parent
+
+00:18:06.679 now make eight as a child of this seven
+
+00:18:09.440 or seven as a parent so this is seven
+
+00:18:11.240 and this is
+
+00:18:13.559 two till here we have finished next
+
+00:18:17.559 fifth Edge 2A 4 sorry 2A 4 find two one
+
+00:18:23.760 is a parent find four three is a parent
+
+00:18:26.760 let us do it in an array two go to two 1
+
+00:18:30.080 go to 1 minus 2 so who is the parent of
+
+00:18:32.919 this one
+
+00:18:34.280 one find four go to four three go to
+
+00:18:37.919 three minus 2 so who is the parent of
+
+00:18:39.840 this one three and this was one they are
+
+00:18:42.480 different
+
+00:18:43.480 parent perform Union so whom we should
+
+00:18:47.480 select as a parent one we will select it
+
+00:18:49.440 as parent so at a three I will write
+
+00:18:53.159 one then total how many nodes now four
+
+00:18:56.960 nodes so graphically
+
+00:18:59.520 three will come as a child of one and
+
+00:19:04.320 here is
+
+00:19:05.559 four that's it so that's how Union is
+
+00:19:08.520 done now let us take next one fifth now
+
+00:19:12.200 this is sixth 2 comma
+
+00:19:14.640 5 2 and
+
+00:19:17.600 five let us see who is a parent of two
+
+00:19:20.520 one let us look at here two it's one go
+
+00:19:24.679 to one it's Min -4 just one step we are
+
+00:19:27.640 going right it's not n time we consider
+
+00:19:30.520 it as constant time only find five five
+
+00:19:35.280 go to five minus 2 itself is a parent so
+
+00:19:38.159 for two this is a parent and for five
+
+00:19:41.520 itself is a parent now who should become
+
+00:19:44.039 the parent for both we have to perform
+
+00:19:46.400 union now unite these two so who should
+
+00:19:49.039 be comparing one or five C what is there
+
+00:19:52.120 at one -4 what is there at five -2 whose
+
+00:19:56.640 weight is greater rank is greater weight
+
+00:19:59.400 or rank both are same only here we call
+
+00:20:01.360 it as rank also whose rank is greater
+
+00:20:04.159 one's rank is greater so let five come
+
+00:20:06.880 as a child of
+
+00:20:09.559 one so at five we write one now two more
+
+00:20:13.880 nodes are added to this so four and that
+
+00:20:16.480 minus 2 is added so it becomes
+
+00:20:20.039 sorry two more nodes are added to it
+
+00:20:22.720 that four and minus 2 it becomes six so
+
+00:20:25.440 total six nodes are here
+
+00:20:29.159 this is how Union is
+
+00:20:31.080 performed let us go to next one after
+
+00:20:33.640 six sth 7eventh is what 7th is 1A 3 this
+
+00:20:38.240 will be interesting find one one okay
+
+00:20:42.000 here in this one itself is a parent find
+
+00:20:45.400 three three who is a parent one okay
+
+00:20:48.720 here in an array three 1 go to one minus
+
+00:20:51.720 one so the parent is same so for both
+
+00:20:54.480 one and three parent is same both our
+
+00:20:57.360 parent are same so so it means they
+
+00:20:59.320 belong to same set and it's a cycle if
+
+00:21:03.520 you include 1A 3 it will form a cycle
+
+00:21:06.640 see so far we included these edges right
+
+00:21:09.799 we have included these edges and if we
+
+00:21:12.840 include 1 comma 3 this will form a cycle
+
+00:21:15.600 so don't include this one so that's how
+
+00:21:18.240 inclusion of any Edge will it form a
+
+00:21:20.840 cycle or not we can know it with the
+
+00:21:23.440 help of this disjoint
+
+00:21:26.840 sets I can continue you like this okay
+
+00:21:29.840 let me quickly finish the rest of them
+
+00:21:31.559 also but here 5A 6 is gone it is coming
+
+00:21:34.600 under this one now let us take next Edge
+
+00:21:37.120 6A 8 6A 8 find six six parent is five
+
+00:21:43.279 five parent is 1 so go here in the an
+
+00:21:45.919 array let us see here also six parent is
+
+00:21:48.320 five and five's parent is one and one's
+
+00:21:51.400 parent that's one itself is the
+
+00:21:53.840 parent so one is the parent of six now
+
+00:21:56.840 what about eight find eight in this
+
+00:21:59.039 graph you can see this graphically it is
+
+00:22:01.080 seven so go to 8 and 7even go to 7 it's
+
+00:22:04.480 min-2 so this is the parent so perform
+
+00:22:07.000 Union on 1 on 7 now who is greater Min -
+
+00:22:09.880 8 is greater this is min-2 so make this
+
+00:22:13.400 s's parent as one and add two more nodes
+
+00:22:17.440 here and graphically show it like this 7
+
+00:22:21.760 and
+
+00:22:23.559 8 that's it now the last one is ninth
+
+00:22:26.960 one this is included now ninth one if I
+
+00:22:29.640 try to include five and seven find five
+
+00:22:34.279 parent is one find seven parent is one
+
+00:22:37.480 look at here five one only seven one
+
+00:22:40.559 only so for both of them parent is one
+
+00:22:43.440 so inclusion of nine will form a
+
+00:22:46.799 cycle so this is how a simple array of
+
+00:22:51.240 values are sufficient for
+
+00:22:53.840 finding whether there is a cycle or not
+
+00:22:56.520 with the help of find and Union
+
+00:22:58.840 operation that's all with this what just
+
+00:23:01.200 one thing is remaining here see I
+
+00:23:03.799 instead of taking just minus one I was
+
+00:23:05.840 taking ranks or weight and the union was
+
+00:23:09.279 performed based on whoever weight is
+
+00:23:12.279 higher right so this is weighted union
+
+00:23:15.400 now one more term is used that is
+
+00:23:16.960 collapsing find so let me tell you one
+
+00:23:19.440 thing here see if I say find two go to
+
+00:23:22.480 two one one is negative just two steps
+
+00:23:26.520 find three go to three one at 1 minus 8
+
+00:23:30.760 so one is a parent just two steps
+
+00:23:33.120 constant steps find four go to four go
+
+00:23:37.919 to four it will take you to three go to
+
+00:23:40.039 three it will take you to one then here
+
+00:23:42.880 so the time is more time is more so here
+
+00:23:46.559 for some notes the time may be more you
+
+00:23:49.039 have to go along the parent and parent
+
+00:23:50.840 and parent then finally you will get the
+
+00:23:53.440 root or the main parent of a set so what
+
+00:23:56.600 we do in this situation is when we find
+
+00:23:59.760 that parent of six is five and then its
+
+00:24:02.840 parent is one so finally parent of six
+
+00:24:05.039 is one so for this we have to take
+
+00:24:07.679 multiple steps but once we found out
+
+00:24:11.679 that the parent of six is one we don't
+
+00:24:14.440 have to keep it there only we can
+
+00:24:16.760 directly bring six under
+
+00:24:19.600 one so here also in six five is the
+
+00:24:24.000 parent five's parent is one so for six
+
+00:24:26.960 also it is one so we can directly modify
+
+00:24:29.720 this one now whenever we say find six go
+
+00:24:32.720 to index six what is find there one so
+
+00:24:35.760 at one it is negative so parent of 6 is
+
+00:24:39.559 one directly in constant time we can
+
+00:24:42.159 know parent of any element so this
+
+00:24:44.960 procedure of directly linking a node to
+
+00:24:48.000 the direct parent of a set is called as
+
+00:24:52.720 collapsing find with collapsing find we
+
+00:24:56.640 can reduce the time for finding the same
+
+00:24:59.440 value next time first time we may be
+
+00:25:02.039 spending some extra time but next time
+
+00:25:04.159 in constant time we can get the parent
+
+00:25:06.440 now same way suppose I find 8 from 8 go
+
+00:25:09.840 to S from 7 go to one let us do it here
+
+00:25:12.640 go to 8 7 7 it's one go to one it's
+
+00:25:16.559 parent so once you know that 8 is under
+
+00:25:19.880 one so directly bring it under one so
+
+00:25:22.919 here also we can write one so whenever
+
+00:25:26.600 you find any element you can collapse it
+
+00:25:28.840 to its direct parent so that's all how
+
+00:25:32.760 we can use array for representing this
+
+00:25:36.320 join sets and even link list can be used
+
+00:25:39.200 for doing this so for link list you can
+
+00:25:41.440 explore it I have shown about array in
+
+00:25:44.279 detail everything I have shown you when
+
+00:25:46.799 we use Link list then we have to take
+
+00:25:48.720 nodes and in the node we have to write
+
+00:25:50.840 down these index and stof index we have
+
+00:25:52.720 to keep it as a value that is the node
+
+00:25:55.480 value and a poter to the parent poter to
+
+00:25:57.880 the next node so you can explore that by
+
+00:26:00.960 yourself that's all with a disjoint sets

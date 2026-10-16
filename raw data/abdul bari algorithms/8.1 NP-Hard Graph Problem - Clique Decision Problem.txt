@@ -1,0 +1,7 @@
+# 8.1 NP-Hard Graph Problem - Clique Decision Problem
+
+# https://www.youtube.com/watch/qZs767KQcvE
+
+
+
+00:00:00.000 hi the topic is clear decision problem this is a NP-Hard problem

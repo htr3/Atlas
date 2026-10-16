@@ -1,0 +1,289 @@
+# No title found
+
+# https://www.youtube.com/watch/mwN18xfwNhk
+
+
+
+00:00:00.000 a combination of two functions the
+
+00:00:02.669 function maybe time functions or they
+
+00:00:05.069 may be a space functions so functions
+
+00:00:08.700 mathematical functions if suppose I have
+
+00:00:12.540 a function that is n square and another
+
+00:00:15.570 function is n cube
+
+00:00:17.520 I want to compare them to know which one
+
+00:00:21.420 is bigger than Richmond is a smaller so
+
+00:00:23.670 which becomes an upper bound and which
+
+00:00:25.289 becomes a lower bound so forth updating
+
+00:00:27.750 this so I don't have to check anything
+
+00:00:29.460 Garrity I know that this is smaller and
+
+00:00:31.650 this is greater but if at all I have to
+
+00:00:34.680 check them I have to prove then how I
+
+00:00:36.870 can do what matter is I can sample some
+
+00:00:40.680 values for example if I take and add to
+
+00:00:45.870 10 this is 2 square right so it is 4 and
+
+00:00:50.219 this is 2q this is 8 so 4 is smaller
+
+00:00:54.989 than 8 so it is greater if I did it as 3
+
+00:00:58.980 then 3 squared is 9 and this is 3q as 27
+
+00:01:06.680 so yes 37 is greater than none if I take
+
+00:01:12.210 4 this is 4 square at a 16 and this is
+
+00:01:16.170 for Q this is 64 so I have sample 3
+
+00:01:23.189 values that is enough for me to observe
+
+00:01:25.470 that this is always greater than this
+
+00:01:27.390 one say yes this is smaller than this
+
+00:01:29.850 amount this is one method of checking
+
+00:01:32.759 whether functions I compare this is one
+
+00:01:37.710 method of comparing two functions to
+
+00:01:40.560 find out which one is smaller R theta or
+
+00:01:42.720 R the second method is apply log on both
+
+00:01:53.340 sides a plague of on both sites log n
+
+00:02:01.380 Square log n Q then this becomes too
+
+00:02:09.899 long and
+
+00:02:11.240 and this becomes three log n now this is
+
+00:02:17.750 log n this is log n they are same only
+
+00:02:19.700 but this is two times that is three
+
+00:02:21.470 times and definitely this is less than
+
+00:02:24.410 neckla so second method is a play log on
+
+00:02:30.140 to the site to find out which one is a
+
+00:02:32.510 smaller and which one is greater so if
+
+00:02:35.030 you have some complex functions then
+
+00:02:36.890 this is useful this is a known function
+
+00:02:38.720 only so I am taking a known thing too
+
+00:02:41.030 and just make you understand what is the
+
+00:02:43.190 method of checking there so to log in so
+
+00:02:47.150 I should check exact when it's too long
+
+00:02:48.770 and it's less than log n so for applying
+
+00:02:51.980 logs you should know some formulas for
+
+00:02:54.560 law so let me make some formulas here
+
+00:03:00.190 log a little business
+
+00:03:03.430 log a plus log B log a divided by B is
+
+00:03:12.790 log a minus log B log e to the power of
+
+00:03:23.780 beers be long if you have any column
+
+00:03:28.100 here that will come this side it will
+
+00:03:30.230 become coefficient Ybor
+
+00:03:41.790 ivar log BBC this be for log ABC right
+
+00:03:54.659 so this log value can come as a base
+
+00:03:57.780 here if it isn't power I'm empowered
+
+00:04:04.379 B is equals to n then B is equals to log
+
+00:04:12.840 n base a these formulas must be helpful
+
+00:04:17.039 for solving long problems so now the
+
+00:04:21.029 objective is to compare functions
+
+00:04:23.699 so I will write few functions and let us
+
+00:04:26.100 compare them and find out which one is
+
+00:04:27.990 greater and which one is smaller here I
+
+00:04:30.660 have two functions let us find out which
+
+00:04:33.630 is greater compare them so I for friends
+
+00:04:36.780 in square log in G of n is n log n whole
+
+00:04:39.990 to the power of 10 so power of 10 has a
+
+00:04:42.690 greater so it looks as if that is
+
+00:04:45.180 greater than this one we know n square
+
+00:04:46.830 is greater so now I will confuse so if
+
+00:04:49.590 you are unable to just which one is
+
+00:04:51.060 greater right if you are able to judge
+
+00:04:53.729 that no need to do anything if you are
+
+00:04:55.560 if you are able to judge it perfectly
+
+00:04:57.139 then let us compare and find out by
+
+00:05:00.539 applying law apply law so this is log n
+
+00:05:08.220 Square log N and this is long and log n
+
+00:05:17.520 this is power can you open this one this
+
+00:05:23.639 is log n square plus log of log N
+
+00:05:35.040 as we know a ruby is long it will of be
+
+00:05:38.640 so log n plus log B now decide it will
+
+00:05:42.930 be log n plus log of log in for
+
+00:05:49.260 deliverer of 10 we have used force
+
+00:05:53.580 formula now using the third formula
+
+00:06:02.670 there this becomes 2 log n plus log of
+
+00:06:09.810 log N and this is log n plus television
+
+00:06:15.240 powers of 10 log of log in now check
+
+00:06:21.720 this this is the bigger thumb this is a
+
+00:06:27.300 bigger term on that side now if you
+
+00:06:30.360 check two bigger terms this is 2 log N
+
+00:06:32.910 and that is just log in so definitely 2
+
+00:06:36.930 log n is greater than this one now that
+
+00:06:40.380 is a 10 and log off logon and this is
+
+00:06:43.110 just log of log n so that is a smaller
+
+00:06:46.140 value log of log n is a small level you
+
+00:06:48.690 can take it as 2 B's some basil and one
+
+00:06:52.980 will be some paisa so pi size smaller
+
+00:06:56.520 than who piece right so this is data so
+
+00:07:00.180 this function is greater than that one
+
+00:07:02.340 so this is greater than ever second
+
+00:07:07.110 example a 4-3 and Barbuda and your
+
+00:07:12.780 furnace to power root n log n let us
+
+00:07:17.280 compare so for comparing I will first
+
+00:07:20.160 write it as it is 3 and bar root n under
+
+00:07:24.120 sirs - and this is log n root n log n so
+
+00:07:30.450 if you apply this third formula
+
+00:07:34.150 this can also be written as and power
+
+00:07:37.419 root M and this is basically log base 2
+
+00:07:41.770 it is based on risk by for always it is
+
+00:07:46.720 peaceful so it is loop Overlord and
+
+00:07:49.690 power n right n power now by using the
+
+00:07:55.270 food for what formula what I can do is
+
+00:07:58.600 this I can interchange with this one so
+
+00:08:02.320 this will be 3 and over and that and
+
+00:08:06.520 father comes here and hold to the power
+
+00:08:10.449 of log this 2 goes there so to base 2
+
+00:08:16.620 log 2 base 2 is 1 say this power month
+
+00:08:19.810 so what's the answer
+
+00:08:21.160 3 and root N and this's and power root n
+
+00:08:27.510 no I have two functions so I did not
+
+00:08:32.260 apply dog without a plane I have not
+
+00:08:34.929 applied logon with the SEC but I have
+
+00:08:37.089 used the formula of log for something
+
+00:08:40.029 that even you have a logo so you can get
+
+00:08:43.179 something so now what do you see 3 and
+
+00:08:46.390 power root N and Barbuda so if you see
+
+00:08:48.670 the town they are seen this is just a
+
+00:08:51.310 coefficient this is just a coefficient
+
+00:08:54.390 it is just like to point Square and n
+
+00:08:58.450 square whose greater they are equal they
+
+00:09:01.990 are equal this coefficient is immoral
+
+00:09:04.150 right asymptotically they are equal
+
+00:09:07.680 value wise this is greater or Roth and
+
+00:09:11.800 if you write we go off and square if you
+
+00:09:14.890 write B both and square big often screen
+
+00:09:17.500 asymptotically they are equal but the
+
+00:09:20.050 value wise this is greater than that one
+
+00:09:22.150 so if you want a simple cancer then both
+
+00:09:25.060 are equal both functions are equal

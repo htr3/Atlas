@@ -1,0 +1,425 @@
+# 7 Branch and Bound Introduction
+
+# https://www.youtube.com/watch/3RBNPc0_Q6g
+
+
+
+00:00:00.060 the topic is branch-and-bound this is
+
+00:00:04.170 one more problem solving strategy a
+
+00:00:06.960 method by which we can solve a problem
+
+00:00:09.679 this is similar to backtracking in the
+
+00:00:12.960 sense that it also uses a state-space
+
+00:00:15.870 stream for solving the problem solution
+
+00:00:18.600 is represented like a state space tree
+
+00:00:21.199 but it is useful for solving
+
+00:00:24.570 optimization problem and only
+
+00:00:28.070 minimization problem not maximization
+
+00:00:30.990 problem anyway we can convert a
+
+00:00:33.270 maximization problem into minimization
+
+00:00:35.670 and we can solve it so let me show you
+
+00:00:38.879 how it works
+
+00:00:40.309 see I have taken one simple example here
+
+00:00:43.260 that is job sequencing with a deadlines
+
+00:00:45.239 problem now how the state space tree is
+
+00:00:48.059 generated for that one there are two
+
+00:00:50.129 methods of generating a tree that
+
+00:00:51.840 depends how you want the solution see
+
+00:00:54.149 suppose I say that I am doing job one
+
+00:00:57.420 and the job for this is my solution then
+
+00:01:01.559 the solution can be represented as
+
+00:01:03.180 subset of that jobs this is one method
+
+00:01:06.090 of giving a solution and second method
+
+00:01:08.580 of representing a solution is first job
+
+00:01:11.250 is done second and third job is not done
+
+00:01:13.110 for job is done so this is variable size
+
+00:01:16.560 solution this is fixed size solution see
+
+00:01:19.439 as for this example I got subset as a
+
+00:01:21.630 two jobs some time I may get the three
+
+00:01:23.610 jobs or some problem I may get just one
+
+00:01:25.740 job so this is variable size but this
+
+00:01:28.350 type of solution if you write a solution
+
+00:01:30.360 like this then it will be fixed size
+
+00:01:32.189 always will be representing zeros or
+
+00:01:35.250 ones equal to the number of jobs right
+
+00:01:37.320 there are two methods of solving this
+
+00:01:39.960 one or drawing your state space tree I
+
+00:01:42.360 will follow this method first that is
+
+00:01:44.670 subset method then that is a variable
+
+00:01:47.280 size solution so for that I can draw our
+
+00:01:50.070 state space tree and I will see that I
+
+00:01:54.049 am considering first job then in
+
+00:02:01.740 backtracking we will consider the next
+
+00:02:04.500 level but here in branch and bound we
+
+00:02:07.649 will also consider second job and then
+
+00:02:12.099 job and then for the job so it is like
+
+00:02:20.200 breadth-first search we don't go depth
+
+00:02:23.019 of ice if we don't follow depth-first
+
+00:02:25.030 search we follow breadth-first search
+
+00:02:26.620 for exploring the solutions of a problem
+
+00:02:29.349 so the difference between backtracking
+
+00:02:31.389 and branch-and-bound s backtracking was
+
+00:02:33.280 depth-first search and the branch and
+
+00:02:35.469 bound is a breadth-first search now this
+
+00:02:38.169 one level is completed see I have
+
+00:02:40.359 considered all the jobs one by one now
+
+00:02:42.909 once it takes first job then what is the
+
+00:02:45.340 solution job to I can take or job 3 I
+
+00:02:48.129 can take then job for I can take right
+
+00:02:52.510 first job is all that taken then I can
+
+00:02:54.280 take second job or third job or for job
+
+00:02:56.669 so if I follow one of the route it says
+
+00:02:59.530 that I am doing first job and so job I
+
+00:03:01.840 am NOT taking second and third job that
+
+00:03:03.909 is the meaning now which is the next and
+
+00:03:07.530 these nodes are 6 7 8 now next which
+
+00:03:11.319 node I should expand shall I expand this
+
+00:03:14.379 one on this one so next is this one I am
+
+00:03:17.530 doing second job considering second job
+
+00:03:19.840 but what about the next one I will be
+
+00:03:22.389 doing third job or fourth job
+
+00:03:26.379 see first job already we have discarded
+
+00:03:28.989 we are not considering it we are not
+
+00:03:30.519 taking it then third job and full job
+
+00:03:32.650 then here only fourth job xi know now we
+
+00:03:37.209 should note I should expand next this
+
+00:03:38.979 node I should expand so third job or
+
+00:03:41.470 full job and if I expand this I will
+
+00:03:46.030 have only fourth job right then this one
+
+00:03:50.650 is already for job here I can consider
+
+00:03:53.169 fourth job 16 then all are reaching till
+
+00:03:56.409 4 and this is the last one 17 fourth job
+
+00:04:00.129 so this is a state space tree for the
+
+00:04:04.000 solutions if you are looking like this
+
+00:04:05.680 and if I consider any node this node
+
+00:04:08.049 says that I am considering second job
+
+00:04:10.930 and food shop if this node says that I
+
+00:04:12.819 am considering third job and future so
+
+00:04:15.099 this is one way of generating a tree so
+
+00:04:17.048 branch and bond which generate a tree
+
+00:04:18.579 like this this is one method then I will
+
+00:04:21.699 show you set
+
+00:04:22.330 of this funny let us look at second
+
+00:04:24.550 method for the same variable size
+
+00:04:26.050 solution see first node is generated and
+
+00:04:28.720 we consider first job job 1 and then job
+
+00:04:33.099 to know one thing
+
+00:04:35.110 while generating this I'll put this
+
+00:04:38.080 nodes in the stack second node generated
+
+00:04:40.659 third node generated then I'll consider
+
+00:04:43.479 job three this is the fourth node fourth
+
+00:04:46.870 more in the stack then I will consider
+
+00:04:48.909 job for so this is the fifth node fifth
+
+00:04:52.150 node now which node I should expand next
+
+00:04:55.659 I should expand fist nor how the nodes
+
+00:05:00.069 and keeping them inside the stack so pop
+
+00:05:02.289 out this one and expand see all the way
+
+00:05:04.659 this is on the last job there is no
+
+00:05:06.340 expansion possible further so papad
+
+00:05:09.009 makes nord and expand this one so which
+
+00:05:12.669 a job job of for third is over fourth is
+
+00:05:15.940 for write food so node six now which
+
+00:05:20.050 node I should explore next
+
+00:05:21.400 that's six node so can it be explored
+
+00:05:24.520 further no this is the last job okay pop
+
+00:05:26.770 out the next node and explore it
+
+00:05:28.389 see this is second job so what are
+
+00:05:30.729 possible third job right or for the job
+
+00:05:35.909 this is node seven and eight push both
+
+00:05:39.699 of them in the stack now which not I
+
+00:05:42.940 should explore a node this is already on
+
+00:05:46.719 four job it cannot be expanded further
+
+00:05:48.610 then seventh load
+
+00:05:50.500 yeah I can expand it job for this is
+
+00:05:53.949 ninth node ninth node which nor I should
+
+00:05:57.759 explore next
+
+00:05:58.449 so take it out from the stack ninth it
+
+00:06:00.789 cannot be explored further so take out
+
+00:06:02.979 two and explore it
+
+00:06:05.099 so explorations first job is done second
+
+00:06:08.259 job or third job or fourth shop so the
+
+00:06:14.500 node numbers are 10 11 and 12 and the
+
+00:06:17.349 same order they are pushed into the
+
+00:06:18.940 stack so this is another matter
+
+00:06:22.000 so what is the difference in the
+
+00:06:23.139 previous one and this one in the
+
+00:06:25.000 previous one we were using queue for
+
+00:06:28.830 next node exploration and now we are
+
+00:06:32.139 using stack for next node exploration
+
+00:06:35.800 so if you are using Q then it is called
+
+00:06:37.660 as a FIFO branch and mom and if you're
+
+00:06:40.360 using stag then it is called as leaf o
+
+00:06:42.729 branch-and-bound so you can use anyone
+
+00:06:46.030 and you have to follow breadth-first
+
+00:06:47.620 search only what is breadth-first search
+
+00:06:49.509 here
+
+00:06:49.990 once you pick up a node for exploration
+
+00:06:52.539 you should explore all the possible
+
+00:06:54.490 nodes then only you should select the
+
+00:06:56.770 next node that's what built for searches
+
+00:06:59.650 so what next node from where you select
+
+00:07:01.750 you select from queue also stack also
+
+00:07:04.180 and there is one more mature one that is
+
+00:07:06.909 least caused to branch and bound so this
+
+00:07:10.419 is NC branch and bound there is one more
+
+00:07:15.069 method I'll show you that one now now
+
+00:07:18.039 let us look at this method least cost
+
+00:07:19.720 branch and bound method so for this
+
+00:07:22.090 problem I will generate a tree again
+
+00:07:23.889 state space tree let us start with first
+
+00:07:27.069 node but this time I will explain you
+
+00:07:29.560 one more new thing that is for every
+
+00:07:32.349 node we will calculate the cost so what
+
+00:07:34.719 is cost depending on the problem we
+
+00:07:36.940 define a cost function and using that
+
+00:07:38.919 function we find out the cost of each
+
+00:07:41.530 node and this we do for all three
+
+00:07:44.800 methods whether you are using C for leaf
+
+00:07:46.960 or LC then only we can solve a
+
+00:07:49.030 minimization problem let us assume the
+
+00:07:52.539 cost of this one is infinity now let us
+
+00:07:55.000 consider the jobs first job right and
+
+00:07:59.409 the cost of this node is let us say 25
+
+00:08:01.840 just randomly I am writing some number
+
+00:08:04.000 then second job the cost of gist is 12
+
+00:08:10.539 and this one third job the cost of this
+
+00:08:14.590 one is 19 and next fourth job node five
+
+00:08:21.550 let us say cost of this is 30
+
+00:08:24.630 now which node I should explore next the
+
+00:08:28.270 node with the minimum cost I should
+
+00:08:30.190 explore next least cost that's what it
+
+00:08:33.309 is lease cause branch n-bomb
+
+00:08:35.078 so we lovelies cause this one so I
+
+00:08:37.390 should explore this one now let us look
+
+00:08:40.419 back again
+
+00:08:41.250 Seifer method which one we select for
+
+00:08:43.779 exploration this one will expand leaf or
+
+00:08:46.540 we try to expand
+
+00:08:47.720 sun-lee scores out of this whichever is
+
+00:08:50.420 having least cost we'll try that one
+
+00:08:52.160 so expand this one so job - is there so
+
+00:08:55.639 this is job tree and job for suppose
+
+00:08:59.060 here the cost is 8 and here the cost is
+
+00:09:01.850 7 now which one we should explore this
+
+00:09:05.120 one but this is the last node second job
+
+00:09:07.310 for job so this is the solution
+
+00:09:10.189 so like this instead of generating
+
+00:09:12.740 entire tree we always pick up the nodes
+
+00:09:15.379 with minimum cost that is least cause
+
+00:09:17.300 and try to explore that one so that
+
+00:09:19.220 quickly we can reach the solution this
+
+00:09:21.439 is the idea of LC branch and bond and
+
+00:09:23.449 this is much faster than using FIFO and
+
+00:09:26.300 LIFO we can use any of these methods but
+
+00:09:29.360 in each method we write down the cost of
+
+00:09:31.279 each node and find the solution now the
+
+00:09:33.949 coming videos I'll be solving few
+
+00:09:36.230 problems using branch and bound

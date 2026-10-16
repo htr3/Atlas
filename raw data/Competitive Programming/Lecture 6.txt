@@ -1,0 +1,560 @@
+# tactiq.io free youtube transcript
+# Segment Tree - Range Queries with Lazy Updates
+# https://www.youtube.com/watch/CN0N1ddJ9hA
+
+00:00:00.320 Hi everyone. Today we are going to be
+00:00:02.639 talking on segment trees. You have an
+00:00:04.640 array of heads and tails. So every head
+00:00:07.759 is represented by a one. Every tail is
+00:00:09.920 represented by a zero. And if this is
+00:00:12.639 your array, there are two kinds of
+00:00:14.080 operations that you can perform. First
+00:00:16.960 you can flip a coin
+00:00:19.760 at index i.
+00:00:22.320 And the second one is to query from left
+00:00:25.680 to right. Left index to right index.
+00:00:28.240 These two indexes will be given to you
+00:00:29.840 and you have to report the sum of all
+00:00:33.120 heads. So each head is taken as one and
+00:00:36.239 you have to return basically the number
+00:00:37.840 of heads that you have here. So actually
+00:00:39.200 it's number of all heads.
+00:00:45.600 So there are two kinds of approaches
+00:00:48.480 that you can take as long as you're not
+00:00:50.480 using segmentries or any other advanced
+00:00:52.399 data structure. And this is this is the
+00:00:55.440 common approach taken by people who
+00:00:56.719 don't know about range data structures.
+00:00:59.520 The first one is to just take the simple
+00:01:00.960 array
+00:01:02.719 based approach.
+00:01:04.720 You know if this is your array and you
+00:01:07.600 are asked to update
+00:01:10.240 at different indexes.
+00:01:12.400 Let's say you asked to update index
+00:01:14.240 here. Then uh updating this is an
+00:01:16.720 operation in an array. So I just set it
+00:01:19.119 to one 01 for first kind.
+00:01:23.360 The second type of query that you can be
+00:01:25.040 asked to do is to find a range. The
+00:01:28.799 number of heads from a range. So let's
+00:01:30.400 say from here to here that's index 2 to
+00:01:34.079 4.
+00:01:37.680 You're going to do a linear scan and
+00:01:39.360 that will take O time.
+00:01:43.439 The second kind of approach that we can
+00:01:44.960 take is take our original array
+00:01:50.079 of zeros and ones
+00:01:53.119 and store for every index the number of
+00:01:56.560 heads
+00:01:58.320 from index zero
+00:02:02.640 or index one whatever based indexing you
+00:02:04.960 want to do. So I'll take index one.
+00:02:08.878 From 1 to 1 we have zero heads. From 1
+00:02:11.599 to two we have 0 + 1 that is 1 head. 1 +
+00:02:16.160 0 is 1. 1 + 1 is 2 and 2 + 1 is three.
+00:02:21.440 So this is your frequency array. It
+00:02:23.280 tells you the frequency of the number of
+00:02:25.120 heads from 1 to any given index. These
+00:02:30.160 are indexes.
+00:02:33.519 Now when you asked about a range query
+00:02:37.200 like the second kind of operation which
+00:02:39.280 tells you how many heads exist from uh 2
+00:02:43.360 to 4 all you need to do is return
+00:02:49.040 f of 4 minus f of 2 - 1. So this is
+00:02:52.640 actually f of r minus f of l minus one.
+00:02:59.200 Because you already have all the
+00:03:00.239 frequencies stored, you can directly uh
+00:03:02.159 use this formula which gives you
+00:03:05.360 frequency of four is two, a frequency of
+00:03:08.080 one is zero. So that will be two and one
+00:03:11.840 two. That's the correct answer that
+00:03:13.519 you're looking for.
+00:03:15.840 But the problem here is that whenever
+00:03:17.200 you have an update, let's say update
+00:03:19.200 index,
+00:03:20.800 update index over here to zero. So
+00:03:22.959 that's going to flip the coin. Yeah. So
+00:03:25.120 once you have flipped the coin, you
+00:03:26.959 can't just uh move ahead.
+00:03:29.840 What you need to do is you also need to
+00:03:31.440 update all the frequency values
+00:03:34.000 on and after index 2.
+00:03:37.200 So the new frequency values will be 0.
+00:03:39.840 Then 0 + 0 is 0. 0 + 1 is 1. Now this is
+00:03:44.400 the new frequency value. And 1 + 1 is
+00:03:47.120 going to be two.
+00:03:49.120 So as you can see it's an order n
+00:03:51.920 update.
+00:03:55.040 While the query was very fast, it was
+00:03:56.799 just a single subtraction. So that was
+00:03:59.200 order one.
+00:04:01.760 So all we have done is shift all the
+00:04:05.280 heavy work to updating and keep the
+00:04:08.159 querying light. But even now the worst
+00:04:10.560 case for Q queries
+00:04:13.680 worst case is order N. And so your time
+00:04:16.880 requirement is still order QN which is
+00:04:19.759 still not going to pass the time limit.
+00:04:21.440 And so the second approach for storing
+00:04:23.759 frequency values will also not work.
+00:04:26.639 These are the two plain array approaches
+00:04:29.600 that you can take and that's the reason
+00:04:32.080 why you need segmentries for this
+00:04:33.520 question. If it if your original array
+00:04:36.000 is not a perfect power of two then you
+00:04:37.440 need to make it a perfect power of two.
+00:04:40.800 How we are going to do this is we going
+00:04:42.320 to choose the next power of two which is
+00:04:46.479 greater than or equal to 9. So 9 of
+00:04:49.440 course is perfect^ 2. 2^ x has to be
+00:04:52.960 greater than or equal to 9. You get x= 4
+00:04:56.160 then. So 16 is greater than equal to 9.
+00:04:58.960 That would need to be the size of your
+00:05:01.040 array
+00:05:06.000 up to 16.
+00:05:08.000 Now what do we do with this newly you
+00:05:10.960 know added appendage? What we do is we
+00:05:15.120 set all values to an empty value.
+00:05:19.600 This empty value concept changes per
+00:05:22.160 question. So in this case because we
+00:05:24.880 have been asked to query the number of
+00:05:26.240 heads and we are representing them as
+00:05:28.639 one. The number of tails that you add to
+00:05:30.800 any range doesn't matter
+00:05:33.440 or the number of tails that you add to
+00:05:34.960 the end doesn't matter because uh they
+00:05:37.600 won't affect the answer that you are
+00:05:39.919 being asked to query. So the empty value
+00:05:43.120 in this case is zero. If you have a
+00:05:45.199 question which asks you to find the
+00:05:46.800 frequencies of all elements up to a
+00:05:48.479 given index in a given range then you
+00:05:51.680 would return an empty array
+00:05:55.360 per node. You know these would contain
+00:05:58.000 the frequencies array frequencies of uh
+00:06:00.960 each element and then uh the the empty
+00:06:04.319 value for you would be an empty array.
+00:06:07.120 Here we have the empty value being zero.
+00:06:16.080 So now that we have built the base of
+00:06:18.319 what we are talking about, let's
+00:06:20.160 actually get into the segment
+00:06:22.240 construction.
+00:06:24.319 As we said, segment trees are complete
+00:06:25.919 binary trees,
+00:06:30.400 which means each
+00:06:33.199 node has two children
+00:06:35.919 or is a leaf node. So what we're going
+00:06:38.479 to store in every parent is the sum of
+00:06:41.840 all the values of its children. Again
+00:06:44.560 reason being because the second kind of
+00:06:45.840 query is from left to right
+00:06:49.280 give me number of heads and the number
+00:06:51.919 of heads will be equal to sum of the
+00:06:53.199 children. So that's what we going to
+00:06:54.240 store in each node. The first one is
+00:06:56.800 update or
+00:06:59.680 flip coin
+00:07:02.000 flip index. Flip the coin at index uh i.
+00:07:07.360 Right. So now let's store these values.
+00:07:14.319 0 + 1 is going to be 1. 0 + 1 is going
+00:07:16.800 to be 1. 0 + 1 is going to be 1. 0 +
+00:07:19.440 Okay, that's this is not a very
+00:07:20.639 interesting tree, I guess. Uh fine.
+00:07:24.639 We'll we'll update the tree to make it
+00:07:26.240 interesting.
+00:07:31.039 Four. We have zero here, zero here, and
+00:07:34.240 a four. Understand that these nodes were
+00:07:36.800 all empty. So zero. So whatever we do
+00:07:39.360 this will this value will propagate
+00:07:41.280 upwards
+00:07:43.039 to come to a four here.
+00:07:48.639 Four.
+00:07:52.880 So the first thing to analyze here is
+00:07:54.800 that how much time does it take to build
+00:07:56.720 the segment tree.
+00:08:00.319 The first layer, the base layer is of
+00:08:03.039 size at most 2n
+00:08:06.639 because that's the additional appendage
+00:08:09.440 that we can add. You know, it has to be
+00:08:11.280 less than 2n but uh close to 2n at at
+00:08:15.039 most because 9 and 16 you can say that 9
+00:08:18.400 is around half that of 16. So you can
+00:08:20.720 say the maximum size is 2n.
+00:08:23.759 The second layer takes two nodes of its
+00:08:26.639 children
+00:08:28.160 to to make one node. So that will be of
+00:08:31.360 size n. The third layer does exactly
+00:08:34.479 that. So half of n will be n by two and
+00:08:38.719 so on till you have just one node the
+00:08:41.360 root node.
+00:08:44.000 So what you can say then is that
+00:08:49.920 I'll just remove this two.
+00:08:53.040 What you can say then is that you have a
+00:09:00.240 geometric progression
+00:09:03.839 up to one.
+00:09:07.279 The sum of this is going to be 4n.
+00:09:10.560 You can uh you can do the math here.
+00:09:13.760 That is a by 1 - r. R becomes R is equal
+00:09:17.839 to half because that's what the
+00:09:21.600 multiplying factor in this geometric
+00:09:22.880 probabation is and A is 2N. So 2 N upon
+00:09:26.640 1 -/ is equal to is equal to 2N by half
+00:09:32.080 which comes out to be 4N.
+00:09:36.240 So that's the amount of time you need to
+00:09:38.640 build the tree which is essentially
+00:09:41.519 order n. So it's an order in operation
+00:09:43.920 building the tree. So it's fast enough
+00:09:46.480 for for our case.
+00:09:54.560 So the first thing we should uh do in
+00:09:57.680 this tree
+00:10:00.000 is look for updates because we're going
+00:10:02.720 to make this tree interesting. We are
+00:10:04.399 going to be taking this value update
+00:10:08.080 type one query update index 7.
+00:10:12.480 Yeah. Flip it.
+00:10:16.240 So this value is going to be flipped
+00:10:20.720 because this is a point update. We start
+00:10:22.399 from the leaf node and flip it directly.
+00:10:25.440 So this was zero. It became a one. Now
+00:10:28.880 whatever has happened an update is
+00:10:31.440 propagated upwards.
+00:10:33.680 It's propagated to its parent. So this
+00:10:36.560 parent now checks its left and right
+00:10:38.560 child and sets its value accordingly.
+00:10:40.800 This is 1 + 1 which is two.
+00:10:44.160 It in turn calls its parent which sets
+00:10:46.880 its value which is now 1 + 2 3.
+00:10:54.480 Again 2 + 3 is asked to be set in the
+00:10:57.839 parent node.
+00:11:00.640 Five
+00:11:02.399 5 + 0 is 5.
+00:11:07.120 And now you see that the entire tree has
+00:11:09.040 been updated as per requirement.
+00:11:14.000 And also you notice that the number of
+00:11:16.240 nodes which have been updated are order
+00:11:17.920 login.
+00:11:24.399 So building the tree was a one time
+00:11:25.920 operation that was on
+00:11:28.560 and
+00:11:30.079 flipping indexes is order login. This is
+00:11:32.800 actually worse than the implementation
+00:11:34.160 we had because that was an O1 operation.
+00:11:36.320 But you'll see that um this is
+00:11:38.560 essentially a trade-off for the second
+00:11:40.160 kind of query that we're going to look
+00:11:41.440 at.
+00:11:47.040 The second kind of query is
+00:11:50.720 let's pick red this time. Yeah.
+00:11:54.240 The second kind of query is taking
+00:11:57.440 indexes left to right. So let's choose
+00:11:59.440 an index uh 3
+00:12:02.480 2
+00:12:04.160 7 let's say. Yeah.
+00:12:08.560 And we need to answer the number of
+00:12:10.000 heads which are over here. So
+00:12:14.000 also understand that uh segment tree has
+00:12:16.560 responsibility
+00:12:18.240 responsibilities for each node. This
+00:12:20.560 root node is responsible for the entire
+00:12:22.240 tree.
+00:12:24.560 That's because its leftmost child is one
+00:12:27.680 and its rightmost child is going to be
+00:12:29.360 16. So it is responsible from 1 to 16.
+00:12:34.079 This node is completely responsible
+00:12:38.720 up to eight. From 1 to 8.
+00:12:41.760 This node on the other hand is
+00:12:42.959 responsible up to four.
+00:12:46.560 This one is from 1 to two. This one is
+00:12:49.600 from 3 to four because it's left most
+00:12:51.839 child is three, rightmost is four. We
+00:12:54.160 have three to four here and so on and so
+00:12:57.120 forth. We'll we'll come to the
+00:13:01.279 uh responsibility stuff. Right now,
+00:13:05.200 what we're looking for is the range from
+00:13:07.040 3 to 7.
+00:13:09.120 Because it's a range query, we always
+00:13:10.560 come to the root and ask it. The root
+00:13:13.519 node sees that 1 to 16 has an
+00:13:16.079 intersection with 3 to 7.
+00:13:18.720 And so, it sends it to both children.
+00:13:24.000 The exact same query of 3 to 7 is sent
+00:13:25.760 to both children, left and right child.
+00:13:28.480 At the left child, you see 1 to 8 has an
+00:13:31.040 intersection with 3 to 7.
+00:13:33.920 So again both uh children are sent these
+00:13:37.360 queries.
+00:13:40.480 1 to 4 gets this query, sees that there
+00:13:43.040 is an intersection
+00:13:44.880 and queries both its children.
+00:13:48.880 1 to two sees that there is absolutely
+00:13:51.279 no intersection between 3 to 7 and and
+00:13:53.600 its own range. So it returns a value. It
+00:13:57.279 returns an empty value. The value here
+00:13:59.440 zero
+00:14:01.120 because there's no point going down this
+00:14:02.639 tree. Uh none of its nodes are
+00:14:04.800 responsible for the query being asked.
+00:14:08.639 On the other hand, when you come here 3
+00:14:10.160 to 4
+00:14:12.000 3 to four, the the node here sees that 3
+00:14:15.120 to four falls entirely within this
+00:14:16.959 range. So again there is no point going
+00:14:19.199 down because it knows exactly what the
+00:14:22.240 query is about. It returns whatever
+00:14:24.720 value it contains which is one.
+00:14:28.079 So you see that you saved some
+00:14:29.360 operations here going down the nodes and
+00:14:32.079 individually quering for these two. You
+00:14:33.519 just did it at the parent.
+00:14:37.279 Both nodes have returned. So this node
+00:14:39.199 then returns 0 + 1 which is one.
+00:14:43.839 Now we come here.
+00:14:47.040 This node is responsible from 5 to 8
+00:14:51.760 which has an intersection.
+00:14:54.639 So
+00:14:56.480 both nodes are queried.
+00:14:59.120 This node has uh responsibility from
+00:15:01.040 five to six which entirely falls within
+00:15:04.160 3 to 7. So again
+00:15:07.600 there'll be no more uh processing from
+00:15:09.440 this node. It will just return the value
+00:15:10.880 it contains which is one.
+00:15:16.160 This node has responsibility from 7 to
+00:15:18.959 8.
+00:15:22.079 So it sends it to both children who are
+00:15:24.320 responsibility from 7 to 7 and 8 to 8. 7
+00:15:26.880 to 7 entirely falls within the range.
+00:15:29.279 Returns a value 1. 8 to 8 is completely
+00:15:32.639 out of range. Returns a value zero.
+00:15:36.720 1 + 0 is 1 which is returned here. 1 + 1
+00:15:42.800 is 2 which is returned here.
+00:15:46.320 And you have 1 + 2 finally which is
+00:15:49.040 returned to the root. But there is still
+00:15:52.240 the right child to look at. The right
+00:15:53.920 child is responsible from 9 to 16.
+00:15:57.440 So it it says that I have no idea what
+00:15:59.120 you're talking about. And it returns
+00:16:01.279 zero. Returns an empty value, not the
+00:16:03.279 value that it contains.
+00:16:05.759 So 3 + 0 will finally give you the
+00:16:07.680 answer
+00:16:11.680 three.
+00:16:13.680 Let's verify that one two and three.
+00:16:17.920 Yeah.
+00:16:19.759 So that's how we did range queries here
+00:16:23.519 in in time complexity of
+00:16:28.480 log n. Now it's difficult to look at
+00:16:31.680 this and say that it's just log n. Of
+00:16:34.720 course, there's a lot of queries going
+00:16:36.079 on and it almost looks like an O
+00:16:37.920 operation in the worst case, but it
+00:16:41.120 isn't because as your range gets bigger
+00:16:44.000 and bigger, this is a contiguous range.
+00:16:45.680 So, as the range gets bigger and bigger,
+00:16:47.120 you'll see that uh the query will
+00:16:50.000 terminate at the parent itself. If I had
+00:16:52.480 made this range a little bigger,
+00:16:55.279 then I wouldn't even need to come down
+00:16:56.639 these nodes. I would just return from
+00:16:58.320 this node
+00:17:00.399 a little smaller and it uh wouldn't have
+00:17:03.759 needed to come down to these nodes. I
+00:17:05.599 would have returned from this node
+00:17:06.880 itself. It would be completely out of
+00:17:09.199 range.
+00:17:10.880 So both kinds of queries can be answered
+00:17:12.880 in just login time
+00:17:15.280 and we uh I have added a link in the
+00:17:18.079 description below for the code for
+00:17:19.359 flipping coins. But what we'll look at
+00:17:21.919 before we end with segment tries is a
+00:17:25.760 little more interesting problem.
+00:17:28.319 The other kind of segmentry question is
+00:17:29.760 the really interesting one. What happens
+00:17:32.240 is we are asked to update ranges this
+00:17:34.799 time. Update from left to right. And for
+00:17:38.240 the question B we're talking about this
+00:17:39.760 is a flip operation. So we have to
+00:17:41.120 update we have to flip all coins between
+00:17:43.360 L to R.
+00:17:45.520 This is the only other kind of
+00:17:46.799 interesting operation. uh the second one
+00:17:49.120 for querying from L2R has all been
+00:17:50.960 talked about and also building trees so
+00:17:53.679 we don't need to relearn it.
+00:17:57.520 Let's take an example for this special
+00:17:59.280 kind of update operation.
+00:18:02.080 I'm going to keep a simple uh size 8
+00:18:04.880 array.
+00:18:06.960 One important thing here is that we are
+00:18:09.600 actually going to keep
+00:18:11.840 some sort of boolean variable for every
+00:18:13.840 node to tell us whether it has been
+00:18:15.760 flipped or not.
+00:18:19.200 So flipped will be a boole boolean
+00:18:20.880 variable on each node.
+00:18:26.080 Let me just draw it out for example on
+00:18:28.320 these nodes or we we'll get to it in
+00:18:31.120 case a tree is flipped then we are going
+00:18:32.559 to draw it otherwise we going to keep it
+00:18:34.000 empty. So
+00:18:36.559 let's query let's say that we are going
+00:18:38.640 to update from 1 to three. So we are
+00:18:41.360 flipping all coins between 1 to three.
+00:18:43.679 What happens then is that
+00:18:46.640 we get the range 1, 3,
+00:18:49.919 come to the root node. It's a range
+00:18:52.480 query. That's the reason why we're
+00:18:53.440 coming to the root. The root then
+00:18:55.600 propagates this update downwards.
+00:18:58.080 Interesting. The root is not expecting
+00:18:59.679 anything. It is just asking its children
+00:19:02.960 to update themselves and then once they
+00:19:04.799 have returned, it's going to update
+00:19:06.080 itself according to their children
+00:19:07.760 values. So we'll see that now. three
+00:19:10.240 then says uh I am responsible for 1 to 4
+00:19:14.320 which has an intersection 1 to 3 7 1 to
+00:19:17.919 8 so
+00:19:20.799 which which propagates the updates
+00:19:22.320 downwards
+00:19:23.919 1 to2 entirely falls within the range 1
+00:19:26.080 to 3 and here's where the interesting
+00:19:28.080 part starts
+00:19:31.360 1 to2 is entirely within range for 1 to
+00:19:33.760 three that means that this node is the
+00:19:35.679 only node which should actually update
+00:19:36.960 itself if it starts propagating stuff
+00:19:39.120 downwards when it can take the update
+00:19:40.880 itself then we are going to have an O
+00:19:42.480 operation per update which is too slow.
+00:19:45.679 So what we do is we take the number of
+00:19:48.080 nodes it's responsible for number of
+00:19:50.559 nodes number of coins it contains which
+00:19:53.039 is two.
+00:19:57.840 Then we see the number of heads here
+00:20:03.360 which is one.
+00:20:05.600 And the new number of heads that it's
+00:20:07.360 going to contain
+00:20:09.360 is number of coins
+00:20:11.520 minus number of heads
+00:20:14.559 which is one.
+00:20:20.080 So all the coins which were not heads
+00:20:24.000 have become heads.
+00:20:27.679 like we have we have assigned this
+00:20:29.120 entire value to the new number of heads.
+00:20:34.080 So this updates itself to one. It was
+00:20:36.320 one earlier but that doesn't matter.
+00:20:37.760 It's update itself and it doesn't
+00:20:39.919 propagate the update downwards. It flips
+00:20:42.159 itself. So it adds a boolean variable
+00:20:44.240 here which means flipped.
+00:20:47.760 The uh node then returns to the parent
+00:20:49.760 which calls the right child. The right
+00:20:52.240 child sees that 1 to 3 is within its
+00:20:54.720 range of 3 to 4. So both children are
+00:20:56.960 then asked to update themselves. 3 to 3
+00:20:59.360 is entirely within range for 1 to 3. So
+00:21:02.880 this node is flipped zero.
+00:21:07.919 1 to 1 is completely out of range. It
+00:21:09.919 returns here.
+00:21:13.039 The parent uh having value two sees that
+00:21:15.360 left child plus right child is now one.
+00:21:17.360 So it updates itself to one.
+00:21:20.880 I'll just make it a little neater here.
+00:21:25.360 Updates itself to one. 1 + 1 is two. So
+00:21:29.360 the parent when it is returned updates
+00:21:32.480 itself to two.
+00:21:36.400 And finally uh the parent here calls its
+00:21:38.880 right child sees that it's completely
+00:21:41.520 out of range. 5 to 8 is completely out
+00:21:44.320 of range for 1 to three and it updates
+00:21:46.880 itself to three.
+00:21:49.520 So what we just did is a range update.
+00:21:51.919 And if if you want to check the number
+00:21:55.360 of coins that should be heads in this
+00:21:58.000 entire tree, what you can just do is
+00:21:59.760 these two coins are flipped.
+00:22:02.080 So it should be 01. So that's one coin
+00:22:05.039 here,
+00:22:06.559 another coin here, two and three. So we
+00:22:09.200 have a consistent value everywhere in
+00:22:11.360 the tree.
+00:22:13.280 But one important edge case to think
+00:22:16.559 about is what if someone now queries for
+00:22:20.080 the second kind of operation query
+00:22:23.840 for 1 comma 1. What happens then?
+00:22:27.200 Because the value here should be zero
+00:22:29.440 and if we directly read from the array
+00:22:30.960 then we are you're not going to be able
+00:22:32.640 to answer correctly.
+00:22:35.840 So this is what we do.
+00:22:38.480 We come to the root say 1 comma 1 and we
+00:22:42.000 do the exact same thing you know go to
+00:22:43.679 the children as long as they are
+00:22:47.919 responsible for the for the update here
+00:22:50.480 there's a return here there's a return
+00:22:53.679 here when you come here you see that
+00:22:56.400 both children are responsible for it so
+00:22:59.919 it will call its children but before
+00:23:01.600 that it'll do something it will remove
+00:23:03.760 its flipped value
+00:23:08.880 and update both children now.
+00:23:12.960 So this coin was flipped. That means
+00:23:15.360 both children also need to be flipped.
+00:23:20.960 Reason being that this entire range was
+00:23:22.799 flipped. So both children should
+00:23:24.559 individually be flipped also if you're
+00:23:26.880 actually going to query something over
+00:23:28.240 there to keep things consistent. So now
+00:23:30.559 what we do is we come here. We again use
+00:23:33.360 this formula which is number of coins
+00:23:35.520 which belong to it is one. Number of
+00:23:37.440 heads it has is one. So the new number
+00:23:39.679 of heads is this value which is 1 minus
+00:23:42.880 one which will be zero for this
+00:23:46.559 for this node. So we update the value to
+00:23:49.039 zero and we also set the flipped boolean
+00:23:51.840 variable here. On the other hand number
+00:23:55.360 of coins is one, number of heads is
+00:23:57.039 zero. 1 - 0 is one
+00:24:00.880 new value is one.
+00:24:03.200 Plus the node is flipped. Of course, you
+00:24:06.240 see for these leaf nodes, flipped
+00:24:08.000 doesn't make any sense because you'll
+00:24:09.520 always return from here if you ever come
+00:24:11.120 here. But we are doing this to keep
+00:24:12.960 things consistent and um it's it's
+00:24:15.919 logically
+00:24:17.440 uh good to think about all nodes being
+00:24:19.919 equal because when you're going to
+00:24:21.440 implement the segmentry actually you'll
+00:24:23.360 be implementing it in a single array or
+00:24:25.520 a single array of nodes if not single
+00:24:28.480 array of you know integers.
+00:24:31.600 So that's how we do the update ranges
+00:24:34.080 from left to right. It's quite simple if
+00:24:36.880 you write the code for it. It's pretty
+00:24:38.559 small but logically also it's it's very
+00:24:41.279 beautiful in a way that you are able to
+00:24:43.200 update ranges and query for ranges in
+00:24:48.320 log end time.
+00:24:51.679 Even the update just will take login
+00:24:54.000 time. And this specific technique of
+00:24:57.760 passing on flipped values or or any kind
+00:25:01.039 of information from node to its children
+00:25:03.440 only when required
+00:25:06.000 is called
+00:25:08.720 lazy
+00:25:13.520 propagation.
+00:25:16.320 It's an important concept not only in
+00:25:17.919 segment tries but any kind of range data
+00:25:19.840 structures where you don't want to go to
+00:25:21.919 every individual node and uh do stuff
+00:25:24.159 every time. So lazy propagation
+00:25:27.760 is an uh is a important concept and it's
+00:25:32.000 important that you know it especially if
+00:25:33.360 you're trying to do segmentries.
+00:25:36.000 So thanks for watching. I'll see you
+00:25:37.360 around.

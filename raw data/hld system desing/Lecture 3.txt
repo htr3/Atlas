@@ -1,0 +1,2251 @@
+# tactiq.io free youtube transcript
+# System Design of Chess: Low-Level Design
+# https://www.youtube.com/watch/I-iZbOVXwxg
+
+00:00:02.080 hey folks i think we are live on youtube
+00:00:04.880 and on linkedin and on twitter
+00:00:07.440 uh
+00:00:08.320 welcome to this live stream which is
+00:00:10.400 going to be talking about low level
+00:00:12.240 design
+00:00:13.759 and this is just to clarify this is
+00:00:15.759 system design low level design
+00:00:17.760 a lot of you have might have heard of
+00:00:19.279 you know
+00:00:20.560 a system design round where you have
+00:00:22.480 some sort of coding to be done or some
+00:00:24.720 sort of
+00:00:25.680 planning of how the code is going to be
+00:00:27.439 written
+00:00:28.480 so that's what a low level design means
+00:00:30.880 in fact throughout this live stream we
+00:00:32.558 will be taking an example
+00:00:34.239 uh to understand what global design
+00:00:36.719 rounds are like
+00:00:38.160 and uh hopefully you know
+00:00:40.800 by the end of this session this is the
+00:00:42.320 agenda uh we'll know what low level
+00:00:44.640 design rounds are like
+00:00:46.239 a system designed to level design round
+00:00:47.760 is like
+00:00:48.879 and also we'll know some of the common
+00:00:50.960 things that we should or shouldn't do
+00:00:53.039 in such a round
+00:00:54.960 okay so the intent i mean the the target
+00:00:57.280 audience for this
+00:00:58.399 is
+00:00:59.440 uh sd
+00:01:00.879 one
+00:01:01.680 to maybe sd3
+00:01:04.000 okay
+00:01:04.959 and uh
+00:01:06.560 software engineers only if you are a
+00:01:08.880 product manager or a technical program
+00:01:11.119 manager or you know someone who's not
+00:01:14.240 in the in the engineering space this
+00:01:16.240 round is not very relevant to you
+00:01:19.280 okay
+00:01:20.159 so let's wait for the first
+00:01:22.240 three minutes for questions to come in i
+00:01:24.720 will just share this link with you
+00:01:29.040 this is the slider link
+00:01:32.079 if you have any questions please post it
+00:01:33.680 here
+00:01:37.200 and i will
+00:01:38.479 answer them to the best of my abilities
+00:01:40.000 do not ask questions on the chat
+00:01:42.079 uh you can ask questions on the chat
+00:01:43.520 here but
+00:01:44.799 i may not be reading them right i'm
+00:01:46.720 reading the slider link
+00:01:48.640 the benefit of slido is that if you have
+00:01:50.720 any questions and somebody else also has
+00:01:52.399 the same questions they can upload it
+00:01:54.799 so it comes up on top
+00:01:56.560 i can take polls over there i can make
+00:01:58.159 it far more interactive through slido so
+00:02:00.320 please go to the link and
+00:02:02.560 start using that
+00:02:04.320 good day from nigeria hi hi fe good day
+00:02:06.880 to youtube uh shubham need a discount
+00:02:09.280 coupon for course
+00:02:11.038 uh okay
+00:02:13.200 i will give you a good discount coupon
+00:02:15.520 which should i give you
+00:02:19.120 okay i'll give you a really good one uh
+00:02:21.120 which
+00:02:24.400 i probably shouldn't but yeah okay i
+00:02:26.000 never broadcast this
+00:02:27.760 uh
+00:02:30.160 but i'll share this with you
+00:02:33.120 yeah that's discount coupon which is
+00:02:35.040 going to give you the best discount out
+00:02:36.879 there so yeah
+00:02:38.640 just because you're live
+00:02:41.360 these are the benefits
+00:02:43.040 uh by the way those of you who are
+00:02:45.040 thinking what discount is this this is
+00:02:46.560 the interview ready website
+00:02:49.519 you can go to this website called get
+00:02:52.319 interview ready and there's a system
+00:02:54.160 design course there
+00:02:55.680 so you can actually use
+00:02:57.840 this coupon code for that
+00:03:00.319 the system design course with high level
+00:03:02.159 design low level design
+00:03:03.840 fundamentals of system design and then
+00:03:06.480 you know we have zoom classes also
+00:03:09.040 once every two weeks approximately
+00:03:11.680 good day from germany hey raja good day
+00:03:16.080 and i just want a million dollars
+00:03:18.879 okay
+00:03:19.920 uh
+00:03:21.760 that's
+00:03:22.959 reasonable
+00:03:24.000 good morning gaurav from ufc gothami
+00:03:25.920 thank you uh good morning so i'm super
+00:03:29.280 happy that you're you're tuned in from
+00:03:31.360 all around the world
+00:03:32.640 um
+00:03:34.000 thank you for this any resource for low
+00:03:36.159 level design using c plus plus i'm not
+00:03:39.120 sure
+00:03:40.080 uh if there is a resource for system
+00:03:42.480 design using c plus plus there is one
+00:03:45.200 website which is quite nice
+00:03:47.120 and i'll share it with you it's
+00:03:48.239 refactoring guru
+00:03:49.760 i actually found the design patterns
+00:03:52.000 being used here quite
+00:03:54.159 quite nice
+00:03:55.760 okay so for low level design i think if
+00:03:57.840 you're looking for prerequisites to
+00:03:59.439 understand
+00:04:00.400 how
+00:04:01.760 some code will be written in an
+00:04:02.959 interview
+00:04:03.920 refactoring guru is quite good
+00:04:07.920 i don't know who has written this the
+00:04:09.200 author i think there will be something
+00:04:10.799 in the about or contact us but he's
+00:04:12.720 actually quite good or she's quite good
+00:04:20.000 this is in rupees or dollars got me uh
+00:04:24.800 so in rupees i can show you what the
+00:04:27.440 price is it is three triple nine but if
+00:04:30.320 you use the discount coupon then yeah
+00:04:34.400 there's like 25 off
+00:04:36.240 for the 25 discount people
+00:04:39.680 you can also
+00:04:41.360 if you are purchasing from the us then
+00:04:43.280 that is 60
+00:04:44.639 which roughly comes out to be 4 000
+00:04:46.240 rupees main reason that it's slightly
+00:04:48.560 higher is because
+00:04:50.479 an international transfer has a little
+00:04:52.000 bit of delta so that's that's basically
+00:04:54.639 added on top of the price but yeah
+00:04:57.120 the the discount coupon will give you
+00:04:58.720 the same percentage off
+00:05:00.800 so 60 will turn into i think
+00:05:03.039 25 off
+00:05:04.880 that would be i think 45
+00:05:08.960 okay refactoring guru pretty good
+00:05:11.039 resource every time i learn something
+00:05:12.960 new over here i really like your videos
+00:05:14.639 on system design
+00:05:16.080 and thank you keep it going thank you
+00:05:18.160 linkedin user i can't i can't see you
+00:05:20.160 here on stream yard but uh thank you for
+00:05:22.320 that
+00:05:23.680 thank you guys for the resource i am
+00:05:25.199 looking into it okay perfect
+00:05:27.520 uh
+00:05:28.240 for those of you are wondering
+00:05:29.280 refactoring guru is actually a pretty
+00:05:30.400 good resource that i would suggest
+00:05:32.880 okay we can start now i'll just go to
+00:05:35.520 the slider link to see if there's any
+00:05:37.039 interesting question
+00:05:42.160 let me actually share this with you
+00:05:45.120 the screen with you
+00:05:47.199 so
+00:05:48.000 this
+00:05:49.039 is
+00:05:49.919 going to be shared
+00:05:59.600 okay
+00:06:02.960 what we are going to do is for the first
+00:06:05.280 seven minutes i will take questions
+00:06:08.400 okay so the top questions please feel
+00:06:10.319 free to upload them um after that what
+00:06:12.560 i'll do is i'll take an example of low
+00:06:14.080 level design
+00:06:15.199 and we'll try to solve it so most of
+00:06:16.960 your questions will be answered that way
+00:06:19.440 okay so
+00:06:21.280 let me also open the
+00:06:24.000 admin slider link so that i can
+00:06:26.880 you know answer and then mark them as
+00:06:28.720 done
+00:06:31.680 the most voted question is can i do lnd
+00:06:33.520 questions in c plus plus as i have zero
+00:06:35.600 knowledge about java uh
+00:06:37.840 yes
+00:06:38.639 you can
+00:06:39.759 absolutely c plus plus is object
+00:06:41.360 oriented language you can use c plus
+00:06:43.680 plus for
+00:06:45.600 your lnd interviews how are you going to
+00:06:48.080 get a resource for c plus i don't know
+00:06:50.880 but if you
+00:06:53.919 if you are familiar with c plus plus and
+00:06:55.599 you see the java
+00:06:58.080 examples then also i think you will be
+00:06:59.840 able to answer them
+00:07:03.440 most of the principles in low level
+00:07:05.199 design are
+00:07:06.560 basically language agnostic so
+00:07:08.530 [Music]
+00:07:10.240 you have design patterns which is
+00:07:12.319 language agnostic you have
+00:07:14.720 certain principles and object oriented
+00:07:16.400 programming which
+00:07:18.240 are true across languages
+00:07:21.360 so
+00:07:22.400 you know threads
+00:07:24.639 if you
+00:07:25.759 if you're creating an object in many
+00:07:27.280 different ways
+00:07:28.400 then maybe you have a factory
+00:07:30.960 if you have a complex object creation
+00:07:32.720 maybe you're going for a builder pattern
+00:07:34.880 if you have
+00:07:36.720 an object
+00:07:38.479 which or if you have something that has
+00:07:40.240 to be seen by a lot of objects
+00:07:42.319 and then picked up by the right objects
+00:07:44.160 maybe the visitor pattern will help you
+00:07:45.599 your publisher subscriber is another way
+00:07:48.319 so
+00:07:49.440 that's how you go about
+00:07:51.199 solving these kinds of problems
+00:07:54.400 so that's that's one uh do you ever
+00:07:56.960 write code in production in a similar
+00:07:58.560 manner in which you write code in an led
+00:08:00.479 interview
+00:08:04.000 uh
+00:08:05.039 led interview is a
+00:08:06.800 interview right so you have like
+00:08:09.039 45 minutes or one and a half hours in
+00:08:11.199 production you have a lot more time to
+00:08:12.800 think through things you also write test
+00:08:14.560 cases which you don't write in a led
+00:08:16.560 interview
+00:08:17.759 like you do but you write very basic
+00:08:19.759 test cases
+00:08:21.039 and you're basically trying to impress
+00:08:22.560 the interviewer instead of
+00:08:24.800 writing code which will work
+00:08:27.199 okay
+00:08:29.840 yeah
+00:08:32.159 okay machine coding is the same as low
+00:08:33.679 level design
+00:08:35.599 actually that slightly different machine
+00:08:37.039 coding is a lot more
+00:08:38.640 real life i will say machine coding is
+00:08:40.958 more about
+00:08:42.479 one engineering problem that you're
+00:08:43.919 trying to solve that's the reason why
+00:08:45.040 it's so close to real life because if
+00:08:46.800 someone says do the low level design of
+00:08:48.720 zomato
+00:08:50.000 it's a joke
+00:08:51.440 it's just a toy problem no i say it
+00:08:53.760 actually doesn't mean anything like low
+00:08:55.120 level designers i might already mean by
+00:08:56.560 that
+00:08:57.680 but if you say design a cache
+00:09:00.240 or design an event bus or design a load
+00:09:02.880 balancer okay
+00:09:05.440 you
+00:09:06.480 you will at least come up with something
+00:09:08.080 which makes some sense like a load
+00:09:10.000 balancer has certain algorithms like
+00:09:11.839 consistent hashing
+00:09:13.279 or
+00:09:14.480 you might have a round robin algorithm i
+00:09:16.560 have this link over here which i have
+00:09:18.640 used myself for
+00:09:25.600 low level design so
+00:09:27.600 just go through this link this is useful
+00:09:33.040 okay i'll just
+00:09:34.800 show it over here
+00:09:38.800 you can head to get github.interview.com
+00:09:41.920 interview ready low level design this is
+00:09:43.839 a public repository uh it has four
+00:09:46.080 examples of machine coding
+00:09:48.080 okay rate limiter service orchestrator
+00:09:52.000 this is kind of like a load balancer
+00:09:53.600 also um event bus and cache
+00:09:57.360 okay i'll take an example let's say i go
+00:09:59.440 to service orchestrator
+00:10:01.120 i go to the code
+00:10:03.519 now you see that certain algorithms here
+00:10:06.240 this is the main file i think
+00:10:08.640 there are models also like you have a
+00:10:10.160 node you have requests you have services
+00:10:12.640 and then you have algorithms like
+00:10:13.760 consistent hashing
+00:10:15.200 uh weighted round robin
+00:10:17.519 so on
+00:10:19.040 so
+00:10:19.839 it's a useful repo
+00:10:21.279 i would definitely recommend
+00:10:22.959 you to go through this
+00:10:24.560 if you're looking at machine coding
+00:10:31.360 okay um most voted question is is led
+00:10:34.480 about creating
+00:10:35.760 schema diagrams of the database on
+00:10:38.079 writing oops based class models working
+00:10:41.120 code or discussing api's classes and the
+00:10:43.200 database in
+00:10:44.839 general i tell you the intent of a low
+00:10:47.600 level design round the intent of a low
+00:10:50.240 level design round is to test you
+00:10:52.640 on your
+00:10:55.120 coding skills to some extent and also to
+00:10:58.160 test you on your software
+00:11:00.800 design skills okay not on
+00:11:04.079 um your distributed systems design
+00:11:06.240 skills that is high level design where
+00:11:08.000 you
+00:11:08.800 you you know you think about how are
+00:11:11.120 different components or different
+00:11:12.320 services going to interact with each
+00:11:13.680 other
+00:11:14.480 that is at a higher level
+00:11:17.040 so you are you're basically using
+00:11:19.120 multiple services and you're thinking of
+00:11:21.839 functional requirements and everything
+00:11:23.760 here in a low level design now you are
+00:11:26.240 being tested for
+00:11:27.760 is this person hands-on with coding
+00:11:30.480 does this person think about common
+00:11:32.399 engineering um criteria like you know
+00:11:35.200 throughput latency
+00:11:37.760 test testability let's say you know if
+00:11:40.399 the code is written badly and it can't
+00:11:42.000 be tested that's bad
+00:11:43.760 is the code extensible
+00:11:45.440 scale is not something that we are
+00:11:46.880 looking too much into a low level design
+00:11:48.320 now you're looking at code maintenance
+00:11:50.480 and code quality
+00:11:51.920 okay so
+00:11:54.079 keeping that in mind what are the things
+00:11:56.000 that you would like to keep in a low
+00:11:57.920 level design now database schema no
+00:12:01.839 class models
+00:12:03.360 most likely yes because that helps you
+00:12:05.360 design the objects and the classes and
+00:12:07.680 the interactions well
+00:12:10.160 so keep that in mind you are looking for
+00:12:12.800 a person who can write good code
+00:12:16.160 similar to how they would do in the real
+00:12:17.920 world
+00:12:19.839 so they would design the classes they
+00:12:21.279 would
+00:12:22.000 they would write the code and this code
+00:12:24.639 you know would survive a pull request
+00:12:26.800 you can take it like that that the ideal
+00:12:29.040 interview lnd interview will be
+00:12:31.360 a place where you write code and it will
+00:12:32.800 survive a pull request
+00:12:35.760 it will be accepted basically
+00:12:38.560 okay
+00:12:40.560 how to start with lnd from scratch i my
+00:12:42.959 ios dev with five years of experience
+00:12:44.880 and i want to transition to back end
+00:12:46.240 development
+00:12:49.360 okay
+00:12:50.959 so
+00:12:52.480 uh you know you're a ios dev with five
+00:12:54.399 years of experience
+00:12:57.200 in your current job uh when you write
+00:12:59.839 code and you
+00:13:01.920 you ask it to be merged in the repo if
+00:13:04.720 there is
+00:13:06.399 oversight if there is if there is uh
+00:13:09.040 somebody who's
+00:13:10.800 reviewing the code and telling you
+00:13:12.639 whether it is of good quality or bad
+00:13:14.079 quality that's a good place to start
+00:13:17.120 okay why am i saying that because there
+00:13:19.279 are certain engineering principles that
+00:13:21.040 you learn
+00:13:22.720 in any language as ios dev as a c plus
+00:13:25.600 plus dev as a python dev uh you know
+00:13:28.959 naming is one thing like i'm telling you
+00:13:30.720 very basic things naming
+00:13:33.200 if you have the same code being written
+00:13:35.040 multiplayer multiple places maybe you
+00:13:36.480 want to put it in one function and get
+00:13:38.320 it called by multiple people so i'm just
+00:13:40.320 telling you the basics
+00:13:42.320 are also important
+00:13:44.160 are usually caught in pull requests
+00:13:48.560 low level design if you're looking for
+00:13:50.560 you know
+00:13:51.440 a good theoretical knowledge then maybe
+00:13:53.920 design patterns is some place you can
+00:13:55.440 start
+00:13:56.560 again refactoring guru is a good place
+00:13:58.240 to
+00:14:00.000 to start with for that i'll again point
+00:14:02.560 you to that
+00:14:04.079 link here
+00:14:10.399 there's there's a refactoring guru
+00:14:13.040 yeah here
+00:14:16.240 what is this is this going to make you a
+00:14:18.160 good low level design or is this going
+00:14:20.320 to make you a good software engineer no
+00:14:22.480 but it will give you the theoretical
+00:14:23.760 knowledge which is like 20 of what you
+00:14:25.839 need to become a good software engineer
+00:14:28.240 you need this
+00:14:31.120 otherwise you can discover it yourself
+00:14:32.560 but uh it's much better to just learn
+00:14:34.880 the theory when you have a chance
+00:14:37.040 okay
+00:14:39.440 um that's that's how i would suggest you
+00:14:41.360 start off from scratch and then you see
+00:14:43.680 that these patterns are being applied in
+00:14:45.199 your current job or being applied in any
+00:14:47.199 project that you're working on or in
+00:14:49.839 you know the interview questions which
+00:14:51.120 are coming up so then you start applying
+00:14:52.480 them
+00:14:56.480 low level system design it comes under
+00:14:58.160 system architecture design
+00:15:00.800 is it comes under system architecture
+00:15:02.320 design uh
+00:15:04.560 no no i won't say so
+00:15:07.519 low level design is actually completely
+00:15:09.440 different from high level design in my
+00:15:11.279 opinion
+00:15:12.560 high level design is about how do you
+00:15:14.160 take different components of a system
+00:15:16.399 and make them work together you are
+00:15:18.320 primarily focused on the interactions of
+00:15:20.240 these systems
+00:15:21.760 while low level design is much more
+00:15:23.199 focused on the code that you write
+00:15:25.120 making sure that the code is
+00:15:26.160 maintainable high quality
+00:15:29.040 readable is basically what i'm saying
+00:15:31.440 and then
+00:15:32.639 how are these
+00:15:33.920 classes going to talk to each other how
+00:15:35.360 are you going to write code which is
+00:15:38.240 easy to understand
+00:15:39.680 okay that's the basic idea
+00:15:42.000 so they're different
+00:15:43.519 uh
+00:15:44.800 jalaram suther is asking lle is
+00:15:48.079 to choose the right technology stack or
+00:15:50.240 its architecture design without thinking
+00:15:51.839 of technologies
+00:15:53.600 it's not about choosing the right
+00:15:54.639 technology stack
+00:15:56.399 okay you can write the code in any
+00:15:58.880 language that you like
+00:16:04.639 jishnu is asking how do i practice
+00:16:06.880 things like load balancing scaling
+00:16:10.639 i'm learning these things theoretically
+00:16:11.920 and it will be really helpful if i can
+00:16:13.199 practice these hands-on
+00:16:15.680 okay one of the things you can do is you
+00:16:17.440 can create your own website
+00:16:19.279 it won't cost you much in fact
+00:16:21.680 i think it will cost you 99 rupees uh if
+00:16:24.079 you go to good id and choose some
+00:16:26.480 like
+00:16:27.440 obviously you don't want
+00:16:28.680 systemsdesign.com right it's going to be
+00:16:30.880 pretty expensive go for some other
+00:16:32.480 website
+00:16:33.920 a website and then try to
+00:16:36.560 start it
+00:16:38.160 try to see what are the things that you
+00:16:39.440 need like you will be surprised
+00:16:43.680 by the number of things
+00:16:45.440 and the the quality of things that you
+00:16:47.040 learn when you just have a website
+00:16:48.959 right you need a dns so that's taken
+00:16:51.360 care of okay then let's say you uh go to
+00:16:54.240 aws and you say that
+00:16:56.720 please ask that dns
+00:16:58.480 to point over here
+00:17:00.399 so
+00:17:01.519 that
+00:17:02.399 that is also interesting
+00:17:06.160 yeah i would suggest start with your own
+00:17:07.760 website
+00:17:09.599 if you are looking to just start
+00:17:10.799 learning about load balancing about
+00:17:13.599 scaling you won't learn here but you
+00:17:16.079 learn a lot of the infrastructure
+00:17:17.359 principles that are there when it comes
+00:17:19.280 to any
+00:17:20.319 any website or any startup
+00:17:22.319 that itself will help you
+00:17:23.919 scaling is all like
+00:17:25.679 unless you're working at
+00:17:27.760 a company where there's a lot of data
+00:17:30.160 it's all theoretical and even
+00:17:32.400 if i may say so uh in the
+00:17:36.000 in the sought after product based
+00:17:37.840 companies
+00:17:38.880 many times the rule is not about scale
+00:17:40.559 the many times the rule is about just
+00:17:42.080 getting things done
+00:17:44.240 yeah
+00:17:46.320 is it actually possible to write the
+00:17:48.400 okay somebody else got up
+00:17:51.280 for
+00:17:52.480 and we have uh
+00:17:53.919 oh i already accepted the time okay i'll
+00:17:56.080 just take this last question
+00:17:57.919 for five year experience guy how much
+00:17:59.440 system design required for man this is
+00:18:02.160 not a very good question is it actually
+00:18:04.160 possible to write the entire code with
+00:18:06.160 good class design taking care of all
+00:18:07.520 solid principles patterns to tc matter
+00:18:09.440 and led interviews okay
+00:18:11.440 no
+00:18:12.160 you it is possible i guess but i
+00:18:14.799 personally can't do it um so maybe i'm
+00:18:17.120 projecting but
+00:18:19.840 the intent of the interview is to find
+00:18:21.200 out whether this person is
+00:18:22.960 good enough uh when it comes to software
+00:18:25.360 architecture and when it comes to you
+00:18:27.280 know when this person joins the team
+00:18:28.559 they're not going to write code which is
+00:18:30.080 horrible they're going to write code
+00:18:31.520 which is okay they have the right
+00:18:33.120 principles when
+00:18:34.880 they're thinking through the problem so
+00:18:37.200 that's what we are trying to find out
+00:18:40.160 okay
+00:18:41.360 yeah just to clarify this is the
+00:18:44.160 slider link and i can share it with you
+00:18:47.440 here
+00:18:51.440 please feel free to post your questions
+00:18:53.200 here
+00:18:54.840 okay how to know whether interview is
+00:18:57.120 expecting an led or hld
+00:18:58.960 answer for ask questions just ask them
+00:19:01.360 do not waste your time and their time by
+00:19:03.760 assuming things in fact you will fail
+00:19:05.600 the interview because you assumed it
+00:19:08.160 so is it actually possible to write the
+00:19:10.080 entire code with good class yeah i've
+00:19:12.000 already answered this is there any
+00:19:13.440 website or application platform to
+00:19:14.960 practice lld problems practice no
+00:19:18.799 but at interview ready there is it is a
+00:19:21.120 website which will teach you especially
+00:19:22.960 machine coding rounds
+00:19:25.039 if i go to course
+00:19:27.760 yeah lower design is right here
+00:19:33.280 okay
+00:19:39.520 so this is a this is one sample of a low
+00:19:42.160 level design problem you can have a look
+00:19:43.840 at that over here
+00:19:50.799 student 25 is not working how very
+00:19:53.039 interesting
+00:19:55.520 okay let me just check whether we have
+00:19:57.679 disabled
+00:20:02.000 shouldn't have no
+00:20:03.440 okay let me just check
+00:20:05.280 sorry for that
+00:20:07.280 i'm sending you on a wild goose chest
+00:20:08.799 okay this will be your last question by
+00:20:10.080 the way
+00:20:19.440 let me try uh or or i'll give you a
+00:20:22.480 the other coupon which is working really
+00:20:24.320 well
+00:20:27.039 it's just for you guys again uh this is
+00:20:28.960 true this should work
+00:20:31.280 so where am i
+00:20:37.360 welcome 25.
+00:20:39.919 okay so that takes care of this is web 3
+00:20:42.640 changing convention
+00:20:44.960 what no that makes no sense
+00:20:47.360 i am having issues starting with micro
+00:20:49.039 services please guide me
+00:20:50.720 uh just go through this free resources
+00:20:52.720 that i have here right
+00:20:54.720 in this you have some parts where we
+00:20:56.559 talk about micro services in detail
+00:20:58.720 one list of micro services how to
+00:21:00.480 migrate also but before that we have it
+00:21:02.720 in the basics chapter
+00:21:05.039 one let's versus microservices so go
+00:21:06.640 through this
+00:21:10.000 okay let's start with the example i have
+00:21:12.559 been uh keep you guys on hold for a
+00:21:14.880 while
+00:21:17.360 okay
+00:21:18.400 now the example that we're going to take
+00:21:20.480 is that of a chess engine
+00:21:24.240 so it's a
+00:21:25.520 your design a chess
+00:21:27.600 app
+00:21:28.400 okay low level design so what this means
+00:21:31.360 is i'm not looking at scale i'm not
+00:21:34.000 looking at how are you going to send the
+00:21:36.320 chess object through the wire uh i'm
+00:21:39.039 basically looking at
+00:21:41.120 make an app
+00:21:42.320 which can play chess
+00:21:45.039 you see the difference between high
+00:21:46.080 level design and low level design higher
+00:21:47.360 design would be something like this
+00:21:49.280 you know
+00:21:50.240 over here the highlight design of chess
+00:21:51.760 is already there
+00:21:53.120 requirements of the chess website uh you
+00:21:56.000 would have
+00:21:57.600 how would you handle so many connections
+00:21:59.679 at scale when it comes to chess website
+00:22:02.240 would you choose consistent hashing
+00:22:04.320 or would you choose starting
+00:22:06.080 uh
+00:22:06.799 then there's like if uh if a box goes
+00:22:08.799 down then how are you going to handle
+00:22:10.480 that thundering hurt so many connections
+00:22:12.000 are being broken at the same time what
+00:22:13.520 kind of connection will you use
+00:22:15.360 um
+00:22:16.480 this there's request batching i think
+00:22:18.320 there's some tricks that have been
+00:22:19.919 applied here uh and then there's
+00:22:21.919 capacity planning api contracts stuff
+00:22:23.919 that you need to do in a high-level
+00:22:25.440 design
+00:22:26.400 for chess
+00:22:27.600 okay that would be
+00:22:29.200 high-level design i'm talking about the
+00:22:30.799 low-level design
+00:22:32.960 okay uh the low-level design is
+00:22:34.799 basically
+00:22:36.640 i need to
+00:22:38.240 write an app which can play chess
+00:22:40.960 very different
+00:22:42.480 from what is out there
+00:22:45.200 okay
+00:22:47.600 any comments on that any
+00:22:49.840 any thoughts any doubts
+00:22:58.240 okay if you have none then let's just
+00:23:00.000 jump to the code right
+00:23:03.360 this is a bad idea
+00:23:05.520 jumping to the code
+00:23:07.520 just like that is a really bad idea so
+00:23:09.840 don't do that
+00:23:14.240 whenever there's a low level design
+00:23:15.440 problem right i often see this happening
+00:23:17.520 people open their code editor and they
+00:23:19.520 start
+00:23:20.559 coding or they start writing down the
+00:23:22.480 requirements like this that okay fine
+00:23:24.159 first requirement is
+00:23:25.760 i'm going to have a pawn uh and then
+00:23:28.640 you know the pieces should be able to
+00:23:30.400 move
+00:23:31.120 don't do that let's not jump in there
+00:23:33.600 i would suggest you start thinking and
+00:23:36.080 for thinking drawing is a good tool
+00:23:38.799 okay so
+00:23:41.600 let's go through this what happens what
+00:23:43.840 are the pieces that are there in
+00:23:45.919 chess
+00:23:47.039 you have a pawn
+00:23:49.360 you have a queen
+00:23:52.000 you have a king
+00:23:54.320 you have a knight
+00:23:58.080 what else do you have you have a rook
+00:24:01.600 you have a
+00:24:02.840 bishop i think that's it
+00:24:07.760 okay so these are the
+00:24:09.840 objects that we have
+00:24:24.480 what are the behaviors that these
+00:24:25.760 objects have
+00:24:28.559 a pawn can move forward
+00:24:33.039 it can also capture
+00:24:35.679 diagonally forward
+00:24:37.840 it cannot move backwards
+00:24:40.159 okay so so there's something like move
+00:24:42.400 for a pawn
+00:24:44.000 and it has certain behaviors when it
+00:24:45.440 comes to moving so it probably moves to
+00:24:46.799 a destination square
+00:24:48.480 and the validation is
+00:24:50.400 which square am i at can i move to this
+00:24:52.400 square
+00:24:53.840 okay so the other thing that it can do
+00:24:56.080 is it can capture
+00:24:58.960 um what else
+00:25:02.400 there's something special about a pawn
+00:25:03.679 one is a it can make a double move
+00:25:08.000 so this happens only once
+00:25:09.840 a pawn can make a double move on the
+00:25:11.120 first square on its starting square okay
+00:25:14.400 double move does not mean it moves twice
+00:25:16.240 it just
+00:25:17.279 moves ahead by two squares
+00:25:20.159 okay uh what else now you some of you
+00:25:23.120 who have never played chess might go in
+00:25:25.039 fact let me take a poll for that uh how
+00:25:27.039 many of you have played chess
+00:25:29.039 how many of you know the rules of chess
+00:25:30.720 or are confident about the rules of
+00:25:32.240 chess
+00:25:33.600 okay
+00:25:47.279 yes
+00:25:48.240 i know
+00:25:50.720 okay i just launched this
+00:25:54.159 again guys
+00:25:55.600 if you don't have the slider link and
+00:25:58.640 you know here's the slider link i would
+00:26:00.559 strongly suggest that you participate
+00:26:02.720 because
+00:26:03.679 it's going to help you
+00:26:06.000 just eight people are voted till now
+00:26:07.600 what's going on
+00:26:12.799 okay 18 people are voted
+00:26:14.880 um
+00:26:16.159 120 of us are watching on just youtube
+00:26:18.400 so please go to the slider link and let
+00:26:20.000 me know
+00:26:20.880 because otherwise depending on your
+00:26:23.360 response
+00:26:24.559 i'll be
+00:26:27.200 i'll be teaching based on that
+00:26:35.200 okay 80 of us
+00:26:37.039 out of the 40 who have voted
+00:26:39.279 know about the rules of chess so i'll
+00:26:41.120 assume you all know the rules of chess
+00:26:43.440 okay i mean i'll assume that most of you
+00:26:45.840 know the rules of chess if you don't
+00:26:47.440 nothing to worry about this is not to
+00:26:49.360 test your
+00:26:50.640 chess knowledge this problem is to test
+00:26:52.880 your
+00:26:53.679 software architecture knowledge right so
+00:26:55.520 just
+00:26:56.480 hear out what i have to say
+00:26:58.480 and if you if you miss on something just
+00:27:00.159 wait for a minute probably will get
+00:27:01.840 cleared in the next minute
+00:27:04.000 so
+00:27:05.039 a pawn can move a pawn can capture a
+00:27:07.600 pawn can double move it can also do
+00:27:10.080 something called in passant
+00:27:12.880 on person for french
+00:27:15.520 i i
+00:27:16.720 i can't speak french so my accent is
+00:27:18.320 also fake french accent is also horrible
+00:27:21.200 on persona
+00:27:22.480 you also have something very special
+00:27:24.000 called promotion
+00:27:26.720 so upon if it reaches the last square
+00:27:29.200 the last rank
+00:27:30.559 of the chessboard the opponent's rank
+00:27:33.039 then it gets promoted to a bishop or a
+00:27:36.399 knight or a rook or a queen depending on
+00:27:39.039 what the player wants it to be promoted
+00:27:42.159 okay
+00:27:43.760 this is good
+00:27:45.039 this is what it can do
+00:27:47.520 similarly
+00:27:49.039 can a bishop move
+00:27:51.360 yes it can it moves diagonally a pawn
+00:27:54.559 can also move so we are starting to see
+00:27:56.720 common behaviors
+00:27:58.640 important to note common behaviors not
+00:28:01.120 exactly same behaviors
+00:28:02.960 like you can move
+00:28:05.200 but
+00:28:06.399 the bishop moves in a different way
+00:28:08.640 the pawn moves in a different way like a
+00:28:11.120 dog barks in a different way
+00:28:13.520 and
+00:28:14.559 a different kind of dog will bark in a
+00:28:16.240 very different way
+00:28:17.600 okay so making sound is something that i
+00:28:20.799 do along with chimpanzees but hopefully
+00:28:22.640 i sound different
+00:28:24.080 that's the idea we do the same thing or
+00:28:26.559 rather we
+00:28:27.919 we do the same action but in a very
+00:28:30.399 different way and the result is also
+00:28:31.760 very different
+00:28:33.520 okay
+00:28:34.320 so
+00:28:35.440 uh can a bishop capture yes it can
+00:28:38.640 can it do a double move no it can't can
+00:28:40.880 it do our own person no
+00:28:42.720 can it do a promotion no
+00:28:44.799 so there are certain behaviors which are
+00:28:46.240 specific to the pawn
+00:28:49.520 and certain behaviors which are common
+00:28:51.919 with all of these pieces in fact the
+00:28:53.679 knight can also move
+00:28:56.080 and capture
+00:28:58.159 but it doesn't do a double move it
+00:28:59.279 doesn't do one person it doesn't do
+00:29:00.480 promotion
+00:29:02.720 okay pretty important to look at this
+00:29:05.039 way uh the rook can also do the same two
+00:29:07.600 things
+00:29:09.679 so there are certain common behaviors
+00:29:16.080 and there are certain special behaviors
+00:29:18.240 our rook
+00:29:19.840 is is interesting we'll get to that in a
+00:29:22.320 minute queen can also do the same thing
+00:29:24.880 queen can move and capture there's
+00:29:26.159 nothing else that she can do
+00:29:28.320 she can just move or capture a piece
+00:29:30.799 which is to some extent just a function
+00:29:33.039 of moving you can move into an enemy
+00:29:35.200 opponent's square and the enemy opponent
+00:29:38.000 is removed
+00:29:39.440 okay
+00:29:40.720 um finally the king
+00:29:42.880 a king can move a king can capture
+00:29:45.279 what else can it do
+00:29:47.440 a king can also castle
+00:29:52.159 okay
+00:29:52.960 um
+00:29:55.440 and that's it
+00:29:56.480 that's pretty much it yeah a kink and
+00:29:58.559 castle looking can't do anything else
+00:30:01.600 yeah
+00:30:02.799 i missed one thing that all of these
+00:30:04.480 pieces can do and that is called check
+00:30:06.960 they can check the king
+00:30:09.760 but if you do that
+00:30:12.480 you can make the argument that it's just
+00:30:14.240 a part of move
+00:30:17.600 so
+00:30:18.960 a pawn can move
+00:30:20.640 a cap maybe that move is a capture i'm
+00:30:23.520 just getting rid of this and maybe that
+00:30:25.760 move results in a check to the
+00:30:27.279 opponent's game
+00:30:29.279 okay
+00:30:31.039 pretty simple standard stuff that's
+00:30:32.799 happening till now
+00:30:34.880 this is the special move
+00:30:36.640 this is the special this is a special
+00:30:38.240 move and this is a
+00:30:39.520 these two are also special moves
+00:30:42.720 does it make sense till now do i have
+00:30:44.960 your
+00:30:45.840 vote of confidence
+00:30:56.960 please answer on the slider link if
+00:30:58.480 there are any doubts
+00:31:00.159 then you can just put it on the q a and
+00:31:02.159 if you see a doubt which you think
+00:31:04.720 is uh
+00:31:06.159 is something that you also have please
+00:31:07.360 support it
+00:31:10.480 okay 12 people 100
+00:31:12.399 makes total sense perfect
+00:31:22.240 yeah okay someone is saying that no it's
+00:31:24.720 it's not making sense
+00:31:26.559 you can post your question in the q a
+00:31:28.320 please
+00:31:32.320 yeah please post your questions in the q
+00:31:34.159 a which part didn't make sense
+00:31:37.120 what do you have a doubt on
+00:31:41.840 okay okay
+00:31:44.840 so now what do we do then
+00:31:51.919 what we have done is we have
+00:31:53.679 taken one behavior which is move
+00:31:56.000 common to all pieces
+00:31:58.559 and extracted that and we have taken
+00:32:00.640 some special
+00:32:01.840 behaviors and extracted that
+00:32:05.200 even now though the move
+00:32:07.360 behavior
+00:32:08.559 will be different
+00:32:10.480 uh in pawn will be different in bishop
+00:32:12.720 will be different in rook will be
+00:32:13.840 different in knight will be different in
+00:32:15.120 queen will be different in king
+00:32:17.760 that's a problem
+00:32:19.279 because like we said
+00:32:23.919 a move can result in capture
+00:32:26.960 a move should not
+00:32:30.960 result
+00:32:32.799 in check
+00:32:34.399 to the to your own king
+00:32:36.640 okay uh
+00:32:38.320 it can check
+00:32:40.880 enemy king
+00:32:43.919 right
+00:32:45.600 and
+00:32:47.679 there's also something like
+00:32:49.440 is this a valid move
+00:32:53.600 so for different pieces you have
+00:32:54.720 different types of valid moves
+00:32:58.000 okay
+00:33:00.240 great so
+00:33:01.679 also taking one step back
+00:33:04.480 you can
+00:33:05.679 move to a particular square sure
+00:33:08.640 you can do a double move these are all
+00:33:10.080 setting these are all doing actions
+00:33:12.880 there's another kind of
+00:33:14.720 uh method that you want to expose in
+00:33:16.480 these pieces and that would be
+00:33:19.840 get all
+00:33:22.799 possible
+00:33:24.799 moves
+00:33:26.480 why is this important
+00:33:28.640 because it's going to tell you the set
+00:33:30.159 of valid moves that you can make from
+00:33:31.840 this piece
+00:33:33.919 like i said you should be able to play
+00:33:35.919 chess
+00:33:37.120 with this app
+00:33:40.000 so you're making an app which can play
+00:33:41.440 chess for that you need to be able to
+00:33:43.279 know what moves are valid
+00:33:45.679 and the logic for that can be put in
+00:33:47.360 valid move
+00:33:49.039 and get all possible moves will give you
+00:33:50.720 the set of moves that you can play it's
+00:33:52.799 going to give you a list of moves
+00:33:55.679 okay
+00:33:57.600 so we are seeing that in one move
+00:33:59.519 there's quite a few things which are
+00:34:01.039 common
+00:34:08.079 and check enemy king
+00:34:12.239 i'll write this neatly because
+00:34:15.359 when you write things neatly
+00:34:18.879 the other person understands better
+00:34:21.679 so remember that in an interview
+00:34:23.918 you're not trying to explain it to
+00:34:25.040 yourself you're actually trying to
+00:34:26.000 explain it
+00:34:27.040 to uh
+00:34:31.359 you're trying to explain it to the
+00:34:32.399 interviewer
+00:34:33.520 so let's write it neatly okay what are
+00:34:36.079 the things which are common capture is
+00:34:38.079 common you can capture things that's a
+00:34:40.159 common thing you can uh
+00:34:42.480 you should not result
+00:34:44.480 this should not result in a check for
+00:34:45.839 your own king and you can check the
+00:34:48.079 animating these are three things which
+00:34:49.520 can which are allowed
+00:34:51.520 okay
+00:34:53.839 valid move changes
+00:34:55.440 for every
+00:34:56.560 single
+00:34:57.440 piece
+00:35:00.560 this also makes sense
+00:35:04.960 okay so when you're moving away if
+00:35:06.720 you're moving away and it's going to
+00:35:08.800 result in a check that won't be allowed
+00:35:10.960 that won't be a valid move
+00:35:12.800 if you are going to capture another
+00:35:14.400 piece then that piece will go uh that
+00:35:16.079 piece will be removed
+00:35:17.920 okay uh
+00:35:20.160 and you can check the enemy king also so
+00:35:22.480 if your move results in a check for the
+00:35:24.800 enemy king that should be noted
+00:35:27.200 okay whether it is a valid move or not
+00:35:29.119 it depends on the kind of piece that
+00:35:30.320 you're using
+00:35:33.119 all right some of you might be thinking
+00:35:34.720 i'm going slow
+00:35:36.320 but once we start writing the code
+00:35:37.520 you'll get scared
+00:35:39.440 okay
+00:35:41.680 so
+00:35:42.880 the way i would suggest you to go ahead
+00:35:45.359 in the low level design interviews
+00:35:47.119 you have some things noted down
+00:35:49.680 keep them
+00:35:50.160 [Music]
+00:35:51.440 on the side like just keep them
+00:35:53.680 in your line of
+00:35:55.760 sight
+00:35:57.760 so that you can refer to them
+00:35:59.520 when you want to
+00:36:02.960 okay especially when you're writing code
+00:36:04.400 this is helpful
+00:36:07.599 so what's the first thing that we need
+00:36:08.800 to do we need to define classes for the
+00:36:11.359 different types of objects
+00:36:14.400 so that's
+00:36:17.040 there's public class chess you have a
+00:36:19.040 class for pawn
+00:36:23.839 notice that i don't uh force
+00:36:27.599 fully you know do inheritance that there
+00:36:29.920 is a piece the piece has a behavior move
+00:36:32.480 the piece has a behavior xyz i'm seeing
+00:36:35.200 if it naturally comes up
+00:36:37.119 if it doesn't come up there's no problem
+00:36:39.440 okay so class pawn class
+00:36:42.640 king
+00:36:46.960 ask queen
+00:36:48.400 in a real interview this will be much
+00:36:49.680 easier for you because you know you'll
+00:36:51.280 be having it in a different screen
+00:36:54.560 this stuff so i'll also put it in the
+00:36:56.240 different screen and i'll just refer to
+00:36:57.920 it
+00:36:59.599 so that life is easy for me and i save
+00:37:01.040 your time
+00:37:02.079 king queen
+00:37:03.359 tonight
+00:37:12.640 we have a bishop
+00:37:21.680 i think that's it
+00:37:23.599 two types of pieces here uh and the pawn
+00:37:25.599 the king and the queen okay
+00:37:27.440 great
+00:37:30.079 what did we say we said that uh you know
+00:37:32.160 all of these pieces have something in
+00:37:33.440 common which is move and get all
+00:37:34.880 possible moves so
+00:37:37.280 inheritance no
+00:37:39.280 let's not jump there
+00:37:41.280 let's actually define the things which
+00:37:42.960 are uncommon so a kink and castle
+00:37:51.839 why am i not jumping why am i not
+00:37:53.680 jumping to a you know
+00:37:55.680 inheritance kind of
+00:37:58.640 approach
+00:37:59.920 the problem with inheritance or
+00:38:01.440 composition is that once you make a
+00:38:03.440 commitment
+00:38:04.400 um
+00:38:05.440 you can be wrong
+00:38:06.720 and once you're wrong you have to
+00:38:08.880 backtrack a bit so it's best to do this
+00:38:11.359 on the whiteboard think it through on
+00:38:12.960 the whiteboard before you jump into code
+00:38:14.800 so that's what we will do
+00:38:16.640 okay certain things cannot be avoided
+00:38:18.720 though so the the king can castle um the
+00:38:22.160 logic for this is complex and therefore
+00:38:25.440 highly unlikely to be asked in a low
+00:38:26.880 level design interview okay they are not
+00:38:29.359 looking like i said at your production
+00:38:32.000 deployability skills they are looking at
+00:38:34.160 your problem solving skills and they are
+00:38:35.760 looking at how good
+00:38:37.839 are you at breaking down software
+00:38:39.599 problems
+00:38:40.640 into
+00:38:41.920 real software
+00:38:44.000 okay
+00:38:44.880 so fine
+00:38:46.800 you can castle uh the the pawn has
+00:38:49.200 certain things that it can do it can
+00:38:51.040 can do a
+00:38:52.800 my favorite thing is officer
+00:38:57.680 okay you can you can also do this thing
+00:39:00.240 which is
+00:39:02.400 a double move yeah a promotion
+00:39:07.520 okay
+00:39:09.520 now
+00:39:10.400 some of you might be thinking why don't
+00:39:11.760 i keep a boolean that whether it has
+00:39:13.760 moved or something
+00:39:17.200 so that the double move can be avoided
+00:39:18.880 if the pawn has already moved
+00:39:22.400 don't need to keep that looking at the
+00:39:24.160 current position of the pawn you can
+00:39:25.520 make that decision if it's in the
+00:39:26.880 starting square it's obviously not
+00:39:28.000 moving it can't move back right
+00:39:29.760 so
+00:39:30.720 undoing a move for a pawn is kind of
+00:39:32.480 impossible in the game you can't come
+00:39:33.760 back to the same square as a pawn
+00:39:36.320 so okay
+00:39:38.480 these are two
+00:39:39.680 things which are standing out now let's
+00:39:42.400 talk about moving
+00:39:44.240 so
+00:39:45.760 two approaches one of them is to use a
+00:39:48.160 piece
+00:39:51.440 and then make everything extend this
+00:39:52.960 piece or i say pawn has a piece inside
+00:39:55.760 it
+00:39:56.480 okay
+00:39:57.280 so inheritance versus composition let's
+00:39:59.280 try to see what fits better
+00:40:02.480 through the board
+00:40:06.560 now look at this
+00:40:08.800 you have
+00:40:11.920 you have
+00:40:12.800 a couple of methods
+00:40:14.480 which internally have certain behaviors
+00:40:17.599 which have to be extended or which which
+00:40:19.839 have to
+00:40:20.800 uh
+00:40:24.079 which have to be present in all the
+00:40:25.520 pieces
+00:40:27.359 right of chess
+00:40:28.720 so
+00:40:32.000 when you're talking about inheritance
+00:40:34.480 what we'll be talking about is pawn is a
+00:40:37.040 piece
+00:40:38.720 rook is a piece
+00:40:41.040 and
+00:40:41.839 if a piece can move a rook can also move
+00:40:45.200 if a piece can move a king can also move
+00:40:47.440 that's one way to think of things
+00:40:49.359 the other one which is composition and
+00:40:51.280 i'll just write this down so it's easier
+00:40:52.800 to remember
+00:40:58.240 inheritance
+00:41:02.400 is basically telling you
+00:41:05.359 rook
+00:41:08.000 is a
+00:41:09.920 piece
+00:41:11.520 okay
+00:41:13.760 so all the behaviors of a piece
+00:41:17.119 are extended by a rook and a pawn is
+00:41:19.440 also
+00:41:20.720 a piece
+00:41:25.520 composition is slightly different it
+00:41:28.079 says
+00:41:29.040 a pawn
+00:41:31.440 has a piece
+00:41:32.720 or has has something which gives it the
+00:41:35.200 characteristics which allows it to
+00:41:37.920 uh move
+00:41:39.280 okay which allows it to capture which
+00:41:41.520 allows it to check an enemy king so
+00:41:45.839 has a relation
+00:41:56.640 slightly different
+00:42:00.640 an animal has teeth
+00:42:03.359 okay
+00:42:04.240 an animal is a biter
+00:42:07.359 different
+00:42:08.400 why is this how does this matter
+00:42:11.599 like why does this matter at all
+00:42:14.240 because the way you think is the way in
+00:42:16.800 which you will speak and the way you
+00:42:18.960 speak
+00:42:20.400 to the computer is the way in which you
+00:42:22.560 write code
+00:42:24.000 okay so if you speak in a particular way
+00:42:26.079 to a computer and tomorrow
+00:42:28.480 the reality changes and you have to
+00:42:29.920 speak in a particular way to change your
+00:42:31.920 code to match that reality
+00:42:34.160 then uh it's important that you use
+00:42:36.240 precise language
+00:42:37.599 and you use the right form the right
+00:42:39.760 model of thinking
+00:42:42.079 okay
+00:42:43.599 it
+00:42:44.480 does seem like we are splitting hairs
+00:42:46.160 here
+00:42:47.359 but
+00:42:49.119 moving forward it helps a lot and the
+00:42:51.359 more you practice with
+00:42:53.280 these kind of
+00:42:54.480 software engineering principles
+00:42:56.480 the faster you will be
+00:42:59.200 at you know at solving these kind of
+00:43:00.880 problems and also the better you'll be
+00:43:02.640 at interviews and also as a software
+00:43:04.000 engineer
+00:43:05.040 okay
+00:43:05.839 so in my personal opinion
+00:43:08.800 i think a rook
+00:43:10.480 is a piece okay much more than a rook
+00:43:13.520 has a capability to move
+00:43:16.960 okay a rook has legs like
+00:43:19.040 uh yeah you can think of it that way
+00:43:20.720 also
+00:43:21.520 sure a rook has a sword by which it goes
+00:43:23.359 and stabs other people kills people
+00:43:25.520 okay
+00:43:26.640 i'm not thinking like that a piece
+00:43:29.599 can capture a piece can check the enemy
+00:43:32.720 king a piece can
+00:43:34.640 move in a way such that it results in a
+00:43:36.880 check for the end making so it can't
+00:43:38.400 actually so it has a bunch of valid
+00:43:39.839 moves
+00:43:40.720 it takes care of that
+00:43:42.480 and it can move to one place
+00:43:45.040 so that's how i'm thinking
+00:43:47.359 so um
+00:43:48.560 now that i've thought this through
+00:43:50.480 on this white board where things are
+00:43:52.079 easier to see i can jump to the code
+00:43:54.000 again
+00:43:55.440 that you're seeing what i'm doing i'm
+00:43:57.839 i'm not staying with the code and
+00:44:01.040 writing code and thinking at the same
+00:44:02.400 time i'm thinking and then i'm writing
+00:44:03.839 code so even now i started at 7 20. it's
+00:44:06.960 just been 25 minutes and
+00:44:09.040 we have already written down the classes
+00:44:10.400 at a high level
+00:44:12.240 and we have decided on
+00:44:13.760 inheritance
+00:44:15.280 so
+00:44:18.319 class piece
+00:44:24.160 okay
+00:44:26.079 would this be an interface would this be
+00:44:27.599 an abstract class
+00:44:33.200 because it has multiple abstract methods
+00:44:34.800 i'll just call it an interface and i'll
+00:44:36.880 say it can
+00:44:39.040 move
+00:44:45.760 we can also
+00:44:48.960 get all possible
+00:45:06.160 now
+00:45:07.599 we are seeing certain behaviors are
+00:45:08.960 common inside a move also
+00:45:11.119 right if you capture then you do a
+00:45:12.480 certain kind of thing if you
+00:45:14.800 um
+00:45:16.640 if you check the king then there's a
+00:45:18.079 certain
+00:45:19.280 alarm that has to be fired so maybe i'll
+00:45:21.440 make it a abstract class so i'll take
+00:45:23.520 some of the
+00:45:27.040 some of the behaviors and make them
+00:45:28.400 common
+00:45:33.359 make this an abstract method
+00:45:40.560 okay some of us in the comments are
+00:45:43.200 saying peace has a pawn
+00:45:45.359 piece does not have a pawn
+00:45:48.000 like
+00:45:49.040 my skeleton does not have me i have my
+00:45:50.960 skeleton
+00:45:53.200 is how i would put it like i can use my
+00:45:55.040 scalp
+00:45:56.079 i can use it for
+00:45:58.480 having a structure for moving around for
+00:46:00.319 walking about yeah
+00:46:02.960 okay
+00:46:03.839 uh
+00:46:05.680 all right move
+00:46:07.040 uh i can i can capture pieces right so
+00:46:11.280 let's say there is a
+00:46:13.520 a position from
+00:46:15.040 where i am making a move so
+00:46:17.760 position start
+00:46:20.480 and i'm going to a position so position
+00:46:26.079 there's a class called position i'm
+00:46:28.480 going to be
+00:46:34.880 i'm going to be moving from a position
+00:46:37.040 to opposition so okay
+00:46:39.680 if
+00:46:41.599 is
+00:46:44.160 valid
+00:46:45.440 okay i'm just checking if the move is
+00:46:46.640 valid here
+00:46:48.240 uh
+00:46:49.359 if
+00:46:51.520 this is a valid move so i'm going to be
+00:46:53.119 passing
+00:46:55.680 he should have a type i think like what
+00:46:57.920 type of peace are you
+00:47:00.000 that's actually crazy no
+00:47:02.160 then there's no point of inheritance so
+00:47:05.520 is valid should say what type of peace
+00:47:08.160 am i
+00:47:09.680 and then
+00:47:11.520 if i'm a pawn
+00:47:15.280 then
+00:47:16.000 then i'm allowed to move only one square
+00:47:17.760 forward and if required i can move two
+00:47:19.200 squares forward also if i'm in the
+00:47:20.319 starting position so
+00:47:22.480 is valid start
+00:47:25.119 on my end
+00:47:26.640 if this is true
+00:47:42.880 then i uh i'm allowed to make the move
+00:47:44.960 so
+00:47:45.920 okay
+00:47:50.559 instead of saying start i should have a
+00:47:52.319 current position also so
+00:47:54.880 position
+00:47:56.160 current
+00:47:57.040 position
+00:47:59.040 right so from the start position to
+00:48:04.839 destination now you're also seeing that
+00:48:07.119 i'm able to type really fast
+00:48:12.000 not because i have very good typing
+00:48:13.200 skills it's basically this ide which i'm
+00:48:15.520 using
+00:48:16.880 so in an interview if you get the
+00:48:18.480 opportunity to use an id do use it it
+00:48:21.440 helps
+00:48:23.920 okay is valid current position uh yeah
+00:48:26.079 if this is valid then do make the move
+00:48:27.680 so i'll change my current position
+00:48:30.079 to the destination
+00:48:33.040 what have i done have i just abstracted
+00:48:35.119 this valid position it is valid method
+00:48:39.200 okay
+00:48:40.000 uh
+00:48:41.520 and then i make the move
+00:48:45.200 yeah that's that's pretty much it if
+00:48:48.319 the enemy king is in check
+00:48:50.640 that's what i need to see
+00:48:53.760 in fact is valid is also something which
+00:48:55.680 is quite interesting
+00:49:02.160 because there are certain things which
+00:49:03.119 make a move totally invalid if
+00:49:07.040 current
+00:49:08.160 came
+00:49:10.319 in check
+00:49:14.559 i then
+00:49:15.599 return
+00:49:16.559 false
+00:49:20.480 else
+00:49:22.240 return
+00:49:27.359 again i took a common behavior which is
+00:49:29.520 if your current king is in check then
+00:49:31.040 it's you're not allowed to move
+00:49:34.000 from your start position
+00:49:36.240 uh to this end position okay so is
+00:49:39.040 current king in check
+00:49:42.800 this has to be a
+00:49:46.000 this can be a proper method
+00:50:03.119 what we need to pass in here
+00:50:04.960 is currently in check is basically if i
+00:50:06.960 move to the end position and i go out of
+00:50:08.800 the start position do i get a check
+00:50:11.440 okay so
+00:50:12.720 what i can do is i can say
+00:50:16.880 you know
+00:50:17.920 there is a there's a concept of a board
+00:50:23.520 and this is a temporary board
+00:50:26.960 this is the chessboard
+00:50:33.359 okay
+00:50:34.640 in fact
+00:50:35.839 yeah now in this temporary board i want
+00:50:37.920 to
+00:50:38.880 make the move
+00:50:41.440 right so you make the move and go to the
+00:50:43.920 end position
+00:50:45.280 once this is done pass this in and see
+00:50:47.440 if the current
+00:50:48.559 ping is in check
+00:50:54.079 what i did is instead of checking
+00:50:55.599 whether the queen will be in check i
+00:50:57.119 made the move and now i'm seeing if the
+00:50:59.119 king is in check if the king isn't
+00:51:00.800 checked then
+00:51:01.920 this is not a valid move please go back
+00:51:04.880 so it's a temporary board that i made
+00:51:06.800 and for that i need a class
+00:51:09.440 board
+00:51:12.559 okay and then you can make move in a
+00:51:14.880 board so
+00:51:20.000 you can make a move in the sense you can
+00:51:21.680 take a piece
+00:51:27.760 and you can move it to our destination
+00:51:29.440 so
+00:51:34.319 over here i just need to say
+00:51:38.319 yeah
+00:51:40.559 now is valid move is
+00:51:44.079 is what we need
+00:51:50.319 i'm simplifying more and more i'm
+00:51:52.160 actually taking away the
+00:51:54.079 the parts which are common and i'm just
+00:51:58.720 you know abstracting out the parts which
+00:52:00.160 are uncommon so is valid is different
+00:52:02.319 for everybody else
+00:52:04.640 okay
+00:52:06.319 if this resulted in a check
+00:52:08.240 for the current king i would not allow
+00:52:09.920 it again coming back to
+00:52:12.480 the board
+00:52:15.200 all possible moves
+00:52:17.520 no this is not it capture okay is it a
+00:52:19.760 capture that's another thing so i'll
+00:52:21.599 just go there
+00:52:23.359 if
+00:52:25.520 the destination
+00:52:28.480 had
+00:52:29.520 something already there so
+00:52:31.599 if maybe board
+00:52:35.200 so how do i actually
+00:52:36.640 find the current board there needs to be
+00:52:38.400 some sort of a
+00:52:40.319 pointer
+00:52:42.240 i'm keeping a
+00:52:46.240 to the current board
+00:52:47.599 in the piece itself
+00:52:49.440 so from a piece i can tell that it
+00:52:51.280 belongs to this board give me the board
+00:52:53.040 it will be a one reference thing
+00:52:55.680 so
+00:52:57.040 if current board dot
+00:53:04.559 okay
+00:53:08.720 in this destination position
+00:53:11.680 so it's going to give me a piece if this
+00:53:13.200 is not null
+00:53:20.400 return me a piece
+00:53:24.079 and it returns null usually
+00:53:26.079 if there is a piece then it's going to
+00:53:27.920 return me something over there so maybe
+00:53:30.880 i can have a
+00:53:32.240 map
+00:53:33.599 of
+00:53:35.040 position two piece
+00:53:38.640 pieces
+00:53:43.839 okay and now all it needs to do is it
+00:53:45.520 just needs to say pieces dot get
+00:53:52.319 also make move is then going to
+00:53:54.880 take pieces
+00:53:58.240 remove it from its current position
+00:54:08.839 so and add it to the next position so
+00:54:23.520 pieces okay
+00:54:26.160 what
+00:54:30.720 a piece
+00:54:33.359 destination
+00:54:34.800 i'm going to put in this piece over
+00:54:36.720 here most of you might have dropped off
+00:54:38.640 by now because
+00:54:40.079 you know this is intense coding going on
+00:54:41.760 here but those of you who are still
+00:54:44.000 there and who are like interested in low
+00:54:45.920 level design interviews uh this is
+00:54:48.079 what's happening
+00:54:50.400 what's happening is we are taking a
+00:54:53.440 high level diagram
+00:54:54.799 of what we will be working on we then
+00:54:57.280 decided on
+00:54:59.520 what parts of these classes can be
+00:55:02.799 you know put together can be made common
+00:55:05.040 what parts are exceptional
+00:55:07.440 uh even in the common parts what are the
+00:55:09.119 things which are
+00:55:10.640 which can be defined in a common way
+00:55:12.880 like capturing
+00:55:14.240 this uh checks
+00:55:15.760 um those kind of things then we decide
+00:55:18.079 on inheritance versus composition
+00:55:20.880 and finally we are we are actually
+00:55:22.079 writing the code
+00:55:23.280 so
+00:55:24.000 a lot of the code is coming out smoothly
+00:55:26.400 uh because we are you know
+00:55:28.720 taking a principle based approach
+00:55:32.559 so okay pieces uh this this is good
+00:55:35.040 you're able to make moves now in the
+00:55:36.720 board
+00:55:37.680 we now can go back and see whether
+00:55:41.920 the destination was not null and also
+00:55:44.640 you know and
+00:55:46.559 this thing
+00:55:48.640 can be
+00:55:49.680 called
+00:55:51.599 destination peace
+00:55:53.440 in fact you can't capture your own peace
+00:55:55.839 so maybe is valid should have that so
+00:55:58.720 this thing over here
+00:56:00.880 is valid is also going to be seeing
+00:56:05.520 if your end position
+00:56:10.720 is going to capture your own piece so
+00:56:19.200 the destination piece
+00:56:20.880 exists
+00:56:25.839 and
+00:56:26.799 the destination piece dot get color
+00:56:30.880 it's the same as your color
+00:56:33.440 then please uh it's false
+00:56:38.160 you can't capture your own piece that's
+00:56:39.520 what i'm doing over here
+00:56:41.119 okay so get color is a property in peace
+00:56:46.880 this is going to be let's say
+00:56:49.280 you can make an enum out of it but
+00:56:50.720 actually i'll do that
+00:56:54.880 you can set color also
+00:56:57.440 i think color is going to be final so
+00:56:59.200 let's not go there
+00:57:01.680 class
+00:57:05.920 hello
+00:57:10.160 this is white
+00:57:13.760 or black i'm not going for
+00:57:16.160 you know uh
+00:57:18.400 the wooden chest pieces which are which
+00:57:20.079 are dark blue or rather dark brown and
+00:57:22.720 light brown so
+00:57:24.319 white or black of course so this is this
+00:57:26.480 is what we have uh i think i'll also say
+00:57:28.319 equals here
+00:57:33.040 okay
+00:57:35.359 now king is in check uh the thing is if
+00:57:37.680 the king isn't checked then just return
+00:57:39.040 false how do i check if the thing is in
+00:57:41.599 check
+00:57:42.720 right now it is
+00:57:43.920 return false this is going to be a
+00:57:45.359 complex piece of logic so it's best to
+00:57:47.839 clarify with your interviewer i'm
+00:57:50.480 almost sure that this will not be
+00:57:52.240 something that they'll ask you to code
+00:57:53.760 but if they do then you're basically
+00:57:55.520 looking at whether the king can be
+00:57:56.880 captured by this piece
+00:57:58.720 or can be captured by a piece that
+00:58:01.280 you know you you moved out of the way
+00:58:03.280 somebody else can capture your thing
+00:58:05.440 that's what you're looking at
+00:58:07.680 current king in check
+00:58:10.079 i can change this
+00:58:12.240 i can say king in check and i can
+00:58:15.200 mention which color
+00:58:17.520 of the king am i talking about so
+00:58:24.720 this will help me because i might check
+00:58:26.400 a king also
+00:58:27.520 so over here thing in check
+00:58:32.319 the current color
+00:58:38.160 finally if you're checking the other
+00:58:39.440 king then you need to
+00:58:41.040 update that also it's going to be very
+00:58:42.720 similar to this
+00:58:43.839 uh you basically need to tell the other
+00:58:45.760 opponent that you are in check and
+00:58:47.599 therefore you can make only a set of
+00:58:49.040 moves
+00:58:50.720 is valid also needs to check whether
+00:58:52.079 your king is in check already actually
+00:58:54.079 because
+00:58:55.119 if your king is in check
+00:58:56.880 then uh you can only block the check
+00:58:58.960 that's all that's all you can do with
+00:59:00.400 this piece or or capture the piece which
+00:59:02.079 is checking
+00:59:03.119 okay
+00:59:04.960 all right
+00:59:06.319 so
+00:59:07.599 at a high level this is what we have
+00:59:09.760 i'll just zoom out to give you a good
+00:59:11.680 idea of what we have done here
+00:59:23.760 okay what we have done is
+00:59:26.240 let me just see if this is actually even
+00:59:27.760 compiling
+00:59:29.599 destination piece okay i was actually
+00:59:31.040 coding while i just
+00:59:32.720 lost focus here so
+00:59:35.440 if the destination piece is not null and
+00:59:37.440 the destination piece
+00:59:39.280 dot get color
+00:59:41.119 is
+00:59:43.520 not equal to
+00:59:45.200 color
+00:59:48.160 then this is a capture
+00:59:52.799 okay
+00:59:54.799 what's the
+00:59:56.960 like what are some of the lessons that
+00:59:58.240 we can pick out of this
+01:00:01.200 at a high level we have all the classes
+01:00:03.599 that we need
+01:00:06.799 to build a chess
+01:00:08.640 engine
+01:00:09.520 okay
+01:00:10.559 we also have abstracted out as much as
+01:00:13.119 we possibly can
+01:00:14.480 the logic that is common to all of these
+01:00:16.559 classes which is moving or getting all
+01:00:18.559 possible moves
+01:00:21.040 even after doing that we have found some
+01:00:22.960 common things that we can use
+01:00:25.599 in moving also like just checking if the
+01:00:28.079 move is valid
+01:00:29.440 and so on
+01:00:32.240 uh and so at this point i think
+01:00:35.440 it is it is sufficient to explain to the
+01:00:37.599 interviewer that
+01:00:38.880 uh for a chess design this is what i'll
+01:00:41.280 be doing this is how i'll be approaching
+01:00:42.960 the problem and i think you will be fine
+01:00:45.280 with this
+01:00:46.880 okay
+01:00:47.680 this is good enough for an interview if
+01:00:49.040 you want to see how
+01:00:50.799 how this actually happens like a real
+01:00:52.480 chess engine i'll just show you
+01:00:55.359 my own code
+01:00:57.680 i have a i have written a chess engine
+01:00:59.520 actually
+01:01:07.440 i'll just share it with you all this is
+01:01:08.799 not relevant to interviews
+01:01:10.400 so
+01:01:10.590 [Music]
+01:01:12.400 you might find it useless
+01:01:14.480 but if you want to know how a real chess
+01:01:16.400 engine works with test cases and
+01:01:18.079 everything and
+01:01:19.200 it it actually works okay it actually
+01:01:21.359 plays chess and it will most likely beat
+01:01:23.599 you so
+01:01:25.839 it beats me i think
+01:01:27.440 so
+01:01:29.599 it has a good chance
+01:01:31.920 okay
+01:01:33.920 this is how a real chess engine would be
+01:01:35.680 like
+01:01:40.319 it can it takes care of every single
+01:01:42.240 possible move and the way i did this is
+01:01:44.079 by testing it
+01:01:46.319 but coming back to the real world where
+01:01:49.040 you know this is more of an interview
+01:01:50.319 problem
+01:01:53.839 what you want to do
+01:01:55.520 in a low level design interview is you
+01:01:56.960 want to note down what are the
+01:01:59.280 classes or components that you'll have
+01:02:01.200 in this
+01:02:02.240 system
+01:02:03.359 then you want to know what are the
+01:02:04.640 behaviors
+01:02:05.839 of those classes
+01:02:08.079 right it's not always going to be that
+01:02:09.680 you'll see a lot of common behaviors you
+01:02:11.760 just have to know the behaviors of these
+01:02:13.200 classes then you want to
+01:02:15.440 find a particular strategy or particular
+01:02:17.200 way in which you want to you know write
+01:02:19.200 the code so
+01:02:21.760 in this case the major question was well
+01:02:23.280 are you are you going to use inheritance
+01:02:24.480 or are you going to use composition but
+01:02:26.799 that's not always the case like
+01:02:32.960 like in low level design
+01:02:34.559 or split wise the major question is how
+01:02:37.359 are you going to
+01:02:39.359 implement the algorithm
+01:02:41.039 uh of split-wise
+01:02:43.039 in an efficient manner
+01:02:45.280 okay so this is this is chess again
+01:02:48.400 going back to low level design yeah
+01:02:54.160 so how do you simplify the balancing
+01:02:55.599 algorithm
+01:02:56.880 okay so it was more of a algorithm based
+01:02:58.720 up a question here
+01:03:00.880 and that
+01:03:01.920 the one that we sold chess that is more
+01:03:03.839 of a
+01:03:06.400 software-based question
+01:03:08.240 okay here also you need to show your
+01:03:09.839 software skills but
+01:03:11.760 then you need to show it even more
+01:03:13.039 you're breaking components
+01:03:16.960 awesome
+01:03:23.280 capitan m
+01:03:25.200 and r yes i'm very sorry with names
+01:03:27.839 sorry for that you are one of my
+01:03:29.039 inspirations about system design good
+01:03:30.720 luck and thanks
+01:03:31.920 for sharing your knowledge thank you
+01:03:33.839 capitan
+01:03:34.960 um
+01:03:37.760 superb it's great to
+01:03:40.319 talk to you
+01:03:45.680 if king is in check there is a
+01:03:47.359 possibility for the piece to move if it
+01:03:49.680 prevents the check
+01:03:51.680 it's a nice profile picture by the way
+01:03:53.039 if king is in check there's a
+01:03:54.319 possibility for the piece to move
+01:03:57.039 if it prevents the check
+01:04:00.240 yes yes yes absolutely
+01:04:02.480 so if your king is in check i'm not
+01:04:04.799 stopping that if you see the fold
+01:04:07.280 i'm actually not stopping that i'm
+01:04:08.720 seeing that if you move and your king is
+01:04:10.720 in check that's an illegal one
+01:04:15.760 okay in the board uh
+01:04:19.359 over here what i'm doing is i'm saying
+01:04:20.880 that okay you want to move to this end
+01:04:22.240 position
+01:04:23.839 let's take the current board let's make
+01:04:25.280 the move first and then see if you're in
+01:04:27.440 check if you are in check if your
+01:04:29.039 current king is in check
+01:04:30.559 then this is not a legal move
+01:04:35.200 okay
+01:04:36.160 yeah this is
+01:04:37.599 this is what we have this is great
+01:04:40.799 let me again go back to the audience q a
+01:04:43.200 i'll take a couple of questions before
+01:04:44.640 we end this live stream
+01:04:46.240 uh what do you use for sketching
+01:04:47.680 designing
+01:04:49.920 this is
+01:04:50.880 mouse not possible i guess yeah of
+01:04:52.720 course it's not possible with the mouse
+01:04:54.480 i use a microsoft whiteboard for
+01:04:57.760 drawing i think i just
+01:04:59.680 showed you my background which is also
+01:05:01.119 quite nice
+01:05:02.319 i use microsoft whiteboard
+01:05:04.400 and i use this stylus over here so the
+01:05:08.000 hardware i have is vacuum
+01:05:10.240 and
+01:05:11.520 the stylus draws really well and the
+01:05:13.520 software i have is microsoft whiteboard
+01:05:18.000 okay if you have any questions guys this
+01:05:19.680 is
+01:05:20.559 your
+01:05:21.440 chance
+01:05:22.720 this is a good chance to post questions
+01:05:26.240 also if you are looking for uh
+01:05:28.559 an interesting discount i think welcome
+01:05:30.319 25 is what we have going on at it to be
+01:05:32.880 ready
+01:05:34.400 good place to learn system design
+01:05:40.079 since most of youtube's led explanations
+01:05:42.640 in java plus springboard any good source
+01:05:45.359 to start learning java plus spring boot
+01:05:48.640 i don't know actually there must be some
+01:05:51.440 channel which handles this
+01:05:53.920 yeah
+01:05:55.599 but even if you know c plus plus or you
+01:05:57.359 know python i think most of these things
+01:05:58.880 can be
+01:06:00.079 guessed like it's language agnostic
+01:06:01.599 right i didn't use any data structure
+01:06:03.119 which is specific to java except maybe a
+01:06:05.200 hash map but a hash map is there in so
+01:06:06.799 many languages
+01:06:09.200 okay machine coding rounds expect good
+01:06:12.400 object oriented design as well how to
+01:06:14.000 learn i have spoken about this
+01:06:16.839 refactoring
+01:06:18.480 guru
+01:06:19.680 is one of the websites that i would
+01:06:21.039 suggest
+01:06:23.359 go for it i will share the link in the
+01:06:25.119 description again
+01:06:34.160 so let me just
+01:06:37.599 see if that works
+01:06:39.280 the refactoring is working
+01:06:42.000 perfect
+01:06:43.839 machine coding rounds is good can you
+01:06:46.079 refer any books to learn low level
+01:06:48.799 design
+01:06:49.920 i don't know of any books to learn low
+01:06:52.079 level design i mean i can tell you for
+01:06:54.400 design patterns but
+01:06:56.160 low level design not yet no
+01:06:59.119 all these have been a function
+01:07:00.160 programming tips for led i think
+01:07:01.599 everyone expects object-oriented
+01:07:03.200 programming principles uh you can
+01:07:05.039 educate the interviewer also you can
+01:07:06.640 tell them that you know in functional
+01:07:08.000 programming this is what we do we are
+01:07:09.920 i'm carrying the function
+01:07:13.359 it's going to be interesting because the
+01:07:14.720 interviewer usually is very open to new
+01:07:16.880 technical
+01:07:17.920 uh approaches to the same problem and
+01:07:20.240 it's just a different conceptual way of
+01:07:21.839 thinking so it's not like the
+01:07:23.200 interviewer cannot understand
+01:07:25.920 the more you explain the better it will
+01:07:27.200 be
+01:07:30.559 what is generally expected to be asked
+01:07:32.160 in a sd2 interview for mobile
+01:07:33.920 development
+01:07:35.280 for hld rounds
+01:07:37.520 um
+01:07:39.200 detailed answer just go to interview
+01:07:40.839 ready you have a high level design round
+01:07:43.119 then yeah interview ready handles that
+01:07:44.640 super well you have a machine coding
+01:07:46.400 design around super well again interview
+01:07:48.559 ready uh if your fundamentals are not
+01:07:52.400 strong
+01:07:55.440 we have five detailed chapters on
+01:07:57.359 interview ready and then we have a huge
+01:07:58.880 section also of all the youtube videos
+01:08:00.880 put their ad free and with quiz and with
+01:08:04.559 summaries pdf downloadable summaries
+01:08:06.400 it's a no-brainer go for it to be ready
+01:08:11.520 if you are talking about mobile
+01:08:12.799 engineering only right you are going to
+01:08:15.200 design an android app don't go for
+01:08:16.799 interview ready if you are talking about
+01:08:18.399 high level design low level design or
+01:08:20.960 fundamentals i have built the course for
+01:08:23.120 that so that is the perfect place to be
+01:08:26.719 what is your uh you want golang in ld
+01:08:29.040 instead of java or other oops language
+01:08:30.960 golang is also fine
+01:08:32.560 yeah
+01:08:33.439 there are quite a few concepts in golang
+01:08:34.960 also that you can bring in
+01:08:37.520 sure
+01:08:39.279 what if i'm not very good at like
+01:08:41.520 in golang you have
+01:08:43.198 the concept of
+01:08:45.600 i think you have
+01:08:49.040 channels yeah that's pretty good you
+01:08:52.000 know channels is something which is
+01:08:53.520 pretty big
+01:08:54.560 that you can
+01:08:55.839 explain to the interviewer again it's
+01:08:57.120 quite useful if you
+01:08:59.759 understand the language deeply
+01:09:01.920 okay what if i'm not very good at chess
+01:09:03.600 myself and i drop poorly
+01:09:05.359 if you are not very good at chess that
+01:09:07.439 is totally fine you can ask the
+01:09:09.439 interviewer that hey
+01:09:10.719 you know there are certain rules that i
+01:09:12.000 don't understand or if i if you don't
+01:09:13.759 understand chess at all just change the
+01:09:15.040 question
+01:09:16.158 because some of this is specific to
+01:09:18.839 chess if you're drawing poorly there's
+01:09:21.439 nobody to blame except
+01:09:23.040 ourselves right because it's like my
+01:09:25.520 handwriting is bad or i speak too fast
+01:09:28.158 or i i don't
+01:09:30.399 i say anything i want like the problem
+01:09:32.319 is you're explaining something to the
+01:09:34.158 person in front which is also true in
+01:09:35.839 team discussions
+01:09:37.679 so it's important that you give them the
+01:09:39.920 time that they deserve and the
+01:09:42.719 the respect that they deserve like i'm
+01:09:44.158 doing right now i'm giving you my time
+01:09:46.799 i can rush through and say yeah all this
+01:09:48.560 is easy don't do that right an
+01:09:50.560 interviewer also deserves your respect
+01:09:52.479 draw nicely
+01:09:54.158 redraw if required trust me
+01:09:56.719 five seconds more is not going to hurt
+01:09:58.239 you in the long run
+01:10:01.040 okay i just got 200 rupees from here's
+01:10:03.360 gupta
+01:10:05.440 thank you so much for that this is
+01:10:06.640 amazing
+01:10:10.560 if one object is composed of another
+01:10:12.800 object
+01:10:14.719 i.e board has a list of cells
+01:10:17.520 okay then inside the board class if we
+01:10:19.840 want to call method of cell class can i
+01:10:22.239 call it directly or do we need to have
+01:10:24.080 an interface in between
+01:10:27.920 so it depends on where you're calling
+01:10:30.080 the class from
+01:10:32.800 i'll give you an example and in fact
+01:10:34.719 let's just show that in code
+01:10:36.800 someone else has also commented the same
+01:10:38.320 thing shouldn't the board be a bunch of
+01:10:40.719 cells
+01:10:45.040 so where is the board
+01:10:46.640 yeah here's the board right i have taken
+01:10:48.560 it as a map of pieces
+01:10:51.440 instead
+01:10:52.480 let's say i have
+01:10:55.199 this
+01:10:59.280 an 8 cross 8 matrix
+01:11:01.440 of cells
+01:11:04.080 and define
+01:11:05.600 a cell
+01:11:07.520 and this is this is the place where you
+01:11:09.440 should probably be using a singleton
+01:11:12.159 pattern because you don't want to
+01:11:13.920 recreate the board multiple times
+01:11:15.760 so
+01:11:16.719 i mean yeah you're going to have only
+01:11:17.840 one code so that is taken care of
+01:11:20.560 the question is
+01:11:22.719 you have a bunch of cells
+01:11:24.560 and
+01:11:25.600 let's say you want to call
+01:11:27.840 one of these
+01:11:29.199 cells so should you have a public
+01:11:32.239 function
+01:11:33.360 saying uh access
+01:11:37.040 cell
+01:11:39.120 okay from what i understood of the
+01:11:40.560 question
+01:11:41.600 um
+01:11:42.640 you want to access cell and you you
+01:11:44.320 probably want to pass an index
+01:11:46.719 uh and i'm just
+01:11:49.120 showing the concept right so there's a
+01:11:51.199 int
+01:11:53.040 val
+01:11:56.159 and i can say uh
+01:12:00.719 x
+01:12:02.320 or row
+01:12:03.920 in
+01:12:05.280 call
+01:12:06.640 and uh peace yeah i want to set the
+01:12:09.199 piece there so
+01:12:11.040 now one of the things i can do is i can
+01:12:12.480 say okay here's a public method where
+01:12:14.880 uh
+01:12:15.679 set piece is this way
+01:12:18.560 so
+01:12:19.520 cells
+01:12:30.400 actually this is
+01:12:39.840 okay so i can i can
+01:12:41.280 let's just assume that you can set a
+01:12:42.640 piece for a cell
+01:12:44.880 this is one way to do things this is a
+01:12:46.239 public method where i'm passing in the
+01:12:47.679 row and the column and the piece
+01:12:49.600 the other way to do it is to
+01:12:52.320 give a public method
+01:12:59.280 get cell
+01:13:02.239 and here you pass in just the row and
+01:13:03.760 the column
+01:13:08.159 and you return this
+01:13:13.920 you return the cell
+01:13:16.239 so the person calling this method
+01:13:18.640 and then set the piece themselves
+01:13:21.840 okay
+01:13:23.360 which one is better
+01:13:25.840 it depends on what kind of contract do
+01:13:28.400 you want to expose
+01:13:30.000 and what makes your code easier to
+01:13:31.280 understand also but primarily on what
+01:13:33.120 kind of contract do you want to expose
+01:13:35.360 should a board allow
+01:13:38.400 uh the cells inside it to be manipulated
+01:13:41.120 by outside parties
+01:13:43.440 in my personal opinion no
+01:13:45.679 is there any time that you want a cell
+01:13:48.800 from a board to go out
+01:13:50.880 and then be manipulated in any way it
+01:13:52.400 likes to be no
+01:13:54.080 so
+01:13:54.880 anything that happens inside the board
+01:13:57.040 inside those cells is the responsibility
+01:13:59.120 of the board so i would
+01:14:01.679 have this function publicly exposed
+01:14:03.600 which would allow you to set a piece
+01:14:05.920 but it would go through the board at any
+01:14:08.320 point if i need validations i'll add
+01:14:09.840 validations here
+01:14:12.880 i will not allow them to take a cell and
+01:14:14.400 do what they want
+01:14:15.679 and not allow them to set a piece of a
+01:14:17.120 set themselves so i would suggest method
+01:14:19.920 number one
+01:14:22.719 okay need up that's a good question
+01:14:24.719 thank you
+01:14:26.480 while bishops move on white cells and
+01:14:28.080 black bishops on black cells how to
+01:14:29.760 handle that in the structure you
+01:14:31.280 demonstrated you just need to see your
+01:14:32.640 starting position right you're never
+01:14:34.400 going to uh
+01:14:35.920 your current position will tell you the
+01:14:37.280 color of the cell
+01:14:38.640 so actually that's one thing that we can
+01:14:40.080 have in
+01:14:41.360 cell we can have color
+01:14:42.800 black or white
+01:14:45.920 so if your starting position is
+01:14:47.360 something and mathematically you see
+01:14:48.960 that it is meeting the diagonal
+01:14:51.199 of this bishop
+01:14:52.400 you don't need to worry about color the
+01:14:53.920 color will be taken care of by itself
+01:14:58.159 so in val no i have
+01:15:01.360 have a color
+01:15:05.280 okay
+01:15:08.080 i'm 10 years experience still before
+01:15:09.520 design interviews i find it difficult to
+01:15:10.719 pass yes and i'll go how to improve on
+01:15:12.239 that
+01:15:14.719 you'll have to practice
+01:15:16.159 uh
+01:15:17.360 yeah
+01:15:18.560 the best way to do it is to practice
+01:15:20.880 okay this is the question which we
+01:15:22.400 answered if one object is composed of
+01:15:24.400 another like demonstrated over here
+01:15:28.640 board has a list of cells
+01:15:32.320 if we want to call a method in the cell
+01:15:33.679 class can we call it directly
+01:15:36.239 i would not suggest that or do we need
+01:15:38.800 to have an interface in between i would
+01:15:40.239 suggest a method in between yes
+01:15:44.400 okay
+01:15:45.280 uh do we have to know this as a pressure
+01:15:47.360 or cp dsa is enough
+01:15:52.239 you don't need to know this actually you
+01:15:54.000 do yeah simply put yeah you do
+01:15:56.800 as a fresher yeah low level designers
+01:15:58.320 are things
+01:16:00.320 you should
+01:16:02.960 uh can you kindly explain castle and
+01:16:05.360 ambassador these are chess rules you
+01:16:07.040 don't really need to know about it but
+01:16:09.040 yeah if you want to you can read up
+01:16:10.800 about it why is both not a matrix
+01:16:14.159 i just changed it now
+01:16:15.920 but what i was trying to do is i was not
+01:16:17.600 trying to look too deep into the state
+01:16:19.760 and the behaviors of things which didn't
+01:16:21.199 matter much i was looking at
+01:16:23.040 at a high level breaking down the
+01:16:24.239 classes and components
+01:16:25.920 if you go deep into it yes absolutely
+01:16:27.679 you need to do that
+01:16:29.600 in fact
+01:16:30.640 like i said
+01:16:36.719 github
+01:16:41.600 this is an actual chats engine so you
+01:16:43.679 whatever you see here will be very
+01:16:44.960 accurate
+01:16:46.400 let's say pieces right uh or game
+01:16:49.520 game as a board
+01:16:50.800 so you'll see a board is much more
+01:16:52.560 complicated than you would think
+01:16:54.080 initially i have also used uh
+01:16:56.000 optimizations like this
+01:16:58.080 zobrist hash yeah whatever um
+01:17:01.600 there's player pieces the pieces there's
+01:17:03.520 moves there's guards
+01:17:06.239 which pieces guarding which piece okay
+01:17:08.400 all of this is required if you really
+01:17:09.600 want to make it efficient you want a
+01:17:11.360 real chess engine but it's not practical
+01:17:13.679 if you're looking at a interview based
+01:17:17.199 you know solution to the question
+01:17:20.960 yeah okay this is this is pretty good
+01:17:31.120 okay
+01:17:32.880 is there any boiler plate skeleton to
+01:17:35.040 start any led like creating
+01:17:37.520 i'm working on that is there any work on
+01:17:39.600 integrity to publish lectures regarding
+01:17:41.040 design patterns 12 to 13.
+01:17:43.199 we are working on lower design uh you
+01:17:45.600 know questions so stay tuned that's
+01:17:48.159 amazing that you asked that question and
+01:17:50.320 help me promote it uh you haven't talked
+01:17:52.400 about board um yeah maybe earlier we
+01:17:55.040 hadn't yeah this is 40 minutes ago
+01:17:58.640 lesson chess is tough
+01:18:00.719 please take live classes daily no that's
+01:18:03.040 not possible but uh if you want
+01:18:05.760 regular zoom classes like
+01:18:08.159 twice a month we have that at
+01:18:09.679 individually you can sign up
+01:18:12.400 difference between your youtube system
+01:18:14.000 design and a paid one what benefit does
+01:18:15.679 it serve
+01:18:16.719 the youtube system design videos are
+01:18:18.800 excellent okay in terms of content
+01:18:21.440 quality you will not see
+01:18:22.880 any difference or much difference little
+01:18:26.159 difference will be the area obviously
+01:18:27.440 it's paid so i have you know uh the the
+01:18:30.400 editing effort and all that is even
+01:18:32.560 higher than usual but
+01:18:35.520 in terms of quality there's not that big
+01:18:36.960 a difference
+01:18:38.320 what is the major difference is uh you
+01:18:40.719 have
+01:18:41.840 supplementary things also going with it
+01:18:43.520 you have quiz
+01:18:44.719 you have
+01:18:46.800 two times in a month uh zoom classes
+01:18:49.199 which is live so you can ask your doubts
+01:18:51.040 over there
+01:18:52.400 and
+01:18:53.679 this goes in a little more depth
+01:18:56.640 right the course contents in a little
+01:18:58.640 more depth because you can afford to go
+01:19:00.239 in a little more depth it's a
+01:19:03.040 you are not bound by the youtube
+01:19:04.640 algorithm
+01:19:06.159 i don't need to teach you or explain to
+01:19:08.239 you every time what a gateway is
+01:19:10.159 over here i'm expecting you're going in
+01:19:11.840 sequence
+01:19:12.960 and you're basically come here to study
+01:19:14.880 you don't have an ad over here on the
+01:19:16.320 right
+01:19:17.199 or you don't have a random video over
+01:19:18.719 there to catch your attention so this is
+01:19:20.960 the place where you study so if you have
+01:19:22.400 like
+01:19:23.679 three months or
+01:19:25.440 it won't take you that long to study
+01:19:26.880 this basically two weeks you should be
+01:19:28.480 able to finish this easily
+01:19:30.239 okay but uh yeah if you have two weeks
+01:19:32.159 for your interview for your system
+01:19:33.360 design interview
+01:19:34.560 this is the place you want to come and
+01:19:35.679 study
+01:19:36.960 on youtube also it's it's good but if
+01:19:39.120 you can afford to save some time of
+01:19:40.400 yourself why not
+01:19:45.600 that's the difference
+01:19:47.760 i'm going to take this clip and put it
+01:19:49.600 out there and put it in the ad like this
+01:19:51.360 is the difference between youtube videos
+01:19:52.800 and interviews
+01:19:55.760 do you need to walk through the
+01:19:56.719 interviewer before the design patterns
+01:19:58.320 that you're using you don't need to walk
+01:20:00.080 them through it it's a technical term
+01:20:01.920 the design pattern so they should know
+01:20:03.280 about it if they don't then
+01:20:05.840 you can explain it they might also
+01:20:07.520 pretend to be dumb or they might
+01:20:09.199 genuinely not know so yeah that you can
+01:20:11.440 explain
+01:20:12.800 if you are struck
+01:20:14.480 identifying different entities in led
+01:20:16.880 what
+01:20:19.679 i've spoken about this initially so you
+01:20:21.360 can head back to the
+01:20:23.040 video i'll timestamp those parts
+01:20:25.760 that will help you
+01:20:27.040 can we implement led practices in react
+01:20:29.679 and node.js
+01:20:31.120 if yes is it similar to java
+01:20:34.960 look i have written i've seen some code
+01:20:36.800 in node.js yes it is possible for this
+01:20:39.360 kind of led to be taken care of even in
+01:20:40.960 node.js
+01:20:43.600 okay you're primarily looking at how are
+01:20:45.760 you going to write the code in a way
+01:20:46.880 which is easy to read and easy to
+01:20:48.719 maintain
+01:20:51.360 principles here thanks for the live what
+01:20:52.639 would be the thought process of
+01:20:53.679 designing the system efficiently uh one
+01:20:56.000 of the things that you can say is am i
+01:20:57.199 creating too many objects when it comes
+01:20:59.120 to lower design am i creating too many
+01:21:00.719 objects
+01:21:01.679 are these going to be network calls
+01:21:03.280 what's it like
+01:21:04.719 those are the efficiency
+01:21:06.400 considerations we have in the low level
+01:21:07.679 design interview
+01:21:09.360 thanks for the discount i have an
+01:21:10.560 interview
+01:21:12.159 okay gotham
+01:21:13.679 yeah that's suspicious scuffs coming
+01:21:18.719 thanks for the discount i have an
+01:21:20.000 interview next week first time after 15
+01:21:22.320 years facing any interview oh my god
+01:21:23.840 okay that's interesting
+01:21:25.600 that is on a refactoring existing app
+01:21:27.280 with new requirement
+01:21:28.880 okay okay that's
+01:21:30.719 interesting do mention if you if this is
+01:21:33.040 relevant
+01:21:34.239 that the test cases that you'll be
+01:21:35.679 writing before you refactor an app
+01:21:37.520 because
+01:21:38.880 practically speaking that's what happens
+01:21:41.760 you first write some test cases you make
+01:21:43.520 sure that
+01:21:44.960 your new code is going to not break the
+01:21:46.639 old expectations
+01:21:48.480 so
+01:21:49.199 one tip there and the other tip that you
+01:21:51.040 can take is whenever you're refactoring
+01:21:54.000 you want to go for uh the dirtiest
+01:21:57.440 piece of code that you have and you
+01:21:59.679 don't want to jump into the code you
+01:22:01.199 want to actually design it you want to
+01:22:02.719 draw it and then
+01:22:04.320 do it okay so
+01:22:08.480 i'm always wearing the same integrity
+01:22:09.920 t-shirt wow
+01:22:11.520 so here also i'm very interviewed it's
+01:22:13.280 in my blood now
+01:22:15.280 okay
+01:22:16.080 uh thanks for the discount guys if
+01:22:17.840 you're looking for the discount i'll
+01:22:19.040 just
+01:22:19.760 leave you with this it's uh
+01:22:22.800 welcome 25
+01:22:26.239 yeah
+01:22:27.679 can we use an id of our choice during
+01:22:29.600 the lld interview yeah uh just ask the
+01:22:31.920 interviewer like in companies like
+01:22:33.600 google and all they say no no you have
+01:22:35.040 to use a doc you have to use google docs
+01:22:38.400 everyone has their own thing
+01:22:40.080 it's all right
+01:22:42.000 um
+01:22:43.360 it's okay
+01:22:45.840 okay i'll take this last question i'm
+01:22:47.360 getting server error when i log into
+01:22:48.800 gmail to purchase
+01:22:50.239 oh my god
+01:22:54.400 okay i'll look into this thank you for
+01:22:56.080 that anonymous
+01:22:57.360 server error when you're using
+01:22:59.520 when you're logging in gmail
+01:23:01.840 um if someone else also tries that
+01:23:03.600 that'll be super awful i'll just test
+01:23:05.280 that
+01:23:06.960 to purchase right so i need a gmail
+01:23:08.639 account where i'm not purchased
+01:23:10.560 i test that
+01:23:11.840 good stuff
+01:23:13.280 which tool is better for system design
+01:23:15.440 okay
+01:23:16.239 okay let me just see if there is any
+01:23:17.520 other question which is
+01:23:19.120 what is the coupon code can you say once
+01:23:20.719 more yes
+01:23:22.080 it is welcome 25.
+01:23:24.400 if you are joining interview ready today
+01:23:25.760 welcome uh you know the next class
+01:23:28.320 is on
+01:23:30.080 4th
+01:23:31.040 of september
+01:23:32.719 uh 9 p.m that's
+01:23:34.560 basically the exclusive class
+01:23:36.719 i tend to be ready
+01:23:38.560 i'll catch you there and also we we
+01:23:40.639 often have live streams so if you're
+01:23:42.800 more into youtube i can catch you here
+01:23:44.960 also
+01:23:46.080 um yeah so bob uh if you are looking for
+01:23:49.440 system design interviews interview ready
+01:23:51.360 is the place
+01:23:52.560 and if you're looking for low level
+01:23:54.159 design interviews this video is a good
+01:23:56.320 introduction uh if you're looking for
+01:23:58.080 machine coding interviews or more
+01:24:00.320 intense low level design interviews
+01:24:02.480 interview ready has those videos
+01:24:04.639 i'll see you next time and all the best
+01:24:06.639 have a great weekend coming up
+01:24:09.360 see you bye

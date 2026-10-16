@@ -1,0 +1,577 @@
+# tactiq.io free youtube transcript
+# System Design: TINDER as a microservice architecture
+# https://www.youtube.com/watch/tndzLznxq40
+
+00:00:00.080 So I forgot tosay this before we started,
+00:00:02.420 but it's important as prerequisites toknow about the system design concepts we
+00:00:07.281 have talked about in this entire series.
+00:00:09.590 Stop looking at thisdiagram because you know,
+00:00:11.721 you're not gonna understand until weactually start discussing about it.
+00:00:14.681 And each of these concepts that we aregonna discuss now can be, you know,
+00:00:19.700 broken down and gone deeper into.
+00:00:22.060 So all those concepts will requireprior knowledge that that is going to be
+00:00:26.281 given to you through the videos thatI made earlier, and also, of course,
+00:00:29.761 through lots of links on theinternet. So you, it's your choice.
+00:00:32.710 Just make sure that you have yourbasics and fundamentals clear before you
+00:00:35.880 actually jump into actually designing asystem. Okay, let's start. Hi everyone.
+00:00:40.820 We are finally here. We arefinally talking about Tinder,
+00:00:43.521 and we are talking about its architecture.
+00:00:46.060 So let's say you enter the interviewroom, you meet the interviewer,
+00:00:50.300 and you sit down. So you're asked todesign Tinder. Now, in my experience,
+00:00:55.230 I've seen that most candidates getreally, really into the game. They,
+00:00:59.041 they start thinking about whatservices are they going to use,
+00:01:01.841 what kind of databases are theygoing to use? Take, but, you know,
+00:01:05.060 my suggestion to you would be to takea step back and think of this system
+00:01:09.881 in a very logical, calm way. So,
+00:01:12.180 if you have been inventing such a kindof an app what's going to come up in your
+00:01:16.921 mind is, what kind of featureswill I provide this person?
+00:01:20.060 And with those features,
+00:01:21.161 what can happen is you can actuallythink about how your system evolves.
+00:01:26.540 Two approaches that you can have for this,
+00:01:29.260 for starting off with this isto start with the ER diagram,
+00:01:32.401 which we are taught oftenenough in colleges that,
+00:01:35.100 you know think about how thedata is gonna be modeled,
+00:01:37.980 and then think about how your servicesare gonna consume them. Finally,
+00:01:40.601 think about what the clients will bedoing to actually call the services.
+00:01:45.540 So that kind of, that kind ofthinking is a little too constrained.
+00:01:49.201 It's also too abstract because you'rethinking about how to model your data
+00:01:52.681 without thinking aboutwhat do your users need.
+00:01:55.020 The second approach is to gofrom the front to back. That is,
+00:01:59.570 think about what yourusers need as features.
+00:02:02.770 Think about how your services are goingto actually be broken down so that you
+00:02:06.521 can fulfill these features.
+00:02:07.940 And then think about theirindividual data you know,
+00:02:11.721 requirements per service. So in thatway, your system is far more flexible.
+00:02:15.561 It's also a lot easier to start offwith the system immediately with,
+00:02:20.441 with feature development.Per feature development.
+00:02:23.780 So the features that we are pickingup in Tinder are storing profiles.
+00:02:29.360 Alright? So you won't justwrite this down. First of all,
+00:02:32.270 what you could say or what youcould ask your interviewer is,
+00:02:35.380 so you are definitely gonnabe storing profiles, right?
+00:02:37.361 So that's an obvious question,but best to get it outta the way.
+00:02:40.100 In that profile,
+00:02:41.000 there are going to be images that'sreally important for any dating site.
+00:02:44.540 So one thing to rememberhere is that images will
+00:02:49.441 be stored in the profile. Afollow-up question can be,
+00:02:53.950 so how many images per user doyou want? That could be five.
+00:02:59.220 So I'll just note that down. Five images
+00:03:03.980 per user. Is there somethingelse we wanna think about?
+00:03:08.761 Images? No, we can move to thenext feature that might come up,
+00:03:12.411 which is how are we going to
+00:03:15.730 recommend matches Yeah, to look intothat. But if you think of this in a,
+00:03:21.230 in a storyline, what happens is you goto any dating site you make a profile,
+00:03:26.630 and that's how you thinkabout storing profiles.
+00:03:29.011 You start accepting orrejecting people based on your
+00:03:33.691 preferences. So that wouldbe recommendation system.
+00:03:36.611 That would be some sort of recommendingmatches. Yeah. in that case,
+00:03:40.840 what are the questions you can think of?How many active users do you have? Is,
+00:03:44.950 is a good question to ask. So,
+00:03:47.070 number of active users.
+00:03:52.291 Is there something else youwanna ask? Maybe are there,
+00:03:55.730 are there certain countries wherethere's too much population stuff?
+00:03:57.710 But don't get into too muchdetails. Again, if you're,
+00:03:59.811 if you're running behind too manyquestions per feature that also shows that
+00:04:04.731 you're getting into too much detailper feature. So keep it fluffy,
+00:04:07.810 keep keep it flying in the air. Evennow then you have the third feature,
+00:04:12.091 which is the best one, whichis when you match with someone.
+00:04:15.150 So if you match with someone, you needto note that down. And you need to,
+00:04:19.029 you need to do somethingbetween the two people.
+00:04:20.510 So one of the things you wanna do is youwanna note down matches in which case
+00:04:24.011 the number of activeusers is kind of enough.
+00:04:27.051 You can take a percentage of that as thenumber of matches you'll have per day.
+00:04:31.230 That's going to be an assumption.
+00:04:32.990 I'm gonna assume that typicalIndian match rates are going
+00:04:37.891 to come up here,
+00:04:39.020 which is for every swipe you have a 0.1percentage of matching with someone,
+00:04:44.330 right? So the number of matchesyou'll have per person is going to be
+00:04:48.540 0.1%.
+00:04:49.589 So that's gonna be number of activeusers into 10 days to power minus three
+00:04:55.720 matches. And the fourth one is,once you have matched with someone,
+00:04:59.390 of course you need to chat with thatperson. So there's direct messaging,
+00:05:02.851 which will be a featureof Tinder once you,
+00:05:07.400 once you guys match,right? In direct messaging,
+00:05:10.651 what kind of questions shouldyou ask? Well, we'll get to that,
+00:05:15.220 we'll get to that. Fornow, we have four features.
+00:05:20.290 Avoid taking too many features becauseit's going to be an hour long interview
+00:05:23.451 at most. And more often than not,
+00:05:25.971 you are going to be gettinginto the details that theinterview wants you to get
+00:05:29.491 into.
+00:05:30.050 Any ways you don't need to pull out moreand more features just for the sake of
+00:05:33.931 showing that you know, youcan implement these. Okay?
+00:05:37.110 So start with four or five features.Let's start with so profiles.
+00:05:42.589 So storing profiles. In fact,
+00:05:44.291 the previous video also talked aboutthis designing Instagram. There,
+00:05:47.411 there was a lot of jargon thata lot of you felt was there.
+00:05:52.130 Storing images has only oneimportant question in it, right?
+00:05:56.530 And that is how are you gonnastore images? So there'sgonna be a lot of images.
+00:06:00.620 As you can see, number ofactive users are large per user.
+00:06:03.339 You have about five images,
+00:06:04.770 which is still a constant factorof the number of active users. And
+00:06:11.160 the,
+00:06:11.161 the question of how are you going tostore these images is something which has
+00:06:14.401 been debated for a really long time inthe whole technical field that we are in,
+00:06:19.040 computer science. And that is whetheryou want to store the images as a file
+00:06:25.040 or you want to store theimages as a blob. Okay?
+00:06:29.720 So blob is a binary large object,
+00:06:37.120 And those of you don't know about thisget back to your database classes because
+00:06:41.370 this is something which is taught in, inengineering. There's also another one,
+00:06:45.981 which is club character, largeobject. And that's entirely useless.
+00:06:50.061 So ignore that. We are gonna be havingthe argument of file versus blob.
+00:06:55.400 So images typically arelarge in size and you
+00:07:00.301 can't store it as a vaca or something.
+00:07:02.240 That's the reason why youhave a binary large object,
+00:07:04.141 which is specifically for largeobjects in databases. Now,
+00:07:08.381 you might think that databases havedefinitely got a lot more to offer when it
+00:07:13.101 comes to specializedstorage compared to files,
+00:07:17.000 but my argument is not really, not really,
+00:07:19.501 because the only few extra guaranteesthat a database gives you are
+00:07:27.400 mut ability, okay? You caneasily mutate the rules in that,
+00:07:32.120 in that database.Basically one data entry.
+00:07:35.781 The second one is transaction guarantees.
+00:07:40.360 So transaction guarantees.The third one is indexes.
+00:07:48.210 Okay? So indexes are mainly toimprove your search capabilities,
+00:07:53.860 right? Let's start with mutability.
+00:07:58.300 Are you ever going to be changingthe image? You could, yes,
+00:08:02.060 but why would you ever want to do that?Why not just create a separate file?
+00:08:05.201 Because an update or an imageis not gonna be just a few bits,
+00:08:08.620 so it's gonna be the entireimage, basically. Why not?
+00:08:12.040 Why not store that in a separatefile and get rid of mutability,
+00:08:14.950 make it immutable.
+00:08:16.180 So this is an unnecessary featurethat the database is giving us.
+00:08:20.921 The second thing is transactionproperties. So transaction properties are,
+00:08:24.881 again, not required by the by an image,
+00:08:28.401 because you're not going to be doingan atomic operation on the image.
+00:08:31.260 So you can get rid of this.There's another feature, actually,
+00:08:34.880 I better note that down. So that'll bethe fourth feature, which is required,
+00:08:38.179 and that is access control.
+00:08:43.179 So yeah, let's get to thethird one again. Indexes.
+00:08:46.950 Indexes are good for searching.
+00:08:48.309 They allow your data tobe sorted according to aparticular field. Let us say,
+00:08:53.540 you know, you have a profile tablein that the name can be indexed.
+00:08:56.980 So anyone who's searching for goovwill find that entry quickly because it
+00:09:01.760 binary searches on on thename. So for a, for a binary,
+00:09:06.640 any large object,
+00:09:07.580 that's useless because you're now goingto be searching on the content of the
+00:09:10.161 file. That's gonna be ones and zeros,right? So you can get rid of that.
+00:09:14.460 And finally, access control.This is very important.
+00:09:16.881 It's one of the arguments fordatabases using binary log objects,
+00:09:20.900 but I would say that you can getthe same access control mechanisms
+00:09:27.230 using a file system, right?
+00:09:30.320 It is a little tedious maybe,but setting up a file system,
+00:09:34.020 a secure file system is almost as tediousas setting up a, a, a secure database.
+00:09:38.960 So nearly equal. The good thingsabout a file are that it's,
+00:09:44.410 it's cheaper. That makes a big difference.
+00:09:48.340 Storing files the, the other things about
+00:09:53.110 files, which are good, are thatthey are, they're built for this.
+00:09:56.981 They're built for, you know, storinga file and an image is a little file.
+00:10:00.679 So that's, that's one good thing,but it's a little abstract. Instead,
+00:10:03.621 they're also faster in away because they're storing
+00:10:08.590 large objects separately.
+00:10:11.480 And you can do that in a database usingsomething called vertical partitioning,
+00:10:14.350 where the profile ID isgoing to be over here,
+00:10:17.800 and the image ID is gonna be over here,
+00:10:20.400 and then you're going to storethe image somewhere else.
+00:10:23.200 But if you're doing that, thenwhy not store it on the file,
+00:10:25.221 which is not just cheaper,
+00:10:26.850 it's also less likely todo a select star nightmare.
+00:10:32.140 So if you do a select star on this table.
+00:10:35.420 .
+00:10:36.340 So instead go for the file system,it's gonna take care of that. I mean,
+00:10:41.559 you won't, you won't do a by mistake,select star on the address and the id,
+00:10:45.970 okay? This is a little bit of a flimsyargument, but it's still, you know,
+00:10:50.021 in practical real life systems,select start is used a lot.
+00:10:53.880 So it's one of the good things. Thethird thing is that these are static.
+00:10:58.600 So you can easily build a C D Nover this content delivery network.
+00:11:03.220 You can read up on thismaybe in description below.You can just read up on it.
+00:11:06.101 In general content delivery Network allows
+00:11:11.050 fast access.
+00:11:16.360 One argument for databases which aregoing to be storing the files. I mean,
+00:11:20.221 at the end of the day, your databaseis going to be storing all your data.
+00:11:23.000 So it has to have some reference,some address to your file.
+00:11:26.440 And that is going to be the file, u r l.
+00:11:32.340 Alright? And this will bestored in the database.
+00:11:34.640 So we are going to have an image ID
+00:11:38.809 of image U R L and the profile ID
+00:11:44.450 per image stored by userwith profile ID in location.
+00:11:49.450 So, and so where are you gonnastore this image? This file?
+00:11:52.630 U l it's going to be in adistributed file system, Right?
+00:11:57.179 So your distributed file system is gonnabe handling requirement number one,
+00:12:04.179 And that's how you arguefor files versus blobs. Now,
+00:12:08.059 if your interview is really,
+00:12:09.321 really pushing you for blobsyou could take it, I mean,
+00:12:13.601 it's not gonna really spoil your design,
+00:12:15.470 it's only that it's good to havethese arguments with you when you are
+00:12:20.550 logically, you know, talking aboutwhat would be better in an interview.
+00:12:24.300 But don't push too hard. If they saythat blob is what I want, go for it,
+00:12:29.760 . So taking this first option,let's start designing our system.
+00:12:34.540 The first thing to note here isthat we have a client application on
+00:12:39.559 the mobile.
+00:12:42.480 A user actually clicks a buttonto send us a request, okay?
+00:12:47.100 And over here we have our profile service.
+00:12:55.260 Now, what does it need to do?
+00:12:56.980 It needs to register itselfwith our profile service.
+00:12:59.220 It needs to say here's my username,
+00:13:04.179 here's my password.
+00:13:07.059 And the profile service thenstores that in the database,
+00:13:12.030 okay? Of course, there's gonna bemultiple authentication mechanisms.
+00:13:14.481 There's gonna be apassword sent to the email.
+00:13:16.620 So there might be an emailservice, which you're using here.
+00:13:20.100 But for the sake of brevity,
+00:13:21.820 I'm just gonna assume that the profileservice can send emails and can do
+00:13:26.890 those two step authentication stuff. Okay?
+00:13:31.460 So once a user is stored in the database,
+00:13:35.460 the user then asks for something,
+00:13:37.830 it's probably going to be update profilebecause they're going to be adding
+00:13:40.641 their photos. So, in update profile
+00:13:47.960 with the username, how do you make surethat this is an authenticated request?
+00:13:54.720 The person who's claiming to update thatprofile is the person who that profile
+00:13:58.501 belongs to. There'smultiple ways to do this.
+00:14:01.781 The monolithic service way goesthat in the profile service,
+00:14:05.261 you're supposed to have authenticationmechanisms, making sure that yes,
+00:14:08.970 this update has come from the right user.
+00:14:10.800 So they'll send the username andpassword. And if it is authenticated,
+00:14:15.090 then a successful response goes backthat yes, there's been an update.
+00:14:21.640 Of course there's multiple issues here.
+00:14:23.120 The first one being that username andpassword is a little too un insecure. So
+00:14:29.410 Instead, we can send a token, right?And these are all security mechanisms.
+00:14:33.261 If you mention token, you should be good.
+00:14:35.301 If your interviewer gets too deepinto cryptography, then best of luck.
+00:14:39.280 But if you have, if you're sendinga token to the profile service,
+00:14:43.320 it should be able to authenticateyou and send back a response.
+00:14:46.160 Here's the problem today,there's a profile service,
+00:14:48.661 which is actually authenticatingand sending you back responses.
+00:14:51.300 If there's a new servicecoming up tomorrow,
+00:14:53.490 which doesn't have informationabout tokens and usernames,
+00:14:57.310 then that service is going to be requiringto talk to the profile service every
+00:15:01.361 time. And that logic is gonna beduplicated in the third service,
+00:15:04.321 which is gonna come up. Itneeds to authenticate the user.
+00:15:07.740 So every time a user sensorquest there's gonna be
+00:15:12.680 a lot of duplicated code,which is going to be run.
+00:15:15.620 So one of the things you can dohere is to a standard service,
+00:15:19.210 which most places use,
+00:15:24.580 is to use a gateway.
+00:15:30.510 And the clients alwaystalk to the gateway.
+00:15:33.150 No one talks to the clients except thegateway. So this is the gateway service,
+00:15:42.770 Alright? And the gatewaydoes one thing, essentially,
+00:15:46.750 it just takes this request, the username,
+00:15:51.890 and the token asks the profile servicewhether this is authenticated request or
+00:15:56.811 not. So the profile service, of course,
+00:15:59.710 has information about the user andthe profile service says yes or no.
+00:16:06.770 A yes or no response tells the gatewaywhether it should respect this request or
+00:16:10.251 not. If it needs to respect this request,
+00:16:12.020 it'll direct it to the correct service,otherwise it'll fail the request.
+00:16:18.330 Okay? That's, that's all that thegateway does. And once, of course,
+00:16:20.861 it directs it to the correctservice and it gets a response,
+00:16:24.960 it has to forward thatresponse to the client.
+00:16:28.170 What you have done hereis decoupled systems.
+00:16:30.800 You have taken away this therequirement of talking to a user,
+00:16:35.560 and after authenticating sending it tothe correct service from the profile
+00:16:39.101 service, you move that to a gateway.
+00:16:41.810 Another good thing about this is thatif you're going to be using some of the
+00:16:45.101 messaging protocols that we get to oncewe are at direct messaging then you have
+00:16:49.381 separated out the protocols overhere and the protocols over here,
+00:16:54.810 okay? So
+00:16:58.680 Now that we have our profile service,
+00:17:00.200 we are just going to beupdating the profile.
+00:17:01.981 We are gonna be changing the description,
+00:17:03.360 we are gonna be changing the namemaybe so on and so forth. Images,
+00:17:08.400 do you really wanna store images in thesame place that the profile services?
+00:17:12.970 There's no hard yes or no,
+00:17:15.240 but logically you would probably want tostore the images in a separate service
+00:17:19.970 because tomorrow,
+00:17:21.200 if there's any other service whichjust needs the images of the user,
+00:17:24.710 maybe for machine learning,maybe for just, you know,
+00:17:28.480 it just needs the images tosend it across. So you could,
+00:17:32.320 you could effectively do thatby using an image service.
+00:17:37.859 .
+00:17:40.500 Rather,
+00:17:40.690 more sensible scenarios when you justneed the details of that person's profile,
+00:17:45.181 maybe just a descriptionor maybe just the age,
+00:17:48.440 and you can send it across easily whilethe image service is used for heavy
+00:17:52.400 computations when you needall images of that user.
+00:17:55.740 So image service is going to be, ofcourse, having a distributed file system
+00:18:00.961 in which it's gonna bestoring all the images.
+00:18:02.630 It's also going to be having a databasein which you have the profile id
+00:18:07.940 and you have the image id,
+00:18:10.060 and you have the u r l of the image beingstored in this distributed database,
+00:18:14.490 right? So these are references, okay?
+00:18:18.980 So first requirement, done, yay, we aretaking care of the first requirement,
+00:18:23.619 and what do we do next?
+00:18:30.640 The second requirement wasrecommendations. I wouldn't go for that.
+00:18:34.550 Just I mean, just now, because it'sa little complicated to get into.
+00:18:39.470 What I would suggest is going fordirect messaging, which is chat.
+00:18:44.740 So for that,
+00:18:45.940 one of the things you can do is you canthink about how do I connect from this
+00:18:49.881 client to another client,which is over here.
+00:18:55.410 So this client wantsto talk to this client.
+00:18:57.100 Imagine that you just matched withsomeone and you are gonna send a direct
+00:19:00.271 message. It means that you are gonnabe telling the gateway that, Hey,
+00:19:04.350 I want to send message to useridx. So instead of the update,
+00:19:08.619 it's gonna be message To user
+00:19:13.930 ID one from user ID two.So this guy is user ID two,
+00:19:20.770 And this person is user IDone. Now, the question is,
+00:19:24.170 how do we send a messageto this user? There's a,
+00:19:26.710 a lot of people who asked aboutwhat is X M P P last time?
+00:19:30.010 And if you know about HTT P, whichis hypertext transfer protocol,
+00:19:34.900 it's, it's mainly a protocol,
+00:19:37.190 a way of talking between twomachines. And in this way of talking,
+00:19:42.071 there's always going to be a client,and there's always gonna be a server.
+00:19:45.970 So a client talks to a server, aserver responds to that request.
+00:19:50.980 It's never that the server goesto the client and says that, Hey,
+00:19:53.410 can you gimme some data? Right?So when you have a client
+00:20:00.730 server communication protocol,
+00:20:05.980 you cannot have chat. Youcannot effectively have chat,
+00:20:08.990 because if there's a client and a server,
+00:20:11.580 the only way that this user isgoing to get the messages that are
+00:20:16.470 sent to them is to pull the server,is to say, every five seconds, Hey,
+00:20:20.041 are there any messages for me?Hey, are there any messages for me?
+00:20:22.380 And that is extremely inefficientfrom the, from the overall app side.
+00:20:27.260 So you don't wanna pull the server,you want messages to be pushed to you,
+00:20:31.859 And you want them to be pushedto you, then multiple ways.
+00:20:33.801 You can actually do it with H T Palso to some extent. But instead,
+00:20:38.100 the better way to do it wouldbe to use a different protocol,
+00:20:41.160 a peer-to-peer protocolwhere everyone is equal.
+00:20:48.320 All right? So there's no clientserver. Now this is a machine.
+00:20:50.401 This is a machine that appears and ifthe server needs to send any message to
+00:20:54.641 the client, it can. So one of theprotocols actually doing this is X M P P,
+00:21:01.030 alright? And one of the clientsserver protocols, of course is H G P.
+00:21:05.180 So make sure you mention this becauseit's it's pretty important to know
+00:21:10.060 how clients and servers talk if, ifthere's a chat application, right?
+00:21:14.761 So this message is gonna also besent through X M P P probably.
+00:21:20.859 So we have discussed how we are goingto send the message and get the message.
+00:21:25.260 But what's gonna happeninternally internally,
+00:21:28.180 one of the things thatcould happen is, you know,
+00:21:31.420 the connections that this person, this,
+00:21:33.790 this X M P P is going tobe taking a connection,
+00:21:36.481 and that's a web socket connection, right?
+00:21:40.680 A lot of this might sound likejargon, so study . Yeah. Well,
+00:21:45.041 in a system design interview, you'reexpected to know a few things about this.
+00:21:48.230 Instead of web socket. You couldalso simplify and say that, Hey,
+00:21:51.001 I'm gonna be writing a protocol of myown, but it's gonna be T C P. Yeah,
+00:21:55.041 because you make a connection andyou maintain it. So T C P T C P,
+00:22:00.290 happy, happy. Now with these connections,
+00:22:04.420 you can actually talk tothe clients. That's good.
+00:22:08.609 Who's going to be maintaining theinformation of these connections as to,
+00:22:11.830 with every connection id,
+00:22:18.780 You need to know which user isusing this connection, right?
+00:22:22.601 So there's a set of connections onthe gateway service. Each of these,
+00:22:26.350 each of these users need to use thisconnection to be able to talk to other
+00:22:30.561 users. You need to find out wheredoes this user belong? I mean,
+00:22:33.601 which connection is that userlistening to? And if that is the case,
+00:22:38.100 it could be done by thegateway service, but again,
+00:22:41.280 I suggest you decouple thesystem as much as possible.
+00:22:43.940 So you take away responsibilities ofmaintaining connection info from the
+00:22:48.510 gateway service by putting that
+00:22:53.780 in another service, whichcan handle sessions.
+00:23:02.940 So this service is going tobe handling sessions in your,
+00:23:06.940 in your overall architecture. Ifyou are having direct messaging,
+00:23:11.270 this is more than enough becauseit's going to be storing connection,
+00:23:15.201 information, user ID to connection,
+00:23:20.570 right? And with that,
+00:23:21.681 what you can do is you can figureout where the other user is stored.
+00:23:26.600 I mean, which connection are they using?And send a message to this socket then.
+00:23:31.380 So direct messaging is possible. Ifyou do match, things are looking good.
+00:23:36.300 Now, However, of course,
+00:23:39.420 the two requirements that we had, theyhave been taken care of out of the, out,
+00:23:44.321 the four that we had, two ofthem have been taken care of.
+00:23:46.700 The only two remaining arenoting recommendations.
+00:23:50.500 And the second one is,what is the second one?
+00:23:54.790 It's recommending suggestions. Imean, recommending people to you.
+00:23:59.119 So noting recommendations.Let's quickly go over it.
+00:24:01.801 Let's say that you have the client,right? It can store information.
+00:24:07.040 It's, it's an app, itcan store information.
+00:24:09.060 Why not have all of that informationas to who you are matched with or
+00:24:13.961 who you have asked to be matchedwith stored on the client?
+00:24:21.240 Are there any pros? Are thereany pros and cons? Yeah,
+00:24:24.920 are there any cons tothis, this thing? Well,
+00:24:29.000 one of the cons is that the servershould be the source of truth.
+00:24:32.520 You should have the server knowingeverything, and you can then rebuild on,
+00:24:37.160 on that. I mean,
+00:24:38.280 in case a client loses all theinformation in case they install,
+00:24:40.860 uninstall their app, theserver has all the information,
+00:24:43.240 but what kind of information are youlosing when you're noting down matches?
+00:24:47.680 If you match with someone, sendthat to the server, say that, Hey,
+00:24:52.660 I matched with this person that's gonnabe probably sent to the profile service.
+00:24:57.270 Maybe it could, it could handle that,or it could be a matcher service,
+00:25:03.710 Which just keeps a tableof user ID to user id,
+00:25:08.990 which means this user hasmatched with this person. Now,
+00:25:13.530 indexes, like we talked about,
+00:25:14.541 are going to be put on eachuser ID over here, right? So
+00:25:21.920 in fact, you can put it on both,
+00:25:22.981 but I'll just put it over hereand you can duplicate the records.
+00:25:25.880 So A matched with B means B also matchedwith A, and you can keep it that way.
+00:25:30.680 Now the macho is going to be checkingif you are matched with a particular
+00:25:35.301 person that can tell the sessionservice whether you are authenticated
+00:25:40.480 to actually send this message tothat person, a direct message.
+00:25:43.520 So there will be some communicationbetween the macho and sessions.
+00:25:48.680 So in case there's a message being sent,
+00:25:51.430 it's first gonna be sent actually tothe macho, which will confirm that yes,
+00:25:54.481 you have, you have beenvalidated to send this message,
+00:25:56.570 sends it to the sessions, which then sends
+00:26:02.590 the, the information as to where,which connection you have to use,
+00:26:05.210 and then you can always sendit to the right place, right?
+00:26:08.830 So it's a pretty long process. You mightfind a better way to do it, but in a,
+00:26:14.770 in general, this is fine.This looks fine. Okay? Hmm.
+00:26:20.830 So we are talking about noting matches.If we need to note down the matches,
+00:26:24.750 the matches service can note downall the matches that you have.
+00:26:28.310 If the app is installed,when it is it reinstalled,
+00:26:31.260 it'll pull out all the matchesyou have from the macho,
+00:26:34.000 make sure that you can chat with them.
+00:26:35.600 Your profile is going to bepulled out of this service.
+00:26:38.430 And the only information you're going tolose is the number of people you swipe
+00:26:42.390 swiped left or right. Is thatcritical information? No,
+00:26:46.630 because you should get a chance, again,
+00:26:48.201 to swipe a person right or left incase you've already done that earlier.
+00:26:52.500 So you are going to get readrecommendations of the same person.
+00:26:56.580 So that takes care ofrequirement number three.
+00:26:58.480 We are storing all informationrelevant to the number of matches
+00:27:03.380 you have had on this mattress service.
+00:27:05.220 And all information relevant to whoyou have swiped left or right inside
+00:27:10.430 your cell phone. And in case you uninstallit too bad, you have to do it again.
+00:27:14.180 That's all not that big a loss. Sothree requirements taken care of,
+00:27:18.540 that's good.
+00:27:19.700 The final requirement we are going tobe looking into is a little complicated.
+00:27:23.670 It's about recommending people to you.
+00:27:26.340 And let's see how we can actuallyput it in this architecture.
+00:27:29.660 The biggest problem with recommendationwill be to figure out who are the users
+00:27:33.850 close to me? So I can figure out quiteeasily which genders I'm interested in.
+00:27:39.360 Which age group am I interestedin using just indexes.
+00:27:43.020 But when you look at this number of users,
+00:27:45.020 you have a million active usersyou have to per user figure out
+00:27:49.930 which person is close to me, right?
+00:27:52.241 That is the core of allrecommendations in this system.
+00:27:57.660 So the profile servicecould have in its database,
+00:28:06.490 I mean the name of the person and allthose things, but they also have the age.
+00:28:09.710 That's good. We alsoneed the gender, right?
+00:28:13.950 And we also need another thing, whichis the location. So based on age,
+00:28:18.731 gender, and location, these threethings we need to make decisions. Now,
+00:28:23.810 a lot of people would probably come tothe conclusion that why not put indexes
+00:28:27.651 on all three? Okay? And thisis a common misconception.
+00:28:30.310 You cannot have multipleindexes. Basically,
+00:28:33.211 you cannot have the data sortedin multiple ways in one database
+00:28:38.011 table. So if it is sorted byage, and it is sorted by gender,
+00:28:42.190 and it is sorted by location, whenyou're going to be making a query,
+00:28:46.280 it's only going to use oneof those indexes. Okay?
+00:28:49.211 So it might use the gender index,maybe I'm interested in females.
+00:28:53.630 So the female category willbe picked up by the database.
+00:28:57.060 It'll be made efficient that only femaleswill be picked up in just one shot
+00:29:00.331 because there's a, there's a binarysearch going on over there. And in that,
+00:29:03.960 I'll have to search for people withina particular range. And in that,
+00:29:06.891 I'll again have to search forpeople within a particular location.
+00:29:09.470 So it depends on what the database picksup as the single index that you have.
+00:29:13.550 But because it depends on the database,
+00:29:15.931 because it depends on the databaseoptimizer, query optimizer,
+00:29:19.920 it's outta your control, right?Pretty much. So, I mean, you can,
+00:29:24.491 you can suggest the query optimizer,
+00:29:25.611 but what I'm getting to is thatyou need to optimize on multiple
+00:29:30.371 parameters, and you caneffectively do it only on just one.
+00:29:35.790 So in this case,
+00:29:36.651 what happens is you needto use either a NoSQL
+00:29:41.520 database like Cassandra,
+00:29:42.530 which is really good at querying forthese kind of data types. You know,
+00:29:46.860 you just replicate the data in multipleplaces, and depending on the query,
+00:29:51.740 you build a table on that query, andthen you can have an efficient query.
+00:29:55.300 So one of the things about therecommendation database is you could
+00:30:00.121 have a, you could have adistributed database, whichis something like Cassandra
+00:30:06.210 Or Amazon Dynamo, okay?
+00:30:10.770 That's the first solution.
+00:30:12.450 The second solution is if a personis not very comfortable moving onto a
+00:30:15.951 distributed database,
+00:30:17.330 you could use the sameconcepts kind of on a
+00:30:22.061 relational database. And thatrequires something called sharding,
+00:30:28.120 also known by the veterans as horizontal
+00:30:33.260 party. Shun in horizontal.
+00:30:37.850 Parting means you takesome property of a data,
+00:30:40.680 basically you set ranges in one,
+00:30:45.350 in one column, and you direct datato a location based on that range.
+00:30:50.310 So a lot of fluff that I just talkedabout, what about name, right?
+00:30:55.910 All users having the namestarting from A to J are going
+00:31:00.851 to go to database. Node number 36,
+00:31:05.190 all users having it from K to Pare going to database node number
+00:31:10.000 79. Now you see what's happening here.
+00:31:12.350 I'm partitioning the data based onits value to different locations.
+00:31:17.990 And in this case, what happens is whenI'm going to be querying the data,
+00:31:21.250 I can easily figure out what'sthe name of this person? Oh,
+00:31:23.651 then it must exist in databasenumber. So and so, Right?
+00:31:28.441 Partitioning as a concept isreally useful. One of the,
+00:31:33.340 one of the ways that you can partitiondata is sharding or horizontal parting.
+00:31:37.900 So I would suggest you have a look atthe consistent hashing thing. Anyway,
+00:31:41.201 this is consistent hashing is gonnabe critical to keeping your servers
+00:31:46.120 functioning. So after that, youcan also have a look at sharding,
+00:31:49.730 which I'll probably take a videoon sometime, but that's it,
+00:31:52.801 that's what charting is.
+00:31:53.580 You just do horizontal partitioningand based on your value,
+00:31:56.660 you're going to go to aparticular node. As usual.
+00:32:01.230 What about the single point offailure? What if this node crashes?
+00:32:04.180 Are all users from K to Pgoing to fail? I mean, the,
+00:32:06.960 are the requests going to fail? No, youcan have a master slave architecture.
+00:32:09.960 Sure. So if the masterfails, the slave comes up.
+00:32:14.620 If the slave fails, then you'rehappy. , no, I mean,
+00:32:18.081 the slave failing has areally low probability becauseboth of them have failed
+00:32:21.041 at the same time. You canbring up a node in between.
+00:32:23.700 So that is sort of how you are goingto be doing the horizontal partitioning
+00:32:28.460 per, per partition. You can have a masterslave or multiple masters and slaves,
+00:32:33.740 but then you know, you,
+00:32:35.380 you need to convince your intervieweras to why you're choosing sharding,
+00:32:40.090 which is a littlecomplicated, versus using a,
+00:32:43.610 using a database like Cassandra or Dynamo,
+00:32:45.521 which is going to give you all ofthose features in one shot. Okay? Now,
+00:32:50.420 why am I using sharding? Whyam I using Cassandra? I mean,
+00:32:53.001 why am I talking aboutall this? I'm so sorry.
+00:32:54.900 The reason I'm doing this isbecause you need to shard the
+00:32:59.630 data based on the locationthat that person is in.
+00:33:03.460 So it doesn't need to be necessarily acity. It could be chunks of that city.
+00:33:08.140 You can, you can figure out that, okay,
+00:33:10.040 a person within this locationis within this chunk,
+00:33:13.380 and if it is within this chunk, theyare being sharded to a particular node,
+00:33:18.230 okay? Based on that chunk. Therefore,you can easily pull out data. Also,
+00:33:23.220 you can pull this data out all userswithin that chunk and then search
+00:33:28.121 amongst it within the age and the gender
+00:33:34.080 variables.
+00:33:35.460 So each of these databases can actuallyhave the age sorted and you can query on
+00:33:40.441 the age. And then finally you just filterout the genders that the person is not
+00:33:44.361 interested in. Okay?
+00:33:47.290 So this is the kind of stuffthat you could do basically to
+00:33:52.280 improve your recommendation engine.
+00:33:53.870 Your recommendation engine is gonnabe simple enough, it's gonna be
+00:33:58.200 a recommendation service.
+00:34:04.900 All it does is it pullsout all relevant people,
+00:34:07.970 maybe from the same profile service thing,
+00:34:10.260 or it could just be storingthe user IDs and the locations,
+00:34:16.920 the current location, this currentlocation can be updated every hour,
+00:34:21.150 every two hours, every threehours. Depends on the client.
+00:34:23.621 It can push that thing, orthe number of pushes it makes,
+00:34:26.821 doesn't matter only after an hour, youare gonna make an update to the location,
+00:34:31.440 and based on this location,
+00:34:32.900 you're going to be servingusers for that particular user.
+00:34:39.300 Alright? Okay. If all, any of this isgoing, you know, seeming too complicated,
+00:34:45.489 it's fine. It may not be the right timeto just start off with billing systems.
+00:34:51.120 But you can, you can get the generalgist of what's happening if you're,
+00:34:54.480 if you're able to break thissystem down into pieces,
+00:34:56.600 and if you're able to essentiallypartition and partition and remove single
+00:35:01.381 points of failure and figure out howthese features are going to be done using
+00:35:05.341 interactions with each of these services,then you're doing well. Alright,
+00:35:10.090 good job, good job. Andthat's pretty much it. I,
+00:35:14.340 I think that takes care of the secondpoint also of recommending people
+00:35:19.360 you can recommend using this way thattakes care of all four points, in fact.
+00:35:23.800 And Tinder is one of these services,
+00:35:26.341 which in fact seems quite simple and,
+00:35:29.381 and is because there's not so much of anewsfeed that you need to take care of.
+00:35:34.050 There's not really a lot of,
+00:35:37.600 a lot of social interactions goingon. Like, it's not group messaging,
+00:35:40.240 it's just direct messaging. Soit's a nice system to start with.
+00:35:44.480 I think it's one of the interestingsystems I felt that I should start with.
+00:35:48.340 And if you have any suggestions or ifyou feel like there was something that we
+00:35:51.601 missed out on definitelyleave them the comments below.
+00:35:54.281 I think we are gonna have a reallyfruitful discussion in the comments below
+00:35:57.041 after this. And if youhave any doubts on this,
+00:36:01.670 feel free to ask. I'lltry to post as needed,
+00:36:04.760 relevant sources in thedescription. If you like this video,
+00:36:08.469 then you can just hit the like buttonand also just subscribe to the channel,
+00:36:11.481 because I'll be posting onsimilar services all the time,
+00:36:16.760 . So yeah, that also gives me the,
+00:36:20.180 the question as to whichservice do you guys wanna see?
+00:36:22.841 Do you wanna see Instagram, Twitter?It's up to you guys. I mean,
+00:36:27.601 basically just leave a comment or maybeI'll take a poll. That'll be easier.
+00:36:31.161 Just make sure that you subscribe so youget a notification for the poll. Also,
+00:36:35.480 others I have to ask every time, and I'll see you then next time.

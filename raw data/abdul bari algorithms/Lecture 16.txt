@@ -1,0 +1,683 @@
+# 1.11 Best Worst and Average Case Analysis
+
+# https://www.youtube.com/watch/lj3E24nnPjI
+
+
+
+00:00:00.030 in this video we'll learn about best
+
+00:00:02.700 worst and average case analysis of
+
+00:00:05.730 algorithm so for example I'll be taking
+
+00:00:09.000 two algorithms that is linear search and
+
+00:00:15.740 binary search tree I did two examples
+
+00:00:24.990 linear search and binary search tree so
+
+00:00:28.230 first commonly meanest examples on
+
+00:00:30.269 linear search
+
+00:00:31.019 this is commenting I will take binary
+
+00:00:33.899 search tree also and I'll show you the
+
+00:00:36.000 time case analysis on binary search tree
+
+00:00:39.210 also so you learn about best case and
+
+00:00:41.910 rescues time worst case and worst case
+
+00:00:44.700 time and minimum time interval scales
+
+00:00:47.520 maximum time in worst case and averages
+
+00:00:50.789 so you don't know all these things so
+
+00:00:53.160 and this video you are going to learn
+
+00:00:55.110 these things
+
+00:00:55.770 the first one is linear sub linear
+
+00:00:57.629 search linear search if a set of element
+
+00:01:08.340 list of elements are given then when we
+
+00:01:10.680 are searching for any element in that
+
+00:01:13.290 list then we have different search
+
+00:01:15.900 methods available like linear search and
+
+00:01:18.390 binary search let us see how linear
+
+00:01:21.390 search works here I have a list of n
+
+00:01:23.850 elements and in this I want to search
+
+00:01:26.850 for some key element let us say I want
+
+00:01:29.970 to search for key element 7 what is the
+
+00:01:35.820 method for searching for a key element
+
+00:01:37.920 for looking for a key element the linear
+
+00:01:41.250 search will start scanning the list from
+
+00:01:43.860 left hand side by checking each element
+
+00:01:46.799 at a time so it will start checking
+
+00:01:48.990 whether this is 7 no go to the next
+
+00:01:52.020 element is it 7
+
+00:01:53.430 no is it 7 is it 7 so it will be go on
+
+00:01:57.090 checking all the elements until either
+
+00:01:59.549 it finds an element yes the element is
+
+00:02:02.250 found so here is an element so totally
+
+00:02:04.770 know how many companies
+
+00:02:05.900 we'll get an element dozen six
+
+00:02:08.350 comparisons we get an element suppose
+
+00:02:12.680 I'm searching for a key element 20 then
+
+00:02:20.780 let us start linear search 20 it will
+
+00:02:25.010 check for the first element no it is not
+
+00:02:27.290 present the next one next one next one
+
+00:02:29.900 next one it will check all the elements
+
+00:02:32.300 and it finds that twenty is not present
+
+00:02:35.600 in the list so when we search in a list
+
+00:02:38.750 the search may be either successful or
+
+00:02:40.940 it may be unsuccessful so far 74
+
+00:02:44.780 successful and we found it at index five
+
+00:02:47.210 and twenty is not formed when we have
+
+00:02:50.300 checked the entire list so this is our
+
+00:02:53.660 linear search box now let us understand
+
+00:02:57.590 what is best case and what is best is
+
+00:03:01.190 time what's worse case what is worst
+
+00:03:04.610 case time we will find out in this
+
+00:03:07.880 linear search of God first let us see
+
+00:03:12.290 what is best case best case in case if
+
+00:03:20.930 you are searching for a key element
+
+00:03:22.580 which is present at false index then it
+
+00:03:28.340 is the best case in case the case you
+
+00:03:31.220 may be searching for any element from
+
+00:03:32.870 the list but if you are searching for a
+
+00:03:35.450 key element which is present an index
+
+00:03:37.400 first index to the very beginning index
+
+00:03:39.380 then that is best case searching key
+
+00:03:47.930 element
+
+00:03:53.320 present that first index
+
+00:04:02.890 this is best case then what the time it
+
+00:04:08.690 will take if I'm searching for the first
+
+00:04:10.460 key element fear in my example it is the
+
+00:04:13.160 first key element if I'm searching for 8
+
+00:04:15.250 then it will take constant time
+
+00:04:20.890 best case time is constant I can write
+
+00:04:29.300 it as order of 1 so best case time is 4
+
+00:04:35.180 n elements this order of 1 this is
+
+00:04:39.590 turning 4 n elements is order of 1 so
+
+00:04:43.190 here I write V of n is 1 now big Omega
+
+00:04:51.320 what is that we will see afterwards so
+
+00:04:53.660 first I have written that function now
+
+00:04:56.870 Volsky is of an algorithm linear search
+
+00:05:00.590 algorithm
+
+00:05:01.400 what's the worst case when the algorithm
+
+00:05:03.710 will take maximum time if I am searching
+
+00:05:06.680 for the key which is at the last index
+
+00:05:13.330 searching a team at last enix in my
+
+00:05:23.330 example 18 is the key we just present at
+
+00:05:26.480 last index so that is the worst case
+
+00:05:30.790 what is the time taken for searching
+
+00:05:33.650 that key element so I have you checked
+
+00:05:36.020 for all the N elements then I can reach
+
+00:05:38.390 there know what is the time taken in
+
+00:05:40.550 this worst case worst case an else and
+
+00:05:49.150 so worst case for enemy menses and and
+
+00:05:53.690 that is water of M so here I write
+
+00:05:57.040 bullski is for n elements is order of n
+
+00:06:03.340 so now I have
+
+00:06:05.449 skills as well as worst-case times given
+
+00:06:09.050 for linear search now average is time
+
+00:06:18.370 average is defined by all possible caves
+
+00:06:27.830 time divided by number of cases so for
+
+00:06:36.620 average case you have to find out all
+
+00:06:38.360 possible cases and the time taken in
+
+00:06:40.520 each possible case and then divided by
+
+00:06:43.279 number of cases so this type of analysis
+
+00:06:46.400 is very difficult on every algorithm so
+
+00:06:50.330 rarely we do it and mostly for average
+
+00:06:53.839 here is the time that we get will be
+
+00:06:55.779 similar to worse case so that's why we
+
+00:06:59.029 prefer finding worst case time for
+
+00:07:01.039 algorithms average case analysis may not
+
+00:07:04.520 be possible always let us check for
+
+00:07:07.939 linear solution what are the cases so
+
+00:07:10.999 let me tell you just in case if you're
+
+00:07:13.879 searching for a key present on first
+
+00:07:15.710 index in case if you're searching for a
+
+00:07:18.589 key present at second index or in case
+
+00:07:21.020 third index in case both index in case
+
+00:07:23.629 and index
+
+00:07:24.680 so these are all cases so in case if
+
+00:07:27.589 you're searching for a key present at
+
+00:07:29.120 first index then average time for this
+
+00:07:35.300 one it is one if I am searching for a
+
+00:07:37.520 key present at second index it will take
+
+00:07:39.589 two comparisons and third index three
+
+00:07:43.039 comparisons and so on last index and
+
+00:07:45.949 comparison total how many come cases are
+
+00:07:49.430 there and cases are there so what is
+
+00:07:53.149 this equal to this is n into n plus 1 by
+
+00:07:56.270 2 and divided by n this is cancelled and
+
+00:08:00.589 this
+
+00:08:01.550 and plus 1 by 2 so average case time for
+
+00:08:05.690 Emily menses and plus 1 by 2 all these
+
+00:08:14.509 cases and the time complexities we are
+
+00:08:16.550 finding based on number of comparisons
+
+00:08:18.919 how many comparisons are required for
+
+00:08:21.259 finding an element right so my I have
+
+00:08:26.979 best case and it's time and the worst
+
+00:08:29.630 case and it's time at the average case
+
+00:08:31.789 so in average case I consider all
+
+00:08:34.279 possible cases 10 elements are there and
+
+00:08:36.620 possible case assuming researching for
+
+00:08:38.779 first element or second element or third
+
+00:08:40.580 element any element so for each I have
+
+00:08:42.950 taken the time and the number of cases
+
+00:08:44.839 by then so this is n plus 1 by 2 now let
+
+00:08:50.149 us apply asymptotic notations on this
+
+00:08:52.520 phone see I have told you in some video
+
+00:08:55.160 in one video and asymptotic notation
+
+00:08:57.110 that cases are no way related to
+
+00:08:59.649 notation so notations are for the
+
+00:09:01.880 functions cases are the gist of type of
+
+00:09:04.459 analysis done on algorithm let us see
+
+00:09:08.420 how we can apply notations see I have
+
+00:09:11.870 this is time as one can we write this as
+
+00:09:16.459 best case is we go off then we go off
+
+00:09:21.320 one yes I can write we go one can I
+
+00:09:26.029 write it as Omega off one yes can write
+
+00:09:30.410 e times theta of 1 yes see how what is
+
+00:09:35.329 the function function is one constant so
+
+00:09:38.240 when you have a function constant this
+
+00:09:40.579 belongs to constant class so that it
+
+00:09:43.010 directly close to constant class I can
+
+00:09:45.170 use 3 of 1 and even I can use upper
+
+00:09:48.410 bound and lower bound also write this we
+
+00:09:52.279 have already studied asymptotic notation
+
+00:09:54.410 so any function
+
+00:09:56.190 who comes as a perform less than equal
+
+00:09:58.890 to comes out the lower ball an exactly
+
+00:10:00.750 same function it is Theta so this is
+
+00:10:03.750 Theta now whose case the timeless and
+
+00:10:10.520 this belongs to class that is the linear
+
+00:10:13.500 function is linear can I write this as
+
+00:10:17.910 was his time and we go off and yes
+
+00:10:24.180 worse case of NS or Madoff and yes I can
+
+00:10:28.950 write was kiss off and his feet off and
+
+00:10:32.520 yes I can use any of these notations
+
+00:10:36.830 there is no fixed notation to show that
+
+00:10:39.960 this is best here this is worst-case
+
+00:10:41.730 best-case can be written using any
+
+00:10:44.100 notation and the worst case can also be
+
+00:10:46.410 written using any notation right don't
+
+00:10:50.310 take it wrong big voice for worst case
+
+00:10:52.380 or n Omega is for best case no it's
+
+00:10:55.260 wrong you can use it also for best gears
+
+00:10:58.350 or worst case you can use Big O for any
+
+00:11:00.900 cases and even for average is I have a
+
+00:11:03.090 function and us 1 by 2 this blocks which
+
+00:11:05.340 class it belongs to linear class n and
+
+00:11:09.170 so even that I can write it as would be
+
+00:11:12.060 going or theta right so don't mix up in
+
+00:11:18.870 the cases that's already have to do not
+
+00:11:21.390 have proved this one and when you have a
+
+00:11:23.940 function for a function you can use B
+
+00:11:26.130 cos Omega also theta right mostly people
+
+00:11:34.770 confuse that this worst case should be
+
+00:11:37.020 Big O this is upper bound maximum upper
+
+00:11:39.810 bound right lower bomb so Omega no
+
+00:11:43.500 nothing like that
+
+00:11:44.640 you can use any notation
+
+00:11:50.200 now next example is binary search tree
+
+00:11:53.800 here I have a binary search tree I guess
+
+00:11:57.579 I hope that you already know binary
+
+00:11:59.589 search tree the purpose of money search
+
+00:12:03.010 tree is useful for searching the
+
+00:12:04.870 elements are organized such that for
+
+00:12:07.420 every node on the element smaller on the
+
+00:12:09.940 left-hand side all the greater elements
+
+00:12:12.130 on the right-hand side so for searching
+
+00:12:14.410 if you are searching for a smaller
+
+00:12:15.670 element because on this side or greater
+
+00:12:17.800 element we go on website suppose I am
+
+00:12:20.740 searching for 15 let me show you the
+
+00:12:22.540 working if I'm searching for 15 and
+
+00:12:25.839 starts from 20 is it 15 no 15 is a
+
+00:12:29.079 smaller than this one so go to left hand
+
+00:12:30.970 side is it 15 no 15 is greater than this
+
+00:12:34.360 one so on right hand side yes 15 is
+
+00:12:36.550 found so what is the time taken for
+
+00:12:38.649 searching total how many combination I
+
+00:12:40.839 have done only 3 combinations I have
+
+00:12:43.000 done so the time taken is 3 so actually
+
+00:12:46.089 that is equal to the height of at a
+
+00:12:48.300 height of 40 so what is the height we
+
+00:12:51.540 usually call it as log n log n is the
+
+00:12:56.260 height so around 7 7 elements I have
+
+00:12:59.079 bits 8 elements so long 8 is 3 so 3
+
+00:13:02.560 comparisons are acquired so the height
+
+00:13:04.839 of a tree is log n so the time taken is
+
+00:13:07.440 log n for 15 now let us understand what
+
+00:13:12.070 is best case and what is the best case
+
+00:13:14.050 time was here and was case time the best
+
+00:13:18.070 easiest best cases if I am searching for
+
+00:13:21.730 the element which is present in the root
+
+00:13:25.800 best-case searching root element in
+
+00:13:33.819 short I am writing means I am searching
+
+00:13:35.860 for the key element which is present in
+
+00:13:38.140 the hood so how much time it will take
+
+00:13:40.089 for searching for that particular
+
+00:13:41.949 element this constant at time
+
+00:13:44.190 searching for 20 just check it in the
+
+00:13:46.110 hood yes the element is fun so the best
+
+00:13:48.540 case timeless best-case time yes
+
+00:13:54.020 PN is 1 BN s 1 then what is was his
+
+00:14:03.350 worst case was hisses searching for the
+
+00:14:08.370 element which is presented the leaf
+
+00:14:13.160 searching for leaf element so one of the
+
+00:14:18.570 leaf elements in my example 5 15 35 and
+
+00:14:21.810 40 if I'm searching and even of those
+
+00:14:24.120 elements than the time will be maximum
+
+00:14:26.640 that is worst case so what is worse it
+
+00:14:31.050 is time worst case time depends on the
+
+00:14:39.240 height of a binary search tree
+
+00:14:41.400 what is the find log in so the worst it
+
+00:14:46.080 is is long and worse is a slow and but
+
+00:14:56.180 now they're not gone there which is now
+
+00:15:02.990 this is a body source tree for the same
+
+00:15:07.500 elements I even I can have a binary
+
+00:15:10.290 search tree like this in the root I have
+
+00:15:15.330 40 and on the left child I have 30
+
+00:15:19.610 Ananse left child 25 and on its left
+
+00:15:23.400 child 20 on its left child is 15 and 10
+
+00:15:27.960 and 5 this is also a binary search tree
+
+00:15:36.740 there's a left skewed binary search tree
+
+00:15:40.890 this is high balanced by
+
+00:15:43.980 Thursday we're using seven elements this
+
+00:15:46.710 is the minimum time that they can have
+
+00:15:48.600 this is the maximum height that can I
+
+00:15:51.060 have now what is the best case in this
+
+00:15:55.200 binary search tree best case is seen for
+
+00:15:58.590 my research the basic is the same
+
+00:16:00.120 searching for that one then what is
+
+00:16:03.000 lower scale is searching for a leaf so
+
+00:16:04.860 we will leave only one element searching
+
+00:16:07.260 for this one is Alaskans but what is the
+
+00:16:10.560 time taken depends on the height of a
+
+00:16:13.110 tree and here also it was dependent on
+
+00:16:15.510 the height of a tree and the height was
+
+00:16:17.400 logon and here the height is and height
+
+00:16:22.620 is 10 so it means that in worse case
+
+00:16:27.620 meaning Mongoose is time as how much
+
+00:16:31.700 login and maximum was his time is how
+
+00:16:36.300 much and so I repeat the point once
+
+00:16:40.440 again at the middle point once again see
+
+00:16:43.590 what's the rules cages for binary search
+
+00:16:46.290 tree searching for an element present in
+
+00:16:49.110 the leaf searching for an element
+
+00:16:50.910 present of the team that is the worst
+
+00:16:53.520 case then what's the most key is a time
+
+00:16:56.880 it depends on the height of her three
+
+00:16:59.400 leaf element will be at the last level
+
+00:17:01.980 so that depends on the height of the
+
+00:17:03.690 tree so what could be the height of a
+
+00:17:05.609 binary search tree the hydrophobicity
+
+00:17:07.740 she can be minimum has login and maximum
+
+00:17:11.520 has Edna
+
+00:17:13.550 so meaning of worst case time maximum
+
+00:17:17.730 worst case time usually this type of
+
+00:17:21.089 questions we find in some competitive
+
+00:17:23.459 exams so worst case means we know it is
+
+00:17:27.000 maximum how it can be minimum so it
+
+00:17:29.670 depends on the type of data structure or
+
+00:17:32.430 type of an algorithm so I have children
+
+00:17:35.790 or worse binary search tree in which we
+
+00:17:38.460 get minimum worst case time as well as
+
+00:17:40.920 maximum
+
+00:17:41.860 skills time so minimum were skills time
+
+00:17:44.169 in slogan magazine University
+
+00:17:46.149 astronomers and because the worst is
+
+00:17:48.789 time depends on the height of a tree I
+
+00:17:51.519 should not write log in here I should
+
+00:17:53.830 write high cover by research th-then
+
+00:17:57.880 wattage that H can be H can be as
+
+00:18:00.640 minimum as logon as maximum as and
+
+00:18:05.159 that's it so these are the best
+
+00:18:07.899 worst-case analysis for a binary search
+
+00:18:10.029 tree
+
+00:18:10.360 now this best case worst case we can
+
+00:18:12.880 write using any notation just like how I
+
+00:18:15.279 have shown in linear search I can use
+
+00:18:18.130 big oh my god data any notation so the
+
+00:18:21.700 things that we studied here is that
+
+00:18:23.440 powers how to find best case and worst
+
+00:18:25.690 case and average is and what notation
+
+00:18:29.559 should be used
+
+00:18:30.399 we got answer for it and sometimes
+
+00:18:32.919 meaning on time inverse is maximum time
+
+00:18:36.130 inverse yes means what that also have
+
+00:18:38.679 explained you this cannot be possible on
+
+00:18:41.139 a real world a more data structure in
+
+00:18:43.149 some situations shitty situations it is
+
+00:18:45.190 possible so this can be raised as a
+
+00:18:47.320 question what would be the minimum time
+
+00:18:49.090 what who the maximum time that's all for
+
+00:18:52.720 this video
+
+00:18:53.440 thank you for watching

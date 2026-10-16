@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive visual notes for system design, algorithms, interviews, and distributed-systems papers.">
+  <title>System Design Atlas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <div class="noise"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <button class="icon-button mobile-close" id="closeSidebar" aria-label="Close lecture list">×</button>
+      <div class="brand-mark" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <div>
+        <p class="eyebrow">INTERACTIVE COURSE</p>
+        <h1>System Design<br><em>Atlas</em></h1>
+      </div>
+    </div>
+
+    <div class="course-switch" id="courseSwitch" role="tablist" aria-label="Courses"></div>
+
+    <label class="search">
+      <span aria-hidden="true">⌕</span>
+      <input id="lectureSearch" type="search" placeholder="Search this course…" autocomplete="off">
+      <kbd>/</kbd>
+    </label>
+
+    <div class="progress-block">
+      <div class="progress-copy">
+        <span>Your progress</span>
+        <strong id="progressText">0 / 26</strong>
+      </div>
+      <div class="progress-track"><span id="progressBar"></span></div>
+    </div>
+
+    <nav class="lecture-list" id="lectureList" aria-label="Lecture list"></nav>
+
+    <div class="sidebar-footer">
+      <span><i class="dot live"></i> <b id="courseCount">26 lessons</b></span>
+      <button class="text-button" id="resetProgress">Reset progress</button>
+    </div>
+  </aside>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <button class="icon-button menu-button" id="openSidebar" aria-label="Open lecture list">☰</button>
+      <div class="breadcrumb">
+        <span>COURSE</span>
+        <b>/</b>
+        <strong id="breadcrumbTitle">System Design Primer</strong>
+      </div>
+      <div class="top-actions">
+        <button class="ghost-button" id="theoryToggle">
+          <span class="book-icon">▤</span> Theory
+        </button>
+        <a class="youtube-button" id="videoLink" href="#" target="_blank" rel="noreferrer">
+          <span>▶</span> Watch lecture
+        </a>
+      </div>
+    </header>
+
+    <section class="visual-stage">
+      <div class="stage-head">
+        <div>
+          <div class="lesson-meta">
+            <span class="lesson-number" id="lessonNumber">LESSON 01</span>
+            <span class="category-chip" id="categoryChip">Fundamentals</span>
+          </div>
+          <h2 id="lectureTitle">System Design Primer</h2>
+          <p id="lectureTagline"></p>
+        </div>
+        <div class="view-actions">
+        <button class="icon-button tooltip" id="resetCamera" aria-label="Reset diagram view" data-tip="Reset view">⌖</button>
+          <button class="icon-button tooltip" id="fullscreen" aria-label="Toggle fullscreen" data-tip="Fullscreen">⛶</button>
+        </div>
+      </div>
+
+      <div class="canvas-wrap" id="canvasWrap">
+        <svg id="sceneCanvas" viewBox="-14 -10 28 20" role="img" aria-label="Interactive system architecture diagram">
+          <defs>
+            <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L7,3.5 L0,7 Z" fill="#61707e"></path>
+            </marker>
+            <filter id="nodeGlow" x="-70%" y="-70%" width="240%" height="240%">
+              <feGaussianBlur stdDeviation=".18" result="blur"></feGaussianBlur>
+              <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+            </filter>
+            <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy=".12" stdDeviation=".16" flood-color="#000" flood-opacity=".65"></feDropShadow>
+            </filter>
+            <pattern id="diagramGrid" width="1" height="1" patternUnits="userSpaceOnUse">
+              <path d="M 1 0 L 0 0 0 1" fill="none" stroke="#34414d" stroke-width=".018" opacity=".42"></path>
+            </pattern>
+          </defs>
+          <rect x="-30" y="-24" width="60" height="48" fill="url(#diagramGrid)"></rect>
+          <g id="diagramViewport"></g>
+        </svg>
+        <div class="scene-vignette"></div>
+        <div class="scene-help">DRAG TO PAN · SCROLL TO ZOOM · DOUBLE-CLICK TO RESET</div>
+        <div class="loading-state" id="loadingState">
+          <div class="loader"></div>
+          <span>Building the system…</span>
+        </div>
+      </div>
+
+      <div class="walkthrough">
+        <div class="step-indicator">
+          <span id="stepCounter">01 / 07</span>
+          <div class="step-dots" id="stepDots"></div>
+        </div>
+        <div class="step-copy">
+          <p class="eyebrow">NOW VISUALIZING</p>
+          <h3 id="stepTitle"></h3>
+          <p id="stepText"></p>
+        </div>
+        <div class="step-controls">
+          <button id="prevStep" aria-label="Previous step">←</button>
+          <button class="play-button" id="playSteps" aria-label="Play steps"><span>▶</span></button>
+          <button id="nextStep" aria-label="Next step">→</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="theory-panel" id="theoryPanel">
+      <div class="theory-inner">
+        <div class="theory-heading">
+          <div>
+            <p class="eyebrow">READ ALONG</p>
+            <h2>Theory & notes</h2>
+          </div>
+          <button class="icon-button" id="closeTheory" aria-label="Close theory panel">×</button>
+        </div>
+
+        <p class="summary" id="lectureSummary"></p>
+
+        <div class="theory-layout">
+          <article class="notes-column" id="theorySections"></article>
+          <aside class="reference-column">
+            <section class="reference-card">
+              <p class="eyebrow">QUICK REFERENCE</p>
+              <h3>Key terms</h3>
+              <dl id="keyTerms"></dl>
+            </section>
+            <section class="reference-card" id="tradeoffsCard">
+              <p class="eyebrow">DECISIONS</p>
+              <h3>Trade-offs</h3>
+              <div id="tradeoffs"></div>
+            </section>
+            <section class="reference-card interview-card">
+              <p class="eyebrow">INTERVIEW MODE</p>
+              <h3>What to say</h3>
+              <ul id="interviewTips"></ul>
+            </section>
+          </aside>
+        </div>
+
+        <div class="lesson-complete">
+          <div>
+            <span class="check-ring">✓</span>
+            <div>
+              <strong>Finished this lesson?</strong>
+              <p>Mark it complete and move through the course.</p>
+            </div>
+          </div>
+          <button id="completeLesson">Mark as complete</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="lesson-nav">
+      <button id="prevLecture">
+        <span>←</span>
+        <div><small>PREVIOUS</small><strong id="prevLectureTitle">—</strong></div>
+      </button>
+      <button id="nextLecture">
+        <div><small>NEXT LECTURE</small><strong id="nextLectureTitle">—</strong></div>
+        <span>→</span>
+      </button>
+    </footer>
+  </main>
+
+  <div class="mobile-scrim" id="mobileScrim"></div>
+
+  <script src="./data/system-design/lecture-1.js"></script>
+  <script src="./data/system-design/lecture-2.js"></script>
+  <script src="./data/system-design/lecture-3.js"></script>
+  <script src="./data/system-design/lecture-4.js"></script>
+  <script src="./data/system-design/lecture-5.js"></script>
+  <script src="./data/system-design/lecture-6.js"></script>
+  <script src="./data/system-design/lecture-7.js"></script>
+  <script src="./data/system-design/lecture-8.js"></script>
+  <script src="./data/system-design/lecture-9.js"></script>
+  <script src="./data/system-design/lecture-10.js"></script>
+  <script src="./data/system-design/lecture-11.js"></script>
+  <script src="./data/system-design/lecture-12.js"></script>
+  <script src="./data/system-design/lecture-13.js"></script>
+  <script src="./data/system-design/lecture-14.js"></script>
+  <script src="./data/system-design/lecture-15.js"></script>
+  <script src="./data/system-design/lecture-16.js"></script>
+  <script src="./data/system-design/lecture-17.js"></script>
+  <script src="./data/system-design/lecture-18.js"></script>
+  <script src="./data/system-design/lecture-19.js"></script>
+  <script src="./data/system-design/lecture-20.js"></script>
+  <script src="./data/system-design/lecture-21.js"></script>
+  <script src="./data/system-design/lecture-22.js"></script>
+  <script src="./data/system-design/lecture-23.js"></script>
+  <script src="./data/system-design/lecture-24.js"></script>
+  <script src="./data/system-design/lecture-25.js"></script>
+  <script src="./data/system-design/lecture-26.js"></script>
+  <script src="./data/concepts/lecture-6.js"></script>
+  <script src="./data/concepts/lecture-7.js"></script>
+  <script src="./data/concepts/lecture-10.js"></script>
+  <script src="./data/concepts/lecture-13.js"></script>
+  <script src="./data/concepts/lecture-19.js"></script>
+  <script src="./data/concepts/lecture-20.js"></script>
+  <script src="./data/concepts/lecture-21.js"></script>
+  <script src="./data/concepts/lecture-22.js"></script>
+  <script src="./data/concepts/lecture-23.js"></script>
+  <script src="./data/concepts/lecture-24.js"></script>
+  <script src="./data/concepts/lecture-25.js"></script>
+  <script src="./data/concepts/lecture-26.js"></script>
+  <script src="./data/concepts/lecture-27.js"></script>
+  <script src="./data/concepts/lecture-28.js"></script>
+  <script src="./data/concepts/lecture-29.js"></script>
+  <script src="./data/concepts/lecture-30.js"></script>
+  <script src="./data/concepts/lecture-31.js"></script>
+  <script src="./data/concepts/lecture-32.js"></script>
+  <script src="./data/concepts/lecture-33.js"></script>
+  <script src="./data/concepts/lecture-34.js"></script>
+  <script src="./data/concepts/lecture-35.js"></script>
+  <script src="./data/concepts/lecture-36.js"></script>
+  <script src="./data/concepts/lecture-37.js"></script>
+  <script src="./data/concepts/lecture-38.js"></script>
+  <script src="./data/lld/lecture-2.js"></script>
+  <script src="./data/lld/lecture-3.js"></script>
+  <script src="./data/lld/lecture-4.js"></script>
+  <script src="./data/lld/lecture-5.js"></script>
+  <script src="./data/lld/lecture-6.js"></script>
+  <script src="./data/lld/lecture-7.js"></script>
+  <script src="./data/lld/lecture-8.js"></script>
+  <script src="./data/lld/lecture-9.js"></script>
+  <script src="./data/lld/lecture-10.js"></script>
+  <script src="./data/lld/lecture-11.js"></script>
+  <script src="./data/marvel/lecture-1.js"></script>
+  <script src="./data/marvel/lecture-2.js"></script>
+  <script src="./data/marvel/lecture-3.js"></script>
+  <script src="./data/marvel/lecture-4.js"></script>
+  <script src="./data/marvel/lecture-5.js"></script>
+  <script src="./data/marvel/lecture-6.js"></script>
+  <script src="./data/marvel/lecture-7.js"></script>
+  <script src="./data/marvel/lecture-8.js"></script>
+  <script src="./data/marvel/lecture-9.js"></script>
+  <script src="./data/marvel/lecture-10.js"></script>
+  <script src="./data/marvel/lecture-11.js"></script>
+  <script src="./data/interview/lecture-1.js"></script>
+  <script src="./data/interview/lecture-2.js"></script>
+  <script src="./data/interview/lecture-3.js"></script>
+  <script src="./data/interview/lecture-4.js"></script>
+  <script src="./data/interview/lecture-5.js"></script>
+  <script src="./data/interview/lecture-6.js"></script>
+  <script src="./data/interview/lecture-7.js"></script>
+  <script src="./data/interview/lecture-8.js"></script>
+  <script src="./data/interview/lecture-9.js"></script>
+  <script src="./data/interview/lecture-10.js"></script>
+  <script src="./data/interview/lecture-11.js"></script>
+  <script src="./data/interview/lecture-12.js"></script>
+  <script src="./data/interview/lecture-13.js"></script>
+  <script src="./data/competitive/lecture-1.js"></script>
+  <script src="./data/competitive/lecture-4.js"></script>
+  <script src="./data/competitive/lecture-6.js"></script>
+  <script src="./data/competitive/lecture-7.js"></script>
+  <script src="./data/competitive/lecture-10.js"></script>
+  <script src="./data/competitive/lecture-11.js"></script>
+  <script src="./data/competitive/lecture-12.js"></script>
+  <script src="./data/competitive/lecture-13.js"></script>
+  <script src="./data/competitive/lecture-14.js"></script>
+  <script src="./data/competitive/lecture-15.js"></script>
+  <script src="./data/competitive/lecture-17.js"></script>
+  <script src="./data/competitive/lecture-18.js"></script>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

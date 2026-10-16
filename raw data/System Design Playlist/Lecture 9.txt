@@ -1,0 +1,172 @@
+# tactiq.io free youtube transcript
+# How to avoid a single point of failure in distributed systems ✅
+# https://www.youtube.com/watch/-BOysyYErLY
+
+00:00:00.000 hi everyone we are going to be talking
+00:00:01.469 about single points of failure now and
+00:00:03.210 in a computing context single points of
+00:00:06.779 failure are those points where the
+00:00:09.809 entire system can crash in case that
+00:00:11.969 point crashes so for example let us say
+00:00:15.750 you have a database and you have a set
+00:00:17.520 of servers if the database crashes then
+00:00:20.160 the entire system crashes ok and single
+00:00:23.189 points of failure is not a term that
+00:00:25.080 computer science has come up with it's
+00:00:27.300 there since a very long time if you
+00:00:29.070 think about humanity in general we as a
+00:00:31.890 service will die out if there's a big
+00:00:34.200 enough asteroid which hits earth so if
+00:00:36.180 Earth is gone
+00:00:37.559 humanity's out that's a single point of
+00:00:39.600 failure for us if you think about any
+00:00:41.129 story which has a single point of
+00:00:42.690 failure then someone is too attached to
+00:00:44.579 that character and you cannot afford to
+00:00:46.559 kill that character so in a system
+00:00:49.350 designer interview single points of
+00:00:51.030 failure are an advanced topic if you
+00:00:53.039 have lots of services and you have
+00:00:54.780 defined how they're going to interact
+00:00:56.039 with each other you have made sure that
+00:00:57.840 they're meeting all the requirements
+00:00:58.789 that's when the interviewer will be
+00:01:00.840 interested in testing the resiliency of
+00:01:03.059 your architecture so a single point of
+00:01:05.159 failure means your architecture is not
+00:01:06.990 resilient which means that you have
+00:01:09.360 multiple components connected to one
+00:01:11.670 point and if this point crashes then
+00:01:14.460 your system crashes the obvious and
+00:01:17.340 easiest way to mitigate this is to add
+00:01:20.880 another node so you had service 1 maybe
+00:01:25.049 it was a profile server it used to serve
+00:01:26.880 profiles common enough said that
+00:01:28.799 everyone is connected to it what you do
+00:01:30.869 is you add another profile server which
+00:01:32.939 does the same thing and there's two ways
+00:01:35.430 to actually set this up one is as a
+00:01:38.490 backup in case this crashes you have
+00:01:40.740 this node to working but for a service
+00:01:42.899 really this is not so useful because
+00:01:44.790 what's it going to contain if no one is
+00:01:47.070 connected to it on the other hand if
+00:01:49.200 this was the database so let's say
+00:01:51.810 there's a copy of the database and every
+00:01:54.720 change in this database is mirrored on
+00:01:56.610 to this database then this is a backup
+00:01:58.710 of the data this makes sense
+00:02:01.070 backup services don't make much sense
+00:02:03.240 because there's a there's a copy of all
+00:02:05.159 the data you can say that this database
+00:02:06.659 is more resilient than earlier for it to
+00:02:11.459 fail now
+00:02:12.720 this database has to fail switching
+00:02:14.700 order this one and then this has to also
+00:02:16.500 feel so probability of that if if one
+00:02:18.960 failing was P then the probability has
+00:02:20.970 suddenly become P square which is much
+00:02:22.380 much smaller now let's try to think of a
+00:02:24.060 solution in this general diagram if the
+00:02:27.210 client fails that's just one client and
+00:02:29.280 you don't care okay in general as far as
+00:02:32.850 server if this node fails then our
+00:02:36.030 entire service fails so to take care of
+00:02:38.610 that you can add another node No
+00:02:42.650 and that's the first way of getting
+00:02:44.599 reducing a points of failure that is
+00:02:46.810 more nose
+00:02:50.080 you can word it better but sends the
+00:02:53.200 point across anywhere
+00:02:54.300 how what this data is in case the
+00:02:56.950 database crashes of course we know that
+00:02:58.120 fails so it's going to have another
+00:03:01.690 database as a replica which is a
+00:03:03.750 master/slave
+00:03:06.209 architecture right some of these slaves
+00:03:09.700 might be read slaves you can read from
+00:03:11.650 them some of them may not be in fact
+00:03:14.140 maybe you want perfect consistency so
+00:03:16.659 that's fine I'm sort of a load balancer
+00:03:18.280 to tell you where to send these requests
+00:03:22.079 the load balancer itself is a single
+00:03:24.280 point of failure so you need multiple
+00:03:25.930 load balancers because of this the
+00:03:29.769 client may not know which load balancer
+00:03:31.450 to connect to so we have to push the
+00:03:33.129 climb back over here for the DNS and the
+00:03:39.069 client is going to connect to the DNS it
+00:03:40.959 needs to have multiple IP addresses
+00:03:44.609 resolving for the same host so that is
+00:03:47.680 let's say you want you hit facebook.com
+00:03:49.900 on your browser any one of these IP
+00:03:52.629 addresses is okay if you want to connect
+00:03:54.250 to facebook.com and so those are the IP
+00:03:56.680 addresses of the load balancers whenever
+00:03:58.090 you send a request it comes over here to
+00:04:01.000 call it a load balancer only would be a
+00:04:02.620 little misleading so it's actually a
+00:04:05.049 gateway which is having the load
+00:04:06.609 balancing mechanism inin after this is
+00:04:09.700 there any other chance that you might
+00:04:11.530 have failures yes so like we talked
+00:04:15.280 about humanity and earth the entire
+00:04:17.649 system if it is located in one place
+00:04:19.720 will possibly fail if there's a disaster
+00:04:22.870 so in that case what you do look for is
+00:04:25.770 regions and multiple regions
+00:04:29.580 this of course is mainly after you have
+00:04:32.159 taken care of then the process of
+00:04:35.639 getting rid of single points of failure
+00:04:36.629 through DNS through load balancers
+00:04:39.120 through nodes sometimes when you are
+00:04:42.120 looking for a distributed sort of read
+00:04:46.020 and write in the database you're looking
+00:04:48.210 for some sort of coordinator for sure
+00:04:49.560 and you get rid of the single point of
+00:04:51.270 failure for the coordinator in a very
+00:04:52.860 similar way as you got rid of the load
+00:04:54.419 balancer I think that gives us a pretty
+00:04:56.729 good understanding of what single points
+00:04:58.050 of failure are just throw more money at
+00:05:00.689 the problem and not just that of course
+00:05:03.060 the person who's going to be
+00:05:04.919 coordinating or load balancing these
+00:05:06.719 these nodes needs to also become
+00:05:09.830 resilient so it cannot be a single point
+00:05:12.810 of failure and you just keep propagating
+00:05:14.400 this all the way till you have made an
+00:05:16.379 entire pipeline of distributed system
+00:05:19.340 Netflix does this really well what they
+00:05:21.690 do is they have something called chaos
+00:05:23.729 monkey and they also have other stuff
+00:05:25.919 apart from chaos monkey which just
+00:05:28.139 randomly goes on production and takes
+00:05:30.479 down one node just to make sure that
+00:05:32.909 your system is really resilient so
+00:05:35.580 really as distributed as you call it so
+00:05:38.940 that's something that we can all learn
+00:05:40.590 from but for a system design interview
+00:05:42.419 well it's easier saying stuff in a
+00:05:45.659 system design interview so all you need
+00:05:46.919 to do basically is just talk about
+00:05:49.490 master slave which is replication you
+00:05:52.259 can throw more nodes which is more money
+00:05:54.120 I don't know where you want to get it
+00:05:55.529 and you're going to have multiple
+00:05:57.419 regions if there's a disaster I keep
+00:06:00.990 thinking about taking a topic from start
+00:06:03.779 to finish but whenever I'm thinking
+00:06:06.029 about a solution for a system these kind
+00:06:08.759 of topics come up which are very
+00:06:09.779 important so you know I'm unable to move
+00:06:12.839 forward I really don't know whether I
+00:06:14.550 should pick up these smaller topics or
+00:06:15.960 actually talk about an entire system but
+00:06:17.909 that'll involve these things so let's
+00:06:20.759 see I hope I will be able to start with
+00:06:23.009 a system hopefully tendo which is next
+00:06:26.789 and if you if you want a notification
+00:06:29.129 for that or whatever is that I am doing
+00:06:31.020 hit the subscribe button I'll see you
+00:06:33.240 next time

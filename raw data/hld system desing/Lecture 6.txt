@@ -1,0 +1,403 @@
+# tactiq.io free youtube transcript
+# No title found
+# https://www.youtube.com/watch/FKA2KgkkcqY
+
+00:00:01.600 So let's uh let's talk about this question. Firstly, you need to implement a log class which has three functions
+00:00:10.240 inside it. One is the start which takes a process ID. So this is an event. Okay.
+00:00:16.160 Uh and this method over here is something that's called a listener. So every time there is a start event on a
+00:00:23.199 process, this function will be called okay with its start time.
+00:00:28.560 So in fact in our case the start time will be calculated by us. We are just
+00:00:33.600 going to do a system.curren time release. And similarly uh there's an end time with a process ID. So this process
+00:00:40.320 has ended. This process has started. These are the two events that we have. And what else? We have something called
+00:00:45.920 a poll function. This poll actually looks at the earliest
+00:00:52.559 completed process and then prints that out. So that's the reason why this is a
+00:00:58.239 log. All it does is it just prints things out. But this is effectively an aggregator. And we'll see why. When you
+00:01:05.119 say the earliest completed process, okay, it will actually wait for the process which is the earliest process in
+00:01:12.080 this system. So I have three processes, process ID 1, 2, and three. And they are starting the start times are 12, 8, and
+00:01:19.360 7. Okay. So this logger is going to be taking the very first process which has
+00:01:25.920 started and waiting for it to finish. Till it finishes the pole method will block.
+00:01:31.840 Okay, that's important. The pole method needs to block and till the process finishes uh it's going to be just you
+00:01:37.920 know returning null possibly not printing anything that is another thing. But when it finishes when the end method
+00:01:44.479 on process ID 3 is called and it's say let's set to 19 then the pole method
+00:01:51.280 should print um process ID3 started at 7 and ended at
+00:01:57.360 19. Okay, that's what needs to happen. If
+00:02:02.640 you call poll again then the second earliest process like this is the second oldest process which is process ID 2
+00:02:10.080 which started at 8 and ended at 12 that will be printed out and finally if you call the poll method again then I'm
+00:02:15.840 going to be printing out process ID 1 started at 12 and ended at 15
+00:02:23.440 okay so these are the three functions you have two of them are just listeners event listeners and one of them is an
+00:02:30.080 actual function in which you need to output something. Okay, there is void over here but because that is the reason
+00:02:36.080 why this is a log. So you will be printing to the output stream.
+00:02:41.840 Is this point clear guys?
+00:02:50.480 Okay. So if you have any doubts of course you can keep posting them in the comments uh in the live stream chat and
+00:02:58.080 let's think about how do we solve this first. So in a lowal design interview, by the way, this happens to be a
+00:03:04.239 question which was asked in a Google interview. So it's not uh it's not going to be extremely difficult, but it's not
+00:03:10.560 going to be too easy either. When you come up with a solution over here, you'll probably see that there's a lot
+00:03:15.920 more you can do with the same question. Okay, that's one of the specialtities of usually Google interview questions that
+00:03:22.720 they have simple solutions but you can always make them more complex with a little you know tweaking around in the
+00:03:29.680 question. So firstly
+00:03:34.879 we are going to be defining something called a process. So this is the process class and uh what
+00:03:44.319 does it have? It has an ID. It has a start and an end time. So I say string id and uh you know this
+00:03:52.720 is not going to change so I'll just set it to final and I also have
+00:03:59.200 a start time which is not going to change
+00:04:04.799 and then I have an end time which is actually going to be sent to me. So this is going to be a long
+00:04:13.360 the both of them are going to be long basically.
+00:04:19.279 All right. And I can initialize these two in the constructor. Every time the
+00:04:24.560 process is like created when you call a start method I'll be registering a process.
+00:04:32.080 Okay. So this is a string ID.
+00:04:42.479 And what else do I need? I need the start time. So the start time is going to be in fact I can just
+00:04:51.199 take the start time also as a parameter. Final long start time. So there'll be a
+00:04:58.240 timer which is going to be giving me this. And the reason I'm actually taking start time as a parameter is because you
+00:05:04.880 know later on when we'll be trying to test this function it'll make life easier. We can do some dependency
+00:05:10.240 injection there. Okay. This dot id equal to id.
+00:05:23.840 Perfect. So we have a process now and what we are going to try to do is we need some sort of a data structure which
+00:05:29.919 is going to be allowing this kind of thing like you know being able to tell
+00:05:35.039 you what is the earliest event uh and then checking if that event has ended.
+00:05:40.080 If it has ended then we print it out to the log otherwise
+00:05:45.280 we don't need to except hold these events in memory. Okay.
+00:05:52.639 So okay uh Satiendra Kumar has an
+00:05:58.000 interesting you know suggestion that start time can be system.curren current time millies but the reason I'm not doing that is because I can actually
+00:06:03.440 pass this in and later on through dependency injection I can actually set a different kind of timer. So during
+00:06:08.880 tests I don't need to depend on the system timer. I can actually define my own timer which will be a mock and that
+00:06:15.840 will work well and we'll see how that works. But so I have defined the process and now let's see how we can implement
+00:06:22.639 this log client. Uh interestingly most interview places will not allow you to
+00:06:29.440 use your own IDE. So um you know all this fast typing that I'm doing is not
+00:06:35.919 going to be possible there. But the general idea is the same of course. So
+00:06:41.520 I'll just call this logo implementation.
+00:06:46.720 Uh and it extends actually it implements
+00:06:52.080 the log client and over here I can just
+00:06:59.919 override these three methods of start, end and poll. Okay. Now let's think
+00:07:06.560 about what do we need to actually store processes in our logger because till they have ended we need to store them
+00:07:12.000 somewhere in memory right so one of the things we can do is to have a
+00:07:19.599 mapping between the ID of the process and its start and end times
+00:07:25.919 okay uh okay there's there's actually multiple things we can do firstly you
+00:07:30.960 can use a linked list okay but that's not a great idea Because when you use a link list, every time a person says
+00:07:37.360 start this event, you can add to the link list quickly. But every time someone says end an event, you'll have
+00:07:43.360 to do a linear search on the list for the processes. So I'll just in fact do the I mean I'll make the data structure.
+00:07:49.360 So list of processes.
+00:07:56.160 This is what our logger implementation is holding till they are completed. Right? You need to hold this
+00:08:06.000 So processes and in a real interview you don't need
+00:08:11.039 to prove all these things. You can just tell them that hey the list will not work. But in our case I'm just trying to
+00:08:16.080 make it a little more clear. So I'm going to be
+00:08:24.800 taking this and setting that as an array list.
+00:08:34.000 Great. Now when a person says start this process, what I need to do is I need to
+00:08:39.360 go to the processes and I say add this process.
+00:08:46.800 I'm sorry. I actually need to add a new process. So new process. Uh and what do I need to pass here? The process ID and
+00:08:54.160 the start time. So over here the interesting thing comes in. Uh I need a timer. So private final timer. Now
+00:09:04.399 this is weird like initially u in fact thinking that into the future is not natural in a in a low-level design
+00:09:11.120 interview or any interview because you are under so much pressure you can't you know plan everything out well. So I'll
+00:09:16.560 just keep this as system.curren current time release. Okay. And uh okay. So adding a process
+00:09:24.320 is simple enough. when a process ends, we need to be able to somehow tell that
+00:09:29.680 the poll uh the the poll method needs to know that this process is, you know,
+00:09:36.160 done. So, I'll just get the process.
+00:09:44.720 Ah, yes. And here we see the problem of course. So when you want to get a process with a particular process ID you
+00:09:50.959 can loop in the for loop for all processes but that is going to be slow that is going to be an order n operation
+00:09:56.959 and in interview you're not you know not even in real life do you want to do order in operations when you can skip
+00:10:02.080 them so one very natural thing about this is to just go for a map a map of
+00:10:08.000 what you have a key of process ID and for that you need a process so you just go for a string
+00:10:18.640 to process mapping. Okay. And no longer the array list. So I'll
+00:10:25.760 just go for a hashmap. And over here I don't just put the new
+00:10:31.200 process. I actually say that process ID needs to be put in.
+00:10:36.720 Okay. So now I can do a simple get process ID. uh you know I need to set
+00:10:44.160 this end time. So end time is private. So I'll just put a getter
+00:10:50.800 method over there. I'm sorry I need a setter method. So
+00:11:00.240 this is not going to be true for all languages but most of you program in Java. So uh it's fine.
+00:11:07.920 And over here I have system dot current time release. If you're
+00:11:13.040 programming Golang or Python, you don't need to, you know, set any getter or settle methods usually.
+00:11:20.240 Okay. So, uh you have pole and this is the big method. So, uh what do I need
+00:11:26.800 here? Well, you need to find the process which has the smallest start time, which
+00:11:33.120 has started the earliest, right? So that is difficult to do in a map
+00:11:39.839 especially when I have initialized it as a hashmap because a hashmap has no ordering.
+00:11:45.279 Now some of you might be thinking that I need a map with ordering like a sorted
+00:11:50.959 map in C++ and in Java you have a tree map. So when you have a tree map what's
+00:11:57.760 going to end up happening is you are going to have login operations for everything which is you want to make an
+00:12:02.800 update or search basically is login and also deletion updation all those things are login.
+00:12:09.040 So we can think of a tree map. Okay. And let's say you go ahead with
+00:12:14.560 this this thing over here. Um and you tell
+00:12:22.079 the tree map that okay processes dot remove
+00:12:28.720 this process ID if it has end time. So
+00:12:37.040 if this process ID has an end time then you need to remove it. Now which process
+00:12:42.320 ID? The very smallest one like the first one. So it has a you know method for
+00:12:48.079 that first entry dot get value dot get end time.
+00:12:56.000 If this is not equal to minus one. So this is basically a null value. then you
+00:13:02.639 print this statement. So they have given you the the format process ID and so on
+00:13:08.800 so forth. So I'll just do that.
+00:13:21.680 This is the value that you have. So interestingly uh you know how is this map going to be implemented? Like all of
+00:13:28.240 us know that order one is the time required for a hashmap to store stuff
+00:13:34.000 and remove stuff and delete stuff and all that. But uh this map is actually
+00:13:39.279 giving you some sort of ordering also and it's g it's a map. So a lot of people assume that it's going to be order one. That's not the case. It gives
+00:13:45.920 you login time, updates, deletions, searches, everything. So basically there's a AVL tree or no a red black
+00:13:53.680 tree inside this tree map. Yeah. So the red black tree has login operations
+00:13:59.040 speed and when you say if the end time is minus one is not equal to minus one
+00:14:04.480 then you just go ahead and print. So process dot
+00:14:10.720 let's set some other getter methods
+00:14:16.639 okay get ID plus
+00:14:27.040 process dot get start time
+00:14:34.320 and finally the end time also will be printed out.
+00:14:40.480 Okay. Also, interestingly, you might be seeing that you know this is taking a lot of time and stuff. In an interview,
+00:14:46.240 you can tell it even more. It's it's even more clear that uh every line that
+00:14:52.959 you're writing seems to be taking too much time. So, if you can like in Google
+00:14:58.320 it's not possible because they give you a Google doc in which to write. So, formatting is hard. But if you have any
+00:15:04.320 other ID that has been told to you maybe hacker ranks ID or something have a look whether you can format the lines easily
+00:15:12.079 because although the interview will say that they don't care about formatting they do. They're human beings they are
+00:15:17.360 going to like clean code a lot more and clean has a lot to do with presentation instead of just you know structuring of
+00:15:22.560 the code also. So processes remove um you're going to be removing this
+00:15:27.760 process. Okay. And this seems easy. Uh once you
+00:15:34.720 have removed the process, you're done, right?
+00:15:40.639 Okay. I'll just be taking doubts from you guys for the next 2 minutes. This solution is wrong, by the way. It's not
+00:15:46.000 going to work uh for various reasons. But uh let's see what kind of doubts you
+00:15:51.759 guys have.
+00:16:00.160 Oh yeah, before the live chat started, Yuvraj was someone who asked whether this is useful for freshers. Now that
+00:16:06.240 I'm coding it, I know it's not. It's it's really uh you know it is actually
+00:16:11.519 this bit is algorithmic. So it is very useful for freshers. But later on what will happen is that we look into the
+00:16:19.040 design of this code very deeply. In that case it won't be useful. till now and also for the next 10 15 minutes this is
+00:16:25.839 going to be very useful for your very first job interview also because I have not done any rocket science I've just
+00:16:31.920 used a tree map for god's sake
+00:16:38.079 okay okay so one go says I think we can use a heap here
+00:16:44.000 yes that is true you can but that also won't work alone uh and we'll see why
+00:16:51.519 okay if you use a heap First of all, just a heap. Let's say the problem is how do you get this process ID quickly?
+00:16:58.160 That's going to be an order in operation in the heap. You can't search in a heap efficiently. You can only pull out the
+00:17:03.680 maximum. Okay. So, your poll function will be really fast order one. Your
+00:17:08.880 start function will be uh fast again auto order auto order auto order auto order auto order auto order auto order auto order auto order auto order auto login because a heap actually heapifies
+00:17:15.359 itself if required and your end operation is going to be very slow. So, that's the game we have here. We have
+00:17:21.280 three operations and you want all of them to be less than login
+00:17:27.119 right and so you can't use a heap you can't use a lot of the data structures we have been thinking about we can't use
+00:17:33.200 a simple hashmap we have seen that we can't use a simple list so a hashmap the problem is the pole becomes slow a list
+00:17:40.559 the problem is the end method becomes slow a heap has the same problem what can we do
+00:17:49.280 okay P. All right. Sorted map. Yeah, that's that's what we're using.
+00:17:55.600 What we need to do in our case is to use a complicated data structure in the sense that you can't have a single data
+00:18:02.160 structure which is going to do your job. Okay. So, we are seeing that there's good stuff here in a map. When you say
+00:18:09.039 start and end, it's order one for a map. But the pole becomes really slow order n. So can we take some of the good stuff
+00:18:15.919 from a map and some of the good stuff from a tree map,
+00:18:21.280 merge them together and reduce the overall time complexity of all three functions?
+00:18:28.240 Yeah, Sorkumar has a really good insight. Of course, this tree map is not sorted
+00:18:34.799 on anything. So the process method like the process class is not comparable. You
+00:18:40.640 can't compare two processes till you have defined uh how is the tree map going to store these processes right?
+00:18:47.360 Oh, in fact it has a string. So it's going to be sorted on this process ids not on the start times and that is not
+00:18:54.640 what we want. So first entry is going to give you the smallest process ID which is not necessarily the you know the
+00:19:00.640 oldest process as we saw here three is the oldest one is the youngest.
+00:19:05.760 Okay, that is a good catch and we'll get to that also. But firstly, what we need to do is we can't actually use any of
+00:19:11.679 these data structures alone. A tree map has the issue that you can't sort on um
+00:19:19.039 on start times and get good end and start functions right if I sort
+00:19:27.039 this if I sort this function in fact I'll do that in front of you so it makes sense.
+00:19:34.720 So this is saying comparator of string. So I don't want that because I want it sorted on the start times. So instead I
+00:19:41.840 need to actually store the long the process ids. Instead of the process ids I need to store the start times. I don't
+00:19:47.200 know why I sound so confused but in the real interview actually I didn't make any mistakes and I cleared it. Yeah.
+00:19:53.039 Okay. Uh okay. Yeah. Of course the process ID is not what I want here. So I I can't have
+00:19:59.360 that. uh I need another data structure which is going to be a map
+00:20:08.799 and this is going to be processes uh while I'll change this to a que because
+00:20:16.080 that is what it is. I can pull from this Q and I can add to this Q right based on
+00:20:21.840 the start times. So my tree map is no longer the set of processes I have. It is a queue in which one by one
+00:20:27.600 processors will be removed. uh how is this going to be initialized? Well, I'm going to be saying that
+00:20:35.360 uh take the start times of both these processes. So that is
+00:20:41.919 start time one and start time two. Uh and all I need to
+00:20:47.360 do is say that you know you need to compare the two start times and then you're good.
+00:21:01.280 Okay. Um, what is the problem here?
+00:21:11.919 Oh, of course I haven't actually set this at the queue.
+00:21:26.720 Yeah. So now the tree map is correctly uh you know initialized. I need the processes
+00:21:33.600 to be also initialized. So this processes is new hashmap.
+00:21:41.039 Perfect. Shang Agarwal actually has the right answer. He's saying use a heap plus map. In my case, I'm using a tree
+00:21:47.760 map plus map because that logically, you know, that's the conclusion we come to.
+00:21:52.799 But a heap plus map is enough because like you can see it's a Q, right? So priority Q in Java is implemented using
+00:21:58.960 a heap. You can also use that over here. I'm just using this because it's a little more convenient.
+00:22:04.960 So the start method says that you have processes uh you push this ID and then
+00:22:10.240 you say that you know this is this is what you have over here. So this doesn't change. What is the problem here? You
+00:22:16.960 need the required type as long. Oh, okay.
+00:22:23.280 I messed it up.
+00:22:28.720 Yeah, this is actually
+00:22:34.159 the processes. Yes. What is what is wrong with this?
+00:22:39.360 Oh, this is string. Thank god. Okay. So the start now needs to also
+00:22:48.000 notify the queue that there is a
+00:22:53.679 new entry. So I'll just add that um system.curren time release. These two
+00:22:59.760 have to be the same. So I'll say the time now is this
+00:23:07.120 in both these cases. And the Q I I need to actually insert
+00:23:12.799 this um now, comma this process over here.
+00:23:29.919 Okay. Now again going to the end method, all you need to do is you need to actually tell the Q that there's a end
+00:23:36.960 time in this process. Now, so uh interestingly,
+00:23:45.039 if you don't do this, if you don't tell the Q that there's a new end time, then the old start time remains,
+00:23:51.600 right? But the Q has not been updated. So every time you try to pull from the que,
+00:23:57.840 you're going to be seeing that the queue does not have an end time. The the task in the queue, the process in the queue does not have an end time.
+00:24:05.360 Okay. Um, now what can we do about this?
+00:24:12.720 I'll throw the question in the chat guys. When I'm starting a process, when I'm getting the event of a start, I'm
+00:24:20.080 actually publishing that to the to the map and to the queue. But when the
+00:24:26.159 process is ending, I'm publishing that to the map. Do I need to publish that to the queue?
+00:24:39.200 Food for thought. We'll just wait for a minute till we get an answer.
+00:24:53.039 The question is simple. Do I need this line of code? Does the Q need to know that there has
+00:24:58.640 been update? There has been an update in the process.
+00:25:07.120 Okay. Um, two answers till now. Yes and no. Okay. Most people are Oh, wow.
+00:25:12.799 There's a 50% of yes and no going on. Okay. So, let's try not to publish it and see
+00:25:21.200 what happens. Okay. Um, poll says that I need to go to the
+00:25:27.760 queue. take the very first entry. This is sorted on the smallest time stamp. I get
+00:25:34.720 the value. If the end time is set, then I need to
+00:25:40.559 print this and remove it from the queue. All right? So, I need to actually remove it from here
+00:25:48.159 from processes and also remove it from the queue. So, Q dot pole first entry will do the
+00:25:56.320 job.
+00:26:03.039 Okay. And if it is if it is not set then all I
+00:26:11.039 need to do is I just need to hold these processes in memory. Okay. And let's try to see how this
+00:26:18.159 works. So
+00:26:26.320 in fact what I'll do is I'll just create a new class
+00:26:31.840 or I can test it here itself because you're unlikely to get a testing
+00:26:37.360 class in this.
+00:26:51.440 Okay, this is weird.
+00:27:00.960 I forgot to add class. Wow, look at that.
+00:27:07.760 Huh, much better. Is declared already. Okay, that's okay.
+00:27:15.760 Sometimes I really think whether I know how to code in Java or not. Okay. Uh so and what we need is we need
+00:27:22.080 a logger. So log client implementation
+00:27:27.120 is over here and we have uh logger.
+00:27:40.799 Okay. So now what I'll be doing is I'll be sending some
+00:27:46.080 you know um what do they say? Processes in this. Yeah, they're calling
+00:27:51.600 it processes. In some cases, they're called tasks, too. So, that's another interesting thing. But, uh, yeah, I'll
+00:27:58.720 send process ID one, then I'll send process ID 3, then I send process ID 2,
+00:28:05.600 but before that, process ID 1 has ended.
+00:28:13.120 Uh, and then process ID 2 also ends. And finally process ID
+00:28:20.320 three ends.
+00:28:25.440 Okay. And is this according to the order that we have? I'll just copy this stuff.
+00:28:31.440 In fact, it's not. So three has to start first.
+00:28:39.600 But yeah in our case what should happen at the end of it is one should be
+00:28:46.480 printed out first then two should be printed out. Yeah.
+00:28:52.720 Yeah. Two should no three should be printed out next and then two should be printed out.
+00:28:58.640 Okay. And uh what I'm going to do is I'm going to be actually
+00:29:03.919 trying to pull the logger every time.
+00:29:09.120 Okay. So,
+00:29:24.159 okay. And finally, I'll just pull the logger again. So, this is a very poor
+00:29:29.360 way of testing, but this is just to also clarify, you know, what goes on. And in fact in the poll method
+00:29:40.000 if there is nothing then I will be printing out else
+00:29:47.760 no completed tasks in Q.
+00:29:56.159 Okay. Now let's run this
+00:30:10.080 waren has a good you know he's he's made a good observation we need them to wait so that
+00:30:17.679 will happen soon enough but this is just to make sure that things are working fine uh it's oh god okay there's a null
+00:30:24.720 pointer exception in some other us. Okay. Uh
+00:30:39.360 that is not what I want. I want uh the implementation over here. Oh, okay. So, while
+00:30:46.720 practicing for this like you can tell how original this interview is just to make sure that you know I don't mess up
+00:30:52.480 in this live stream. I have already coded this class out earlier. So by
+00:30:58.640 mistake I actually said that as the implementation.
+00:31:12.960 Okay. Shamagaral has a question. Uh can we use a mutx and pole method to not waste cogs?
+00:31:20.480 I don't know what cooggs is. and only release that mutx once the youngest process is complete.
+00:31:26.080 Okay. Well, a mutex uh like what are you going to take the lock on the whole class? If
+00:31:33.120 you take a lock on the whole class, it's as good as a single threaded thing. So, that is going to be a little
+00:31:40.000 bit of a problem. But you can tell your interviewer that if you want you know um all guarantees that you can have during
+00:31:46.399 concurrency then yeah go for a single threaded or a global lock basically
+00:31:55.519 on the other hand if you want to order it casually we'll see how we can do that I don't really know 15 minutes are
+00:32:02.000 remaining so this could be like part one of this because the first 15 minutes we
+00:32:07.279 lost but yeah uh what's the problem here. Okay, we have a null pointer exception now. That is better. But
+00:32:14.480 process one started uh and ended at zero. Oh, okay. And we can see that uh
+00:32:20.799 the problem of not actually updating the queue is clear here.
+00:32:27.440 Okay. Uh and then process three started and ended. That is good. But then you end up having a null pointer exception
+00:32:34.320 at line number 110 which is over here. Oh, okay. In fact, it's not even
+00:32:41.360 waiting. It's not even waiting for the class to be ready. So, I have made a
+00:32:46.960 mistake here. I haven't actually told them that the end time has to be initialized to minus one.
+00:32:53.600 So, that's a bug. And let's just
+00:32:59.919 run this again.
+00:33:13.279 Rajes Gupta is asking we need to remove the process which ends first not the one which starts first. Correct me if I'm
+00:33:18.399 wrong. Well um you need to actually remove the process which starts first.
+00:33:24.000 So effectively what you're doing is multiple processes and the events are being sent to you. You are ordering them
+00:33:30.720 according to the start times and you're printing them only when they are completed. So if a process has started
+00:33:38.559 10 hours ago and another process has started 1 hour ago and you know the 1 hour ago process has ended, it's a short
+00:33:45.279 process. You're still not going to print it in your log because you are waiting for the first process the previous
+00:33:50.799 process to end. So the the printing is going sequentially and is waiting for
+00:33:56.000 each process to complete while the other processes are in Q in line. They'll be held in memory till the previous ones
+00:34:03.679 are printed out and then their turn will come in a poll. Okay. So over here we
+00:34:08.879 are seeing that there is you know no tasks had ended in the first two polls which makes sense. Then we
+00:34:15.119 ended task one that is correct. Uh then two other polls nothing had ended.
+00:34:22.480 You know there was a the next two polls like okay three yeah
+00:34:28.639 this is line number three uh line number four is nothing and ended two okay no
+00:34:35.199 completed tasks in Q for end of two because
+00:34:42.639 three has not completed three started before two and that's the reason why despite you know a process being ready
+00:34:50.719 to be printed. We didn't print it because this was inline. So I'll just actually no completed tasks in Q and I'll also tell you the
+00:34:58.000 uh Q dot
+00:35:04.560 first entry.
+00:35:12.800 Okay. Uh and uh dot get value dot get
+00:35:18.160 ID. So now this is going to tell you the first entry in the queue and that will
+00:35:23.920 be clear. What if this is null? Oh yeah, what if this is null? So
+00:35:30.160 in fact I can just print out the Q size and that will be good enough.
+00:35:43.040 Okay. uh now a lot of I mean I had asked this question that in the end event do I need to update the Q and the reason I
+00:35:50.560 didn't do that is because the update is happening on the object the Q has a reference to that object which
+00:35:58.560 also is I mean the uh the map also has a reference to the same object so it is updating it and the Q is automatically
+00:36:04.400 getting updated okay so we don't need to change that okay uh and finally like what are the
+00:36:11.599 number of tasks in the queue initially There is one then there is two then this task ended so you kicked it out of the
+00:36:17.839 queue uh over here.
+00:36:27.119 So when this process ended you should have kicked it out of the queue and the number of tasks should have been one.
+00:36:33.040 That is weird.
+00:36:42.160 Okay. Uh and after that of course you added a task. So I'll just say start.
+00:36:47.440 Yeah the start has happened and you have put in two but none of the tasks are ready. Uh then you ended two the
+00:36:55.200 you know the queue did not evict it. It said that no completed tasks in Q and then finally when you are done with
+00:37:00.880 three you kick that out and then again you kick this out and now finally the
+00:37:06.560 size should be zero. So let's see if that happens.
+00:37:17.920 Okay, Shbamagarwal again. If we take a lock mutx in pole method, the thread calling the pole method will not waste
+00:37:24.000 CPU cycles checking the top of the heap tree map. It will be notified once the youngest process is done.
+00:37:32.079 Okay, if you take a lock or a mutx in the pole method, okay, I'm I'm just
+00:37:37.920 going to think about a synchronized thing. the thread calling the pole method will not waste CPU cycles.
+00:37:45.839 Uh yes, that is interesting. But uh you have to take into consideration that if
+00:37:51.200 there is serious concurrency, someone might be updating this, someone might be updating this
+00:37:58.240 and the pole method is also updating the same data structures. So there is a possibility that concurrency might screw
+00:38:04.400 this uh solution completely and in fact it it will in the current implementation of course it's it's uh not going to be a
+00:38:12.000 problem but later on you'll see that if concurrency is allowed that's a real problem.
+00:38:19.040 Okay another null pointer exception. How very interesting but you're seeing that two has also been evicted from the
+00:38:24.720 queue. Um, oh okay, we need to actually check if
+00:38:35.119 if there are any entries in the queue. So if
+00:38:43.760 otherwise we'll have a null pointer exception.
+00:39:01.599 Q is empty. Okay. So, this will work. Of course. Uh
+00:39:07.520 I'll just make it a little clearer.
+00:39:21.520 Okay, Q is empty and then I threw a null pointer exception. Why? Oh, why would it do that? Oh, I didn't return of course.
+00:39:27.200 So, this is fine. I mean, we don't need to go through this bit, but uh okay. So
+00:39:33.040 guys this is a very like this solution has actually not touched on the key points of this problem. Okay
+00:39:40.960 the key point of this problem by the way what happened is once the solution was presented
+00:39:46.640 you need to think about two things in any LLD question and hopefully in the next one I'll be able to like do it more
+00:39:53.599 you know in a structured process but um firstly you think about what is the
+00:39:58.800 solution to your problem. Okay, in some cases like over here, there's an algorithmic solution. It's not
+00:40:05.040 straightforward. You don't just go ahead and talk about the classes and the objects and you know the state. No,
+00:40:12.000 you're going to be actually designing a solution which will have order login time for all three processes start, end,
+00:40:19.040 and pull. So that is going to take you some time. You are going to do that on a pen and a paper. Once you're sure of
+00:40:24.560 that, you go ahead with the code. But even when you're coding, you need to be
+00:40:29.680 aware that uh the interviewer is expecting you to talk about concurrency
+00:40:34.960 eventually. Okay? And they're going to be expecting you to talk about how do we test this class. So in part two, I will
+00:40:42.960 be talking about concurrency which is the most important thing in this uh low-level design question actually or I
+00:40:49.440 I would say like it's maybe maybe 60% has been taken care of honestly by just solving the algorithmic problem. you
+00:40:55.680 have you have you know done your job but now what about concurrency and what about the test cases that you can throw
+00:41:01.440 at this problem. Okay. And if you have like a low-level design question they're
+00:41:07.520 probably not going to be asking you both together unless it's a two-hour interview. They're going to be focusing
+00:41:14.000 either a on your test cases and your you know your your ability to handle
+00:41:19.680 concurrency or b they're going to be testing you on your algorithms. So, but
+00:41:24.800 whatever be the case, you need to be able to at least mention the kind of problems that your solution has
+00:41:30.400 algorithmically or engineering wise. Okay, that is the gist
+00:41:37.040 of this. Uh I'll take this as part one because we are just out of time. But uh
+00:41:42.800 guys, if you have any questions for the next 3 minutes, I'll be taking questions and let me know you know if you have any
+00:41:48.560 doubts on this on what we have built currently.
+00:41:53.760 Okay, Amrit M is asking, do you really get to code in a LD or is it just writing on the
+00:41:59.440 paper the objects and relationships? Uh, you do get to code. So, initially
+00:42:05.200 you have either paper or you know you have a board where you draw and you give a highle understanding of how you'd be
+00:42:11.599 solving the problem. But I think LD interviews are one of the toughest interviews out there mainly because it's
+00:42:17.119 very objective if you look at it like it brings a lot of objectivity to such a subjective design question where your
+00:42:23.520 code is expected to compile and one happy path is expected of you like
+00:42:29.280 because you're writing test cases right u if you are given two hours in your interview in some cases machine coding
+00:42:35.440 rounds like there's two hours so they expect you to have working code at the end of it you need to design and have a
+00:42:42.319 a little bit of working code. And of course, it's very similar to a highle
+00:42:47.599 design/algorithm interview where you are solving a problem and you're trying to,
+00:42:55.200 you know, find a solution and code it. But over here, your design also has to
+00:43:01.280 be good. So this is much more of a mixture of all three than anything else.
+00:43:06.319 like low-level design question for me is a mixture of algorithms,
+00:43:12.319 engineering and HLD. So that's the reason why I find this to be the hardest and that's the reason why in my course
+00:43:18.160 right now it's taking so much time to come up with good solutions to LLD problems. Yeah. And explaining them it
+00:43:24.480 takes a lot of time. It takes honestly it takes a lot of uh you know the code itself takes so much time and then you
+00:43:30.079 have to edit out things and then explain them on on paper. But of course, you know, that that has to be done. But
+00:43:35.839 hopefully I'll have a set of videos out which are going to be explaining this so much better. Uh the live session is to
+00:43:43.760 just give you a glimpse of what happens in a real interview when you're asked to code things live. So yeah, that's the
+00:43:50.800 idea. Zia Khan is asking where was this asked?
+00:43:56.960 Google. Yes, that is where it was asked. I mean in a Google interview rather.
+00:44:04.560 Okay, Anupam is asking please iterate the complexities now of these three methods. The start time has a complexity
+00:44:11.040 of log N because the Q is you're putting something in the Q. This is a tree map.
+00:44:17.040 A tree map has a complexity of login because a comparator over here uh it's not hashing. It's actually comparison
+00:44:23.440 operation. So there's going to be a binding search over here in the map. It's a BST for all purposes.
+00:44:30.240 The end method has a time of order one because you're not updating the Q. You're just updating the reference in
+00:44:36.800 the hashmap and the pole method has a time
+00:44:44.079 complexity of log N because the Q you're evicting the entry from the Q over here
+00:44:50.800 and you're removing from processes that is order one. So this is the total time complexity
+00:44:57.920 login order one login.
+00:45:08.240 So gosh is asking for the code to be put on GitHub. Yes, that is going to happen.
+00:45:13.280 Um guys, if I can if I can be honest like this part of the interview is what a
+00:45:20.880 fresher needs to know about. like this is the bare minimum that is expected of everyone that you are able to solve a
+00:45:27.920 small algorithmic problem. uh after this like in part two it's focused on SD2s
+00:45:35.440 SD3s okay where you're expected to have a good concurrency managing
+00:45:44.000 class okay so we'll get to that next time
+00:45:52.000 and thank you all for tuning in uh apologies for the first 15 minutes we had some technical issues I'll make sure
+00:45:57.839 that it doesn't happen again or if it does happen then I mean I'll make sure that you know we are well set for that.
+00:46:04.160 Uh thank you for having a look at this code. I'll be posting everything in GitHub. See you then. Bye-bye.

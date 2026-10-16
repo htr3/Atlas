@@ -1,0 +1,177 @@
+# tactiq.io free youtube transcript
+# Service discovery and heartbeats in micro-services 👍📈
+# https://www.youtube.com/watch/lWE_UIbm8NA
+
+00:00:00.170 gentlemen we have a problem our data
+00:00:04.410 pipelines are too slow we need to
+00:00:06.569 process our data faster any suggestions
+00:00:13.429 now we need to make our reads faster now
+00:00:18.180 I think a no sequel database will be
+00:00:19.890 really useful here what's the cost
+00:00:24.019 typically Cassandra custom for this size
+00:00:26.189 will cost about 1 million dollars
+00:00:27.630 million dollars actually we can store
+00:00:31.470 the data more efficiently what we need
+00:00:33.960 to do is shard the database into
+00:00:36.559 partitions and what's the cost of this
+00:00:40.489 approximately a few weeks for the
+00:00:43.680 migration actually we can bring up the
+00:00:46.250 remaining 50% of our servers so I just
+00:00:51.059 ran the health check and what do you
+00:00:52.860 mean only 50% of our servers are
+00:00:55.410 actually on so we should be able to hit
+00:00:57.210 the efficiency requirements very easily
+00:00:58.440 if we started well you are promoted and
+00:01:02.039 you two are fired most of the things on
+00:01:12.390 the server side deal more with
+00:01:13.409 reliability and availability rather than
+00:01:15.360 efficiency a lot of people when they're
+00:01:17.369 starting a service they think about how
+00:01:19.140 do I make this service more efficient
+00:01:20.460 but what you really need to do is have
+00:01:22.740 enough checks and balances to make sure
+00:01:24.180 that this service is running all the
+00:01:25.560 time when that happens users tend to use
+00:01:28.080 that service more which ends up
+00:01:29.549 generating more revenue for you let's
+00:01:31.320 take an example where we have 3 servers
+00:01:33.240 s1 s2 and s3 and we also have a health
+00:01:35.759 service which is an important component
+00:01:36.869 along with the load balancer so the
+00:01:39.479 health service its main job is to make
+00:01:41.310 sure that everyone is alive and the way
+00:01:43.560 it does that is by talking to all three
+00:01:45.420 services so s1 will be sent a message of
+00:01:48.570 are your life and s1 will respond with
+00:01:51.689 yes now five seconds later the health
+00:01:54.720 service will again ask s1 are your life
+00:01:56.610 and if it responds with yes this cycle
+00:01:59.310 continues forever but what could happen
+00:02:01.229 as it always does is that s1 goes down
+00:02:03.329 because of some hardware issue or maybe
+00:02:05.219 there's a bug in the code s1 does not
+00:02:07.320 respond with yes to the requests sent by
+00:02:09.479 the health service at this point the
+00:02:11.610 health service can mark s1 as critical
+00:02:14.040 and if it misses the second Health
+00:02:18.060 Service request then you can assume that
+00:02:20.760 s1 is dead and if s1 is dead
+00:02:23.489 there's no point sending requests to
+00:02:25.409 this server we can assume that this is
+00:02:27.269 not going to be capable of taking
+00:02:28.680 requests and we need to restart that
+00:02:30.180 machine so maybe ask some service to
+00:02:33.750 restart this machine or to go on some
+00:02:37.019 other server s4 and run the service that
+00:02:40.859 was running over here on s4 yeah and
+00:02:43.650 what do you do with the load balancer
+00:02:44.970 when you actually send this information
+00:02:46.379 to the load balancer saying that s1 is
+00:02:48.329 dead and what we are going to do either
+00:02:51.569 through the load balancer or some other
+00:02:53.040 service is to run that service on a new
+00:02:56.250 machine okay this may not necessarily be
+00:02:58.859 a new machine you can run another
+00:03:00.750 instance on the same machine but for all
+00:03:03.269 our purposes this is what's happening
+00:03:05.280 what you could do is a little more
+00:03:07.290 complicated often what happens is when
+00:03:09.569 you ask a machine are you alive it
+00:03:11.159 responds with yes but sometimes the
+00:03:12.989 application is not alive so that's a
+00:03:15.269 beard problem to have and in fact it can
+00:03:17.670 be a terrible problem to have because
+00:03:19.349 you are assuming that the service is
+00:03:20.639 alive well actually it's not able to
+00:03:22.440 process any of the requests whatever be
+00:03:24.269 the case maybe there's some memory issue
+00:03:25.669 it's just not able to process any
+00:03:27.720 requests so in this case what you can do
+00:03:29.669 is the service itself should be telling
+00:03:32.370 you that I am Alive it should be telling
+00:03:35.280 the head service yes I'm alive by itself
+00:03:37.049 so it's a two-way heartbeat yeah a
+00:03:39.930 heartbeat every five seconds from this
+00:03:42.900 side and a heartbeat every five seconds
+00:03:44.699 from this side what happens here is that
+00:03:46.530 you have a more consistent model
+00:03:49.319 although there's more communication
+00:03:50.599 overhead the consistency is maintained
+00:03:53.430 in the sense that if s4 is dead the s4
+00:03:56.310 might still be sending requests to other
+00:03:58.079 services despite being dead despite not
+00:04:01.019 taking new requests because it might be
+00:04:02.699 having cron jobs running on it so when
+00:04:04.949 it does send these requests to these
+00:04:06.359 services it has stale data that's one
+00:04:09.030 problem it might be manipulating the
+00:04:11.129 internal state of these machines the way
+00:04:13.139 we can avoid this is to like basically
+00:04:15.150 avoid zombies is by having a 2-way
+00:04:18.930 heartbeat mechanism even this does not
+00:04:21.750 actually solve the problem entirely but
+00:04:24.210 this really helps you reduce the problem
+00:04:26.310 to a large extent
+00:04:27.780 because if you see that s4 has been
+00:04:30.780 marked dead by the Health Service then
+00:04:32.490 s4 will kill itself interestingly the
+00:04:35.160 health check problem is very closely
+00:04:36.660 tied to the service discovery problem in
+00:04:39.570 the sense that if there is a new service
+00:04:41.310 which is coming up having these three
+00:04:43.380 boxes s1 s2 and s3 so maybe this service
+00:04:46.230 is a profile service and it's running on
+00:04:48.540 these three boxes all it needs to do is
+00:04:50.820 tell the load balancer that hey I have
+00:04:53.250 three boxes on which I am running my
+00:04:55.200 service these are the IP addresses all
+00:04:58.290 right there's a list of IP addresses
+00:04:59.640 that you can take these are the ports on
+00:05:01.860 which I am running my HTTP clients maybe
+00:05:05.370 there's a separate port for my XMPP
+00:05:07.980 clients yeah so based on this the load
+00:05:13.440 balancer changes the snapshot that it
+00:05:15.210 has so the load balancer does need to
+00:05:17.130 persist data somewhere and this data is
+00:05:19.919 basically a snapshot of the entire
+00:05:21.480 universe of the services that you have
+00:05:23.430 when the profile service comes alive you
+00:05:25.740 need a new snapshot that's a new version
+00:05:27.300 you need to persist that in the database
+00:05:29.940 saying that s1 s2 and s3 have these
+00:05:32.430 ports and these IP addresses for which
+00:05:34.440 the profile service is running once you
+00:05:37.200 have this snapshot you can then tell
+00:05:39.720 every other service that hey this is the
+00:05:41.130 snapshot if you need to send a message
+00:05:42.780 to the profile service on s3 then this
+00:05:45.270 is the IP address and in that way what
+00:05:47.610 happens is the services themselves don't
+00:05:49.050 need to keep that information as - I
+00:05:50.490 need to send a message to the profile
+00:05:52.140 service what's the IP address or what's
+00:05:54.600 the port anytime you need information
+00:05:57.090 you come and ask the load balancer and
+00:05:58.740 even better if you can cache this
+00:06:00.840 information on the load balancer like
+00:06:02.520 basically cache the snapshot that this
+00:06:04.440 guy contains okay now how does the
+00:06:08.880 health service come into the picture
+00:06:09.900 well every time there is a change in a
+00:06:11.940 snapshot the health service can see the
+00:06:13.979 diff in the snapshot maybe and based on
+00:06:16.500 that it can open up connections with
+00:06:20.070 these three services on their HTTP ports
+00:06:22.290 always making sure that they're alive
+00:06:24.210 and making sure that the health of the
+00:06:25.830 system is good these are the main points
+00:06:27.960 of service discovery and health checks
+00:06:29.580 if you have a real interest in this
+00:06:32.280 subject and you want to get more detail
+00:06:34.380 then I have the links in the description
+00:06:35.490 below if you want notifications for
+00:06:37.860 further videos like this be sure to hit
+00:06:39.360 subscribe button
+00:06:40.510 and if you have any doubts of stations
+00:06:42.070 leave it in the comments below I'll see
+00:06:43.720 you next time

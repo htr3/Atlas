@@ -1,0 +1,323 @@
+# tactiq.io free youtube transcript
+# What is an API and how do you design it? 🗒️✅
+# https://www.youtube.com/watch/_YlYuNMTCc8
+
+00:00:00.115 Hi everyone, this is GKCS, today we are talking about how do we design good APIs and
+00:00:03.625 and
+00:00:04.705 at the end of this video you should know about what an API is
+00:00:07.755 or what a good API is and how you can design it.
+00:00:10.725 So, at the end of this you should be a good software engineer when it comes to designing APIs
+00:00:14.055 Imagine you're writing down a library to sort integers.
+00:00:16.735  
+00:00:19.695 So a person comes to you and says that I want to buy this library from you
+00:00:22.395 but I don't know how to interact with this library
+00:00:25.745 an API is a documented way in which external consumers
+00:00:28.545 can understand how they can interact with your code
+00:00:31.555 not how your code works
+00:00:34.285 but how they can interact with your code to get their work done.
+00:00:37.175 let's take an example, you need to find all the
+00:00:39.605 admins from a given WhatsApp group
+00:00:42.765 so, what WhatsApp is going to expose is an API.
+00:00:45.655 And, what is that? It's a function such that,
+00:00:48.325 you need to call GetAdmins
+00:00:51.985 with the string type of groupID
+00:00:52.985  
+00:00:53.795 there's two possibilities of errors: first one is
+00:00:56.825 that the groupID that you're talking about does not exist,
+00:00:59.715 or the group has already been deleted.
+00:01:01.325 OK, depending on the logic, group is deleted may or may not be an error.
+00:01:04.415  
+00:01:05.515 and finally you get a response if things go well you get a response which is a list of
+00:01:08.635 Admin objects named admins
+00:01:11.635  
+00:01:12.875 The Admin object itself might be complicated, might be JSON inside,
+00:01:16.455 which is containing the name, user ID, and so on and so forth.
+00:01:20.235 So as you can see this is very similar to a function.
+00:01:23.265 You define a return type, you define possible errors, you define parameters
+00:01:26.325 you define the name of the function and that's what
+00:01:29.265 an API in general, it's
+00:01:32.815 a function that external people can call
+00:01:35.425 and, it's just a contract, not how you're going to do it but
+00:01:38.575 what it is going to do, that's the important bit here.
+00:01:41.965 There's a useful checklist of things to run through.
+00:01:45.025 The first thing is: where should this function be exposed
+00:01:48.225 so if you have a microservice architecture and
+00:01:51.335 you have a service which is a group service
+00:01:54.465 which handles everything related to groups
+00:01:57.475 that is where this API belongs, because this is something to do with
+00:02:00.505 finding all the admins of a particular group.
+00:02:03.595 OK so the first question that we asked ourselves
+00:02:06.505 is where does this belong? So, what does it do?
+00:02:09.395 It gets the admins, that is the function name
+00:02:11.935 So this is part of the what
+00:02:14.395 What do I need to pass it?
+00:02:16.585 The groupID. So these two are part of
+00:02:19.415 the result. Now there's a lot of mistakes that people
+00:02:22.545 make while designing APIs. The first thing is if you are saying getAdmins
+00:02:25.985 then it should return admins. You know if
+00:02:27.945 it's returning more than admins, if it's returning the groups
+00:02:30.965 that they belong to, then that API
+00:02:33.955 is named wrongly. It's no longer get admins
+00:02:36.885 it's get admins and all groups that they belong to. Right?
+00:02:39.525 Or something similar. So naming is important.
+00:02:43.535 The second issue could be that when you are asking for a group id
+00:02:46.615 maybe the caller has more than that. Maybe they have the
+00:02:49.865 list of admins, the list of user IDs that they want to check for.
+00:02:52.955 OK? The person calling getAdmins
+00:02:54.925 just wants to check whether
+00:02:57.525 the admin list that they have is the same as what the server has.
+00:03:00.425 So in these cases, should you also allow
+00:03:03.935 an additional parameter of list of users. OK?
+00:03:06.905 This depends on the context, but it no longer
+00:03:09.725 becomes get admins for a group, it becomes
+00:03:12.725 check admins for this group
+00:03:15.335 and this user list. So again the naming will be important,
+00:03:18.375 but more than anything the action that you're doing should
+00:03:21.395 define the name and should define the parameters.
+00:03:24.185 So don't take additional parameters unless absolutely necessary.
+00:03:26.915  
+00:03:29.555 Now there is one case where you can forgive people requiring
+00:03:32.425 additional parameters, and that's when you need to optimize your API.
+00:03:35.335 For example, I'm doing a
+00:03:38.085 get admins of the group service and I'm passing in
+00:03:41.225 a group ID. Maybe the group service needs to authenticate this call
+00:03:44.125 Maybe the group service needs to find out the admins
+00:03:47.035 of another group. I'm just imagining things
+00:03:49.555 over here, but maybe it needs to make four or five queries
+00:03:52.265 to different microservices, which is expensive because those are IO calls.
+00:03:55.325 If you can optimize that using some additional parameters over here,
+00:03:58.335 you know, basically giving
+00:04:01.395 my service more information so that I don't need to ask
+00:04:04.605 other services all that information,
+00:04:07.535 It might be forgiveable
+00:04:11.185 When is that ok? When you really need speed on this API
+00:04:14.205 and you're being crushed by the number of calls that you're getting
+00:04:17.475 and the number of calls that you're making. In that case
+00:04:20.024 maybe some additional parameters are useful. Even then I would strongly suggest that the name of the API needs to be changed
+00:04:25.905 but sometimes that can't be done easily because you have set one name
+00:04:28.815 Similar to the parameter list is the
+00:04:31.745 response that we have
+00:04:33.265 A lot of people in the response stuff a lot of things and give it to the
+00:04:36.245 caller in the hope that they won't need to change
+00:04:39.305 the response object later on, when the
+00:04:41.975 caller asks for more things. But this is a bad API design, it's giving
+00:04:45.045 more information than the caller needs, so that's
+00:04:47.585 more network requirement. But, more than anything
+00:04:50.685 it's confusing, because you never know what
+00:04:52.785 will come in the future, and building a big
+00:04:55.855 response just because,
+00:04:57.795 to try to make it extensible is a bad idea
+00:05:03.885 The final bit is a little interesting, it depends on personality
+00:05:06.715 and that is the number of errors that you define.
+00:05:09.725 So I've seen people defining all the errors possible for their API
+00:05:12.765 and I've seen people designing absolutely
+00:05:15.065 nothing, taking no responsibility and just returning
+00:05:17.855 a generic error for everything that happens. For example,
+00:05:21.135 when a person passes in a group ID
+00:05:23.865 and you expect it to be an integer, you can just define
+00:05:26.115 the data type to be an integer, you don't need to check whether
+00:05:29.005 the string is going to be an integer and then throw an error
+00:05:31.575 when group is not an integer
+00:05:34.435 Similarly, if the group id is too long
+00:05:37.475 the string is too long, and your
+00:05:40.375 database query fails because of that, maybe it has
+00:05:43.435 a particular length of string that it can put in,
+00:05:46.875 that's not my responsibility, I'm not going to be returning group ID too long
+00:05:49.905 I'm just going to fail the query, right?
+00:05:52.925 and the person who's calling the API can figure out whether
+00:05:56.215 I mean why did they send such a long string.
+00:05:59.485 All of these things of course are subjective, but like I said
+00:06:02.375 extremes are always odd, so taking absolutely no
+00:06:05.035 responsibility where if the group does not exist then I just throw
+00:06:08.715 a 404 error, that's wrong, because
+00:06:11.175 this is an expected error from your service
+00:06:14.055 similarly the group is deleted is an expected error
+00:06:16.625 so in general when you're designing errors,  think about the common expectations
+00:06:20.885 and think about the responsibilities that your API has.
+00:06:23.695 A lot times we need to expose our API on an HTTP endpoint
+00:06:26.615 and in those cases we need to understand how HTTP
+00:06:29.915 response and request objects usually work
+00:06:32.435 So the first thing we need to design is where is
+00:06:35.565 this API going to be
+00:06:38.655 So this is the
+00:06:40.395 address of your site,
+00:06:42.905 this is going to be, let's say the model
+00:06:45.695 thing that actually contains these functions
+00:06:48.375 then you go to which function needs to be called
+00:06:51.255 and that is getAdmins, and I've put in a V1 over here
+00:06:54.315 in case you want to change the version on that function, you know you make updates
+00:06:57.185 on the same function
+00:06:58.715 you can call it V2, so this is necessary
+00:07:01.295 not necessary not really
+00:07:04.195 but this is the routing
+00:07:06.735 so the routing, or the Where question is answered over here
+00:07:10.495 now what does it do
+00:07:13.585 well it does a POST query on this
+00:07:16.435 So, get me the admins who have
+00:07:19.245 group ID 123, so this is like filtering
+00:07:21.975 group ID is a JSON object that we have, this is the HTTP request
+00:07:24.865 object we have passed in through
+00:07:27.865 the browser
+00:07:30.485 and the response will also be through
+00:07:33.545 the browse, and that is admins
+00:07:36.765 which is an array, JSON array
+00:07:39.145 of admins, ID and name.
+00:07:41.485 So this is how we can think about our normal functions,
+00:07:44.605 programming functions into this.
+00:07:47.485 Now let's try to analyze this. Can this be done using a get function?
+00:07:50.455 Absolutely. I could have passed in
+00:07:53.085 123 in the getAdmins function
+00:07:55.995 over here, and that would work the exact same way
+00:07:59.285 except that this thing instead of POST I could have made it GET
+00:08:02.185 so this would have been slightly shorter because
+00:08:05.115 there was no payload, request payload to be sent in
+00:08:07.845 the second thing to remember is not to mix up routing with the action
+00:08:11.435 so, for example, you go to chat messaging
+00:08:14.195 instead of saying get admins, you immediately say here is the request
+00:08:16.955 with the group ID, now figure out what you need to do
+00:08:19.925 The problem here is that this is going to be highly ambiguous,
+00:08:23.035 it doesn't know whether this group ID has to be fetched
+00:08:25.135 in which case you need to give the group information
+00:08:27.905 it doesn't know whether the admins have to be fetched
+00:08:30.125 it doesn't know whether members have to be fetched and a lot of times what people do
+00:08:33.075 is they try to put in the routing information or the function information over here
+00:08:35.965 So they say that action, or
+00:08:39.525 whatever you'd like to call it, is get admins
+00:08:42.804 Don't mix that up, it's possible to do it this way too
+00:08:45.665 yeah, but it's going to be a very dirty API
+00:08:48.615 Another interesting thing to note in getAdmins, is that it's it's saying get
+00:08:51.655 which is an action that HTTP already gives you
+00:08:54.705 So if GET is defined in HTTP
+00:08:56.935 maybe you don't need to make this redundant
+00:09:00.005 statement again,  you can just say Admins.
+00:09:03.045 So Chat Messaging, you have the admins
+00:09:06.745 with a parameter that is
+00:09:09.315 groupID equal to 123. Now let's get into more
+00:09:11.985 subjective and major issues we have when designing APIs
+00:09:14.975 We have this function that is setAdmins, it takes a
+00:09:17.825 list of admins, and it has a group ID
+00:09:20.735 in which it's going to set these guys, as administrators
+00:09:23.795  
+00:09:25.135 What if, let's go for the bad cases as usual,
+00:09:28.205 What if these admins are not members of this group
+00:09:31.285  
+00:09:32.685 In general, this should return an error, saying that this person is not
+00:09:35.755 a member, so this person cannot be an admin
+00:09:38.175 However, depending on the use case,
+00:09:40.805 you might expect to add a member, and then make them an admin
+00:09:43.755 Similarly, what if the group
+00:09:46.785 doesn't exist? Well, create the group,
+00:09:49.675 and then make these people admins of the group. That's also
+00:09:52.925 a possible expectation, I don't say it's a good API design, but it's possible
+00:09:55.855  
+00:09:57.025 In these cases what's happening is there's a side effect,
+00:10:00.245 you're saying set admins but you're also doing much more than that,
+00:10:03.255 you're also the members sometimes and sometimes you're setting the groups also.
+00:10:07.085 So, your API should have no
+00:10:10.125 side effects. If there's multiple operations
+00:10:13.005 that your single API's doing, if there's a lot of flags that you're setting
+00:10:16.345 if there's this Config object that you're passing into the API
+00:10:19.405 and which is setting it's behavior, that's a really weird API and maybe
+00:10:22.445 you should break it into multiple APIs
+00:10:25.305 So that's the first reason of side effects, that is
+00:10:28.125 doing everything
+00:10:30.705 in one function,
+00:10:32.385 the second more important reason for a side effect is
+00:10:35.445 atomicity, when I say set admins,
+00:10:38.165 I need to create a group and what if I pass in set admins,
+00:10:41.155 it fails,  then I create a group and
+00:10:44.305 who's going to set the admins what if I create the group
+00:10:47.265 and somebody else set admins, and now these guys can't be admins
+00:10:50.625 Depending on the use case you might need atomicity,
+00:10:54.985 and that is the second case for side effects, however
+00:10:57.945 even with atomicity, I'm doing everything
+00:11:00.935 the naming should definitely be better, so there's no excuse for poor naming of a function
+00:11:03.815 To an extent, atomicity
+00:11:06.545 can be mitigated, because you want
+00:11:09.195 an action to happen one after another, so you can
+00:11:12.505 in this microservice itself,
+00:11:15.855 set the admins, if it fails, then
+00:11:19.005 ask the person to make a create group call
+00:11:21.295 let's say the group doesn't exist, you say 404
+00:11:24.415 group does not exist, now the client makes a create group call with
+00:11:31.235 some members passed in
+00:11:33.105 so list of members, and now you can set that these guys as admins if you like
+00:11:36.125 so list of members, a list of admins
+00:11:39.505 and over here you can bring in the atomicity instead of this
+00:11:43.015 So, in general when you need atomicity,
+00:11:46.315 for the action that you're doing, try to call the
+00:11:49.275 right action instead of something which is  more generic because that
+00:11:52.375 really pollutes the API, and there's a lot of confusion
+00:11:55.485 testing the API's going to be extremely difficult
+00:11:58.175 but more than anything the person who's calling the API doesn't really know
+00:12:00.815 what is going to happen, make them admins is going to make them members, who knows.
+00:12:03.855  
+00:12:09.995 Now let's think of the function for getting all the members of a group
+00:12:13.525 So that is 200 members, each member has
+00:12:16.240 their own profile, that might be pretty detailed, and so effectively
+00:12:19.180 what's happened is that the response is verylarge.
+00:12:22.300 so one of the things you can think of, over there, is to break
+00:12:25.145 the response into pieces, and there's two ways to do this,
+00:12:27.995 the first one gives responsibility to the client,
+00:12:30.135 and that is pagination,
+00:12:32.185 you have 200 members, get me the first 10
+00:12:35.095 then get me the next 10, and so on and so forth, so this kind of
+00:12:37.965 breaks the property of stateless, maybe
+00:12:40.945 not really, you give an offset, and the
+00:12:44.165 server figures out which are the next ten users
+00:12:47.635 So pagination is one way, the second way
+00:12:50.855 is to fragment the API.
+00:12:54.115 So usually the problem is not on HTTP, it's on the internal protocol that you're
+00:12:57.245 using, when you're talking to, from server to server
+00:13:00.045 from microservice to microservice, it's going to be a short response
+00:13:02.675 most cases, and when it is a large response,
+00:13:05.715 it's an exception, so
+00:13:07.905 when there's an exception there's usually a problem
+00:13:10.915 now what you can do is because your response is
+00:13:13.580 limited to let's say 1 kb or 10 kb
+00:13:16.520 whatever may be the case and if your response is bigger than this, 10 kb,
+00:13:19.640 you can break the response into multiple pieces and give
+00:13:22.525 it to the next service, one by one, with a number
+00:13:26.935 so the TCP number will be 10
+00:13:30.045 the next one will be 11
+00:13:33.095 next one will be 12 and so on and so forth, so in this way the other service knows there is more
+00:13:36.605 information to come there's fragments to come and finally
+00:13:39.515 there'll be an end packet which is going to say say that's it
+00:13:42.535 that's the response ending
+00:13:44.615 so fragmentation and pagination are pretty important
+00:13:46.385 when the response of the API is huge
+00:13:49.935 and you need to break it into pieces.
+00:13:52.935 The final two things that I want to talk about are pretty interesting.
+00:13:55.945 The first one is how consistent do you want your data, so
+00:13:58.965 I say get admins for this group, you got here, you read from
+00:14:02.125 the database, but while you're reading in the database
+00:14:04.675 someone came and added a new admin, so you read two admins
+00:14:07.485 but there are actually three
+00:14:09.805 now you did not get a consistent view of the world
+00:14:12.645 you do not get three admins, but do you really care
+00:14:15.595 and that's an important question when designing APIs, do you
+00:14:18.595 want perfect consistency, that's going to be slow,
+00:14:22.125  
+00:14:23.285 Another example is I ask you for the admins and you cache it, so
+00:14:26.245 if you cache the information already
+00:14:29.695 if you cache the response, that's going to be slightly older
+00:14:33.165 but maybe you don't care, maybe you want all the
+00:14:35.925 comments for a particular post and you don't care about the comments which have
+00:14:38.775 happened in the past 3 seconds, you just want general comments for a post
+00:14:41.695  
+00:14:42.935 so is there a cache, or is there not a cache, that is the question
+00:14:45.975  
+00:14:47.395 If you have a lot of load on your database, maybe you want to start
+00:14:50.365 serving requests from cache. If you have a lot of load
+00:14:53.335 in the database, maybe you want to reduce the response size that you have.
+00:14:56.235 Instead of passing in the whole profile with
+00:14:58.805 lots of information maybe the profile picture information and so on and so forth
+00:15:01.985 you just pass in
+00:15:04.215 the name of the person, right? That is service
+00:15:07.115 degradation, giving the essentials, still
+00:15:09.745 responding, without completely thrashing
+00:15:12.485 so this is what an API design looks like
+00:15:15.625 so if you have any comments or suggestions you can leave in the comment below
+00:15:18.605 and if like the video then make sure to hit the like button
+00:15:21.515 also if you want notification for further videos
+00:15:24.375 hit the subscribe button I'll see you next time

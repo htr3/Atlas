@@ -1,0 +1,517 @@
+# tactiq.io free youtube transcript
+# Median of Medians - Order Statistics
+# https://www.youtube.com/watch/fcf56RTbkHc
+
+00:00:00.030 I guess GCS we're talking about median
+00:00:02.639 of medians today which is an algorithm
+00:00:04.529 to find the median in an array now the
+00:00:07.710 reason I'm doing this is because way the
+00:00:09.510 trees is coming soon and I didn't want
+00:00:11.280 to talk about where the trees right off
+00:00:12.389 the bat I want some you know background
+00:00:14.519 on what medians are and how the bigger
+00:00:17.250 trees then work so let's understand this
+00:00:19.920 properly behind adding and we need to
+00:00:22.980 find the median of that area
+00:00:24.600 okay the median means finding the end by
+00:00:26.789 two earth element in this array up
+00:00:30.060 reduce Orton
+00:00:31.230 okay so finding the middle little bit so
+00:00:33.540 to speak so in this array let's sort
+00:00:36.899 that is we get minus six one four is
+00:00:43.140 next year four seven six twelve fourteen
+00:00:50.730 should be next
+00:00:52.160 this is eighteen nineteen and twenty
+00:00:55.969 eight so that system one two three four
+00:01:00.300 five six seven eight nine so yeah n is
+00:01:02.820 equal to nine and this is our sorted
+00:01:04.860 array so if you're looking for the N by
+00:01:08.460 2 over the middle for n equal to nine
+00:01:10.380 that's 9 by 2 which is integer division
+00:01:12.630 gives you the next four you should be
+00:01:15.509 having so zero one two three four so 12
+00:01:19.590 is tell me that you're looking for in
+00:01:23.369 case you're looking for medium okay so
+00:01:27.270 something has a X you if you have quick
+00:01:30.000 sort of something n log n time
+00:01:33.150 it's a mystical thing about sorting here
+00:01:35.190 because what happens in quicksort is
+00:01:38.040 once you get an element once you get a
+00:01:39.990 pivot let's say element 7 once you have
+00:01:44.580 sevens so you want to find all elements
+00:01:46.860 less than 7 and you want to find all the
+00:01:48.690 pins greater than 7 so that's the kind
+00:01:50.760 of arrangement that you do first and
+00:01:52.260 then you will constantly go to the left
+00:01:53.850 side of 7 and right center 7 so here of
+00:01:56.760 course of 1 minus 6 so let's do this in
+00:02:02.490 a normal way fool would come in to the
+00:02:04.410 left -6 would also come here one would
+00:02:07.500 come here and nothing else to the right
+00:02:10.500 of 7 we would have 18 12 14 20 and 19 so
+00:02:19.560 this is how things will pan out if you
+00:02:21.600 chose 7 as a pivot which is first and
+00:02:24.060 procedures you can choose any random
+00:02:25.820 number from this array but usually
+00:02:29.010 people choose the first element itself
+00:02:30.680 so after this procedure what you see is
+00:02:34.590 that all of them is less than 7 belong
+00:02:36.900 to the left side and all that means to
+00:02:38.220 the ribosome belong to the right side so
+00:02:41.760 this means that if 7 is currently
+00:02:44.730 standing in this array at index n by 2
+00:02:49.489 then 7 is the middle because the N by 12
+00:02:54.030 into the for it oh you meant minus 1 but
+00:02:56.340 basically if it is a video so if it's an
+00:03:01.170 hand the position n by 2 then is the we
+00:03:03.600 deal if it's signing in position less
+00:03:07.050 than by 2 let's say it's not any
+00:03:08.790 position X right and if X is less than n
+00:03:11.880 by 2 that means that 7 is not far enough
+00:03:15.739 so the median lies somewhere to the
+00:03:18.930 right of 7th so here what you can then
+00:03:23.880 do is recursively compute an order
+00:03:29.489 statistic over here so what the position
+00:03:32.850 that will be 4 over here in this summary
+00:03:35.040 now is n by 2 minus X this is the
+00:03:39.780 position only before in the right server
+00:03:45.620 that's pretty clear what if X is greater
+00:03:50.160 than n by 2 so you have skip the median
+00:03:52.860 you're going to it's probably
+00:03:54.780 somewhere to the left yeah so it hits to
+00:03:57.210 the left and you are looking for n by 2
+00:04:00.240 again because you have more than by 2
+00:04:01.800 whether it's you're looking for they
+00:04:03.390 might do a little bit that's the median
+00:04:06.500 in the left select when I stop or to the
+00:04:13.260 left and rights of array of course I
+00:04:14.460 mean these utilize okay and you can do
+00:04:18.420 this for actually any element this is
+00:04:20.579 the reason why it's for the key or the
+00:04:22.560 statistic you look for the key and
+00:04:24.540 largest element in this array using this
+00:04:27.180 technique okay something that quicksort
+00:04:29.400 actually gives us so what is the time
+00:04:34.140 complexity for this procedure
+00:04:35.460 so look choosing an element is order 1
+00:04:42.980 traversing this making a saline
+00:04:45.150 production from Godzilla right to
+00:04:47.400 decided he's ordering because all you're
+00:04:49.980 doing is going to each other in time
+00:04:52.170 finding out if it is less than or
+00:04:53.730 greater than the pivot this is the pivot
+00:04:59.090 so that's order n times now you see that
+00:05:04.590 this sum because the precision either
+00:05:06.540 going to the left or to the right here's
+00:05:09.030 the thing more often than not you won't
+00:05:11.730 be extremely unlucky so you'll be ending
+00:05:14.970 up somewhere in the middle of that way
+00:05:17.250 if you're ending up somewhere in the
+00:05:19.050 middle of sorry
+00:05:20.930 so around n by 2 what that means is
+00:05:24.900 around half of that is remained the do
+00:05:28.200 is just half that is remaining for you
+00:05:30.120 to go to so initially you had order n as
+00:05:35.160 the number of elements you have to
+00:05:36.870 arrange the next time you'll be
+00:05:39.410 arranging n by doing its approximate you
+00:05:42.320 after that in my four elements
+00:05:44.520 approximately because you are actually
+00:05:45.810 just going to the left so value out of
+00:05:48.120 the right supply and so on and so forth
+00:05:49.950 so and my evilness so on till you just
+00:05:53.340 have one and once you have one in the
+00:05:54.900 middle meaning the recursion has to stop
+00:05:57.030 because X
+00:05:57.840 - equal to n by 2 which is equal to n
+00:06:00.210 basically so this is a welcome to a
+00:06:04.860 verdict progression this is about 2 n
+00:06:08.400 which is order all right so the number
+00:06:13.410 of operations that you did these may be
+00:06:16.340 order n in number so that means that you
+00:06:20.460 can find the median of this array in
+00:06:25.710 just order n times except - let me show
+00:06:32.520 me of course I made an assumption more
+00:06:35.370 often than not you'll be eating a little
+00:06:37.050 of that way so when I say more often
+00:06:40.530 than not it means that if you are not
+00:06:42.690 unlucky enough if you are unlucky nuts
+00:06:45.240 what's going to happen is you wouldn't
+00:06:47.250 be the Engram the other middle of that
+00:06:48.510 will you be eating the front of that you
+00:06:50.490 all the time or the very other X and you
+00:06:53.490 won't be reducing that it because here's
+00:06:56.520 what's gonna happen
+00:06:57.830 you pick up this energy and all its will
+00:07:02.729 fall to the right so you become smaller
+00:07:04.590 so minus 6 yeah all that would support
+00:07:07.530 to the right then you pick up one all
+00:07:09.810 that is it's 4 to the right again you
+00:07:12.389 pick up fool all that means fall to
+00:07:14.789 right again and so what's happening is
+00:07:16.289 that your sub R is your left and right
+00:07:19.020 server is other size 0 and size n minus
+00:07:24.919 n minus 2 respectively so here what's
+00:07:30.300 going to happen is that you're not going
+00:07:31.680 to have on n plus n by 2 plus n by 4
+00:07:34.139 you're going to have n minus 2 plus n
+00:07:37.830 minus 3 plus n minus 4 plus so on and so
+00:07:40.620 forth and this is an automatic
+00:07:42.780 progression so that is equal to the sum
+00:07:45.570 of AP which is n square
+00:07:48.539 order n square so our expectation is
+00:07:53.310 that we'll have order n which is pretty
+00:07:56.550 good which is actually extremely good
+00:07:58.560 but in the worst case we can put order n
+00:08:01.500 square very similar to how quicksort
+00:08:03.599 works if you can release in my quicksort
+00:08:09.270 can go up to order n square you can
+00:08:10.979 listen by
+00:08:11.620 this technique can build order n-squared
+00:08:14.550 so what is seeing is that while choosing
+00:08:17.050 the key element the most critical point
+00:08:19.270 is actually when you're choosing the
+00:08:20.350 pivot the point before and after which
+00:08:23.410 you want the headman's to be get so if
+00:08:25.540 the arrays of size N and you choose a
+00:08:30.310 pivot right at the beginning then what's
+00:08:32.650 going to happen is that you're going to
+00:08:33.789 have a size n minus 1 and then again if
+00:08:36.610 you choose at the beginning it's going
+00:08:37.539 to be n minus 2 and so on and so forth
+00:08:39.520 so every time you're choosing a pivot
+00:08:42.220 you are also finding all that emitted
+00:08:44.320 before and after it in order number of
+00:08:46.540 elements time so this is the reason why
+00:08:50.920 you require n plus n minus 1 plus n
+00:08:54.220 minus 2 so on and so forth which is
+00:08:56.950 order N squared now we saw that there's
+00:09:00.970 another scenario when you choose
+00:09:02.910 somewhere on the middle and end up with
+00:09:05.350 order n you can make this equation
+00:09:07.060 efficient is by actually reducing the
+00:09:09.610 size of these terms of course what you
+00:09:12.790 can then do is think about Galentine
+00:09:16.090 everything that you're actually choosing
+00:09:17.620 a pivot and sending elements to the
+00:09:19.450 smaller and larger side of it if you can
+00:09:21.880 guarantee that the number of elements
+00:09:23.170 you are going for the next level is the
+00:09:25.450 ratio of the current number of elements
+00:09:28.620 then you give me a DVD a time I just
+00:09:31.810 write it down because mathematically
+00:09:33.130 it's easy it explains the first time you
+00:09:35.860 have any bits so that'll be order of
+00:09:39.040 elements and the next thing you want
+00:09:42.760 something like n by r elements so r is a
+00:09:47.020 constant what I'm trying to say is you
+00:09:48.880 take just a ratio of the admits that you
+00:09:51.550 have initially and this n by r then you
+00:09:56.710 take the ratio of these elements which
+00:09:58.420 is n by r square because 1 by r is the
+00:10:01.570 ratio you're working with after that you
+00:10:04.210 take a ratio of these which is n by r
+00:10:05.890 cube and so on to be have this one as
+00:10:09.370 little paintings that's fine this is
+00:10:13.600 equal to actually salamat reprovision so
+00:10:15.940 you can take n in common 1 plus 1 by r
+00:10:18.850 plus 1 by r square plus so on and so
+00:10:21.790 forth till let's say infinity do this
+00:10:25.029 it's easier to solve this so this is
+00:10:27.189 going to be 1 upon 1 minus R into n so
+00:10:32.410 this is a second formula and you see 1
+00:10:35.290 upon 1 minus R is actually constant so
+00:10:37.420 this is for some constant C into n and
+00:10:41.579 order complexity for this is of course
+00:10:44.050 order n so you see that from order n
+00:10:47.379 square the Moot order n by doing what by
+00:10:52.410 imagining hoping praying that we
+00:10:54.550 actually going to bring down then it's
+00:10:56.459 into a ratio of the optional elements
+00:10:58.660 that we had every time that we put up
+00:11:00.550 this this is recursive solution ok so
+00:11:04.720 from this what we want to do is in my on
+00:11:08.319 next time together M by L Square and by
+00:11:12.279 r cube so that algorithm is not going to
+00:11:16.959 change the only thing that we want is a
+00:11:19.660 guarantee that every time we choose a
+00:11:21.189 pivot we at least skipped some elements
+00:11:25.810 we shove elements of N and then move
+00:11:29.589 forward and the next time again maybe
+00:11:31.149 using a pivot we have a more together
+00:11:32.980 than P like that ok so this is what
+00:11:36.220 median of medians does it does not
+00:11:38.319 change the quicksort algorithm it does
+00:11:39.759 not change the the quick select
+00:11:42.250 algorithm which finds the key element in
+00:11:45.250 ordering time all it does is guarantee
+00:11:48.899 that your pivot element skips a constant
+00:11:56.980 number skips a ratio of total number of
+00:12:01.720 edges that you guys now let's have a
+00:12:03.550 look at the median of medians algorithm
+00:12:05.250 we have 30 elements over here and what
+00:12:08.259 we are trying to do now is find one
+00:12:10.509 element which is off from the lowest and
+00:12:14.110 the highest element of this array by a
+00:12:17.019 constant factor by a constant factor of
+00:12:19.540 n ok C is less than 1 of course and what
+00:12:25.269 we are trying to do is we have our ELISA
+00:12:26.559 ratio of elements are they will be stiff
+00:12:28.600 okay that's subspace so let's see how
+00:12:32.680 you want to do that the first thing you
+00:12:35.199 do is take the origin and break it into
+00:12:37.959 chunks
+00:12:38.690 chunks of size five okay five is one
+00:12:43.009 number that you can dig it what's in
+00:12:44.420 seven and nine also but but fiber though
+00:12:47.600 I have prepared the pouf so we are very
+00:12:51.860 used by it and here's the chunk first
+00:12:56.120 chunk is one five three to four the
+00:12:58.639 second chunk is this one I am going to
+00:13:00.500 just go these quickly but what do you
+00:13:03.290 see is that we are breaking this array
+00:13:05.889 into chunks of size five all right
+00:13:10.160 and what we are going to do is we have a
+00:13:11.959 short every Chuck the reason for this is
+00:13:15.379 after you sort every chunk you can just
+00:13:17.060 take the center element which is the
+00:13:18.860 third element and every chunk and call
+00:13:21.560 that the medium of this shock now the
+00:13:24.319 meanings of these chunks are given by
+00:13:25.759 three eight 13 18 23 and 28 so I have
+00:13:29.899 this group of elements which are close
+00:13:31.519 to each other to get the medians easily
+00:13:33.500 but this works on any set of numbers
+00:13:35.259 okay so the first thing you need to do
+00:13:37.970 is of course acknowledge these medians
+00:13:40.790 but then choose one of these to
+00:13:44.000 partition the set so randomly if you
+00:13:47.420 choose all of these medians you could be
+00:13:49.040 choosing somewhere on the belt that's
+00:13:50.269 the expected thing but we are going to
+00:13:51.889 be choosing always the worst medium
+00:13:53.480 which is the leftmost you can also do
+00:13:55.519 the same thing with the rightmost it
+00:13:56.540 symmetrical
+00:13:57.259 okay so let's choose three after you
+00:14:02.389 choose three what guarantee do you have
+00:14:05.740 well here you have a guarantee that
+00:14:07.880 you'll skip at least two elements
+00:14:09.319 because you had an array of size five
+00:14:13.160 you took the median which is at position
+00:14:15.139 three which means at least two elements
+00:14:17.120 are lesser than this ailment okay so at
+00:14:22.850 least one plus one elements is lesser
+00:14:26.660 than that we have right now which we are
+00:14:28.639 partitioning on okay so what we do after
+00:14:32.420 this is we group the first five medians
+00:14:36.740 again so just like we're taking chunks
+00:14:38.660 initially we are not taking a second
+00:14:41.149 chunk on the medians themselves so it's
+00:14:44.750 a recursive procedure I'm going to be
+00:14:47.870 doing the medium of these so minimum
+00:14:49.880 these is going to be 13
+00:14:52.080 right and this is a separate jump in the
+00:14:55.210 video this is for you
+00:14:59.190 what about protein what can you see at
+00:15:02.650 this point in that bottom but you have
+00:15:05.260 skipped at least three plus three plus
+00:15:12.160 12 is and why is that well because from
+00:15:16.870 the first chunk you have beaten the
+00:15:20.560 median okay you're beaten three so three
+00:15:24.430 in itself had beaten two elements so two
+00:15:28.030 plus ones from the second chunk again
+00:15:30.310 you have beaten two elements and the
+00:15:32.860 median so that is two plus one and
+00:15:34.330 finally the median that you are taking
+00:15:36.940 has definitely beaten at least once so
+00:15:39.700 you have 3 plus 3 plus 2 which is 8 so
+00:15:44.320 an additional 3 plus 3 elements have
+00:15:48.100 been beaten have been skilled basically
+00:15:50.730 and understand this this is very
+00:15:52.750 important because this is the basis of
+00:15:55.480 the meeting Sabine's a lot because as
+00:15:58.000 you're going the cursive lee down you
+00:15:59.680 are seeing that the number of elements
+00:16:01.690 you're skipping is increasing step by
+00:16:04.390 step okay and now you have these two
+00:16:09.520 medians 3948 if you take a chunk of
+00:16:12.520 39:20 if you come with 13 as the median
+00:16:15.580 because we are going to be assuming that
+00:16:18.900 this median to take in an even size that
+00:16:21.760 it you take the lower at x1 so 13 is
+00:16:25.180 already was already being used so no
+00:16:28.870 more elements will escape and total
+00:16:30.970 number of elements are still busy in
+00:16:32.290 this example what do you see that in the
+00:16:35.350 general case what's going to happen is
+00:16:37.950 1+1 will be skipped in the first level
+00:16:40.600 at least three bus will be skipped in a
+00:16:43.660 second level again and then what happens
+00:16:46.270 is you scale 13 plus 13 elements okay
+00:16:55.180 why is that well because the novel
+00:16:58.630 elements you're actually skipping is the
+00:17:01.210 size of the chunk size we chunk
+00:17:04.000 / -
+00:17:05.650 your median is somewhere in the middle
+00:17:07.140 plus one because you're skipping that
+00:17:09.609 median in to do so these are the
+00:17:12.400 additional number of elements you're
+00:17:14.349 skipping per level this intro to is
+00:17:17.800 because we are doing this addition of
+00:17:19.420 the two exact same terms okay so
+00:17:23.339 essentially what you have is the total
+00:17:25.569 or the elements are skipping is the
+00:17:27.760 summation of this when X goes from so
+00:17:32.200 fire is to call zero is 1 1 by 2 integer
+00:17:35.830 division gives you 0 plus 1 gives you 1
+00:17:38.050 and that's what the first level is so
+00:17:40.540 this should be X equal to 0 this is X
+00:17:43.540 equal to 1 this is X equal to 2 and so X
+00:17:47.320 goes from 0 to what number well it goes
+00:17:51.880 to some number Y let's try to find out
+00:17:54.400 what Y is so if we can find y we can
+00:17:58.450 find what the sum of this equation is so
+00:18:01.230 fir see what is the maximum size that
+00:18:04.210 these terms will get to at the maximum
+00:18:07.780 size 5 chunks will be equal to the size
+00:18:11.350 of the array equal to or greater than
+00:18:13.000 basically because combining a 5 of these
+00:18:15.880 chunks that's the only time when you're
+00:18:17.590 skipping these many elements right so 5
+00:18:21.670 times the size of the largest chunk by
+00:18:25.780 this power Y should be theta or equal to
+00:18:29.830 n which gives us 5 is 2 pi is greater
+00:18:35.170 than or equal to n by 5 which gives us Y
+00:18:40.270 is greater than or equal to log of N by
+00:18:45.340 5 base 5
+00:18:47.500 ok these are I'm keeping this constant
+00:18:49.390 back to 5 instead of just putting in the
+00:18:52.420 log as minus 1 is going to be happen to
+00:18:54.640 swim so this term this is in fact the
+00:18:59.950 equation that we need to solve so let's
+00:19:02.170 do that
+00:19:04.470 look at this sum plus 1 it doesn't
+00:19:09.460 really add much to the Sun because it's
+00:19:12.250 a constant it's going from X to Y so
+00:19:14.830 essentially it's sum is going to be Y
+00:19:18.020 you have summation of X equal to 0 to y
+00:19:22.390 2 into 5 is 4 X by 2 so for simplicity
+00:19:27.560 I'll just remove these constants 2 by 5
+00:19:31.700 is 4 X by 2 it's in degeneration but for
+00:19:34.460 simplicity we are the moving that
+00:19:37.060 multiplication division okay and plus y
+00:19:39.620 here it's a factor of log so this is
+00:19:43.130 order log in it's a very small factor of
+00:19:47.180 compared to this one so we will include
+00:19:48.890 this also okay so the simplified
+00:19:52.130 equation is that you need to some powers
+00:19:55.190 of 5 from 0 to Y so what does that give
+00:20:01.670 us this is our geometry progression
+00:20:04.700 again from 0 to Y so all we find is this
+00:20:09.260 is Phi by 4 into the largest term that
+00:20:12.320 contains this is 5 used to power Y from
+00:20:15.950 0 to Y so that's reason why you have
+00:20:18.380 this son what is where this can be
+00:20:24.050 simplified to 5 is super y is PI raised
+00:20:30.020 to power log of 5 n by 5 mi 5 base 5 and
+00:20:39.400 so you see PI this to power something
+00:20:42.830 with the base 5 is going to be the term
+00:20:44.720 itself so what we are getting here is 5
+00:20:50.290 into 4 by 4 into L by 5 I cancel each
+00:20:57.080 other out and we have n by 4 now it's
+00:21:04.670 not exactly equal it's in fact greater
+00:21:07.640 than or equal to n by 4 these are the
+00:21:10.370 number of elements are sitting at the
+00:21:11.750 very least but the thing is this number
+00:21:17.660 n by 4 is actually a ratio of N and we
+00:21:21.830 just said that if it is the ratio of n
+00:21:23.600 then you can guarantee order and
+00:21:25.520 complexity of finding the median once
+00:21:29.750 you have a pivot
+00:21:31.430 skipping a be shovin elements you can
+00:21:33.950 gather you can you can get indeed this
+00:21:35.840 order this complexity to find the median
+00:21:38.000 itself
+00:21:38.720 okay so that's what the medium medium
+00:21:40.880 algorithm just did it just skipped a
+00:21:43.640 ratio of n elements so finally let's
+00:21:46.370 find the overall time complexity
+00:21:47.540 requirement you're taking the adding and
+00:21:50.690 bringing it into chunks of size 5 and
+00:21:52.610 sorting each one so assume that the
+00:21:57.020 tomorrow time you're requiring is 5
+00:21:58.280 square because you're doing insertion
+00:21:59.900 sort so 25 operations or proximities
+00:22:02.500 into any chunk you're finding the median
+00:22:06.950 which is order 1 if you have a sorted
+00:22:09.470 array you just take the middle element
+00:22:10.580 ok so that's not taking any time that's
+00:22:12.950 1 into anything else no after this what
+00:22:18.679 you're doing is you're taking all of
+00:22:22.070 those medians and choosing one of them
+00:22:24.670 so that is again random so that's also
+00:22:27.860 going to be order one so I just write it
+00:22:31.190 down
+00:22:32.140 choosing the median finding the median
+00:22:42.370 sorting I all right ok so these three
+00:22:47.330 factors are taken into consideration
+00:22:48.200 this nothing else very that you are
+00:22:51.230 doing each of these chunks is weighted
+00:22:54.440 by 5 square time so the number of chunks
+00:22:57.320 that you have actually is n by 5 so
+00:23:01.670 these are number of chunks ok well this
+00:23:11.540 is pretty simple to calculate actually
+00:23:12.770 this is just 5 in the first time you do
+00:23:16.550 this the second thing you do this the
+00:23:19.100 size of n has reduced by 5 so it is
+00:23:22.400 going to be n by 25 into v square the
+00:23:27.410 third time you do this it's gonna be v
+00:23:28.700 square into n by 125 and so on and so
+00:23:31.880 forth so what's gonna happen is this is
+00:23:34.370 going to do again see this sum that's
+00:23:36.500 going to be 5 5 and 10 be taken in
+00:23:39.290 common and what you have is 1 plus
+00:23:42.460 1 by 5 plus 1 by 25 automated
+00:23:46.810 progression with some 5 n into 5 by 4
+00:23:52.500 which is 25 by 4 n which in turn is
+00:23:58.020 order M so the median of medians is
+00:24:02.200 taking you order n time complexity pearl
+00:24:05.010 or pivot that you're finding but that's
+00:24:09.160 perfectly fine because like we said
+00:24:10.870 every level when we were breaking the
+00:24:15.370 valley into two parts when we were
+00:24:17.470 finding smaller and larger bits for
+00:24:18.970 particular pill beaver taking order n
+00:24:20.950 time in email so if you had order in
+00:24:23.470 time to this process it's still ordering
+00:24:26.970 so what's happened is now the time
+00:24:29.830 complexities have changed the only thing
+00:24:31.990 we have got now is a guarantee even in
+00:24:34.540 the worst case that you will have an
+00:24:37.980 overall order n selection algorithm okay
+00:24:44.110 and if you're confused you can go back
+00:24:45.670 to the start of this video and find out
+00:24:47.280 why it was expected or drink but not
+00:24:50.350 worst case order them now because of the
+00:24:53.020 median of medians not adding any
+00:24:54.820 additional time per level you can
+00:24:57.580 guarantee that this is an order in
+00:24:59.530 selection algorithm so to be honest this
+00:25:03.040 kind of algorithm is useful in a
+00:25:05.650 theoretical sense but practically the
+00:25:07.060 probability of you getting this n square
+00:25:09.580 scenario of just one element the largest
+00:25:12.070 or smallest this is very low it's
+00:25:14.020 exponentially Bo actually the reason I
+00:25:16.540 picked this up is because we should have
+00:25:20.050 a deep understanding before we start off
+00:25:21.520 with wavy trees about medians and about
+00:25:23.860 how elements can be found the K at
+00:25:25.960 largest element can be found in an
+00:25:27.190 efficient team okay so this is the
+00:25:31.420 foundation for where the trees if you
+00:25:33.880 have any doubts of solutions of course
+00:25:35.080 please leave in the comments below
+00:25:36.310 next up is Paiva trees so stay tuned for
+00:25:39.910 that until next time

@@ -1,0 +1,267 @@
+# 2.2 Masters Theorem Decreasing Function
+
+# https://www.youtube.com/watch/CyknhZbfMqc
+
+
+
+00:00:00.500 no masters theorem for decreasing
+
+00:00:03.090 functions already we have solved some
+
+00:00:07.040 decreasing functions in previous videos
+
+00:00:09.870 you can watch them from video 1 to 4 we
+
+00:00:13.920 have seen so from that only I take the
+
+00:00:17.940 example then an explained you mastered
+
+00:00:19.650 here see we have already seen that T and
+
+00:00:26.750 is equals 2t n minus 1 plus 1 was order
+
+00:00:33.450 of n TN is equals to T n minus 1 plus n
+
+00:00:40.070 was order of n Square t n is equals to T
+
+00:00:46.079 n minus 1 plus log n was order off and
+
+00:00:51.890 the log n these were the answers we got
+
+00:00:58.309 then also we have seen this one TN is
+
+00:01:03.149 equals to 2 e n minus 1 plus 1 we got
+
+00:01:08.369 dancer as 2 power n we have seen this
+
+00:01:13.560 one now it means T n is equals to 3 T n
+
+00:01:21.150 minus 1 plus 1 will be order of 3 power
+
+00:01:25.530 n yes - and if we have T n is equals to
+
+00:01:33.420 2 T n minus 1 same and this 1 plus n if
+
+00:01:38.790 I take then this will be order of n 2
+
+00:01:42.899 part like here every time and whatever
+
+00:01:47.460 we have that was getting multiplied by n
+
+00:01:49.680 now here whatever you have that will be
+
+00:01:52.049 multiplied by 2 power n because 2 is
+
+00:01:54.090 their coefficient is there now your
+
+00:01:57.780 observation is more important I have
+
+00:01:59.430 written some recurrence relation and
+
+00:02:00.960 their answers so thus you can pause and
+
+00:02:04.619 watch this one you observe and spend
+
+00:02:06.960 time on this one
+
+00:02:07.920 now from this observation now I will
+
+00:02:11.760 define the general form of these
+
+00:02:13.680 recurrence relation let us say the
+
+00:02:15.660 recurrence relation is of the form T n
+
+00:02:18.150 is equals to some coefficient is there
+
+00:02:20.940 so let us say it is a T and minus some
+
+00:02:24.900 time one some time to whatever we want
+
+00:02:27.150 we can subtract so let us say B is
+
+00:02:28.800 subtracted plus here we are getting some
+
+00:02:32.010 value as I have already discussed that
+
+00:02:34.320 this we take it as a theta or we go we
+
+00:02:38.459 take asymptotic value here so let us
+
+00:02:40.860 call that as f of n so we say this is
+
+00:02:46.050 the general form of recurrence relation
+
+00:02:48.860 this is the general form of recurrence
+
+00:02:51.269 relation in this we assume that a is
+
+00:02:54.540 greater than 0 and B is also greater
+
+00:02:58.260 than 0 and we say that f of n is in the
+
+00:03:03.959 form of order of n power K where K is
+
+00:03:10.890 greater than or equal to 0 we assume
+
+00:03:14.940 that all these are this is greater than
+
+00:03:17.370 0 this is also great of a and B they are
+
+00:03:19.320 greater than 0 if it is 0 then it is
+
+00:03:22.140 most of subtraction is there right
+
+00:03:24.420 and this also 0 if it is 0 then
+
+00:03:27.000 everything is 0 now let us observe in
+
+00:03:30.390 here now here we get some cases here a
+
+00:03:33.810 value is 1 a value is 1 so if a is
+
+00:03:40.470 equals to 1 then what is the answer we
+
+00:03:43.320 are getting whatever is there at F of n
+
+00:03:45.840 this one is getting multiplied but and
+
+00:03:48.739 whatever is there here that is getting
+
+00:03:51.269 multiplied by n so whatever F of n is it
+
+00:03:54.540 is multiplied by n right so we say that
+
+00:03:58.170 F often is in the form of N power K so
+
+00:04:01.650 we say it is all wrong and power k plus
+
+00:04:05.130 1 so if it is an power K then into N
+
+00:04:09.180 again into one more n again so n power K
+
+00:04:13.859 plus 1 so that's it
+
+00:04:17.329 other words I can also say that this is
+
+00:04:19.728 multiplied by n into F for friend in
+
+00:04:24.470 other words this is one way of saying
+
+00:04:27.979 that otherwise whatever the F of n is
+
+00:04:29.810 see this is log in and log in this is n
+
+00:04:33.259 n into n n square this is 1 1 into n so
+
+00:04:37.370 whatever the function here we have that
+
+00:04:39.889 is multiplied by n so n into F of N or
+
+00:04:44.960 in other words if you say F of n is n
+
+00:04:47.240 power K so you can say n power k plus 1
+
+00:04:51.520 so this is simple for understanding next
+
+00:04:57.669 we have seen one more thing here a is
+
+00:05:00.979 greater than 1 2 3 whatever it is so if
+
+00:05:05.690 is greater than 1 then what see this to
+
+00:05:11.690 boren and this is 3 power N and in this
+
+00:05:15.110 one this was there so this is multiplied
+
+00:05:17.779 by 2 power n so whatever is power n so
+
+00:05:22.250 this will be a part and and whatever F
+
+00:05:28.069 of n s that is multiplied so I can say F
+
+00:05:31.370 of n is what n power K so n power K into
+
+00:05:35.270 a power N and here in this example we
+
+00:05:40.370 have taken n minus 1 only it is n minus
+
+00:05:42.650 2 n minus 3 if you are subtracting some
+
+00:05:45.860 greater value other than 1 then this
+
+00:05:48.830 will be n by B if it is true then n by 2
+
+00:05:54.919 a power n by 2 it means here a right if
+
+00:05:58.849 this is 2 then this will be 2 power n by
+
+00:06:02.839 2 so here I have 2 cases 1 more case I
+
+00:06:08.659 will write what if a is less than 1
+
+00:06:12.259 means it is not 1 it is 0.5 or 0.75
+
+00:06:15.620 something then what is the answer it is
+
+00:06:19.460 same as n power K same as n power K so
+
+00:06:25.520 even I can say it is just F of N
+
+00:06:29.729 so here we have three cases case 1 2 3
+
+00:06:37.060 this is masters here I have explained
+
+00:06:41.770 from the examples already we solve this
+
+00:06:44.199 so by putting these here we have
+
+00:06:46.780 observed and written the theorem
+
+00:06:49.080 otherwise first you can write the
+
+00:06:51.069 theorem and take the examples following
+
+00:06:53.949 that theorem you can write dancers once
+
+00:07:00.219 again if a is less than 1 same as a for
+
+00:07:03.759 fan and we are saying if n is for
+
+00:07:05.860 fairness and power K let it be in part a
+
+00:07:08.500 if a is 1 and for K plus 1 means n into
+
+00:07:13.300 F of n and if a is greater than 1 then F
+
+00:07:19.419 often into a poor and by B also we can
+
+00:07:23.889 say whatever a for fairness into a poor
+
+00:07:28.270 and by B either this or this anyone look
+
+00:07:32.620 at it now by following this master
+
+00:07:35.770 theorem you can solve any recurrence
+
+00:07:38.800 relation which is in this form that is a
+
+00:07:41.650 decreasing form this form you have to
+
+00:07:46.000 spend some time on this one this is
+
+00:07:48.430 there is no logic behind this one so
+
+00:07:51.069 just we have to observe this and do some
+
+00:07:54.400 work by yourself spend some time on it
+
+00:07:57.279 solve these by yourself then you can
+
+00:08:00.219 remember them you at least spend some
+
+00:08:02.710 time at least one time you write it then
+
+00:08:04.479 there are chances that you remember just
+
+00:08:06.430 by watching you cannot remember this one

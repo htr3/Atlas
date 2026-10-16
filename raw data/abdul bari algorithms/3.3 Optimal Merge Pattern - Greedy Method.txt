@@ -1,0 +1,349 @@
+# 3.3 Optimal Merge Pattern - Greedy Method
+
+# https://www.youtube.com/watch/HHIc5JZyenI
+
+
+
+00:00:00.030 the problem is optimal Mercia pattern
+
+00:00:05.299 again this problem can be solved using
+
+00:00:07.560 greedy method and if we know how to
+
+00:00:10.110 solve this problem we can also
+
+00:00:12.090 understand Huffman coding so let us talk
+
+00:00:15.809 about this one before knowing what is
+
+00:00:18.119 the optimal most pattern first of all we
+
+00:00:19.890 should understand merging let us quickly
+
+00:00:22.470 understand merging see if I have a list
+
+00:00:25.260 a and B with some set of elements if I
+
+00:00:30.210 have two sorted lists then I have to
+
+00:00:32.668 combine them and get a third sorted list
+
+00:00:36.920 two sorted lists are there I have to
+
+00:00:39.930 combine them so the process simple what
+
+00:00:42.450 we do is we compare the first element of
+
+00:00:44.520 each whichever is smaller we write on
+
+00:00:46.469 that and then we will move to the next
+
+00:00:48.270 element and compare these two and five
+
+00:00:50.789 is smaller we write that 8 is a smaller
+
+00:00:55.879 9 is a smaller 11 then 2 L is a smaller
+
+00:01:03.019 than 16 then 20 so quickly I have shown
+
+00:01:08.909 you the elements are compared one by one
+
+00:01:10.950 right so one one element from each side
+
+00:01:13.830 is compared whichever is smaller that is
+
+00:01:15.240 written here and we get a single sorted
+
+00:01:18.450 list
+
+00:01:18.780 so merging can be done only on sorted
+
+00:01:21.780 list how much time it has taken for
+
+00:01:24.210 merging if I say this is M and this is n
+
+00:01:27.689 then the total time is M plus n if we
+
+00:01:32.549 count in terms of elements four elements
+
+00:01:34.829 four elements and how many I got eight
+
+00:01:37.710 elements so the total time taken depends
+
+00:01:41.369 on the size of the list now let us
+
+00:01:44.220 extend the problem what happens if I
+
+00:01:47.280 have more than two lists let us look at
+
+00:01:51.570 it now here I have four lists given and
+
+00:01:55.020 they resizer sorry given I have not
+
+00:01:57.299 taken the elements I am saying that this
+
+00:01:59.369 list is having 6 elements and just
+
+00:02:01.170 having 5 elements and so on I have to
+
+00:02:03.210 merge these four lists I can merge them
+
+00:02:05.520 together also but that will be called as
+
+00:02:07.530 for emerging
+
+00:02:08.750 anyway munching no I want to follow to
+
+00:02:11.150 emerging so at a time I want to merge
+
+00:02:13.190 only two lists so let us see how merging
+
+00:02:16.250 can be done I take the list six five two
+
+00:02:22.010 three and once these two first so the
+
+00:02:25.130 new lists what I get will be having 11
+
+00:02:27.110 elements now this one with this one so
+
+00:02:29.360 11 plus 2 I will be having 13 elements
+
+00:02:32.330 in this list then 13 and 3 I'll be
+
+00:02:35.180 having 16 elements so final list all
+
+00:02:37.730 together combined will be giving a 16
+
+00:02:40.910 element list now you can see that at a
+
+00:02:43.280 time I am merging two lists but what is
+
+00:02:46.130 the total time span in marching total
+
+00:02:48.410 cost see first I have moist 11 elements
+
+00:02:50.750 so this is 11 plus then I have 11 verse
+
+00:02:54.709 11 plus 2 so 13 elements then 16 so I
+
+00:02:58.670 did not get the 16 element at once it
+
+00:03:00.950 was in stages so total amount of merging
+
+00:03:04.160 done is this one so this is how much 40
+
+00:03:11.350 now is there any other way I can mosh
+
+00:03:14.510 let us try a b c and d so this is 6 4 2
+
+00:03:22.340 3 I'm going these 2 11 I'll merge these
+
+00:03:28.519 2 5 then I merge these 2 16 yeah I have
+
+00:03:33.800 selected a different pair every time so
+
+00:03:35.900 what's the answer
+
+00:03:36.620 total cost is how much 11 plus 5 plus 16
+
+00:03:43.660 total cost is 32 is there any other way
+
+00:03:47.450 let me try there may be many
+
+00:03:49.700 possibilities of merging but I'll try
+
+00:03:52.640 one more
+
+00:03:59.629 murmurs from that site first I'll merge
+
+00:04:02.540 these two so I got five then they merge
+
+00:04:05.749 these two ten then I merge these two
+
+00:04:09.200 sixteen so total cost is how much 16
+
+00:04:12.620 plus 10 plus five
+
+00:04:16.209 20:31 oh I'm getting still less than
+
+00:04:20.180 that so is there any other method by
+
+00:04:24.050 which I can get less than 31 I don't
+
+00:04:26.810 think so see if you see the different
+
+00:04:29.120 patterns these are the patterns one
+
+00:04:31.340 pattern second and third pattern out of
+
+00:04:33.500 these three patterns and this one I am
+
+00:04:35.990 always selecting to smaller lists for
+
+00:04:38.870 merging that's why I got the minimum
+
+00:04:42.259 result so now from this observation we
+
+00:04:45.800 can say that the greedy method that we
+
+00:04:48.919 should follow is always we should merge
+
+00:04:51.530 a pair of small size lists to get the
+
+00:04:55.669 best result yes
+
+00:04:57.889 so we have the greedy method now we got
+
+00:05:00.410 the approach for solving this problem we
+
+00:05:02.960 understood that always you select two
+
+00:05:05.000 small size lists combine them then total
+
+00:05:08.419 merging time will be reduced if you
+
+00:05:10.520 follow like this then the time was 40
+
+00:05:12.349 and this was 32 and there is 31 so that
+
+00:05:14.960 is best one all right so we'll take one
+
+00:05:18.229 problem and solve that one here is an
+
+00:05:21.440 example problem for optimal merge
+
+00:05:24.080 pattern I have a five files X 1 X 2 X 3
+
+00:05:29.030 2 X 5 our files file names and these are
+
+00:05:32.449 the sizes the number of elements in each
+
+00:05:35.330 file now we will follow greedy approach
+
+00:05:38.360 for solving this one we have to find out
+
+00:05:41.659 a pattern in which the total cost of
+
+00:05:44.240 merging is minimized so let us follow
+
+00:05:48.320 greedy method greedy method says that
+
+00:05:50.690 you should always select a smaller pair
+
+00:05:53.300 of files for merging so they are not
+
+00:05:56.270 arranged in the increasing order of the
+
+00:05:58.250 sizes I will take them in increasing
+
+00:05:59.840 order of their sizes I have taken those
+
+00:06:05.240 files in the increasing order of their
+
+00:06:07.580 sizes now let us follow up
+
+00:06:10.930 pattern so we should select a smaller
+
+00:06:13.910 pair of files and merge them 5 and 10 so
+
+00:06:18.380 I'll merge these two I'll get a new file
+
+00:06:20.660 of size 15 then what are the files I
+
+00:06:25.040 have I have a new file of size 15 20 30
+
+00:06:29.570 30 now which one is a smaller I should
+
+00:06:32.720 select the pair 15 and 20
+
+00:06:35.030 these two are smaller so I should select
+
+00:06:36.980 these two and merge them so this is 35
+
+00:06:44.110 15 plus 20 35 so after merging these two
+
+00:06:48.170 I will be getting 35 elements here now
+
+00:06:51.230 what are the lists I have 35 30 30 so I
+
+00:06:54.290 should select a pair of minimum size
+
+00:06:57.170 list or least size list these two merge
+
+00:07:02.090 these two it is 60 nautical s remaining
+
+00:07:07.630 35 and 60 combine these two and form a
+
+00:07:12.920 list that is 95 now let us find out what
+
+00:07:17.240 is the total cost of merging see first
+
+00:07:20.390 these two files are much that cost was
+
+00:07:22.430 15 and when these are merged 35 so I
+
+00:07:24.740 should take the sizes in these circular
+
+00:07:27.770 nodes so the sizes are 15 + 35 + 95 + 60
+
+00:07:37.190 this - not 5 so the total cost of
+
+00:07:43.400 merging these files by following a
+
+00:07:45.940 optimal pattern yes - not 5 I have added
+
+00:07:50.780 all these internal nodes and I got that
+
+00:07:52.580 society even what I can do is how I can
+
+00:07:55.970 know the cost is this 5 how many times
+
+00:07:58.820 it is merged one time two time three
+
+00:08:01.400 time so the number of time it is merged
+
+00:08:04.100 with the file size depends on the
+
+00:08:06.080 distance so let us call this as a
+
+00:08:08.330 distance so distance is how much 1 2 3
+
+00:08:11.890 so 3 times what 5 + 1 2 3 3 times 10
+
+00:08:19.500 three times 10 plus 1 to 2 times 20 plus
+
+00:08:27.830 1 to 2 times 30 plus 1 2 so 2 times 30
+
+00:08:38.390 so I have taken their distances and
+
+00:08:40.919 their sizes even this total will also be
+
+00:08:44.250 do not find if you multiply and add all
+
+00:08:47.610 these things it will be 2 not 5 so how I
+
+00:08:50.910 can know the total cost of merging
+
+00:08:52.560 either by adding the sizes of internal
+
+00:08:55.410 nodes or these nodes external nodes I
+
+00:08:58.650 can say external nodes with the
+
+00:09:00.420 distances so here I can say itself like
+
+00:09:03.690 a formula distance of each node di with
+
+00:09:08.310 the size of each node X I so so this
+
+00:09:13.680 gives the total cost of merging for all
+
+00:09:16.470 these files by using optimal match
+
+00:09:19.110 pattern that's all about optimal mashed
+
+00:09:22.260 pattern the problem is very simple but
+
+00:09:25.050 this is used by Huffman coding so the
+
+00:09:28.740 next video will be about Huffman coding

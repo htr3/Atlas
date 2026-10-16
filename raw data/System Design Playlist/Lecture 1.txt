@@ -1,0 +1,168 @@
+# tactiq.io free youtube transcript
+# System Design Primer ⭐️: How to start with distributed systems?
+# https://www.youtube.com/watch/SqcXvc3ZmRU
+
+00:00:00.120  Hey everyone, todaywe'd be talking. I'm sorry.
+00:00:03.081 Is it fine if I record a video? No,no problem. Oh, thank you so much.
+00:00:06.280 .
+00:00:17.710 Usually when you're building asystem and engineering system,
+00:00:19.841 there's actually some sortof background behind it.
+00:00:21.650 We'll be taking a real worldexample of opening a restaurant.
+00:00:24.610 Let's see how that happens.
+00:00:30.970 Let's take an example of a pizzaparlo and we have just one chef.
+00:00:35.170 There comes a point though that one chefcannot handle all the orders that all
+00:00:39.321 the new customers are bringing in.
+00:00:44.500 If you think like a manager,
+00:00:45.580 the first thing that you're going to dois ask the chef to work harder and you
+00:00:49.001 can pay them more, put in moremoney. They give you more output.
+00:00:52.100 You want to optimize processesand increase throughput
+00:00:56.810 using the same resource. When youthink of the chef as a computer,
+00:01:00.460 and put this in technical terms,it's called vertical scaling.
+00:01:04.680 Speaking of optimizing processes,you can do some things beforehand.
+00:01:07.709 When you get a order, you don't needto actually make the pizza paste.
+00:01:10.470 That can be pre-made preparingbeforehand at non-peak hours.
+00:01:15.540 The reason you want to do this atnon-peak hours is because you don't want a
+00:01:18.841 regular order to come in and yourchef being busy making the pizza basis
+00:01:23.790 somewhere around 4:00 AM in the nightis really good because you surely won't
+00:01:27.320 have any pizza orders that time.Now that the system is set up,
+00:01:30.450 let's make it resilient.
+00:01:33.209 Let's say that the chef callssick one day. At this point,
+00:01:36.241 your business is in trouble becausethere won't be any business that day.
+00:01:39.161 This person is a single point of failure.
+00:01:41.970 So what you can do then is hire a backupchef in case the chef doesn't come.
+00:01:46.370 You employ them for that day only andyou pay them. Of course, in this case,
+00:01:51.041 the chance of you losing out on businessis really low because you have not just
+00:01:55.361 one chef, but also the backup.
+00:01:56.750 Keep backups and avoidsingle points of failure for
+00:02:01.920 computers. It's something like a masterslave architecture, the master chef,
+00:02:05.380 and you have a slave chef, which is alittle lot to say. So that's what we need.
+00:02:09.419 Now, if your businesskeeps growing every time,
+00:02:11.150 then you better make that backupchef a full-time chef. In fact,
+00:02:14.201 hire more chefs. Let'ssay instead of one chef,
+00:02:16.161 you have now 10 chefs and a fewin backup. Also, just in case,
+00:02:20.830 hire more resources, whichmaps to horizontal scaling.
+00:02:26.260 Horizontal scaling is buying moremachines of similar types to get more work
+00:02:30.970 done.
+00:02:34.820 Let's say we have three of our chefsover here, one, two, and three.
+00:02:37.320 They have some specialties.Here's a question.
+00:02:41.639 You have chefs one and three who areexperts at making pizzas and chef two's
+00:02:45.701 expertise is garlic bread. If youhave two types of incoming orders,
+00:02:48.661 which is pea and garlic bread,how would you route them?
+00:02:55.490 What you can do is randomly assign theorders. So if you have garlic bread,
+00:02:58.341 it can go to chef, to chef one, youcan take pizza and send it to chef two,
+00:03:01.780 but this is not the most efficientway to use your employees.
+00:03:04.419 You can build on their strengths androute all garlic bread orders to chef two
+00:03:09.660 and all pizza ordersto chef one and three.
+00:03:11.990 This makes the system a little simplerbecause anytime you need to make a change
+00:03:14.761 in the recipe for garlic bread,you just need to notify chef Two,
+00:03:18.480 anytime you need the statusof any order on garlic bread,
+00:03:21.150 chef two is the person you ask.You can actually make a team
+00:03:25.139 like a team of chefs over here whoare specialists in garlic bread.
+00:03:28.520 Maybe you just need three chefs over herefor garlic bread because the number of
+00:03:31.871 orders is going to be alittle less. So for pizzas,
+00:03:33.751 you need the remaining seven chefsdistributed enter team of three and four.
+00:03:37.220 They're good at making pizzas andthey're getting all the pizza orders.
+00:03:40.060 What you're doing is you're scaling thisteam at a different rate compared to
+00:03:42.871 these two teams and alsodividing responsibilities.
+00:03:46.730 So we have something calleda microservice architecture.
+00:03:50.690 You have all your responsibilitieswell-defined over here.
+00:03:53.300 There's nothing outside yourbusiness use case that you handle,
+00:03:56.210 so that is point numberfive. At this point,
+00:03:58.631 a pizza shop is actually doing reallywell because it's able to handle all
+00:04:01.431 orders within time,
+00:04:02.570 and it also has specialists foreverything which you can scale easily.
+00:04:05.300 This business is scalableto a large extent,
+00:04:08.050 but what if there is an electricityoutage in this pizza shop?
+00:04:12.730 You won't have business that day. Whatif you lose your license for a day?
+00:04:16.529 You won't have business that day.
+00:04:18.089 So what you want to do is youwant to distribute. I mean,
+00:04:21.111 you don't wanna put all your eggs inone basket, not not even in one shop.
+00:04:24.529 You wanna buy a separateshop in a different place,
+00:04:26.911 which can also deliver pizzas.Maybe it takes more time.
+00:04:29.480 Maybe the number of chefs there islesser, but at least you have a backup.
+00:04:33.970 So we take backup to a differentlevel O here and open a new shop.
+00:04:39.029 This is probably the biggest step wherewe introduce a lot of complexity to the
+00:04:42.521 system because there sometimes needs tobe communication between these shops.
+00:04:46.540 You need to be able toroute your requests. I mean,
+00:04:49.840 you get a request for a pizza.You need to be able to tell that,
+00:04:52.481 should I order it to this orshould I send the order over here?
+00:04:55.360 A distributed system.
+00:04:58.010 And one very clear advantage that we canhave here is that any orders which are
+00:05:01.431 very close to this, which are local toits range, can be served by this shop
+00:05:06.810 in a large scale distributedsystem. Let's say Facebook,
+00:05:08.730 you get requests from all around theworld to give quick response times.
+00:05:12.490 You need some sort of local serverseverywhere, and that's what we are doing.
+00:05:15.471 We are distributing our system so thatit's more fault tolerant and also gives
+00:05:19.791 quicker response times. Let's say youhave the old shops pizza shop one and two,
+00:05:23.450 and you have delivery agentsand you have customers.
+00:05:26.400 Every time a customer makes a request,
+00:05:28.460 they need to either send it to one or two,
+00:05:31.690 but the customer is not going tobe taking that responsibility.
+00:05:34.250 So you want to send it to somebody else,
+00:05:36.440 maybe a central placewhich just routes requests,
+00:05:40.890 and you don't just want tosend these requests randomly.
+00:05:44.050 You have a very clear parameter.
+00:05:46.410 How much time does it take for thecustomer to get the pizza? That's it.
+00:05:50.431 That's your parameter. If yousend it to pizza shop one,
+00:05:53.450 it's a really popular shop.
+00:05:54.710 Maybe it takes one hour for it to waitin queue plus five minutes to make
+00:06:01.060 plus 10 minutes to deliver fromPSS one to the customer. Over here,
+00:06:05.911 pizza Shop two has areally short wait time.
+00:06:09.750 The total time required hereis one hour five minutes,
+00:06:11.371 which is less than the one hour15 minutes required over here.
+00:06:13.630 So the central authority shouldactually send it over here. So,
+00:06:16.611 and as long as it'sgetting real time updates,
+00:06:18.790 it can make intelligent businessdecisions, which means more money.
+00:06:22.360 This thing that route requests in asmart way is called a load balancer,
+00:06:26.630 and you can assume why thesystem is now fault tolerant,
+00:06:30.310 but how do you make it flexible to change?
+00:06:35.160 At this point,
+00:06:35.621 you can almost tell that the deliveryagent and the pizza shop have nothing in
+00:06:38.301 common. I mean, it could be a pizza shop,
+00:06:40.541 it could be a burger shopfor the delivery agent.
+00:06:42.340 They just want to deliver their goodsas quickly as possible to the customer.
+00:06:47.120 And similarly,
+00:06:47.780 the pizza shop doesn't care whetherit's a delivery agent or the customer
+00:06:50.261 themselves who come and pick it up.
+00:06:52.200 So we are seeing some sort ofseparation of responsibilities.
+00:06:55.610 Instead of having the same managersmanaging the pizza shop and the delivery
+00:06:58.941 agents, you want to separate that out.It's called decoupling the system,
+00:07:03.600 separating out concernsso that you can handle
+00:07:07.860 separate systems more efficiently.
+00:07:10.900 Let's say pizza shop one has a faultyoven, their churning rate goes down.
+00:07:16.110 If you have a faulty bike,
+00:07:17.131 maybe that particular delivery agent'sorder times increase. So at this point,
+00:07:21.371 what you want is youwant to log everything.
+00:07:23.611 You want to see at what time somethinghappened and what is the next event,
+00:07:26.531 and so on and so forth. And alsoyou want to be taking those events,
+00:07:29.531 condensing them, finding sense outof those events. So that's metrics.
+00:07:36.360 The final and most important pointis to keep your system extensible.
+00:07:39.440 As a backend engineer.
+00:07:40.360 You don't want to rewrite all thiscode again and again to serve a
+00:07:45.341 different purpose. For example,
+00:07:46.970 this delivery agent doesn't need toknow that they're delivering a pizza.
+00:07:50.440 It can be a burger tomorrow. Andif you think about Amazon earlier,
+00:07:53.701 they used to deliver only parcels.
+00:07:55.280 And the reason why you can scale outyour business is because you want to
+00:07:58.261 decouple everything to make surethat your system is extensible.
+00:08:02.610 What we have done istaken a business scenario,
+00:08:04.840 try to find solutions to all theproblems that it came up with,
+00:08:07.480 and then just map them into technicalterms. Now, if you think of these,
+00:08:10.780 they are solutions in themselves forthe technical counterparts of these
+00:08:15.081 problems. Finally, we have managed toscale our restaurant at a high level.
+00:08:18.540 We can now define what kind of problemswe face and how we'll be solving them.
+00:08:22.830 This is known as high level design.There's a counterpart to this,
+00:08:26.441 which is called low level design.Let's briefly talk about that,
+00:08:30.140 the difference between high level systemdesign and low level system design.
+00:08:32.721 So high level is what we talkabout on this channel. You know,
+00:08:35.390 deploying on servers figuring out howtwo systems will be interacting with each
+00:08:39.160 other.
+00:08:40.159 Lowell system design has a lot more todo with how you're actually going to code
+00:08:43.110 this stuff, like making classes, makingobjects, the functions, the signatures,
+00:08:47.890 these things are pretty importantif you are a senior engineer.
+00:08:50.980 And even if you're not, if you wantto go to the senior engineering level,
+00:08:54.420 you need to know about how do youwrite efficient and clean code,
+00:08:58.980 the load band.
+00:08:59.800 So microservice architecture and afew other videos are there in the
+00:09:02.161 description. And if you wantnotifications for the future videos,
+00:09:04.620 you can hit the subscribe button.Until next time, then I'll see you.

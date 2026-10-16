@@ -1,0 +1,635 @@
+# 3.4 Huffman Coding - Greedy Method
+
+# https://www.youtube.com/watch/co4_ahEDCho
+
+
+
+00:00:00.170 hi the topic is Huffman coding Huffman
+
+00:00:05.580 coding is a compression technique it is
+
+00:00:08.760 used for reducing the size of data or
+
+00:00:12.200 message suppose you want to store the
+
+00:00:16.079 data in a file so you can store the data
+
+00:00:18.300 in compressed form to reduce the size of
+
+00:00:20.730 a file but the data is sent over a
+
+00:00:23.460 network data can be compressed and sent
+
+00:00:26.070 to reduce the cost of transmission in
+
+00:00:28.800 this video I am going to explain you if
+
+00:00:31.679 a normal message is sent what will be
+
+00:00:33.960 the cost and what is the fixed size
+
+00:00:37.140 encoding then what is variable size
+
+00:00:39.989 encoding that is Huffman coding now let
+
+00:00:44.760 us study the problem I have a message
+
+00:00:46.680 here now this message I want to store it
+
+00:00:49.110 in a file or I want to send it over a
+
+00:00:50.820 network then let us understand what will
+
+00:00:52.949 be the court cost of a message so the
+
+00:00:55.860 cost of this message or the size of the
+
+00:00:57.989 message will be measured in terms of
+
+00:01:00.030 bits let us check first of all there are
+
+00:01:03.589 20 letters in this one so the length of
+
+00:01:06.689 this message is to indie next how this
+
+00:01:13.770 message has to be sent it has to be sent
+
+00:01:16.979 by using ASCII code electronic devices
+
+00:01:19.979 or computers all use ASCII codes for
+
+00:01:24.590 characters or English alphabets so these
+
+00:01:27.240 are all character ASCII codes are 8 bits
+
+00:01:33.360 I have used alphabets A to Z here so
+
+00:01:38.670 that is easy to understand for us so if
+
+00:01:41.939 I say a its ASCII code is 65 and the
+
+00:01:45.390 binary form is this one so total eight
+
+00:01:51.299 bits these are eight bits that are you
+
+00:01:53.220 presenting decimal 65 and that is
+
+00:01:55.890 representing a similarly if I say B then
+
+00:01:59.399 it is 66 this will be 4 6 2 6
+
+00:02:06.850 likewise C D E for Everyone we have
+
+00:02:13.900 there is a six 67 and 68 and 69 and here
+
+00:02:18.970 the binary code will be there so eight
+
+00:02:20.830 bits are there for each alphabet
+
+00:02:23.170 now if normally this message is sent
+
+00:02:25.630 8-bit for each alphabet that total
+
+00:02:27.760 number of bits will be how much as there
+
+00:02:29.800 are 20 alphabets in this message so this
+
+00:02:32.350 will be 8 into 20 that is 160 bits size
+
+00:02:41.470 of the message will be 160 bits now this
+
+00:02:45.340 is the simple message sent without
+
+00:02:47.350 encoding the size will be 160 bits 8 bit
+
+00:02:52.239 for each alphabet now let us look at can
+
+00:02:55.000 we use our own codes instead of ASCII
+
+00:02:58.269 codes how it is possible see I am not
+
+00:03:02.200 using all English alphabets or all
+
+00:03:05.080 possible symbols on the keyboard I am
+
+00:03:08.230 not using every symbol from the
+
+00:03:10.750 character set I am using only 5
+
+00:03:13.239 alphabets that 2 capital letters then do
+
+00:03:17.320 I need 8 codes 8-bit codes for
+
+00:03:19.750 representing just 5 alphabets no few
+
+00:03:22.930 bits are sufficient so can I use my own
+
+00:03:25.630 codes with less amount of bits yes so
+
+00:03:29.410 nuts we will see fixed size codes here I
+
+00:03:34.510 have taken alphabets in this message and
+
+00:03:37.239 how many times each alphabet is
+
+00:03:39.250 appearing I have written the count here
+
+00:03:41.170 or you can also call it as frequency a
+
+00:03:43.239 is appearing 3 times 1 2 3
+
+00:03:46.299 likewise you can check all how many
+
+00:03:48.250 times they are appearing I have written
+
+00:03:49.600 them here total there are 20 alphabets
+
+00:03:51.940 if you want to see the frequency then
+
+00:03:54.760 you can say this is 3 by 20 that is 3 by
+
+00:03:58.870 20 or this is 5 by 20 because total
+
+00:04:01.000 number are 20 so this is 6 by 20 and you
+
+00:04:04.120 can take the ratios I prefer taking
+
+00:04:06.670 counts that is easy for working even
+
+00:04:08.860 what should be the code see I have 5
+
+00:04:12.299 characters I don't need 8 bits for just
+
+00:04:15.669 5 characters 8-bit ASCII codes are for
+
+00:04:19.858 twenty-eight characters or 128 symbols
+
+00:04:22.860 but for only five let us see if I have
+
+00:04:27.780 just one bit one bit then either you can
+
+00:04:31.289 write zero or one so how many symbols I
+
+00:04:34.139 can represent how many characters only
+
+00:04:35.849 two characters if I have two bits then
+
+00:04:39.270 how many I can represent I can write 0 0
+
+00:04:42.060 0 1 1 0 1 1 so I can have a 4 different
+
+00:04:46.400 combination and each combination can
+
+00:04:48.689 represent one symbol but I have five so
+
+00:04:52.020 for that I can take three bits so in
+
+00:04:54.509 this how many combinations are possible
+
+00:04:55.800 0 to 7 that is 8 combinations are
+
+00:04:59.159 possible so I will take 5 out of that so
+
+00:05:03.419 let us say in 3 bits I will say is 0 0 0
+
+00:05:07.800 B is 0 0 1 C is 0 1 0 D is 0 1 1 and E
+
+00:05:14.250 is 1 0 0
+
+00:05:16.259 I have given my own 3 bit codes I will
+
+00:05:22.379 use this for encoding this message and I
+
+00:05:26.969 will read this will reduce the size of
+
+00:05:28.830 the message so in me it means here
+
+00:05:31.500 instead of writing ASCII code I will be
+
+00:05:33.449 writing 0 0 1 for B and 0 1 0 for C
+
+00:05:39.440 likewise go on when the message is
+
+00:05:42.779 encoded using this one then what will be
+
+00:05:45.150 the size of the message as we know well
+
+00:05:47.279 that there are 20 characters and each
+
+00:05:50.339 takes 3 bits so this will be 60 bits so
+
+00:05:57.449 size of the message will be 60 bits and
+
+00:05:59.310 one more important thing we cannot
+
+00:06:01.680 neglect what is that when I am sending a
+
+00:06:05.219 message suppose encoded in this one now
+
+00:06:08.430 how the receiver will know what are the
+
+00:06:10.439 codes even if I store it in a file and
+
+00:06:14.729 then later I want to retrieve how do I
+
+00:06:17.039 remember what are the codes use 0 0
+
+00:06:20.189 means a only is it C for making it easy
+
+00:06:24.539 I have taken the alphabets A to B here
+
+00:06:26.580 the alphabets can be anything this can
+
+00:06:29.190 be this can be M
+
+00:06:30.689 can be all this can be cute then how I
+
+00:06:32.849 can know which code is for what so I
+
+00:06:35.219 should also have the codes that is the
+
+00:06:39.269 stable also along with the message so
+
+00:06:41.909 this is encoded message and this is the
+
+00:06:44.009 table use this table to decode the
+
+00:06:46.229 message yes so message is 16-bit then
+
+00:06:50.159 you need the table also the chart of
+
+00:06:52.199 codes that will help to decode this
+
+00:06:54.239 message so let us see you have to send
+
+00:06:56.909 this one also how much size this will
+
+00:06:59.129 take see I have five alphabets this
+
+00:07:02.309 alphabet should be an original form now
+
+00:07:04.639 now standard is what ASCII code so I
+
+00:07:07.949 must write ASCII code of all these as he
+
+00:07:11.099 could of all these so for this 8 bits so
+
+00:07:14.729 total how many 5 so 5 into 8 bits this
+
+00:07:19.860 is for what characters or symbols then
+
+00:07:26.369 for each 3 bit code for a this is the
+
+00:07:29.969 code B this is the code for everything I
+
+00:07:32.309 should also have the code so total how
+
+00:07:34.469 many 5 and how many bits for each code 3
+
+00:07:37.709 so this is 4 codes so this makes how
+
+00:07:42.149 much this is 40 plus 15 this is 55 and
+
+00:07:48.089 what is the size of this original
+
+00:07:49.949 message so message is 60 bits right and
+
+00:07:55.550 table or a chart of codes is 55 bits so
+
+00:08:01.349 total how much this will be 115 bits
+
+00:08:07.819 yes
+
+00:08:09.300 so total size of the message along with
+
+00:08:12.869 the chart is 115 bit is not just 16 bits
+
+00:08:15.749 it is 115 be no doubt the size of the
+
+00:08:18.509 message is reduced but table is also
+
+00:08:20.339 important so it was 169 became 115 so
+
+00:08:25.829 around 35 to 40 percent of reduction in
+
+00:08:28.499 size from 160 to 115 right so this is
+
+00:08:33.419 one method with fixed size course now
+
+00:08:36.990 we'll go to variable size code and let
+
+00:08:39.419 us follow Huffman coding
+
+00:08:41.960 we'll still reduce the size of the
+
+00:08:43.490 message of man encoding Huffman says
+
+00:08:46.820 that we don't have to say take fixed
+
+00:08:50.600 size codes for the alphabets some
+
+00:08:53.510 characters or alphabets may be appearing
+
+00:08:56.060 few times less number of times you may
+
+00:08:58.399 be appearing more number of times so if
+
+00:09:00.589 you give small size code for the more
+
+00:09:02.890 appearing characters then the size of
+
+00:09:06.170 the entire message will be definitely
+
+00:09:08.060 that used so let us see what is his idea
+
+00:09:11.110 already we have this table all the
+
+00:09:13.399 alphabets and how many times they are
+
+00:09:15.470 appearing in a message so that gives the
+
+00:09:17.330 frequency of those alphabets now Huffman
+
+00:09:21.529 code follows optimal Marsh pattern now
+
+00:09:26.149 we have to generate our own code so how
+
+00:09:29.000 what should be the method for the code
+
+00:09:30.680 so Huffman has given an approach for
+
+00:09:32.899 getting our own variable size course so
+
+00:09:35.540 he says that all those alphabets should
+
+00:09:39.080 be arranged
+
+00:09:39.800 in the increasing order of their count
+
+00:09:43.070 so this is the least one and this is the
+
+00:09:44.660 next one and exponents fall so they are
+
+00:09:46.940 arranged in the increasing order of
+
+00:09:48.350 their count or frequencies so the first
+
+00:09:51.709 the smallest one then the highest one so
+
+00:09:53.959 this optimal Morse pattern should be
+
+00:09:55.700 followed on this one so what I should do
+
+00:09:57.589 now is to smallest one and make one node
+
+00:10:02.029 so this is 2 plus 3 this is 5 now next
+
+00:10:06.770 select to smallest and form a node so 5
+
+00:10:10.370 4 5 6 these are remaining out of this
+
+00:10:13.339 which are two smaller either I can take
+
+00:10:15.620 this 5 4 or that 5 4 so I will take this
+
+00:10:17.930 one so I will combine this fun with this
+
+00:10:20.300 so this is 9 now what are the lists I
+
+00:10:24.020 have or the nodes I have 9 5 6 these are
+
+00:10:28.100 the two minimum so combine these two
+
+00:10:31.089 this is LAN then combine these two two
+
+00:10:36.800 are remaining now so this one and this
+
+00:10:41.140 so this gives what 20 so here we got our
+
+00:10:47.920 optimal motion pattern tree so actually
+
+00:10:50.890 for the optimal merge pattern that is
+
+00:10:52.510 greedy approach always select two
+
+00:10:54.880 minimum one and we got this fun now this
+
+00:10:58.690 tree will help us define the quotes how
+
+00:11:00.760 on the left-hand side edges mark them as
+
+00:11:04.180 eros and on the right-hand side it just
+
+00:11:06.940 mark them as one that's it now what are
+
+00:11:11.740 the codes for each alphabet follow a
+
+00:11:14.470 path from root onwards so so for a what
+
+00:11:17.170 is the code 0 0 1 so is 0 0 1 then B is
+
+00:11:25.150 1 0 1 0 C 1 1 1 1 D 0 1 0 1 and E 0 0 0
+
+00:11:38.410 0 0 0 that's it
+
+00:11:44.140 these are the new course we have now you
+
+00:11:47.440 can see the Sun code is of three bits
+
+00:11:49.750 and one code is of two birds like that
+
+00:11:51.520 so even we may have the codes with one
+
+00:11:53.590 bit also not here in some examples so
+
+00:11:57.220 variable size codes are there now I can
+
+00:12:01.030 use these codes for encoding my message
+
+00:12:03.460 like B is 1 0 C is how much 1 1 C is 1 1
+
+00:12:09.790 and a is 0 0 1 B is 1 0 B is 1 0 and D
+
+00:12:18.310 is 0 1 0 1 gone if I use these course
+
+00:12:25.120 what will be the size of my message so
+
+00:12:28.090 for that how many bits are there for a 3
+
+00:12:31.240 bits and how many times a is appearing
+
+00:12:33.580 this is 3 into 3 9 and 2 bits and
+
+00:12:38.020 disappearing 4 5 times 5 into 2 10 2
+
+00:12:43.120 bits 2 bits 1 1
+
+00:12:44.860 appearing for 6 times so 6 into 2 12 2
+
+00:12:49.060 bits appearing for 4 times so 4 into 2
+
+00:12:52.920 eight and three bits appearing for two
+
+00:12:57.870 times so 2 into 3 is 6 so for entire
+
+00:13:02.820 message I have how many times each
+
+00:13:04.860 character is appearing and their sizes
+
+00:13:06.540 of codes I have taken and I got this one
+
+00:13:08.700 now total number of bits are 45 bits
+
+00:13:15.199 size of them as say ages 45 bits means
+
+00:13:18.690 if i encode all I just I just need 45
+
+00:13:22.649 bits so the message size is 45 bits now
+
+00:13:29.850 one more thing we should consider along
+
+00:13:32.850 with the message I should also send this
+
+00:13:36.449 chart or a table or a tray then only
+
+00:13:40.670 decoding can be done means along with
+
+00:13:43.620 the encoded message what is the codes
+
+00:13:46.800 what are the codes used that should also
+
+00:13:48.839 be there then only decoding can be done
+
+00:13:51.089 so somehow this straight should be
+
+00:13:52.860 preserved or the table should be
+
+00:13:54.990 preserved or you see what will be the
+
+00:13:57.180 size of the table all these alphabets I
+
+00:14:00.209 should send their ASCII codes the
+
+00:14:02.399 standard code so 8-bit of ASCII code how
+
+00:14:07.440 many alphabets are there five so this
+
+00:14:09.750 makes how many 40 bits then a course
+
+00:14:15.360 also I should send so this course when
+
+00:14:17.760 they are stored so how many codes are
+
+00:14:19.800 there five course but what are the
+
+00:14:22.380 number of bits 1 2 3 4 5 6 7 8 9 10 11
+
+00:14:25.560 12 so this is forming 12 bits so
+
+00:14:28.949 together this 40 plus that 12 so 52 bits
+
+00:14:34.140 are required for tree or a table tree or
+
+00:14:39.440 table so what is the total size message
+
+00:14:44.190 is 45 bits and the table or a tree is 52
+
+00:14:48.029 bits and this will be 97 bits yes now
+
+00:14:54.600 you can see that it is still reduce from
+
+00:14:57.300 fixed size codes so that's all about
+
+00:15:00.630 Huffman coding now if you want to know
+
+00:15:03.420 the size of the mesh
+
+00:15:05.100 saij that 45 you can know it from the
+
+00:15:08.280 tree also how see this is the distance
+
+00:15:11.640 how much is the distance 1 2 3 and
+
+00:15:15.500 frequency is what 2 so 3 into 2 so
+
+00:15:19.040 distance into frequency of each or count
+
+00:15:24.060 of each you can take Sigma sum of all
+
+00:15:26.340 these so this will be distance is 3 and
+
+00:15:30.140 frequency is 2 plus distance is 3 and
+
+00:15:33.920 frequency is 3 plus distance is 2 and
+
+00:15:37.950 the frequency is for distances to
+
+00:15:41.130 frequency 5 and distances to and
+
+00:15:45.810 frequency is 6 so this is nothing but
+
+00:15:49.020 this calculation that we got and this
+
+00:15:52.020 will be 45 it's only so if you want to
+
+00:15:56.010 know what will be the size of the entire
+
+00:15:58.080 message from the tray also you can find
+
+00:16:00.480 out by using this formula if you refer a
+
+00:16:03.840 video on optimal merge pattern you find
+
+00:16:06.600 that foreign lies define let us see how
+
+00:16:10.530 decoding is done this is the message now
+
+00:16:14.130 in them completely in the binary bits
+
+00:16:15.870 form for the message for this you must
+
+00:16:19.890 have a tree for decoding so start from
+
+00:16:22.980 root 0 left side 0 left side 1 right
+
+00:16:27.960 side this is B be 0 0 0 1 completed then
+
+00:16:35.550 again start from the root 1 right side
+
+00:16:37.920 again 1 right side so here is the leaf
+
+00:16:40.500 let us see so these 2 are 1 then again
+
+00:16:44.070 once you have read the leaf again start
+
+00:16:46.230 from the root 1 right side 1 right side
+
+00:16:49.470 so this is C the next 0 left side 1
+
+00:16:55.200 right side it has a D so these two are
+
+00:16:58.560 completed in this way this message she
+
+00:17:02.460 can be decoded and from binary bits we
+
+00:17:05.579 can get back the original ask
+
+00:17:08.209 cool so the receiver can convert the
+
+00:17:10.250 message into ascii code and use it in
+
+00:17:12.289 its machine so inside the machine it
+
+00:17:14.630 while using it will not be using the
+
+00:17:16.970 code so it has to convert into ASCII
+
+00:17:19.849 codes like when you have any zip file or
+
+00:17:22.970 compressed file you have to decompress
+
+00:17:24.980 for using it same way it should be
+
+00:17:27.020 decoded and used so that's all about
+
+00:17:30.230 Huffman coding

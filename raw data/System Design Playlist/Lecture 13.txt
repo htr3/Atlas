@@ -1,0 +1,451 @@
+# tactiq.io free youtube transcript
+# Introduction to NoSQL databases
+# https://www.youtube.com/watch/xQnIN9bW0og
+
+00:00:00.630 Hi everyone.
+00:00:01.420 Today we'll be talking about where NoSQLdatabases can be used and why they're
+00:00:04.931 so popular. Yes,
+00:00:06.150 we will be talking about NoSQL databasesand why they're the best in the world.
+00:00:09.990 And we are really excited aboutactually talking about this topic. Yes,
+00:00:14.531 there are a lot of scenarioswhere NoSQL databases are used.
+00:00:17.370 There're an equally highnumber of scenarios whereNoSQL databases are not used.
+00:00:22.430 So it's important to know when to usethem and when not to use them. Well, yes,
+00:00:27.370 whenever you're building toy appsthat time you need your RDBMS,
+00:00:30.171 but whenever you need scale,it's NoSQL databases. Alright?
+00:00:34.440 That's not entirely true actually.
+00:00:36.250 It's not that scalabilitydemands a NoSQL database.
+00:00:39.110 There are certain scenarios when thesedatabases tend to do well and we'll be
+00:00:43.301 getting to them in this video.Could you give us an example? Well,
+00:00:48.041 YouTube doesn't use NoSQL databases.StackOverflow doesn't use NoSQL databases.
+00:00:51.921 Instagram doesn't use NoSQL databases.Whatsapp doesn't use NoSQL databases.
+00:00:57.600 WhatsApp doesn't have a database.
+00:01:02.180 Let's start with the video.
+00:01:08.190 So what is the differencebetween SQL and NoSQL? Well,
+00:01:11.709 if you have a look at the databaseschema that we have for an example of a
+00:01:15.091 person in which case they have an IDthat's a user id, we have the name,
+00:01:19.000 address, age, and role. Now theaddress is a complicated object.
+00:01:23.310 So what I'm gonna be storing the wayI'm gonna be storing it is in a separate
+00:01:27.171 table. The address ID 23corresponds to this row,
+00:01:30.700 which means that the address is Munichand in Germany and the district is blank.
+00:01:35.870 So you're seeing that there is somesort of foreign key mapping here,
+00:01:39.470 and that's how we store data in SQL.This is how you store it in NoSQL.
+00:01:43.750 You have the id 1, 2, 3, and youjust have this big fat blob of data,
+00:01:48.660 right? This is j ss o n and theway it stores it is the column name
+00:01:55.240 maps to a value, which is nameJohn Doe. The same thing over here.
+00:01:58.910 The address is no longer a foreign key.
+00:02:02.030 The address is another object withinthis object. So that is just J ss o,
+00:02:06.110 you know nesting, we haveaddress id, city and country.
+00:02:10.430 And because there's a nullvalue of district, we actuallydon't even store that.
+00:02:14.110 We have the age and the role also defined,
+00:02:16.150 and you are seeing that there'sthis big blob of data over here.
+00:02:19.510 So what makes NoSQL so efficient?
+00:02:22.510 The key is to think about how weare storing and retrieving data.
+00:02:25.440 When we are storing data,
+00:02:26.451 usually it's never like a user registersand they send their age later on
+00:02:31.310 or they send the role later on,or they send the address later on.
+00:02:33.571 It's all together. So whenthere is an insertion,
+00:02:37.400 there's usually all thefields inserted together,
+00:02:40.540 which means that this entire fadblob could have been written on the,
+00:02:43.830 on the a p i I mean whenthe request was coming in,
+00:02:46.510 all this information was there and youcould have done this in a single insert.
+00:02:51.430 And whenever you are pullingout information about any user,
+00:02:54.360 usually you'll need all theinformation about that user, right?
+00:02:57.630 Select start is something.
+00:02:58.730 So common that people don't even thinkabout adding the column names these days
+00:03:02.700 unless it's of course avery big table. Or if you,
+00:03:06.281 if you have some column which ispretty big and you want to avoid that,
+00:03:09.580 that's a separate scenario. But usuallyselect star is very, very common.
+00:03:14.060 So because select star is so common andbecause you need all the data relevant
+00:03:17.081 to a user all the time,
+00:03:18.630 this means that this entire blobwill also be pulled out all the time.
+00:03:22.220 So that means insertions and retrievals
+00:03:27.540 require the whole blob. Sowhy not keep it together?
+00:03:31.660 You see when in your runningquery on the SQL database,
+00:03:35.310 usually the pointer comes to,let's say this id, this row,
+00:03:39.100 and then it has to sequentiallyread all these columns.
+00:03:43.020 Not just that you also don't have aclean way to denormalize things like this
+00:03:47.481 address could store the string,
+00:03:49.020 but this database is not inbuiltfor denormalizing things.
+00:03:52.700 So you might need a join,
+00:03:55.170 which is pretty expensive consideringthat most of the times you'll need both
+00:03:58.721 data. It's cheaper here. And that'sthe first benefit of using NoSQL,
+00:04:03.650 right? All your data, relevant datais contained together in one block,
+00:04:07.180 and so it's, it's a littleeasier to insert retrieve.
+00:04:12.140 The second thing is thatthis schema is flexible.
+00:04:15.100 We saw that the district wasnull and for this SQL approach,
+00:04:18.921 what we had to do is we have to add anew column, although we don't need it,
+00:04:23.300 we still do it over here. What couldhappen is that if the address is null,
+00:04:27.001 if the address is entirely blank,
+00:04:29.180 that's fine because this blobdoesn't care about schema.
+00:04:32.260 All it caress about isa j ss o n document.
+00:04:33.980 So they'll be named John Doecomma straightaway, age 30,
+00:04:38.500 and the role is st.
+00:04:40.740 So what you're seeing is that the schemais very flexible in this case and not
+00:04:44.881 so much over here. In fact, wheneveryou're doing a new attribute addition,
+00:04:50.220 let us say that we have somenew attribute added over here,
+00:04:53.810 which is salary. Sowhenever salary is added,
+00:04:58.380 we have to actually add a newcolumn to this SS Q L database,
+00:05:00.961 which is a very expensive operationbecause you need some sort of locks on the
+00:05:04.641 table. And it's also risky tomaintain consistency at this time.
+00:05:09.620 So I mean, if you want to maintainconsistency, then you need the locks.
+00:05:13.601 And that's the reason why it'sexpensive. While over here,
+00:05:16.001 if there's something that you're adding,
+00:05:17.250 which you don't needfor all the older users,
+00:05:20.110 what you can do is just start addingthem straight away. Because like I said,
+00:05:23.601 the schema doesn't care.
+00:05:24.361 The older schema doesn't know thatthere's anything called salary. Okay?
+00:05:28.180 So the second advantage is thatschema is easily changeable.
+00:05:33.700 The third advantage of NoSQL databasesis that they have horizontal partitioning
+00:05:38.070 inbuilt. Most of the times theyexpect a lot of scale to come in.
+00:05:41.680 I mean the users for these NoSQLdatabases expect a lot of scale.
+00:05:46.140 So what they tend to do is theyhorizontally partition this data.
+00:05:50.060 Now you can have a look at the shardingvideo to get a better understanding of
+00:05:52.921 horizontal partitioning. And of course,
+00:05:55.030 when it is allowing thiskind of partitioning.
+00:05:56.740 It's more focused on availability,which is a good thing.
+00:06:00.520 A lot of systems actually requireavailability or consistency. Yeah,
+00:06:03.740 so that's the good thing built for scale.
+00:06:07.260 The fourth and final major advantage ofNoSQL databases is that they're built
+00:06:10.881 for aggregations. Also, when a personis storing data in their NoSQL database,
+00:06:14.921 they're usually expecting to be gettingsome important information out of that
+00:06:18.561 data. For example, what is theaverage age? What is the total salary?
+00:06:23.130 These kind of databases are built forfinding metrics and getting intelligent
+00:06:28.150 data. So that's what they'rebuilt for aggregations. Okay,
+00:06:32.761 so these are the advantagesthat we have of NoSQL databases.
+00:06:36.029 What are the disadvantages?
+00:06:37.940 Not too many updates areinherently supported in this.
+00:06:41.580 So if you have lots of updates,this is not really nice,
+00:06:46.790 what are the possible problems here?Well, the data may not be consistent,
+00:06:49.961 meaning that the two nodes may havedifferent data for the same id.
+00:06:54.110 Yeah while this SS Q databases usuallygive you something called asset
+00:06:58.601 properties by which you can containthis issue. So that is a problem.
+00:07:03.220 So I'll just write it down.Consistency is a problem,
+00:07:05.890 which basically meansasset is not guaranteed.
+00:07:10.590 If asset is not guaranteed, you can'thave transactions using NoSQL databases.
+00:07:14.030 At least you can't have the sametransaction properties of acid. Okay?
+00:07:17.731 So that's a big reason whyfinancial systems don't useNoSQL databases for their
+00:07:22.491 transactions because itdoesn't make much sense.
+00:07:24.910 The second problem is that thesedatabases are not read optimized.
+00:07:28.771 If I ask you to find me,
+00:07:30.550 all the ages of all the employeesthat we have in the company,
+00:07:34.670 what's going to happen is it'sgoing to go to these blocks,
+00:07:37.230 and each time it's goingto read the entire block,
+00:07:39.520 then filter out the ageand do that for every row,
+00:07:43.520 then return you the result.While in a SQL database,
+00:07:46.451 all you need to do is just come to thiscolumn. I mean, it won't be that easy.
+00:07:50.270 The reader has to actually go to thatcolumn and then read that column.
+00:07:53.270 But this is more efficient than this.So these are not read, optimized,
+00:07:58.720 read times are comparatively slower.
+00:08:04.370 The last two problems I can see hereis that this does not have implicit
+00:08:09.351 information about relations. So in anR D B M S, the R stands for relation.
+00:08:14.210 Now 23, the address ID maps to this point,
+00:08:19.450 and what that tells you is that thisrow is somehow related to this row
+00:08:24.710 in across the two tables, right?
+00:08:27.751 While in NoSQL there'sno easy way to do this.
+00:08:29.930 If you had a separate table for let'ssay the, all the values of the addresses,
+00:08:34.539 then the the informationwouldn't be implicit.
+00:08:37.610 You couldn't force a constraintlike a foreign key constraint,
+00:08:41.191 which would say that this column 23 canonly exist if there is a corresponding
+00:08:46.270 column in the, in the employeetable. So relations are not implicit.
+00:08:51.890 And the fourth and final problem,which is a major problem,
+00:08:54.610 is that joins are hard. If youhave two nos tables, let's say,
+00:08:59.390 then when you're joining those two tables,
+00:09:01.590 what you need to do is you need torun through every block of data here,
+00:09:05.910 find that relevant column on whichyou're joining to the other guy who's
+00:09:09.280 relevant column you needto find again, of course,
+00:09:10.660 and then you need to merge themtogether. Joins are actually all manual,
+00:09:14.780 so to speak, in a NoSQL database.
+00:09:16.841 There's no intelligencebehind these kind of joints.
+00:09:19.041 You can try to improve on them, butthere's only so much you can do.
+00:09:22.610 While SQL databases are to someextent built for joins, yeah,
+00:09:27.440 inner join outer, join left out,
+00:09:28.960 join all the things thatwe didn't read in college.
+00:09:31.090 Those kind of things are very commonwhen you're dealing with SQL databases
+00:09:35.150 because they have inherentrelations in them.
+00:09:37.740 So these are the advantages and theseare the disadvantages that we have of
+00:09:40.890 NoSQL. When do weactually use NoSQL? Well,
+00:09:45.540 it depends on these things of course.
+00:09:47.580 It depends on if your data is ablock and if you are making few
+00:09:52.401 updates and you want to keepall of them together, like if,
+00:09:55.441 if you're finding somethingwhich has to be right optimized,
+00:09:58.761 there's a lot of rights coming intothat, maybe NoSQL is the way to go.
+00:10:02.170 There are scenarios where you might wantinherent redundancy or aggregations in
+00:10:06.161 the data, in which case NoSQL providesthat for you in a really nice way.
+00:10:10.620 Of course,
+00:10:10.980 you can see all the disadvantages andthat's one of the reasons why applications
+00:10:15.201 like YouTube or stack overflowsstill don't use NoSQL databases,
+00:10:19.860 but it's really nice and we are goingto be taking example of Cassandra to
+00:10:23.921 understand these databases in detail.
+00:10:28.260 So this is the Cassandra architecturethat we'll be talking about.
+00:10:31.460 The requests will be cominginto this Cassandra cluster,
+00:10:34.330 which is going to have five nodes,
+00:10:35.801 and it's a pretty expensive thing toactually host a Cassandra cluster.
+00:10:39.630 It's going to be having requestIDs distributed in this cluster.
+00:10:43.420 So any request between zero to hundredwill be falling in node one between a
+00:10:47.841 hundred to 200 will fall innode two and so on and so forth.
+00:10:50.820 So there are five nodes and you cansee that there's a request ID 1, 2, 3.
+00:10:54.860 So it should fall somewhere over here,
+00:10:57.679 or rather it should fallsomewhere over here.
+00:10:59.780 So request IDs may not always be numeric.
+00:11:02.641 It might be a u U ID or it might be aperson's name or something like that.
+00:11:07.700 So what we do is instead of thinkingabout IDs in NoSQL databases,
+00:11:11.881 often things are considered as keys.
+00:11:14.620 So have a look at the sharding videoto get a better understanding of
+00:11:19.521 how these keys are mapped, but basicallywe just take the hash of 1, 2, 3.
+00:11:24.780 So it's passed through a hashfunction. This might be a string,
+00:11:27.761 this might be anything youlike, and we get a value.
+00:11:30.580 So I'm gonna take that as 2 5 6.
+00:11:33.820 So this hash is then usedto map this request to
+00:11:38.720 a particular node in this cluster.
+00:11:41.100 So 2 5 6 falls between 200 to300, so it falls over here,
+00:11:46.530 right? Or rather I should take itas any, any place that it falls.
+00:11:50.100 I'm gonna take the clockwisenext node, so I'm gonna.
+00:11:52.679 Pick up four. So if thehash function is nice,
+00:11:55.201 meaning that it's uniformly distributed,
+00:11:57.230 what we can assume is that if there'sa lot of requests which are coming in,
+00:11:59.870 then they'll be falling with equalprobability in any of the nodes.
+00:12:03.020 So all the nodes should have approximatelyequal distribution 20% of the node.
+00:12:07.401 The advantage of this is that if youhave a lot of requests coming in and you
+00:12:11.281 know you want to of course make surethat all of the nodes are being used to
+00:12:14.281 their full capacity. So becausethere's random distribution,
+00:12:17.961 all of them will be having equal loadand they can actually go up to their full
+00:12:21.200 capacity instead of one nodehaving too much pressure.
+00:12:24.870 When can one node have too much pressurewhen your hash function is not really
+00:12:29.241 nice?
+00:12:29.620 So let's say your hash function is thatanything less than a hundred is equal to
+00:12:34.081 zero, and anything greaterthan a hundred is one.
+00:12:37.740 So what will happen is allrequests greater than a hundred,
+00:12:39.809 which is from zero to 500, we said.
+00:12:42.420 So that's around 400 of the requestswill fall in hash function one.
+00:12:46.580 So let's say it falls in two and theother requests fall in one and the rest of
+00:12:50.720 the nodes are not eventouched. In this case,
+00:12:52.481 what's going to happen is themoment you hit your load for two,
+00:12:56.390 your entire cluster is goingto be fully loaded, right?
+00:12:59.441 Because two is going to crash. So towhat this, you need a good hash function,
+00:13:05.220 or if your hash function is bad and youcan't change the hash function for some
+00:13:09.881 reason, maybe you can't do ahot change of the hash function.
+00:13:13.510 What you can do is youcan do something like a
+00:13:17.660 two layer cluster where whenthe request goes to two,
+00:13:21.460 it doesn't actually storeit in its in its database.
+00:13:25.429 Instead it sends it to anothercluster which has five nodes
+00:13:31.260 and you pass a different, I mean,
+00:13:33.340 you run this request through adifferent hash function, so h of H dash,
+00:13:37.490 which gives you a different value.So this hash function sucks.
+00:13:41.110 This hash function can be really niceuniform distribution and therefore these
+00:13:44.840 five nodes will haveapproximately equal distribution.
+00:13:47.260 And using this techniqueof multi-level sharding,
+00:13:52.020 so to speak, just have a look at thesharding video, multi-level sharding,
+00:13:55.460 you should be able to survive. But ofcourse this is not a very good idea.
+00:13:59.340 Why have multiple levels ofhash function? Well, why not?
+00:14:04.179 If you are a user, let's say ofGoogle Maps and you're in India,
+00:14:07.950 then maybe your,
+00:14:09.510 your hash function over here ishashing on the basis of country.
+00:14:13.380 So the country ID is the onlything that you're looking at.
+00:14:16.020 And based on country id, ifyou're sending it to one place,
+00:14:18.350 it's possible that one of the countriesis going to have a tremendous amount of
+00:14:21.841 load for certain festivals. Let's say thevalley, everyone is using Google Maps,
+00:14:25.480 everyone is going somewhere.
+00:14:26.830 What will end up happening is thisnode will have too much pressure.
+00:14:29.580 And in those cases, what you cando is go for multi load charting.
+00:14:34.630 Alright? So these are the majoradvantages of using a hash function.
+00:14:39.620 The,
+00:14:40.500 the thing that comes in very intuitivelywith the hash function is that you have
+00:14:44.920 a node where you are going to besending the request, let's say to,
+00:14:48.780 and you also want to make sure thatthis data is persisted in a way that you
+00:14:53.041 don't lose the data if two goes down.So because this is important data,
+00:14:57.180 if two crashes, you don't want thisdata to be lost from the entire cluster.
+00:15:00.340 So you wanna make copies of it, youwanna make replicas of that data.
+00:15:04.500 Who do you choose to have those replicas?
+00:15:08.030 Because of this hashing concept,
+00:15:10.220 you can just ask three to alsohave a copy any node after two,
+00:15:14.540 if it falls on two, ifthe request falls on two,
+00:15:16.201 any node after that should have thecopy. If the request falls on five,
+00:15:20.580 one should have the copy. You havetwo nodes which are storing the data,
+00:15:23.850 which means that the probabilityof you losing the data is lower.
+00:15:27.441 And also when a person is making a query,
+00:15:29.510 what you need to do is you needto hash it, hash this request,
+00:15:33.020 figure out where it falls, and any oneof the replicas can actually answer.
+00:15:37.540 So if you're making tworeplicas, one or five can answer.
+00:15:40.620 If you're making three replicas,
+00:15:41.841 then five or one or two cananswer and so on and so forth.
+00:15:44.841 So your read queries optimized yourrights are also more guaranteed
+00:15:50.020 and it could also be optimizedbecause if five misses the right,
+00:15:53.510 then you can just write it to oneand still working. So through this,
+00:15:57.841 Cassandra gives us twofeatures of load balancing.
+00:16:01.550 You can have a look and thedescription for a good link for this.
+00:16:05.240 It's a system design playlist video.And the second thing is redundancy.
+00:16:10.840 So redundancy or let's say replication,they're slightly different,
+00:16:14.440 but this gives you data guaranteeand this gives you speed in reading.
+00:16:19.440 So because like we said,
+00:16:20.901 we are going to be distributing thereads and we are going to be making sure
+00:16:23.580 that the rights happen really well,
+00:16:25.720 we have both of these featuresin the Cassandra cluster.
+00:16:29.640 One of the very important concepts whenit comes to NoSQL databases is the idea
+00:16:33.880 of distributed consensus. What I meanby that is that there are five nodes,
+00:16:38.520 and let's say theapplication factor is three.
+00:16:41.600 So if a request falls on five,
+00:16:44.621 then five one and two aregoing to be copying that data.
+00:16:47.690 They need some sort of mechanism to agreeon a particular value to return to the
+00:16:51.701 user. Why is that the case?Well, let's say I write on five.
+00:16:55.840 So there is some dataappend here concurrently,
+00:16:59.000 I'm going to be writing onone and two also. However,
+00:17:02.070 let's assume that one andtwo are a little slow,
+00:17:04.040 so they actually haven't got theright yet. If that is the case,
+00:17:09.160 and I make a read operation now, solet's say I added my profile on five,
+00:17:13.520 I'm expecting one and two to have a two,
+00:17:15.220 I make a read operation onmy profile and five crashes,
+00:17:20.050 nothing to worry about because one andtwo should be having all the data that
+00:17:23.181 five should. So I go to oneand I ask for my profile.
+00:17:26.940 I see that it doesn'texist. One returns an error,
+00:17:30.040 the application now assumesthat this profile doesn't exist.
+00:17:32.520 So it returns a user not found error.
+00:17:34.640 So I'll get confused that I just mademy profile and why isn't there on the
+00:17:38.180 database toward these kind of issues.
+00:17:40.970 What Cassandra should be doing isreturning a database error so that the
+00:17:44.741 application knows that there's somethingwrong in the database and tells the
+00:17:47.901 user that hey, the there'ssomething wrong with our database.
+00:17:50.590 Wait for some time. Okay? So to do that,
+00:17:54.230 what we need is some sortof distributed consensus.
+00:17:59.700 And one of the ways toachieve this is quorum.
+00:18:04.420 Okay?
+00:18:05.150 Quorum is a way in which multiple nodeswho are related to a particular query
+00:18:10.650 accept a particular value or they,
+00:18:12.950 they come upon or decide or vote for aparticular value. What I mean by that,
+00:18:17.280 let's say five day crash, we went toone, one said, I don't have this data,
+00:18:23.650 and two said I have this data, let'ssay the concurrent writer happened.
+00:18:27.810 If that is the case, I will be pickingup the data with the latest timestamp,
+00:18:32.400 okay? The version id, thetimestamp, whatever you like to say,
+00:18:35.710 and returning that tothe user. In this way,
+00:18:37.531 the user is happy that theirprofile is created. However,
+00:18:41.820 let's assume that even two doesnot have the profile created yet.
+00:18:46.510 In this case, both of them will agreethat there is no profile created and
+00:18:51.450 unfortunately the user will begiven a no user profile found.
+00:18:55.880 If the current value is equal to twoand the replication factor is equal to
+00:18:59.061 three, that means that iftwo of the three nodes,
+00:19:01.461 which means a majority of thenodes accept a particular value,
+00:19:05.290 then we take that to be the truth.So in this case, unfortunately,
+00:19:09.200 if one and two both don't havethe rights replicated on them
+00:19:14.421 that will result in a wrongerror sent to the user.
+00:19:18.200 So do we mind this littlebit? But this is really rare.
+00:19:22.000 The possibility of fivecrashing and one and two,
+00:19:25.221 not having the rights before theyget a read operation is really rare.
+00:19:30.720 So this is a risk that we are willingto take when you're taking a NoSQL
+00:19:34.540 database and just move forward withavailability instead of consistency.
+00:19:39.440 But what are the othergood scenarios? I mean,
+00:19:41.080 the other good scenarios are that onehas it, the timestamp is more relevant,
+00:19:44.640 so two's data won't be taken. Finally,
+00:19:48.590 maybe both of them have it. Why don'twe become optimists as engineers?
+00:19:52.760 So that would also result inthe correct data being returned.
+00:19:56.040 And that's the reason whyquorum is an important concept.
+00:19:58.210 What it allows you to do is take a risk,
+00:20:01.760 but in most cases it is correct, right?
+00:20:04.740 A column of two ishighly unlikely to fail.
+00:20:08.369 What if I make it a column of three,
+00:20:10.090 like three nodes have to agree with areplication factor of three. In this case,
+00:20:14.220 this query will failbecause five has failed.
+00:20:16.560 You need three nodes to agree on aparticular value. One and two don't agree.
+00:20:20.140 I mean one and two willreturn a particular value,
+00:20:22.280 but five is not returning a valueand therefore the query fails.
+00:20:26.640 I'm also taking a special case whereI'm picking up the latest timestamp.
+00:20:30.359 If the quorum factor isequal to two, it's very,
+00:20:32.701 very likely that unless bothof them agree on some value,
+00:20:35.860 you're going to fail the query. Okay?
+00:20:38.500 I have taken timestamp because in thiscase it clearly shows that you can still
+00:20:42.220 work around with, you know,one and one, one versus one.
+00:20:45.501 Basically there's no majority,
+00:20:47.300 but most of the times it's goingto be they don't agree on a value.
+00:20:51.030 Just fail the database query and tellthe user that we are unavailable for some
+00:20:54.481 time for your particular quest. Now,
+00:20:56.881 if you want the detailsof how a quorum work,
+00:20:59.030 I'll be taking a video on this a littlelater. It's distributed consensus.
+00:21:02.580 So there'll be pack source,
+00:21:03.681 there'll be the gossip protocol but ingeneral you can just assume them to be
+00:21:08.670 sending all their informationto a central server. Yeah,
+00:21:11.330 let's say three is the personwho they all send information to,
+00:21:14.780 and three then counts the words and thenchooses one value and returns it to the
+00:21:19.390 user. Now, what happens if three fails?That's a master so to speak. In this,
+00:21:22.980 in this cluster there's this weirdconsensus that we'll be doing in the,
+00:21:27.300 in the future video. Sothat should answer that.
+00:21:30.380 The final way in which Cassandrastands out as NoSQL database,
+00:21:34.241 even Elasticsearch has this feature,
+00:21:36.020 is the way in which it stores dataand the way in which it writes data.
+00:21:40.500 So if you have a requestcoming into Cassandra andyou have this key value pair,
+00:21:45.740 assume this stable to beexisting in memory, right?
+00:21:48.360 Because you need to write it somewhere.
+00:21:50.780 So Cassandra will be storingall of these records in memory
+00:21:55.700 as a log file, okay?
+00:21:59.859 The reason I'm calling it a log file isthat whenever there's a request for some
+00:22:03.000 write, it's going to be writingin a sequential fashion.
+00:22:06.820 So if a new request comes in, itgoes to the next point, new request.
+00:22:09.910 Next point in this way, you are actuallystoring all the data like a log.
+00:22:13.869 This is efficient because all you needto do is go to the point where you have
+00:22:18.561 the current pointer and just write downthe data instead of searching anything.
+00:22:22.710 Okay? So this is fast andperiodically this memory is dumped
+00:22:27.750 into something called an sssstable. So sorted string table.
+00:22:32.690 Why is it sorted string? Because thekey is sorted in this string table.
+00:22:36.210 So if I have some data over here,
+00:22:40.050 so the key is going to be sortedand the values are going to be
+00:22:44.970 per key. Now this is persistent storage,
+00:22:47.511 which means that it's gonna bestored in one of these cluster nodes.
+00:22:50.980 This concept comes from avery famous Google paper,
+00:22:52.991 which is the big table datastructure that Google made.
+00:22:57.110 You can have a look inthe description below,
+00:22:59.090 but the special thing about sorted stringtable is that it is immutable, right?
+00:23:02.910 So this data's not gonnachange. It is immutable.
+00:23:07.200 So every time Cassandra hassome data in its memory,
+00:23:10.359 it flushes it into anew sorted string table.
+00:23:13.280 Now you can imagine that because theserequests are coming in after a few days,
+00:23:16.860 what's going to happen is you're goingto have a lot of sorted string tables all
+00:23:19.301 over your cluster, and these are goingto be taking up a lot of space. Why?
+00:23:24.210 Because any update,
+00:23:25.750 let's say the key is one to three andtwo days later you got an update on that
+00:23:30.040 key one to three. So somedata in that has changed.
+00:23:32.261 Maybe the name has changed from JohnDoe to the middle name has been added.
+00:23:36.320 So in this case, what's happeningis you have an update on that key.
+00:23:40.040 The latest record is this record.
+00:23:43.130 It's in some other sortedstring table because,
+00:23:45.070 because that was created later onwhen it was flushed to the s S T.
+00:23:49.100 And effectively what has happened is youhave multiple records for the same key,
+00:23:53.650 right? If you have multiple recordsfor the same key, it's not a problem.
+00:23:57.420 The thing is you canalways use a timestamp.
+00:23:59.750 This record will have a timestamp andyou can use the latest timestamp to get
+00:24:02.900 the data. The problem is not consistency.
+00:24:06.521 The problem is data usage.
+00:24:08.470 Like you are going to be using a lot ofstorage in with these duplicate keys.
+00:24:12.900 So if you have 10records for the same key,
+00:24:15.190 then you are using 10times the storage required.
+00:24:18.540 So Cassandra Elastic Search providea feature called compaction.
+00:24:23.790 What we do is we take different sortedstring tables and we merge them.
+00:24:27.580 So you can imagine thisto be a merge sort. Yeah,
+00:24:29.561 you have two sorted areasand you're just merging them.
+00:24:33.180 So this is an Order Noperation and it's also the
+00:24:38.490 space complexity is the minimumof M and n where the size
+00:24:43.441 of the two areas is m and n.
+00:24:44.880 I have actually taken thisextensively in the Tim Sort video,
+00:24:47.241 which nobody saw . If youjust want to know how this works,
+00:24:50.710 it's just the MERT algorithm.
+00:24:52.300 If you want a detailed explanationof why the space complexity is solo,
+00:24:55.500 you can have a look in the descriptionbelow for the Tim Sort video.
+00:24:59.940 So that's the important thing.Basically, we have sorted string tables,
+00:25:03.290 which are immutable, so they'rereally fast to flush into disc.
+00:25:07.220 You don't need to worry about whetherthey are duplicate keys or anything.
+00:25:10.340 And later on, like a batch process,
+00:25:12.300 you are going to be compactingthese sss tables to to optimize
+00:25:17.160 for space. How do you getrid of deleted records? Well,
+00:25:21.081 you can go to the deleted record and yeah,
+00:25:25.481 Cassandra calls it a tombstone.So you place a tombstone,
+00:25:28.660 you probably set a flag, and the tombstonesays that this record is dead. Yeah,
+00:25:33.820 any read operation on that,
+00:25:35.460 if there are three or fourrecords and there's a tombstone,
+00:25:38.220 so you see tombstone onthe latest timestamp,
+00:25:40.180 you call this record to be deadand all three of them are killed.
+00:25:43.180 If there's an update on that key,again, if you see a tombstone,
+00:25:46.601 then you know that an update is impossibleand therefore you fire an exception
+00:25:51.160 like record doesn't exist. So in general,this is how NoSQL databases work.
+00:25:56.020 We have picked up a exampleof Cassandra specifically,
+00:25:58.619 but there's a lot of concepts that areactually extensible to Elastic Search,
+00:26:01.961 extensible to Amazon Dynamodb and so on and so forth.
+00:26:05.510 There's a lot to digest over here, andif you have any doubts or suggestions,
+00:26:08.641 then you can leave them in thecomments below. If you like this video,
+00:26:11.321 then hit the like button. And ifyou want notifications, so further,
+00:26:14.359 such videos, hit the subscribebutton. I'll see you next time.

@@ -1,0 +1,2427 @@
+# 4.6.2 [New] Optimal Binary Search Tree Successful and Unsuccessful Probability - Dynamic Programming
+
+# https://www.youtube.com/watch/wAy6nDMPYAE
+
+
+
+00:00:00.089 the topic is optimal binary search tree
+
+00:00:03.240 already I have one video on this but in
+
+00:00:06.750 that video I have just considered
+
+00:00:08.420 successful search probabilities and in
+
+00:00:11.940 this video I will be considering
+
+00:00:13.740 successful search as well as
+
+00:00:15.980 unsuccessful search probability so I
+
+00:00:18.869 will cover it as a very fresh topic so
+
+00:00:21.150 the contents of this video are these
+
+00:00:24.230 first of all I'll explain what does it
+
+00:00:26.400 mean by binary search tree and how do we
+
+00:00:28.680 search how it is useful for searching
+
+00:00:30.330 then what does it mean by cost of
+
+00:00:32.579 searching then next I will explain the
+
+00:00:36.030 probabilities for search what does it
+
+00:00:38.850 mean and also I will explain what is
+
+00:00:41.520 optimal binary search tree and how to
+
+00:00:44.309 know its cost then I will show you the
+
+00:00:47.280 dynamic programming approach for
+
+00:00:49.430 constructing a optimal binary search
+
+00:00:52.140 tree for a given set of keys or given
+
+00:00:55.800 set of elements then that approach I
+
+00:00:58.770 will show you how to derive the formula
+
+00:01:00.600 for dynamic programming then I will take
+
+00:01:02.910 a problem and solve then finally we will
+
+00:01:04.739 see how our optimal binary search tree
+
+00:01:07.619 can be constructed by using dynamic
+
+00:01:10.470 programming approach so in this video I
+
+00:01:13.409 will be deriving everything so here you
+
+00:01:15.780 have to observe and learn how to devise
+
+00:01:19.380 a solution by using dynamic programming
+
+00:01:22.380 approach see most of the students want
+
+00:01:25.229 to learn dynamic programming so for
+
+00:01:27.119 learning practice is important so by
+
+00:01:30.000 picking a few problems if you study them
+
+00:01:32.189 in detail and understand how the
+
+00:01:34.799 solution is given then you can give a
+
+00:01:38.070 solution to any new problem right it's
+
+00:01:40.350 not that somebody is explaining all the
+
+00:01:42.990 problems then you know the solutions
+
+00:01:44.610 it's not like that see if you know the
+
+00:01:47.280 approach for few problems
+
+00:01:49.350 then you take up a new problem and try
+
+00:01:51.329 to solve it by yourself
+
+00:01:52.829 so here I'll give you a complete
+
+00:01:54.810 approach everything I will show you in
+
+00:01:56.969 detail she'll get the clear-cut idea how
+
+00:02:00.360 the approach is taken and you can see
+
+00:02:02.640 the observe the minor details also in
+
+00:02:05.850 this problem alright so this will help
+
+00:02:08.310 you of a lot if you are really
+
+00:02:10.169 interested in
+
+00:02:11.090 dynamic programming and solving
+
+00:02:12.769 challenging problems let us start with
+
+00:02:15.860 the topic here I have a example binary
+
+00:02:18.680 search train this is a binary tree and
+
+00:02:21.980 these are keys the nodes are containing
+
+00:02:25.519 keys right and the keys are arranged
+
+00:02:28.430 such that for any node if you take all
+
+00:02:31.099 the smaller keys are on the left-hand
+
+00:02:33.920 side all the larger keys are on its
+
+00:02:36.620 right-hand side so if you look at this
+
+00:02:39.319 40 all these keys on the left side of 40
+
+00:02:42.560 that is 10 20 30 are smaller than 40 and
+
+00:02:45.079 after that on the right hand side these
+
+00:02:47.299 keys are greater than 40 and similarly
+
+00:02:49.670 if you take 60 this 50 is is smaller on
+
+00:02:52.459 the left hand side 70 is greater that's
+
+00:02:54.530 on the right hand side why why we have
+
+00:02:57.079 arranged the keys like this see it gives
+
+00:02:59.629 a advantage for searching how let us see
+
+00:03:03.950 I want to search for 30 how to search
+
+00:03:06.560 start from route this is the route of a
+
+00:03:08.930 node is it 30 no then when I should look
+
+00:03:12.290 for 30 on the left hand side because 30
+
+00:03:15.230 is smaller than this 40 so definitely it
+
+00:03:18.139 will be on the left hand side go to the
+
+00:03:20.209 left hand side is it 30 no 30 is greater
+
+00:03:22.609 than this one so greater than 20 so
+
+00:03:24.859 definitely it should be on the right
+
+00:03:26.359 hand side because we have erased the
+
+00:03:27.859 keys like that so go to rights ideas
+
+00:03:30.019 thirties funk so in this way we can
+
+00:03:32.959 search for any element for searching for
+
+00:03:35.540 30 how many comparisons we have done 1 2
+
+00:03:40.130 3 so the element is found in three
+
+00:03:43.849 comparisons if you check total I have 7
+
+00:03:47.780 elements and in that 7 element searching
+
+00:03:50.720 for any element that is 30 has taken
+
+00:03:52.970 three comparisons let us observe what
+
+00:03:55.400 about others see if I am searching for a
+
+00:03:57.560 10 it will take 3 comparisons and for 20
+
+00:04:00.739 it will take two comparisons and for 40
+
+00:04:03.109 it will take only one comparison 33
+
+00:04:05.180 comparison 62 comparison 53 comparison
+
+00:04:09.049 so what is the maximum comparison the
+
+00:04:11.299 maximum comparisons are 3 that is the
+
+00:04:14.510 height of our binary search tree and
+
+00:04:16.639 that also I can call it as levels of
+
+00:04:19.700 binary search tree this is the first
+
+00:04:21.320 level second level and
+
+00:04:22.990 this is the third level so the number of
+
+00:04:25.389 comparisons required for searching any
+
+00:04:27.669 element in a binary search tree depends
+
+00:04:29.979 on number of levels in a binary search
+
+00:04:33.340 tree now let us learn one more thing
+
+00:04:35.800 see we were searching for the keys that
+
+00:04:38.530 are present here so and they were found
+
+00:04:40.360 so this is called as successful search
+
+00:04:43.380 now let us assume I am searching for a
+
+00:04:46.270 key that is nine let us search is it
+
+00:04:50.560 nine no is it nine I should go on the
+
+00:04:53.620 left hand side is it nine nine is
+
+00:04:55.870 smaller than this go on left said is it
+
+00:04:57.550 nine no nine is less than this go on
+
+00:04:59.680 this side there is nothing this is null
+
+00:05:01.750 doesn't end so nine is not found because
+
+00:05:05.770 I have reached till the end of a binary
+
+00:05:07.659 search tree and the key element is not
+
+00:05:09.310 found so if a key element is not found
+
+00:05:11.710 then search is unsuccessful all right
+
+00:05:15.280 then in this also how many comparisons I
+
+00:05:17.470 have done maximum I have done three
+
+00:05:19.479 comparisons I have checked here and here
+
+00:05:21.280 and here so when you are searching in a
+
+00:05:23.380 binary search tree there are two
+
+00:05:24.460 possibilities like the element is found
+
+00:05:26.860 or element is not found let us strive on
+
+00:05:29.770 more element I want to search for key
+
+00:05:31.509 element 47 let us start
+
+00:05:34.120 is it 47 no 47 is greater good right
+
+00:05:37.449 side is it 47 no 47 is smaller than this
+
+00:05:40.060 go to left side is it 47 no 47 is
+
+00:05:42.909 smaller than this go to this side there
+
+00:05:45.340 is nothing and so search is unsuccessful
+
+00:05:48.280 so search will be successful also search
+
+00:05:51.039 may be unsuccessful also right so in
+
+00:05:53.770 both the cases we need to know the
+
+00:05:56.110 amount of comparisons that we are doing
+
+00:05:58.360 and that amount of comparison is nothing
+
+00:06:00.699 but the cost of searching in a binary
+
+00:06:03.580 search tree now one more thing industry
+
+00:06:06.460 if you observe there are circular nodes
+
+00:06:08.110 and these are square nodes I have drawn
+
+00:06:10.719 them in smaller size right so those are
+
+00:06:13.630 square nodes what they are doing here do
+
+00:06:16.419 they have keys no they don't have keys
+
+00:06:18.099 then what they are representing they are
+
+00:06:20.259 representing all those keys that are for
+
+00:06:23.289 unsuccessful search let us see what does
+
+00:06:26.139 it mean see if I am searching for a key
+
+00:06:29.380 that is 11 so 11 11 in smaller levels
+
+00:06:34.000 smaller than this and greater than this
+
+00:06:35.920 it will come this side so 411 it has
+
+00:06:38.320 terminated here then 12 so 12 it is
+
+00:06:41.380 smaller than this smaller than this but
+
+00:06:43.030 greater than this here so it will come
+
+00:06:45.040 on the right-hand side so it will come
+
+00:06:46.750 in here so if I search for the key is
+
+00:06:49.300 from 11 to 19 it will be coming on this
+
+00:06:53.650 side only so I'll just make it as 11 to
+
+00:06:56.290 19 this is representing this node is
+
+00:06:58.630 representing all the unsuccessful search
+
+00:07:01.480 keys from 11 to 19 then what about this
+
+00:07:04.930 this is representing all the keys from
+
+00:07:07.060 minus infinity to 9 so if you search for
+
+00:07:10.210 any number less than 10 search will
+
+00:07:14.200 terminate here so we will not compare
+
+00:07:16.540 here we'll stop our comparisons here but
+
+00:07:18.610 we'll reach here go to left side null
+
+00:07:20.650 and we'll stop so that you can call it
+
+00:07:22.480 as null Square nodes are nulls also that
+
+00:07:24.430 null is representing all those keys for
+
+00:07:26.919 which search will be unsuccessful then
+
+00:07:30.490 similarly all these are representing not
+
+00:07:32.830 one value the set of keys for which
+
+00:07:35.260 search may be unsuccessful if you see
+
+00:07:37.960 this last one this is repenting
+
+00:07:39.940 representing 71 to positive infinity
+
+00:07:43.660 71 to positive infinity then once you
+
+00:07:46.540 search greater than 70 in this binary
+
+00:07:49.180 search tree the search will terminate
+
+00:07:51.070 here so we have seen unsuccessful search
+
+00:07:54.940 are also represented as dummy nodes just
+
+00:07:58.479 to show that this is having set of
+
+00:08:01.390 unsuccessful search keys so now we learn
+
+00:08:04.960 one thing that in a binary search tree
+
+00:08:06.750 search may be successful or unsuccessful
+
+00:08:08.860 in both cases we have to perform some
+
+00:08:12.700 comparisons and reach the result that
+
+00:08:15.250 keys found or keys not found so that's
+
+00:08:18.580 all these are the basic things that I
+
+00:08:20.080 was supposed to give you so I have given
+
+00:08:22.150 it now next thing here I have three keys
+
+00:08:25.120 three keys for three keys I have a
+
+00:08:28.600 constructed binary search tree so if you
+
+00:08:31.360 check all these are binary search trees
+
+00:08:33.190 just pause the video and check all these
+
+00:08:35.740 are binary search trees so what I have
+
+00:08:38.770 to say here is that for same set of keys
+
+00:08:41.320 there can be many possible binary search
+
+00:08:44.680 tree
+
+00:08:45.230 if you want to know the count how many
+
+00:08:47.330 are possible here I have given the
+
+00:08:49.010 formula for and the keys like here we
+
+00:08:51.890 have three keys 2 into n C of n then
+
+00:08:55.640 plus divided by n plus 1 then that 3 I
+
+00:08:59.570 have kept here so this is true into 3
+
+00:09:01.490 this is 2 n means 2 into 3 C 3 by 3 plus
+
+00:09:04.790 1 so this becomes 6 C 3 by 4 and answer
+
+00:09:08.420 is 5 so you can calculate this so for 3
+
+00:09:11.630 Keys 5 different binary switches are
+
+00:09:13.790 possible and here are those 5 binary
+
+00:09:16.400 search trees so if you have more keys
+
+00:09:18.650 then more binary search trees are
+
+00:09:20.870 possible now if you observe here the
+
+00:09:23.120 cost of searching like there I have
+
+00:09:25.850 shown you the cost of searching the
+
+00:09:28.070 maximum comparisons were 3 right but
+
+00:09:31.550 here if you observe the maximum
+
+00:09:33.680 comparisons are 3 maximum are 3 maximum
+
+00:09:36.710 are two oh this is better this binary
+
+00:09:39.050 search tree is better so if you search
+
+00:09:40.880 for any key you can get the key in less
+
+00:09:43.460 number of time less amount of time less
+
+00:09:45.590 number of comparison and this is more
+
+00:09:47.570 this is more so the idea is for the same
+
+00:09:50.090 set of keys when you can have multiple
+
+00:09:51.830 binary search trees one of the binary
+
+00:09:54.770 search tree may be giving you best
+
+00:09:56.420 results that is minimum number of
+
+00:09:58.850 comparisons so that's it we prefer that
+
+00:10:01.610 binary search tree so we want a binary
+
+00:10:04.700 search tree which requires less number
+
+00:10:07.550 of comparison for searching any key
+
+00:10:10.730 element so if you look at this example I
+
+00:10:13.280 have a 7 keys I have arranged them like
+
+00:10:15.620 this now how many binary search trees
+
+00:10:18.200 are possible for 7 keys you put 7 here
+
+00:10:21.110 in the formula and calculated so many
+
+00:10:23.270 binary search trees are possible alright
+
+00:10:25.070 and one of the binary search tree I
+
+00:10:26.930 haven't quickly draw it here so if you
+
+00:10:28.970 take 70 as root and 6 has left child and
+
+00:10:32.270 then its left child 50 then its left
+
+00:10:34.640 child 40 then its left child 30 then 20
+
+00:10:37.820 and 1 so this is also my nearest versity
+
+00:10:40.640 for same set of 7 keys now here if you
+
+00:10:43.850 see how many levels are there 1 2 3 4 5
+
+00:10:48.920 6 7 levels are there so maximum how many
+
+00:10:52.700 comparisons required for searching any
+
+00:10:54.410 key 7 comparisons sorry
+
+00:10:56.700 so the cost is high so it means that if
+
+00:10:59.910 the hydrophobic search tree is less then
+
+00:11:03.030 the number of comparisons will be less
+
+00:11:04.590 and so height plays an important role
+
+00:11:06.840 for searching right
+
+00:11:09.000 so one thing we learn the height of a
+
+00:11:11.070 binary search tree should be minimum now
+
+00:11:13.560 next I will show you what does it mean
+
+00:11:16.350 by probability that is successful search
+
+00:11:19.230 or unsuccessful search probability I'll
+
+00:11:22.080 discuss about this for explaining
+
+00:11:24.360 successful search and unsuccessful
+
+00:11:27.180 search probabilities I have an example
+
+00:11:30.080 let us look at this see I have four keys
+
+00:11:34.220 right and using those four keys I have
+
+00:11:37.350 drawn different binary search trees also
+
+00:11:40.040 for four keys 14 different binary
+
+00:11:43.290 searches are possible but I did not draw
+
+00:11:45.480 all you can try them all if you want I
+
+00:11:47.670 have taken just three binary search
+
+00:11:50.580 trees now first important thing there
+
+00:11:54.360 are four keys and these black nodes are
+
+00:11:57.270 square no sorry presenting unsuccessful
+
+00:12:00.840 search how many are there one two three
+
+00:12:03.750 four five so if there are four keys
+
+00:12:06.240 there are five square nodes so if there
+
+00:12:09.330 are n keys there will be n plus 1 square
+
+00:12:12.390 nodes yes so there are four keys and
+
+00:12:15.780 four plus 1 that is 5 square nodes now
+
+00:12:19.830 let us talk about probability so for
+
+00:12:22.140 talking about probability I will take an
+
+00:12:23.910 example see if you are assume that you
+
+00:12:27.570 are running a store a shop and you have
+
+00:12:30.660 lot of items to sell right a small shop
+
+00:12:33.840 then how you have arranged the items in
+
+00:12:36.480 your shop few are on the counter right
+
+00:12:39.540 at the entrance point only and few are
+
+00:12:43.020 inside the shelf and some few are deeper
+
+00:12:46.290 inside your shop and some of some of the
+
+00:12:48.750 items you have kept them in stock room
+
+00:12:50.990 right so which items are easily
+
+00:12:54.990 reachable the one that are there in the
+
+00:12:57.240 front counter at the that is sales
+
+00:12:59.550 counter or billing counter that are
+
+00:13:02.640 easily reachable right and the one in
+
+00:13:05.520 the stock room will take time for
+
+00:13:08.630 fetching those items so how do you keep
+
+00:13:10.970 these items so you keep these items
+
+00:13:12.980 because depends on the frequency of
+
+00:13:15.440 their sale so that frequency is nothing
+
+00:13:18.080 but probability of their sale so those
+
+00:13:20.600 items who are having high probability of
+
+00:13:22.880 selling you'll keep them in the on the
+
+00:13:24.920 building counter the items which are
+
+00:13:26.870 having lease probability they are there
+
+00:13:29.690 inside the stock room right so that's
+
+00:13:32.570 how he arrays the items so same way
+
+00:13:34.850 these keys are nothing but the items and
+
+00:13:37.190 we are searching for them right fetching
+
+00:13:39.410 them or looking for them is nothing but
+
+00:13:41.000 searching like suppose you have a lot of
+
+00:13:43.070 items on your sale building down there
+
+00:13:44.990 somebody asks for something then you say
+
+00:13:46.670 huh here is the item so that's what you
+
+00:13:48.950 are searching so you want to arrange
+
+00:13:51.140 them such that they can fetch in less
+
+00:13:54.050 amount of time so the cost of searching
+
+00:13:56.210 should be less and one more thing you
+
+00:13:58.820 are considering here is that our
+
+00:14:00.470 customer is asking for something which
+
+00:14:03.320 you will search and find that no it's
+
+00:14:05.270 not available it's sort of stock so that
+
+00:14:07.940 also you want to consider you want to
+
+00:14:10.010 consider what is the frequency that
+
+00:14:11.360 people are asking for a few things which
+
+00:14:13.280 are not present in the shop so
+
+00:14:15.980 successful search probability as well as
+
+00:14:18.220 unsuccessful search probability right so
+
+00:14:21.020 what is the possibility based on that
+
+00:14:22.520 you will arrange the thing see if
+
+00:14:23.840 somebody some customer is asking and you
+
+00:14:25.760 are going into a stockroom and checking
+
+00:14:27.890 and coming back and saying it's not
+
+00:14:29.420 there so it will take more time right so
+
+00:14:32.180 if the unsuccessful probability is high
+
+00:14:34.790 then such things you assume they are
+
+00:14:37.040 there in the counter near the counter
+
+00:14:38.840 it's not there right quickly you can say
+
+00:14:40.910 check in the stockroom no no I know it's
+
+00:14:43.100 not there because we keep it here only
+
+00:14:44.630 if it's there so that's what so the
+
+00:14:47.570 frequency of successful search and
+
+00:14:49.520 unsuccessful search both are important
+
+00:14:51.320 so I have the keys here so if you see I
+
+00:14:54.320 have given the probabilities both
+
+00:14:56.180 success and search probability and
+
+00:14:57.920 unsuccessful search probability if you
+
+00:15:00.170 sum of all of them I have taken in
+
+00:15:01.970 decimals right point because the final
+
+00:15:04.130 probability should be 1 if you add all
+
+00:15:06.560 these that will be 1 ok so the final
+
+00:15:09.590 probability is 1 so that is distributed
+
+00:15:11.990 among successful so an unsuccessful
+
+00:15:13.460 search for various keys this is the
+
+00:15:16.220 successful search probability for key 10
+
+00:15:19.250 so let us call this as p1 probably
+
+00:15:21.709 and this is probability - probability 3
+
+00:15:24.079 probability for that is for the fourth
+
+00:15:25.939 key then unsuccessful search we have one
+
+00:15:28.999 extra let us call this as a q1 for
+
+00:15:31.819 unsuccessful search q2 q3 q4 one is
+
+00:15:36.110 extra so this we call it as q0 so we
+
+00:15:39.230 have started from 0 to 4 right now there
+
+00:15:43.220 are 5 you can say that why do you start
+
+00:15:45.290 from 1 you start from why don't you
+
+00:15:47.449 start from 1 if I start from 1 then I
+
+00:15:49.279 have to give this as 5 so that will be
+
+00:15:51.709 greater than the key for right we have
+
+00:15:54.290 fourth key only so that's why I have
+
+00:15:56.149 started from 0 so 0 to 4 and that is
+
+00:15:59.209 from 1 to 4 so if you look at like once
+
+00:16:01.999 again see this is the probability of
+
+00:16:03.980 searching 10 then what is this the
+
+00:16:05.779 probability of searching anything that
+
+00:16:07.879 is less than 10 so that minus infinity
+
+00:16:09.709 to 9 and this is the successful search
+
+00:16:12.949 probability of searching for T so that
+
+00:16:15.230 is the chances that a customer is coming
+
+00:16:17.420 for a key 40 assume like this then what
+
+00:16:19.939 are the chances that he is coming for
+
+00:16:21.679 anything above 40 so that is from 41 to
+
+00:16:25.220 infinity this 1.05 is the probability so
+
+00:16:29.300 this is not representing just one
+
+00:16:31.160 element it is representing set of
+
+00:16:32.839 elements or set of keys that is
+
+00:16:35.059 representing just a particular key
+
+00:16:37.420 that's it this is about the successful
+
+00:16:40.459 search an unsuccessful search
+
+00:16:41.569 probability now we need to know the cost
+
+00:16:44.959 of searching so for cause I have please
+
+00:16:47.420 here see this is our example 3 and if
+
+00:16:50.059 you take the reverse this is level 1
+
+00:16:51.529 level 2 and this is 4 is at level 3 so I
+
+00:16:55.100 have taken levels also and for each node
+
+00:16:58.040 that is for key I have taken its
+
+00:17:00.230 probability I have mentioned it that is
+
+00:17:02.269 point 1 point 2 point 1 and point 2 then
+
+00:17:04.880 I have 4 square nodes also I have the
+
+00:17:08.119 probabilities now I want to know the
+
+00:17:10.039 cost of searching based on successful
+
+00:17:12.919 search and unsuccessful search
+
+00:17:14.390 probabilities so let us find out the
+
+00:17:16.579 cost so what is the cost of searching
+
+00:17:19.220 this one it is at level one so just one
+
+00:17:21.619 comparison one into 0.2 plus what is the
+
+00:17:25.880 cost of searching 10 that is 0.1 so and
+
+00:17:29.360 it's at level 2 so it is 2 into
+
+00:17:32.650 into one right then for 30 I will take
+
+00:17:36.040 number of comparisons require I to
+
+00:17:37.840 because it's at level 2 so 2 into 0.1
+
+00:17:41.500 plus 4 this require 3 comparison so 3
+
+00:17:45.220 into 0.2 so for successful search keys I
+
+00:17:50.200 have taken this plus I should continue
+
+00:17:52.780 but I will not do there I will do it
+
+00:17:54.580 here plus right now for unsuccessful
+
+00:17:57.580 search point 1 but how many comparison
+
+00:18:00.280 see level 1 level 2 this is not level 3
+
+00:18:03.280 right don't take it as level 3 because
+
+00:18:04.930 we don't compare we stop here only we
+
+00:18:07.120 stop over a comparison here only and try
+
+00:18:09.340 to go on left side and say key is not
+
+00:18:11.140 there that work that saw its
+
+00:18:13.090 unsuccessful search only 2 comparison so
+
+00:18:15.850 what is the level if you take I should
+
+00:18:18.130 take its level as 3 right so this is
+
+00:18:20.260 along with the 40 and these are at level
+
+00:18:22.570 4 so we don't take its level but level
+
+00:18:24.520 -1 one less level minus 1 so this is 2
+
+00:18:27.760 into and its probability is 0.1 plus
+
+00:18:32.350 then this is 2 into point 0 5 plus 2
+
+00:18:37.840 into 0.15 plus this is for this this is
+
+00:18:43.990 for C actually I should draw them like
+
+00:18:46.510 this I should draw them till here till
+
+00:18:48.700 40 ok I should draw them here till 40 so
+
+00:18:52.450 this is point 1 and this is 0.5 0.2 0.2
+
+00:18:56.800 side level 3 they are at level 3 then
+
+00:18:59.470 what about these nodes these are at
+
+00:19:01.150 level 4 so this is so 4 into point zero
+
+00:19:04.470 5 and Plus this is also 4 into point
+
+00:19:09.190 zero 5 okay see this square know also
+
+00:19:12.520 they are also at some level but we don't
+
+00:19:14.800 consider their level we will consider
+
+00:19:16.540 one lesser than their level so this is
+
+00:19:19.270 the total so what will be the total if I
+
+00:19:21.370 multiply and an ADD this will be equal
+
+00:19:23.980 to oh I have written this as 4 this is
+
+00:19:26.590 actually 3 right so this is 3 into so
+
+00:19:29.710 these are at 4th level these are at
+
+00:19:31.240 fourth level but the number of
+
+00:19:32.380 comparison stops here we have stopped we
+
+00:19:34.510 have to stop here that is level 3 so it
+
+00:19:36.610 should be 3 and if I multiply this and
+
+00:19:39.190 add the result will be 2 point 1 so this
+
+00:19:43.510 is the
+
+00:19:44.050 of searching in this binary search tree
+
+00:19:46.870 by considering successful search
+
+00:19:49.450 probabilities as well as unsuccessful so
+
+00:19:52.060 it's probabilities right where for every
+
+00:19:55.120 key we have taken its level as the
+
+00:19:57.160 number of comparison for unsuccessful
+
+00:19:59.590 search we have taken its level minus one
+
+00:20:01.690 Hotel level minus 1 whatever is level
+
+00:20:03.580 minus 1 so this should be extended till
+
+00:20:05.860 here I have drawn them in small size ok
+
+00:20:08.830 so level minus 1 we take so this how we
+
+00:20:11.230 got the cost now I will not calculate
+
+00:20:13.510 this so you can do it by yourself just
+
+00:20:15.940 remember that this is at level 1 this is
+
+00:20:18.340 at level 2 and these have to be at a
+
+00:20:21.640 level 3 okay
+
+00:20:23.430 these are at level 3 this is level 3 and
+
+00:20:26.500 these are at level 4 so we don't take it
+
+00:20:30.880 for for this we take 3 only for this we
+
+00:20:33.040 don't they get 3 we take 2 only because
+
+00:20:35.020 these are not reachable we are not
+
+00:20:37.060 reaching them we are not comparing there
+
+00:20:38.770 so for this also you find out the cost
+
+00:20:41.400 now let us write on the formula for this
+
+00:20:44.110 cost so how I have found out the cost is
+
+00:20:46.620 cost is 4 Keys 1 2 4 but here 0 is
+
+00:20:52.360 included so let us write 0 also 0 before
+
+00:20:55.090 so what for 0 is because the
+
+00:20:57.010 unsuccessful search probabilities are
+
+00:20:58.570 starting from 0 onwards we write 0
+
+00:21:00.970 otherwise
+
+00:21:01.600 the keys are studying from 1 only but we
+
+00:21:04.360 write 0 also so this cost is we have
+
+00:21:07.060 multiplied every probability of a key
+
+00:21:10.060 with its level probability of any key is
+
+00:21:13.480 multiplied with level of that key value
+
+00:21:16.690 right so for key I will say a I that is
+
+00:21:20.170 identifier or a elements are ABC I am
+
+00:21:23.140 calling them as keys but let us write it
+
+00:21:24.880 as e or high then plus what about the
+
+00:21:27.630 unsuccessful search probabilities so
+
+00:21:30.550 that also the QI value is multiplied
+
+00:21:33.730 with level of these are called as a
+
+00:21:37.600 square nodes are called as external
+
+00:21:39.580 nodes so let us call it as e I but we
+
+00:21:42.670 don't take its actual level like this
+
+00:21:44.440 level was a 3 but we have taken 2 for
+
+00:21:46.510 this one so this is minus 1 so this
+
+00:21:50.280 level should be one less and this I have
+
+00:21:53.590 to do some mission of all this so let us
+
+00:21:55.540 say this is Sigma
+
+00:21:56.660 where I takes the values starting from 1
+
+00:22:00.200 to N and here the I value will start
+
+00:22:04.070 from 0 to n right so here it is not 4 it
+
+00:22:09.140 is n let us make it as 4 n so this is
+
+00:22:12.020 from 1 to n that is from 0 to n this is
+
+00:22:14.480 the formula so what I have done I have
+
+00:22:16.670 multiplied the probability with level
+
+00:22:18.650 probability with level so probability
+
+00:22:20.330 with level and unsuccessful search also
+
+00:22:22.430 probability with level probability with
+
+00:22:24.320 level so the probability with level this
+
+00:22:26.630 also I have to sum up this also have to
+
+00:22:28.730 sum up so this is the cost formula for
+
+00:22:31.640 finding the cost of a existing binary
+
+00:22:35.030 search tree already we have a binary
+
+00:22:37.070 search tree and we know the
+
+00:22:38.630 probabilities we want to know the cost
+
+00:22:40.220 so this is the formula all right so now
+
+00:22:44.870 next we'll move to the next step
+
+00:22:47.060 that is we will learn what does it mean
+
+00:22:49.850 by optimal binary search tree C assume
+
+00:22:54.200 that we have the keys here and for every
+
+00:22:57.320 key there is a successful search
+
+00:22:59.390 probability as well as unsuccessful
+
+00:23:01.280 search probabilities these are given
+
+00:23:03.550 then we have to find a binary search
+
+00:23:07.790 tree such that the cost of searching the
+
+00:23:12.470 cost of searching this one here if you
+
+00:23:14.960 remember we got the cost as two point
+
+00:23:16.700 one that should be minimized minimize it
+
+00:23:20.510 means this formula should be minimized
+
+00:23:22.760 yes the formula of cost should be
+
+00:23:25.970 minimum this should be minimum the cost
+
+00:23:28.310 for this one depends on the height of a
+
+00:23:31.970 binary search tree which key is at which
+
+00:23:34.610 level if you observe root is 20 here
+
+00:23:37.190 root is 30 and here it is 40 and here 30
+
+00:23:41.750 is at a level 2 and here 30 is at level
+
+00:23:44.840 1 and 30 is at level 3 so I have kept
+
+00:23:48.350 them at different places so if you find
+
+00:23:50.510 the cost you will find the differences
+
+00:23:52.070 in the cost you will not get cost us two
+
+00:23:54.350 point one for this one also and this one
+
+00:23:56.120 also you may get different cost so as I
+
+00:23:58.910 said for four keys 14 binary search
+
+00:24:03.260 trees are possible 14 are possible now
+
+00:24:06.440 we want the best binary search tree
+
+00:24:10.100 for this the cost is minimized for that
+
+00:24:13.640 a tree the cost is minimized means this
+
+00:24:15.740 cost should be minimized so how a tree
+
+00:24:19.159 should be constructed so now I will
+
+00:24:21.649 reframe the statement now a problem of
+
+00:24:24.440 optimal binary search tree is if the
+
+00:24:27.320 keys and their probabilities are given
+
+00:24:28.990 we have to generate a binary search tree
+
+00:24:32.019 generate a binary search tree such that
+
+00:24:35.240 the cost is minimum the cost is minimum
+
+00:24:38.480 this is the problem now what should be
+
+00:24:41.720 the solution see for solution it means
+
+00:24:44.419 for four keys 14 different trees are
+
+00:24:47.480 possible I should draw all 14 trees and
+
+00:24:50.990 find out the cost for each tree then I
+
+00:24:54.769 should select the one which is giving
+
+00:24:56.450 minimum cost they should be the approach
+
+00:24:58.330 but this is very time-consuming you
+
+00:25:01.309 remember for n nodes these many trees
+
+00:25:04.820 are possible to NZ n by n plus 1 so for
+
+00:25:08.659 4 keys for entries are possible so if I
+
+00:25:11.750 have 40 keys then imagine is it
+
+00:25:13.730 practical that you try all possible
+
+00:25:15.980 binary search trees and find their cost
+
+00:25:18.559 and select the minimum one no it's not
+
+00:25:21.440 possible
+
+00:25:22.190 but is it possible that we find out the
+
+00:25:25.519 best tree without generating all of them
+
+00:25:28.990 may be possible so that's what dynamic
+
+00:25:32.929 programming approach will try to give
+
+00:25:35.269 you a easier faster method for trying
+
+00:25:39.320 out all possible binary search trees and
+
+00:25:42.080 picking up the best one without trying
+
+00:25:44.990 all of them without trying all of them
+
+00:25:47.000 so imagine if you try all how much time
+
+00:25:49.580 it will take so we will try all of them
+
+00:25:52.039 but not directly indirectly so that is
+
+00:25:55.279 the benefit of dynamic programming
+
+00:25:57.350 approach that is the strength of DP that
+
+00:25:59.990 you will try all of them but not
+
+00:26:02.450 directly indirectly so how it can be
+
+00:26:05.480 done in this problem let us learn so I
+
+00:26:09.200 will remove this and I will start
+
+00:26:10.700 explaining about dynamic programming
+
+00:26:11.990 approach for optimal - first tree I have
+
+00:26:14.630 even the formula here now for using this
+
+00:26:16.760 formula for 3 keys just 3 keys that is
+
+00:26:21.169 from 0 to 3 I have taken
+
+00:26:22.800 here then how we can use this formula
+
+00:26:24.900 for a generating optimal binary search T
+
+00:26:27.240 so we have to substitute the values in
+
+00:26:29.160 this formula so let us do this one so
+
+00:26:32.430 from this I will explain you what should
+
+00:26:34.170 be the approach for solving this problem
+
+00:26:36.570 just watch it carefully from 0 to 3 K
+
+00:26:39.870 can take the values from greater than 0
+
+00:26:42.510 to less than equal to 3 mins ki can take
+
+00:26:44.340 the values 1 & 2 & 3 so I will
+
+00:26:47.070 substitute all of them and from that I
+
+00:26:49.140 should take the minimum so this should
+
+00:26:50.730 be C of 0 to 0 that is K minus 1 so what
+
+00:26:56.430 is K right now 1 so K is 1 means this is
+
+00:26:59.760 0 plus C of 1 2 3 this is the first
+
+00:27:04.710 substitution comma
+
+00:27:06.810 this is comma now K I will take it as 2
+
+00:27:09.870 so if I take a K as 2 then this is 0 and
+
+00:27:14.490 K is 2 months 2 minus 1 is 1 then plus C
+
+00:27:19.140 of K is 2 2 then J is 3 here right J is
+
+00:27:24.510 3 3 this is the second value of K I have
+
+00:27:29.250 taken comma now third value of K I will
+
+00:27:32.040 take that is K should be 3 so it will be
+
+00:27:35.280 K minus 1 that will be 2 so this is C of
+
+00:27:37.790 0 2 2 plus C of 3 2 3 then this
+
+00:27:45.510 completes all possible K values K values
+
+00:27:48.600 can be 1 2 3 so I have taken this this
+
+00:27:51.120 is for 1 this is for 2 this is for 3 so
+
+00:27:53.970 here you can see the K value write this
+
+00:27:55.650 term is K this this value is K so this
+
+00:27:58.290 is K this is K so this is K minus 1
+
+00:28:00.240 actually now at last we have to take W
+
+00:28:03.360 of 0 to 3
+
+00:28:04.950 so whatever the minimum that you get in
+
+00:28:07.290 that we can add that rate of 0 to 3 now
+
+00:28:11.810 from this when I can know the answer for
+
+00:28:15.180 this one C of 0 comma 0 that is cost of
+
+00:28:18.150 0 comma 0 it will be nothing that will
+
+00:28:19.680 be 0 only and similarly C of 3 comma 3
+
+00:28:21.900 it will be 0 only what what about this I
+
+00:28:24.180 should know this value I should know
+
+00:28:26.130 this one I should know this one
+
+00:28:27.720 so if I know these values I can
+
+00:28:30.780 substitute them and I can get the
+
+00:28:32.580 minimum then it will give us what should
+
+00:28:34.830 be Roo
+
+00:28:35.370 okay okay and this w of zero to three is
+
+00:28:38.520 nothing but sum of all the probabilities
+
+00:28:40.400 successful as well as unsuccessful
+
+00:28:42.810 altogether right now I should know this
+
+00:28:45.990 right so if I have to find out this one
+
+00:28:49.590 I'll try to expand it here only just
+
+00:28:51.720 watch so if I try to expand here see off
+
+00:28:55.980 one two three this is nothing but a
+
+00:28:58.320 minimum of K takes the values greater
+
+00:29:00.420 than one and less than equal to three so
+
+00:29:02.370 what are the possible values of K K can
+
+00:29:05.280 take the value greater than one means
+
+00:29:06.390 two as well as three so this has to be C
+
+00:29:08.910 of first of all K values 2 so this will
+
+00:29:11.460 be 1 comma 1 plus C of 2 comma 3 and
+
+00:29:17.120 next value is K value I will take it as
+
+00:29:20.370 3 so this will be C of 1 comma 2 plus C
+
+00:29:24.720 of 3 comma 3 then plus weight of 0 1
+
+00:29:30.690 comma 3 1 comma 3 1 so from this you can
+
+00:29:34.020 see that just to know this value again
+
+00:29:36.840 if I expand I have to know more values I
+
+00:29:39.840 should know 1 comma 1 and 3 comma 3 also
+
+00:29:42.630 then this is only for this one then I
+
+00:29:44.970 should know this value and this value
+
+00:29:46.350 and this value this value that's 2 to 0
+
+00:29:49.470 to 2 so so many values I should know if
+
+00:29:51.630 I expand them then they will expand like
+
+00:29:54.120 anything so for finding the cost of 0 to
+
+00:29:57.540 3 this is the formula in this I don't
+
+00:30:00.720 know these values so I should find out
+
+00:30:02.760 these values and this again can be done
+
+00:30:05.370 using formula again it expands like
+
+00:30:07.350 anything and from this again if I take 2
+
+00:30:09.870 comma 3 again it will expand like
+
+00:30:11.460 something so if I want these values I
+
+00:30:14.610 should trust know these values so that's
+
+00:30:18.030 that is the point that is the point so
+
+00:30:20.430 it means for knowing the answer for a
+
+00:30:22.080 larger value I should know the value for
+
+00:30:24.600 answer for smaller values first like
+
+00:30:27.090 these are smaller so you can see that
+
+00:30:28.650 this was from 0 to 3 and it became 1 to
+
+00:30:31.530 3 so it is reducing so if I know first
+
+00:30:34.110 smaller values then we can substitute
+
+00:30:35.880 and get done so then I can get the
+
+00:30:37.740 larger value yes this is what the
+
+00:30:40.230 approach dynamic
+
+00:30:41.470 say takes for solving the problems so if
+
+00:30:45.159 you expand all these formulas and see
+
+00:30:47.200 then what are the values that we need I
+
+00:30:49.629 will list them here
+
+00:30:51.070 so from this basically you need C of 0 0
+
+00:30:54.750 C of 1 1 C of to do right and C of 3 3
+
+00:31:01.659 you should know these values you some of
+
+00:31:03.669 them you can see here 0 0 1 1 3 3 2 2
+
+00:31:06.490 will also come if you expand any one
+
+00:31:08.200 then after that you also should know
+
+00:31:10.240 that is 0 to 1 with a gap of 1 that is C
+
+00:31:14.110 of 1 to 2 and C of 2 to 3 this is a gap
+
+00:31:19.539 of 1 see the difference between these
+
+00:31:21.159 two was 0 now difference is 1 then C of
+
+00:31:24.429 0 to 2 and C of 1 2 3 the gap
+
+00:31:28.299 differences to here then finally you can
+
+00:31:31.059 know C of 0 2 3 so first find out these
+
+00:31:35.259 from that you can know these from that
+
+00:31:37.029 you can know these values then finally
+
+00:31:38.559 you can know so it means to solve the
+
+00:31:40.360 this formula you should solve this a
+
+00:31:42.460 smaller formula for this formula you
+
+00:31:44.500 should solve this a smaller formula so
+
+00:31:46.659 if you already have smaller values you
+
+00:31:48.700 can substitute and put them back and get
+
+00:31:50.529 that fans final answer that's what we
+
+00:31:53.860 need the values so these values we need
+
+00:31:55.899 so if you observe and say that this is I
+
+00:31:59.200 and this is G difference between I and J
+
+00:32:02.019 is 0 here so J minus is 0 here here J
+
+00:32:05.889 minus I is 1 and here J minus I is 2 and
+
+00:32:09.669 here J minus I is 3 so I should find out
+
+00:32:13.779 the values fit the difference of zero a
+
+00:32:15.639 difference of 1 and difference of 2 and
+
+00:32:17.590 difference of 3 I do because always I
+
+00:32:20.139 will be less than J right always I will
+
+00:32:22.210 be less than J that's why I'm not
+
+00:32:23.980 getting all possible combinations just I
+
+00:32:26.500 am getting this much so if you know
+
+00:32:28.659 these values then you can get done sorry
+
+00:32:30.789 1 dancer for this one so now we will not
+
+00:32:33.490 be using formula will be filling table
+
+00:32:36.070 and that table we know very well that it
+
+00:32:38.139 is from the formula only so when we
+
+00:32:40.990 solve the problem we will fill the table
+
+00:32:43.269 now one more thing in this one apart
+
+00:32:45.639 from finding the cost we should also
+
+00:32:47.320 know who is giving us minimum
+
+00:32:49.180 means which came out of these three KS
+
+00:32:51.550 which K gives minimum cost from that we
+
+00:32:53.770 will select it as a root so we should
+
+00:32:55.660 monitor that also observe that one also
+
+00:32:58.120 then also in the formula we have weight
+
+00:33:01.000 values so how to know the weight see if
+
+00:33:03.880 you observe if you take weight of 0
+
+00:33:07.210 comma 2 and weight of 0 comma 3 then
+
+00:33:11.110 what is the difference see these are the
+
+00:33:12.490 weights so if you take 0 comma 2 and Z
+
+00:33:14.650 comma 0 comma 3
+
+00:33:15.610 what is the difference so what is this Q
+
+00:33:18.220 0 plus P 1 plus Q 1 plus P 2 plus Q 2
+
+00:33:24.160 what about this Q 0 plus P 1 plus Q 1 P
+
+00:33:30.010 2 plus Q 2 plus P 3 plus Q 3 right so if
+
+00:33:35.410 you observe these two then this is same
+
+00:33:38.410 in this one and only p3q trees added so
+
+00:33:42.850 weight of 0 comma 3 can be taken as
+
+00:33:46.870 weight of a 0 comma 2 plus P 3 Q 3 right
+
+00:33:53.710 so it means weight of any I comma J can
+
+00:33:56.950 be taken as weight of I comma
+
+00:33:59.590 this is J minus 1 J minus 1 plus okay J
+
+00:34:04.690 minus 1 plus pj QJ so this is how we can
+
+00:34:10.630 modify the values of W so it means if
+
+00:34:13.750 you form the one of the W value you can
+
+00:34:16.330 know the next value by this Smith hurt
+
+00:34:18.100 right so if you already know 0 comma 2
+
+00:34:20.469 you can easily find 0 comma 3 so finally
+
+00:34:23.320 I can say that we have to find out cost
+
+00:34:26.610 weight for the formula plus who should
+
+00:34:31.150 be a root so now I have explained you
+
+00:34:34.270 what should be the approach now I will
+
+00:34:36.400 take an example problem and I will solve
+
+00:34:38.710 it let us take a problem and solve it
+
+00:34:41.110 using the formula we have already seen
+
+00:34:43.060 and although I have given you the
+
+00:34:44.650 approach now I will solve this problem
+
+00:34:47.170 and also I will construct a a binary
+
+00:34:48.909 search tree that is optimal binary
+
+00:34:50.590 search tree so let us look at the
+
+00:34:52.719 problem first of all see there are four
+
+00:34:54.820 keys given 10 20 30 40 right and these
+
+00:34:58.630 are successful search probabilities
+
+00:35:00.610 right or
+
+00:35:02.170 firstly second third and fourth key and
+
+00:35:04.329 these are unsuccessful search
+
+00:35:06.369 probabilities that are q' eyes that are
+
+00:35:08.799 studying from zero onwards like one
+
+00:35:10.630 extra unsuccessful search probability
+
+00:35:12.670 will be there so this is zero one two
+
+00:35:14.710 three four
+
+00:35:15.579 actually the probabilities should be in
+
+00:35:17.710 decimal point probability should not be
+
+00:35:19.630 greater than one right
+
+00:35:21.819 these are in decimal point but working
+
+00:35:24.160 with the decimal point will be difficult
+
+00:35:25.839 so actually if you add all of them total
+
+00:35:28.480 is sixteen so if you divide them by
+
+00:35:31.420 sixteen every value by sixteen you will
+
+00:35:33.339 get the actual probability so they are
+
+00:35:34.839 multiplied by 16 to get the integer
+
+00:35:36.609 number so that you can easily calculate
+
+00:35:38.319 them now
+
+00:35:40.630 for solving as I told you the approach I
+
+00:35:43.089 have taken all the values the weight and
+
+00:35:44.799 the cost and the root who should be a
+
+00:35:46.359 root so all these values are filled here
+
+00:35:48.640 and this is 0 0 1 1 two 2 three 3 four 4
+
+00:35:51.790 difference between I and J is 0 0 1 1 2
+
+00:35:55.720 2 3 3 4 difference between I and J is 1
+
+00:35:58.780 & 2 & 3 & 4 I have to fill up this table
+
+00:36:02.160 finally I need the cost for 0 to 4 that
+
+00:36:06.400 is for keys are there so 0 to 4 is here
+
+00:36:09.010 so if I can get this answer then I got
+
+00:36:11.799 dancer IV not using the formula directly
+
+00:36:14.410 but indirectly I am using the formula by
+
+00:36:16.660 filling this tip let us fill up the
+
+00:36:18.549 values so first of all W value I will
+
+00:36:20.740 fill up see W of 0 comma 0 is Q 0 plus
+
+00:36:26.260 nothing is there right zq 0 will be
+
+00:36:29.680 there so it means 0 comma 0 is Q 0 W of
+
+00:36:33.609 1 comma 1 is Q 1 plus nothing is there
+
+00:36:37.420 one is the last one starting from 1 and
+
+00:36:39.130 ending at 1 so this is just Q 1 so it
+
+00:36:42.130 means this W of 0 comma 0 is this is 2
+
+00:36:46.359 and this is 3 1 comma 1 is 1 and this is
+
+00:36:50.710 1 and 1 and this is also 1 okay
+
+00:36:55.450 2 3 1 1 1 so W values are just first Q
+
+00:36:59.589 values so that is failed and what about
+
+00:37:02.319 the cost cost of 0 comma 0 so cost of 0
+
+00:37:05.290 comma 0 if you take K takes the values
+
+00:37:07.900 from greater than 0 greater than 0 means
+
+00:37:12.040 fun but less than equal to this 1 so
+
+00:37:14.480 there is no K value possible so these
+
+00:37:17.030 costs are zeros so initial values are
+
+00:37:20.300 all zeros these are all zeros
+
+00:37:23.080 all right so these are all zeros that is
+
+00:37:27.290 filled first row is filled now mixable
+
+00:37:30.380 this one for this first of all I will
+
+00:37:33.320 find out the W values then I will show
+
+00:37:35.150 you cost and the root vanish roofs also
+
+00:37:37.910 I meet them and 0 here now here W of 0
+
+00:37:41.390 comma 1 so if you remember I have shown
+
+00:37:43.580 you that W of I comma J is nothing but
+
+00:37:47.180 the value of I comma J minus 1 plus PJ
+
+00:37:51.080 and QJ right so W of 0 comma 1 will be W
+
+00:37:58.400 of 0 and J minus 1 is 0 plus P 1 plus Q
+
+00:38:04.640 1 so this I can obtain this I can obtain
+
+00:38:08.270 from this 1 0 comma 1 I can obtain from
+
+00:38:11.180 0 comma 0 0 comma 1 I can obtain from 0
+
+00:38:14.060 comma 0 so this plus P 1 Q 1 these are P
+
+00:38:19.580 1 Q 1 3 plus 3 6 and this 8 and if I
+
+00:38:24.650 take this for this 1 this is 2 1 comma 2
+
+00:38:28.430 so P to Q 2 so 3 plus 1 right 3 plus 1 4
+
+00:38:32.920 5 6 7 this is 7 and this man 2 comma 3 2
+
+00:38:38.570 comma 2 plus P 3 Q T 1 plus 1 plus 1
+
+00:38:44.000 total 3 total 3 that is 2 and this is 1
+
+00:38:48.170 now this 1 3 comma 3 3 comma 4 so 1 plus
+
+00:38:51.800 4 comma 4 so 1 plus 1 right 2 and that
+
+00:38:56.330 is 1 3 so this is 3 w values I have
+
+00:38:59.600 filled them like this now even I can
+
+00:39:01.220 fill up all these values to W values so
+
+00:39:03.410 let us finish them ok I'll fill up all
+
+00:39:05.750 these values then I will fill up cost of
+
+00:39:07.820 the root so rate we can be already known
+
+00:39:10.490 this is 8 is there then 2 comma 2 have
+
+00:39:13.070 to fill up that is 3 plus 1 4 8 plus 4
+
+00:39:17.000 is 2 and 7 plus 2 is 9 then 3 plus 2 is
+
+00:39:22.430 5 then next this one too
+
+00:39:26.850 Plus 3 3 3 3 is 2 so this is 14 and this
+
+00:39:31.800 is 4 comma 4 so 9 plus 2 is 11 and then
+
+00:39:37.710 this one 1 comma 4 then this one is 16
+
+00:39:41.480 14 plus 2 16 so W values already have
+
+00:39:46.440 filled them by using this formula this
+
+00:39:48.900 formula you can see this is the formula
+
+00:39:50.780 right now I have to find out cost so I
+
+00:39:55.710 should start from here I will find all
+
+00:39:57.540 these cost and I will fill up them all
+
+00:39:59.640 so roots so let us do it let us find C
+
+00:40:03.630 of 0 comma 1 so for that first of all I
+
+00:40:06.330 will write down the formula right so you
+
+00:40:08.700 should look at the formula from that we
+
+00:40:10.980 will do it this is minimum of K takes
+
+00:40:14.040 values greater than I in less than equal
+
+00:40:15.840 to J and this is C of I comma K minus 1
+
+00:40:20.250 plus C of K 2 J and outside the bracket
+
+00:40:25.980 is W of I J right this is the formula
+
+00:40:31.110 now keeping this formula I will be using
+
+00:40:34.050 that for finding all the values let us
+
+00:40:35.970 start C of 0 comma 1 so here I write C
+
+00:40:39.510 of 0 comma 1 s minimum of K takes the
+
+00:40:43.290 values greater than 0 less than or equal
+
+00:40:46.290 to 1 so what are the possible values of
+
+00:40:48.240 K greater than 0 minus 1 1 2 1 so only
+
+00:40:51.180 one value it can take so this will be C
+
+00:40:53.550 of I s 0 K I said it is 1 so 1 minus 1
+
+00:40:58.710 is 0 plus C k K's what 1 K is 1 and a j
+
+00:41:04.680 j is what 1 plus so outside the bracket
+
+00:41:09.930 we have plus w of i comma j i comma j is
+
+00:41:14.550 0 comma 1 0 comma 1 this is what the
+
+00:41:18.450 formula we caught so as there is only
+
+00:41:20.610 one value so that is only the minimum
+
+00:41:22.380 value so let us find out minimum of do I
+
+00:41:25.380 have the C of 0 comma 0 yes it is 0 0
+
+00:41:29.960 then C of 1 comma 1 yes I have 0 0 plus
+
+00:41:35.970 weight of 0 comma 1 weight of 0 comma 1
+
+00:41:39.420 as a
+
+00:41:40.410 here we have eight eight then what is
+
+00:41:44.190 the minimum of this zero only so this is
+
+00:41:46.739 zero plus eight is eight so cost of zero
+
+00:41:50.670 comma one as eight first value we got if
+
+00:41:56.970 they observe in this fun only K value
+
+00:42:00.599 one value is possible only one value is
+
+00:42:02.849 possible
+
+00:42:03.479 so here this is becoming zero zero this
+
+00:42:06.329 is becoming one one right now let us try
+
+00:42:09.239 for C of 1 comma 2 1 comma 2 I will find
+
+00:42:12.869 out this fun so what I will do is I will
+
+00:42:14.729 just modify it okay 1 comma 2 this is 1
+
+00:42:19.049 this is 2 and this is 1 this is 2 K can
+
+00:42:23.249 take the values greater than 1 less than
+
+00:42:25.319 equal to 2 so only 2 it can take then
+
+00:42:28.680 this is C of I I is what 1 K minus 1 2
+
+00:42:33.509 minus 1 1 C of k k is a 2 2 and c of j j
+
+00:42:42.029 is 2 so this is 1 comma 1 2 comma 2 and
+
+00:42:45.509 a weight of 1 comma 2 weight of 1 comma
+
+00:42:49.319 2 so C of 1 1 0 C of 2 2 0 minimum of 0
+
+00:42:58.140 is 0 only right weight of 1 2 is 7 this
+
+00:43:02.009 is not 8 this is 7 this one right now
+
+00:43:05.910 add this what is the result 0 plus 7 is
+
+00:43:08.999 a 7 so I got the same value here so this
+
+00:43:13.559 means that if I try for C of 2 3 also
+
+00:43:16.380 I'll get rate only because there is only
+
+00:43:19.319 1 K very possible and that we are
+
+00:43:21.390 getting 0 only so this will be same 3 3
+
+00:43:24.779 I see the time I have observed that it
+
+00:43:28.289 is coming same thing so I have directly
+
+00:43:30.960 written the value so I've saved the time
+
+00:43:32.729 now 1 2 3 4 5 6 values I have to find
+
+00:43:36.599 out next 0 to 2 let us find out 0 to 2
+
+00:43:40.319 I'll remove this and I'll find out 0 to
+
+00:43:42.539 2 now what should be the root values
+
+00:43:44.579 here see the minimum value here the
+
+00:43:47.519 minimum K value was 1 here
+
+00:43:49.690 we have taken as 1 K here we have taken
+
+00:43:51.610 as 2 and here 3 here 4 now here in this
+
+00:43:55.270 one you cannot see the difference next
+
+00:43:57.610 level when I find the values for these
+
+00:43:59.500 that time you can find out how we are
+
+00:44:01.990 getting a root value okay
+
+00:44:04.090 so just I have written 1 2 3 4 just
+
+00:44:06.220 leave it okay now let us find out C of 0
+
+00:44:09.340 comma 2 so this will be little nd C of 0
+
+00:44:12.940 comma 2 minimum of K takes the values
+
+00:44:15.880 greater than 0 less than or equal to 2
+
+00:44:17.740 so what are the values K can take 1 and
+
+00:44:20.290 2 2 values it can take so in this I
+
+00:44:23.290 should take K as 1 as well as a K as 2 2
+
+00:44:26.590 times I have to try this form so let us
+
+00:44:28.660 take C of 0 comma K as 1 1 and 1 means 1
+
+00:44:33.190 minus 1 0 plus C of K is 1 1 comma 2
+
+00:44:38.470 this is I this is J remember this and
+
+00:44:41.080 right now K is 1 we are taking 1 so this
+
+00:44:44.110 I have finished now K as a 2 we will
+
+00:44:46.510 take 2 in this one you substitute 2 2
+
+00:44:49.000 here C of 0 2 minus 1 is 1 plus C of 2
+
+00:44:54.040 comma J is 2 2 comma 2 then outside this
+
+00:44:59.020 weight of that is 0 comma 2 so let us
+
+00:45:03.760 substitute the values and see minimum of
+
+00:45:07.020 C 0 0 from here and I got the value C I
+
+00:45:11.140 am finding this one and for this I
+
+00:45:12.940 should know this value that is helping
+
+00:45:14.590 me already know I know the value then I
+
+00:45:16.510 can use it here
+
+00:45:17.380 that's what C of 0 is 0 is 0 C of 1
+
+00:45:21.370 comma 2 as a77 plus C of 0 comma 1 C of
+
+00:45:27.490 0 comma 1 is 8 8 plus C of 2 comma 2 2
+
+00:45:33.730 comma 2 is 0 0 okay
+
+00:45:38.110 then plus weight of 0 comma 2 rate of 0
+
+00:45:41.830 comma 2 is how much 12 this is 12 so
+
+00:45:45.790 this is minimum of right which is
+
+00:45:49.510 cinnamon 7s minimum what was the value
+
+00:45:52.810 of K here if you remember K I have taken
+
+00:45:55.480 as 1 here
+
+00:45:56.310 kay I have taken a stew here yes Kay as
+
+00:45:59.160 one has given me the minimum value so
+
+00:46:01.080 this is seven and plus 2l so this is 19
+
+00:46:05.640 and the K value is 1 so I'm filling up
+
+00:46:08.940 was here this is 19 and who should be
+
+00:46:12.000 rude minimum one should be rude so who
+
+00:46:14.250 was minimum K was 1 K is 1 that's it so
+
+00:46:19.080 that's how whoever is giving minimum
+
+00:46:21.120 value that we will take here and most of
+
+00:46:23.940 the dynamic programming problem we do it
+
+00:46:25.680 like this only whichever value is giving
+
+00:46:27.840 minimum that we will take it there now I
+
+00:46:30.360 will not fill up find out these you can
+
+00:46:32.610 follow this formula and you can do it
+
+00:46:34.410 I'll fill up these values then I will
+
+00:46:36.960 find out these three values finally okay
+
+00:46:39.330 these three values so let me remove this
+
+00:46:42.210 and find out C of 0 3 if you want to see
+
+00:46:45.360 the value this value is 22 and this is 8
+
+00:46:48.990 3 so if you follow this method and get
+
+00:46:52.530 danced and you get those answer I'll
+
+00:46:54.210 remove this and find 0 comma 3 C of 0
+
+00:46:57.660 comma 3 that is minimum of K takes the
+
+00:47:01.140 values greater than 0 less than or equal
+
+00:47:02.910 to 3 so what are the K values possible
+
+00:47:04.920 first time K value can be 1 or 2 or 3 3
+
+00:47:09.090 values are possible so if I put one
+
+00:47:11.340 there then it will be C of 0 0 plus C of
+
+00:47:15.500 1 3 then next is comma next value is C
+
+00:47:21.000 of 0 1 plus C of 2 3 comma C of 0 2 plus
+
+00:47:28.560 C of 3 3 here K value is 1 K values 2 K
+
+00:47:34.380 values 3 I have tried all of them then
+
+00:47:36.600 out of all these whatever the result we
+
+00:47:38.610 get in that I have to add W of 0 3 let
+
+00:47:44.130 us put the values here so I will
+
+00:47:45.870 directly put the value below this 1 this
+
+00:47:47.610 is 0 and 1 comma 3 is how much 12 so
+
+00:47:51.270 this is 12 this 0 comma 1 is 8 and 2
+
+00:47:55.830 comma 3 2 comma 3 is here that is 3 okay
+
+00:48:00.270 then 0 comma 2 0 comma 2 is 19 and 3
+
+00:48:05.250 comma 3 is 0 so
+
+00:48:07.450 if I put the radish I'll separately put
+
+00:48:09.730 them here minimum of zero plus 2l s 2 l
+
+00:48:14.320 comma 8 plus 3 that is 11 then 19 okay
+
+00:48:20.770 then plus W of 0 comma 3 0 comma 3 is 14
+
+00:48:24.430 so out of this which is smaller this one
+
+00:48:27.190 for which value of K 2 so what is
+
+00:48:29.980 balanced 11 plus 14 is 25 so this is 25
+
+00:48:34.390 who gave 25 which value of K has given
+
+00:48:37.120 25 the value of K which has given 25 is
+
+00:48:40.060 2 so write 2 here for saving time I'll
+
+00:48:43.720 leave it you find out whatever the value
+
+00:48:45.970 you get you put it then finally I'll do
+
+00:48:48.100 it for this one so daddy I will write an
+
+00:48:50.020 answer this is 19 comma 2 okay
+
+00:48:52.780 just like this you have to start from 2
+
+00:48:55.030 onwards not from 1 onwards because this
+
+00:48:58.180 is 1 to 4 so 2 3 4 k value can be 2 3 4
+
+00:49:01.930 substitute and you can get it now let us
+
+00:49:05.050 try this one C of 0 4 so what are our
+
+00:49:08.590 values K can take case should take the
+
+00:49:11.320 values greater than 0 less than equal to
+
+00:49:13.570 4 cz this is 0 right if it is 1 greater
+
+00:49:16.690 than 1 okay so whatever the initial
+
+00:49:18.610 value is so K can take the values 1 2 3
+
+00:49:21.760 and 4 so 4 values are possible so in
+
+00:49:24.100 this formula I should try at all so
+
+00:49:26.110 first will be C of 0 0 plus C off this
+
+00:49:30.310 is even ah so what is the one for right
+
+00:49:33.280 C of 0 1 then this will be 2 4 okay then
+
+00:49:39.760 this is C of 0 2 and C of 3 4 then comma
+
+00:49:45.760 comma C of a 0 3 plus C of 4 for right
+
+00:49:53.230 then plus weight of 0 4 here I have
+
+00:49:59.170 taken the K value as 1 & 2 & 3 & 4 right
+
+00:50:02.230 so let us put the values and get dancer
+
+00:50:05.290 C C 0 0 is a 0 plus C 1 for C 1 comma 4
+
+00:50:10.660 is 19 so total is 19 this 1 is 19 then C
+
+00:50:15.910 of 0 1 C of 0 1 is 8
+
+00:50:19.030 see off to 4c off to 4 is 8 so this will
+
+00:50:23.530 be 16 C of 0 to s 19 plus C off or 3/4 C
+
+00:50:31.690 off 3 comma 4 s 3 3 so this is 22 then C
+
+00:50:38.800 of 0 3 s 35 25 plus C of 4 4 is 0 this
+
+00:50:45.430 will be 25 so if I take minimum off
+
+00:50:48.510 right this is how much 19 comma 16
+
+00:50:52.570 kamat 22 comma 25 and plus weight of 0
+
+00:50:57.760 for how much it is 16 and which is
+
+00:51:01.150 minimum this one for each value of K we
+
+00:51:04.060 got this as minimum 2 so this K value is
+
+00:51:06.520 true so answer is how much 16 plus 16 32
+
+00:51:09.520 so answer is 32 32 and what is the root
+
+00:51:13.720 who has given us minimum value K value
+
+00:51:15.970 as 2 has given given us minimum well
+
+00:51:17.890 this is true that's it so he got the
+
+00:51:21.520 table filled by using the formula if you
+
+00:51:24.250 observe we have started from the smaller
+
+00:51:26.560 values when we got a larger value so the
+
+00:51:28.990 efforts that repeat putting in here or
+
+00:51:31.000 less if we would have started from here
+
+00:51:33.910 it was difficult to solve we could not
+
+00:51:35.560 have solved it easily so when we are
+
+00:51:37.600 calculating some higher value this lower
+
+00:51:39.370 values are useful because already we
+
+00:51:41.170 have calculated them so this approach we
+
+00:51:43.480 call it as table or approach to dynamic
+
+00:51:45.820 programming follows tabular approach so
+
+00:51:48.370 it starts from lower values to higher
+
+00:51:50.530 values now we have the complete data
+
+00:51:53.020 available the cost of a tray we got a 32
+
+00:51:56.140 so as I said that the probabilities are
+
+00:51:58.480 multiplied by 16 and kept there to avoid
+
+00:52:01.240 decimal values so this result should be
+
+00:52:03.790 divided by 16 so 32 by 16 cost is 2 so
+
+00:52:08.860 the minimum cost of our optimal binary
+
+00:52:11.350 search tree is true so if you observe
+
+00:52:13.840 this we are always taking minimum so it
+
+00:52:15.760 means we are taking the one which is
+
+00:52:17.560 giving us best result are we trying on
+
+00:52:20.710 so if you start from the lower values
+
+00:52:23.050 and reach the higher value if you can
+
+00:52:24.400 see that we tried all possible roots
+
+00:52:26.910 we are trying all possible routes as I
+
+00:52:29.099 said in the beginning that we should try
+
+00:52:31.079 out all possible binary search trees and
+
+00:52:33.420 pick up the best one so yes we have
+
+00:52:35.220 tried all possible binary search tree
+
+00:52:36.930 row should be fast key or second key or
+
+00:52:39.089 third or fourth key this one it should
+
+00:52:41.190 be so that we get the minimum so we got
+
+00:52:43.319 16 plus 16 32 who gave minimum 2 so
+
+00:52:46.650 based on the cost we are deciding so
+
+00:52:48.780 indirectly we are trying out all
+
+00:52:50.369 possible binary search trees
+
+00:52:52.190 now last thing what should be the tree
+
+00:52:55.380 so from this data we already have the
+
+00:52:58.230 data now we can take the decisions and
+
+00:53:00.450 form a optimal binary search tree so I
+
+00:53:03.990 will remove this and I'll form optimal
+
+00:53:06.240 binary search tree for these he is 10 20
+
+00:53:08.609 30 and 40 let us generate the optimal
+
+00:53:11.430 binary search tree for what case 1 2 3 4
+
+00:53:14.819 so we have to find out root 4 keys from
+
+00:53:17.780 0 to 4 y 0 yes this unsuccessful search
+
+00:53:22.589 probability start from 0 for everything
+
+00:53:24.660 we have started from 0 so root is also 0
+
+00:53:27.089 to 4
+
+00:53:27.750 okay now for 0 to 4 in the table do you
+
+00:53:32.190 have any value you got the value which
+
+00:53:35.099 gives minimum yes - so rude should be to
+
+00:53:40.529 2 mins second key that is 20 so I will
+
+00:53:43.619 write 20 here 20 so if you remember in
+
+00:53:48.029 the formula when a root is a second key
+
+00:53:51.240 here the second key right root is 2 so
+
+00:53:54.210 the left hand side value will come this
+
+00:53:56.250 side right hand side values goes on that
+
+00:53:58.020 side so what comes on this side so I'll
+
+00:54:01.440 write down this one Rudolf zero to K is
+
+00:54:06.000 a 2 here right so this should be 1 and K
+
+00:54:09.779 is a 2 here so this should be 2 - 4 if
+
+00:54:13.289 you remember whatever the key is left
+
+00:54:15.029 hand side is I to K minus 1 this is K 2
+
+00:54:18.150 J right same method same based on the
+
+00:54:21.270 formula now here I have 0 to 1 and this
+
+00:54:24.930 is 2 to 4 so as a 2 is a root so only
+
+00:54:28.109 one key is left on side on the left hand
+
+00:54:30.029 side now what is a 0 comma 1 in the
+
+00:54:33.750 table our office here o comma 1 in the
+
+00:54:36.210 table is 1 yes
+
+00:54:38.570 first key what is the first key 110 so
+
+00:54:42.200 here key value is what 10 and case 1 so
+
+00:54:48.080 we have taken decision how we have
+
+00:54:50.510 decided who should be in the root table
+
+00:54:52.670 gave us so we give a we got a decision
+
+00:54:55.130 we have taken a decision based on the
+
+00:54:57.290 data that we have now 2 comma 4 who
+
+00:55:00.800 should be wrote 2 comma formants we have
+
+00:55:02.780 how many keys now that is 30 and 42 keys
+
+00:55:06.470 are there which one should be rude table
+
+00:55:08.990 will tell you based on the table data
+
+00:55:10.730 you take the decision 2 comma 4 so 2
+
+00:55:13.310 comma 4 is here
+
+00:55:15.050 root of 2 comma 4 is 3 this is 3 third
+
+00:55:18.500 key so which is the third key 30 so who
+
+00:55:22.670 is a k here k is a 3 as per this value
+
+00:55:26.090 then 40 where it will go on this right
+
+00:55:28.970 hand side so right hand side there is
+
+00:55:30.860 only one key remaining I will not write
+
+00:55:32.870 on these values so I will directly fill
+
+00:55:34.580 up this right hand side that is 40 only
+
+00:55:38.240 one key is remaining right so I started
+
+00:55:41.210 from 0 to 4 so 0 is on this side 2 to 4
+
+00:55:43.760 on that side 0 to 1 gave me one key so
+
+00:55:46.190 this is finished I stop there and 2 to 4
+
+00:55:48.680 gave me one key so I stopped here
+
+00:55:51.230 because only one key is remaining and 40
+
+00:55:53.180 definitely come on the right hand side
+
+00:55:54.500 so already I have to come in if you want
+
+00:55:56.150 to see this further as K is the key is a
+
+00:55:58.250 3 so on this side if you take this is
+
+00:56:00.470 our of 2 comma 2 and this is R of 3
+
+00:56:04.640 comma 4 so who is our of 3 comma 4 that
+
+00:56:07.610 is 4 yes we got 4 so no need of this
+
+00:56:10.970 this is the null value right that is
+
+00:56:12.770 external node so this is the tree so
+
+00:56:16.040 this is our optimal binary search tree
+
+00:56:18.260 with 20 in the root then on the left
+
+00:56:19.910 side 30 on the right side 40 on the
+
+00:56:22.730 right side so this is the optimal binary
+
+00:56:24.410 search tree based on the successful
+
+00:56:26.210 search or unsuccessful search
+
+00:56:27.590 probabilities this is the optimal binary
+
+00:56:30.620 search tree which takes minimum cost all
+
+00:56:33.500 right so as if we tried all possible
+
+00:56:36.020 binary search trees and we have taken
+
+00:56:37.670 the best one it is just like that if you
+
+00:56:39.890 see the approach we have taken we have
+
+00:56:41.960 found out all possibilities and took the
+
+00:56:43.610 minimum one so this is the approach of
+
+00:56:45.950 dynamic programming and we have solved
+
+00:56:47.870 one of the problem using than
+
+00:56:49.349 programming now if you have similar
+
+00:56:51.479 problems see that if it matches with
+
+00:56:53.279 this one then you can apply the same
+
+00:56:55.589 strategy there that's it
+
+00:56:57.779 so that's all in this video

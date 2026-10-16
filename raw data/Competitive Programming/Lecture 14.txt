@@ -1,0 +1,337 @@
+# tactiq.io free youtube transcript
+# Mo's Algorithm: DQUERY from SPOJ
+# https://www.youtube.com/watch/hqaRYgsLpUI
+
+00:00:01.800 everyone to the TKTS we're going to be
+00:00:04.260 talking about what algorithm now and
+00:00:05.760 this is a very interesting algorithm
+00:00:07.620 because it doesn't use any data
+00:00:08.970 structure it just uses some common sense
+00:00:11.759 logic innovates to reduce the overall
+00:00:14.219 exit of a query so this is the problem
+00:00:17.039 we have an array and we are supposed to
+00:00:19.949 perform some sort of range queries on it
+00:00:21.840 so ranges comes left to right will be
+00:00:25.650 given to us and we have to move output
+00:00:28.109 something based on that it so for
+00:00:30.539 example there is a sports process of D
+00:00:33.300 query this will be picking up in this
+00:00:37.100 tutorial so D query says that you have
+00:00:41.040 the time and you have Q queries of bite
+00:00:45.420 left to right such that you have to give
+00:00:47.910 us all the distinct elements between
+00:00:50.790 left and right in this side or it so for
+00:00:54.930 example if you take left hand index 3
+00:00:58.980 and write as index 7 so the number of
+00:01:03.000 distinct elements we have is 12 16 is
+00:01:07.530 distinct and Method 37 + 16 is already
+00:01:11.310 there it is not as this one so basically
+00:01:14.280 you create a set and you're going to
+00:01:16.710 counter that set which is 3 in this case
+00:01:19.159 so we have already seen this which shows
+00:01:21.210 approach in which you travel by handle
+00:01:23.939 and that is in the words is order n
+00:01:26.929 because they are few queries that goes
+00:01:30.840 up to NQ right they are going to be
+00:01:35.310 using the same logic of traveling the
+00:01:37.829 entire range but in a different way
+00:01:40.729 so let's how we can move over now or in
+00:01:44.100 do you have any queries the very first
+00:01:46.499 way that immediate is going to be N 1
+00:01:49.670 and are either a head and let's have two
+00:01:55.319 pointers about this which should be
+00:01:57.149 start and any so start and end are when
+00:02:07.289 we define in the range that VR is right
+00:02:09.209 now and l1 and r1 us is the range which
+00:02:12.300 has been asked
+00:02:14.510 to be for mayor research that which was
+00:02:18.739 jumping to N 1 star is initialized 12
+00:02:24.500 one follow example is this is speak on a
+00:02:27.470 file then started on sleep between start
+00:02:31.459 by pointing to an end also is
+00:02:37.519 initialized to start for engines also
+00:02:40.069 pointing when you work point to the
+00:02:44.359 manager now gives me started going to be
+00:02:48.170 defining the left of your reach so
+00:02:51.859 whenever that is moved to the left this
+00:02:55.340 is your knowledge you start a new to
+00:02:57.709 left in each are adding is with your
+00:03:00.200 range so whenever in so that you add
+00:03:03.560 admit to your pet whether it boots is
+00:03:07.310 right you're removing admit come with it
+00:03:13.060 similarly for a when it would look like
+00:03:17.799 and this goals will be you're actually a
+00:03:21.230 little bit tilted and by the end move so
+00:03:26.569 that you're actually shaking your winch
+00:03:28.190 so you have to go again with some
+00:03:32.620 so that's how the behavior of the other
+00:03:35.329 would be if you're moving starts the
+00:03:37.940 left or right responding a little period
+00:03:40.819 of I okay and we know that patterns have
+00:03:45.290 not to end one first
+00:03:46.750 now start is in the correct position
+00:03:49.310 right now but end is not in the
+00:03:52.730 transcription it should be an r1 what we
+00:03:55.940 need to do is we need to check if r1 is
+00:04:00.310 greater than it it means that n has to
+00:04:03.769 be implemented together in our get this
+00:04:07.819 is the scenario okay
+00:04:09.530 so end has been cremated meaning
+00:04:11.750 elements need to be added to the to your
+00:04:16.039 pet okay and has been all the way on
+00:04:19.909 hadn't been greater than our then we
+00:04:22.099 needed to discriminant and remove it
+00:04:24.200 from the set and what else my set
+00:04:27.700 but you could use the tech data sub-sub
+00:04:30.250 keep going to have you know this thing
+00:04:32.290 tells me on these but that's when you
+00:04:34.870 register to meet you
+00:04:35.980 reasoning that ended up doing multiple
+00:04:38.740 times and we are doing and DeVitto
+00:04:41.200 operations so you might delete an
+00:04:43.000 element which is record many times by
+00:04:44.680 just you know getting rid of the range
+00:04:47.440 of the smaller business for example if
+00:04:50.110 you had right here and you're right got
+00:04:53.770 decremented if you came to use the
+00:04:57.370 request which is remove both element
+00:04:59.770 subsets because it has this one the
+00:05:02.500 single so things are going to get to
+00:05:04.570 achieve a number 80 percent data
+00:05:05.740 structure we are going to be using an
+00:05:08.080 array of sequences so this is how it
+00:05:12.520 might happen we have an ID let's call it
+00:05:16.450 f going to find frequencies I'm certain
+00:05:19.930 this rate will be in the state now this
+00:05:22.750 is or even maintain the frequency dial
+00:05:24.840 you have for every possible element in
+00:05:27.850 decide a corresponding frequency so from
+00:05:30.940 0 up to a maximum value on the radicand
+00:05:33.040 has you have corresponding frequencies
+00:05:35.920 started in are pointing and in x3 which
+00:05:39.010 has a logic 12 so this is how we enjoyed
+00:05:41.560 reading so you keep a count of the
+00:05:44.380 number of nonzero elements in your set
+00:05:46.830 right so count is in GD 0 because you
+00:05:52.030 don't have anything yourself now you
+00:05:54.130 added an element 3 to your face so that
+00:05:57.910 means that you need to implement the
+00:05:59.350 frequency of something I'd like and what
+00:06:03.040 we're going to do is we're going to
+00:06:04.060 increment the frequency of the element
+00:06:08.830 at a by one the students is made right
+00:06:13.720 EMS is 12 frequency of that has been
+00:06:16.750 cemented the second one ok now end is
+00:06:25.300 still not a 4-1 so here will be keep
+00:06:27.220 pushing it to the left this is the right
+00:06:29.050 extreme for whenever n goes the right
+00:06:32.140 you find a range which means the ideal
+00:06:35.550 so X plus plus thing condition is 1
+00:06:40.460 and is equal to 12 now yes it is able to
+00:06:45.290 Allah say anything again so we are going
+00:06:47.900 to be incrementing the frequency because
+00:06:49.340 our lyric panel so 1 this becomes 2 okay
+00:06:56.920 now in distance or equal to Allah so
+00:07:01.870 increment it to fire 16 is that middle
+00:07:07.160 there so inverting mental effort 16 plus
+00:07:10.730 plus so that we have
+00:07:15.250 yep it's 1 2 now why do we have this way
+00:07:19.070 with God but now there is none of
+00:07:21.440 nonzero elements in the time so I forgot
+00:07:24.500 what we're doing this side whenever you
+00:07:26.990 have whenever you are adding a little to
+00:07:31.130 affectionally interpreting the frequency
+00:07:32.840 working to check for if the frequency of
+00:07:37.630 the event at that entails
+00:07:42.970 yes is equal to 1 if it is then you
+00:07:48.140 couldn't count so that would happen once
+00:07:52.910 you when if we give 1 and right now we
+00:07:55.760 select this begin 1 so it happened twice
+00:07:59.120 so count is now 2 which makes sense
+00:08:04.730 because we have 12 and 16 and are in our
+00:08:08.600 range
+00:08:09.260 this distance is 1216 okay now of course
+00:08:14.750 we saw that which is still an O in
+00:08:16.700 operation for this particular way so
+00:08:20.270 even now we haven't improved on the Box
+00:08:22.340 entity at all but what we are going to
+00:08:24.050 do is is going to be able to you know a
+00:08:28.490 range of ways such that the complexity
+00:08:31.250 reduced by itself what we need to do is
+00:08:38.289 sort out where I then left index and the
+00:08:41.900 right index okay now when I mean for my
+00:08:47.180 left index it's a little special not
+00:08:50.390 thinking what you are going to do is
+00:08:51.500 able to break you are all relying too
+00:08:55.670 you read it later all bloody good locks
+00:08:58.559 of Times Square this event because this
+00:09:01.170 is often a number that we get to do some
+00:09:04.259 differentiation and all that then you
+00:09:05.999 you understand that square root openness
+00:09:08.249 of it that we take and then you're going
+00:09:14.399 to be taking months unless index exactly
+00:09:16.259 but the block index and which left false
+00:09:20.540 okay so that will be L divided by root N
+00:09:25.459 and then give you the index the index at
+00:09:29.819 which that's all
+00:09:30.959 and the right we'll keep on it this
+00:09:34.559 related you will need to take it o'clock
+00:09:36.329 in exercising together as the parameters
+00:09:39.059 on which will be sorting out query in
+00:09:42.360 ascending order this by doing this what
+00:09:48.720 we're ensuring is that the amount of
+00:09:51.379 pointers which are moving are minimized
+00:09:55.279 okay so our left index we look at it
+00:09:58.860 later let's look at how our right index
+00:10:01.019 is going to be if we do this so you saw
+00:10:03.899 it
+00:10:04.079 NZ queries - index and in terms of
+00:10:07.170 size then you use the right index in a
+00:10:09.449 sense model the for the query so
+00:10:13.490 essentially what happens well let's come
+00:10:16.379 to an or we query let's say this is a
+00:10:20.759 block on which point I will focus on
+00:10:22.709 chuckles you are not actually breaking
+00:10:23.670 that into boxing so this is less these
+00:10:28.170 coming over here and this is your
+00:10:32.970 remaining added we are entered
+00:10:39.020 and we are a mold at it on that for each
+00:10:44.280 way you're letting it move by at most
+00:10:47.480 rooted for this lock for the specific
+00:10:51.420 docket use by the textbook each query is
+00:10:54.450 dictated by this then at most for all
+00:10:58.980 the queries in this law right is only
+00:11:03.800 you know we are only expanding our wings
+00:11:06.960 to the right because we are sorted by
+00:11:09.030 right for all the queries following this
+00:11:12.270 dr. Reiter bonding and incremented angel
+00:11:16.530 Omega distributed us and the worst case
+00:11:20.160 scenarios it starts somewhere over here
+00:11:21.450 and and goes all the way up to it so for
+00:11:28.080 this lock it travels n blower in element
+00:11:32.880 level n for the next block it could use
+00:11:37.020 it that will be n so wanted to perform
+00:11:40.710 next block also then there isn't end off
+00:11:44.130 so that gives us any gluten beans of the
+00:11:51.390 right point of animation fine n Rudin is
+00:11:56.370 the worst case scenario all right moving
+00:11:58.200 forward left we just said that left move
+00:12:01.530 by boutot at modes for each way so cute
+00:12:07.170 a number four is equal to 10 is the
+00:12:10.230 movement for the net minder all out of
+00:12:12.810 Italy is equal to Q plus N and on all of
+00:12:25.200 that so this is a big improvement over
+00:12:28.830 the original object is that we hide of Q
+00:12:31.050 in to end it by using the thing is we
+00:12:37.440 needed search see how we are thinking a
+00:12:39.420 little bit and also change our Quinn
+00:12:43.350 query all right now important to notice
+00:12:46.410 is that any update what happen is see
+00:12:49.770 this issue because an update would have
+00:12:52.450 not guarantee the February ordering is
+00:12:54.550 correct let it right is okay but if
+00:12:57.220 there's an update is between then you
+00:12:59.170 can't guarantee that the query also see
+00:13:01.300 the screen we chose so mobile version
+00:13:05.230 only works when they're more it unless
+00:13:09.279 and you will discussing a different
+00:13:12.220 editorial on it you do some serious
+00:13:16.350 mathematical stuff so we will get to
+00:13:18.910 that later for now understand that this
+00:13:20.980 type of element works with off language
+00:13:25.180 weather doesn't when is no update is a
+00:13:29.470 sweet idea
+00:13:30.130 so this is a colectomy and there are a
+00:13:35.200 few operations which you need to cover
+00:13:36.550 for this model
+00:13:38.010 anything you need to update your end
+00:13:41.470 pointer you need to push it more to the
+00:13:43.660 right
+00:13:44.519 and what you do is you need to enter
+00:13:47.649 service and you need to increment the
+00:13:51.730 frequency of the input that is by one if
+00:13:56.589 you need to move your end pointer to the
+00:13:59.740 next which could happen it an expert or
+00:14:02.199 two is actually this an hour in that is
+00:14:06.180 then F of Y of n used to be committed
+00:14:14.500 and before that you need need
+00:14:16.420 recommending and of course now you might
+00:14:19.690 think that how can how that is possible
+00:14:21.010 right the second right cannot be the
+00:14:22.959 center of the object so remember for the
+00:14:26.769 pain clock let's not index the writer in
+00:14:30.310 ascending order
+00:14:31.120 but overall there is no guarantee if the
+00:14:33.730 first left lock is at one and the second
+00:14:37.390 one is at three this would be 7 and this
+00:14:43.000 will be three four right we first sort
+00:14:49.839 on the Block in text and then on the
+00:14:51.579 right in it
+00:14:54.540 another down we could turn off is a n is
+00:14:58.570 not a perfect square so what's the
+00:15:01.180 what's on the Left locking it but for
+00:15:04.600 now the next n that is
+00:15:06.040 this is a Quinjet base 10 is equal to
+00:15:08.410 little boot up level is around 3 so you
+00:15:15.459 can use a lopsided log P that's okay
+00:15:18.850 which will break it in the cost of zero
+00:15:21.870 to two three to five create an exit that
+00:15:31.029 pose loss or differences
+00:15:33.870 you could technically also have
+00:15:38.190 ependymal 0 0 or minus 1 minus 10000 is
+00:15:42.850 also clear your queries will now get you
+00:15:44.709 we don't need care and this is going to
+00:15:47.110 have an indexer level so that you get
+00:15:49.839 cock-blocked Isis that's just an
+00:15:53.920 implementation detail fine
+00:15:58.800 so we we talk about our entry here the
+00:16:02.259 subsidy house start seated but anytime
+00:16:05.910 start internet you're incrementing your
+00:16:09.910 major you are adding to your range so it
+00:16:12.519 starts move to the left meaning
+00:16:15.519 decrement then F of your start as to be
+00:16:23.740 added together it's not move to right
+00:16:28.480 into shrinking arranged so f of your
+00:16:33.760 thought absolutely committed and how do
+00:16:40.180 you often answer well you have a
+00:16:43.180 variable count
+00:16:44.040 so this is our own video whenever you
+00:16:49.209 are incrementing the frequency of an
+00:16:51.279 elevator in that frequency will be
+00:16:56.860 implemented and it's equal to 1 then you
+00:17:00.730 should increment off so go to the sides
+00:17:02.920 a little bit to your set it's not become
+00:17:05.770 one if it comes to 350 thousand doesn't
+00:17:09.459 matter you already have a circle with
+00:17:11.169 your set so that's okay
+00:17:14.819 whenever you increment the frequency of
+00:17:17.919 a little bit lecture on
+00:17:20.050 that's one you need to check into
+00:17:25.390 frequency of that record is equal to
+00:17:27.470 none
+00:17:28.690 if it is then you to decrement
+00:17:32.750 complicacy this kingdom somebody under
+00:17:34.460 that right and yeah all you need to do
+00:17:39.380 now is we do the started in pointers
+00:17:41.450 that's pretty logical lift it start is
+00:17:45.580 less than a alibi so if you're starting
+00:17:52.670 somewhere out here and you need to get
+00:17:55.010 your any increment start another to
+00:18:00.410 started greater than as a fire then you
+00:18:04.670 can research similar ranges and is the
+00:18:11.500 greater than R Y then decrement other is
+00:18:18.710 incremented a link across that range is
+00:18:21.920 less than alibi I want to all these
+00:18:26.300 Commission space but you know that start
+00:18:28.040 is equal to Li and n0 I then just print
+00:18:31.940 out all for that range and therefore you
+00:18:35.630 have equal sort so that's it for now
+00:18:43.130 would allow them is something which is
+00:18:45.290 using simple operations and simple
+00:18:49.040 techniques of sorting to bring down an
+00:18:50.990 object is from this to this and BB
+00:18:54.590 document updates in the Moodle person so
+00:18:56.390 it gives would suspect variety of the
+00:18:58.160 Scranton channel generates occupies for
+00:19:00.410 this video of people to the consular
+00:19:02.210 hospital and see you next time

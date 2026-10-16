@@ -1,0 +1,967 @@
+# 2.9 Strassens Matrix Multiplication
+
+# https://www.youtube.com/watch/0oJyNmEbS4w
+
+
+
+00:00:00.160 hi our next topic is stason matrix
+
+00:00:04.890 [Music]
+
+00:00:07.000 multiplication this topic belongs to
+
+00:00:09.880 divide and
+
+00:00:11.040 conquer so Strat and matrix
+
+00:00:13.280 multiplication follows divide and
+
+00:00:15.320 conquer
+
+00:00:16.439 strategy first we will see how matrix
+
+00:00:18.800 multiplication is done normally second
+
+00:00:21.000 thing we'll see how divide and conquer
+
+00:00:22.880 strategy can be applied for solving
+
+00:00:25.080 matrix multiplication problem then third
+
+00:00:27.880 thing we'll see what stason has done for
+
+00:00:30.320 improving matrix
+
+00:00:32.040 multiplication using divide and conquer
+
+00:00:35.520 strategy let us start with matrix
+
+00:00:37.760 multiplication so I'll take some
+
+00:00:39.399 matrices then we'll see how
+
+00:00:41.200 multiplication
+
+00:00:42.719 done I have taken two matrices here a
+
+00:00:46.160 with some elements so the order of this
+
+00:00:49.199 Matrix is 2x 2 2 cross 2 and this is
+
+00:00:52.199 also 2 cross 2 when we multiply two
+
+00:00:56.000 matrices they can be multiplied if the
+
+00:00:59.960 number of columns of the first Matrix
+
+00:01:01.719 are equal to number of rows of second
+
+00:01:04.360 Matrix and the resultant Matrix will
+
+00:01:06.880 have this
+
+00:01:08.240 Dimension so the resultant Matrix will
+
+00:01:10.720 also be 2
+
+00:01:13.080 cross2 now this is 2 cross2 2 cross2
+
+00:01:15.960 matrices now we have to multiply and get
+
+00:01:18.320 the third Matrix that is
+
+00:01:20.320 C how we multiply this is a simple
+
+00:01:23.079 problem any term of that c Matrix that
+
+00:01:26.560 is C of I comma J is obtained by
+
+00:01:30.080 [Music]
+
+00:01:31.400 sum of a of i k into B of KJ where K
+
+00:01:39.840 takes the values from 1 to this
+
+00:01:43.200 Dimension if you call this as M to n m
+
+00:01:46.200 CR n then this is 1 to
+
+00:01:50.320 n this is the general
+
+00:01:52.960 form for
+
+00:01:55.159 multiplying two matrices of any
+
+00:01:57.719 Dimensions here we are just taking an
+
+00:01:59.600 example example of 2 cross2 Matrix when
+
+00:02:02.000 we want to multiply these two matrices
+
+00:02:03.759 and get the resultant Matrix that is C
+
+00:02:05.640 Matrix if I use the general formula and
+
+00:02:08.800 write down the algorithm or a piece of
+
+00:02:11.680 code for multiplying two matrices let us
+
+00:02:14.200 see how the code looks
+
+00:02:16.319 like for preparing C Matrix I will take
+
+00:02:19.720 Loops for I sign 0 I is less than n i
+
+00:02:26.319 ++ for J assign 0
+
+00:02:30.400 J is less than n j
+
+00:02:34.160 ++ then third Matrix C of I comma J is
+
+00:02:38.959 initialized to zero then for Loop K
+
+00:02:42.159 assign values from0 and K is less than n
+
+00:02:46.879 k
+
+00:02:48.000 ++ and C of I comma J is plus assign
+
+00:02:54.360 with a of i k into B of
+
+00:03:00.640 K comma
+
+00:03:03.159 J close this Loop and this Loop and this
+
+00:03:06.640 Loop if I write an simple algorithm for
+
+00:03:10.000 multiplying two matrices then it will be
+
+00:03:12.560 written like this using three for
+
+00:03:16.080 Loops for accessing all the elements of
+
+00:03:18.920 any Matrix we actually require two
+
+00:03:20.720 follow Loops then here for finding the
+
+00:03:23.640 product each element C11 we obtain it by
+
+00:03:26.760 multiplying all the elements of a row
+
+00:03:28.519 with all the elements of a column
+
+00:03:30.519 so for that we need require one more
+
+00:03:34.480 Loop so that's how it is taking three
+
+00:03:37.120 for Loops what will be the time
+
+00:03:39.120 complexity if three fall Loops are there
+
+00:03:40.959 now this statement is inside three for
+
+00:03:42.959 Loops who are running for n times then
+
+00:03:45.239 this will be n
+
+00:03:48.000 Cub so the time taken for multiplying
+
+00:03:51.080 two matrices is order of n Cub this is
+
+00:03:54.280 the simple
+
+00:03:55.680 method now let's try to adopt divide and
+
+00:04:00.079 strategy for solving this one so let us
+
+00:04:02.760 first observe what we can do such that
+
+00:04:05.040 we can apply divide and conquer strategy
+
+00:04:07.560 now let us see how divide and conquer
+
+00:04:09.680 strategy can be applied for multiplying
+
+00:04:11.959 two matrices in divide and conquer
+
+00:04:14.560 strategy we say that if the problem is
+
+00:04:16.440 large we break the problem into sub
+
+00:04:18.519 problems and solve those sub problems
+
+00:04:21.600 combine the solutions of sub problems to
+
+00:04:23.600 get the solution for main
+
+00:04:25.520 problem now when you say the problem is
+
+00:04:28.240 large then you should also Define what
+
+00:04:30.360 is a small problem if it is a small
+
+00:04:33.560 problem we will directly Solve It Anyway
+
+00:04:36.160 if the problem is large we will break
+
+00:04:37.880 and break and break at one point we have
+
+00:04:40.120 to say that this is small and we have to
+
+00:04:42.080 solve it so that's why first of all
+
+00:04:45.039 we'll Define a small problem so in
+
+00:04:48.120 divide and conquer
+
+00:04:49.479 strategy which size Matrix we should say
+
+00:04:52.720 is small so we will say a 2X 2 that is 2
+
+00:04:57.360 CR2 Matrix is small multiplying 2 cross2
+
+00:05:01.120 matrices is small if there are two cross
+
+00:05:03.840 two then we will directly solve them if
+
+00:05:07.520 there are bigger than that larger than
+
+00:05:10.280 that if the dimensions are 4X 4 or 8 by
+
+00:05:12.880 8 any Dimension then we apply divid and
+
+00:05:15.759 Conquer strategy that is we break the
+
+00:05:17.759 problem into sub problems let's see how
+
+00:05:19.960 to solve a small problem already we have
+
+00:05:22.360 here on board two matrices of order 2x2
+
+00:05:25.560 2 cross2 and we have to get the
+
+00:05:27.400 resultant Matrix after multiplying them
+
+00:05:29.840 how we can get the terms of C Matrix all
+
+00:05:32.919 these terms let us prepare them if I
+
+00:05:36.039 have to get C11 it can be obtained by
+
+00:05:38.960 multiplying
+
+00:05:41.039 a11 with
+
+00:05:44.960 b11
+
+00:05:47.199 and a12 with B21
+
+00:05:52.319 a12 with
+
+00:05:55.680 B21 this is the first term this one then
+
+00:05:59.120 how to get this term
+
+00:06:01.600 C12 first row second
+
+00:06:04.319 column a11 multiplied with B12 plus
+
+00:06:11.520 a12 multiplied with
+
+00:06:15.000 B22 we got this term now let us see how
+
+00:06:17.800 to get this term that term is obtained
+
+00:06:19.759 by second row First Column
+
+00:06:23.560 c21 is a21 into
+
+00:06:27.720 b11 Plus
+
+00:06:30.160 a22 into
+
+00:06:33.400 B21 now how to get this
+
+00:06:36.720 term c22 is second row second column a21
+
+00:06:43.919 into B12 + a22 into
+
+00:06:53.000 B22 that's it now here if the matrices
+
+00:06:57.000 of order 2 cross to two matrices then we
+
+00:06:59.960 can multiply them by directly using
+
+00:07:02.120 these formulas now here for multiplying
+
+00:07:04.879 2x2 matrix I'm not using three for Loops
+
+00:07:07.759 here but I'm directly using the formula
+
+00:07:10.360 so if I save the time taken by this one
+
+00:07:13.599 how much time it is taken so I can
+
+00:07:15.199 consider each statement is taking one
+
+00:07:17.039 unit of time so total time is four unit
+
+00:07:20.440 of time that is
+
+00:07:22.400 constant if I say no no multiplications
+
+00:07:24.960 are there you count them so 1 2 3 4 5 6
+
+00:07:27.720 7 8 total eight multiplications are
+
+00:07:29.919 there that is also constant eight is
+
+00:07:31.599 constant so anyhow these Force formulas
+
+00:07:33.960 are constant now this is defined as a
+
+00:07:37.599 small
+
+00:07:39.639 problem and if you want to reduce the
+
+00:07:43.360 size and say if it is 1 by one Matrix
+
+00:07:46.599 then they will be having just one one
+
+00:07:48.199 element and just single product will be
+
+00:07:50.440 there that is if imagine just this one
+
+00:07:52.639 element and this one element I will draw
+
+00:07:54.720 this
+
+00:07:55.879 is a11 that's all and B
+
+00:08:00.639 is
+
+00:08:03.120 b11 then C
+
+00:08:05.360 is a11 into
+
+00:08:08.479 b11 so I can say that if the dimensions
+
+00:08:11.440 are less than or equal to two then it's
+
+00:08:14.520 a small problem so if it is 2x two then
+
+00:08:17.680 these are the four formulas I will use
+
+00:08:19.599 if it is 1 by one then I will use this
+
+00:08:21.639 formula direct multiplication is
+
+00:08:24.599 there all right now what if it is
+
+00:08:29.080 greater than
+
+00:08:30.639 2x2 then I have to divide the problem
+
+00:08:33.240 into sub problems and solve them so for
+
+00:08:36.760 that I'll take some examples and explain
+
+00:08:39.080 you but one important thing is as it is
+
+00:08:41.919 2x2 we assume that we assume that the
+
+00:08:45.279 matrices are having the dimensions in
+
+00:08:48.120 powers of two
+
+00:08:49.720 only like 2x 2 or 4X 4 8 by 8 16 by 16
+
+00:08:56.600 or 256 by 256 so the dimensions are in
+
+00:08:59.959 powers of two so that will be easy when
+
+00:09:01.800 we divide and divide we may reach to the
+
+00:09:03.680 size of
+
+00:09:04.920 2x2 or if you further divide it then you
+
+00:09:07.480 may go till up to 1x one if it is not of
+
+00:09:10.600 power 2x two then you can fill Zer and
+
+00:09:13.720 make it Square Matrix of powers of
+
+00:09:17.360 2x2 now let me show you if it is 4X 4
+
+00:09:21.440 how we will apply divide and conquer
+
+00:09:23.640 strategy now here I have 4x4 matrices
+
+00:09:27.640 two 4x4 matrices and I say that this
+
+00:09:30.800 problem is large then we have to divide
+
+00:09:33.760 the problem into sub problems and then
+
+00:09:36.600 solve those sub problems and combine the
+
+00:09:39.320 solution how I can do that this is
+
+00:09:43.240 4x4 and if you see the dimensions they
+
+00:09:45.800 are from 1 to 4 rows are from 1 to four
+
+00:09:49.040 columns are also from 1 to 4 so rows are
+
+00:09:52.160 starting from one ending at four columns
+
+00:09:54.040 are starting at 1 and ending at four so
+
+00:09:56.360 same way here also 1 2 4 and 1 to 4 now
+
+00:09:59.440 I say that this Dimensions must be
+
+00:10:01.399 divided by two so this Matrix get
+
+00:10:04.560 splitted into
+
+00:10:07.200 two by two now you got four matrices
+
+00:10:11.600 similarly this Matrix also if I divide
+
+00:10:13.959 by two then it will be splited and we
+
+00:10:16.720 get four
+
+00:10:18.440 matrices now we got four matrices of
+
+00:10:21.160 size 2x two and I will consider this
+
+00:10:25.200 Matrix itself as an element a11
+
+00:10:30.160 so let us call that Matrix as a11 and
+
+00:10:33.760 this Matrix as
+
+00:10:36.360 a12 me second
+
+00:10:39.360 Matrix right and this also has a matrix
+
+00:10:42.920 that is a21 and
+
+00:10:45.519 a22 I can consider them like this now
+
+00:10:48.720 each I should consider it as a matrix
+
+00:10:50.800 then here also I should say b11
+
+00:10:55.120 B12 b 2 1 B22
+
+00:10:59.639 now if I consider this Matrix as a
+
+00:11:02.440 single element then now this became what
+
+00:11:06.320 2x2
+
+00:11:08.800 matrix can't I solve this 2x2 matrix
+
+00:11:11.560 directly yes how this a11 with b11 and
+
+00:11:15.639 a12 with B21 and add them so yes we
+
+00:11:19.600 follow the same formulas even for
+
+00:11:22.800 multiplying these two matrices we treat
+
+00:11:25.240 this as a element now let us look at the
+
+00:11:28.720 algorithm how we can write a divide and
+
+00:11:31.160 conquer algorithm for multiplying two
+
+00:11:33.040 matrices I will call the
+
+00:11:35.399 algorithm name
+
+00:11:38.920 as mm that is matrix multiplication
+
+00:11:42.600 which will take A and B and dimension
+
+00:11:48.240 n now the parameters can be anything it
+
+00:11:51.040 is not a direct program you cannot
+
+00:11:52.880 directly convert what I'm showing now
+
+00:11:54.959 you cannot directly convert into a
+
+00:11:56.600 program you have to Define more things
+
+00:11:59.320 for making it as a program now to get
+
+00:12:01.639 the idea I'm writing an algorithm see if
+
+00:12:05.120 that n is less than or equal to two mean
+
+00:12:08.279 dimensions are less than or equal to 2
+
+00:12:10.519 then directly you find out C by using
+
+00:12:13.839 those four
+
+00:12:17.160 formulas right four formulas are there
+
+00:12:19.720 we can use those four formulas for
+
+00:12:21.720 getting C Matrix so if it is a small
+
+00:12:24.480 then actual multiplication will be done
+
+00:12:27.320 here right and
+
+00:12:29.720 if it is large then what we do here we
+
+00:12:33.199 will split it and again join it so let
+
+00:12:37.279 us see how we can split and then combine
+
+00:12:39.560 the solutions so here we find out mid
+
+00:12:43.320 that is n by2 we will do this is not a
+
+00:12:46.360 detail code I am
+
+00:12:48.480 saying right now when you have divided
+
+00:12:50.839 the matrix by two every by two both of
+
+00:12:53.480 them by two if you have done then you
+
+00:12:56.320 have to multiply these two matrices as
+
+00:12:58.680 if these are elements so you have to
+
+00:13:01.360 multiply these two plus these two so how
+
+00:13:04.880 you can do that is again call the
+
+00:13:07.079 algorithm recursively matrix
+
+00:13:09.040 multiplication call the matrix
+
+00:13:10.959 multiplication by passing this Matrix
+
+00:13:13.800 that is a11
+
+00:13:18.360 comma
+
+00:13:20.279 b11 and the dimension is ny2
+
+00:13:26.560 plus matrix multiplication of
+
+00:13:30.519 a12 with B2
+
+00:13:33.120 1
+
+00:13:35.000 a12 comma B2 1 and dimensions are n
+
+00:13:40.160 by2 see these lines if I write them here
+
+00:13:44.880 C11 is obtained by multiplying this
+
+00:13:49.279 element with this element actually these
+
+00:13:52.800 are not elements these are mates plus
+
+00:13:57.240 a12 with
+
+00:13:59.959 B21 so this is matrix multiplication and
+
+00:14:03.680 again we are using a formula for getting
+
+00:14:06.040 the first element so we are treating
+
+00:14:08.639 these as elements but actually those are
+
+00:14:10.720 matrices and we are applying the same
+
+00:14:12.680 formula so for multiplying these two I'm
+
+00:14:14.959 using a function matrix multiplication
+
+00:14:17.160 this this will be getting the first term
+
+00:14:19.440 then again next term so what that next
+
+00:14:21.800 term will be C12 that is multiply this
+
+00:14:25.120 one with this one first row with second
+
+00:14:28.000 column right so a11 with B it will be mm
+
+00:14:34.680 a11 comma and the dimensions are n by
+
+00:14:40.839 22 that's it see here I have written the
+
+00:14:43.959 recursive code so again it is calling
+
+00:14:46.199 itself for the reduced size of matrices
+
+00:14:49.519 so I'm naming them as a11 and
+
+00:14:52.160 b11 then remaining four so like this
+
+00:14:55.360 when I said these are elements I again
+
+00:14:57.320 four formulas apply here so c21 c22 all
+
+00:15:01.920 these I have to write down so here it
+
+00:15:04.360 will
+
+00:15:05.240 be a21 here it will be matrix
+
+00:15:08.720 multiplication of a 2 1 and the
+
+00:15:12.120 dimension
+
+00:15:14.440 is2 then the last term is a 21 into B12
+
+00:15:21.839 +
+
+00:15:23.120 a22 with
+
+00:15:26.120 B22 matrix multiplication of
+
+00:15:30.680 B22 and send by
+
+00:15:33.920 2 once again when 4x4 matrices are given
+
+00:15:37.680 for example then they can be divided
+
+00:15:39.800 into small problems of sizes 2x2 and
+
+00:15:42.319 these 2x2 matrices can be multiplied
+
+00:15:44.199 like this so I have written a divide and
+
+00:15:46.880 conquer algorithm here which is
+
+00:15:48.600 recursively calling itself if the
+
+00:15:51.480 dimensions are less than or equal to two
+
+00:15:53.480 directly use those formulas otherwise it
+
+00:15:57.079 will call itself recursive
+
+00:15:59.519 and this plus is Matrix addition it is
+
+00:16:04.000 not normal integer addition it's not
+
+00:16:06.600 scalar addition it's matx addition now
+
+00:16:09.600 let's analyze how much time this will
+
+00:16:11.680 take for execution what is the time
+
+00:16:14.680 complexity of this
+
+00:16:16.279 algorithm let us find the time
+
+00:16:18.440 complexity this is using divide and
+
+00:16:21.160 conquer strategy so this is a recursive
+
+00:16:23.480 algorithm you can see that it is calling
+
+00:16:25.600 itself how many times it is calling
+
+00:16:27.839 itself 1 2 2 3 4 5 6 7 8 eight times it
+
+00:16:33.160 is calling itself so let us prepare a
+
+00:16:35.399 recurrent solution for this one
+
+00:16:37.399 recurrence relation will be TN is equals
+
+00:16:42.120 to it's calling itself on the reduced
+
+00:16:45.639 problem of n by 2 it is splitting by two
+
+00:16:49.160 right and we are assuming that the
+
+00:16:51.279 dimension of the matrices are in powers
+
+00:16:53.160 of 2 TN by 2 T half half how many times
+
+00:16:57.120 it is calling eight times
+
+00:17:01.560 plus what is the work done for combining
+
+00:17:04.640 this addition addition I said that those
+
+00:17:08.079 are not normal scalar value additions
+
+00:17:11.640 those are Matrix addition how much time
+
+00:17:14.160 it will take for adding two matrices if
+
+00:17:17.039 suppose I have to add them suppose then
+
+00:17:19.039 how much time each element I should add
+
+00:17:21.400 corresponding element so there are n
+
+00:17:23.240 Square element so time taken for adding
+
+00:17:25.919 is
+
+00:17:27.439 n² see should add this corresponding
+
+00:17:30.000 elements like this if I talk about only
+
+00:17:32.320 adding right only adding then this is n²
+
+00:17:36.960 time is n squ so the time for combining
+
+00:17:41.320 is
+
+00:17:42.559 n² this is when n is greater than 2 if n
+
+00:17:48.360 is less than or equal to 2 then these
+
+00:17:50.640 just four formulas how much time those
+
+00:17:52.720 formulas takes we'd say it is one
+
+00:17:56.600 constant that's it this is the
+
+00:17:59.760 reculation now if I apply Master theorem
+
+00:18:02.320 on this one a value is 8 B value is 2
+
+00:18:07.720 and the function f of n is n² find out
+
+00:18:12.520 log a base B that is log of 8 base 2 it
+
+00:18:17.440 is 3 then what is power of n k k is n^ 2
+
+00:18:23.880 so K is
+
+00:18:25.679 2 this is three this is 2
+
+00:18:29.520 so log a base B is greater than K so
+
+00:18:33.919 then this comes under which case if I
+
+00:18:35.799 apply Master's theorem this log a base B
+
+00:18:38.679 is greater so it comes under case one
+
+00:18:41.760 then what will be the time complexity of
+
+00:18:43.600 this one this will be Theta of n
+
+00:18:52.240 Cube the time complexity of divide and
+
+00:18:55.120 conquer algorithm is also n Cub whether
+
+00:18:58.320 you use use a simple algorithm by using
+
+00:19:00.679 three for Loops also it's n Cube if you
+
+00:19:03.240 apply divide and conquer also it's n Cub
+
+00:19:06.080 but the divide and conquer algorithm is
+
+00:19:08.039 recursive so it internally uses a stack
+
+00:19:11.320 so that will be consuming extra space so
+
+00:19:15.520 in terms of space if we see then the
+
+00:19:19.159 algorithm with just three for Loops is
+
+00:19:21.520 better than divide and conquer
+
+00:19:24.720 algorithm now as this is taking more
+
+00:19:29.240 time compared to other algorithms we see
+
+00:19:31.880 mostly we have the time complexities
+
+00:19:33.880 like n s n log n so this is n Cub is
+
+00:19:37.120 there any chance is there any
+
+00:19:38.600 possibility to reduce the time of this
+
+00:19:41.039 algorithm so this is a research topic
+
+00:19:43.080 this is a research area if you can find
+
+00:19:45.520 out any faster method for multiplying
+
+00:19:47.600 two matrices then that will be better
+
+00:19:49.840 for Humanity so what strasen has done
+
+00:19:55.000 let us see so now let us talk about
+
+00:19:57.640 stasen see we have seen this four
+
+00:20:00.080 formulas already have shown you four
+
+00:20:01.919 formulas for multiplying two matrices
+
+00:20:04.000 directly and those formulas I have used
+
+00:20:06.120 them here in the form of functions
+
+00:20:08.679 recursive functions and in this you can
+
+00:20:11.360 see that there are total eight
+
+00:20:14.360 multiplications so what ston has done
+
+00:20:16.760 the major work in matrix multiplication
+
+00:20:18.960 is multiplication only so if we can
+
+00:20:21.720 reduce number of multiplications then
+
+00:20:24.640 that will make the algorithm faster so
+
+00:20:27.320 this is the approach he has taken
+
+00:20:29.320 so in for this eight four formulas with
+
+00:20:32.120 eight multiplications he has given
+
+00:20:34.640 different formulas in instead of
+
+00:20:36.640 following those four he has given
+
+00:20:38.360 different formulas with seven
+
+00:20:41.440 multiplications which will reduce the
+
+00:20:43.320 time complexity of algorithm little bit
+
+00:20:46.240 little less than n Cub so let us see
+
+00:20:50.400 what he has given let's look at stron
+
+00:20:53.120 formula these are the four formulas for
+
+00:20:56.200 directly multiplying two matrices for
+
+00:20:58.640 getting the third Matrix that is
+
+00:21:00.159 multiplying a to get C with eight
+
+00:21:03.520 multiplication so these may be simple
+
+00:21:05.600 elements or these may be matrices we
+
+00:21:08.120 have already seen divide and conquer
+
+00:21:10.360 method now this is having eight
+
+00:21:12.400 multiplication so what sten has done is
+
+00:21:15.320 he has reduced the number of
+
+00:21:17.000 multiplication and one more thing is
+
+00:21:19.520 this additions are also there for
+
+00:21:21.760 additions addition or subtractions will
+
+00:21:24.080 take less time compared to
+
+00:21:26.480 multiplication St formula if you see the
+
+00:21:29.279 number of multiplications are reduced no
+
+00:21:31.559 doubt additions and subtractions has
+
+00:21:33.840 increased so here are his here are his
+
+00:21:36.960 formulas let us see what he has given he
+
+00:21:40.080 said that find out these formulas P QR s
+
+00:21:43.760 t u v and that is involving these
+
+00:21:46.600 elements A and B elements so if you see
+
+00:21:49.080 the multiplications this is one
+
+00:21:51.880 multiplication two multiplications three
+
+00:21:55.400 multiplication 4 5 6
+
+00:21:59.120 7 so he has given seven sub formulas
+
+00:22:02.080 named as P2 V with seven multiplications
+
+00:22:06.159 and those formulas are utilized to get
+
+00:22:08.279 the elements that is
+
+00:22:10.080 C12 uh c22 C11 to c22 so inst of these
+
+00:22:15.080 four formulas for getting these values
+
+00:22:17.120 so we have these formulas now what are
+
+00:22:19.360 these pqrs they are given
+
+00:22:22.279 here so that's how no doubt the number
+
+00:22:24.880 of formulas has increased and number of
+
+00:22:27.400 additions and subtractions has increased
+
+00:22:29.600 but the number of multiplications has
+
+00:22:31.240 reduced if you apply divide and conquer
+
+00:22:33.279 strategy then the algorithm is called
+
+00:22:35.320 will be calling itself multiple times
+
+00:22:38.679 but total only seven time instead of
+
+00:22:41.600 eight times so what will be the
+
+00:22:43.520 recurrent solution for this one that
+
+00:22:45.720 will be TN is equal to 7tn by
+
+00:22:51.480 2 + n² when n is greater than 2 when n
+
+00:22:57.320 is less than or equal to 2 2 it will be
+
+00:22:59.720 1 this all the recurrent solution has
+
+00:23:02.279 changed and this is log 7 base 2 it will
+
+00:23:06.799 be
+
+00:23:10.240 2.81 and K is 2 so this is greater so it
+
+00:23:15.000 will be order of n^ log 7 base 2
+
+00:23:20.679 or order of n^
+
+00:23:25.559 2.81 that's how stron has reduced the
+
+00:23:28.760 time complexity it's not n Cub but n^
+
+00:23:32.919 2.81 it is little less than n Cub Sol
+
+00:23:37.200 with stress and multiplications

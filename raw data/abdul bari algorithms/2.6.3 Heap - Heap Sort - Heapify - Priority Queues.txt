@@ -1,0 +1,2345 @@
+# 2.6.3 Heap - Heap Sort - Heapify - Priority Queues
+
+# https://www.youtube.com/watch/HqPJF2L5h9U
+
+
+
+00:00:00.060 the topic for this video is heap under
+
+00:00:04.170 this topic we are going to learn about
+
+00:00:05.730 these things I will be explaining these
+
+00:00:07.440 things that is a representation of
+
+00:00:09.240 binary trees complete binary tree heap
+
+00:00:12.179 how to insert and delete in heap then
+
+00:00:15.240 heap sort this is one of the important
+
+00:00:17.490 topic and heapify this is one of the
+
+00:00:19.980 famous algorithm or a procedure for
+
+00:00:21.600 creating a heap I'll discuss this one
+
+00:00:23.970 then heaps are famous for being used as
+
+00:00:27.210 a priority queue so we learn about
+
+00:00:28.920 priority queues so these are the
+
+00:00:32.040 subtopics under this heap topic right
+
+00:00:34.680 and if you know all these things then
+
+00:00:36.780 you can understand heap sort you can
+
+00:00:38.340 also understand he be fine and periodic
+
+00:00:40.170 you unless you know these things so
+
+00:00:42.329 directly jumping on this it's difficult
+
+00:00:43.829 to understand that so that is the reason
+
+00:00:46.230 I am covering all these things so if you
+
+00:00:47.610 already know few things you can skip and
+
+00:00:49.350 go to that topic right any particular
+
+00:00:52.440 topic now before I start I have to say
+
+00:00:54.989 something see I have two courses in
+
+00:00:57.300 udemy one is for c++ second one is for
+
+00:01:01.289 data structures both the courses are for
+
+00:01:04.229 beginner level as well as advanced level
+
+00:01:07.350 means if you already know data structure
+
+00:01:10.500 and c++ you have lot of things to learn
+
+00:01:12.390 there and also if you are a beginner if
+
+00:01:14.580 you have never done any programming then
+
+00:01:16.200 you can take up c++ course and start
+
+00:01:18.210 learning programming and both the
+
+00:01:20.520 courses are suitable for academics as
+
+00:01:23.189 well as for interviews so C++
+
+00:01:27.450 programming one courses there and that
+
+00:01:29.189 is from beginners to advanced level you
+
+00:01:31.470 can learn up to the level of it will be
+
+00:01:33.540 you can crack any interview then data
+
+00:01:36.090 structure course using C and C++ and
+
+00:01:38.549 some algorithms are it's not completely
+
+00:01:40.200 algorithm is just a data structure using
+
+00:01:42.509 C and C++ right and few algorithms are
+
+00:01:45.210 there so that subject is for academics
+
+00:01:47.759 as well as for cracking job interviews
+
+00:01:50.490 or coding interviews right so I have
+
+00:01:52.860 covered all the topics in greater detail
+
+00:01:54.930 so that will definitely improve your
+
+00:01:57.420 skills so you can buy those two courses
+
+00:01:59.520 those are paid courses those are not
+
+00:02:00.930 free and though please don't ask for
+
+00:02:03.090 free coupons the link for those courses
+
+00:02:05.700 is given in the description you can
+
+00:02:07.110 check the description and there is a
+
+00:02:08.699 discount code is there discount coupon
+
+00:02:11.099 code is
+
+00:02:11.600 that is around 10 $11 so you can click
+
+00:02:13.790 and go to udemy and if more discounts
+
+00:02:16.910 are applicable udemy will give you that
+
+00:02:19.430 discount that don't worry about that if
+
+00:02:21.230 still it can be reduced it will not use
+
+00:02:23.840 it so I suggest you take this course and
+
+00:02:26.390 by clicking on this link you go there so
+
+00:02:29.420 let us start with the topic first I will
+
+00:02:32.570 discuss about representation of a binary
+
+00:02:35.480 tree using array so here I have some
+
+00:02:38.210 examples this is a binary tree I have
+
+00:02:41.840 taken alphabets here so that easy to
+
+00:02:44.120 read this is a binary tree and if I have
+
+00:02:47.870 to store it in an array this is an array
+
+00:02:50.300 already have taken in the C C++
+
+00:02:52.970 programming array starts from index 0
+
+00:02:55.960 but here I have to confirm on onwards so
+
+00:02:59.720 this is just a theoretical on paper when
+
+00:03:02.690 you want to program write a program then
+
+00:03:04.760 you tend to start from index 0 also but
+
+00:03:07.580 usually this is studied by taking index
+
+00:03:09.860 1 onwards so I have taken index 1 then
+
+00:03:13.100 these elements are stored here so how
+
+00:03:16.400 they are stored C for storing a binary
+
+00:03:18.560 tree we have to take care of two things
+
+00:03:20.450 one is we have to store all the elements
+
+00:03:22.820 second is the relationship between them
+
+00:03:25.610 who is a parent who is a child who is
+
+00:03:27.920 left child who is right child so these
+
+00:03:29.780 are the things that we have to take care
+
+00:03:31.130 so elements and the relationship between
+
+00:03:33.500 the elements so how they are preserved
+
+00:03:36.200 watch here see the elements are stored
+
+00:03:38.990 here
+
+00:03:39.400 ABCD efg so actually they are filled
+
+00:03:42.920 level by level
+
+00:03:44.080 ABCD efg yes they are filled level by
+
+00:03:46.940 level then where is the relationship the
+
+00:03:49.340 relationship between them is formed by
+
+00:03:51.800 these formulas so what are these let us
+
+00:03:55.070 look at see if any node is at index I
+
+00:03:57.590 then its left child is at index 2 into I
+
+00:04:01.130 right child is 2 I plus 1 and its parent
+
+00:04:04.310 will be I by 2 floor value so let us
+
+00:04:07.910 look into this example and observe
+
+00:04:10.070 really these formulas are used here or
+
+00:04:13.250 not let us check B B is at index 2 whose
+
+00:04:17.899 a left child of B D so where it should
+
+00:04:21.260 be to entwine so 2 into 2 4 yes it is
+
+00:04:24.200 not
+
+00:04:24.380 for then is right child where it should
+
+00:04:26.930 be 2 into I plus 1 2 into 2 plus 1 that
+
+00:04:30.530 is 5 so check on 5 yes then see see is
+
+00:04:35.300 at index 3 then it's left child s so 2 3
+
+00:04:39.410 6 so it should be 6 years then the G is
+
+00:04:42.740 the right child it should be 2 into I
+
+00:04:44.360 plus 1 2 into 3 plus 1 7 yes it is at 7
+
+00:04:47.270 so yes these are followed now one more
+
+00:04:49.790 thing s who's a parent of sense this is
+
+00:04:54.230 6 6 by 2 is a 3 go to 3 yes C is the
+
+00:04:58.520 parent so you check here in the tree
+
+00:05:00.410 then 4 7 this one G who is a parent C 7
+
+00:05:05.150 7 by 2 7 by 2 is 3.5 but we have to take
+
+00:05:09.140 floor of elements just 3 so go to next 3
+
+00:05:12.230 yes C is there so this gives the parent
+
+00:05:16.220 so normal on that actually these
+
+00:05:18.950 elements are stored by following the
+
+00:05:21.680 formula now every time you do can't use
+
+00:05:24.800 the formula and put them right so
+
+00:05:27.260 instead of using the formula one thing
+
+00:05:29.120 we do is we fill them level by level
+
+00:05:31.750 a-b-c-d-e-f-g
+
+00:05:33.470 so that's it so this formulas are
+
+00:05:35.780 automatically followed now let us look
+
+00:05:38.180 at another example here I don't have
+
+00:05:40.910 these nodes ok no problem
+
+00:05:43.040 fill their level of 11 in b c d e 3 ends
+
+00:05:48.050 here so ABCDE so if you apply those
+
+00:05:50.750 formulas you check by yourself they are
+
+00:05:52.730 followed
+
+00:05:53.390 right left child right child and parent
+
+00:05:56.000 formulas are followed automatically
+
+00:05:57.650 now let us look at this one a B C then D
+
+00:06:03.640 no when I am filling level by level
+
+00:06:07.850 without using the formula and I want the
+
+00:06:11.000 formulas to be followed automatically
+
+00:06:12.860 then I should fill level by level and if
+
+00:06:15.470 any element is missing I should leave a
+
+00:06:17.300 gap there yes this is the important
+
+00:06:19.940 point now actually we should have its
+
+00:06:22.790 left child which is not there right
+
+00:06:24.800 child which is not there so put a blank
+
+00:06:27.500 there yes a B C Blanc Blanc de
+
+00:06:34.080 BC Blanc Blanc de this is how they're
+
+00:06:36.240 filled now if you see Dean who is a
+
+00:06:39.120 parent of a d6 by tube this one six by
+
+00:06:45.300 two three yes three who is there at the
+
+00:06:48.180 three C is there if I don't write D
+
+00:06:51.449 there if I write here
+
+00:06:53.009 then it becomes a left child of B that
+
+00:06:56.550 will be wrong so it means left child is
+
+00:06:58.590 not there for B so this place must be
+
+00:07:01.139 blank and it should be filled here so
+
+00:07:03.629 without following formulas if you want
+
+00:07:05.520 to fill them then make sure that if
+
+00:07:07.680 there are missing notes you leave a
+
+00:07:09.509 blank there so that's all about a
+
+00:07:12.030 representation of binary tree that is
+
+00:07:15.330 done using these formulas these formulas
+
+00:07:17.490 are for maintaining relationship and the
+
+00:07:19.710 elements are as it is stored in an array
+
+00:07:22.009 now next we will understand what is
+
+00:07:24.870 complete binary tree now let us learn
+
+00:07:29.129 what is full binary tree and what is
+
+00:07:32.069 complete binary tree so first full
+
+00:07:34.919 binary see this binary tree this we have
+
+00:07:37.169 already seen it so this is a full binary
+
+00:07:39.690 tree what does it mean by full C the
+
+00:07:42.300 height of a binary tree this is 0 1 2 so
+
+00:07:44.879 the height is 2 0 1 2 height of a binary
+
+00:07:47.639 tree is true and in that height it is
+
+00:07:50.129 having maximum number of nodes if you
+
+00:07:53.610 want to add any no water then the height
+
+00:07:55.710 will increase and if you remove any node
+
+00:07:58.460 then this is missing it's not having all
+
+00:08:01.199 possible node one more node is possible
+
+00:08:03.990 so you can take this you know this is
+
+00:08:05.430 having full in height 2 now this is in
+
+00:08:09.300 high 2 3 this is full binary there is no
+
+00:08:11.370 space for any new node so that tree is
+
+00:08:13.889 called as a full binary tree and if the
+
+00:08:16.169 height of a binary tree is H then a full
+
+00:08:18.779 mana tree can have 2 power H plus 1
+
+00:08:21.419 minus 1 number of nodes maximum these
+
+00:08:23.729 many nodes so a binary tree with the
+
+00:08:25.740 maximum number of nurses a full binary
+
+00:08:27.650 know what is complete by a tree let us
+
+00:08:30.839 learn this now see look at this fun when
+
+00:08:34.049 I have represented this in an array then
+
+00:08:37.110 from last first element to the last
+
+00:08:39.000 element there is no missing element so
+
+00:08:41.820 this is complete if you look at this
+
+00:08:45.010 if you check the first and the last
+
+00:08:46.779 element there is no missing element it's
+
+00:08:49.209 a complete binary tree here from the
+
+00:08:52.540 first element of the last element if you
+
+00:08:54.370 check in an array there are some missing
+
+00:08:56.980 elements so even if there is a single
+
+00:08:58.690 missing element it is not a complete
+
+00:09:01.750 binary tree this is not a complete
+
+00:09:04.209 binary right so the definition is my
+
+00:09:07.779 definition is if you represent a binary
+
+00:09:10.660 tree in an array then they should not be
+
+00:09:13.269 any empty locations or gaps in between
+
+00:09:16.269 the elements bins from first element to
+
+00:09:20.110 last element in between anywhere right
+
+00:09:22.089 after the last element spaces there then
+
+00:09:24.430 there is no problem like suppose this
+
+00:09:26.320 array is having only five element if I
+
+00:09:28.570 have one more six location that's not a
+
+00:09:30.579 problem right but in between the
+
+00:09:33.459 elements that's the important thing now
+
+00:09:35.519 if you look at this now you tell me
+
+00:09:38.649 whether it is complete or not yes it is
+
+00:09:41.920 full as well as complete so every full
+
+00:09:44.139 binary tree is also complete monetary
+
+00:09:46.180 now check this is it complete or not
+
+00:09:49.589 check a level by level one node is there
+
+00:09:52.540 two nodes are there 1 2 3 4 nodes are
+
+00:09:55.300 there then this next next next yes it is
+
+00:09:58.360 complete binary if I remove this node
+
+00:10:01.690 then it's not a complete binary tree
+
+00:10:03.790 this is missing
+
+00:10:05.319 this is missing so no node must be
+
+00:10:08.649 missing if I remove this then this is
+
+00:10:10.690 not a complete binary tree so this is
+
+00:10:13.600 missing so if you go level by level
+
+00:10:15.550 there should not be any missing one then
+
+00:10:18.339 in this level two nodes in this level
+
+00:10:20.019 four nodes yes all are there last level
+
+00:10:22.510 all nodes are not there all those are
+
+00:10:24.579 not there no problem if all nodes are
+
+00:10:26.709 there then it's a full binary right so
+
+00:10:29.440 one more definition of complete binary
+
+00:10:31.660 this mostly you find in the textbooks
+
+00:10:33.459 see of complete money trees a full
+
+00:10:37.449 binary tree up to height H minus 1 if
+
+00:10:40.209 you hide this NC it's a full binary and
+
+00:10:42.790 in the last level the elements are
+
+00:10:45.370 filled from left to right this is one of
+
+00:10:48.310 the definition you will find in the
+
+00:10:49.480 textbooks a complete binary of height H
+
+00:10:52.870 height H
+
+00:10:55.180 already our full binary up to height H -
+
+00:10:59.600 one last level the elements are filled
+
+00:11:01.970 from left to right that same thing I am
+
+00:11:04.880 saying that if you represent this in an
+
+00:11:07.730 array you'll not get gaps like this if
+
+00:11:12.020 you're getting gaps it's not a complete
+
+00:11:13.910 binary without gaps it's a complete
+
+00:11:16.490 binary now one more important thing see
+
+00:11:19.010 the definition of complete monetary what
+
+00:11:21.350 I gave you sometimes or some authors
+
+00:11:23.540 some people call this as almost complete
+
+00:11:26.510 binary also okay but in most of the text
+
+00:11:29.480 books you will find this as complete
+
+00:11:31.670 monetary so I am calling it as complete
+
+00:11:33.440 battery now I will draw a few trees and
+
+00:11:36.170 show you which one is complete which one
+
+00:11:38.330 is not complete so that you get
+
+00:11:39.740 comfortable with complete binary trees
+
+00:11:42.110 so I'll remove this and I will show few
+
+00:11:44.390 binaries look at this is it a complete
+
+00:11:48.530 binary tree
+
+00:11:48.980 check level by level first level one
+
+00:11:51.230 node then two nodes then four nodes all
+
+00:11:54.230 four are not there if you start from
+
+00:11:56.270 left side then one two no load is
+
+00:11:59.000 missing so it's a complete Banerjee get
+
+00:12:02.360 this one row this one in the next level
+
+00:12:04.670 two nodes next level four are there all
+
+00:12:06.920 four are not there but left-hand side by
+
+00:12:08.930 exchange left side is there so yes it's
+
+00:12:10.730 a complete monetary rotus one then to
+
+00:12:14.690 this level two then next level all those
+
+00:12:17.660 are not there but first which node must
+
+00:12:19.970 be there actually it should have this
+
+00:12:21.980 node than this node then this is allowed
+
+00:12:24.740 so these two are missing so it's not a
+
+00:12:27.050 complete binary now this one first level
+
+00:12:31.880 one the next few notes okay next level
+
+00:12:34.640 all those are not there but first of all
+
+00:12:36.350 we should have this node then this node
+
+00:12:38.030 then this node then we can have this so
+
+00:12:40.430 we should have the notes from left to
+
+00:12:41.840 right but the three nodes are missing
+
+00:12:43.760 there it's not a complete binary tree so
+
+00:12:45.890 if you represent this in an array let us
+
+00:12:47.780 say this is 1 2 3 and this is 4 then 1 2
+
+00:12:52.610 3 gap gap and the gap and then 4 so
+
+00:12:57.080 you'll get 2 3 blank spaces in between
+
+00:12:59.150 the elements so it's not a complete
+
+00:13:01.250 bantering what about this let us check
+
+00:13:03.560 first level 1 next level 2 nodes next
+
+00:13:06.260 level 4 moves must be there
+
+00:13:07.690 one two three food these are missing so
+
+00:13:10.360 it's not a complete vanity what about
+
+00:13:12.700 this this is their right two modes then
+
+00:13:15.850 four must be there one two
+
+00:13:17.590 this is missing it's not a complete one
+
+00:13:19.750 tree this one one then here two moons
+
+00:13:23.260 then here one two three four knows okay
+
+00:13:25.600 then last level all those are not there
+
+00:13:27.640 but we have this exchange left yes this
+
+00:13:30.490 is the end point after this nodes are
+
+00:13:32.200 not dead that is not a problem this is a
+
+00:13:34.920 complete bunny now you are comfortable
+
+00:13:37.330 with what is complete binary and one
+
+00:13:40.990 last point of a complete binary is that
+
+00:13:42.820 the height of a complete binary will be
+
+00:13:46.060 minimum only that is log n height of a
+
+00:13:50.230 complete binary will always be log and
+
+00:13:52.720 because unnecessary we are not going to
+
+00:13:54.640 the next level unless one of the level
+
+00:13:56.860 is filled unless this is filled will not
+
+00:13:58.810 go to the next level see unless this is
+
+00:14:01.150 filled will not go to this level it is
+
+00:14:02.620 not a complete binary if you are going
+
+00:14:03.970 to the next level so always the height
+
+00:14:06.160 of a complete binary tree will be
+
+00:14:07.420 minimum that is log and this is the
+
+00:14:09.730 interesting fact of a complete binary
+
+00:14:11.580 now next we will learn about he let us
+
+00:14:16.240 learn heap see for that I have example
+
+00:14:18.790 binary trees here this binary tree is a
+
+00:14:22.830 full as well as it's a complete binary
+
+00:14:26.860 tree yes
+
+00:14:27.730 the important thing is complete binary
+
+00:14:29.250 this is also complete this also complete
+
+00:14:32.010 now first of all heap is a complete
+
+00:14:35.500 binary tree then next condition see the
+
+00:14:39.610 condition let us look at the elements 50
+
+00:14:42.780 then 30 and 20 are smaller than 50 years
+
+00:14:46.860 15 and 10 are smaller than 30 and heater
+
+00:14:50.320 and 16 are smaller than 20 so it means
+
+00:14:53.110 every parent is having the value greater
+
+00:14:55.390 than all its descendants every node is
+
+00:14:57.970 having the value greater than all it is
+
+00:14:59.830 descendants so a road will have the
+
+00:15:01.990 largest value that is maximum value so
+
+00:15:04.540 yes if the elements are arranged like
+
+00:15:06.850 this then it is called as max heap so I
+
+00:15:10.870 repeat max heap is a complete monetary
+
+00:15:13.990 satisfying the condition that every in
+
+00:15:15.910 know what is having the
+
+00:15:17.080 and greater than all its descendants
+
+00:15:19.720 greater they're not equal to all so all
+
+00:15:21.550 it is descendant so duplicates are
+
+00:15:23.530 allowed here so if you have the blinkers
+
+00:15:25.270 you can have them in descendants coming
+
+00:15:27.610 into this one here this is 10 30 and 20
+
+00:15:31.090 others children that are greater on this
+
+00:15:33.190 35 and 40 or greater than 30 and also 10
+
+00:15:36.100 so 32 and 25 are greater than 20 and
+
+00:15:38.860 also in turn they are greater than 10
+
+00:15:40.450 also so here the smallest element is
+
+00:15:43.360 there in the root so every node is
+
+00:15:45.730 having the element smaller than all its
+
+00:15:48.880 descendants or smaller than or equal to
+
+00:15:51.100 all its descendants so this is called as
+
+00:15:53.470 mini heap so again I repeat mini heap is
+
+00:15:57.370 a complete binary satisfying the
+
+00:15:59.890 condition that every node is having the
+
+00:16:01.510 elements smaller than or equal to all
+
+00:16:03.520 its descendants so there are two types
+
+00:16:05.830 of heap max heap and min heap so
+
+00:16:09.430 whatever we have to study will study
+
+00:16:11.680 upon one heap and same thing applies on
+
+00:16:13.690 the next shape also so we will take max
+
+00:16:16.090 heap and study this one so we will learn
+
+00:16:18.460 how to insert and delete the element so
+
+00:16:21.190 first let us look at insert operation in
+
+00:16:23.950 a max heap I'll show you insert
+
+00:16:27.910 operation in the max heap let us
+
+00:16:29.920 understand how insertion is a ton so
+
+00:16:32.020 already I have a max heap here this is a
+
+00:16:35.650 diagrammatic representation of a heap
+
+00:16:38.110 that is complete by a tree and that is
+
+00:16:40.600 this is the array representation of same
+
+00:16:42.730 thing this is stored in an array
+
+00:16:44.050 if you check root 50 then this is 30 20
+
+00:16:47.770 30 20 15 10 860 15 10 8 16 there are no
+
+00:16:52.510 gaps in between the elements in between
+
+00:16:54.730 these two there are no gaps so it's a
+
+00:16:56.860 complete - it's perfect let us insert I
+
+00:16:59.620 want to insert a element 16 so let us
+
+00:17:03.970 insert 16 so I want to insert the 16
+
+00:17:07.900 this max heap so let us see see where
+
+00:17:10.869 the 60 should come a room should have
+
+00:17:13.180 the largest element so 60 should come in
+
+00:17:15.819 the root yes now what usually people
+
+00:17:19.270 think I will talk about that then I will
+
+00:17:21.459 show you what is the right method people
+
+00:17:23.709 think that 60 should be inserted here
+
+00:17:25.540 then where 50 should go 50 should go
+
+00:17:28.700 30 that is 20 so this is small enough if
+
+00:17:31.160 they should go this side okay then where
+
+00:17:33.260 this 20 should go Bailey should come at
+
+00:17:35.150 this side so in this way it will extend
+
+00:17:37.280 in this direction 16 will come here and
+
+00:17:39.260 this will become 20 and this will become
+
+00:17:40.790 50 and this will become 60 now if we do
+
+00:17:43.760 it like this is it a complete binary
+
+00:17:46.430 no all these are missing element then we
+
+00:17:49.250 have the 16 here this is wrong so don't
+
+00:17:51.980 insert it in the root so I have shown
+
+00:17:55.670 you the wrong procedure or wrong
+
+00:17:58.160 assumption what people will have this is
+
+00:18:00.560 wrong it is not inserted in the road
+
+00:18:02.450 then how it is inserted where it is
+
+00:18:04.670 inserted look at this the correct
+
+00:18:06.680 procedure see we actually implement in
+
+00:18:09.530 an array so that 60 should be inserted
+
+00:18:12.470 here at the last free space in an array
+
+00:18:16.250 our heap was ending here right it was
+
+00:18:18.710 ending here now I have 16 included there
+
+00:18:21.560 at this free space right so in diagram
+
+00:18:25.760 where it will be 60 will be on the left
+
+00:18:28.040 child or for 15 check it
+
+00:18:30.440 where is 15 and 4 2 4 8 yes it is a left
+
+00:18:34.760 child of 15 so this 60 is inserted here
+
+00:18:38.290 inserted here yes it's not a part of
+
+00:18:41.510 heap I have kept it separately now is it
+
+00:18:44.540 forming a heap known that condition is
+
+00:18:46.880 violated every node should have the
+
+00:18:49.670 value greater than all its descendant
+
+00:18:51.500 but you see 60 is there that is a child
+
+00:18:54.200 of 15 wrong then what to do are just the
+
+00:18:57.650 element are just the element make it as
+
+00:19:00.500 a heap or inserted in the heap how
+
+00:19:03.230 compared with the parent who is a parent
+
+00:19:05.480 60 is greater than 15 so 16 should go up
+
+00:19:08.360 again compared with the parent 60 is
+
+00:19:10.520 greater than 30 also so it should go up
+
+00:19:12.170 and 16 is greater than 50 also so it
+
+00:19:14.930 should go up so check here in this Dyke
+
+00:19:17.120 in this array representation 8 8 by 2 4
+
+00:19:20.900 so check with this one 4x2 to check with
+
+00:19:24.320 this 1 2 by 2 1 check with this one so
+
+00:19:27.200 60 is compared with this one and its
+
+00:19:29.060 parent on each parent so 60 is compared
+
+00:19:31.580 with all this ancestors and it will
+
+00:19:33.950 reach its right place so it will swap
+
+00:19:36.170 all these element and 60 will
+
+00:19:37.770 there so I will draw it here c60 will
+
+00:19:40.860 come here I will draw a tree first -
+
+00:19:43.050 then I will fill the elements right
+
+00:19:44.880 after inserting how it looks like now
+
+00:19:47.460 this is our array so here I kept them
+
+00:19:51.840 empty just watch it
+
+00:19:53.250 60 will go up 15 will come down and
+
+00:19:56.100 again 60 will go up and 30 will come
+
+00:19:58.200 down 30 will come here then 60 will go
+
+00:20:00.510 up and 50 will come down so we adjust
+
+00:20:02.820 the element like this so 60 comes here
+
+00:20:05.280 so it has moved up in the hierarchy
+
+00:20:08.280 towards the ancestors and it has reached
+
+00:20:11.100 the road because no it is the largest
+
+00:20:12.900 element so in an array if you see 60 was
+
+00:20:15.480 here so 15 when 60 was here so this 15
+
+00:20:18.660 went there and 60 came here then again
+
+00:20:21.300 30 went there and 60 came here than 50
+
+00:20:24.210 went to its place and 60s in Surrey here
+
+00:20:26.640 so this is how the heap looks like
+
+00:20:30.050 diagrammatically and also in an array so
+
+00:20:33.180 this is insertion we have inserted only
+
+00:20:36.030 one element in a heap that we have taken
+
+00:20:39.150 max-heap now a little bit analysis how
+
+00:20:42.510 much time it has taken it has taken the
+
+00:20:45.330 time equal to the number of swaps so
+
+00:20:47.250 maximum how many swaps 1 2 3 so actually
+
+00:20:50.730 this is depends on the height of a tree
+
+00:20:54.330 so what is the height of a complete
+
+00:20:56.070 binary tree height of a complete binary
+
+00:20:58.080 tree is log n yes so it means the time
+
+00:21:00.480 is big-oh of log n or order of log n so
+
+00:21:04.020 the time taken for insertion is log in
+
+00:21:06.660 how many swaps are required 1 2 3 so
+
+00:21:10.350 that depends on the height log in number
+
+00:21:12.510 of swaps are required and one more thing
+
+00:21:15.180 if suppose this was not 60 if this was 6
+
+00:21:20.000 then we don't have to swap anything zero
+
+00:21:23.670 swaps so we can say that the time taken
+
+00:21:27.000 for inserting one element in a heap is
+
+00:21:29.750 minimum Big O of 1 and maximum is log n
+
+00:21:35.040 it can be from one constant to logon
+
+00:21:38.610 minimum Tammis knows who are being is
+
+00:21:40.200 required maximum the swapping requires
+
+00:21:42.750 depends on the height so that is log n
+
+00:21:45.150 so this was inserting just one element
+
+00:21:47.730 in existing
+
+00:21:49.450 now before going to delete I have
+
+00:21:51.730 something to show you observe one thing
+
+00:21:53.590 see when we are inserting we have to
+
+00:21:56.410 send the element upwards first we add
+
+00:21:59.860 the new element as a leaf then we adjust
+
+00:22:03.700 it by comparing with the ancestors so
+
+00:22:06.670 element moves from leaf towards route so
+
+00:22:09.730 the direction of adjustment is upwards
+
+00:22:12.190 this is the important thing this is the
+
+00:22:14.800 important thing
+
+00:22:15.610 so anyway next I will take the same
+
+00:22:18.460 example then in this one only I will
+
+00:22:20.410 show you how to delete so let us look at
+
+00:22:22.930 the now let us look at delete operation
+
+00:22:26.530 on max-heap here is a max-heap
+
+00:22:29.620 with seven elements that are also they
+
+00:22:31.690 didn't have array now which element you
+
+00:22:35.050 want to delete see the first important
+
+00:22:38.050 thing you cannot delete any other
+
+00:22:40.510 element you should not delete any other
+
+00:22:42.400 element but root element so only one
+
+00:22:46.090 element is deleted from the heap without
+
+00:22:48.670 asking or without giving any options or
+
+00:22:50.980 choices only root element is related yes
+
+00:22:53.590 if you are deleting root element then
+
+00:22:55.330 only it is a heap see this heap is just
+
+00:22:58.210 like if you have seen in the market at
+
+00:23:01.120 the Fruit Shop if apples are arranged
+
+00:23:03.460 how they arrange they arranged like a
+
+00:23:05.830 pyramid heap like so the apples are
+
+00:23:08.560 arranged one above another like forming
+
+00:23:11.290 a pyramid like shape so on the top which
+
+00:23:13.990 Apple is kept the best Apple the most
+
+00:23:17.170 shiny one among all fresh one is kept on
+
+00:23:20.200 the top so that is the best one so same
+
+00:23:22.900 concept is used in heap also so all
+
+00:23:25.960 these elements are there which the
+
+00:23:27.640 topmost element best element what is
+
+00:23:29.740 best for us maximum element so that is
+
+00:23:32.260 max heap so 50 is on the top so if you
+
+00:23:36.040 want to remove the Apple which happily
+
+00:23:37.600 will remove you cannot remove any other
+
+00:23:39.190 Apple from that heap you have to remove
+
+00:23:41.440 the top most happen only that's what so
+
+00:23:44.020 you follow the same method here we will
+
+00:23:45.940 remove only the root element right
+
+00:23:48.220 similarly in the mini heap also if you
+
+00:23:50.560 say no maximum element is not important
+
+00:23:52.720 for us minimum is important then that
+
+00:23:54.880 you follow mean heap okay coming to this
+
+00:23:57.640 let us delete the element so only I can
+
+00:24:00.610 delete fifth
+
+00:24:01.600 t-50 is gone no again sometimes people
+
+00:24:06.160 mistake here
+
+00:24:07.000 the thing that thirty should go up
+
+00:24:08.650 because this is bigger okay thirty will
+
+00:24:10.360 go up then who will come into place of
+
+00:24:11.919 thirty fifteen
+
+00:24:13.059 so is fifteen goes here thirty goes here
+
+00:24:15.250 then this node is gone if this node is
+
+00:24:17.500 gone is it looking like a complete
+
+00:24:18.940 battery no so if you try to adjust as
+
+00:24:22.090 you like it will not be a complete
+
+00:24:23.710 binary tree so you have to be careful
+
+00:24:25.600 for preserving complete monetary
+
+00:24:27.580 property then what to do so when 50 is
+
+00:24:30.640 gone who should take its place
+
+00:24:32.380 see the last element in complete binary
+
+00:24:35.500 this element this element will come in
+
+00:24:38.470 its place that is 16 will come here so
+
+00:24:41.380 16 is removed from here so 16 is brought
+
+00:24:43.720 here 16 is removed from here this is
+
+00:24:46.120 gone so 16 is brought there 50 is go
+
+00:24:49.870 gone outside we have deleted that 50 50
+
+00:24:53.049 has gone out we have deleted it then in
+
+00:24:55.450 its place the last element in complete
+
+00:24:57.520 binary last element and complete
+
+00:24:59.350 abandoned humans in an array the last
+
+00:25:01.000 element will take its place now this is
+
+00:25:03.640 how it looks like so I will remove this
+
+00:25:06.070 one now okay
+
+00:25:07.330 I will remove this this is gone so you
+
+00:25:08.980 have already seen it it's here now now
+
+00:25:11.679 this is complete binary tree but not a
+
+00:25:14.260 max-heap so we have towards just the
+
+00:25:17.020 elements okay we will let just the
+
+00:25:18.789 element that's not a big deal
+
+00:25:20.200 ix aning complete binary property is
+
+00:25:23.140 very important so we preserve that now
+
+00:25:25.480 adjusting the element so we will adjust
+
+00:25:27.460 how from the route towards leaf we will
+
+00:25:30.400 send it so let us check how to do this
+
+00:25:32.470 compare children of this 16 that is new
+
+00:25:35.470 route which the child is greater 30 is
+
+00:25:38.380 greater so 30 will take its place 16
+
+00:25:40.450 will come into its place so I will draw
+
+00:25:42.640 it here so here 30 goes here 20 and 8
+
+00:25:46.720 remains 16 comes here and 15 and 10 as
+
+00:25:50.380 it is so I will fill them in this array
+
+00:25:51.909 also 30 is here 10 and 20 and this is 15
+
+00:25:55.780 and 10 and 8 this place is free last
+
+00:25:59.169 place is free so how we have done it is
+
+00:26:01.510 see the 16 was a compared with its a
+
+00:26:04.720 children who are children of 16 2 and 3
+
+00:26:07.120 left children right chain left children
+
+00:26:09.250 right share 1 into 2 1 into 2 plus 1 so
+
+00:26:12.130 2 into 1 & 2
+
+00:26:13.960 into one plus one so if you remember
+
+00:26:16.360 this formula - why do i plus 1 so this
+
+00:26:18.940 is 2 and this is 3 2 & 3 these are 3 20
+
+00:26:22.450 and 30 are the children we compared and
+
+00:26:24.130 30 is brought here 60 so now this is one
+
+00:26:26.620 step we have completed still we have to
+
+00:26:28.779 check with the descendents so let us
+
+00:26:30.640 check with the descendents 16 who are
+
+00:26:32.529 the children of 16 15 and 10 compare
+
+00:26:35.470 them which is greater 15 now is this 15
+
+00:26:38.740 greater than 16 no first of all compare
+
+00:26:41.919 the children and we shave our child is
+
+00:26:43.600 greater that you compare with the parent
+
+00:26:45.429 okay afterwards you compare it but 16 is
+
+00:26:48.039 greater than both of them so leave it
+
+00:26:49.809 it's already there in max here so this
+
+00:26:54.279 is a max if you don't have to swap them
+
+00:26:56.380 so this is a delete procedure so I'll
+
+00:26:59.919 just repeat this steps quickly see
+
+00:27:02.049 always in delete we remove root and the
+
+00:27:04.690 last element in complete binary will
+
+00:27:06.250 take the place and we push the element
+
+00:27:08.890 downwards towards leaf and adjust the
+
+00:27:12.610 elements to form a max heap so we have
+
+00:27:14.559 adjusted downwards right so from route
+
+00:27:17.799 towards leaf if you remember in insert
+
+00:27:21.309 the adjustment was done from leaf
+
+00:27:23.470 towards root but now that this man is
+
+00:27:25.750 done from route towards leaf so in
+
+00:27:27.669 division adjustment is done but the
+
+00:27:30.130 direction is different so in both insert
+
+00:27:32.770 and delete adjustment is done but the
+
+00:27:34.120 directions are different now little bit
+
+00:27:37.000 of analysis how much time it has taken
+
+00:27:39.190 for deleting one element it depends on
+
+00:27:41.529 the height so what is the magazine you
+
+00:27:43.210 adjust when you have to do that depends
+
+00:27:45.220 on the height so the maximum time is
+
+00:27:47.080 login login yes
+
+00:27:51.460 so deletion takes log n time now one
+
+00:27:54.610 important thing we understood here is
+
+00:27:56.169 that from the match see for whenever you
+
+00:27:58.570 delete you get the largest element from
+
+00:28:01.390 the heap 50 was largest 50 was gone but
+
+00:28:04.929 now who is largest next largest element
+
+00:28:07.450 is 30 if you delete which will be
+
+00:28:09.640 deleted 30 then from the remaining 20
+
+00:28:13.270 who will come and sit in the root 20
+
+00:28:14.830 will come and sit in the room so if you
+
+00:28:16.299 delete next 20 will be deleted
+
+00:28:17.830 yes so from maxi whenever you delete you
+
+00:28:20.919 get the next largest element from
+
+00:28:23.710 min-hee whenever you delete you get the
+
+00:28:25.539 next
+
+00:28:26.570 minimum element so you get the smallest
+
+00:28:28.789 then next small as the next small it's
+
+00:28:30.740 and so on now last important thing this
+
+00:28:35.419 is very important
+
+00:28:36.470 listen carefully right see this is
+
+00:28:39.529 important here the array size was seven
+
+00:28:45.399 one element is deleted know what is the
+
+00:28:48.830 heap size six heap is still six only
+
+00:28:52.759 from one to six seventh place in an
+
+00:28:55.639 array is a free that is not a part of
+
+00:28:57.440 habeus leave it no problem
+
+00:29:00.230 our heap is still six only that space is
+
+00:29:03.110 vacant after that so it's not a problem
+
+00:29:05.120 for us
+
+00:29:06.169 but what element we deleted 50 where it
+
+00:29:11.000 is we are using it but if you want to
+
+00:29:14.059 maintain that copy of 50 there is a free
+
+00:29:17.149 space here you keep 50 here this is
+
+00:29:21.470 interesting I get 50 there is it a part
+
+00:29:25.039 of you know it's outside him yes so it's
+
+00:29:27.740 not a part of him just a space was free
+
+00:29:29.779 so I kept it there that's all away from
+
+00:29:32.090 him right now from the six elements if I
+
+00:29:37.129 delete again what will be lit it 30 will
+
+00:29:41.059 be deleted and eight will come here then
+
+00:29:44.750 we are just so 20 comes here and eight
+
+00:29:48.379 goes here then eight with it's a child
+
+00:29:51.590 that is 10 so 10 comes here it goes
+
+00:29:55.159 there so now the heap reduces to this so
+
+00:29:58.820 the heap size is 5 which element I
+
+00:30:01.070 deleted just no 30 these two places are
+
+00:30:05.570 free all the way I kept 250 there not 30
+
+00:30:08.269 keep it here next free place if I do
+
+00:30:13.309 this what happens what happens next
+
+00:30:17.659 element will be 20 next element will be
+
+00:30:19.700 10 and so on see this was 16 anything is
+
+00:30:22.460 so it will be so on so what happens you
+
+00:30:26.450 we are getting the elements largest the
+
+00:30:28.340 next largest the next largest in the
+
+00:30:30.110 slashes largest so if you read the
+
+00:30:32.090 elements from this side they are sorted
+
+00:30:34.129 they are sorted yes this is the idea of
+
+00:30:37.639 heaps heart
+
+00:30:39.340 if you have a heap that delete the
+
+00:30:41.350 element and fill it in the empty place
+
+00:30:44.410 obtained after deletion so if you go on
+
+00:30:46.300 filling the elements there then
+
+00:30:48.040 automatically gets sorted so from the
+
+00:30:51.070 heap go on deleting the elements and
+
+00:30:52.720 start filling them in free spaces so
+
+00:30:55.180 this is he sought so let us take fewer
+
+00:30:58.810 elements and see the complete heap sort
+
+00:31:00.760 right now heapsort heapsort have two
+
+00:31:05.980 steps first us for a given set of
+
+00:31:08.980 elements create a heap by inserting all
+
+00:31:12.580 the elements one by one then once the
+
+00:31:15.220 heap is formed delete all the elements
+
+00:31:17.950 from the heap one by one the elements
+
+00:31:19.900 will get sorted so I repeat the
+
+00:31:22.510 procedure of heaps would have two steps
+
+00:31:24.250 for a given set of number first of all
+
+00:31:26.470 create a heap then delete all the
+
+00:31:28.660 elements from the first of step create a
+
+00:31:30.460 heap second step delete all the elements
+
+00:31:32.470 from a heap so I already have some set
+
+00:31:34.840 of elements here in an array these are
+
+00:31:37.150 the elements we have to sort them so I
+
+00:31:39.130 will first show you how to create a heap
+
+00:31:41.380 how the heap will be created inside the
+
+00:31:43.690 array I am also going to show you
+
+00:31:45.010 diagrammatically so let us start suppose
+
+00:31:47.530 these are the set of elements that we
+
+00:31:49.090 have to sort they are not sorted so
+
+00:31:51.520 first of all create a heap so for that
+
+00:31:53.790 initial array these elements are initial
+
+00:31:57.310 array so we assume that in this first
+
+00:32:00.010 element is already in a heap so this is
+
+00:32:02.950 ten so right now there is only one
+
+00:32:06.250 element in the heap so when you have
+
+00:32:07.660 only one element you can call it as maxi
+
+00:32:09.910 also mean heap also it's a heap
+
+00:32:11.520 definitely it's a heap now we will
+
+00:32:14.620 insert second element so second element
+
+00:32:16.780 we will insert that is 10 is already in
+
+00:32:18.430 the heap now we'll be inserting 20 so 10
+
+00:32:20.950 is already there so 20 we will insert so
+
+00:32:23.320 10 here 20 here so rest of the elements
+
+00:32:26.950 I am NOT writing them okay I will be
+
+00:32:28.990 right one I will be writing one by one
+
+00:32:30.520 now inserting 20 how do we insert
+
+00:32:33.640 already have shown you compared with the
+
+00:32:35.680 ancestor that is parent and its parent
+
+00:32:37.450 and so on and try to add the element
+
+00:32:39.450 check 20 with 10 right so this is
+
+00:32:43.210 greater so 20 should go up and 10 should
+
+00:32:46.240 come down 20 should go up and 10 should
+
+00:32:48.520 come down so here in an array
+
+00:32:50.590 2 is the in the
+
+00:32:51.950 of twenty two by two is one compared
+
+00:32:53.990 with the parent one so yes twenty will
+
+00:32:56.059 come here ten will go there right now
+
+00:32:58.610 this is him so we have a heap of two
+
+00:33:01.760 elements there's a heap of two elements
+
+00:33:03.440 now third element we will include so
+
+00:33:06.440 right now we have twenty and ten now the
+
+00:33:09.710 new element is the next three space so
+
+00:33:12.200 next three spaces this one yes so the
+
+00:33:14.539 new element is fifteen so we are going
+
+00:33:16.340 to insert fifteen now this one earlier
+
+00:33:18.769 we have inserted the elements from here
+
+00:33:20.360 right now 15 we are inserting so right
+
+00:33:22.669 now we have 20 and 10 here so 15 is in
+
+00:33:26.440 inserted here now try to adjust it how
+
+00:33:30.320 compared with the parent so who is the
+
+00:33:32.179 parent of 15 3 by 2 s 1 so temporary
+
+00:33:36.110 with the parent 15 is smaller so already
+
+00:33:38.899 it is in the maxi form we don't have to
+
+00:33:41.750 adjust so till here we got a heap now
+
+00:33:44.960 insert the next element 30 so already we
+
+00:33:47.870 have elements 2010 15 now this is the
+
+00:33:51.559 next free space right 2010 15 next free
+
+00:33:55.250 space we have 30 so 30 we are going to
+
+00:33:58.070 insert 30 this is complete by a tree but
+
+00:34:01.909 not some max-heap are just the element
+
+00:34:04.460 company with the parent and its parent
+
+00:34:06.710 so that is greater than 10 and also
+
+00:34:08.540 greater than 20 so 10 will come into
+
+00:34:10.969 place of 30 yes here it is compared with
+
+00:34:14.989 this one then again it is compared with
+
+00:34:17.149 20 so Teddy comes here and at this place
+
+00:34:20.030 30 will be inserted so this will modify
+
+00:34:22.849 10 comes here 20 here and this becomes
+
+00:34:26.629 30 now this is a heap but till here so
+
+00:34:30.260 we have four elements in heat now the
+
+00:34:32.899 last element 40 I am going to insert so
+
+00:34:35.989 right now we have 30 20 15 and 10 so 30
+
+00:34:41.599 20 15 and 10 so the new element that we
+
+00:34:45.589 are inserting is 40 here so 40 is
+
+00:34:48.619 inserted at next free space here so it's
+
+00:34:52.250 a complete monetary but not a maxi
+
+00:34:54.319 compare with the parent yes what is
+
+00:34:57.290 greater than its parent what is greater
+
+00:34:59.510 than that also so 40 will move up so
+
+00:35:01.940 this is the
+
+00:35:02.790 parent 5 by 2 is 2 then its parent so
+
+00:35:05.820 yes 20 will go at this place and 30 will
+
+00:35:09.810 go at this place and what he comes here
+
+00:35:12.360 so it means
+
+00:35:15.830 so it means 20 comes here 30 comes here
+
+00:35:21.510 and 40 is here so this is a max-heap so
+
+00:35:26.640 one by one we have inserted all the
+
+00:35:28.380 elements and every element was inserted
+
+00:35:30.960 at a next free space and it was moved
+
+00:35:33.480 upwards and we got a max-heap now before
+
+00:35:38.580 going to the next step
+
+00:35:39.930 let us analyze how much time it has
+
+00:35:41.970 taken we have inserted and the elements
+
+00:35:45.120 total and elements we have inserted how
+
+00:35:47.820 much time it takes for inserting an
+
+00:35:49.500 element in a heap depends on the height
+
+00:35:52.080 what is height of a complete mana tree
+
+00:35:54.750 or a heap it is login so n elements each
+
+00:35:58.320 element we assume that it is moved up to
+
+00:36:01.260 the root so it is login so the time
+
+00:36:03.600 taken is and the log n so this was the
+
+00:36:07.050 heap creation for system now from that
+
+00:36:10.530 heap I will be going on deleting the
+
+00:36:13.110 elements so this place I will show you
+
+00:36:15.180 how the elements are deleted and they
+
+00:36:18.090 are also sorted so let us delete the
+
+00:36:20.670 elements now second step for heapsort
+
+00:36:23.490 already we have created a heap now the
+
+00:36:26.130 same heap I have taken this is the heap
+
+00:36:27.930 that we go now let us delete the element
+
+00:36:30.330 so we know very well how to delete the
+
+00:36:32.730 element so in this let us delete so
+
+00:36:34.770 which element get deleted 40 gets
+
+00:36:36.390 deleted 40 is gone out that who will
+
+00:36:39.030 take its place last 20 this will take
+
+00:36:41.250 its place 20 will take its place so in
+
+00:36:43.740 the diagram I will show 40 is removed
+
+00:36:45.900 and 20 will go in its place
+
+00:36:48.720 20 will go in its place so it means this
+
+00:36:50.820 element is gone
+
+00:36:52.530 this element is gone now this is
+
+00:36:55.050 completed by entry but not a max-heap so
+
+00:36:57.810 we have to adjusts we have to adjust
+
+00:36:59.790 downwards so this 20 is gone right 20 is
+
+00:37:02.490 removed now 30 and 15 30 is greater so
+
+00:37:06.390 30 will go in the place of 20 and 20
+
+00:37:10.860 will come here
+
+00:37:12.010 so this becomes 20 and this becomes 30
+
+00:37:15.870 then I get it compared to India with the
+
+00:37:18.040 10 so it's perfect so these are the
+
+00:37:20.470 changes so now 40 is deleted and we got
+
+00:37:23.890 one free space now here I will show a
+
+00:37:26.500 large elements see we have 30 here and
+
+00:37:29.820 20 here 15 and 10 so the elements in the
+
+00:37:35.080 heap are 30 20 15 and 10 heap is tell 4
+
+00:37:40.390 elements only 40 which was deleted I
+
+00:37:43.120 will put it here at a free space that is
+
+00:37:45.670 not a part of heat now delete next
+
+00:37:47.710 element so next element which element
+
+00:37:50.170 will have deleted 30 will be deleted 30
+
+00:37:52.210 is gone who will take its place last
+
+00:37:54.370 element in cupola 2010 so in this array
+
+00:37:57.700 30 is gone so the 10 last element will
+
+00:38:00.160 come here this element came here so this
+
+00:38:03.820 is not there so one more element reduced
+
+00:38:06.250 we have to adjust this one compared with
+
+00:38:08.620 the children 20 is greater so 20 moves
+
+00:38:10.780 up and 10 comes down right so this
+
+00:38:14.080 becomes 20 and this becomes 10 so this
+
+00:38:17.710 is deleted I remove this arrow now 30 is
+
+00:38:21.130 deleted and this is in a max-heap
+
+00:38:23.530 perform now next step here I will show
+
+00:38:26.800 we have the elements 20 10 and 15 and
+
+00:38:30.040 heap is ending here 40 was already there
+
+00:38:32.950 we got one more free space so keep 30
+
+00:38:35.230 there the newly deleted element and in
+
+00:38:38.320 the diagram this is 20 10 and 15 still
+
+00:38:43.330 we have to delete three more elements no
+
+00:38:46.360 next delete one more element which
+
+00:38:48.310 element get deleted 20 is deleted from
+
+00:38:50.830 the array this is gone who will take its
+
+00:38:53.530 place last element in complete binary
+
+00:38:55.240 will take its place 15 so 15 will come
+
+00:38:57.910 here last element in the array that is
+
+00:38:59.710 in the heap 15 comes here so this is
+
+00:39:02.320 place is free so this is gone
+
+00:39:04.480 I just already 15 is greatest so child
+
+00:39:09.820 is smaller no need to swap the element
+
+00:39:12.100 it's already perfect so this is the
+
+00:39:14.290 result then next is space I will write
+
+00:39:16.510 out this is 15 and this is 10 so this is
+
+00:39:19.240 15 and 10 and heap is reduced still here
+
+00:39:22.360 see there were three element now there
+
+00:39:24.100 are only two early
+
+00:39:25.079 already I have 40 at the last and 30 at
+
+00:39:28.690 the second last place one more free
+
+00:39:30.369 space I got there I can insert 20 so
+
+00:39:34.630 just a store two nd I should not say
+
+00:39:36.190 insert just I have stored 20 they are
+
+00:39:38.079 kept at 20 there now these elements are
+
+00:39:40.420 deleted from the hem these are remaining
+
+00:39:42.460 still in the heap not delete next
+
+00:39:44.650 element which element is deleted 15 is
+
+00:39:47.589 deleted
+
+00:39:48.310 who will take its place last elements so
+
+00:39:51.280 it means this is gone so here also 15 is
+
+00:39:54.250 gone 10 will take its place now do you
+
+00:39:57.670 have to adjust you don't have to adjust
+
+00:39:59.470 anything now what will be the result
+
+00:40:01.660 this is 10 so this is 10 now heap ends
+
+00:40:04.990 here now we already have 20 30 and 40
+
+00:40:08.410 here we got 1 3 space so they use 2 or
+
+00:40:11.589 15 so that's how the elements are sorted
+
+00:40:15.640 so the heap sort first step if the
+
+00:40:18.369 elements are given then create a heap
+
+00:40:20.680 then second step go on deleting the
+
+00:40:23.380 element and store the element at the
+
+00:40:25.060 free space we are obtaining after
+
+00:40:27.099 deleting the element so finally the
+
+00:40:29.380 elements are sorted so you look at this
+
+00:40:31.810 so you have to observe it because too
+
+00:40:33.670 much board work gives there a lot of
+
+00:40:35.230 board work is there so you may miss at
+
+00:40:37.240 some place so I suggest you just pause
+
+00:40:39.640 the video and have a look at it complete
+
+00:40:41.710 example is there on board right and do
+
+00:40:44.200 it by yourself once you do it by
+
+00:40:46.030 yourself then you can remember it always
+
+00:40:47.890 how it is working just take a snapshot
+
+00:40:50.290 or copy everything from my board if we
+
+00:40:53.349 do the analysis already creation process
+
+00:40:55.869 we have seen and log in creating heap
+
+00:40:58.599 and login now how much time this is
+
+00:41:00.550 deleting of all any an element is taking
+
+00:41:03.069 and there remains we are deleting and
+
+00:41:05.740 each element takes how much time for
+
+00:41:08.079 deletion also it takes login time we
+
+00:41:10.119 have already seen it so that is n log n
+
+00:41:12.940 so n log n for creation and log n for
+
+00:41:16.720 deletion so total how much 2 n log N and
+
+00:41:20.290 this is Big O of n log n right 2 times
+
+00:41:24.940 of log n is also dependent on n log n so
+
+00:41:27.579 the time is order of n log N or Big O of
+
+00:41:30.460 n log n so heap sort takes n log n time
+
+00:41:33.910 so that's it
+
+00:41:35.470 this is heapsort now I have to its
+
+00:41:38.960 new heapify and heapify is a process of
+
+00:41:43.099 creating a heap already we have created
+
+00:41:46.190 a heap how it is different it's
+
+00:41:48.530 different
+
+00:41:49.190 how does different we will see but
+
+00:41:50.540 before that if you remember here we were
+
+00:41:54.140 inserting the element always in the leaf
+
+00:41:56.390 and we were adjusting towards route
+
+00:41:58.309 adjusting towards who it was sent from
+
+00:42:01.099 leaf towards route adjustment was upward
+
+00:42:04.750 now in heapify the direction is
+
+00:42:08.000 different how it is done I will show you
+
+00:42:10.099 how to remove the sensual now he makes
+
+00:42:13.760 topic is heapify heapify is a procedure
+
+00:42:17.150 for creating a heap so already we saw
+
+00:42:19.520 how to create a heap by inserting
+
+00:42:20.839 elements one by one here also will do
+
+00:42:23.540 the same thing but the procedure was
+
+00:42:26.599 inserting an element in the leaf and
+
+00:42:28.550 adjusting upwards now let us see how he
+
+00:42:31.790 b5 works so for explaining heapify
+
+00:42:34.280 already I have an array right and if you
+
+00:42:37.609 see it diagrammatically is this a binary
+
+00:42:39.619 tree and so complete binary tree but
+
+00:42:42.170 it's not a max-heap we want max-heap now
+
+00:42:46.400 if we just repeat the procedure of
+
+00:42:49.010 creation let us look at it quickly
+
+00:42:50.839 already we saw in creation process what
+
+00:42:54.230 we did we kept tonalities inserted 20 20
+
+00:42:57.799 went up then inserted 15 then inserted
+
+00:43:00.650 12 than 40 then 35 then 18 one by one we
+
+00:43:04.940 inserted starting from this element so
+
+00:43:06.710 we inserted except this element we
+
+00:43:09.200 inserted 2015 12 or t25 18 so we started
+
+00:43:13.130 from left to right is it possible if we
+
+00:43:16.760 change the direction can we create a
+
+00:43:18.349 heap let us start from right to left so
+
+00:43:20.290 if we start from right to left then
+
+00:43:23.329 shall we still that just the element
+
+00:43:25.490 upward no let us do it downward downward
+
+00:43:28.609 how in the deletion if you remember we
+
+00:43:31.490 were adjusting the element by sending it
+
+00:43:33.440 down towards leaf from root so the
+
+00:43:36.140 direction was from top towards leaf that
+
+00:43:39.049 procedure will follow let us follow the
+
+00:43:41.390 process now I am explaining heapify
+
+00:43:43.160 watch this first go to element 18 look
+
+00:43:47.900 down there are no children so only a
+
+00:43:50.390 single element
+
+00:43:51.680 look at all of the nodes just 18 and
+
+00:43:53.660 it's descendants there was no descendant
+
+00:43:55.490 so 18 is a hint yes then go to next
+
+00:44:00.740 element 25 25 look downwards it's a heap
+
+00:44:03.710 there is nothing there are no children
+
+00:44:05.329 it's alone it's a heap 40 is a heap next
+
+00:44:09.470 element 40 next element 12 downwards
+
+00:44:12.170 it's a he
+
+00:44:12.859 no you will understand what does it mean
+
+00:44:14.839 what I was saying just next next element
+
+00:44:17.780 15 so from here at just 15 downwards yes
+
+00:44:22.250 children are there compare which is
+
+00:44:25.609 greater 25 so 25 will go up and 15 will
+
+00:44:30.470 come down yes this is the procedure 25
+
+00:44:35.059 will go up and 15 will come down so 25
+
+00:44:37.970 will go up and 15 will come in its place
+
+00:44:40.280 this one right so if you look only these
+
+00:44:44.089 nodes 25 15 and 18
+
+00:44:46.579 it's a heap yes only one element I have
+
+00:44:49.910 adjusted now next after 25 this one 20
+
+00:44:53.720 is there this is over right 15 was there
+
+00:44:55.550 this is over now we are on second
+
+00:44:56.960 element right this one look downwards is
+
+00:44:59.720 it a max-heap
+
+00:45:00.890 no it just this one so compared with the
+
+00:45:03.440 children 40 is greater so 20 will come
+
+00:45:05.750 here 40 will go up right so 40 this will
+
+00:45:10.099 be changed to 20 and this will become 40
+
+00:45:13.040 so I have just adjusted just two
+
+00:45:15.020 elements now after second element first
+
+00:45:18.500 element here only this element is not in
+
+00:45:22.069 the heap so adjust it compare with the
+
+00:45:24.410 children 40 is greater so 40 goes up 10
+
+00:45:27.410 comes here compared with the children
+
+00:45:29.359 and 20 is greater so 20 goes up 10 comes
+
+00:45:32.119 here right so this will be swapped with
+
+00:45:35.329 the child so this will become 40 and
+
+00:45:37.280 this is 10 then again swap with the
+
+00:45:39.530 children that is 20 and 10 2012 and 20
+
+00:45:42.980 was there so it will be so after 20 and
+
+00:45:44.839 this comes here this is a heap so we
+
+00:45:49.790 adjusted the elements at downwards and
+
+00:45:52.250 we started from the last element so we
+
+00:45:54.440 have scanned this array from right to
+
+00:45:56.119 left the procedure we were using in the
+
+00:45:59.809 deletion after deletion we were at
+
+00:46:02.140 in Delhi when same procedure we followed
+
+00:46:03.910 and we got the he created so this
+
+00:46:07.239 procedure is called as heapify right
+
+00:46:09.309 direction is different that's all right
+
+00:46:11.769 and what is the time taken by this one
+
+00:46:15.150 analytically the time taken by this
+
+00:46:17.259 hippie fie procedure is Big O of n we go
+
+00:46:21.009 theta Omega or whatever you want
+
+00:46:22.660 notation you use anything commonly we
+
+00:46:24.759 use Big O so this is Big O of n so if
+
+00:46:28.239 you remember the procedure for creating
+
+00:46:30.430 a heap creating a heap so creating a
+
+00:46:33.549 heap was and the login we go off and log
+
+00:46:37.269 n right but this is heapify heapify
+
+00:46:40.210 procedure is order of n so this is
+
+00:46:43.749 faster now what is the minimum time
+
+00:46:45.970 taken for creating a heap Big O of n
+
+00:46:48.339 using HIPPA file so that's all about
+
+00:46:51.519 HIPAA Phi now the last thing is what are
+
+00:46:53.799 priority queues it's a simple topic so I
+
+00:46:56.259 will finish with that one next we will
+
+00:46:58.539 see priority queues now priority queue
+
+00:47:01.799 priority queue
+
+00:47:03.460 so actually cuman's FIFO but priority
+
+00:47:07.630 cuman's it's not free for strictly the
+
+00:47:10.450 elements will have priority and they are
+
+00:47:13.269 inserted and deleted based on the
+
+00:47:15.400 priority right so always if in a queue
+
+00:47:19.029 when you want to delete always we want
+
+00:47:21.099 highest priority element from the queue
+
+00:47:23.400 the element having the highest priority
+
+00:47:25.779 that should be deleted for so this is
+
+00:47:27.759 the discipline of priority queue
+
+00:47:29.289 elements are inserted with the priority
+
+00:47:31.630 when you delete we want higher priority
+
+00:47:34.329 element so let us see what does it mean
+
+00:47:36.489 by high after ID see these are the
+
+00:47:39.730 numbers what is the priority of a number
+
+00:47:42.160 number itself is the priority okay here
+
+00:47:45.549 in our example number itself is the
+
+00:47:47.380 priority there are other example of
+
+00:47:49.269 priority queues also like in operating
+
+00:47:51.549 system also there is a concept of
+
+00:47:52.960 priority queue it is not same as that
+
+00:47:55.059 one this priority queue is mostly used
+
+00:47:57.460 in algorithms right so let us see what
+
+00:48:00.730 is the priority
+
+00:48:01.569 eight is the variety of eight six is the
+
+00:48:03.999 priority of six so 10 is the priority of
+
+00:48:05.980 10 so that number itself is the priority
+
+00:48:08.589 then who is higher priority I can say
+
+00:48:11.950 that smaller number higher priority so
+
+00:48:14.259 which is high as
+
+00:48:15.020 turning this one then this one right
+
+00:48:17.540 then this one yes smaller the number
+
+00:48:19.970 higher the priority so three is of
+
+00:48:21.980 highest priority here so if I delete I
+
+00:48:23.990 want three from the array then otherwise
+
+00:48:28.040 even I can say that larger the number
+
+00:48:31.100 higher priority I can say this also so
+
+00:48:33.590 larger number higher priority so who is
+
+00:48:35.600 having higher priority 10 then 9 then 8
+
+00:48:38.090 so yes when I want delete I should get
+
+00:48:40.700 10 from that one so this is about
+
+00:48:42.620 priority queue elements they value
+
+00:48:45.380 itself is priority and there are two
+
+00:48:47.750 methods of giving priority smaller
+
+00:48:49.370 number higher priority or larger number
+
+00:48:51.290 higher priority okay now let us see how
+
+00:48:54.200 to insert and delete see in an array if
+
+00:48:56.930 I want to insert suppose I have one more
+
+00:48:58.760 element simply I can insert after this
+
+00:49:00.530 one now say when I want to delete from
+
+00:49:03.020 the this type of priority queue I want 3
+
+00:49:05.510 then for how much time it takes for
+
+00:49:08.660 deleting an element from an array or
+
+00:49:10.460 orphan because if I am deleting 3 I
+
+00:49:13.400 should shift the rest of the elements
+
+00:49:15.020 rest of the elements I should shift say
+
+00:49:17.270 takes order of n time so if you
+
+00:49:19.580 implement periodic you just using normal
+
+00:49:21.950 array than the time for insert or delete
+
+00:49:24.440 may be order of M so I don't want to
+
+00:49:27.260 discuss in detail you can study it by
+
+00:49:29.060 yourself means you can analyze by
+
+00:49:30.470 yourself if you say no I want to keep
+
+00:49:32.750 them sorted order
+
+00:49:33.770 then for sorting also it takes time
+
+00:49:35.810 again for a deletion or insertion you
+
+00:49:38.180 have to spend order of n time then what
+
+00:49:41.240 is the better method heap which takes
+
+00:49:44.060 how much time login time for insertion
+
+00:49:46.850 and login time for deletion so yes heap
+
+00:49:50.030 is a best data structure for
+
+00:49:52.120 implementing priority queue so if you
+
+00:49:54.890 have smaller number higher priority then
+
+00:49:57.050 create a min heap if you have larger
+
+00:50:00.860 number higher priority then use max heap
+
+00:50:03.110 same set of numbers I have created
+
+00:50:05.900 already created I mean he already
+
+00:50:07.370 created maxime so for one element
+
+00:50:09.770 insertion how much time it takes login
+
+00:50:11.870 right then one element deletion how much
+
+00:50:14.810 time it takes login so this is the best
+
+00:50:17.480 data structure which works faster
+
+00:50:19.340 otherwise if you use normal array like
+
+00:50:21.680 this then insertion may take
+
+00:50:23.900 maybe deletion is faster otherwise
+
+00:50:26.289 deletion will take order of endtime and
+
+00:50:28.670 insertion may be faster any one of the
+
+00:50:30.380 operation will definitely take order of
+
+00:50:31.940 n time but in heap the time taken is
+
+00:50:35.000 login so heap is a faster data structure
+
+00:50:38.539 for implementing priority so that's all
+
+00:50:41.089 about periodic you so predict you can be
+
+00:50:43.369 implemented using heaps of either min
+
+00:50:45.260 heap or Maxie if you want always smaller
+
+00:50:47.630 number min heap if you want always
+
+00:50:49.220 larger number max so that's all in this
+
+00:50:52.039 video and if you want to take the course
+
+00:50:54.829 you can check in the description and you
+
+00:50:56.900 can buy the course for C++ and data
+
+00:51:00.470 structure subject there are two
+
+00:51:02.089 different courses right so go through
+
+00:51:04.369 the course see the contents and then you
+
+00:51:05.990 decide that's all

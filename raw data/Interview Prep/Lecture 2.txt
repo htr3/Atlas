@@ -1,0 +1,231 @@
+# tactiq.io free youtube transcript
+# Interview Question: Start of Loop in a Linked List
+# https://www.youtube.com/watch/-YiQZi3mLq0
+
+00:00:00.199 hi guys this is gkcs we have this
+00:00:02.520 question with us today which is often
+00:00:03.919 asked in interviews that you have a link
+00:00:05.960 list with you and you have to detect if
+00:00:07.720 there is a loop in it or not so the very
+00:00:11.080 famous solution for this is having a
+00:00:13.280 hair and a Tor I with you so the hair as
+00:00:16.199 you can
+00:00:17.240 expect moves two
+00:00:20.439 nodes per
+00:00:23.160 iteration so this is a fast pointer and
+00:00:26.679 the second one moves the tortoise moves
+00:00:29.599 onee
+00:00:31.320 per
+00:00:33.600 iteration okay uh so these two are
+00:00:36.000 moving at different speeds every
+00:00:38.000 iteration there's a advancement of the
+00:00:40.079 hair by two and the Tor by one and both
+00:00:43.320 of them start at the starting node which
+00:00:45.360 is zero over here and you can see that
+00:00:47.719 they will meet at some given point of
+00:00:49.280 time so the hair will be pointing over
+00:00:51.559 here along with the
+00:00:53.760 tortoise what happens is after one
+00:00:57.120 iteration the tortoise is pointing here
+00:01:01.079 and the hair is over
+00:01:02.840 here after two
+00:01:05.880 iterations the Tor is pointing where the
+00:01:09.360 hair was but the hair is inside this
+00:01:12.080 Loop and now it's pointing over
+00:01:15.520 here after three iterations you have the
+00:01:19.159 toris pointing here and the hair is
+00:01:22.640 pointing
+00:01:24.799 here right and after four iterations the
+00:01:28.400 Tor points to node four and the hair
+00:01:32.759 jumps two and points along with the Tor
+00:01:35.560 at node four so if this condition never
+00:01:38.520 happens if the torto and the hair are
+00:01:40.079 pointing to the same
+00:01:41.520 node that means that there is a loop you
+00:01:45.000 know logically it would have been
+00:01:46.799 impossible for the Tor and hair to be
+00:01:48.200 pointing at the same node if they're
+00:01:49.479 moving at different speeds the hair
+00:01:51.479 should have been far ahead and so if
+00:01:53.759 they pointing at the same node then
+00:01:55.280 there's a
+00:01:56.479 loop if the hair is pointing at where
+00:02:00.840 the tortoise is
+00:02:02.560 pointing then you
+00:02:05.399 report a
+00:02:07.599 loop otherwise if the hair ever reaches
+00:02:12.360 the end of the
+00:02:16.360 list then you
+00:02:18.879 report no
+00:02:21.160 Loop so this algorithm is pretty simple
+00:02:24.360 and it works for a reason you have the
+00:02:28.319 tortoise moving at
+00:02:30.440 you know just one
+00:02:31.560 iteration per one one node per iteration
+00:02:34.720 so the total number of nodes that the
+00:02:36.519 torto is moving is
+00:02:38.720 n after n iterations and the total
+00:02:42.480 number of moves uh notes that the hair
+00:02:44.480 has moved is 2 N after
+00:02:47.560 iterations now you can see that the
+00:02:49.640 torto and the hair could have been going
+00:02:51.680 around in circles in this uh in this
+00:02:55.239 Loop so this quantity is equal
+00:02:58.760 to
+00:03:01.680 let's say this part of the list this
+00:03:04.680 part which does not consist of
+00:03:08.680 the the loop is D in
+00:03:13.760 size okay so in
+00:03:19.319 fact this part is D in
+00:03:21.879 size and the point at which they meet
+00:03:24.159 each other is K so this
+00:03:28.040 part these two nodes
+00:03:30.439 these three nodes in fact is equal to K
+00:03:33.080 that's the distance
+00:03:34.480 K so n would be equal
+00:03:37.239 to
+00:03:39.159 D plus
+00:03:41.560 K
+00:03:43.439 plus some number of Cycles so the length
+00:03:47.280 of the cycle C
+00:03:49.879 into how many well we don't know so
+00:03:52.799 we'll call that
+00:03:54.239 I so I Loops were made by the first
+00:03:59.079 tortoise
+00:04:00.680 and the hair is moving the same distance
+00:04:04.560 D plus it met at K so it has has moved
+00:04:08.280 that distance so K
+00:04:10.920 plus C it has also made some loops
+00:04:13.720 around but it might have made more Loops
+00:04:16.199 so that is J for
+00:04:18.320 us right so these two equations tell us
+00:04:21.798 the amount by which the two pointers
+00:04:24.520 have been moving now if you subtract
+00:04:26.720 these two equations so subtract this
+00:04:31.960 equation from this
+00:04:35.400 one then you get n = to D and K cancel
+00:04:40.160 out your C into J - I and what does that
+00:04:44.919 tell you it tells you that you need to
+00:04:47.080 have an N there needs to exist an N
+00:04:49.360 because this is of your choosing such
+00:04:51.600 that that is equal to C into j- I and
+00:04:54.880 Jus I can be any integers C is a
+00:04:57.759 constant so
+00:05:00.120 this equation needs to have Solutions
+00:05:01.759 and you know that it's true because you
+00:05:04.520 can choose any arbitrary n such that
+00:05:06.240 this condition is
+00:05:07.840 true okay so our hypothesis of having a
+00:05:12.000 hair and a tortoise moving around and
+00:05:14.199 then finally meeting each other is true
+00:05:17.479 so this is a solution for finding out if
+00:05:20.479 there is a loop or not the more
+00:05:22.400 complicated question actually is if
+00:05:25.160 there is a loop tell me what is the
+00:05:26.680 start of the loop Okay so let's find
+00:05:30.360 that
+00:05:31.000 out so you have these two equations and
+00:05:34.120 we are going to be substituting the
+00:05:35.319 value of n using the first equation so
+00:05:38.080 that will
+00:05:38.919 be 2 into D + 2 k + 2 I into
+00:05:47.479 C this is equal to rhs D + k
+00:05:53.479 + J into
+00:05:55.720 C what you end up having is if you take
+00:05:59.039 these terms and LHS you have D +
+00:06:05.520 k+ 2 i-
+00:06:09.759 J into C = 0 so that gives you D + K =
+00:06:17.039 to J - 2
+00:06:20.039 I into
+00:06:22.400 C okay and two years ago I was asked the
+00:06:25.440 same interview question at Morgan
+00:06:26.639 Stanley and I came up to this point but
+00:06:28.919 I couldn't think think ahead so you need
+00:06:31.360 a key Insight over here what you need to
+00:06:33.680 realize is that D+
+00:06:35.560 K is this distance D and this distance K
+00:06:40.440 so I changed the notations a little bit
+00:06:43.080 because this gives you the right answer
+00:06:45.280 so and if you think of it logically K is
+00:06:47.800 the extra distance that you move from
+00:06:49.039 the start of the of this Loop and D is
+00:06:53.440 the distance up to the loop so these are
+00:06:55.440 the right terms that we have D plus K is
+00:06:59.400 = to J J - 2 I into C and changing these
+00:07:03.599 two terms is not going to change our
+00:07:05.520 original answer of is there a
+00:07:07.560 possibility if you have a head and a Tor
+00:07:09.800 running and a meeting point those
+00:07:11.479 equations still hold in fact these two
+00:07:13.879 are the exact equations that we had then
+00:07:16.360 also so let's come back to the real
+00:07:18.680 question uh t+ k equal to so on and so
+00:07:22.280 forth so what is this mean if you have a
+00:07:26.199 pointer at this start and it moves D
+00:07:29.160 Plus K that means it moves D this
+00:07:32.240 distance plus K this distance so it will
+00:07:34.800 end up at the meeting
+00:07:36.680 point similarly if you start at the
+00:07:38.800 meeting point and you move D plus
+00:07:41.879 K that is equal to moving around in
+00:07:45.039 circles for some amount of time so this
+00:07:48.639 point can be ignored C is very important
+00:07:51.240 to understand this is a multiple of C
+00:07:52.960 which is the length of the loop and that
+00:07:54.720 means that you'll be moving around in
+00:07:56.039 loops and ending up at the meeting point
+00:07:58.199 so after d plus k iterations you'll end
+00:08:00.400 up right
+00:08:01.680 here okay what does that tell us so if
+00:08:04.840 you start from the start or you start at
+00:08:06.800 the meeting point both cases if you move
+00:08:10.080 by D plus K you end up at the meeting
+00:08:12.720 point what we want is the starting point
+00:08:15.960 of the loop so let's move just D nodes D
+00:08:20.800 is equal to by this
+00:08:22.440 equation J - 2
+00:08:25.280 I into C minus k
+00:08:30.479 okay so from the start if you move D
+00:08:33.559 nodes you're going to end up
+00:08:35.799 here and from the meeting point if you
+00:08:38.599 move D nodes you're going to end up
+00:08:42.399 after making C Cycles so you're going to
+00:08:44.320 make Cycles except on the very last
+00:08:46.640 cycle you're going to fall short by KY
+00:08:49.480 nodes this is very important you're
+00:08:51.519 going to fall short by KY nodes what
+00:08:53.760 does that say you're going to fall short
+00:08:57.240 by K nodes so you'll end up over
+00:09:04.920 here if K was equal to two you're going
+00:09:07.120 to fall short by two nodes to the to the
+00:09:09.560 meeting point again so that will be over
+00:09:11.440 here and if you start from the starting
+00:09:13.720 node you will end up over here so if you
+00:09:16.760 have these two pointers P1 and
+00:09:21.240 P2 and you move them one by
+00:09:24.200 one for a certain number of time the
+00:09:27.279 moment they meet each other which is
+00:09:29.680 this point is the start of the
+00:09:33.480 loop that's what this equation means so
+00:09:37.720 take your time get your head around it
+00:09:39.560 if you move D nodes that's the only time
+00:09:42.519 when these two poters are meeting right
+00:09:45.040 if that's the shortest time by which
+00:09:47.040 these two poters are meeting and
+00:09:48.720 therefore we take one node at the start
+00:09:52.279 P1 move it to the right one by one and
+00:09:56.079 we take another point of
+00:09:58.120 P2 and move it around this Loop one by
+00:10:01.240 one and when they do meet up over here
+00:10:05.079 that's when we know that we are moved D
+00:10:07.680 noes and that's when we know that we
+00:10:10.560 have actually reached the start of the
+00:10:19.120 loop lure
+00:10:22.760 Lop so this was an interesting question
+00:10:25.160 I finally found the solution after a
+00:10:26.839 couple of years so uh in case you have
+00:10:29.160 any doubts or questions please leave
+00:10:30.320 them in the comments below I'll be
+00:10:31.399 sharing one relevant Link in the
+00:10:33.240 description below so until next time see
+00:10:35.320 you

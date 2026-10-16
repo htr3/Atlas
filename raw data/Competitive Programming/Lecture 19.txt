@@ -1,0 +1,615 @@
+# tactiq.io free youtube transcript
+# How to solve Approximation Problems (Challenge Problems)
+# https://www.youtube.com/watch/cVDYKz9-h-M
+
+00:00:00.060 hey guys GSEs talking about my favorite
+00:00:02.879 topics today which is non polynomial
+00:00:05.210 problems or challenge problems so
+00:00:08.389 challenge problems are something that
+00:00:10.080 you're probably heard from in code chef
+00:00:11.849 or a kernels the I just explained this
+00:00:15.540 using an example imagine you have been
+00:00:17.940 given up on this all like the Traveling
+00:00:19.830 Salesman problem okay so the Fanning
+00:00:22.050 salesman problem is very well-known in
+00:00:24.420 computer science and to get the optimal
+00:00:30.689 solution to this it's known that the
+00:00:33.180 promis NP non polynomial so the optimal
+00:00:37.320 solution takes on n square into 2 based
+00:00:39.870 apart and so this is exponential and the
+00:00:42.690 running time is not OK so using that to
+00:00:49.620 get an optimal solution giving more
+00:00:51.149 possible time
+00:00:51.989 now contests will ask you to run your
+00:00:55.079 whole within one second or two seconds
+00:00:56.760 so assuming that they are they asking
+00:00:59.820 you to run the hold in one second for
+00:01:04.080 you to meet this one second time limit
+00:01:05.820 you need n to be around 15 so n has to
+00:01:10.470 be on 15 for this whole two rather than
+00:01:13.380 one set it now what happens if I give
+00:01:17.130 you n equal to 1000 there is no chance
+00:01:20.790 that you can run this code and get an
+00:01:23.400 optimal solution within one second
+00:01:25.110 because it's been proven to be non
+00:01:26.369 polynomial running time so the only
+00:01:29.159 option you have is to use some other
+00:01:32.070 algorithm which is let's say n is equal
+00:01:36.360 to 1000 so for it to longer than one
+00:01:39.750 second you mean something like an N
+00:01:41.340 square algorithm okay but we have
+00:01:46.530 already said that there is no chance
+00:01:48.000 then you can get the optimal solution so
+00:01:49.860 what these contests asks you to do is
+00:01:52.020 sacrifice optimality for performance
+00:01:56.540 okay give me an approximate solution
+00:01:59.430 that's very important approximate
+00:02:01.590 solution within one second so that in a
+00:02:06.119 reasonable time and the better your
+00:02:08.550 approximation is the movie score in this
+00:02:10.889 problem so this goes from 100
+00:02:15.150 to zero zero is basically romancer and
+00:02:19.270 if your solution is good I mean if it is
+00:02:21.760 the best thing you get 100 if it is
+00:02:23.710 close to the best then you get around 90
+00:02:25.300 80 70 per-- and if it's the further away
+00:02:28.390 you are come to the best solution the
+00:02:30.430 less your soul is and so basically what
+00:02:33.460 you would do is maximize this code in
+00:02:34.930 which case you want to make your
+00:02:38.350 approximation as close to the optimal
+00:02:39.940 solution as you can okay within the one
+00:02:44.680 second time limit so we are going to be
+00:02:46.990 discussing how to solve these ten
+00:02:48.220 problems which are actually very
+00:02:49.330 interesting because as you see we'll be
+00:02:52.060 using all of these sources which are
+00:02:53.830 given to us with an example so the
+00:02:56.530 example problem that we are going to
+00:02:57.640 pick up is CN 2 okay this is mentioned
+00:03:01.750 in the description below you can have a
+00:03:03.190 look at it later on but as it's explain
+00:03:05.200 what the problem says you haven't had a
+00:03:07.300 given to you and it's going to be it so
+00:03:13.630 this is the LP and there's a number
+00:03:15.490 given to you which is a is a number B is
+00:03:19.240 an array B has of course integers in
+00:03:22.330 each of these positions so B of 0 is
+00:03:25.900 some number X B of 1 is some number Y
+00:03:28.870 and so on and so forth what you also
+00:03:32.830 have is to do is to minimize the sum of
+00:03:37.540 all remainders that you get from a after
+00:03:40.630 dividing with with all the dozen people
+00:03:43.360 so expressive as for all numbers in B
+00:03:48.489 let's say the size of B is equal to n so
+00:03:53.410 I equal to 0 to n minus 1 you need to
+00:03:57.310 find the remainders of a when divided by
+00:04:03.630 B of 5 ok and you need to make myself
+00:04:07.980 it's pretty simple and the only
+00:04:10.480 operation you have to do is to take all
+00:04:13.600 the digits of P if so a is I think 18
+00:04:17.320 digits approximately 10 is about it
+00:04:19.180 equals the size of a and you can permute
+00:04:24.669 them
+00:04:27.379 after polluting them you just assign it
+00:04:29.879 back to it so it can be any permutation
+00:04:33.180 of its digits and then you run it
+00:04:36.330 through this function with the with the
+00:04:39.419 intention of minimizing this quantity as
+00:04:41.219 much as you can so the nests of this
+00:04:42.900 quantity is the higher score it's more
+00:04:46.500 this quantity is the lower your score is
+00:04:48.180 okay and for example let's take a to be
+00:04:50.729 three nine four one then the valley
+00:04:53.729 population of its digits is going to be
+00:04:56.120 ninety one three four another
+00:04:59.759 competition is for 193
+00:05:04.159 so all these permutations are valid you
+00:05:08.189 need to just print out the population
+00:05:10.469 which is according to you reducing the
+00:05:14.279 this quantity as much as you can all
+00:05:17.400 right so any ideas in the start this
+00:05:24.539 might look like proper you know proper
+00:05:26.879 question where there's a standard
+00:05:29.189 polynomial I hope that you can apply and
+00:05:31.110 you can get the minimum but the more you
+00:05:33.509 look into this form you see that no
+00:05:35.039 that's not possible
+00:05:35.849 this is an np-complete problem and the
+00:05:39.089 only way to actually get a solution in
+00:05:41.279 the reasonable amount of time is to use
+00:05:43.229 an approximate algorithm of course in
+00:05:45.539 the contest you would need to do all
+00:05:46.650 that you don't need to do all that
+00:05:47.639 thinking because the problem is already
+00:05:50.400 declared as a child form and you have
+00:05:52.620 partial scoring from zero to hundred
+00:05:55.339 okay but again but other ideas the first
+00:06:02.430 the structure approach to actually
+00:06:03.750 solving these problems is to look for a
+00:06:05.099 base solution you want something to
+00:06:08.310 start off with and well here actually
+00:06:11.099 the easiest thing to start off with is
+00:06:12.990 the input itself a you can take it and
+00:06:16.229 you can find what this current answer is
+00:06:18.569 giving you you know if you just take the
+00:06:20.969 input a and you run it through this
+00:06:22.529 function what is the answer so this is
+00:06:25.710 that set 40 and then what you can do is
+00:06:28.800 because you have valid permutations to
+00:06:30.539 look at instead of computing this whole
+00:06:32.819 array what you can do is you can swap
+00:06:35.399 two integers two elements in at
+00:06:37.649 different positions of
+00:06:38.750 once you've swapped them so let's say I
+00:06:42.240 swap one with three so that gives me 4 9
+00:06:46.680 3 1 and if my answer changes suddenly to
+00:06:52.159 25 that gives me an idea that this swap
+00:06:56.430 was not nice because I'm using to
+00:06:58.379 minimize all the other hand if I if I
+00:07:01.379 swap and I get the answer to be 25 that
+00:07:05.159 gives me an idea that this swap was a
+00:07:07.830 good idea and I should continue with
+00:07:10.979 this new number as my basis okay so
+00:07:15.150 first thing to do is find a base
+00:07:22.099 solution so after you have a base
+00:07:25.169 solution with which you can compare your
+00:07:26.639 next answers what you want to do is you
+00:07:29.159 want to improve on the base solution so
+00:07:31.759 let's take this graph to be the values
+00:07:38.250 of a and the x-axis and the school that
+00:07:42.630 you are having so the minimize some
+00:07:46.409 function f of a that's what you're doing
+00:07:49.380 so f of a is plotted on the y-axis he is
+00:07:53.460 spotted on the x-axis and what you want
+00:07:55.080 to do is find the minima
+00:07:56.099 this seems pretty nice and pretty simple
+00:07:58.370 now you can take all the possible values
+00:08:00.930 of a because they mean is there and in
+00:08:04.110 attribute that will be 18 factorial
+00:08:06.690 possible values so this graph has in
+00:08:09.090 fact possible values you can try all of
+00:08:10.830 them and therefore we are limited to the
+00:08:12.840 number of points that you can plot on
+00:08:14.190 this graph let's say let me start 20
+00:08:18.029 points like this for a low value of a
+00:08:21.150 you got something like this over well
+00:08:24.120 the next value you got something less so
+00:08:26.370 in F of it for the next time you got
+00:08:29.699 something really high and then much
+00:08:32.880 smaller and then some low here here here
+00:08:37.289 here
+00:08:43.140 so you think that my practicals are
+00:08:45.670 terrible but apart from that what you're
+00:08:47.980 seeing is these points represent the
+00:08:52.510 different values that you plotted for
+00:08:54.070 different values of a for this function
+00:08:57.220 and this value okay
+00:08:58.800 fine now these points in general they
+00:09:02.530 don't make any sense but what you try to
+00:09:04.540 do then it's not a graph out of these so
+00:09:08.620 if I start throwing in the rock one of
+00:09:10.000 the things I can do is just showing the
+00:09:11.530 points but that also would really help
+00:09:13.630 us in understanding what's happening so
+00:09:15.460 we try to fit a curve if we try to fit
+00:09:18.430 this curve and all of you who are
+00:09:21.610 interested in data science must be
+00:09:22.900 getting many ideas by now so this is the
+00:09:25.690 curve that I just fit and it looks a
+00:09:28.570 little sensible it seems almost periodic
+00:09:31.480 in some way and what we can you know
+00:09:34.930 infer from this but one of the things we
+00:09:36.850 can infer is that this is a minima so it
+00:09:41.890 makes sense to search around the minimum
+00:09:44.190 instead of searching out over here okay
+00:09:48.660 so if this is the minimum value this
+00:09:51.190 will be your final answer also but
+00:09:53.710 instead of investing time over here or
+00:09:55.660 over here you want to invest more time
+00:09:57.490 over here or over here that's a general
+00:10:00.310 idea of finding the minima in the curve
+00:10:04.030 you wanted to find the function and you
+00:10:05.980 want to find the minimum all right so
+00:10:08.980 there are many approaches to this the
+00:10:12.670 second part is basically something like
+00:10:14.740 curve fitting and because you have many
+00:10:19.090 approaches I'll just mention a few one
+00:10:21.070 of them is hill climbing which is
+00:10:24.760 probably the most common one something
+00:10:27.310 which is again very common is an
+00:10:29.290 evolutionary algorithm which is
+00:10:30.490 simulated a medium and finally something
+00:10:37.750 that I really like and is also very
+00:10:39.310 popular is genetic algorithms in general
+00:10:45.910 what these proms are doing what is what
+00:10:48.190 these algorithms are doing is trying to
+00:10:50.680 fit a curve
+00:10:52.990 to the source space and in the Subspace
+00:10:56.320 then find you the maximum or the minimum
+00:10:59.190 requirement so we're finding minimus
+00:11:01.570 but have you been searching for Maximus
+00:11:02.950 this would have been interesting place
+00:11:04.029 this would have been interesting this
+00:11:05.200 and even the far end so pissy what we're
+00:11:10.899 trying to do is they try to then find
+00:11:12.580 your we're trying to define the function
+00:11:15.490 that we are getting by dropping points E
+00:11:17.380 and F for free and we are ready to get
+00:11:19.529 what we want which is something about
+00:11:21.399 the Maximus taking the example that we
+00:11:23.470 are talking about the array B and the
+00:11:26.620 integer aides using simulated annealing
+00:11:30.610 which is one of the techniques that you
+00:11:33.490 can use here's how I would do it
+00:11:35.470 you have the IV which you cannot change
+00:11:37.899 so there's nothing to do order you have
+00:11:39.820 the number a which you can change so
+00:11:43.120 initially I have a base case which is
+00:11:45.490 the input itself then put gives me a
+00:11:48.760 itself what I'm going to do initially is
+00:11:50.980 try to find random permutations of it
+00:11:54.120 different populations of it and I'm just
+00:11:56.470 going to run them through the function f
+00:11:58.600 of a for different populations now you
+00:12:03.700 see that different permutations will
+00:12:04.930 give you different answers but the
+00:12:06.550 answers which are lesser and lesser
+00:12:08.290 which are with my signify quantity F of
+00:12:10.660 a are the ones that I'll give more
+00:12:12.250 preference to okay so that's how it goes
+00:12:15.990 there many possible values of a let's
+00:12:19.180 say I've set capital e and in that this
+00:12:24.820 form is said small D okay and in that
+00:12:27.399 how many values of a1 a2 a3 all these
+00:12:30.910 give me corresponding values of a1 F of
+00:12:34.029 K 2 so on and so forth
+00:12:36.600 initially I'm just finding all the
+00:12:38.920 permutations that I can try to find some
+00:12:41.020 answers for it in the next cycle okay so
+00:12:44.380 there's a concept of cycles in this in
+00:12:46.630 the next cycle what's going to happen is
+00:12:48.760 I am going to give more preference to
+00:12:51.010 smaller values of F of a so I'll pick
+00:12:53.950 those guys up let's say that we do a 7e9
+00:13:00.339 a 20 so let's so forth
+00:13:03.980 and then I learn the same thing but not
+00:13:07.370 not with such an aggressive one I'm not
+00:13:09.980 doing to find the random permutation
+00:13:11.270 stop I'm going to take these numbers and
+00:13:13.310 I'm going to swap just let's say two
+00:13:15.950 digits in those numbers so if this is
+00:13:19.640 the number you have 0 you have 1 in
+00:13:23.720 terms of that digits then I'm just going
+00:13:26.090 to take two digits and two other digits
+00:13:28.370 and swap them ok swapping will generate
+00:13:35.120 a different number a different
+00:13:36.350 permutation and that'll be what happens
+00:13:39.170 in the second cycle again
+00:13:40.310 correspondingly fo you know a will be
+00:13:45.080 there so f of f of 7 and so on and so
+00:13:49.460 forth mind you that a two and a seven
+00:13:51.290 will change after these swaps in the
+00:13:54.620 third cycle and even less aggressive
+00:13:58.190 approach because my solutions are
+00:13:59.870 getting better and better and better
+00:14:01.190 of course I'll not choose four solutions
+00:14:03.260 from this experiment of swapping two
+00:14:06.560 numbers so even better crop you can
+00:14:10.820 think of that a better version of is and
+00:14:15.890 also of just one digit now so it's I'm
+00:14:21.770 sorry just wanted and this is the basic
+00:14:24.260 understanding of what simulated
+00:14:25.610 everything is simulated living means an
+00:14:27.710 evening so initially when you have some
+00:14:30.140 hot metal and you're you what you want
+00:14:33.740 to bang it in the shape what happens is
+00:14:35.270 initially all the atoms are jumping
+00:14:36.500 around trying to find stability and as
+00:14:39.170 temperature goes down which is missing
+00:14:40.790 as time passes by the number of the
+00:14:44.240 atoms have found the stability and this
+00:14:45.920 stay right there the ones which having
+00:14:47.750 from the stability also reduce their
+00:14:49.190 exploration right you can read up on
+00:14:51.650 simulated annealing in the description
+00:14:54.290 below the link but in general starting
+00:14:56.990 you explore as much as you can don't
+00:14:59.480 care about stability so much later on
+00:15:01.490 when you get better and better so we
+00:15:02.600 should keep them in your hand keep that
+00:15:04.310 stability in your hand and look for
+00:15:06.140 slightly better solutions so finally in
+00:15:10.460 terms of how they look in the graph so
+00:15:13.850 if this
+00:15:15.220 is your is your curve are you looking
+00:15:18.160 for minimus initially don't even care if
+00:15:20.920 you jump up to this point or these
+00:15:23.110 points of these mines later on what will
+00:15:25.120 happen is that you want to save these
+00:15:27.069 points but lower the minimum and then
+00:15:30.490 search over here itself so if you are
+00:15:32.709 somewhere over here you want to go
+00:15:33.790 slightly lower now if you go to the left
+00:15:35.740 you discover sighs if you go to the
+00:15:37.420 right you increase that but not enough
+00:15:38.949 so you will slightly better and then
+00:15:40.839 slightly better and then finally to the
+00:15:42.040 bill Mumy fields that's the general idea
+00:15:43.839 of simulator video so you are seeing
+00:15:47.560 that all of these algorithms actually
+00:15:50.319 help you find the minimum of the Maxima
+00:15:52.569 in the curve using common sense using
+00:15:54.819 logic okay common sense for the yeah but
+00:15:57.759 yeah that's what they are actually and
+00:15:59.649 gently cousins are points so that's how
+00:16:02.139 you would speak about that but I have
+00:16:04.089 implemented that in in one of the
+00:16:06.009 contests and it won't out really well so
+00:16:07.480 you should you should try four different
+00:16:09.879 poles different approaches the third
+00:16:11.709 part is actually my favorite which is
+00:16:13.350 optimization so I think it's the
+00:16:16.120 favorite of most computer programmers
+00:16:17.889 also optimizing a solution so read it
+00:16:21.459 once the first is possible but in these
+00:16:24.040 kind of problems actually it's very very
+00:16:25.720 important optimization even if you have
+00:16:29.139 a good enough solution but what these
+00:16:31.269 firms are saying is that you have an
+00:16:32.949 approximate solution and so if you have
+00:16:37.360 the same algorithm with the same
+00:16:38.740 parameters the person who can use more
+00:16:41.019 CPU the person who works harder will
+00:16:43.329 have a better approximation that's what
+00:16:46.029 it means
+00:16:47.439 so what you need to do even if you have
+00:16:49.899 a good solution and if you have
+00:16:51.509 reasonable base case solutions and not
+00:16:54.040 something that you smile the more CPU
+00:16:56.170 you use the better your solution will be
+00:16:58.439 and therefore what you want to do is you
+00:17:02.529 want to interview approximation through
+00:17:04.169 optimization sorry you do that the first
+00:17:08.289 thing that you want to do is if the
+00:17:10.869 input is very small if like you said in
+00:17:13.240 the traffic sensor pump if n is equal to
+00:17:14.829 15 then you can get optimal solution
+00:17:16.299 through brute force the first thing you
+00:17:19.059 want to do is brute force small
+00:17:20.439 solutions
+00:17:25.980 alright this is obvious and I think some
+00:17:30.100 of the contest would even have small
+00:17:31.539 input so you can even make you know what
+00:17:34.000 this may be
+00:17:34.600 the second thing you want to do is
+00:17:36.809 utilize as much time as you can
+00:17:39.490 1 second is the document utilize all of
+00:17:42.399 it 1 second time unit basically usually
+00:17:45.250 I say now how do you do this in in terms
+00:17:52.059 of Java what you can do is you can just
+00:17:54.429 check the system time initially when the
+00:17:56.799 algorithm starts and every time you are
+00:17:59.830 running a new iteration of the algorithm
+00:18:01.240 check from the system time to the
+00:18:03.520 current time if the difference is more
+00:18:04.899 than the time limit one second let's say
+00:18:07.179 then you need to dominate that I starts
+00:18:10.210 it along ok so utilize your time which
+00:18:13.929 is as much as you can the final one is
+00:18:18.130 the most exciting malucia's
+00:18:21.330 domain-specific searching right
+00:18:28.450 domain-specific searching basically
+00:18:29.740 means using the problem statement
+00:18:31.210 finding some interesting items in the
+00:18:33.880 problem to get a better solution
+00:18:36.399 alright so taking the problem that we
+00:18:39.340 were talking about earlier
+00:18:41.080 B is the array given tonight and you
+00:18:46.450 need to divide a by all you teachers in
+00:18:48.370 B and then find the minimum in this case
+00:18:51.809 what other domain is from the numbers in
+00:18:55.330 B so let's say it's the first one the
+00:18:58.240 first one gives you the remainder 0 the
+00:19:00.730 second one gives you remainder 1 and so
+00:19:03.190 on and so forth - you two have to take
+00:19:04.600 the sum of all these remainders on
+00:19:08.380 average in a brute force not even put in
+00:19:12.130 a random permutation of a what is the
+00:19:14.049 expected would wind up being given by R
+00:19:16.419 + 0 expectation is that it is going to
+00:19:21.700 be B of 0 by 2 e why because the
+00:19:26.200 remainder will range from 0 to B of 0 ok
+00:19:29.950 the second remainder range from 0 to B
+00:19:31.539 of 1 third remainder will range from 0
+00:19:34.240 to B of 2 and so on and so forth
+00:19:36.570 if I take a you can simply example from
+00:19:40.200 if I divide a number by 5 approximately
+00:19:43.680 how we get into as a waiter because 0 1
+00:19:46.470 2 3 &amp; 4 are the possible vendors I can
+00:19:50.310 pick up the center okay so in this case
+00:19:54.570 the the expected remainder is Bo 0 by 2
+00:20:01.490 for the next one it will be B of 1 by 2
+00:20:04.700 for the next one will be B of 2 by 2 and
+00:20:07.580 because I'm doing the sum of all these
+00:20:09.870 things they expected some out of these
+00:20:12.570 is going to be half into B 0 plus B 1
+00:20:18.330 plus B 2 so on and so forth all right
+00:20:21.990 which in turn tells me that the expected
+00:20:24.660 is this quantity right if B is an array
+00:20:31.520 which is uniformly distributed and
+00:20:34.560 random if this is the one if you find
+00:20:38.070 uniform distribution and it is random
+00:20:42.770 then what you can say is that you have n
+00:20:47.840 n numbers in this in this oddity I'm
+00:20:51.540 going to go purposely so that it's it's
+00:20:53.790 easy to understand any numbers in be
+00:20:56.240 uniform distribution what I can expect
+00:20:59.010 in general is that the numbers will be
+00:21:01.020 something like 1 2 3 4 5 dot dot up to n
+00:21:06.380 okay that makes sense that's an
+00:21:09.780 expectation now these are guarantees
+00:21:11.640 finally but expectations in this set of
+00:21:17.340 numbers which are the ones which will
+00:21:19.080 impact your answer the most because
+00:21:22.590 you're doing the sum of all remainders
+00:21:24.770 which are which other numbers which in
+00:21:27.360 fact that you answer the most it will be
+00:21:29.070 these numbers the larger numbers the
+00:21:31.590 smaller numbers can be almost ignored
+00:21:33.120 and I can prove that we mathematically
+00:21:34.700 killing the sum of approximately all we
+00:21:39.570 had that's the expected so we are going
+00:21:42.480 to have this so your your job is to
+00:21:45.540 minimize this quantity and to do that
+00:21:47.910 what I wanna do is
+00:21:49.600 you want to focus on the larger numbers
+00:21:51.950 that's already set so the numbers in
+00:21:55.750 uniform distribution are going to be
+00:21:57.680 something like 1 2 3 4 5 6 so on and so
+00:22:01.460 forth this gives you a pen so the sum of
+00:22:05.540 all the nationalists it's going to be
+00:22:08.950 this quantity and it is plus 1 by 2 so
+00:22:12.820 expected answer is going to be something
+00:22:14.750 like this and if I take just the first
+00:22:18.320 30 percent of the numbers it's going to
+00:22:20.990 be M by 3 into n by 3 plus 1 by 2 all
+00:22:26.060 right here's the interesting thing
+00:22:27.050 divide this quantity with this quantity
+00:22:31.780 and you get something like this is
+00:22:34.640 almost n square by 2 divided by this is
+00:22:39.410 almost n square by 9 into 2 which is 18
+00:22:44.320 okay so n Square and n square cancel
+00:22:46.970 each other out 2 goes not so this comes
+00:22:48.740 out to be around 9 so this quantity is 9
+00:22:52.850 times of this quantity all right so the
+00:22:57.500 ratio is 1 is to 9 on the other hand
+00:23:01.690 what is the amount of effort that you
+00:23:03.710 need to put in about your 20% of the
+00:23:07.280 numbers so 20% of all numbers so 3 is
+00:23:13.160 210 now I'm gonna have what you put in
+00:23:15.800 here is 10 units the amount of effort
+00:23:17.870 you put in for 20% of novices 3 units
+00:23:19.930 the amount of output you get your the
+00:23:22.850 importance over here is 9 units the
+00:23:25.370 amount of importance you have over give
+00:23:27.020 is just one unit what does that tell you
+00:23:29.330 it tells you that for more effort this
+00:23:32.390 ratio is smaller for more effort you are
+00:23:34.640 getting lesser value which means you
+00:23:38.810 should get rid of this you should get
+00:23:40.790 rid of the first 20 percent of numbers
+00:23:42.680 and of course this is not a hard and
+00:23:44.900 fast rule 30 percent but what you're
+00:23:47.090 seeing is that to get a reasonably good
+00:23:48.620 answer
+00:23:49.280 you don't need the first 30 percent of
+00:23:51.830 numbers you can get rid of the first 20
+00:23:53.450 percent also that's also fine in fact
+00:23:55.040 the ratio there will be even poorest
+00:23:56.560 okay so that's on the queen-size which
+00:23:58.850 will then
+00:24:00.419 this but I have that it be given to me
+00:24:03.539 and what I will do is I will sort that
+00:24:05.279 and take the first 30% Delphine sister's
+00:24:07.889 thumb Beth then I didn't care I would
+00:24:09.720 take a copy of this array and work on it
+00:24:12.570 with this 70% of elements are giving me
+00:24:15.299 a large part of the final sum so with
+00:24:18.840 with 70% of those bits actually you're
+00:24:20.609 getting something like 8 by 9 of the
+00:24:26.279 awesome because 1 is 2 9 so it by name
+00:24:31.049 of answer and that is let me use my
+00:24:33.450 operating skills here approximately 90%
+00:24:36.950 so the solution was approximately 90%
+00:24:39.779 good with just 70 percent of computation
+00:24:42.989 so of course you're not going to use all
+00:24:44.940 70 only 70 percent of the time that you
+00:24:47.429 have what are you going to do instead is
+00:24:50.659 increase this from 70% to 100%
+00:24:54.149 I look at your answer going from
+00:24:56.669 something like if if it was 9 units of
+00:24:59.639 you then it will be 10 by 7 into 9 units
+00:25:03.960 which is 90 so that will be around 30
+00:25:07.950 minutes now okay lots of approximation
+00:25:11.549 how I am getting to these numbers is
+00:25:13.440 also pretty obvious if you think of it
+00:25:15.450 for some time it's nine units for you
+00:25:17.999 your computation power has improved from
+00:25:20.999 70% to 100% into whatever you hydro do
+00:25:26.549 into nine so that is around 30 units
+00:25:29.039 okay so a 20% or more actually so pretty
+00:25:34.100 pretty good answer awaits all right
+00:25:38.239 finally apart from these things there
+00:25:40.169 are a few additional optimization social
+00:25:42.690 domain-specific one was instead of
+00:25:45.090 calculating the maintenance again and
+00:25:46.350 again I used her to di to keep track of
+00:25:50.100 what we made up for what V of I you know
+00:25:56.539 if I'm swapping two digits in E then I
+00:25:59.669 can I was able to compute the the new
+00:26:02.399 beta very fast so that was one of the
+00:26:04.470 good things it was again an optimization
+00:26:07.619 I try to also make it like a batch so I
+00:26:11.770 this I will get some good answers for a
+00:26:15.670 and well after the second batch and and
+00:26:17.530 so on and so forth so I didn't use any
+00:26:19.510 of the law
+00:26:20.200 you know comforting about them so here I
+00:26:22.240 just use randomization just say that
+00:26:25.270 straight up I need you sleep lightly
+00:26:27.760 persecuted anything or charity
+00:26:29.140 government said I just use randomized
+00:26:30.880 eye Garland's and work pretty well so
+00:26:35.970 this this was another thing I'm just
+00:26:38.290 doing it in batches and if I think that
+00:26:40.570 I did which did effect too much but it
+00:26:43.210 was pretty nice to think about was mind
+00:26:45.490 if any so code chef offers you multiple
+00:26:50.560 processors what you can do instead of
+00:26:52.780 using just a single processor which is
+00:26:53.980 this is like using 100 percent of CPU
+00:26:57.490 throughput you can make it 200% of 100
+00:27:00.430 percent of CPU throughput depending on
+00:27:01.750 how many processors you have so use
+00:27:04.510 multiple threads and send them to
+00:27:07.240 different processors so you're using all
+00:27:09.370 processors so the computation power that
+00:27:12.220 went up it didn't crease the score much
+00:27:14.050 because there's a curve and maybe you're
+00:27:19.030 somewhere over here so you this second
+00:27:20.770 local optima while over there maybe but
+00:27:24.280 beyond but it goes to that are these two
+00:27:26.200 big Peaks so you don't want to explore
+00:27:28.030 over here that's the reason why you will
+00:27:30.640 probably now get to these points and you
+00:27:32.290 go yeah that's a problem with any curve
+00:27:36.070 fitting algorithm so in summary when we
+00:27:38.380 solve channel problems we find a base
+00:27:40.660 solution we find a way to search the
+00:27:43.210 search space and then find the maxima
+00:27:45.520 minima depending on requirement using
+00:27:47.350 one of these special mountains and then
+00:27:50.560 you start optimizing using to me
+00:27:52.150 specific knowledge so if you want to
+00:27:56.080 look at the graffiti this part helps
+00:27:58.900 your performance which means you can
+00:28:00.250 plot more points the curve get better
+00:28:02.500 the cooperating algorithm helps you
+00:28:04.810 approximate the table better so this
+00:28:06.490 inclusive score and this base solutions
+00:28:08.980 is
+00:28:09.250 educator solution so that's it I'm
+00:28:12.490 solving Travis problems if you want more
+00:28:15.400 details then there's a link in the
+00:28:17.020 description below I also put a poll
+00:28:18.880 actually for finding out what you want
+00:28:21.340 to learn next
+00:28:22.290 is in the data structure involved in any
+00:28:24.480 topic which is related to comparative
+00:28:26.010 remapping
+00:28:27.200 yeah I mean our sensations of course we
+00:28:29.430 can leave them in comments below if you
+00:28:31.320 want to know about the code or relevant
+00:28:34.290 links then it's in the description and
+00:28:35.970 until next time see you

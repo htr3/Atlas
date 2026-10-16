@@ -1,0 +1,367 @@
+# tactiq.io free youtube transcript
+# Edit Distance of two strings - Real world application
+# https://www.youtube.com/watch/XJ6e4BQYJ24
+
+00:00:00.320 Hi everyone, we are talking about a
+00:00:02.080 problem which is very famous in computer
+00:00:03.600 science. Uh it's called edit distance.
+00:00:05.759 And what happens in this problem is you
+00:00:07.359 have strings given to you A and B and
+00:00:09.679 you need to convert A to B. Right? Uh
+00:00:12.240 and the thing is you need to find the
+00:00:14.080 minimum cost of converting this string A
+00:00:17.440 to this string B. Now this has a lot of
+00:00:19.920 practical applications whenever you're
+00:00:21.359 typing on your cell phone or wherever
+00:00:23.119 where there's autocorrect. What happens
+00:00:25.199 is by finding the edit distance between
+00:00:28.160 the string you are typing and the string
+00:00:30.320 in the dictionary the computer can then
+00:00:33.680 find what word you're trying to type. It
+00:00:35.760 can sort according to edit distance and
+00:00:37.440 then give you suggestions. Right? So the
+00:00:39.280 lower the edit distance the closer you
+00:00:40.960 are to that word. So probably that's
+00:00:42.879 what you're trying to type. So what we
+00:00:45.840 are going to do is we're going to find
+00:00:47.680 the cost between A and B. Basically
+00:00:50.960 converting A to B. That is what the edit
+00:00:54.160 distance is called.
+00:00:57.440 And there when you're converting A to B,
+00:01:00.160 there are three operations that you can
+00:01:01.520 do. The first one is to add a character
+00:01:07.920 to A. The second one is to delete a
+00:01:10.799 character
+00:01:13.040 from A. And the third one is to change a
+00:01:17.520 character
+00:01:20.960 in A.
+00:01:23.119 Right? So simply put, let's take the
+00:01:25.600 first character in this string A and the
+00:01:27.680 first character in the string B. So
+00:01:30.000 that's going to be P has to be converted
+00:01:32.159 to Q. Now in this case, I can do three
+00:01:36.479 operations on this string.
+00:01:40.240 I can add a character. So that can be P
+00:01:42.479 dollar. So dollar is any possible
+00:01:45.680 character, right? I can delete a
+00:01:47.840 character in which case this becomes an
+00:01:49.280 empty string. And I can change P to Q
+00:01:51.920 itself or in fact to any character I
+00:01:54.880 like. So that will be dollar.
+00:01:58.159 Okay. So these are three possible
+00:01:59.600 operations. Each of these operations has
+00:02:01.759 a cost associated with it. So this is
+00:02:04.079 going to be C of A
+00:02:07.520 because you're adding a character. C of
+00:02:09.840 D is deleting the character and C of
+00:02:12.560 I'll call it T is transitioning from
+00:02:15.680 some character to any character that you
+00:02:17.599 like.
+00:02:19.200 Okay. So these are the three operations
+00:02:21.440 you can perform. Two strings given to
+00:02:23.599 you. You need to find the minimum
+00:02:25.680 possible distance of converting A to B.
+00:02:28.400 One possible solution for this is to
+00:02:31.040 take all characters in A and delete
+00:02:32.800 them. Right? So I'll delete P QR
+00:02:37.680 PQQR ST which is six characters. So the
+00:02:41.599 cost will be six into
+00:02:45.519 C of D deleting characters plus I'll add
+00:02:49.519 all the characters in B into A. So
+00:02:52.319 that'll be QQ TT PS. So that'll be 1 2 3
+00:02:57.280 4 5 6 6 into
+00:03:00.959 C of A. Adding these characters which is
+00:03:03.599 6 into C of A plus C of D. That's one
+00:03:07.040 possible strategy. The other thing you
+00:03:08.879 can do is you can take each of these
+00:03:10.560 characters and convert them to the
+00:03:12.879 characters in P. There's six over here.
+00:03:15.840 Use a transition thing to convert P to
+00:03:18.400 Q, Q to Q, Q to T, R to T, S to P, and T
+00:03:24.959 to S. Right? That's another possibility.
+00:03:27.680 So the other possibility is
+00:03:30.480 6 into
+00:03:32.480 C of T because you just converted six
+00:03:34.239 characters.
+00:03:35.760 Now if I plug in values for this, let's
+00:03:37.760 say all of them are one. C of
+00:03:41.120 all three values are one. Then the two
+00:03:44.319 different costs you're getting are 12
+00:03:46.319 and six. So obviously you'll choose this
+00:03:49.599 six. In general, if you're transitioning
+00:03:52.879 a character A to character B, the
+00:03:56.400 transition cost is zero if A is equal to
+00:03:58.879 equal to B.
+00:04:01.120 Right? So if you're converting Q to Q
+00:04:03.040 like we were in the uh in the second
+00:04:05.760 strategy then I would should have taken
+00:04:07.760 this cost to be zero and in case the
+00:04:09.680 cost would come out to be five
+00:04:13.519 and there are three possible operations
+00:04:15.760 you can perform on A. So the first one
+00:04:18.639 is to actually add a character in which
+00:04:21.279 case this becomes P Q
+00:04:24.720 R S T dollar and B remains the same
+00:04:30.240 right. uh and you want to you want to
+00:04:32.479 actually take the minimum cost of this
+00:04:38.000 plus
+00:04:40.080 um you added a character right so this
+00:04:42.000 is going to be C of adding so this is
+00:04:45.360 one possibility you add a character and
+00:04:47.840 then you need to convert the resultant
+00:04:49.360 string to B
+00:04:52.479 the other possibility is you remove a
+00:04:54.479 character which is PQ QR
+00:04:59.520 S and that's it. You need to convert
+00:05:02.720 this to B
+00:05:06.960 and the cost added is because you just
+00:05:09.039 deleted a character. And finally, you
+00:05:11.680 have PQQ
+00:05:14.400 RS.
+00:05:16.000 Now, here's a special thing.
+00:05:19.199 You're going to be transitioning, right?
+00:05:21.199 Cost of T. In this case, what's going to
+00:05:24.160 happen is
+00:05:25.840 effectively you take this substring
+00:05:30.400 and this substring
+00:05:32.560 and you're transitioning this character
+00:05:34.560 to this character, right? You're
+00:05:36.639 converting T to S. That's what you're
+00:05:38.639 doing. So the cost of transition is
+00:05:40.800 taken here. The two strings that you're
+00:05:43.280 trying to convert into each other is
+00:05:46.560 this. the same as deleting a character,
+00:05:52.800 q tt p right you're seeing that the last
+00:05:57.520 character s has been knocked off here
+00:06:00.400 and these are the original strings of b.
+00:06:02.479 So three possibilities of course you
+00:06:05.280 want to minimize. So I'll take the
+00:06:07.199 minimum amongst
+00:06:09.280 all three
+00:06:11.520 and that will be equal to this cost. So
+00:06:15.120 this function is minimizing the cost of
+00:06:17.759 converting a to b by adding removing and
+00:06:22.560 transitioning characters.
+00:06:24.639 Right?
+00:06:26.400 So what you're seeing is that uh there's
+00:06:29.039 a lot of duplication here.
+00:06:32.160 This substring
+00:06:35.199 right pqq rs is appearing here also
+00:06:39.840 appearing here up to this point this
+00:06:42.400 then t and dollar uh and then b has a
+00:06:45.840 lot of repetition it has almost all of
+00:06:48.880 it repeated here except the last
+00:06:50.400 character s it has this part plus s
+00:06:54.639 repeated here I'm sorry and this part
+00:06:57.919 plus s repeated
+00:07:01.599 Right? So just by looking at this you
+00:07:03.360 can tell that there's a lot of
+00:07:04.319 repetition. Uh and instead of storing
+00:07:07.039 the entire information of what letters
+00:07:08.800 are there you could store the index of
+00:07:12.160 the point that you have come to. So
+00:07:16.240 because you're taking from the first
+00:07:17.919 character from the zero index up to a
+00:07:20.000 particular point, you can just store the
+00:07:21.840 index and I can rewrite this function.
+00:07:32.880 So just remember that the indexes are
+00:07:34.800 signifying up to what point are we
+00:07:37.039 taking this string. So from index number
+00:07:39.280 zero to that point. So if I say I is
+00:07:41.520 equal to 3 then
+00:07:45.520 what I'm saying is that 0 1 2 3. So
+00:07:48.319 imagine the string pqqr
+00:07:51.360 when I say i is equal to 3. And
+00:07:52.880 similarly when I say j equal to 2 just
+00:07:55.440 imagine the string to be qt because this
+00:07:57.759 is 012.
+00:07:59.680 All right.
+00:08:01.919 So we have the function that we need
+00:08:04.639 with just one problem. You see
+00:08:06.720 recursively when you have something
+00:08:09.120 which is from I to J to I + 1 to J
+00:08:13.120 there's the problem is that you're going
+00:08:15.199 to the future. So if you have a look at
+00:08:17.440 these terms
+00:08:19.919 they're heading back in time. So I -1 J
+00:08:23.199 minus one I -1 to J there's no change.
+00:08:26.000 Even here J is okay because there's no
+00:08:28.400 change. You're at your current state but
+00:08:30.160 I + 1 is in the future. That's not what
+00:08:33.200 you want. And so what we are going to
+00:08:35.440 try to do is convert this into an
+00:08:37.919 operation which we can see in the past.
+00:08:40.559 This is a very important concept and
+00:08:42.559 let's see how we're going to do that
+00:08:44.959 effectively. What is adding a character
+00:08:47.600 in the first string meaning?
+00:08:50.720 So I'm going to add a dollar here.
+00:08:53.920 That's equivalent.
+00:08:55.920 If I add a dollar, the only time I'll do
+00:08:58.160 that
+00:08:59.839 is when it's helping me construct the
+00:09:01.839 second string, right? So in that case
+00:09:08.640 I can convert this addition
+00:09:11.600 to a deletion
+00:09:14.080 in the second string.
+00:09:17.519 Okay, take your time to understand this.
+00:09:19.360 The only time I'm adding a character is
+00:09:22.320 when I'm actually adding a character
+00:09:24.800 from the second string. There will never
+00:09:27.120 be a time when I'm going to be adding a
+00:09:28.800 character and then transitioning. It
+00:09:30.640 doesn't make sense. I can directly add
+00:09:32.720 the character I'm transitioning to.
+00:09:34.399 Similarly, there will never be a time
+00:09:35.839 when I'll add and then delete a
+00:09:37.360 character because that is just stupid.
+00:09:39.519 All these costs, by the way, I should
+00:09:41.440 probably mention it although it looks
+00:09:42.880 obvious, all these costs are positive.
+00:09:46.560 So, logically
+00:09:49.839 adding a character here is equivalent to
+00:09:53.040 deleting a character over here.
+00:09:55.760 Okay? because whichever character you
+00:09:57.360 want to add here to get here is going to
+00:10:00.240 be deleted from here. So you don't have
+00:10:02.320 that problem. If that is the case
+00:10:06.800 then this converts to
+00:10:09.519 I remains
+00:10:11.680 but this becomes J minus one.
+00:10:15.680 Okay.
+00:10:18.320 And now we have a recursive function
+00:10:20.720 which depends on three terms. All of
+00:10:24.720 them looking back in time. Looking back
+00:10:27.040 from index 0 to i - 1, 0 to i - 1, 0 to
+00:10:30.800 i, 0 to j minus 1, 0 to j, 0 to j minus
+00:10:35.200 one.
+00:10:36.959 That's what distance is all about. And I
+00:10:40.240 think by now you guys must be knowing
+00:10:42.640 about something called dynamic
+00:10:43.839 programming where
+00:10:46.640 this function
+00:10:48.959 can have its results stored in an array.
+00:10:54.959 Fine. Now let's convert this string to
+00:10:56.399 this string.
+00:10:58.640 So now we are all set. I have just
+00:11:00.800 written down the condition so that it's
+00:11:02.160 even more clear. And I is going this
+00:11:04.240 way, J is going this way. So let's
+00:11:06.640 understand at 1 comma 1 what you need to
+00:11:09.680 do is you need to go to 0a 1. So 0 I is
+00:11:14.640 0 comma 1 this point 1 plus cost of
+00:11:18.880 deletion. So that is 1 + 1.
+00:11:24.720 Why does this make sense? Well, you can
+00:11:27.600 look at it this way. Um
+00:11:30.800 why are you adding the cost of deletion?
+00:11:33.519 Because effectively
+00:11:35.760 you are getting rid of one character
+00:11:38.240 over here. So you're coming to nothing,
+00:11:40.480 right? from nothing
+00:11:43.120 moving to Q costs you one so that is
+00:11:46.240 this bit
+00:11:48.640 and moving to nothing costs you one so
+00:11:51.279 that is this bit
+00:11:53.519 so that's the reason why effective cost
+00:11:55.440 comes out to be 1 + 1 which is
+00:12:00.240 ta 2
+00:12:03.040 and the same logic applies for the
+00:12:04.640 second case where i j minus one so i j
+00:12:09.200 minus one which is over here this is
+00:12:11.760 1 + cost of addition is one. So that is
+00:12:14.000 again two.
+00:12:16.000 Right? Over here what you're doing is
+00:12:19.760 you're adding a character which is
+00:12:21.200 effectively getting rid of a character
+00:12:23.040 over here. So you have to get to this
+00:12:26.079 point or rather you have to get to this
+00:12:28.240 point. From here you need to add a
+00:12:31.120 character to get to Q. Okay. So that is
+00:12:34.880 2 and two. And finally you have the cost
+00:12:37.600 C of T. So P and Q do not match. So C of
+00:12:41.360 T is one. So the cost is this plus one.
+00:12:46.480 So removing both characters and then
+00:12:49.040 basically transitioning from P to Q cost
+00:12:51.200 you one. So amongst the three you choose
+00:12:53.600 the lowest which is one.
+00:12:57.200 Okay. Now let's go through the others
+00:12:59.120 quickly.
+00:13:08.639 So what I've done here is highlighted a
+00:13:10.639 path from
+00:13:13.040 the last point which is going to give
+00:13:14.480 you the answer five to the point over
+00:13:17.760 here. Okay. So from five there's three
+00:13:21.839 possibilities we have. We can come from
+00:13:23.279 this this and this position because 4 +
+00:13:25.360 1 is how we are coming to five. I
+00:13:28.000 randomly chose this point. You can also
+00:13:29.440 go up here or over here. um from this
+00:13:32.800 position there's just actually one
+00:13:33.920 possibility because from four you can
+00:13:35.600 come from here only because everything
+00:13:38.000 else is monotonically increasing right
+00:13:40.240 so four comes from here over here you
+00:13:43.360 have two possibilities again
+00:13:45.760 I arbitrarily chose this one uh coming
+00:13:48.240 to three there's two possibilities again
+00:13:51.600 I arbitrarily chose this one uh and then
+00:13:55.360 from two actually you can come only from
+00:13:57.120 this point because 2+ 1 and 2+ 1 instead
+00:14:00.240 It's 1 + 1 which is 2. So from here
+00:14:05.519 again you can only come from this point
+00:14:07.279 because there's no change in costs. And
+00:14:09.360 again from here you're coming from this
+00:14:10.720 point only. No change in cost. And
+00:14:13.199 finally you're going back to zero.
+00:14:15.519 Right? So this is the sequence of edits.
+00:14:18.560 And let's see how this actually turns
+00:14:21.920 out to be in the real world. So the
+00:14:25.120 original strings are P QR
+00:14:28.639 S T and Q Q
+00:14:32.800 T
+00:14:34.720 S. Okay. So firstly you're heading to P
+00:14:39.519 which is effectively a deletion. So
+00:14:42.720 delete P and that adds to the cost one.
+00:14:47.519 Now you go and transition from Q to Q.
+00:14:50.160 Cost is zero.
+00:14:54.240 Now Q to Q cost is again zero. It's a
+00:14:57.360 transition. Right?
+00:15:00.560 Now you come to R to T there's a
+00:15:03.120 transition but the cost of this is one.
+00:15:08.800 Now interestingly you're going down. So
+00:15:12.079 instead of deleting characters from here
+00:15:13.680 you need to delete characters over here.
+00:15:17.360 So R to T is fine. you converted this R
+00:15:23.040 to a T transition. Uh, and now you're
+00:15:27.040 deleting characters.
+00:15:29.120 So, delete the second T. That's what
+00:15:32.240 this says. So, delete this T, right? And
+00:15:35.360 this is your effective second string.
+00:15:39.199 Did we take the cost of that? No, we
+00:15:40.639 didn't. So, that is plus one
+00:15:43.360 plus the cost of deleting another
+00:15:45.600 character in the second string.
+00:15:48.240 So that is effectively deleting this
+00:15:50.079 character P. So your effective string
+00:15:52.560 right now is QQTs.
+00:15:55.120 Okay.
+00:15:56.880 And now what we have is a transition
+00:16:00.320 from S to S,
+00:16:05.040 right? So that is going to cost you
+00:16:07.519 nothing.
+00:16:09.759 And finally we have another deletion in
+00:16:12.000 the first string. So from S to S was
+00:16:14.720 your transition. And this is going to
+00:16:17.600 get deleted which is going to add one.
+00:16:20.480 So the total cost is going to be 1 2 3 4
+00:16:25.199 5 and that's over here.
+00:16:28.800 Okay. All magic. Uh edit distance is a
+00:16:32.399 very famous problem in computer science.
+00:16:34.399 You should understand this very well so
+00:16:36.160 that you can actually understand string
+00:16:37.839 matching algorithms. I'll be taking
+00:16:40.000 something on approximate string matching
+00:16:41.920 soon enough. If you want to subscribe
+00:16:43.360 for those videos which are going to be
+00:16:44.720 on approximate string matching and etc
+00:16:46.399 etc. Press the subscribe button.

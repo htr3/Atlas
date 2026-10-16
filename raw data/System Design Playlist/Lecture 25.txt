@@ -1,0 +1,288 @@
+# tactiq.io free youtube transcript
+# Introduction to OOPs in Python | Python Tutorial - Day #56
+# https://www.youtube.com/watch/HQnoYzxOHMw
+
+00:00:00.001 Object oriented programmingis a very demanding thing.
+00:00:03.405 Which is used by many big companies.
+00:00:05.677 And is also used tomake many huge products.
+00:00:08.602 What is there in objectoriented programming?
+00:00:11.185 That we can't do in functional programming?
+00:00:13.463 Today, I’ll discuss objectoriented programming in detail.
+00:00:16.702 You’ll understand what exactlyobject oriented programming is.
+00:00:20.054 You’ll not have any confusion.
+00:00:21.946 You’ll never think why you areusing object oriented programming.
+00:00:25.561 In this video, I am going to discussthe basics of object programming.
+00:00:28.652 And also why we use it.
+00:00:30.914 Let's go to the computer screen.
+00:00:32.703 And let's get started.
+00:00:34.095 [ MUSIC 🎶 ]
+00:00:42.728 So, before understandingobject oriented programming.
+00:00:46.145 We’ll have to understandwhy it was introduced.
+00:00:49.835 Why are you going to useobject oriented programming?
+00:00:52.412 What are the uses of objectoriented programming?
+00:00:55.285 As you can see, till now what wehave done is procedural programming.
+00:00:59.928 In this we use functions.
+00:01:02.182 In our programs we use logic.
+00:01:04.753 For example, if I made afunction called hello over here.
+00:01:08.461 This function is going to print hello.
+00:01:11.854 Then we will call this function.
+00:01:14.012 And as we all knowthat “hello” will be printed.
+00:01:16.982 And I know that you don't want to see this.
+00:01:19.630 “hello” will be printed.
+00:01:21.335 For example, let's say that Iam creating a variable here.
+00:01:26.365 There are two numbers, from whichone is real and another one is imaginary.
+00:01:31.695 real = 6 and img = 8.
+00:01:35.800 Let's leave real and imaginary numbersaside and I'll show you a new example.
+00:01:40.546 For example, let's saythere is a businessman.
+00:01:43.515 Let's say that he has sales of Rs 6000.
+00:01:52.681 And the revenue.
+00:01:54.335 Instead of revenue let it be profit.
+00:01:58.647 Let's see that he isgetting a profit of 2000.
+00:02:02.820 Let's say, that businessman is also doingadvertisement with the help of billboards.
+00:02:10.146 The Businessman is hiring people.
+00:02:12.050 He is doing influencer marketing.
+00:02:14.026 Let's see that the money hespent on advertisement is 1000.
+00:02:18.845 The profit is 2000 andthe add spend is 1000.
+00:02:22.975 With the help of thiswe can calculate the margin.
+00:02:27.240 We have stored all thevalues in different variables.
+00:02:30.385 Let's say I want to do this samething for a different businessman.
+00:02:34.694 As you know that we can't makethe variables in the same name.
+00:02:38.686 So, I'll make it sale1and profit1 and add1.
+00:02:42.204 And here I’ll set them as 2.
+00:02:43.939 These are the values ofthe second businessman.
+00:02:46.218 After this, if you ask me to do thesame thing for a third businessman.
+00:02:54.650 As you can see, I havecreated three similar variables.
+00:02:58.211 With just a difference in number.
+00:03:00.148 I want to make a variablewith the name businessman.
+00:03:04.099 It would have been great if Iwould have made something.
+00:03:07.707 To store all the information aboutthe Businessman at one place.
+00:03:10.968 Classes and objectshelp us to do these things.
+00:03:14.525 If you are a gamer, I’ll tryto explain you one thing.
+00:03:18.428 For example, let's say I have a city.
+00:03:20.920 It can be GTA Vice City or GTA V.
+00:03:23.211 There is no problemif you haven't played it.
+00:03:26.017 There is one player which roams inthe city and also has a gun and health.
+00:03:31.878 If the health is zero then the playerwill die otherwise the game will go on.
+00:03:38.228 You’ll be able to play the game.
+00:03:42.756 The player can handle somebeating as well as some bullet shots.
+00:03:47.044 The health keeps reducingand at 1 point the player dies.
+00:03:50.573 It would have been great, if we make a&quot;player&quot; entity to track these variables.
+00:03:57.122 Make a player.
+00:03:58.267 The health of the player, the types ofguns he has will be stored automatically.
+00:04:06.289 Along with that many otherinformation of the player will come.
+00:04:09.623 We can perform someoperations on the player as well.
+00:04:12.477 Such as player.run().
+00:04:14.141 You'll find this thing complicated.
+00:04:16.022 I am just giving you an idea.
+00:04:18.988 The variables which wereonly data and numbers once.
+00:04:22.341 Now, we are mappingit with real world entities.
+00:04:24.693 Now, wee are not saying thatit is not sales1, profit1 and ad1.
+00:04:29.515 For example, Rajeev is a businessman.
+00:04:32.005 So, we will say rajeev.sales
+00:04:35.092 Let's say we have one moreBusinessman whose name is Vikrant.
+00:04:41.568 So, we can write vikrant.sales
+00:04:43.943 I know that “.sales” will giveme the sales of that businessman.
+00:04:49.153 So, we can in write that in this way.
+00:04:52.129 vikrant = new Business()
+00:04:53.979 Something like this.
+00:04:55.706 After doing this, we know that anew Businessman will be created.
+00:05:01.249 Now, we should be able to track the sales,profit, revenue, etc. of that businessman.
+00:05:08.929 This is the idea of objectoriented programming.
+00:05:11.255 Is object oriented programming compulsory?
+00:05:13.162 No, you can also do procedural programming.
+00:05:15.272 You can also create variables like this.
+00:05:17.629 Once you understand object orientedprogramming to a certain degree.
+00:05:22.297 Then it makes things easy for you.
+00:05:25.094 For example, let's say there is onemain player and many people in one city.
+00:05:29.983 Which are the enemiesand want to kill the player.
+00:05:32.709 Are you going to createvariables again and again?
+00:05:34.987 Enemy1, enemy2, enemy3, enemy 4 and so on.
+00:05:38.488 No.
+00:05:39.961 You are not going to make differentenemy variables, their properties.
+00:05:43.589 And are not going to track them all.
+00:05:45.105 Then you’ll have to track every enemy’shealth, the weapon they are carrying.
+00:05:49.994 You don’t want that.
+00:05:51.364 You would rather want to makean enemy class or a template.
+00:05:55.405 From which the enemies will get theirhealth, the weapons they are carrying.
+00:06:01.472 Data about the weapons they are carrying.
+00:06:03.391 You'll get everything.
+00:06:05.481 You should know this.
+00:06:07.284 It can also be done by creatingvariables but it will create a huge mess.
+00:06:12.460 Your program will become very lengthyby creating more variables like this.
+00:06:15.948 It will not be maintainable.
+00:06:17.859 Object oriented programming is a way fromwhich you'll understand the program easily.
+00:06:23.963 And you’ll also be able to performactions on those entities very easily.
+00:06:29.332 Object oriented programmingis made to make things easy.
+00:06:33.253 Exactly it is and how tomake classes and objects?
+00:06:36.138 I'll tell you that later in this video.
+00:06:37.820 Let's read out somethings about this.
+00:06:39.877 In programming language,there are two types of approaches.
+00:06:41.947 Procedural programming andobject oriented programming.
+00:06:44.153 Procedural programming, iswhat we were doing till now.
+00:06:46.807 We made functions and we used logic.
+00:06:49.232 Control passed fromone function to another.
+00:06:51.478 All these things were happening.
+00:06:53.104 Object oriented programming helps tomap our variables with real world entities.
+00:07:00.477 I’ll give one more example.
+00:07:02.052 Let's see that you have a railway form.
+00:07:05.462 And you have three individuals.
+00:07:09.077 Harry, Tom and Shubham.
+00:07:14.339 In the railway form, allthe information are already filled.
+00:07:20.654 If you have made reservation in railwaysthen you’ll know what type of form you get.
+00:07:25.998 You’ll have to write the trainname, train number, your address.
+00:07:30.162 After doing everything, you payfor the ticket and you get the ticket.
+00:07:33.675 You get that type of form.
+00:07:36.091 From this form, you will get toknow which things you need to fill.
+00:07:39.467 If you had written everything on apiece of paper then you could've gone.
+00:07:43.501 And submitted the form.
+00:07:45.428 The person in charge sittingon the counter tells you.
+00:07:48.909 That you have not filled the nametrain name or address properly.
+00:07:52.620 You get a template so thatnone of the fields are missing.
+00:07:56.468 You will get that template automatically.
+00:07:59.226 You can easily get the forms.
+00:08:00.953 Easily, you’ll get those and from thatyou will know what to fill and what not.
+00:08:05.242 It becomes easy for you and for theperson in charge on the counter as well.
+00:08:11.219 So, Harry, Tom and Shubhamwill have different forms.
+00:08:14.431 When they fill up the data thenthey’ll be able to keep their objects.
+00:08:17.943 Which means they keeptheir forms with themselves.
+00:08:20.244 We can consider thisrailway form as a class.
+00:08:25.637 Class is a template or blueprint.
+00:08:27.862 Which will explain theobject made from this class.
+00:08:31.143 For example, the railwayform will also contain.
+00:08:34.280 Harry's railway form and information.
+00:08:38.850 So, I'll write here “Harry’s info form”.
+00:08:43.130 Similarly, I'll writehere &quot;Tom’s info form”.
+00:08:46.473 Then I'll write here &quot;Shubham’s info form”.
+00:08:52.809 There will be these three differentforms which started from railway from.
+00:08:57.048 Which was a blank form.
+00:08:58.445 But all of them will have separate forms.
+00:09:00.694 The forms are notidentical once it is filled.
+00:09:03.663 They have given their train number,address, age, name, phone number.
+00:09:08.011 They have filled allthese things in the form.
+00:09:10.707 Now, these forms are identical.
+00:09:12.874 Now, Harry has its own railway form.
+00:09:15.121 It contains the informationabout the train, the destination.
+00:09:22.181 Tom's form has information about Tom’strain name, the destination, date, etc.
+00:09:26.277 All these things are there in this form.
+00:09:28.268 Shubham’s form will contain theinformation about Shubham’s train.
+00:09:30.945 So we started from here.
+00:09:32.449 We can consider this as a blueprint.
+00:09:34.714 And these are entities which aremade with the help of this blueprint.
+00:09:37.828 This is the blueprintand these are the objects.
+00:09:43.350 Objects are entities.
+00:09:49.522 The railway form is the class.
+00:09:52.414 This is one object and thereare other two object below this.
+00:10:00.652 As you can see there are 3 objects.
+00:10:04.398 Now, we are understanding things.
+00:10:06.526 As I’ve written a class is a blueprintor template for creating objects.
+00:10:10.320 It defines the properties and methodsthat an object of that class will have.
+00:10:14.092 Properties are the data or state ofan object and methods are the actions.
+00:10:17.990 Let's say that you want to change the name.
+00:10:21.299 Instead of writingShubham you wrote Shubhi.
+00:10:25.578 To change that you canwrite “shubham.changeName(&quot;shubhi&quot;)
+00:10:33.060 You can write”shubhi”, if you want tochange the name from Shubham to Shubhi.
+00:10:36.369 Then you can run the methods onthe objects defined in this template.
+00:10:42.921 You don't have to define methods againor you didn't have to pass arguments again.
+00:10:47.009 You directly executeda method on this object.
+00:10:48.861 Don't get confused.
+00:10:49.821 We’ll talk about this later.
+00:10:50.789 Don't think that I have not taughtyou this and written something.
+00:10:53.672 I was just explainingyou about method.
+00:10:55.598 This can have a propertylike shubham.ticketAmount()
+00:10:58.996 Or shubham.boardingStation()
+00:11:02.648 shubham.phoneNumber()
+00:11:04.859 Then I can get all the data.
+00:11:06.915 Obviously, Shubham willpass all this data into his form.
+00:11:09.621 How we can make a class from an object?
+00:11:11.216 We’ll see that afterwards.
+00:11:12.747 But you got the ideawhy we are doing this.
+00:11:15.190 If you don't understandthis now then that is natural.
+00:11:18.296 You not be able to understandthis until and unless you write code.
+00:11:21.234 I to understand what I am saying.
+00:11:23.639 Try to make sense.
+00:11:25.164 That this make sense and youmust understand why we are doing it.
+00:11:30.102 Convince yourself that you understand this.
+00:11:32.740 Because when you’ll writecode then you will understand.
+00:11:35.512 An object is an instance of aclass and it contains its own data.
+00:11:38.691 Just like Shubham andTom have their own data.
+00:11:40.860 They have their own methods.
+00:11:43.650 Obviously, those methodcomes from these classes.
+00:11:46.341 For example, you couldcreate a class called person.
+00:11:48.428 That has property such as name anddata and method such as speak() and walk().
+00:11:52.235 I'll do and show y’all this afterwards.
+00:11:54.685 Each instance of the person class would bea unique object with its own name and age.
+00:11:59.053 But they would all have thesame methods to speak and walk.
+00:12:03.366 I hope you understand this.
+00:12:05.294 Speak() and walk(), bothare same human methods.
+00:12:09.147 One of the key features of OOP in Python isencapsulation.
+00:12:12.869 Which means that the internalstate of an object is hidden.
+00:12:15.944 And can only be accessed ormodified through the objects methods.
+00:12:20.007 Encapsulation is a feature inobject oriented programming.
+00:12:23.548 Which means storingthings inside a capsule.
+00:12:25.646 Now, you are running themethod shubham.changeName()
+00:12:29.666 The class is responsiblefor changing the name.
+00:12:32.992 It is already defined by theperson who wrote this class.
+00:12:35.481 You just have to run shubham.changeName().
+00:12:37.640 This is called encapsulation.
+00:12:39.957 There is one more feature inOOP’s, which is called inheritance.
+00:12:43.053 Which means we can create a specialrailway form using the class railway form.
+00:12:49.492 In which you can define what youwant to eat, once you board the train.
+00:12:54.296 We can make a special formor a VIP railway form class.
+00:12:57.942 It will also contain basicthings like train number.
+00:13:01.593 Who is boarding?
+00:13:03.722 What is the name and from whichstation the passenger is boarding from?
+00:13:06.604 These basicthings will be there.
+00:13:07.826 Let's see what we can add to it.
+00:13:09.982 What food do you want to eat?
+00:13:11.514 What are your preferences?
+00:13:13.339 Do you want to eat food or not?
+00:13:16.260 Many people don't eatfood from the Railways.
+00:13:19.644 Here, you can specify thesethings and extend this class.
+00:13:25.530 What does extend means?
+00:13:27.958 Extend means.
+00:13:29.654 Let's say I havesomething and I am using it.
+00:13:34.919 If I add more things to eat then Ican also use it for other purposes.
+00:13:38.969 Let me think of a goodexample for it and then I'll tell you.
+00:13:42.476 For example, let's say this is my phone.
+00:13:45.001 In fact, it's my phone.
+00:13:46.226 If I add some systemto it from which it can fly.
+00:13:50.577 Then it will work like a drone.
+00:13:52.414 I know it is not a good example.
+00:13:55.271 I already had a phoneand I made a drone.
+00:13:57.085 In this case, I already had a railway form
+00:14:00.003 Along with the railwayform, I made a VIP form.
+00:14:03.741 A railway form for VIP’s.
+00:14:06.112 We need to have some basic things.
+00:14:08.090 In this case, I want thecamera of the phone.
+00:14:11.014 But I added some additional things to make it a drone.
+00:14:14.111 The phone was already there with me.
+00:14:17.449 Just like the railwayform was there with me.
+00:14:19.830 So, this is called inheritance.
+00:14:21.144 We already had an existing thing andwe added some additional things to it.
+00:14:24.501 We made something new.
+00:14:25.969 In inheritance, you don't haveto start working from the start.
+00:14:29.239 You can start with somethingthat is already there with you.
+00:14:31.637 For example, you canadd an engine to your cycle.
+00:14:35.308 You have a cycle and you canextend it by adding an engine to it.
+00:14:39.305 Then it will become a bike.
+00:14:41.197 You can add four wheels to abike then it will become a car.
+00:14:44.406 You can do things like this.
+00:14:46.297 You don't have to start from thebeginning or re-invent something.
+00:14:51.509 First you made a cycleand then a battery bike.
+00:14:55.600 This is inheritance.
+00:14:56.919 There is one more featurecalled polymorphism.
+00:14:58.955 Which means one thing multiple forms.
+00:15:00.693 We’ll see these things afterwards.
+00:15:02.896 For now you must understand that
+00:15:05.120 Object oriented programming isused to map real world entities.
+00:15:08.889 So that the program becomes smart.
+00:15:10.762 So that the programmer caneasily understand the program.
+00:15:14.742 In the upcoming videos, we’ll seehow to make classes and objects.
+00:15:17.664 We’ll also see some examplesand the concept of inheritance.
+00:15:20.180 There are many things left to see.
+00:15:22.472 Just be with me in the 100 days of code.
+00:15:24.823 If you haven't accessed theplay-list yet please access it.
+00:15:28.370 That's it for this video.
+00:15:30.075 Thank you so much guysfor watching this video.
+00:15:32.098 And I will see you next time.
+00:15:34.651 [ MUSIC 🎶 ]

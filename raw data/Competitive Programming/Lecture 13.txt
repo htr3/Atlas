@@ -1,0 +1,396 @@
+# tactiq.io free youtube transcript
+# Sprague Grundy Theorem - Combinatorial Game Theory - II
+# https://www.youtube.com/watch/AbJqhMm8htw
+
+00:00:02.240 hi guys this is gkcs we are going to be
+00:00:04.520 talking about the second part of comori
+00:00:06.359 Game Theory now and if you haven't seen
+00:00:08.160 the first part you can check that out uh
+00:00:10.000 quick recap of that is to find out the
+00:00:12.400 Grandy number of a given position a game
+00:00:14.360 position you need the maximum excluded
+00:00:16.920 of the set of all possible positions
+00:00:18.560 from that position all right and the
+00:00:20.880 reason why we wanted this was going to
+00:00:22.760 be very clear now we have this Theory
+00:00:25.400 called sprock
+00:00:26.880 granty right
+00:00:28.640 so I hope hope I get the spelling right
+00:00:31.320 but
+00:00:32.320 yeah these guys are two mathematicians
+00:00:34.760 who uh actually formulated this Theory
+00:00:38.120 they say that using Grundy numbers you
+00:00:40.840 can tell if a person is winning or
+00:00:42.960 losing a position for impartial games of
+00:00:45.239 course but uh you can do this using
+00:00:47.360 their theorem so what that
+00:00:50.680 states is that you have the set of
+00:00:52.879 possible positions that you can go to
+00:01:03.720 positions and you need to perform an
+00:01:05.640 operation on this which gives you
+00:01:07.600 results so the operation is
+00:01:11.000 zor this is binary zor so if you just
+00:01:15.479 you know zor is basically one and one
+00:01:18.200 gives you zero even number of ones give
+00:01:19.960 you zero and odd number of ones give you
+00:01:24.520 one right a simple binary zor you can
+00:01:26.880 look it up but if the zor
+00:01:30.840 of all the Grandy numbers that you can
+00:01:32.399 get from the set of all possible
+00:01:33.960 positions is equal to
+00:01:37.600 zero that means you're
+00:01:44.600 losing all right and if it is not
+00:01:49.799 zero that means you're
+00:01:55.600 wining so From Any Given position if you
+00:01:58.200 take the zor of the set of possible
+00:02:00.159 positions from now and if you get a zero
+00:02:02.880 then you know that the player playing
+00:02:04.840 right now the player who has the turn
+00:02:06.880 right now is losing and otherwise it is
+00:02:09.758 winning so let's pick an example from
+00:02:12.080 last time to understand what's going on
+00:02:14.200 uh we
+00:02:15.239 have six coins
+00:02:18.760 yeah six coins
+00:02:21.599 and from this pile of coins you can take
+00:02:24.519 out between
+00:02:26.080 one to three coins
+00:02:32.560 okay so how do we play well last time we
+00:02:35.879 learned that the Grandy numbers can be
+00:02:38.400 calculated using a recursive function so
+00:02:41.760 this time we have learned about spr gry
+00:02:43.519 which says that the
+00:02:45.959 result of having six coins in your pile
+00:02:49.000 and with your turn uh it's the
+00:02:55.760 zor of Grandy
+00:03:00.239 6 - one you can take one coin so that
+00:03:02.120 would be
+00:03:04.159 five the next scenario is when you take
+00:03:06.280 two coins giving you
+00:03:08.560 grand4 and the only remaining scenario
+00:03:11.879 is when you take away all three coins as
+00:03:13.920 many as you can basically and you have
+00:03:15.799 gr three so last time we discussed that
+00:03:20.080 uh these three numbers they evaluate
+00:03:24.760 to zor of gr of five remember was one
+00:03:29.760 grity of four was
+00:03:31.400 zero and grity of three was
+00:03:35.239 three all
+00:03:37.760 right what does this say if you take the
+00:03:41.080 zor binary zor of this you have
+00:03:43.879 01 0 0 and one
+00:03:48.680 one numbers in binary zor operation
+00:03:52.000 takes even number of ones to give you
+00:03:53.519 zero or odd number ones to give you one
+00:03:55.959 so even number of ones you have two ones
+00:03:57.680 which gives you zero single one which
+00:04:00.400 gives you one this in uh in decimal is
+00:04:04.439 equal to
+00:04:06.439 two so you have the number two as a
+00:04:10.720 result and you know what if this is non-
+00:04:13.280 negative then we just said that you're
+00:04:14.599 winning so if you have six coins in your
+00:04:16.478 pile and it's your turn you're
+00:04:18.720 winning that's a guarantee that strong
+00:04:21.279 gry gives you let's just draw a table to
+00:04:24.639 understand when we are winning and when
+00:04:25.919 we are losing right so if we have
+00:04:30.919 uh number of
+00:04:33.759 coins goes like this if you have
+00:04:41.720 six then you're
+00:04:44.479 winning let's try
+00:04:47.199 five if you have five
+00:04:51.400 coins then you have grantee of 4 3 and
+00:04:55.600 two as the possible states that you can
+00:04:57.639 go to all right and we have
+00:05:01.560 432 which gives
+00:05:04.440 you
+00:05:07.080 numbers of gr of two was 2 grity of
+00:05:10.280 three was three grity of four was zero
+00:05:13.280 so zor of these three numbers is equal
+00:05:16.479 to 0 3 and two so we can change this
+00:05:23.120 number so that's two 0 and three that's
+00:05:25.960 a all uh this gives us 1
+00:05:30.479 over here and even number of ones so
+00:05:32.479 that's zero so this comes out to be
+00:05:37.080 one it's still not equal to zero so what
+00:05:39.840 we can say is we winning in this
+00:05:41.160 position also with five coins you're
+00:05:43.440 still winning nice to
+00:05:47.240 know now let's try four
+00:05:51.240 coins and last time we discussed about
+00:05:53.479 why this makes sense but having four
+00:05:55.440 coins and losing why that makes sense
+00:05:57.199 because if you have four coins
+00:06:01.080 you take away all three you're left with
+00:06:03.199 one and your opponent takes away that
+00:06:05.080 one to leave you with zero
+00:06:07.680 coins if you take away
+00:06:09.919 two then your opponent has two coins and
+00:06:13.440 they take away both to give you
+00:06:15.400 zero and finally if you take away just
+00:06:18.520 one coin your opponent has three coins
+00:06:21.680 they take away all three to leave you
+00:06:24.639 with zero coins and you're losing so
+00:06:26.479 this should give us zero but let's
+00:06:27.840 understand if the theory is doing the
+00:06:28.840 same
+00:06:31.599 result of
+00:06:32.880 four the big moment the time to
+00:06:35.520 understand whether the mathematicians do
+00:06:38.639 stuff which makes sense or lot uh so zor
+00:06:42.360 of Grandy of three two and one are the
+00:06:45.440 possible states that we
+00:06:47.039 have Grandy of three is three Grandy of
+00:06:51.720 two is two and Grand one is
+00:06:57.400 one so zor of 3 2 and 1 is our answer
+00:07:02.800 zor of three zor of two and zor of one
+00:07:07.879 we change this to
+00:07:09.360 one one and one even zero one and one
+00:07:13.759 even again even number of ones that
+00:07:15.639 gives you
+00:07:16.840 zero doesn't matter whether it's binary
+00:07:18.879 or decimal Zer always give you
+00:07:21.280 zero okay uh so you have result
+00:07:24.440 Z which
+00:07:26.800 means that result of four
+00:07:30.120 is
+00:07:31.560 losing that's what the theorem just
+00:07:34.039 said and we just understood that this
+00:07:36.639 theorem makes logical sense so this is
+00:07:39.840 this is what it states if you have a
+00:07:41.960 position you take the Zord of all
+00:07:43.639 possible positions from that position
+00:07:45.800 and if it evales to zero you know that
+00:07:48.400 you're losing otherwise you're winning
+00:07:50.720 so this is a pretty uh common Concept in
+00:07:53.400 compar programming where you are given
+00:07:55.199 two players who are playing optimally
+00:07:57.280 and what you need to find out is who is
+00:07:59.039 going to win the game at the end of the
+00:08:01.639 entire game play so they don't ask you
+00:08:03.319 for the moves or for uh how they're
+00:08:06.720 going to play they just ask you who's
+00:08:08.080 going to
+00:08:09.759 win however you could understand what
+00:08:12.680 move to play also using these this
+00:08:15.919 Theory and let's see how we can do that
+00:08:18.400 the way you can play these games is by
+00:08:19.960 doing the game state that you have right
+00:08:21.360 now and looking at all possible states
+00:08:23.879 that you can go to all right and you
+00:08:26.639 take the result of those States
+00:08:29.639 to make your decision what decision
+00:08:32.159 should you make well if any one of these
+00:08:34.599 equals to
+00:08:37.240 zero then you know that this position is
+00:08:40.200 losing that's good because you made your
+00:08:43.958 move your opponent got a position in
+00:08:47.160 which the result equates to zero which
+00:08:48.959 means they are losing in that position
+00:08:51.240 and that in turn means that you are
+00:08:54.000 winning right so if any one of these
+00:08:56.720 results
+00:08:59.560 s of n let's say equates to zero you
+00:09:02.560 could choose this you could choose this
+00:09:05.480 move and what I mean by move is from
+00:09:08.480 this state let's say with six coins if
+00:09:11.920 going to four coins is winning for
+00:09:14.279 you then you choose that move so you
+00:09:17.480 take out two coins is what what the
+00:09:20.399 optimal move would be right result of s
+00:09:25.839 is the zor of all possible positions
+00:09:27.839 that you can go from s
+00:09:31.040 all right optimal moves are played this
+00:09:33.200 way in case you need to show some sort
+00:09:35.079 of winning strategy or any sort of
+00:09:37.040 backtracking uh yeah this is how you do
+00:09:39.519 it all right so now we can play our
+00:09:42.040 really good game of uh Nim in which we
+00:09:45.000 have four six eight and two coins on
+00:09:47.920 each pile all right and the way we going
+00:09:50.519 to play this game is go to a particular
+00:09:52.440 pile and perform a certain kind of
+00:09:54.519 operation so the operation that I'm
+00:09:56.399 talking about is
+00:09:57.760 division uh
+00:10:00.279 so you can take the floor of
+00:10:03.959 division with these three numbers of two
+00:10:07.360 three and
+00:10:09.079 six so for example uh you can choose
+00:10:12.200 this pile and divide by six which is
+00:10:14.440 going to give you one so the number of
+00:10:16.800 coins in this pile will shrink to just
+00:10:18.360 one that's one move that you can play
+00:10:21.399 all right and using these moves you need
+00:10:23.680 to find out uh at the end who is
+00:10:27.560 winning so for that reason we need a
+00:10:29.680 table and this is what we're going to do
+00:10:32.920 so
+00:10:34.560 result of the initial position can be
+00:10:38.120 defined this
+00:10:39.360 way zor as PR grandi
+00:10:43.079 says of grandi of
+00:10:47.920 four Grandy of
+00:10:52.399 six Grandy of
+00:10:55.720 eight and Grandy of two
+00:10:59.519 so you take this all of these four
+00:11:00.880 numbers if it's equal to zero you're
+00:11:02.480 losing too bad otherwise you're
+00:11:05.399 winning so yeah of course we need the
+00:11:07.680 table yeah I forgot about
+00:11:12.480 it so this is what we going to have we
+00:11:14.720 going to be having
+00:11:18.519 uh yeah the Grandy numbers will be this
+00:11:23.760 way and the results will be over here
+00:11:31.839 so gry of let's take the simplest gry of
+00:11:34.920 two Grandy of two is equal to according
+00:11:38.079 to the
+00:11:39.040 formula G of Any X is equal to uh Max
+00:11:43.639 minimum
+00:11:44.560 excluded of all possible states that you
+00:11:46.639 can go from there so from two if you
+00:11:49.240 divide by two you get
+00:11:51.320 one so
+00:11:53.440 max of one comma if you divide by three
+00:11:57.279 you're taking the floor here so you get
+00:11:58.880 zero
+00:12:00.920 0/ 6 is also going to give you 0 so max
+00:12:04.519 of 1 0
+00:12:07.760 0 that is equal to
+00:12:11.240 two so gr of two is
+00:12:17.760 two you see that I uh skipped a few
+00:12:20.880 steps the the fact would be that grand
+00:12:23.600 of two would be Max
+00:12:26.519 of Grandy of 0er grand Grand of 0 and
+00:12:30.360 Grandy of
+00:12:31.399 one so I took just 0 0 1 Instead This is
+00:12:34.680 the procedure but Grandy of 0 is
+00:12:37.360 obviously
+00:12:38.920 zero because you have no moves to make
+00:12:41.199 so you're in a losing position this is
+00:12:43.639 also zero granty of one you can move to
+00:12:45.959 only one position from one if you divide
+00:12:48.360 by two you get zero if you divide by
+00:12:50.199 three you get zero if you divide by six
+00:12:51.639 you get
+00:12:54.160 zero so Grandy of one means that from
+00:12:58.399 one you can go to 0 Max of that is equal
+00:13:02.600 to one you have the single number the
+00:13:05.440 next number is one so yeah we discussed
+00:13:07.920 this in the previous video in case
+00:13:09.560 you're not sure you could check that out
+00:13:11.560 Mex of 0 01 is two as we
+00:13:15.399 said what about gry of four yeah next
+00:13:20.839 easiest gry of four
+00:13:26.760 is yeah the possible States from four
+00:13:29.959 are G of
+00:13:32.920 2 comma G of
+00:13:36.399 1 comma G of 0 so we divided them and
+00:13:41.519 then we take the
+00:13:44.360 Mex G of 2 we side is we just found out
+00:13:47.360 is two G of 1 is 1 and G of 0 is 0 so
+00:13:51.040 Mex of that Mex of 2 1
+00:13:54.920 0 is equal to take your time don't be in
+00:13:58.680 a hurry
+00:14:00.639 make the
+00:14:02.199 guess
+00:14:07.440 three all right uh what about G of
+00:14:11.880 6 G of 6 is
+00:14:16.000 meof divide by 6 you get 1 divide by 3
+00:14:19.680 you get two divide by two you get three
+00:14:23.279 so this is of course G of 1 G of 2 and G
+00:14:25.720 of
+00:14:28.040 3 G of 2 is 2 G of 1 is 1 G of 3 is
+00:14:33.800 interesting we need to find that out
+00:14:36.519 first G of 3 Max
+00:14:42.199 off divide by 6 and you get zero divide
+00:14:45.759 by 3 and you get one and divide by two
+00:14:48.920 and you get
+00:14:50.880 one so G of 0 is Zer G of 1 is
+00:14:56.320 1 and uh so Mex of that is equal to
+00:15:00.440 2 nice to know because we are going to
+00:15:03.399 be using it here G of 1 is 1 G of 2 is 2
+00:15:07.519 G of 3 is also two unfortunately we do
+00:15:10.800 not have a zero here so Mex of these
+00:15:13.399 three numbers is equal
+00:15:15.000 to
+00:15:18.040 zero okay six
+00:15:21.320 has um gr of 6 is equal to
+00:15:25.560 Z
+00:15:27.079 interesting uh what's the next number
+00:15:29.639 that we need we need
+00:15:31.240 eight so let's go
+00:15:33.560 there that in turn is equal to Max
+00:15:36.880 of G of divide by 6 you get 1 G of
+00:15:40.680 divide by 3 you get
+00:15:42.959 two and G of divide
+00:15:45.839 by two you get
+00:15:49.120 four so max of these three numbers G of
+00:15:52.319 one 1 G of 2 2 G of 4 is three so that's
+00:15:59.000 next
+00:15:59.880 of what is it again 1 2 and 3
+00:16:06.279 again the smallest number which does not
+00:16:08.399 exist in the set is actually equal to
+00:16:11.440 zero so tragically we have G of 8 equal
+00:16:14.680 to
+00:16:15.920 0 what does that mean let's take our
+00:16:18.720 result zor of these numbers
+00:16:22.120 so that equates to over here above zor
+00:16:27.920 of G of 4 is
+00:16:30.480 three G of 6 is zero boom G of 8 is also
+00:16:36.000 zero these guys are not going to affect
+00:16:37.839 the result G of two is
+00:16:42.759 two so zor of these numbers is equal to
+00:16:47.680 1 which is non zero and so you're
+00:16:51.079 winning this
+00:16:52.680 game all right if both players play
+00:16:55.240 optimally the person who's starting this
+00:16:57.399 game will win the game game that's what
+00:17:00.560 we just learned using SP grandi uh we
+00:17:04.760 take the
+00:17:06.199 result all right now what does that say
+00:17:08.720 also about this entire game Z is equal
+00:17:12.799 to one Z of these results is
+00:17:15.039 one what do you need to do to put your
+00:17:18.359 opponent in a losing position you need
+00:17:20.640 to make the zor of all possible
+00:17:22.400 positions from the from the new position
+00:17:24.880 that you'll take equal to
+00:17:26.720 zero so what would be the optimal move
+00:17:29.240 to play
+00:17:32.919 H well we need to convert this to zero
+00:17:37.039 we have two zeros
+00:17:39.080 here if only this number became
+00:17:44.039 two then zor of this would be zero so
+00:17:47.799 this number
+00:17:49.640 three what's that g of four is three
+00:17:53.039 yeah so G of 4 is
+00:17:57.039 three we need to make
+00:17:59.600 this file equal to two to get a optimal
+00:18:02.799 move so this file needs to be made into
+00:18:06.360 two to get our optimal
+00:18:11.679 move we have a value of two over here so
+00:18:14.799 if we can convert four to two then we
+00:18:16.720 are putting our opponent in a losing
+00:18:18.880 position all right that's that's the
+00:18:20.840 best move to
+00:18:22.200 make four can be converted to two by
+00:18:24.960 dividing by
+00:18:27.320 two so our optimal move in this position
+00:18:31.360 is to take this pile divide it by two
+00:18:34.720 and get a new pile of size
+00:18:40.360 two so this is how you play impartial
+00:18:42.919 games usually you have some dynamic
+00:18:45.200 programming approach to find out what is
+00:18:46.720 the best move you know this was a very
+00:18:48.480 manual weight that you need to divide by
+00:18:49.960 two to get the winning position and uh
+00:18:52.600 quf has this problem in the ma challenge
+00:18:55.280 which uses PR gry so I'm working on that
+00:18:58.039 and in case you're you could subscribe
+00:18:59.520 for that if you have any comments or
+00:19:01.720 suggestions please leave them below I'll
+00:19:03.360 be happy to help and I'll be sharing all
+00:19:05.559 relevant links and description uh below
+00:19:08.880 so stay tuned see you next time

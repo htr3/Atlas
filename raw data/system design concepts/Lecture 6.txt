@@ -1,0 +1,347 @@
+# tactiq.io free youtube transcript
+# Moving from MONOLITHS to MICROSERVICES 🎂 → 🍰🍰🍰
+# https://www.youtube.com/watch/rckfN7xFig0
+
+00:00:00.330 Hi everyone, this is GKCS!
+00:00:01.830 Today we are talking about how tomove from monolith to microservices.
+00:00:13.910 Now we know what monoliths are.They are rather large code bases,
+00:00:18.110 which contain all of the logic requiredfor you to run your application anywhere
+00:00:22.860 you like.
+00:00:23.900 All of the relevant code in thisproject is kept in a single repository.
+00:00:27.410 While in the micro-servicearchitecture, you have cell phones,
+00:00:29.870 which connect to different servicesbased on what the requirement is.
+00:00:33.470 So let's say you're logging into Google.
+00:00:35.750 Does the payment service in Google needto know about what you're doing? No,
+00:00:38.601 not really.
+00:00:39.260 You just need to go to the authenticationservice and when it gives you a
+00:00:41.871 response, your authentication is done.
+00:00:44.630 So you are seeing that the code has beenbroken into pieces and converted into
+00:00:49.221 services themselves. As you can see,
+00:00:51.260 there are quite a few advantages thatmicroservices have over monoliths,
+00:00:54.410 the first one, being that if youneed to make any feature change,
+00:00:57.740 let's say your payments now needto also accept PayPal payments.
+00:01:01.460 All you need to do is just go to thispayment service and make the change.
+00:01:05.030 So there's a good separation of concerns.
+00:01:08.300 The second one is coding in microservicesis sometimes easier because all you
+00:01:11.961 need to worry about when you're makinga feature change is just the code,
+00:01:15.471 which exists here.
+00:01:17.001 So your expectations arewell-defined in the payment service.
+00:01:20.870 Your responses are well-defined andthat's all you need to care about.
+00:01:23.900 Your assumption is thatthe rest of the services,
+00:01:25.911 the engineers in those services willrespect the contracts that you are making
+00:01:29.751 with them. So to someextent, coding is easier,
+00:01:35.240 but so is designing these services andthe interactions that they'll have.
+00:01:38.990 So I would say instead ofcoding, maybe 'engineering',
+00:01:41.661 these services is actually easier.
+00:01:44.420 The third critical advantage here isthat you can make deployments much easier
+00:01:47.990 with microservices, the authenticationservice, when there's a change in that,
+00:01:51.770 you can just deploy theauthentication service separately.
+00:01:54.710 There might be a service, whichis not critical. For example,
+00:01:57.981 you have some ranking service,some machine learning service,
+00:02:00.831 which ranks your restaurants.Now, if it stops for one second,
+00:02:03.891 the world won't come to a collapse.So the deployments are easier.
+00:02:09.530 These are the coreadvantages of microservices.
+00:02:13.190 Monoliths also have certain advantages.
+00:02:16.220 The time when you move to a microservicearchitecture is not when you have a lot
+00:02:19.431 of scale, not when all ofyour users are coming in,
+00:02:22.430 you move to a microservicearchitecture when your team has scaled.
+00:02:25.640 When you have a large team and all ofthem want to move about individually,
+00:02:29.420 you have different product teamsworking on different products.
+00:02:32.150 You want deployments to be smooth.
+00:02:33.830 That's when you move frommonoliths to microservices.
+00:02:36.860 So for a small team monolithsare good. For a large team,
+00:02:39.591 microservices are probably the way to go.
+00:02:42.890 The second one is that because there ismore clear communication happening in
+00:02:47.091 the monolith...
+00:02:48.020 Module A to module B, you're doing asingle function call. The parameters.
+00:02:52.910 That you're passing into thatfunction are explicit. They are clear.
+00:02:56.661 So when you're making that functioncall, if you make a wrong function, call,
+00:03:00.130 the compiler is going to sayno. While in a microservice,
+00:03:03.221 what could happen is that ID was earlieran int. Now you ran out of integers.
+00:03:07.571 So you made it a string.
+00:03:09.340 So all the other services who connect tothis service are going to be using the
+00:03:13.901 profile with the ID as an int,
+00:03:16.390 because they are not aware thatthe ID has turned into a string,
+00:03:19.990 which means that all communicationto this service will break. Okay,
+00:03:23.711 this is called a breaking changeearlier. You had something.
+00:03:26.471 Now you have something else which is notcompatible. That's a breaking change.
+00:03:29.980 So in microservices.
+00:03:32.020 It's much easier to havebreaking changes, which is bad.
+00:03:35.380 While in monoliths because the code andtherefore the expectations are in one
+00:03:38.801 place, it's much harder tohave these kinds of problems.
+00:03:43.030 Contracts are in one place.These are the service contracts.
+00:03:48.550 Now let's find out how we can actuallymove from monolith to microservices.
+00:03:53.290 One strategy would be that you makethis microservice architecture,
+00:03:58.330 where you have thiscloud of things running,
+00:04:01.960 and then some parts of the user, maybe10% of the users are redirected here.
+00:04:06.700 If they have no issues,
+00:04:07.901 if these services are workingperfectly along with their databases,
+00:04:11.860 then you can make the switch.
+00:04:14.320 But the problem with this.
+00:04:15.250 Is that the engineering challengeis huge because you need to write
+00:04:20.111 down all of these microservices.
+00:04:22.240 Also make sure that the databasesare correctly configured.
+00:04:25.390 Then you have to redirect theseusers. So the effort for doing.
+00:04:29.320 This is massive.
+00:04:31.600 A much better approach is notto invest so much in the start.
+00:04:35.170 What you can do is when you have a newfeature in this monolith architecture,
+00:04:39.490 you can try to separate that outinto a single service. For example,
+00:04:43.901 you might have a new analyticsfeature that you need.
+00:04:49.540 So whenever any of thesemodules are producing an event,
+00:04:52.990 you need the analytics module toprocess that event and then give you
+00:04:57.700 dashboards or graphs or reports insteadof actually putting it in the moonlit
+00:05:01.271 architecture, we separate it out.We make this a separate service.
+00:05:06.250 And how do we do that? Well earlier,when you were communicating through cord,
+00:05:10.630 you used to just make a function called.
+00:05:12.730 Now you're going to be makingthis call over a network.
+00:05:16.180 So you'll have either HTTP or GRPC orwhatever the network called doesn't really
+00:05:20.711 matter. But the treatmentof this piece of code,
+00:05:24.070 this service is as ifit's an external thing,
+00:05:27.400 you cannot access any ofits functionalities througha function called, uh,
+00:05:31.620 and the analytics service willalso have its own database,
+00:05:34.930 which may be the same asthis database. Let's say,
+00:05:37.220 this is my SQL that you mightend up using my SQL here also,
+00:05:40.420 but you might use an SQL database alsolike Amazon dynamo, DB, Cassandra,
+00:05:44.230 anything.
+00:05:44.890 There is an isolation of concerns whenit comes to the analytics service.
+00:05:49.330 And through this small change,
+00:05:50.470 what we have done is we are open thepossibility for all future services,
+00:05:54.041 all future functionalities beingsent to their relevant services.
+00:05:58.820 So analytics is havingits own code repository.
+00:06:03.500 This might be hostedon GitHub or wherever,
+00:06:05.510 and this has its own code repository,
+00:06:08.060 which is separate from theanalytics code repository tomorrow.
+00:06:10.851 You might find that there's afunctionality of sending emails,
+00:06:14.990 which is being used by payments.
+00:06:16.760 Being used by profile isbeing used by analytics.
+00:06:18.800 There's different emailsthat you need to send.
+00:06:20.510 So you separate that outinto separate service.
+00:06:24.170 By doing this, what.
+00:06:24.920 Happens is we need to now bring in someinfrastructure changes to make addition
+00:06:29.751 of these services easy. And whatare those changes? Well, firstly,
+00:06:33.651 you need to be able to define howare you going to communicate to these
+00:06:36.201 services?
+00:06:37.280 So the email service is goingto be taking your network calls,
+00:06:42.260 but it needs to give you a contract.
+00:06:46.280 That for the profiles that I have,
+00:06:48.110 I have the ID as an integeror as a string or whatever.
+00:06:52.160 But this contract has to bemaintained by the email service.
+00:06:56.600 And whenever an external servicewants to call a function over here,
+00:07:00.770 it has to read this contract,construct an object as per requirement,
+00:07:05.720 and then send the request or the network.
+00:07:09.860 That's the important thing.
+00:07:11.180 So the first change that we need is thatwe need to define contracts for each
+00:07:15.860 microservice. Okay? Theseare also called clients.
+00:07:18.770 Whenever a service in session servicewants to call it email service.
+00:07:22.250 It doesn't really read the contract.
+00:07:23.900 Technically what happens is you havesomething called a client, okay?
+00:07:27.080 Each service has their own client.
+00:07:28.830 So if I'm an engineer for theanalytics service, I say, well,
+00:07:33.200 you're going to be reading my contract,constructing the object in my way.
+00:07:36.050 That's pretty bad. So instead Iwill write some piece of code,
+00:07:40.820 make a library out of it. And anybodywho wants to talk to analytics,
+00:07:44.960 you use this library to makethese function calls. Okay?
+00:07:49.430 So if sessions wants to talk to analytics,
+00:07:51.560 all it needs to do is download thelibrary. And if you want to say,
+00:07:55.880 get report,
+00:07:57.590 my library has that functionand you can pass in an ID.
+00:08:00.980 Here. My library will figureout how to talk to my.
+00:08:04.810 External service. So analyticsis here. This is my library,
+00:08:09.041 which is running in yourbox. And you are over here.
+00:08:12.070 Maybe you are the session service,which is interacting with.
+00:08:16.090 This library. Okay? What.
+00:08:19.060 Happens if my library's notup to date too bad? I mean,
+00:08:22.961 the code will break mostlikely, or when it reaches here,
+00:08:26.140 there's going to be a break.
+00:08:27.100 So you need to be continuouslyupdated in terms of libraries.
+00:08:29.800 If you're looking for more detailson how this library is updated across
+00:08:32.530 services, you can look at the descriptionbelow there's interviewready.io,
+00:08:36.820 which is a system design video course.It talks about this in more detail.
+00:08:40.030 The second thing we need to do isalso have a mechanism for routing
+00:08:44.801 requests from any serviceto another service.
+00:08:48.640 So that's point number two,we need some sort of a router.
+00:08:53.200 Most likely it's going to be the loadbalancer, the services, the street,
+00:08:56.460 which routes requests basedon service capabilities,
+00:09:00.330 all this happened because you took anew feature of analytics and made it a
+00:09:03.780 separate service, right? Because of that,
+00:09:05.581 you can actually pick on each ofthese functionalities separately.
+00:09:09.120 Point number three issimplifying deployments.
+00:09:12.210 The simplest way to deployany service is to do a CP,
+00:09:16.080 which is copy of the code thatyou have in your GitHub repo
+00:09:21.150 on to an AWS box or GCP box,
+00:09:24.420 then going on to that box andrunning the service. Okay?
+00:09:27.540 So literally what you're doing isyou're copying your code from one place,
+00:09:30.151 keeping it in the cloud server andthen running that service by firing a
+00:09:34.441 command.
+00:09:35.430 But as the number of servicesin your organization increase,
+00:09:39.871 that's not what you want to be doing.
+00:09:41.191 You want to more seamlessway of things happening,
+00:09:44.190 maybe on every gate push to master. Youwant the deployment to be dead, okay?
+00:09:48.661 Because your tests have run through andyou're sure that everything is fine.
+00:09:51.900 So you want to simplify deploymentsby using tools like Jenkins.
+00:09:56.460 You want to simplify deployments byactually using containers instead of
+00:10:00.030 deploying it on the box thatmakes your DevOps team happier.
+00:10:03.330 The fourth one is that communicationbetween services can be varied.
+00:10:07.830 Let's say the session service talks tothe analytics service by using a message
+00:10:11.220 queue. Because if the messagedoesn't reach the analytics team,
+00:10:15.090 if this event doesn't reach theanalytics service, what's the big deal.
+00:10:19.560 You know, the reports will be wrong,
+00:10:21.420 but it's not like the user's goingto drop off while in payments,
+00:10:24.601 you might need a muchmore immediate response.
+00:10:28.620 So when the profile service istalking to the payment service,
+00:10:32.400 you might want to request responsearchitecture so that you know exactly what
+00:10:36.001 happened immediately after arequest has been sent to payments.
+00:10:40.830 So that's the communicationbit point number five,
+00:10:43.890 which is the thing that mostpeople forget is logging. Uh,
+00:10:47.640 this is super important.
+00:10:48.990 If a request is sent from theuser to the session service,
+00:10:52.200 then it goes to analytics whichtriggered something in profiles.
+00:10:55.410 And then it went to payments.
+00:10:57.450 There's no way that you can track allthis by logging into each service and then
+00:11:01.381 checking the logs and saying, oh, theID will be over here all the time.
+00:11:04.120 Then you go here and it's.
+00:11:06.210 Not going to happen.Instead. You want to take.
+00:11:10.140 All the logs in all the services andpush it into a single repository, okay.
+00:11:15.061 A single database. So to speak,you can use the elastic stack,
+00:11:19.410 which is good at thisstuff. And for pushing logs,
+00:11:22.681 you can do it through amessage queue like Kafka.
+00:11:26.910 Kafka can take all of the logsfrom all of these services,
+00:11:30.900 and then you can store themin something like leucine,
+00:11:33.540 which is a part of thisstack to summarize,
+00:11:36.091 moving from monolith to microservices,require us to look out for new features,
+00:11:39.751 which are being added toour existing application.
+00:11:42.240 We need to then think about how wecan take those new set of features and
+00:11:46.051 condense them into a single service,
+00:11:48.240 which instead of being addedas a module to the monolith,
+00:11:50.670 it will be made a separatemicroservice. Once this is done,
+00:11:54.550 you can start focusingon these five parameters.
+00:11:57.220 Do these services have sensiblecontracts which are being updated.
+00:12:01.270 Do they have some sort ofrouting to the right service?
+00:12:05.500 Do they have any sort of deploymenthelp so that the engineers are not too
+00:12:09.461 uncomfortable adding newservices or maintaining.
+00:12:12.250 The services is communication between.
+00:12:14.530 The services well-defined. Thecommunication may be in different ways.
+00:12:17.441 You might have a request responsearchitecture, which is standard.
+00:12:20.260 You might have a messaging queue, whichtakes the quest and then sends it.
+00:12:23.260 And you might also have some sort of abatch processing thing where you take 10
+00:12:26.831 requests and send them togetherto the next service. And finally,
+00:12:31.181 you need to take care of logging.
+00:12:34.570 This is more like.
+00:12:35.530 Making sure that the infrastructureon microservices is fine.
+00:12:38.650 If you have all of the logs of theseservices being condensed and put in a
+00:12:42.791 single place, what happens isif a user has an issue, okay,
+00:12:47.650 let's say the user ID is 123,
+00:12:50.590 then all relevant logsfor that user request.
+00:12:54.460 Let's say the request ID it's 256. All
+00:12:58.951 of them can be pulled out fromthis single repository in one shot,
+00:13:03.750 which makes debugging much easierand also root cause analysis of
+00:13:08.521 any bug, much, much easier.So go ahead with this. If,
+00:13:11.700 and when your team is convinced thatyou need to move to microservices,
+00:13:15.060 here's a few things to keep in mind.
+00:13:16.830 The first one is that everymicroservice needs to encapsulate the
+00:13:21.691 data that it is responsible for.
+00:13:23.970 So if you have profiles as yourmicroservice, all profile related,
+00:13:28.411 information should be with you. Soif a person says, get a profile,
+00:13:32.670 it's not like they can get theprofile from the payment service.
+00:13:35.011 Also that's impossible.
+00:13:36.960 The payment service has to ask youfor profile related information.
+00:13:40.920 Now it might store it locallyin a cache. That is okay.
+00:13:45.180 It's not taking realresponsibility for the cash.
+00:13:47.910 The expectation is that wheneveryou need to update the cash,
+00:13:50.221 you need to make a network callto the profile service. Okay?
+00:13:53.550 So you are the source of truth.You are a single source of truth.
+00:13:57.000 Every component in your architecturehas to have a single source of truth
+00:14:02.130 when it comes to microservices,
+00:14:04.110 which only happens if you havea dedicated data store for each
+00:14:08.671 service.
+00:14:11.190 The second thing to keep in mind is thatit's very tempting to take services and
+00:14:15.361 break them down into simplerand simpler components.
+00:14:17.940 But the important thing to remember isthat what is the responsibility of this
+00:14:21.991 service? And when we are breaking it down,
+00:14:25.021 are we also separating ourresponsibilities? For example,
+00:14:28.590 let's say the profile service needs totake information from various external
+00:14:33.451 services like.
+00:14:34.770 Google, Facebook, and LinkedIn.
+00:14:39.630 These external services, they are givingyou information in the profile service.
+00:14:43.680 You might feel like, Hey,
+00:14:44.880 it's not the profile servicejob to take this information.
+00:14:49.080 I will create a separate service here,
+00:14:51.500 which is going to be condensing all thisinfo from the three external services
+00:14:56.120 and giving me a single response. So theprofile service talks to this service,
+00:15:00.500 which is an intermediary, uh,which talks to external services.
+00:15:03.591 And then the response is sent back.Okay. This might seem like a good idea.
+00:15:07.280 But the question to ask is that,
+00:15:09.890 is this data being used by any serviceexcept the provide service? No.
+00:15:14.660 When there is a change inprofile service requirements,
+00:15:16.550 is there a change in the servicerequirement? Most likely. Yes.
+00:15:19.970 And is this business functionality is the,
+00:15:23.451 is the business requirement of thisseparate from the profile service business
+00:15:27.981 requirement? No.
+00:15:29.810 So what should ideally happen then isthat this should be a component of the
+00:15:33.531 profile service. You canmake a library out of this.
+00:15:36.650 You can put it in the uteruspackage. That's a separate thing.
+00:15:40.910 It shouldn't be separate fromthis service though. Okay.
+00:15:43.970 The code base should not be separate.
+00:15:45.830 So that's the reason why thisshould just be a part of profiles.
+00:15:50.150 So that's the second point,
+00:15:51.890 condensed businessresponsibilities to a single place.
+00:15:57.080 Okay. Don't break it down just becauseyour engineering will get much simpler,
+00:16:01.310 uh, really do consider whether you needto separate it further and further.
+00:16:04.580 The third important point is that can weafford the infrastructure requirements
+00:16:08.510 for building a microservice architecture?
+00:16:10.640 The initial infra structure cost
+00:16:15.470 is high. The cost of logging,
+00:16:17.091 the cost of building a deploymentinfrastructure of documentation.
+00:16:20.030 All of this is really not worthit for a small team because you're
+00:16:25.010 essentially sacrificing some featuresthat you could have added during
+00:16:29.901 the time you started fixing allthe infrastructure issues. Okay?
+00:16:33.620 So ideally this is myown hocus-pocus formula,
+00:16:38.630 but for a startup really going fora microservice architecture is fine.
+00:16:43.040 If the total number of services that youare handling per person is less than or
+00:16:47.421 equal to two. So this is for startups.
+00:16:50.240 One person is handling less thanequal to two, you know, microservices,
+00:16:55.040 basically it depends also on theuser scale, but for startups,
+00:16:58.911 this number is very flexible.As for medium organizations,
+00:17:02.721 I would say one person should behandling less than or equal to
+00:17:07.580 one service. So ideally you would havetwo people handling the session, service,
+00:17:12.589 two people handling the payment service.
+00:17:14.480 And that way you avoid a single pointof failure. If someone is absent or,
+00:17:17.920 or something happens, you know,they leave the organization,
+00:17:19.941 you still have one person whois taking care of that service.
+00:17:22.250 So you're not entirely dependent,even as a business on them.
+00:17:26.599 And for the large organization, basicallytwo people to four people per service.
+00:17:32.090 And the reason I say this isbecause two people is good.
+00:17:34.910 There's no single point of failure,but if it's a large service,
+00:17:37.821 you might need multiple peopleworking on different things.
+00:17:40.761 One person might bedoing a proof of concept.
+00:17:42.980 Two people might be ondoing the current features,
+00:17:45.381 which are required by the product team.
+00:17:47.150 And one person might be fixing bugs ormaking sure that support is being taken
+00:17:50.671 care of. So four people for oneservice is good. More than that,
+00:17:54.811 what happens is there's confusion.
+00:17:56.880 Like who's doing whatthis service is too big.
+00:17:59.460 Maybe you need to break itdown into simpler pieces.
+00:18:03.150 I know I gave a lot of talk aboutthe business should be running,
+00:18:06.151 whether this is a microservice or not.
+00:18:08.100 But the fact is that thisis also engineering thing.
+00:18:10.560 So if this is getting too big,
+00:18:12.150 it's probably because the businessrequirements are getting too big.
+00:18:14.400 And therefore you need to kind of breakthat service down to separate pieces.
+00:18:17.940 So this has been a rather detailedapproach of how to move from one.
+00:18:20.701 Let's do microservices. Ifyou're having doubts on this,
+00:18:23.641 do let me know in the comments below,
+00:18:25.260 I have a discord server in whichyou can come and, you know,
+00:18:28.410 post any of your doubts or evenyour generic doubts that you have.
+00:18:31.801 There's different channels for that.
+00:18:33.540 I also have a website with asystem design video course,
+00:18:36.810 which is on interviewready.io. Itspeaks about these concepts in detail.
+00:18:41.160 You can check it out if you arelooking to improve at system design.
+00:18:44.040 And of course, if you liked thiscontent, then subscribe to the channel,
+00:18:47.100 hit the like button andI'll see you the next day.
+00:18:53.030 What is system design?
+00:19:01.820 System...what? Can get to thenext question? Can I get a hint?
+00:19:06.200 System design is the designof websites using systems.
+00:19:11.630 System design?
+00:19:11.901 System Design Is the process ofdefining components and interfaces with
+00:19:16.641 their interactions based on specified
+00:19:23.300 requirements. Next question?

@@ -1,0 +1,795 @@
+# No title found
+
+# https://www.youtube.com/watch/mB5HXBb_HY8
+
+
+
+00:00:00.000 No text
+
+00:00:00.440 now we have seen what is merging and
+
+00:00:03.679 also we have seen how Multiple List can
+
+00:00:07.520 be merged together that is in two-way
+
+00:00:10.360 merging or mway merging we have seen and
+
+00:00:14.519 if there are multiple list then we can
+
+00:00:16.680 merge them in different patterns we have
+
+00:00:18.920 seen that now let us see merge sort that
+
+00:00:23.039 is a recursive
+
+00:00:24.840 procedure and this is divide and conquer
+
+00:00:28.359 procedure
+
+00:00:30.279 the divid and Conquer strategy says that
+
+00:00:33.079 if a problem is large then bake the
+
+00:00:35.760 problem into sub problems and if the
+
+00:00:38.320 problem becomes small then solve it and
+
+00:00:41.480 combine the solutions of the sub small
+
+00:00:43.879 problems or sub problems to get the
+
+00:00:46.199 solution for main
+
+00:00:48.239 problem so here the problem is to sort
+
+00:00:52.160 these elements and we say that the list
+
+00:00:54.719 is very large then what is small so
+
+00:00:58.559 basically if there is a single element
+
+00:01:00.559 then we say it's small so single element
+
+00:01:03.000 means we don't have to sort it so yes in
+
+00:01:05.720 M sort we say if there is just a single
+
+00:01:07.799 element then we don't have to sort this
+
+00:01:10.600 otherwise if there are two elements also
+
+00:01:12.920 we have to call it as a bigger problem
+
+00:01:15.720 or large problem if there's single
+
+00:01:18.479 element then we say it's a small
+
+00:01:21.720 problem mord follows divide and conquer
+
+00:01:25.720 therefore it's a recursive algorithm
+
+00:01:30.000 No text
+
+00:01:30.079 let me write the algorithm let me write
+
+00:01:32.479 the algorithm then I will trace the
+
+00:01:35.159 algorithm let us
+
+00:01:43.040 see
+
+00:01:45.520 algorithm merge
+
+00:01:48.920 sort what are the parameters it takes it
+
+00:01:52.920 takes two parameters that is beginning
+
+00:01:55.520 of a list and ending of a list so low
+
+00:02:00.479 and
+
+00:02:03.880 high then we check if low is less than
+
+00:02:10.840 high means if low is equal to high it
+
+00:02:14.080 means there is a single element low is
+
+00:02:16.319 less than high means at least there are
+
+00:02:18.239 two elements so list is large if low is
+
+00:02:21.560 less than high then we will find out mid
+
+00:02:25.400 that is low + High by 2 what for we are
+
+00:02:30.319 finding mid like if I find 1 + 8 by 2
+
+00:02:33.440 that is 9 by2 I get four so this will be
+
+00:02:37.560 mid what for we say that this problem is
+
+00:02:40.959 large so we break it into two sub
+
+00:02:43.599 problems that's what we find mid then
+
+00:02:46.959 what to do with the left hand side
+
+00:02:49.599 performer sort recursively performer
+
+00:02:52.959 sort on the right hand side recursively
+
+00:02:55.519 so perform mid find out mid and perform
+
+00:02:59.920 merge s from low to
+
+00:03:04.480 mid and also perform merge
+
+00:03:08.959 s from mid + 1 to
+
+00:03:14.360 high so by performing more sord on the
+
+00:03:17.120 left hand side we will sort this one and
+
+00:03:19.799 we sort the right hand side so when two
+
+00:03:22.159 lists are sorted we are breaking this
+
+00:03:24.200 into two list and when two are sorted we
+
+00:03:26.920 can merge them together so per form
+
+00:03:32.599 merge merge from where low to mid is one
+
+00:03:36.640 list and mid + one to high so we pass
+
+00:03:40.120 three parameters so that's all this is a
+
+00:03:42.799 simple algorithm for S this is divide
+
+00:03:45.239 and conquer how merging is done we have
+
+00:03:48.360 already seen the procedure how merging
+
+00:03:50.159 is done but the point here is when the
+
+00:03:53.400 single array is given for sorting we are
+
+00:03:56.200 breaking into two sub arrays and we are
+
+00:03:59.439 seeing this is one first list and that
+
+00:04:01.560 is second list so single array will be
+
+00:04:04.000 containing two lists and we have to
+
+00:04:06.079 merge them so can our single array have
+
+00:04:09.319 more than one list yes a single array
+
+00:04:11.959 can have many number of
+
+00:04:13.799 list let us see how it works let us see
+
+00:04:15.000 No text
+
+00:04:17.399 the tracing now based on this algorithm
+
+00:04:20.238 only I will do tracing initially we'll
+
+00:04:22.840 be passing low as one and high as eight
+
+00:04:25.919 so let us take for these set of elements
+
+00:04:28.800 so first time we will pass 1 and
+
+00:04:32.720 8 it will find out mid and it will
+
+00:04:35.440 divide the list and this side that side
+
+00:04:38.800 so mid is perform and perform a sord
+
+00:04:41.440 from low to mid that is from 1 to
+
+00:04:45.000 4 it will go this side and it has to go
+
+00:04:49.000 on the right hand side also but not now
+
+00:04:50.880 it will go afterwards but I will draw
+
+00:04:53.280 this one also so let us take this one so
+
+00:04:56.000 it will call itself from 5 to 8 on the
+
+00:04:59.120 right hand side right so it has broken
+
+00:05:01.800 them into two list first part and the
+
+00:05:03.880 second part and then afterwards merge so
+
+00:05:07.120 first of all let us finish this and
+
+00:05:09.560 this now mot calls itself low is less
+
+00:05:13.960 than high yes one is less than four so
+
+00:05:17.800 again find out mid and call these two so
+
+00:05:21.120 it means these four elements are also
+
+00:05:23.000 large divide
+
+00:05:25.440 them so this side one to2 and this side
+
+00:05:31.720 3 to
+
+00:05:35.039 4 now when we take this again low is
+
+00:05:38.919 less than high yes there are two
+
+00:05:40.720 elements so this is still large again
+
+00:05:43.720 split it so one to one on this side and
+
+00:05:49.000 2 to2 on this
+
+00:05:51.039 side now there are just one one
+
+00:05:54.199 elements see if you have seen previous
+
+00:05:57.160 video you may know how do way merge
+
+00:06:00.400 Works two-way merge sort
+
+00:06:03.440 Works see if you have seen previous
+
+00:06:06.160 video you know how two-way mer sort
+
+00:06:09.199 works now here also M sort is working in
+
+00:06:12.280 a similar way one one array was given so
+
+00:06:15.520 it has splited and then splited then
+
+00:06:17.800 splited now it has reached one one
+
+00:06:20.199 element now one element is there means
+
+00:06:22.599 it's a single list with one element now
+
+00:06:25.840 these two can be merged together three
+
+00:06:28.440 and N are mer merge together so the
+
+00:06:30.919 first merging is done for these two
+
+00:06:32.960 elements and their result is obtained
+
+00:06:35.720 here so this is the first merge done
+
+00:06:38.599 this is the first merge done it will
+
+00:06:40.759 merge these two
+
+00:06:42.599 elements so three and N are merged then
+
+00:06:46.759 coming to this side it will split them
+
+00:06:49.880 and get three three on this side and
+
+00:06:53.120 four four on this side then it will
+
+00:06:56.800 merge the elements three and four are
+
+00:06:59.039 merged
+
+00:07:00.520 so first 9 and three will merge so the
+
+00:07:03.360 result was
+
+00:07:04.639 39 and now 5 and 7 and five are merged
+
+00:07:10.479 result is 5 and
+
+00:07:13.039 7 this is combined now it will go back
+
+00:07:16.280 and perform merge here so this is the
+
+00:07:18.840 third merge so it will merge these two
+
+00:07:22.080 so the result is 357
+
+00:07:26.280 9 now this side is sorted
+
+00:07:31.000 actually we have to sort this whole
+
+00:07:32.319 array break it and break it and break it
+
+00:07:36.319 now two elements merge two elements
+
+00:07:38.840 merge now merge these two also so this
+
+00:07:41.240 side is sorted now same thing is done on
+
+00:07:43.599 the right hand side also 5 to 8 is there
+
+00:07:46.440 so on that side it will divide this from
+
+00:07:50.120 5 to
+
+00:07:51.440 6 and that side it will be 7 to 8 and 5
+
+00:07:56.520 to 6 will become 5A 5 and 6A
+
+00:08:01.280 6 now one one element each this is again
+
+00:08:04.400 splitted one one element so these two
+
+00:08:06.360 are merged so it becomes 4 6 so this is
+
+00:08:10.759 the fourth
+
+00:08:13.400 merging then it will go this side it
+
+00:08:16.680 will split again 7 s this side and 88
+
+00:08:20.680 this side so it will split this
+
+00:08:23.960 also then again these two are merg so it
+
+00:08:27.280 becomes 28 one molist so this is fifth
+
+00:08:31.599 merging now as these two are already
+
+00:08:34.440 sorted it will merge these two so it
+
+00:08:36.640 becomes 2 4 6 8 so this is sixth
+
+00:08:41.679 merging and then these two list are
+
+00:08:44.760 merged to get a single list that is 2 3
+
+00:08:47.440 4 5 6 7 8 9 this is single sorted list
+
+00:08:52.600 that is seventh merch
+
+00:08:56.720 here so this is how m s works when a
+
+00:09:01.200 single array is given recursively it
+
+00:09:03.640 will divide that array into smaller
+
+00:09:06.440 pieces until it reach one one element
+
+00:09:09.040 then it will start merging
+
+00:09:11.000 them so you can see that eight elements
+
+00:09:13.560 were given splited then splited then
+
+00:09:15.880 split it now they are merge merge merge
+
+00:09:19.600 so this is the working of m
+
+00:09:22.800 s all right so it's similar to two-way
+
+00:09:25.920 but in two-way mer s we just take first
+
+00:09:28.399 two element the next two then next two
+
+00:09:30.720 but this is divide and conquer and this
+
+00:09:34.720 is recursive so it will simply divide
+
+00:09:38.200 and divide and then that's how it
+
+00:09:39.800 reaches one one element then it will
+
+00:09:41.920 start merging
+
+00:09:43.440 them so what is different is only the
+
+00:09:46.399 pattern is changing the approach rest of
+
+00:09:50.160 the things are
+
+00:09:51.800 same right result is sorted and it is
+
+00:09:54.800 also merging two list at a time so it is
+
+00:09:57.240 also two way but as it is recursive we
+
+00:10:00.440 need some another name so we call it as
+
+00:10:03.480 merart let us see the time taken by
+
+00:10:04.000 No text
+
+00:10:06.519 msort so from the tree the recursion
+
+00:10:09.720 tree that is the tracing of that
+
+00:10:11.720 algorithm I have done so I'll show you
+
+00:10:14.800 how the time is how I will show you how
+
+00:10:18.920 much time it
+
+00:10:20.680 takes
+
+00:10:22.880 see the merging has started in this
+
+00:10:25.600 level this was just a splitting so how
+
+00:10:28.680 many elements are marged here two two
+
+00:10:30.800 elements marged two elements two
+
+00:10:32.279 elements total how many elements eight
+
+00:10:34.040 elements are there 2 4 6 8 eight
+
+00:10:37.440 elements are merged here so I will say n
+
+00:10:39.720 elements are merged all n elements then
+
+00:10:42.680 again merging is done at this level so
+
+00:10:44.920 eight elements are merged then again
+
+00:10:47.680 eight elements are merged here so n
+
+00:10:50.279 elements are merged each time so total
+
+00:10:53.639 how many levels are there 1 2 3 or 1 2 3
+
+00:10:58.720 so total three levels are there so for
+
+00:11:01.200 eight elements I got three levels it
+
+00:11:03.839 means it is log of 8 log of 8 1 and then
+
+00:11:10.079 two then four so when something is
+
+00:11:12.959 Raising by two every time and is power
+
+00:11:16.399 of two lastly power of two that is three
+
+00:11:19.279 at the last we are having one eight
+
+00:11:21.040 elements total so three is log of 8 so
+
+00:11:26.200 how many passes are there so actually
+
+00:11:27.880 these are not passes because it is
+
+00:11:29.560 recursive first it will enter this side
+
+00:11:32.200 then it will go that side so it is not
+
+00:11:34.360 passes right first it will finish left
+
+00:11:36.639 side then right side but levels if you
+
+00:11:39.519 see so total how many levels log and
+
+00:11:42.200 levels are there so this will be n how
+
+00:11:45.839 many times log n times so the time taken
+
+00:11:49.639 by m sort is Theta of n log
+
+00:11:56.360 n that's it so the time for this one is
+
+00:11:59.800 also an
+
+00:12:01.279 login now taking these numbers I'll show
+
+00:12:02.000 No text
+
+00:12:04.079 you how this m sort Works low and high
+
+00:12:07.240 are taken so example is 1 and 8 1 and 8
+
+00:12:11.240 so let us see using the numbers I'll
+
+00:12:13.279 show you first of all it will find out
+
+00:12:15.880 mid and it will call mord on the left
+
+00:12:18.320 hand side so it will take these numbers
+
+00:12:21.360 and call 9 3 7 5 must s is call on this
+
+00:12:29.440 then now this is 1 to 4 1 to
+
+00:12:33.399 4 again this becomes 1 to
+
+00:12:36.560 4 so this is the first call right first
+
+00:12:39.399 call then 1 to 4 the first recursive
+
+00:12:42.000 call 1 to 4 is 1 is less than 4 so again
+
+00:12:45.600 it will call Itself by finding mid it
+
+00:12:47.920 will call itself so again it will split
+
+00:12:50.279 so this is 9 and three so just one and
+
+00:12:55.040 two one and
+
+00:12:57.800 two then again this also low is less
+
+00:13:01.120 than high this is low and this is high
+
+00:13:03.199 just you can follow that one find out
+
+00:13:05.320 mid and split it so 9 on this side this
+
+00:13:09.519 is just 1 comma 1 and three on this side
+
+00:13:13.639 just it is 2A
+
+00:13:15.680 2 right so it has called itself and
+
+00:13:18.680 itself and itself again so this is one
+
+00:13:21.320 list it has splited then again this is
+
+00:13:23.399 splited again this is splited and this
+
+00:13:25.639 side now these two are merged so the
+
+00:13:28.000 result become what
+
+00:13:32.000 39 right then it will go on the right
+
+00:13:35.360 hand side so this becomes
+
+00:13:37.839 75 that is
+
+00:13:40.240 34 then it will come on the left hand
+
+00:13:42.680 side this is just 7 three then it is
+
+00:13:46.320 just
+
+00:13:47.480 five so these two are merged so it
+
+00:13:50.839 becomes five and
+
+00:13:53.880 7 second call has
+
+00:13:57.120 finished now this side is completed this
+
+00:14:00.040 side is completed so what is the next
+
+00:14:01.800 step merge so these two are merged so
+
+00:14:04.720 this becomes what first three then five
+
+00:14:08.600 then 7 then 9 so that's how it has
+
+00:14:13.000 splited then splited then splited then
+
+00:14:15.480 merged so till here it got the result
+
+00:14:18.079 now it will go on to the right hand side
+
+00:14:20.880 so this part second part for this one so
+
+00:14:24.519 this will be 6 482 and this is from 5 to
+
+00:14:28.000 8 this one now on this
+
+00:14:33.560 sorry 5 to8 on this one it is called
+
+00:14:36.639 five is less than 8 yes again find out
+
+00:14:39.279 mid and call M this one so on the left
+
+00:14:42.040 hand side it will be called so this will
+
+00:14:44.600 become 6 4 it will be 56 indices are 56
+
+00:14:50.040 then on this again mot is called so 5 is
+
+00:14:52.720 less than six so again find mid and call
+
+00:14:55.399 M OD so it will become six and this is
+
+00:14:59.519 index five now low is also six high is
+
+00:15:02.759 also six it will go on the right hand
+
+00:15:05.040 side this call for this one so this will
+
+00:15:08.839 be four and the index is six so low is
+
+00:15:11.800 also six high is also six then merge
+
+00:15:15.320 these two are merg so it becomes four
+
+00:15:19.000 first
+
+00:15:21.560 sorry then it becomes four first then
+
+00:15:27.240 six then it will go on the right hand
+
+00:15:29.600 side of this one so right hand side
+
+00:15:33.120 is 8 and two this is index 7 and 8 now
+
+00:15:38.399 low is seven high is eight so low is
+
+00:15:41.120 less again find out mid and call this
+
+00:15:43.279 one so this side it will be eight and it
+
+00:15:46.279 will be
+
+00:15:47.920 seven now just one element so go the
+
+00:15:50.680 right
+
+00:15:52.440 side two single
+
+00:15:55.720 element now merge so left side completed
+
+00:15:59.160 right side completed no merge so 28 it
+
+00:16:02.399 becomes
+
+00:16:04.360 28 now this side this side both are
+
+00:16:07.199 sorted merge both are sorted then merge
+
+00:16:10.920 so this becomes 2 4 6 8 so this becomes
+
+00:16:16.000 2 4 6 8 now this is also sorted this was
+
+00:16:21.199 already sorted beforehand left hand side
+
+00:16:23.399 it went now these two are merged
+
+00:16:26.399 together 2 3 4 5 5 6 7 8 9 so in this
+
+00:16:32.519 way this list
+
+00:16:36.959 becomes 2 3 4 5 6 7 8 9 sort
+
+00:16:43.120 it this is how my sort Works tracing I
+
+00:16:47.079 have
+
+00:16:47.839 done see earlier I have shown just
+
+00:16:50.319 indices now in this I am showing numbers
+
+00:16:53.680 and as it is calling itself two times
+
+00:16:56.079 the tracing tree will be more like a
+
+00:16:59.240 binary tree it will be like a binary
+
+00:17:02.360 tree and if I say the traversal then in
+
+00:17:05.599 which traversal merging is done post
+
+00:17:08.119 order first left left left then right
+
+00:17:12.640 then root
+
+00:17:15.079 merge right then right left then right
+
+00:17:19.160 then root merge root merge so merging is
+
+00:17:22.919 done in post order
+
+00:17:25.959 traversal that's it so I have shown you
+
+00:17:28.480 trace in two different ways now let us
+
+00:17:31.880 find out the time complexity of this
+
+00:17:34.480 algorithm by using recurrent
+
+00:17:38.000 No text
+
+00:17:38.039 solution for this recursive algorithm
+
+00:17:41.080 let us prepare recurrent solation and
+
+00:17:43.240 find out the time complexity of M
+
+00:17:46.000 sort if I say this algorithm takes TN
+
+00:17:51.280 time then this is one condition and this
+
+00:17:54.559 if I ignore condition and I say this is
+
+00:17:56.679 calculating M then it is called calling
+
+00:17:59.320 itself so T of what half of the list low
+
+00:18:03.520 to mid half of the list so n by2 and
+
+00:18:06.400 again calling itself so this is also n
+
+00:18:08.679 by2 then it is merging merging from
+
+00:18:11.840 where low to high two list are there low
+
+00:18:15.120 to mid mid plus one to high two list
+
+00:18:17.320 total n elements so merging takes
+
+00:18:20.440 n so if I prepare a current solation by
+
+00:18:23.559 adding all these ignore one there now
+
+00:18:26.679 this is TN is equal to 2 * TN by 2 +
+
+00:18:35.000 n so the recurr relation is TN is = to 2
+
+00:18:41.280 t n by 2 + n when n is greater than 1
+
+00:18:47.559 what it is doing when n is equals to 1
+
+00:18:49.520 it's not doing anything so we don't
+
+00:18:51.200 write zero we can write one or some
+
+00:18:56.640 constant okay some constant mean 1 10
+
+00:18:59.720 anything you write it's not doing
+
+00:19:01.039 anything so better write
+
+00:19:03.000 one this is the recurrent
+
+00:19:05.520 solation Now by using Master's theorem a
+
+00:19:08.679 value is how much 2 B value is how much
+
+00:19:11.919 2 and F ofn is what
+
+00:19:16.400 n Now find out log a base B so that is
+
+00:19:21.600 log 2 base 2 is 1 and power of n k it is
+
+00:19:28.960 1 so this is log 2 base 2 is equal to K
+
+00:19:36.320 they are equal so we compare these two
+
+00:19:39.400 and this is falling in case
+
+00:19:41.600 two case two so case two says what
+
+00:19:45.559 whatever f ofn
+
+00:19:47.960 is multiplied by log n write f ofn as it
+
+00:19:52.400 is and multiply it by log n so I'm using
+
+00:19:55.760 Master theorem already this recurr
+
+00:19:58.039 solation is solved in another video you
+
+00:20:00.679 can look for that
+
+00:20:02.120 video right it is in the second topic
+
+00:20:04.559 that is divide and conquer I have solved
+
+00:20:06.720 few recurrent solation this you will
+
+00:20:08.880 find in the title of a video itself now
+
+00:20:11.919 here I directly I'm using Master's
+
+00:20:13.679 theorem there's are videos on Master
+
+00:20:16.039 theorems
+
+00:20:17.480 also so time is Theta of n log n

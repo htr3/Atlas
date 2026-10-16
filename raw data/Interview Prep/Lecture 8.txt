@@ -1,0 +1,90 @@
+# tactiq.io free youtube transcript
+# Understanding Dynamic Programming
+# https://www.youtube.com/watch/PttgNGRyYQg
+
+00:00:00.030 Hi guys, this is gkcs! We are talking aboutDynamic Programming today. So what I
+00:00:04.680 wanted to talk about first is a statemachine. Now in computer science, what
+00:00:08.700 happens is very often you'rerepresenting different states that you
+00:00:11.969 have. So states are a set of variableshaving different values. Different states
+00:00:16.410 as a node. And from those states you canmove to another node.
+00:00:22.439 Another state basically, and so on and soforth till you reach the desired state
+00:00:26.789 that you want. So let's say 11 is theplace we want to go to so how we find
+00:00:32.668 out the value at 11. Well, three valueswill come out: 6, 7 and 8
+00:00:36.030 and similarly they will be usingthe values over here. Now if you take this
+00:00:41.309 entire graph you can represent yourproblem. But this is more concise way to
+00:00:46.530 do that using some math. So if you focus onthis what you see is that at a state X,
+00:00:55.140 with index X, you can get there using somefunction, taking three parameters which
+00:01:01.469 is (X - 3), (X - 4) and (X - 5). So these threestates as parameters to this function
+00:01:13.200 which we don't know about is going togive you this new state.
+00:01:17.090 So what do you have is recursion becauseyou have problems of one type and you're
+00:01:22.049 breaking into problems of the same type.Ok.
+00:01:24.659 I'm careful enough to say that I'm notbreaking it into smaller problems
+00:01:27.750 because that would be divide and conquer.Recursion does not always have to be
+00:01:31.470 converging. It could be diverging. It could be getting into bigger problems and you
+00:01:35.610 won't be able to solve it. But that's fine! Atleast the problem is recursive, that much is known.
+00:01:39.390 What happens now is that youwant to save these states instead of
+00:01:45.540 computing them again and again and again.For example, at '11' you want 6, 7
+00:01:51.659 &amp; 8 to computed. So what you do isyou go to 6 and you say 1, 2 and 3 have to be
+00:01:56.100 computed. Ok, that makes sense because wehaven't actually computed them earlier.
+00:01:59.790 But look at 7. When 6 was computed and it returned, you go to 7 and you say that I
+00:02:05.729 need to compute 2, 3 &amp; 4. But over here, 2 and 3were already computed when you were computing
+00:02:12.900 for 6so this is some extra information that
+00:02:15.450 you had. When you're computing 7,you need these guys: 2, 3 and 4.
+00:02:21.510 So essentially, you could have used thispart. If we can do this then we are
+00:02:29.910 saving some time to compute the newvalue. And similarly at 8 what's
+00:02:35.040 going to happen is you need these threeguys, these two are already computed and
+00:02:40.560 so you can reuse that information. So whatwe are trying to do is reuse information.
+00:02:45.630 That's the very first property of Dynamic Programming,
+00:02:48.450 apart from being recursive, so this is anobvious part recursive with
+00:02:53.820 no cycles in them. Otherwise I don't know how you are going to solve this problem. Recursive with cycles is also
+00:02:59.730 not very solvable. The firstproperty which is called overlapping
+00:03:05.880 subproblems basically means that when you use aDynamic Programming there should be some
+00:03:15.390 benefit. Thats what it means. The benefit is like these two nodes
+00:03:19.440 being already calculated or something.Okay. Overlapping subproblems meaning
+00:03:23.989 whatever problems that you break into fromthe parent should have some part
+00:03:30.480 overlapping with the previous node or the some other
+00:03:34.680 node that you calculated previously sothere is some sort of already computed
+00:03:39.660 part. That's what overlapping subproblemsare. The second property is optimal
+00:03:44.040 substructure. Again two really bigwords. Optimal substructure. So what does
+00:03:53.850 it mean? It means that if you are atstate X then the problems that you need to
+00:04:00.329 solved to get here are smaller than the state X itself. You're going
+00:04:05.880 to be going for smaller and smallersubproblems. So something like divide and
+00:04:09.150 conquer, in a way. You break the problemsin the subproblems and individually
+00:04:13.530 solve those. Once you're done, you havethe current problem also solved. That's exactly what
+00:04:18.329 optimal substructure means. These twoproperties define what a Dynamic Programming
+00:04:24.510 problem is. If you can do these two things, for that problem, and of course if it
+00:04:29.460 is recursive, otherwise these things won't evencome in, then you can say that yes! With
+00:04:33.990 guarantee I can do Dynamic Programming onthis problem! To solve it. The final thing
+00:04:38.520 about dynamic programming is that if youneed to find out the value of a state let's
+00:04:42.419 say 11, that's the answer we want. Then there are two ways to do this. One is to go to 11
+00:04:47.850 say that, we need three states. So 6, 7 and 8 needto be computed. Then you come to 1, 2 &amp; 3
+00:04:54.540 because 6 needs to be computed. Nowthese three are computed, right? So we store them
+00:04:59.130 in some sort of a map. Some sort of a data structure. Now 6 is computed so we are done.
+00:05:06.020 We come to 7. 7 wants 2, 3 and4 computed but 2 &amp; 3 are already done.
+00:05:11.220 So we save some computation there anddo just 4. 7 is computed we come to
+00:05:17.550 8. 8 says 3 and 4 are already done. 5 is computed 8 is computed 11 is
+00:05:22.710 computed. So this was a top-down approach:we went from the right to the left to
+00:05:28.440 the left till we are done and then moveback to answer for this state. A similar
+00:05:34.380 thing can be done using a slightlydifferent approach which is called the bottom-up
+00:05:38.880 approach version. So 5 is computedfirst, or lets start from the top. 1 then 2 then 3
+00:05:48.780 then 4 then 5. So we are done with onelayer and you know that the next layer
+00:05:54.990 completely depends on this layer. So whatwe have done is we have just computed this
+00:05:59.669 five times without a need for a map oranything like that.
+00:06:04.580 These things are done. Now we want 6. All you need to do is just go at 1, 2
+00:06:08.850 and 3. Compute this function to get the value at 6. Done here?
+00:06:15.030 Well we need seven now because we are still on the second layer. So 7 will be done using
+00:06:20.160 2, 3 &amp; 4 is already computed. We don'tneed to worry about checking whether
+00:06:23.970 it's computed or not. 8 -> 3, 4 and5. Guaranteed to be computed already done. Now
+00:06:30.150 that this layer is done we go to 11. Wedon't look at whether 6 has already been
+00:06:33.720 computed or not. We just say: Of course ithas! So 6, 7 and 8. The values
+00:06:37.409 are taken and you do this.That's the bottom up approach
+00:06:41.879 where you go from the left layer by layer to therightmost. And you get the solution over here.
+00:06:47.030 Just an intuitive of understanding ofwhat Dynamic Programming is. We of course get
+00:06:52.860 into detail in the series very soon. thenext video is going to be on the
+00:06:58.020 fibonacci series. I didn't bitmask yet because I wanted to take this
+00:07:02.550 a little step-by-step. That's a mediumlevel problem, where we'll be using some matrix
+00:07:06.240 exponentiation to find the largest Fibonaccinumber that we can. Not the largest but
+00:07:11.849 a pretty large fibonacci number. If you have any doubts on this then
+00:07:15.629 please feel free to leave them in the comments below.
+00:07:17.460 I will be sharing some links forDynamic Programming and the preconditions
+00:07:22.919 that we talked about. And hopefully youhave some fun next time! See you!

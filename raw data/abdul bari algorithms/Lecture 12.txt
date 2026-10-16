@@ -1,0 +1,383 @@
+# 1.8.2 Asymptotic Notations - Big Oh - Omega - Theta #2
+
+# https://www.youtube.com/watch/Nd0XDY-jVHs
+
+
+
+00:00:00.040 let just take few
+
+00:00:03.640 examples F ofn if it is 2 n² + 3 n +
+
+00:00:10.480 4 suppose this is a
+
+00:00:12.880 function so 2 n² + 3 n + 4 is less than
+
+00:00:19.840 2 n² + 3 n² + 4 n² so this 2 n² + 3 n +
+
+00:00:28.880 4 is less than equal
+
+00:00:31.680 to 9
+
+00:00:34.200 n² for all n greater than equal to some
+
+00:00:37.600 value you can find out from which value
+
+00:00:39.360 it is starting I just put one
+
+00:00:41.399 there so this is greater than equal to
+
+00:00:43.680 this one so this is C and this is G of
+
+00:00:48.399 n so it is f of n
+
+00:00:52.960 is Big of G of n so G of n is what n²
+
+00:01:00.760 F of n is Big of
+
+00:01:03.879 n² now for the same function I can say 2
+
+00:01:07.400 n² + 3 n + 4 is greater than = 1 into n²
+
+00:01:14.159 so it is Omega of
+
+00:01:18.439 n² so even I can write Omega of n² I
+
+00:01:22.520 made it as 1 into n² now same thing 2 n²
+
+00:01:28.040 + 3 n + 4 4 is lying in between 1 n
+
+00:01:34.000 n² and 9 n² so this is Theta of n² n² on
+
+00:01:40.640 both the
+
+00:01:44.280 sides next if F of n is n² log n + n
+
+00:01:49.040 then n² log n + n is less than equal
+
+00:01:56.039 to 10 n² log n i just wrote some value
+
+00:02:01.039 greater value there and here it is less
+
+00:02:03.840 than equal to 1 n² log n so put the side
+
+00:02:09.520 I got n s log n and n sare log n and
+
+00:02:13.080 this is a smaller this is greater than
+
+00:02:15.319 this one and this is smaller than this
+
+00:02:17.120 one so both the side I got n s log n and
+
+00:02:19.640 n sare log n so this is big of n² log
+
+00:02:24.879 n and Omega of n² log n
+
+00:02:30.680 as well as this is Theta of n² L so all
+
+00:02:34.560 three I have written them together here
+
+00:02:36.800 now if You observe in
+
+00:02:39.239 our this order we have not return n s
+
+00:02:43.720 log n but if I write n Square log n
+
+00:02:46.440 comes in between n² and
+
+00:02:49.400 NQ n s log n is greater than n s but
+
+00:02:53.519 less than n Cub so this is the
+
+00:02:55.519 combination of n² and log n and for this
+
+00:02:58.920 also you can and specify a class here in
+
+00:03:02.080 between those two you can mention a
+
+00:03:05.080 class next if a function is n factorial
+
+00:03:09.680 then let us see n factorial is nothing
+
+00:03:12.159 but n into n -1 into N - 2 into goes on
+
+00:03:19.120 to 3 into 2 into 1 so if I write in
+
+00:03:23.799 reverse then 1 into 2 into 3 goes on to
+
+00:03:28.000 n
+
+00:03:30.159 now this is greater than less than or
+
+00:03:31.959 equal to what see as a practice what we
+
+00:03:35.040 were doing everything we were making it
+
+00:03:36.799 as n so here also I'll make it as n into
+
+00:03:40.720 n into n into goes on to
+
+00:03:44.879 n and this is less than equal to what so
+
+00:03:47.879 as a practice we'll make everything as 1
+
+00:03:50.080 into 1 into 1 into goes on to one so
+
+00:03:53.599 this side I get 1 and this is n
+
+00:03:56.000 factorial and this is n^ n
+
+00:04:01.720 now for this
+
+00:04:03.439 one for n factorial I don't have any
+
+00:04:07.560 smaller value here and I have to take it
+
+00:04:10.560 as one and if I take larger value it is
+
+00:04:13.280 n power n upper bound is n^ n and both
+
+00:04:17.440 the side I'm not getting same thing I'm
+
+00:04:20.279 not getting same thing if I get same
+
+00:04:22.479 thing then I can take it as Theta so
+
+00:04:25.560 what I can write I can write B of n^n
+
+00:04:29.520 and and Omega of
+
+00:04:32.680 1 so the lower bond for n factor is one
+
+00:04:36.960 upper Bond 4 n factorial is n^
+
+00:04:42.800 n right so here we cannot find the tight
+
+00:04:49.000 Bond or average bond or Theta for n
+
+00:04:52.919 factorial so if you try to put n
+
+00:04:55.680 factorial here class is not there for n
+
+00:04:58.800 factorial but if you try to put it there
+
+00:05:01.639 then for the smaller values of n it will
+
+00:05:03.880 be nearer to this one and for the larger
+
+00:05:06.840 values of n it will be increasing and
+
+00:05:08.800 going up to n^ n so you cannot fix a
+
+00:05:12.680 particular place for n factorial you
+
+00:05:16.039 cannot say that n factorial is always
+
+00:05:19.360 greater than n^ 10 and less than n power
+
+00:05:23.759 11 you cannot say that you cannot find a
+
+00:05:26.240 place for it you cannot find a place for
+
+00:05:29.000 it
+
+00:05:30.800 right so it's greater than equal to 1
+
+00:05:33.960 but less than equal to n^n so upper
+
+00:05:36.680 bound is n^ n and the lower bond is one
+
+00:05:39.840 so this is the function for which you
+
+00:05:41.880 cannot find the Theta so now upper bound
+
+00:05:46.400 and lower Bond are useful as I already
+
+00:05:49.160 told that when you cannot mention Theta
+
+00:05:51.919 bond for any function then we go for
+
+00:05:55.319 upper bound or lower bound so yes here
+
+00:05:57.840 we have taken upper bound and lower Bond
+
+00:05:59.880 of a function let's take log n factorial
+
+00:06:04.240 so for log n factorial if I write log of
+
+00:06:08.560 1 into 2 into 3 and so on to n then this
+
+00:06:13.400 is less than or equal
+
+00:06:15.400 to log of as a practice we'll make
+
+00:06:18.520 everything as n so n into n into so on
+
+00:06:22.120 to n and it is less than log 1 into 1
+
+00:06:27.680 into so on to 1 so this side will be
+
+00:06:30.880 zero but we write 1 and this is log of n
+
+00:06:34.360 factorial and this is less than equal to
+
+00:06:37.360 this is log of n to n and that will be
+
+00:06:41.160 written as n log
+
+00:06:43.960 n that part comes on this side and it is
+
+00:06:46.720 n log n so now you can see that for n
+
+00:06:50.639 log n factorial also upper bound is log
+
+00:06:53.720 n^ n and the lower bond is one and there
+
+00:06:57.400 is no tide bond for this function so the
+
+00:07:00.199 factorial function we cannot Define the
+
+00:07:02.440 tight Bond so we go for upper bound
+
+00:07:06.560 as
+
+00:07:08.800 analog and lower bound as one so there
+
+00:07:14.080 is no tight bound so now you have
+
+00:07:16.400 understood when to use a big old
+
+00:07:18.280 notation when to use Omega and always
+
+00:07:20.759 Theta is preferable if you are able to
+
+00:07:22.599 find Theta for any function that's
+
+00:07:25.280 better because that is a tight Bond and
+
+00:07:28.400 if you're using upper bound big go also
+
+00:07:30.360 try to use a tight Bond don't give a
+
+00:07:32.240 very far away value a larger value and
+
+00:07:34.759 if you're using low Bond don't give any
+
+00:07:36.479 smaller value try to give a nearest
+
+00:07:38.479 value for a function suppose your
+
+00:07:40.160 function is n Square so try to give it n
+
+00:07:42.800 Square only though writing n log n or n
+
+00:07:45.840 or root n is also correct true but not
+
+00:07:49.479 meaningful but not
+
+00:07:51.360 useful if I ask you that I want to buy a
+
+00:07:54.039 mobile phone for my requirement what
+
+00:07:56.080 could be the better price so any price
+
+00:07:59.560 for a mobile phone that's available in
+
+00:08:01.039 the market so suppose you have some idea
+
+00:08:03.240 about the mobile phone and you said that
+
+00:08:05.159 you can buy a mobile phone around
+
+00:08:07.120 20,000 so you are giving me nearest
+
+00:08:09.919 figures if I say if you don't know the
+
+00:08:12.240 nearest figures and if I ask you tell me
+
+00:08:14.080 something minimum so you are saying that
+
+00:08:16.720 18 19,000 or maximum you can say 21
+
+00:08:20.240 24,000 like that so you are nearer only
+
+00:08:23.919 but if you say minimum means 10 2,000
+
+00:08:26.960 3,000 so your answer is correct I can
+
+00:08:29.520 can get some mobile phone in 3000 also
+
+00:08:31.720 smartphone also but that will not be a
+
+00:08:34.399 suitable one for me but your answer is
+
+00:08:36.719 right but it's is not useful and if I
+
+00:08:39.399 ask maximum so you say 1 lakh 2 lakh so
+
+00:08:42.640 even for 1 lakh 2 lakh mobile phones are
+
+00:08:44.519 also available answer is correct but not
+
+00:08:47.200 meaningful for me so same way when you
+
+00:08:49.680 have any function n² then you can say n
+
+00:08:53.160 sare that is the answer perfect answer
+
+00:08:55.200 so giving Theta is the right one but if
+
+00:08:57.920 you're writing Omega so I'm I'm not sure
+
+00:09:00.160 whether you are giving me nearest or not
+
+00:09:03.160 that's the problem with bigo it may be
+
+00:09:05.839 nearest one it may be bigger than that
+
+00:09:07.680 one also but Theta guarantees that you
+
+00:09:10.399 have given the exact figure exact
+
+00:09:12.880 notation exact time complexity when
+
+00:09:15.240 you're using Omega then also it means
+
+00:09:17.320 that you may be giving a lower value may
+
+00:09:19.720 or may not be nearest one so that's why
+
+00:09:22.760 big Omega used when you're not sure
+
+00:09:25.800 about the exact one right that is the
+
+00:09:29.000 meaning it KS so that is much much
+
+00:09:31.680 suitable for uh n factorial and log n
+
+00:09:34.880 factorial but you can use them for any
+
+00:09:37.440 purpose it's not a rule that you must
+
+00:09:39.760 not use you must use Theta only you can
+
+00:09:42.120 use any notation so when you're using
+
+00:09:44.040 Omega means maybe minimum this one and
+
+00:09:46.560 maybe it is more than this the time may
+
+00:09:49.640 be more than this also that's the
+
+00:09:51.560 meaning Theta means exactly this much
+
+00:09:53.880 time only so hope you have understood
+
+00:09:56.560 this topic this is very very important
+
+00:09:58.519 topic now in coming video that is next
+
+00:10:01.120 video you can find the properties of
+
+00:10:03.880 asymptotic notations you can watch that
+
+00:10:06.440 video

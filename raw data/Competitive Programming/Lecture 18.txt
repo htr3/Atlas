@@ -1,0 +1,305 @@
+# tactiq.io free youtube transcript
+# Least Common Ancestor - Dynamic Programming on Graphs
+# https://www.youtube.com/watch/ctZ7fjMbPWE
+
+00:00:01.079 hi guys this is gkcs we are talking
+00:00:03.080 about DP on graphs this time and there's
+00:00:05.400 a very common problem called the lowest
+00:00:06.799 common ancestor so we'll be talking on
+00:00:08.880 that this is extensively used in heavy
+00:00:11.160 light decomposition in unit touring and
+00:00:13.519 everything else so this is pretty
+00:00:15.160 interesting and let's have a look so we
+00:00:17.439 have this tree with us it's a special
+00:00:19.560 case of a graph it's just a tree and we
+00:00:21.640 need to find the lowest common ancestor
+00:00:23.840 between two nodes A and B so this is the
+00:00:26.720 way we do it let's say this's a and
+00:00:29.160 let's say this's B over here and to find
+00:00:32.000 the lowest common ancestor means you go
+00:00:33.920 up this tree from both sides till you
+00:00:36.559 meet a common point right so a goes up
+00:00:40.559 this way B is also going up its parents
+00:00:44.039 so all the way up here A and B meet one
+00:00:49.000 so the lowest common ancestor for 8 and
+00:00:51.960 11 in this tree is one right uh let's
+00:00:56.199 take something more interesting let's
+00:00:57.559 take five the lest common an of five and
+00:01:00.359 8 would be two so five would go up and a
+00:01:03.320 would go up and they would meet this
+00:01:04.438 common point so two would be the LCA
+00:01:08.040 short
+00:01:09.040 form okay so this algorithm the one that
+00:01:12.360 we just saw is pretty slow and in fact
+00:01:14.600 it is
+00:01:16.759 ordering per LCA that you need to find
+00:01:19.960 so most algorithms use the LCA so
+00:01:22.520 extensively that you need to do this
+00:01:24.360 multiple times and Order n per LCA is
+00:01:27.400 not good enough for a pair of notes so
+00:01:30.200 at this point what is holding us back is
+00:01:31.799 going up this Treet which in the worst
+00:01:34.119 case is order n if you have an
+00:01:35.159 unbalanced tree so let's not do this the
+00:01:38.360 simple way of going up one by one let's
+00:01:40.560 try a better
+00:01:42.000 algorithm what do we want we want to
+00:01:44.000 jump at certain Heights so at 12 and if
+00:01:47.799 you're looking at the lcf for 12 and 22
+00:01:51.000 we know it's going to be one so if we
+00:01:53.680 could jump to one efficiently our job
+00:01:55.439 would be done how do you do that well
+00:01:58.799 look at one and look at
+00:02:00.880 12 they're away from each other by a
+00:02:04.200 particular distance right a particular
+00:02:06.640 height let's call that
+00:02:09.119 H now jumping from 12 to 1 is still not
+00:02:13.080 known so let's try to break this down
+00:02:15.080 let's try to divide and conquer this so
+00:02:17.640 I'm going to go at a parent of height H
+00:02:19.800 by 2 okay that seems reasonable
+00:02:22.959 so this H in this case is going to be
+00:02:25.800 four so H by2 is two which is this
+00:02:31.720 here height is equal to 2 so what I've
+00:02:34.239 done is from 12 I have tried to think of
+00:02:36.959 going to node four which is at height
+00:02:39.959 two but my overall job is to go to node
+00:02:43.640 one which is at height
+00:02:45.159 four but from four what you see is you
+00:02:47.680 need to do the same thing again you need
+00:02:49.640 to go to one which is at height two
+00:02:52.800 from
+00:02:54.680 four so you have taken this larger job
+00:02:57.200 and broken into smaller
+00:02:58.760 parts exactly how well the
+00:03:03.200 P of the node that we are
+00:03:08.440 at with
+00:03:10.720 height by
+00:03:12.799 two we use that node that parent node
+00:03:17.879 and find its parent at height by
+00:03:21.040 two to
+00:03:23.319 get the parent of this
+00:03:25.760 node at height
+00:03:28.080 H right this is the recurrence in fact
+00:03:31.159 it's going this way but yeah this is the
+00:03:33.799 recurrence that we have so we have these
+00:03:35.560 two recurrence relations given to us the
+00:03:37.439 first one being that to get to the
+00:03:39.360 parent at height H you go to the parent
+00:03:41.280 at height H by2 and find its H by2
+00:03:43.560 parent and the second one being that if
+00:03:45.959 the height is just one then you can trly
+00:03:47.599 find out by pre-computing the parent of
+00:03:49.640 that particular node all right so these
+00:03:51.879 two are the recurence relations that we
+00:03:53.519 have base condition and the relation
+00:03:55.560 itself so now we can make jumps
+00:03:58.280 efficiently or can be well you see that
+00:04:02.599 there is H by two here and height of the
+00:04:06.040 tree can be in the worst case n so if
+00:04:10.239 you do this for every
+00:04:12.000 node which are n in number height of the
+00:04:15.360 tree in the worst case is n so that
+00:04:17.440 gives us order n squ
+00:04:24.000 precomputations which is quite a bit per
+00:04:27.000 node you're trying to find out all the
+00:04:28.600 parents I put
+00:04:30.479 Heights so can we do better yes you
+00:04:34.160 don't need to find out all the parents
+00:04:36.680 for a given node okay you don't need to
+00:04:38.960 find out the third the fifth the sixth
+00:04:41.440 Etc parents for every node you just need
+00:04:43.560 to find
+00:04:44.639 out the parents at height which are at
+00:04:47.560 power of
+00:04:48.800 two Okay the reason being that you don't
+00:04:51.000 want to take into account what happens
+00:04:52.960 if you divide by two a number which is
+00:04:54.759 not a power of
+00:04:56.320 two okay so what we'll be doing is just
+00:04:59.560 storing the powers of two heighted
+00:05:01.520 parents which is login and
+00:05:04.639 number and because you're doing this for
+00:05:06.759 every node that's n log computations and
+00:05:10.360 even better is that actually find
+00:05:12.880 dividing this number by two is now not
+00:05:14.600 going to create any
+00:05:15.960 heics okay you know the parent at 1 2 4
+00:05:20.120 8 so on and so forth what else we don't
+00:05:23.680 need to go for a recurrence relation
+00:05:25.120 here we could use dynamic programming to
+00:05:27.680 uh store these values at by 2 to find
+00:05:30.960 out the parents of new heights so that
+00:05:33.280 will
+00:05:34.720 be parent of the
+00:05:39.240 node at height H is equal to the
+00:05:44.039 parent of the
+00:05:46.680 parent of the
+00:05:49.039 node at
+00:05:51.240 height think you're going off the board
+00:05:53.520 so I'll just write that here H by
+00:05:56.080 2 comma
+00:05:58.479 h
+00:06:01.520 by
+00:06:02.960 two so this
+00:06:05.639 is
+00:06:09.440 the so this is the 2D array that we'll
+00:06:12.039 be storing to find the parents at any
+00:06:14.319 given
+00:06:15.080 height but H is a large quantity so what
+00:06:18.680 we can do because we are only storing
+00:06:20.400 powers of two is just store the exponent
+00:06:22.680 of two that H is so H is some power of 2
+00:06:26.960 x so instead of storing X
+00:06:30.919 we can just store
+00:06:33.639 x h by 2 the exponent of that is going
+00:06:38.080 to be 2 x -1 so we are going to store x
+00:06:40.840 -1 here and similarly x -1
+00:06:47.199 here
+00:06:49.120 yeah so this is how we can calculate for
+00:06:52.360 any given node a parent at height X
+00:06:55.960 using pre-computed
+00:06:57.639 values the other thing of course
+00:07:00.080 is if x is
+00:07:02.319 one then we are going to use the base
+00:07:04.440 condition over here to get pre-computed
+00:07:09.800 parent of this node right this is the
+00:07:13.479 parent at height one so you can do that
+00:07:15.120 using a BFS pretty simple uh to find the
+00:07:18.120 parent at height one for any
+00:07:20.120 node right so now we know how to jump up
+00:07:23.120 this tree efficiently because we can
+00:07:25.039 jump at pow of two now what do we do to
+00:07:28.879 find out the L CNN well we need to make
+00:07:31.520 them jump at a particular height such
+00:07:33.759 that the parent has to be the same so
+00:07:36.599 the algorithm goes like this so let's
+00:07:38.680 say we are trying to find the LC of this
+00:07:40.360 node and this node now you see the Red
+00:07:43.280 Arrows with the numbers they are
+00:07:44.680 representing the depth of the tree okay
+00:07:47.639 so this node is at depth five this node
+00:07:49.520 is at depth four and you're trying to
+00:07:51.080 find the LCA so this is a little tricky
+00:07:54.080 because you can't directly find the LCA
+00:07:57.080 because there are different heights you
+00:07:58.199 don't know at what points you're going
+00:07:59.199 to the jump okay so what you need to do
+00:08:01.560 is bring both the nodes at the same
+00:08:04.360 height so here's the
+00:08:06.639 thing you find out the difference in the
+00:08:08.720 heights of the trees and then you'll
+00:08:10.639 find out the parent of this node
+00:08:12.759 corresponding to the same
+00:08:14.319 height so four is the height of the
+00:08:16.280 first node that is here and five is the
+00:08:19.080 height of the second node so you'll try
+00:08:21.599 to find the minimum height which is four
+00:08:24.800 so this node needs to find a parent
+00:08:27.080 corresponding to height four so that's 5
+00:08:29.759 - 4 giving you 1 you need to find the
+00:08:33.360 parent at level one from this node all
+00:08:36.279 right uh in fact that will be
+00:08:37.320 precomputed already so that'll be a
+00:08:39.839 direct hit over here on the other hand
+00:08:42.719 if it was a little more complicated if
+00:08:44.120 it was three or
+00:08:45.399 something then what you would do is
+00:08:48.760 find the parent at height three but
+00:08:51.279 here's how you do it it's a binary
+00:08:52.920 number 3 is 1 1
+00:08:54.720 0 so in fact it's 1 one so you find the
+00:08:58.920 par at height one then you find the
+00:09:02.079 second parent of the parent at height
+00:09:04.880 one and if this was let's say seven and
+00:09:10.040 there would be another one here then you
+00:09:11.519 would find the fourth
+00:09:13.440 parent of the resultant parent all right
+00:09:17.800 and so on and so forth so this is
+00:09:19.000 because it's a binary number any number
+00:09:21.440 can be represented as a binary number
+00:09:23.519 and you can make those jumps
+00:09:25.240 corresponding to ones or zeros in the
+00:09:27.079 number that you have all right so in our
+00:09:29.720 example we are just going over here
+00:09:32.200 so we need to find the LC now between
+00:09:34.680 this node and this
+00:09:37.760 node okay you just bought them to the
+00:09:40.040 same level and the way you can calculate
+00:09:42.000 the level is actually just by doing a
+00:09:43.399 BFS that's pretty easy and it's in the
+00:09:46.079 code so you can have a look at
+00:09:48.279 that right so LCA of two nodes at the
+00:09:51.640 same level this is pretty
+00:09:54.040 easy all you need to do is make sure
+00:09:57.040 that the two nodes while we're going up
+00:10:00.440 never touch each other so if this is a
+00:10:04.079 and this is
+00:10:05.200 b a should never be equal to B all right
+00:10:09.160 if a and b are equal if you have jumped
+00:10:11.279 too high then we don't know whether the
+00:10:13.399 LC was somewhere down all right so what
+00:10:16.279 we are going to do is never let that
+00:10:18.000 happen we are always going to keep a not
+00:10:20.160 equal to B by making our
+00:10:23.040 jumps
+00:10:24.640 small so A and B are both at a depth
+00:10:27.360 four in our case now
+00:10:29.720 so four is a binary number 1 0 0 now
+00:10:34.839 this number is going to represent
+00:10:35.959 something to us we start off at this
+00:10:37.959 index which is the largest bit which is
+00:10:40.880 set and have a look at this this means
+00:10:44.160 make a jump of size four can we do that
+00:10:48.279 let's try so 1 2 3 we have exceeded the
+00:10:52.240 index so four is not going to happen
+00:10:54.600 let's try the next number which means
+00:10:56.600 make a jump for size two
+00:10:59.560 so that's 1 2 and that's it so you're at
+00:11:02.839 this
+00:11:03.839 node try for b 1 2 you at this
+00:11:08.920 node do the two nodes match is this node
+00:11:12.560 equal to this node of course not so you
+00:11:15.200 can make this jump and you should so we
+00:11:18.360 we have made a jump of size two
+00:11:20.600 now what isse these are the two nodes
+00:11:23.880 now these are the modifi A and
+00:11:27.040 B okay modified a and B so uh these two
+00:11:32.480 are
+00:11:33.320 done we are at this index which tells us
+00:11:36.680 that make a jump of size one can we do
+00:11:39.639 that let's try make a jump of size one
+00:11:42.120 comes here and make a jump of size one
+00:11:44.519 comes here again are these two nodes the
+00:11:46.639 same A and P po to the same node yes so
+00:11:50.440 we are not allowed to make this jump we
+00:11:52.200 won't and so we skip this index and go
+00:11:54.440 for the smaller index but none exist so
+00:11:57.000 the algorithm terminates with A and B
+00:12:01.600 pointing to these two
+00:12:03.360 notes okay and the algorithm is
+00:12:05.360 guaranteed to always terminate when it's
+00:12:07.920 one away from the parent from from the
+00:12:12.079 LCA itself so when the algorithm
+00:12:14.639 terminates you can
+00:12:17.399 give the
+00:12:19.839 LCA of node A and
+00:12:25.639 B as the
+00:12:27.880 parent of a the current
+00:12:31.800 a at height one okay and this is already
+00:12:35.000 pre-computed so in fact you can just
+00:12:37.560 give our pre-computed
+00:12:39.440 parent of the current a or even current
+00:12:42.519 B is
+00:12:43.519 fine so that's it that gives you the LCA
+00:12:46.320 of the two nodes a and b the original
+00:12:48.199 A's and B's so this algorithm is
+00:12:50.519 extensively used you should get to know
+00:12:52.000 about this really well uh the next topic
+00:12:54.000 is also on dynamic programming with
+00:12:55.279 graphs so if you have any doubts or
+00:12:56.760 suggestions on this please leave in the
+00:12:58.600 comments below I have the code for this
+00:13:00.360 in the description and until next time
+00:13:02.680 then see
+00:13:08.320 you

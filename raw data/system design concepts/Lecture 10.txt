@@ -1,0 +1,139 @@
+# tactiq.io free youtube transcript
+# Why do Databases fail? AntiPatterns to avoid!
+# https://www.youtube.com/watch/9T-gNZ5bGCw
+
+00:00:00.190 Hi everyone!
+00:00:01.190 We are talking about antipatterns, and thespecific one that we are talking about is:
+00:00:05.120 &quot;Using databases as message queues&quot;.
+00:00:08.780 So if you are using a database to send messagesfrom one server to another, that's considered
+00:00:13.389 an anti-pattern.
+00:00:14.739 You should avoid that.
+00:00:16.250 Let's take a specific scenario.
+00:00:17.350 Let's say you have servers s1, s2 and s3.
+00:00:20.480 They are connected to their clients: mobileclients, desktop clients.
+00:00:24.090 And they talk to each other using this database.
+00:00:28.620 So whenever s2 has to send a message to anyother server, it goes to the database and
+00:00:33.649 then puts in an entry.
+00:00:35.520 So that's an insert command.
+00:00:40.039 Similarly s1, and similarly s3.
+00:00:41.710 So in our case, s3 has a cron job or something.
+00:00:46.030 It just entered in the database that it needsto talk to another server.
+00:00:51.969 Through these inserts you are telling thedatabase that there needs to be some communication
+00:00:55.980 with some other server.
+00:00:57.109 How will the database actually tell it tothe other server?
+00:01:00.719 The database cannot talk to servers.
+00:01:02.639 It can only receive.
+00:01:04.129 So the other servers have to poll this databaseat a specific interval.
+00:01:08.180 Let's say 5 seconds or 10 seconds.
+00:01:09.980 And then ask it: &quot;Is there any new messagefor me?&quot;.
+00:01:14.310 So if you take s1, it's probably going tohave a polling interval of 10 seconds.
+00:01:18.710 Every 10 seconds it asks the database that:&quot;Is there a new message for me?
+00:01:21.640 If so, then I'll just read it.
+00:01:24.100 And after reading it will do something withthat message.
+00:01:27.250 In the first case if s3 sending a messageto s2.
+00:01:32.650 And after 5 seconds s2 tries to read thatmessage from the database, gets it, and pulls
+00:01:40.360 it out of the database for itself.
+00:01:41.940 Let's say the ID was 123.
+00:01:44.090 So it gets message ID 123, does somethingand that might change its internal state.
+00:01:49.610 Or send something to the client.
+00:01:53.110 This is a standard queue, there is nothinggreat about it.
+00:01:56.430 Just the database is being used as a queue.
+00:01:58.570 But why is this an anti-pattern?
+00:02:01.370 One thing is the polling interval that wejust talked about.
+00:02:05.270 That's a problem.
+00:02:06.270 When you are polling a database you're actuallydoing a lot of read operations on it.
+00:02:10.639 And if you are polling it very frequently,you're putting a lot of load on the database.
+00:02:15.430 Continuously asking: &quot;Do I have any new messagesfor me?&quot;
+00:02:18.600 So that is if you have frequent polling.
+00:02:22.040 Frequent polling means there's a lot of loadon the database.
+00:02:27.460 The other side of the coin is long intervals.
+00:02:33.250 If you poll at long intervals, well then,maybe s2 needed the message quickly.
+00:02:38.300 And because it has a long interval of 50 seconds,the mobile should have got the message in
+00:02:44.959 the first 2 or 3 seconds: that's the expectation,but instead it took it a full 50 seconds.
+00:02:49.910 s3 wanted to send a message.
+00:02:52.100 It took 50 seconds: the user experience isbad.
+00:02:55.069 So, long intervals are inefficient.
+00:02:59.990 The problem with just polling intervals wetalked about read operations.
+00:03:05.480 I'm going to put a lot of load on the database.
+00:03:07.800 It brings us to a second point that a databaseis usually optimized for either reading or
+00:03:14.209 for writing.
+00:03:15.250 Not both.
+00:03:16.250 When you're have operations being performedin the same database, it's going to have issues.
+00:03:21.180 Issues like locking, issues like dead locks,so on and so forth.
+00:03:25.750 But just understand that if you have somethinglike a CRUD model.
+00:03:28.760 Which is: C stands for create, this standsfor read, this stands for update and this
+00:03:37.230 stands for delete.
+00:03:39.020 In this CRUD model what we do is we studyhow much time do each of these operations
+00:03:43.680 take.
+00:03:44.680 In databases, these are write operations,and this is a read operation.
+00:03:49.820 They're rarely designed such that the readand write we'll both be fast.
+00:03:54.920 In fact, I don't think it's possible to designa read and write database optimal data structure.
+00:04:03.360 This brings an interesting point.
+00:04:05.370 What if your servers are talking to each othervery frequently?
+00:04:07.182 What if there are a lot of messages that s1,s2 and s3 are sending to each other?
+00:04:12.700 So this database is going to get filled upwith those entries.
+00:04:16.940 You need a lot of space.
+00:04:18.180 Either you store all that data or you canstart clearing that data.
+00:04:21.800 If you are not going to delete that data thenyou need to update it and mark it as completed.
+00:04:28.560 That's an expensive operation.
+00:04:30.110 And the other one is to manually delete theseentries or use a cron job.
+00:04:34.770 In both cases the deletion is going to beusing scripts using complicated logic.
+00:04:39.960 And that's why: that's the third problem.
+00:04:43.810 The final issue which is a very big issuefor large systems is scalability.
+00:04:48.990 If I have a new server s4 and I start askingthe database for messages sent by other servers
+00:04:56.720 and then s5 and s6, and so on and so forth,this database is going to be unable to handle
+00:05:02.930 that load.
+00:05:04.050 It cannot perform so many read operations.
+00:05:06.940 One thing I could do is actually add a newdatabase which is going to be talking to s5
+00:05:14.190 and s4.
+00:05:16.740 In this case the obvious question is that:How does s4 talk to s2?
+00:05:21.250 And there's no clear answer.
+00:05:23.430 You could get your way around this, of course.
+00:05:25.580 You can make a complicated system in whichthere's going to be a broker in between and
+00:05:29.580 whenever s4 needs to talk to s2, there'llbe your database in between.
+00:05:32.940 Or something.
+00:05:33.940 But there's no need of that much complicationwhen you have a system design concept, a data
+00:05:40.191 structure, which is going to do this.
+00:05:41.889 And that is Message Queues.
+00:05:45.680 So the anti-pattern here is that we are usingdatabases as message queues.
+00:05:50.080 Instead, we should use specialized messagequeues when we have a very large system.
+00:05:55.060 Okay, there's a star over there!
+00:05:56.590 When we have a very large system message queuesare going to avoid all of these problems.
+00:06:01.620 You know, the polling interval is not goingto come into consideration because message
+00:06:06.389 queues push the message to the other server.
+00:06:07.979 So instead of the server asking, the messagequeue is going to give the message.
+00:06:13.390 So it's not going to be inefficient.
+00:06:15.460 In that way the second thing is they're optimizedin the sense that there's not too many read
+00:06:20.949 operations.
+00:06:21.949 So writing to it is easy while reading isreally the message queues' responsibility.
+00:06:25.919 So it's going to do it in its own free time.
+00:06:29.990 And the other thing about scalability is alsogoing to be taken care of because if you need
+00:06:34.639 more message queues you can just add them.
+00:06:36.490 You can throw more money at the problem andget more of the same thing.
+00:06:40.650 So like everything that is nice, message queuesalso have their drawbacks.
+00:06:44.419 The major drawbacks are when your system isnot very large.
+00:06:48.199 Because if you do not have those many serversthen the database will be able to handle the
+00:06:52.919 loads that you throw at it.
+00:06:54.900 The second thing is, depending on your system,maybe there's not a lot of messages being
+00:06:58.860 sent between the systems.
+00:07:00.820 In that case, writing is going to be expensive,but it's going to be few.
+00:07:04.860 While reading is going to be a lot, but youcan optimize your database for read operations
+00:07:10.009 and still works.
+00:07:12.050 The third thing, which is a people or a socialproblem, is that whenever you introduce a
+00:07:16.350 new concept to a system it requires training,it requires time.
+00:07:21.240 And maybe this system is not worth the effort.
+00:07:25.020 It's a call that you have to take, but maybethe database is a perfect message queue for
+00:07:31.480 you.
+00:07:32.480 And so, have a look at the drawbacks and havea look at the pros and then decide whether
+00:07:37.430 you want to message to your database.
+00:07:39.500 But if you are asked this question in an interviewthen don't start off with the database without
+00:07:45.580 asking what kind of scale is this system supposedto handle.
+00:07:50.639 Because ninety percent of the time in systemdesign interview, they are going to be asking
+00:07:53.610 you to scale the system or handle a lot ofusers.
+00:07:57.770 If you are using a database, that's an anti-pattern.
+00:08:00.910 So keep that in mind.
+00:08:02.699 It's not always bad, but for large systems,it is.
+00:08:06.750 This topic has been discussed extensivelyin technical circles and blog posts.
+00:08:11.460 If you have any ideas or if you have yourown comments you can leave them below.
+00:08:15.080 There's the description containing relevantlinks to those discussions.
+00:08:18.590 So have a look at them and I'll see you nexttime!

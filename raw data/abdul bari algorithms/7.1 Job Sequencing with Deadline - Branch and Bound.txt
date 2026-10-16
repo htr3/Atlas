@@ -1,0 +1,465 @@
+# 7.1 Job Sequencing with Deadline - Branch and Bound
+
+# https://www.youtube.com/watch/M7Fl_z7_J2k
+
+
+
+00:00:00.000 problem is job sequencing with deadlines
+
+00:00:02.570 this problem can be solved using branch
+
+00:00:05.220 and bomb even this problem can be solved
+
+00:00:07.259 using greedy method and dynamic
+
+00:00:09.840 programming but let us learn how it can
+
+00:00:12.750 be solved using branch and bound but one
+
+00:00:15.030 thing we should remember that branch and
+
+00:00:17.250 bound is useful for solving minimization
+
+00:00:20.310 problem it cannot solve maximization if
+
+00:00:23.400 you know something about job sequencing
+
+00:00:25.769 with deadlines it is a maximization
+
+00:00:27.359 problem like profits are given for the
+
+00:00:29.789 jobs and we want the maximum profit so
+
+00:00:32.668 we have converted the problem instead of
+
+00:00:34.469 profit we are taking penalty here so
+
+00:00:37.649 penalty means we have to pay it will not
+
+00:00:39.780 gain but we will lose so instead of
+
+00:00:42.510 profit we are calling it as penalty so
+
+00:00:45.030 now the problem is to select the jobs
+
+00:00:48.390 and finish them within their deadlines
+
+00:00:50.160 such that the penalty is minimized now
+
+00:00:53.850 if you are minimizing the penalty means
+
+00:00:55.559 automatically the profit is maximized so
+
+00:00:59.670 just the name we have changed instead of
+
+00:01:02.489 profit we are calling it as penalty and
+
+00:01:04.349 one more thing here is these are the
+
+00:01:06.600 deadlines for each job and these are the
+
+00:01:08.520 times taken by each job the amount of
+
+00:01:11.400 time taken for completion of the jobs is
+
+00:01:13.560 varying it is not same one unit of time
+
+00:01:16.170 they are having different times I will
+
+00:01:18.659 solve it using branch and bound and the
+
+00:01:20.490 approach of solving is by generating a
+
+00:01:23.100 state space tree so we'll be generating
+
+00:01:25.020 the nodes and for each node we'll define
+
+00:01:27.570 two values we will identify compute two
+
+00:01:30.360 values that are caused and upper bound
+
+00:01:33.570 let us see what is upper bound and cost
+
+00:01:36.590 see upper bound for each node will be
+
+00:01:40.020 sum of all the penalties except those
+
+00:01:43.799 which are included in the solution so
+
+00:01:46.320 upper bound is sum of all the penalties
+
+00:01:47.670 except those which are included in a
+
+00:01:49.890 solution and the cost is sum of all the
+
+00:01:52.680 penalties till the job that you have
+
+00:01:55.049 considered so cost is sum of all the
+
+00:01:59.369 penalties still the last job that we
+
+00:02:01.320 have considered is the set of jobs that
+
+00:02:04.590 are included in a solution then the
+
+00:02:06.840 upper bound is some of the
+
+00:02:08.880 penalties of up though all those jobs
+
+00:02:10.979 which are not in that set and the cost
+
+00:02:13.980 is the sum of all those jobs that are
+
+00:02:17.630 not in the set their penalties are added
+
+00:02:21.540 and here we will consider up to the job
+
+00:02:24.660 that we have taken so let us say K at
+
+00:02:27.060 the job up to K at the job so while
+
+00:02:30.510 solving I'll explain how these two are
+
+00:02:32.550 calculated let us generate a state space
+
+00:02:34.590 tree this is the first node and the cost
+
+00:02:38.880 is nothing zero and the upper bound is
+
+00:02:43.850 infinity and here we'll maintain one
+
+00:02:47.070 value that is upper and that is all so
+
+00:02:49.650 we'll keep it as infinity now one by one
+
+00:02:54.060 we'll consider the job first job let us
+
+00:02:56.520 say it is included in the solution first
+
+00:02:58.560 job if job one is included then what is
+
+00:03:01.320 the cost
+
+00:03:01.920 if job one is included in the cost then
+
+00:03:04.800 till job one you see so anything we are
+
+00:03:08.250 skipping nothing here skipping so the
+
+00:03:09.930 cost is zero only now when first job is
+
+00:03:13.170 in the solution the remaining jobs
+
+00:03:15.180 penalty so that is 10 plus 6 plus 3 so
+
+00:03:18.240 penalties 10 plus 6 plus 3 is 19 so this
+
+00:03:25.290 is upper now we got 1 upper value which
+
+00:03:28.620 is lesser than that infinity so update
+
+00:03:31.320 this one 19 now next job job 1 is over
+
+00:03:38.580 it's a job to third node what is the
+
+00:03:41.850 cost
+
+00:03:42.270 see this means that we are including
+
+00:03:44.850 second job so first off we are not doing
+
+00:03:47.040 so what is the penalty of first job 5 5
+
+00:03:50.700 and what is upward so except second job
+
+00:03:55.170 we have to take the penalties of all so
+
+00:03:57.810 this is 5 plus 6 plus 3 finally plus 6
+
+00:04:02.310 plus 3 is the 14 so this is updated to
+
+00:04:07.380 14 so if we are getting any new up
+
+00:04:09.690 revalue which is smaller than that one
+
+00:04:11.370 we will change it now the next node will
+
+00:04:14.640 consider third job that is job 3 so here
+
+00:04:18.630 the cost so it means that we are just
+
+00:04:20.700 taking third
+
+00:04:21.639 we are not doing first second and fourth
+
+00:04:23.379 job so till third job if you consider
+
+00:04:27.039 till here only we should consider so how
+
+00:04:28.990 many job we are leaving that is 5 and 10
+
+00:04:31.389 so 5 and 10 so that is 15 now what one
+
+00:04:37.689 more thing we learn see what I was doing
+
+00:04:40.539 every note I was calculating cost and
+
+00:04:43.150 upper bound cost and upper bound if the
+
+00:04:44.710 upper bound is neat and smaller I was
+
+00:04:46.960 changing that one but one more thing you
+
+00:04:48.879 also have to do that is what is the cost
+
+00:04:50.979 now 15 what is the per 114 so that upper
+
+00:04:54.219 bound shows that if we are getting some
+
+00:04:56.620 finality at the more say will be getting
+
+00:04:58.689 14 but this cost has increased exceeded
+
+00:05:02.379 so kill this node so this node is killed
+
+00:05:06.330 then 15 order this means only job for so
+
+00:05:12.490 when you are doing only job for then all
+
+00:05:15.009 three jobs we are skipping so 5 10 and 6
+
+00:05:18.370 so this is 5 plus a 10 plus 6 and this
+
+00:05:21.580 is 21 cost is higher than 14 so kill
+
+00:05:25.719 this node no need of finding upper bound
+
+00:05:27.639 at all
+
+00:05:28.389 I have only to live nodes which are not
+
+00:05:31.210 killed let us expand so this node I will
+
+00:05:33.819 expand so first job one was done no job
+
+00:05:37.569 I know
+
+00:05:38.469 also I should try job at 3 and job of
+
+00:05:41.860 four so I will calculate them one by one
+
+00:05:44.439 6 7 then 8 node so what is the cost
+
+00:05:47.409 see this means that we have included
+
+00:05:50.050 first job also second job also so we are
+
+00:05:52.569 at second job right so is there anything
+
+00:05:55.000 that we are skipping no both the jobs we
+
+00:05:56.949 are doing so the cost will be 0 and what
+
+00:05:59.199 will be the upper bound upper bound is
+
+00:06:01.270 when we are doing first job and second
+
+00:06:03.490 job remaining is 9 so this is 9 upper
+
+00:06:06.430 bound is 9 oh we got a minimum value
+
+00:06:08.979 that is less than 14 so update it to 9
+
+00:06:12.870 then next cost of this one so the cost
+
+00:06:16.629 of this one is this means that first job
+
+00:06:20.289 and third job we are doing we are not
+
+00:06:21.939 doing second job that is penalty is a 10
+
+00:06:24.909 so cost is 10 and what is upper 9 kill
+
+00:06:29.560 this node then cost of this node
+
+00:06:33.270 J is for J 1 J 4 so J 1 and J 4 so we
+
+00:06:39.220 are know not doing J 2 and J 3 that is
+
+00:06:41.440 16 so the cost is 16 killed us node that
+
+00:06:46.090 is a greater than 9
+
+00:06:47.610 now which node we should explore second
+
+00:06:50.710 node we have already explode let us
+
+00:06:52.180 explore third node now third node this
+
+00:06:55.840 is ninth node see this is job too so we
+
+00:06:58.660 can do job tree and job for tenth node
+
+00:07:02.320 let me calculate the cost see the cost
+
+00:07:04.990 of this one is this says second job and
+
+00:07:09.100 third job so we are doing a second job
+
+00:07:11.110 and third job which job we are not doing
+
+00:07:13.180 first job we are not doing so the cost
+
+00:07:15.670 will be fine
+
+00:07:16.600 is it less than nine yes then what's per
+
+00:07:20.350 bomb I will calculate upper bound also
+
+00:07:22.540 so out of all we are doing second job
+
+00:07:25.420 and third job a remaining job so that is
+
+00:07:27.700 first and fourth so that is five plus
+
+00:07:30.430 three it is eight oh we got a minimum
+
+00:07:33.430 value update it to 810 two node cost see
+
+00:07:39.040 this is second job and for job we are
+
+00:07:41.410 doing so we are not doing facet joint
+
+00:07:43.780 third job right we are on the fourth job
+
+00:07:46.120 now so this is 11 so this is 5 plus 6
+
+00:07:49.600 that is 11 and the lemon is greater than
+
+00:07:52.060 need so kill this node next one which
+
+00:07:55.090 which should explore this one so this
+
+00:07:57.610 one if it is explored
+
+00:07:58.780 then this is job three see here the
+
+00:08:03.400 problem solving is Slendy so I am
+
+00:08:05.470 showing you what are the things you
+
+00:08:06.790 should do in status now at this stage I
+
+00:08:10.390 can explain you that you have to
+
+00:08:11.860 consider one more thing while doing all
+
+00:08:13.720 these that we need not do now we need it
+
+00:08:16.030 what is that doing job gun and job - as
+
+00:08:19.570 well as job tree is possible or not job
+
+00:08:23.080 one's deadline s1 okay that is in foster
+
+00:08:26.320 and job two's deadline is a three okay
+
+00:08:29.710 it will vary till third are then job
+
+00:08:33.039 trees a deadline is two job trees a
+
+00:08:36.490 deadline is 2 so let us check them job 1
+
+00:08:39.940 deadline is one job to the deadline is a
+
+00:08:42.880 tree and Jalapa trees deadlines
+
+00:08:45.560 one and what are they processing time
+
+00:08:48.320 one plus two plus one
+
+00:08:50.630 see if I complete these two together
+
+00:08:53.120 then the total time taken will be three
+
+00:08:56.200 total time will be taken three this job
+
+00:08:59.540 doesn't require one hour it requires two
+
+00:09:01.850 hours so first hour will do this and
+
+00:09:04.700 remaining two R's this job can be done
+
+00:09:07.250 so there is no time left for doing this
+
+00:09:09.890 job so it means when you have taken
+
+00:09:12.320 first job and second job third job
+
+00:09:14.660 cannot be done based on their time not
+
+00:09:17.510 based on the deadlines based on the time
+
+00:09:19.310 because this needs to us so this job
+
+00:09:22.190 cannot be done so need not generate this
+
+00:09:24.920 node picks for the job fourth job also
+
+00:09:28.520 the same case it also need one time so
+
+00:09:31.760 this cannot be done now which is the
+
+00:09:33.800 last life nord remaining this is killed
+
+00:09:36.920 this is kill this one so let us expand
+
+00:09:39.350 this one so what I can take here job to
+
+00:09:41.870 job tree job for can we do job for let
+
+00:09:45.260 us check see job to is done that means
+
+00:09:48.700 two units of time and deadline is three
+
+00:09:51.410 and the job three its deadline is two
+
+00:09:55.310 and it means one unit of time so they
+
+00:09:57.200 can finish off in three hours now for
+
+00:10:00.530 the job it means one extra time so this
+
+00:10:02.900 cannot be done so this is also
+
+00:10:04.310 infeasible and that's all
+
+00:10:06.920 this is infeasible we have finished the
+
+00:10:08.810 entire tree then what is the minimum
+
+00:10:11.260 penalty or what is the minimum cost me
+
+00:10:13.760 cord that is 8 and 5 this is the node so
+
+00:10:17.600 the cost that we got is 5 and the
+
+00:10:20.060 penalty is got as 8 what are the jobs
+
+00:10:23.150 that will be doing job - and job 3 job -
+
+00:10:29.839 and job 3 so if we complete job - and
+
+00:10:33.950 job 3 then the penalties that will be
+
+00:10:37.760 saving are 10 and 6 that is 16 and how
+
+00:10:41.420 much penalty we have to pay job one and
+
+00:10:43.910 job for are not done so their penalties
+
+00:10:47.089 are 5 and 3 so that is 8 so the penalty
+
+00:10:50.779 that will be paying is 8 so that's how
+
+00:10:54.680 we got the solution

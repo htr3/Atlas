@@ -1,0 +1,2051 @@
+# [New] Matrix Chain Multiplication using Dynamic Programming Formula
+
+# https://www.youtube.com/watch/_WncuhSJZyA
+
+
+
+00:00:00.060 hyah topic of this video is Matt
+
+00:00:03.899 exchange multiplication already I have
+
+00:00:06.420 one video in my playlist but there are
+
+00:00:08.970 few things I have missed there in that
+
+00:00:11.130 video so it may be a little bit
+
+00:00:13.049 confusing for the students who are
+
+00:00:14.490 making a new video on the same topic the
+
+00:00:17.580 problem in YouTube is we cannot edit the
+
+00:00:19.800 video I cannot add something to the
+
+00:00:21.689 video so I have to make a new video once
+
+00:00:24.269 again so the contents of the video are
+
+00:00:27.019 what is Mattox multiplication I'll
+
+00:00:29.849 explain this then what does it mean by
+
+00:00:31.619 matrix chain multiplication and how to
+
+00:00:35.640 apply dynamic programming so here I will
+
+00:00:37.590 be giving you the idea approach for
+
+00:00:40.320 solving a problem using dynamic
+
+00:00:42.149 programming right then if you're
+
+00:00:45.059 interested in learning problem solving
+
+00:00:47.129 then don't miss this part then I use the
+
+00:00:50.670 formula of dynamic programming and show
+
+00:00:52.440 you how to solve the problem what should
+
+00:00:53.910 be the approach for solving the problem
+
+00:00:56.510 now the last thing I will show you a
+
+00:00:58.770 example problem and if you are here one
+
+00:01:02.070 day before the examination then you need
+
+00:01:04.319 this one directly so you can directly
+
+00:01:07.290 jump on to this part of the video and
+
+00:01:08.880 you can finish it so you learn how to
+
+00:01:11.040 solve a problem that's all right so how
+
+00:01:13.890 the formula is obtained and all details
+
+00:01:16.020 you have to spend time definitely and if
+
+00:01:18.509 you are watching for learning the
+
+00:01:19.830 problem and learning problem solving
+
+00:01:22.080 then this there are a lot of things to
+
+00:01:24.299 learn from this video so let us start
+
+00:01:26.310 with matrix multiplication first of all
+
+00:01:30.329 matrix multiplication
+
+00:01:32.040 see there are two matrices in this
+
+00:01:34.229 example a and B as of dimension two rows
+
+00:01:37.409 three columns two rows and three columns
+
+00:01:39.240 and B's of dimension three rows and two
+
+00:01:42.030 columns three rows and two columns first
+
+00:01:44.430 of all the condition for multiplying two
+
+00:01:46.380 matrices is the number of columns of the
+
+00:01:49.170 first matrix must be equal to number of
+
+00:01:51.060 rows of second Matrix means these two
+
+00:01:53.820 must be equal that is these two must be
+
+00:01:56.820 equal then multiplication can be done
+
+00:01:59.070 this is the condition for multiplication
+
+00:02:01.240 and how we multiply us we multiply all
+
+00:02:04.570 the elements of a row single row with
+
+00:02:07.509 all the elements of a single column
+
+00:02:11.160 multiply the elements and add their
+
+00:02:13.480 products so that is shown here this is
+
+00:02:15.280 how multiplication is done so this is
+
+00:02:18.430 how one single element is obtained but
+
+00:02:20.830 what is the dimension of the resultant
+
+00:02:22.780 matrix the resultant matrix a into B let
+
+00:02:25.989 us call it as C this is of dimension 2
+
+00:02:28.720 cross 2 then one more thing total how
+
+00:02:33.549 many multiplications I have done let us
+
+00:02:36.190 see 1 2 3 1 2 3 so 3 how many times 4
+
+00:02:42.910 times so 2 L multiplications I have done
+
+00:02:45.489 so actually if you see the number of
+
+00:02:47.260 multiplications I have done for getting
+
+00:02:49.239 this result as 2 3 2 to do so so trees 2
+
+00:02:55.660 and 12 multiplications I have done for
+
+00:02:58.150 obtaining this resultant matrix that is
+
+00:03:00.880 a into B so from this we have to pick a
+
+00:03:04.900 few things first is when two medicines
+
+00:03:08.320 can be multiplied this condition that
+
+00:03:10.840 this must be equal then only
+
+00:03:12.370 multiplication can be done does the
+
+00:03:14.380 important thing second thing what will
+
+00:03:16.540 be the resultant matrix dimension of the
+
+00:03:18.850 resulting matrix the dimension of the
+
+00:03:20.980 resultant matrix will be these two
+
+00:03:22.600 extremes that is number of rows of first
+
+00:03:25.420 matrix and the number of columns of
+
+00:03:26.950 second Matrix that is - gross - this is
+
+00:03:29.320 the second point and the third point
+
+00:03:31.180 that we have to pick up is for
+
+00:03:32.859 generating or multiplying the matrix
+
+00:03:34.420 total how many multiplications are
+
+00:03:36.340 required that is this dimension into
+
+00:03:39.700 this one and this one this is common
+
+00:03:41.829 right this is same so 2 into 3 into 2 so
+
+00:03:45.519 2 into 3 into 2 these many
+
+00:03:47.350 multiplications are required so these
+
+00:03:49.480 are the important things and one more
+
+00:03:51.370 important thing I will show you that we
+
+00:03:52.870 must know for further understanding see
+
+00:03:55.239 I have two minuses a and B and if you
+
+00:03:58.120 take dimensions total how many are there
+
+00:04:00.569 first second third fourth so two
+
+00:04:05.920 medicines total for dimension
+
+00:04:07.920 but these two must be same so let us
+
+00:04:09.960 call it as one so if we call it as one
+
+00:04:12.330 then total how many dimensions one two
+
+00:04:15.079 three so total three dimensions are the
+
+00:04:18.480 three different values are there right
+
+00:04:20.579 and this is the first matrix of
+
+00:04:22.410 dimension and these are the second
+
+00:04:23.820 matrix dimension and one of the
+
+00:04:25.590 dimension is common so for the two
+
+00:04:27.600 matrices total three different
+
+00:04:29.580 dimensions are there where one of the
+
+00:04:31.530 dimension is common for them so that's
+
+00:04:34.020 all the important things I have
+
+00:04:35.520 highlighted here that is useful for
+
+00:04:37.080 matrix chain multiplication now let us
+
+00:04:39.570 learn about what does it mean by a
+
+00:04:41.490 matrix chain multiplication for
+
+00:04:44.430 explaining Mattox chain multiplication I
+
+00:04:46.440 have an example here I have three
+
+00:04:49.140 medicines even a 2 a 3 and I want to
+
+00:04:52.169 multiply them so there are more than two
+
+00:04:54.540 matrices so and I want to multiply them
+
+00:04:57.630 so first of all check whether they can
+
+00:04:59.700 be multiplied or not see if I take these
+
+00:05:02.370 two medicines than the dimensions this
+
+00:05:05.100 should be matching number of columns of
+
+00:05:07.440 first one should be equal to number of
+
+00:05:08.790 rows of second one yes they are matching
+
+00:05:10.530 they can be multiplied and if I take
+
+00:05:12.960 these two and then see this are matching
+
+00:05:15.330 yes they can be multiplied now these are
+
+00:05:18.360 a 1 a 2 a 3 dimensions also I will label
+
+00:05:20.910 them let us call this as a d 0 and these
+
+00:05:23.940 two are same so let us call both of them
+
+00:05:25.979 as D 1 D 1 and these two are same so
+
+00:05:28.560 this let us call this as and D 2 D 2 and
+
+00:05:31.080 D 3 this labeling may help us afterwards
+
+00:05:34.830 let us I have given the labels now let
+
+00:05:38.100 us proceed so I want to multiply these
+
+00:05:40.740 three medicines now the question is can
+
+00:05:42.540 I multiply all three together no I have
+
+00:05:45.990 to multiply two matrices at a time then
+
+00:05:48.720 what are the possible ways see the first
+
+00:05:50.820 method is I can multiply a 1 with a 2
+
+00:05:55.229 and the result of it a 3 this is one
+
+00:06:00.479 possible and another possible method is
+
+00:06:03.660 even as it is then a 2 and a 3 I should
+
+00:06:08.400 multiply first then the even should be
+
+00:06:12.240 multiplied with the result of
+
+00:06:14.030 product of a two and a dream so there
+
+00:06:17.250 are two possible methods see whether
+
+00:06:21.389 this one and this one gives same result
+
+00:06:23.759 yes they are associative associative
+
+00:06:28.020 property holds on matrix multiplication
+
+00:06:30.509 whether you multiply these two first
+
+00:06:32.490 then the result with this one or first
+
+00:06:34.560 these two and this with the result you
+
+00:06:36.689 get the same answer so the product of
+
+00:06:39.539 three minuses will be same so you can
+
+00:06:41.310 multiply it any either way now whatever
+
+00:06:43.319 the elements may be there in a 1 a 2 a 3
+
+00:06:45.330 I am NOT interested in that I am NOT
+
+00:06:47.250 really trying to multiply them I want to
+
+00:06:49.319 know how much efforts I have to put in
+
+00:06:51.360 for multiplying them so let us see if I
+
+00:06:54.719 multiply a 1 with a 2 then total how
+
+00:06:57.840 many multiplications I have to do
+
+00:06:59.580 how many multiplications I have to
+
+00:07:00.900 perform so what are those dimensions 2 3
+
+00:07:04.289 & 3 4 so total how many multiplications
+
+00:07:07.830 will be done here for multiplying this
+
+00:07:10.560 this is 2 into 3 into 4 these are 24
+
+00:07:16.979 multiplications this side total 24
+
+00:07:19.770 multiplications if I'm multiplying
+
+00:07:20.909 madiso say one with a 2 total 24
+
+00:07:24.000 multiplications I have to perform for
+
+00:07:26.129 those elements now what about this one
+
+00:07:28.560 this is dimensions are 4 2 but how many
+
+00:07:32.879 this if you take this separately no
+
+00:07:35.610 multiplications required for this one so
+
+00:07:37.620 24 multiplications for this and this is
+
+00:07:39.839 nothing now I have to multiply these two
+
+00:07:42.629 together right this whole thing this
+
+00:07:45.210 whole thing with this one so total how
+
+00:07:48.089 many multiplications required for this
+
+00:07:49.680 this this will be having dimensions to
+
+00:07:52.469 cross 4 right see you remember the
+
+00:07:55.650 resultant matrix will have the
+
+00:07:57.180 dimensions of these two number of rows
+
+00:07:59.550 of first one and number of columns of
+
+00:08:00.990 second one these two and this 1 4 2 so
+
+00:08:05.849 these 2 are same yes multiplication can
+
+00:08:08.430 be done
+
+00:08:08.969 so total how many multiplications for
+
+00:08:10.889 this this is 2 into 4 into 2 so these
+
+00:08:15.180 are 16 multiplications right these are
+
+00:08:18.360 total 16 now if you find out altogether
+
+00:08:21.889 24 multiplications this side plus 0
+
+00:08:25.949 multiplication
+
+00:08:26.740 that site plus the sixteen
+
+00:08:28.690 multiplications so this is how much 24
+
+00:08:31.419 plus 16 40 multiplications I have to do
+
+00:08:35.130 multiplying these two takes twenty four
+
+00:08:37.270 multiplications and this is nothing
+
+00:08:39.279 there's a single matrix is zero then
+
+00:08:41.469 multiplying these two together as two
+
+00:08:44.290 for two so total 40 multiplications are
+
+00:08:47.740 required what about this let us take
+
+00:08:50.020 this
+
+00:08:50.410 the dimensions are 2 3 and this is 3 4 &
+
+00:08:54.430 4 2 first of all I have to multiply this
+
+00:08:57.220 this is 3 into 4 into 2 so this is 24
+
+00:09:02.200 and the result of this the dimensions
+
+00:09:04.870 will be 3 2 and what about this side
+
+00:09:08.020 this side will be 0
+
+00:09:09.640 no multiplications required on this side
+
+00:09:11.620 now when I have to multiply these two
+
+00:09:13.540 together
+
+00:09:14.050 the dimensions are 2 3 and this is 3 do
+
+00:09:17.980 right these are the dimensions like this
+
+00:09:20.470 one and this one so these two are common
+
+00:09:22.870 so same we can multiply these 2 are same
+
+00:09:25.839 we can multiply so total how many multi
+
+00:09:28.029 predictions required for this one 2 into
+
+00:09:30.700 3 into 2 then plus what about this side
+
+00:09:34.480 0 what about this side this is total
+
+00:09:38.200 multiplications are 24 24 so 24 plus
+
+00:09:42.130 this is 2 3 6 12 so this is 36
+
+00:09:46.329 multiplication so total 36 modifications
+
+00:09:49.450 are required so observe this carefully
+
+00:09:51.820 you wash it once again this portion is
+
+00:09:54.220 very important this calculation and from
+
+00:09:56.709 this we can say that if I multiply these
+
+00:09:59.380 2 first and the result with this one or
+
+00:10:01.529 this is the result of this one the cost
+
+00:10:04.779 of multiplication is different means the
+
+00:10:06.970 number of multiplications I have to
+
+00:10:08.470 perform for getting the results are
+
+00:10:10.089 different so which parentheses ation is
+
+00:10:13.089 better means first I should multiply
+
+00:10:14.500 these two matrices then this with the
+
+00:10:17.079 result of this one that will take only
+
+00:10:19.120 36 multiplication so it's a small
+
+00:10:21.910 example of just three matrices and there
+
+00:10:24.070 are there is a difference of just 4 so 4
+
+00:10:26.620 is not a small figure right because the
+
+00:10:29.110 number of matrices are very small we are
+
+00:10:31.029 looking at a very small
+
+00:10:32.590 level if suppose you have mattis's a 1
+
+00:10:35.530 multiplied with a 2 multiplied with a 3
+
+00:10:38.110 goes on to a 10 their total cost of
+
+00:10:44.980 multiplication means which mattresses
+
+00:10:47.590 should be multiplied first it is a big
+
+00:10:49.600 problem there so you cannot simply start
+
+00:10:52.180 multiplying a a 1 with a 2 then the
+
+00:10:54.730 result with a trill result is a 4 so it
+
+00:10:57.640 will be very very huge if you find out
+
+00:10:59.920 easier method for multiplying them then
+
+00:11:03.070 it's better so first find out how to
+
+00:11:05.350 multiply them then multiply the matricis
+
+00:11:07.770 so that's it if you have the chain of
+
+00:11:10.900 mattresses for multiplication then first
+
+00:11:13.630 of all find out which multiplication
+
+00:11:16.150 should be performed such that the total
+
+00:11:18.520 efforts put in for multiplying them
+
+00:11:20.560 should be minimized this is Matt
+
+00:11:23.230 exchange multiplication problem so if
+
+00:11:25.450 the chain of mattresses are there that
+
+00:11:27.220 has to be multiplied how the parents
+
+00:11:29.560 addition should be done such that the
+
+00:11:31.900 efforts required for multiplying the
+
+00:11:33.910 medicine should be less see here you can
+
+00:11:36.640 see that if you multiply these two and
+
+00:11:38.500 the result with this one is 40 and this
+
+00:11:40.660 way it is 36 so this is better and if
+
+00:11:43.060 you have 10 mattresses then there may be
+
+00:11:45.060 different possibilities and one of the
+
+00:11:47.320 possibility maybe a best possibility so
+
+00:11:50.140 that's it we have to find out the best
+
+00:11:52.930 possible parenthesis ation such that the
+
+00:11:56.500 total cost of multiplication is
+
+00:11:58.270 minimized
+
+00:11:58.960 now we need a approach for finding the
+
+00:12:01.600 minimum one so dynamic programming
+
+00:12:03.910 approach say is that you should try all
+
+00:12:07.120 possible parenthesis ation and pick up
+
+00:12:10.570 the best one possible all possible one
+
+00:12:14.290 and pick up the best one so for 10 we
+
+00:12:17.680 have to try all possibilities and then
+
+00:12:20.260 whichever is giving minimum you have to
+
+00:12:22.450 take that pattern of multiplication so
+
+00:12:25.810 for 3 how many are there only 2 are
+
+00:12:28.270 there so we tried both of them and we
+
+00:12:30.760 found this is better so we have already
+
+00:12:33.070 done this but this we can't think of
+
+00:12:35.710 doing on 10 mattresses imagine how many
+
+00:12:38.620 possibilities you will have but we must
+
+00:12:41.410 find out all possible
+
+00:12:43.070 from that we should pick up the best one
+
+00:12:44.960 so for this we need some formula that is
+
+00:12:48.110 by using this approach we need some
+
+00:12:50.030 formula let us frame a formula for
+
+00:12:52.840 dynamic programming format exchange
+
+00:12:55.610 multiplications so here already I have
+
+00:12:57.560 an example so this I will convert it
+
+00:13:00.080 into a formula right I have two examples
+
+00:13:02.720 here from this only I will make a
+
+00:13:05.060 formula first of all watch this very
+
+00:13:06.980 carefully am creating or generating a
+
+00:13:09.260 formula from this example so let us say
+
+00:13:13.340 I want to find out the minimum cost for
+
+00:13:16.040 multiplication so I have to find out the
+
+00:13:18.590 cost of one two three so there are three
+
+00:13:21.590 matrices let us say cost of 1 2 3 so I
+
+00:13:24.620 just write C now for cost ok then let us
+
+00:13:28.880 look at this observe this what is this
+
+00:13:31.240 24 this is the cost of multiplying 1 and
+
+00:13:34.460 do so I will remove this as I move this
+
+00:13:37.310 and this I will say cost of multiplying
+
+00:13:39.860 1 to 2 and what is the 0 see a was
+
+00:13:43.250 writing 0 that was not required that
+
+00:13:45.230 time I should have skipped but now this
+
+00:13:47.600 is useful you see this is cost of
+
+00:13:49.880 multiplying third matrix with the third
+
+00:13:52.100 Matic something so the cost of this side
+
+00:13:54.380 is 1 to 2 cost of that side is radio 3
+
+00:13:56.990 and that was 0 and this was 24 this was
+
+00:13:59.810 24 I will write it right this is 0 24
+
+00:14:03.710 and 0 so cost of this one and cost of
+
+00:14:07.430 this one so final result what I was
+
+00:14:09.950 getting this was cost of 1 to 2 and this
+
+00:14:13.790 was cost of 3 to 3 and 3 to 3 is 0
+
+00:14:18.170 because the single matrix then what was
+
+00:14:20.390 this the cost of multiplying these two
+
+00:14:22.670 together these two together so these are
+
+00:14:25.280 the dimensions I have what is this
+
+00:14:27.260 dimension this one this is a d 0 this is
+
+00:14:30.650 d 0 what is this dimension this 1 this
+
+00:14:33.590 is what D 2 this is D 2 so this is nitu
+
+00:14:36.800 and what is this dimension this one last
+
+00:14:40.130 one right
+
+00:14:40.820 what is that D 3 this is d 3 so what are
+
+00:14:45.380 these this is D 0 and this is D 2 and
+
+00:14:49.760 this is D
+
+00:14:51.930 B 0 D 2 D 3 I have multiplied these
+
+00:14:54.690 three and I got the result as 40 now let
+
+00:14:57.900 us convert this also into the formula
+
+00:14:59.730 this is first cost off one come upon
+
+00:15:02.700 cost of multiplying 1 comma 1 itself
+
+00:15:04.830 that 0 it is a single matrix only and
+
+00:15:06.780 what is this cost of 2 2 3 and what is
+
+00:15:12.060 this 24 how to get this 1 this is 3 into
+
+00:15:15.150 4 into 2 we know interval so and it is
+
+00:15:17.490 cost of multiplying 2 root 3 then what
+
+00:15:21.270 is this cost of 1 comma 1 and this is
+
+00:15:25.080 what cost of 2 comma 3 and what are
+
+00:15:28.890 these dimensions this is this is the
+
+00:15:31.740 first one and that is D 0 this is D 0
+
+00:15:35.900 right and this is 3 this is an e 1 3 3
+
+00:15:40.650 is in D 1 yes this is d 1 and this is
+
+00:15:45.090 the last one that is D 3 this is d 3 and
+
+00:15:47.880 this is 36 so I have made it like a
+
+00:15:51.120 formula cost of this side left side cost
+
+00:15:54.000 of right side then cost of multiplying
+
+00:15:56.490 two together so I got it in the form of
+
+00:15:59.790 formula let us observe this if you
+
+00:16:03.240 observe 1 2 3 3 1 1 2 3 so if you
+
+00:16:10.710 observe the first one and the last one
+
+00:16:12.180 are same let us call this as I and this
+
+00:16:14.340 as J and this as I and this as J in both
+
+00:16:18.000 I and J are same then what about this D
+
+00:16:21.930 0 D 3 D 0 D 3 and this is d1 and this is
+
+00:16:27.450 d2 so let us call this as D I minus 1
+
+00:16:31.800 and this is J is 3 right this is DG let
+
+00:16:37.230 us call this as D of I minus 1 and this
+
+00:16:40.260 is DJ then what is this this is a 2 & 3
+
+00:16:45.170 this is 1 & 2 so if this is 1 this is 2
+
+00:16:49.230 if this is 2 this is 3 this is what I am
+
+00:16:52.230 observing right this is my from the
+
+00:16:54.060 observation I am creating a formula then
+
+00:16:56.490 this is a d1 and this is d2 so it means
+
+00:16:59.490 that that part should come first
+
+00:17:00.990 so let me write a formula
+
+00:17:02.950 so I'll write the formula here I'll
+
+00:17:04.869 write it here see I have to find out the
+
+00:17:07.329 cost off for I Comanche is what this
+
+00:17:13.150 site cost of I comma what is this
+
+00:17:15.790 I should call it as K and this is K plus
+
+00:17:18.220 1 so I'm here also I should call it as K
+
+00:17:21.280 and this is K plus 1 so now if you
+
+00:17:23.589 observe everything is perfect
+
+00:17:25.150 see see you off or I ke k plus 1 to J
+
+00:17:28.860 see off of I k k plus 1 to J so when you
+
+00:17:32.740 say I J that are 1 3 and these are also
+
+00:17:35.740 1 3 k is here 2 & 3 k is here 1 & 2 and
+
+00:17:41.230 this is 0 & 3 this is 0 & 3 so I minus 1
+
+00:17:46.630 J I minus 1 J and this is DK k is 1
+
+00:17:50.980 first time and k is to that second time
+
+00:17:53.860 so let us call it as DK okay this is K
+
+00:17:57.360 so based on this I will write a formula
+
+00:17:59.919 now this side see off I can cost of left
+
+00:18:04.570 side plus cost of right side k plus 1 to
+
+00:18:09.309 j then plus d of i minus 1 k and DJ
+
+00:18:16.679 dimension i minus 1 into as remove this
+
+00:18:21.000 dimension K into dimension J so have
+
+00:18:28.030 combined these two together in terms of
+
+00:18:31.179 ijk then what K is taking the value K is
+
+00:18:34.660 here first time 1 and second time - so
+
+00:18:38.200 that should come first then this one
+
+00:18:39.820 Sookie can takes the values that are
+
+00:18:42.850 starting from I is what 1 1 so K takes
+
+00:18:47.020 the values from I but less than J K is
+
+00:18:52.450 not becoming 3 K became 1 and K became
+
+00:18:55.570 two that's all out of these two I want
+
+00:19:00.270 minimum I want minimum so this is the
+
+00:19:04.299 formula for Mack
+
+00:19:05.860 Chane multiplication so from examples of
+
+00:19:08.770 just three matrices I have prepared the
+
+00:19:11.620 formula so the idea here is that once
+
+00:19:14.290 again I will tell you this is the cost
+
+00:19:16.179 of multiplying these two sides then what
+
+00:19:18.790 is the cost of left side cost of right
+
+00:19:20.650 side
+
+00:19:21.160 those two are it done here cost of left
+
+00:19:23.140 side and cost of right side how I
+
+00:19:24.820 multiply these by multiplying three
+
+00:19:26.740 dimensions right what about this cost
+
+00:19:29.170 this also multiply these dimensions
+
+00:19:32.110 three dimensions and give the result
+
+00:19:33.790 multiply these three dimensions and get
+
+00:19:36.130 the result it's the same thing so the
+
+00:19:38.470 cost of multiplying two minuses you have
+
+00:19:40.390 to multiply the dimensions and you get
+
+00:19:42.429 the number of multiplications so here is
+
+00:19:45.280 a formula this formula will give you
+
+00:19:47.650 minimum so you should try different
+
+00:19:49.179 values of K here we tried K as 1 than K
+
+00:19:52.419 as a 2 as you have three matrices so
+
+00:19:54.760 only K value can be one and two if you
+
+00:19:56.980 have more mattresses than K value give
+
+00:19:58.750 me 1 2 3 4 so on if you have 10
+
+00:20:01.900 mattresses up to 9 it will go so this
+
+00:20:04.840 formula says that try all possibilities
+
+00:20:07.900 and pick up the best one minimum 1 what
+
+00:20:11.410 are the possibilities you change the K
+
+00:20:13.240 value so some on this side some on that
+
+00:20:16.240 side so now I will write down the
+
+00:20:18.070 formula here and I will remove this and
+
+00:20:19.929 I will show you how it looks like for
+
+00:20:22.900 for mattresses then afterwards we will
+
+00:20:26.200 solve a problem here I have four
+
+00:20:28.929 mattresses and let us say dimensions are
+
+00:20:31.270 d0 d1 and d2 d3 d4 these are the
+
+00:20:34.720 dimensions what are the possible ways of
+
+00:20:37.120 multiplying those mattresses before
+
+00:20:39.220 match actually multiplying mattresses we
+
+00:20:41.410 want to know which parentheses ation
+
+00:20:43.720 will require less efforts of
+
+00:20:45.960 multiplication so there are many methods
+
+00:20:48.130 of parenthesis ation this is the first
+
+00:20:50.620 one a one with this one a two with the
+
+00:20:54.220 result of 2 3 right 3 4 then a 1 then
+
+00:20:58.150 inside this 3 first I can multiply these
+
+00:21:00.700 2 then this 1 so this is another pattern
+
+00:21:03.280 solution or even a two-bit
+
+00:21:05.350 result of a 3 or 4 or this site a 4 is
+
+00:21:08.950 left over a 1 with result of a 2 a 3
+
+00:21:11.350 then this entire thing with a for a
+
+00:21:13.240 first you need to
+
+00:21:14.820 delicately resolute therefore there are
+
+00:21:17.460 five different methods of parents
+
+00:21:19.080 inhalation so if you want to know for
+
+00:21:21.870 four mattresses how many patterns
+
+00:21:23.549 installations are possible five so if
+
+00:21:26.309 you want to know how many
+
+00:21:27.240 multiplications are required for this
+
+00:21:28.950 one so there is a formula called Catalan
+
+00:21:31.139 number as we have four mattresses so you
+
+00:21:33.690 can use that actually the formula is a 2
+
+00:21:36.029 NC n by n plus 1 but here you have to
+
+00:21:40.110 take n as number of mattresses minus 1
+
+00:21:43.169 so n should be 4 minus 1 you should not
+
+00:21:46.110 take and as a for just you take 3 and
+
+00:21:48.809 then you get dancer so if there are four
+
+00:21:51.509 mattresses then actual value if I write
+
+00:21:53.730 here is 2 into n minus 1 C of n minus 1
+
+00:21:59.629 by n minus 1 plus 1 is n only so this
+
+00:22:04.169 will be the formula modified format
+
+00:22:06.659 exchange multiplication so let us put
+
+00:22:09.000 this one I have for Madison so this will
+
+00:22:11.159 be what if I take four mattresses 2 into
+
+00:22:14.279 4 minus 1 that is a 3 and see this is
+
+00:22:17.610 also 3 by this is n for mattresses are
+
+00:22:21.269 there where n is 4 I have taken in as 4
+
+00:22:23.669 so this will be 6 C 3 by 4 so 63 by 4 is
+
+00:22:29.549 6 into 5 into 4 divided by 3 into 2 into
+
+00:22:34.440 1 whole divided by 4 4 4 gives cancel
+
+00:22:37.740 teeth 2 3 6 cancel so 5 is the answer
+
+00:22:41.820 and if you take n is equals to 5
+
+00:22:44.669 mantises then take one less for N and
+
+00:22:47.610 put this in this formula then you will
+
+00:22:50.669 get 14
+
+00:22:51.960 so 4 5 Madison's 14 multiplications are
+
+00:22:54.750 required right foot impossible parent
+
+00:22:57.929 solutions are there for this 5 possible
+
+00:23:00.720 parent solutions are there so out of
+
+00:23:02.820 these 5 we have to pick up the best
+
+00:23:04.830 parenthesis ation that is giving minimum
+
+00:23:07.740 result so this we will do it using the
+
+00:23:09.779 formula so now I will remove this I will
+
+00:23:12.809 use this formula and show you how I can
+
+00:23:15.149 apply that formula on these four
+
+00:23:17.070 mattresses and if I apply what problems
+
+00:23:20.159 I faced then I will show you the
+
+00:23:22.409 solution for that problem then later on
+
+00:23:24.960 we will find
+
+00:23:26.740 example problem so I will use the
+
+00:23:29.300 formula on this for mattresses we don't
+
+00:23:32.060 have the dimensions let them be D 0 D 1
+
+00:23:34.370 D 2 only when we see the example that
+
+00:23:36.650 time I take some values if I apply the
+
+00:23:38.990 formula the cost of CEO of one to four
+
+00:23:44.720 because four 9s asada that are one
+
+00:23:47.960 before so I is 1 and J is for this
+
+00:23:51.530 should be minimum of minimum of K should
+
+00:23:55.490 take the values greater than or equal to
+
+00:23:58.070 I is what 1 and less than J that is 4 so
+
+00:24:02.030 what are the possible values K can take
+
+00:24:03.800 K can be 1 K can be 2 and K can be 3 3
+
+00:24:09.260 values are possible for K less than 4 so
+
+00:24:13.400 if I put K as a 1 in this one right what
+
+00:24:17.360 it looks like
+
+00:24:18.200 CEO of I is 1 J is for remember this one
+
+00:24:23.000 comma K is what 1 plus C of k plus 1 K
+
+00:24:28.970 is 1 min ski is 2 k plus 1 is 2 and G is
+
+00:24:31.940 a 4 plus this is D of I minus 1 I is
+
+00:24:36.920 what I got 1 this is 0 D 0 plus K DK k
+
+00:24:42.650 is what now K I'm taking in s 1 K is 1
+
+00:24:45.920 and this is into sorry and this is into
+
+00:24:49.460 D for this is K value as 1 if I take K
+
+00:24:54.320 value has a 2 this is 1 2 2 plus C or 4
+
+00:24:58.550 3 2 4 + D 0 + D - sorry into D 2 into D
+
+00:25:06.500 for then if I take K value as a 3 then
+
+00:25:10.490 this is 1 3 plus C of 4 4 plus D 0 into
+
+00:25:20.060 D 3 in 2d for if I expand the formula I
+
+00:25:25.940 get a 3 different tones 3 different
+
+00:25:29.030 values all of this I have to take
+
+00:25:31.630 minimum I'm not writing them in a single
+
+00:25:33.730 line it will be very lengthy on paper
+
+00:25:35.320 and you can do that right so comma comma
+
+00:25:38.680 this common this come on this one so K
+
+00:25:42.160 is 1 K is 2 K is 3 out of this it is
+
+00:25:45.280 trying all possible parenthesis ation
+
+00:25:47.500 right so actually these means if I draw
+
+00:25:50.050 first one means a1 with a2 a3 a4 how
+
+00:25:58.150 they are multiplied we don't know so
+
+00:25:59.860 this is a 1 1 this is 2 2 4 the cost of
+
+00:26:02.500 this and how what is the cost of
+
+00:26:04.450 multiplying these two their dimensions D
+
+00:26:06.940 0 D 1 and D for then what the second one
+
+00:26:09.970 means second one means a1 with a 2 and
+
+00:26:13.000 this parenthesis then this is a3 and a4
+
+00:26:16.720 so the parent isolation is done at Matt
+
+00:26:19.780 X 2 K is a 2 so want to go on this side
+
+00:26:23.200 3 to 4 on this side then cost of this
+
+00:26:25.480 and cost of this then cost of
+
+00:26:27.370 multiplying these two cost of
+
+00:26:28.900 multiplying these 2 then this one last
+
+00:26:32.380 one says a1 a2 a3 and this side is a 4
+
+00:26:39.100 so the cost of multiplying all 3 with
+
+00:26:41.560 this result 1 2 3 & 4 2 4 1 2 3 & 4 2 4
+
+00:26:44.440 then the cost of multiplying these two
+
+00:26:46.150 together these 2 together
+
+00:26:47.520 so this is trying all possibilities now
+
+00:26:51.430 if I know the answer if I know the
+
+00:26:53.380 values I can put these values and get
+
+00:26:56.110 the answer so from this you already know
+
+00:26:58.660 two values what are those
+
+00:27:00.570 c1 1 single matrix 0 you remember we
+
+00:27:04.750 have taken it and see for 4 it is 0 this
+
+00:27:08.620 is 0 then what about c2 for let me put
+
+00:27:12.640 it here this I can take it as 0 but C 2
+
+00:27:17.800 for let me expand c2 for is minimum or
+
+00:27:22.870 it's a formula again K takes the values
+
+00:27:25.930 from 2:00 till 4 so K can take what
+
+00:27:29.890 values K can be 2 and K can be 3 so 2
+
+00:27:34.360 values it can take now from this if I
+
+00:27:37.120 take the formula C is a 2 J is a 4
+
+00:27:40.790 I do G's for remember this 2 comma 2
+
+00:27:44.740 plus C of 3 comma 4 plus dimension 2
+
+00:27:50.390 into dimension sorry this is 1 and 2 and
+
+00:27:54.620 this is dimension so see I k k plus 1 2
+
+00:28:02.150 j k is 1 right this is di minus 1 DK and
+
+00:28:06.650 each so you can check it you can pause
+
+00:28:10.730 and check it i have used the formula
+
+00:28:12.350 here where k values 2 IJ and r2 for now
+
+00:28:16.940 see i k k is 3 plus c of k plus 1 that
+
+00:28:22.970 is 4 2 j that is 4 then plus D I minus 1
+
+00:28:28.190 I is a 2 so d1 into d k k is 3 3 in 2d
+
+00:28:34.190 for oh it means that for finding C of 2
+
+00:28:39.590 comma 4 again I need formulas 2 comma 4
+
+00:28:44.090 I need again formula so in this one this
+
+00:28:46.760 value I know 0 4 4 0 then what about the
+
+00:28:51.650 3 4 so on n I will find out C this thing
+
+00:28:55.220 this thing this entire formula is just
+
+00:28:57.830 one cost here this one what about this
+
+00:29:01.700 what about this what about this I have
+
+00:29:03.620 to find out all of them so it's too
+
+00:29:05.540 lengthy for finding this one first of
+
+00:29:07.430 all I should find out this right and
+
+00:29:09.140 find out these so why can't we first
+
+00:29:12.980 find out these smaller values then go
+
+00:29:16.220 for larger value so what does it mean by
+
+00:29:18.920 smaller value larger value let us check
+
+00:29:20.750 this 4-1 how much 3 so this require
+
+00:29:25.790 three formulas three values right very
+
+00:29:27.980 different values this is 4 minus 2 this
+
+00:29:30.980 is 2 so this required to value sort of
+
+00:29:33.350 which we will pick up anyone then what
+
+00:29:36.380 about 3 1 comma 2 it will have only 1
+
+00:29:40.460 value
+
+00:29:41.230 and what about three comma four it will
+
+00:29:43.750 have only one value see the difference
+
+00:29:45.490 is one difference is one and differences
+
+00:29:47.679 zero difference is a - right difference
+
+00:29:50.860 is two so it means first I should find
+
+00:29:53.590 out which formulas where the difference
+
+00:29:56.260 of I and J is zero then it is 1 then it
+
+00:29:59.559 is a two then it is a three in this way
+
+00:30:01.660 I should proceed I should not put the
+
+00:30:03.730 formula and first find out this one then
+
+00:30:06.070 for this I have to find out this it will
+
+00:30:07.929 be going expanding like this it's not
+
+00:30:09.549 practical it's not practical then how I
+
+00:30:12.190 should do this one so first I should
+
+00:30:14.140 find smaller values then I can get the
+
+00:30:16.660 larger value and one more important
+
+00:30:18.850 thing you observe here see I have three
+
+00:30:22.179 comma four in this formula I have three
+
+00:30:24.580 comma four here also so if I find out
+
+00:30:26.620 three comma four
+
+00:30:27.520 it is useful at a different places right
+
+00:30:31.030 not just at one place it is useful that
+
+00:30:33.400 a difference list is 4 comma 4 that's
+
+00:30:35.290 the same thing only right so it means
+
+00:30:38.620 how actually we should solve this
+
+00:30:40.150 problem so for this we will prepare a
+
+00:30:42.850 table we will prepare our table four
+
+00:30:46.750 rows four columns now this represents so
+
+00:30:51.580 this is one two three four and one two
+
+00:30:54.669 three four these are row numbers let us
+
+00:30:57.790 call them as I and these are column
+
+00:30:59.830 numbers let us call them as J so what I
+
+00:31:02.380 will do is first I will find out smaller
+
+00:31:04.299 values that is C of 1 1 C of 2 to see
+
+00:31:08.950 off 3 3 and C or 4 for this I will find
+
+00:31:11.980 out means one 1 two 2 three 3 four 4 so
+
+00:31:16.179 this will already 0 I know it right so
+
+00:31:18.850 already I have shown you this one so
+
+00:31:20.679 this will be 0 so I fill them with 0
+
+00:31:22.540 already then I will find out the values
+
+00:31:25.840 which differences one difference is 1
+
+00:31:28.540 Mills 4 1 2 2 3 3 4 right C 1 2 & 2 3 &
+
+00:31:36.429 3 for these values I will find out then
+
+00:31:39.760 the difference with two difference with
+
+00:31:41.799 3 finally so in this way I will have
+
+00:31:44.770 filled this diagonal than this diagonal
+
+00:31:47.100 than this diagonal and this diagonal so
+
+00:31:49.260 in this way let us find out the cost so
+
+00:31:51.570 let us start finding the cost from
+
+00:31:53.340 smaller values not from the larger value
+
+00:31:55.740 this is okay and what should be the name
+
+00:31:59.220 of that table let us call it as I am
+
+00:32:03.030 calling it as sina cost cost so let us
+
+00:32:06.030 see see in the previous video I wrote it
+
+00:32:08.850 as M because this was a Desai was taking
+
+00:32:11.820 it as M M so M for Mattox
+
+00:32:14.220 multiplications the cost of matrix
+
+00:32:15.809 multiplication you can use any name that
+
+00:32:17.520 is not a shoe
+
+00:32:18.390 now one more table I will make what is
+
+00:32:21.270 that table I'll prepare a table first so
+
+00:32:24.030 this is again four rows four columns
+
+00:32:29.220 four rows four columns I will prepare
+
+00:32:31.950 this is one two three four and one two
+
+00:32:35.070 three four what is this for see out of
+
+00:32:39.750 these three aisle between the minimum
+
+00:32:42.299 one and that cost I'll be writing there
+
+00:32:44.640 yes remember this out of these two I'll
+
+00:32:47.760 be taking the minimum one and I will be
+
+00:32:50.010 writing the cost of 2 comma 4 here 2
+
+00:32:52.919 comma 4 I will be filling it so I will
+
+00:32:55.770 find out minimum of these 2 so what is
+
+00:32:58.740 the difference between these 2 k value
+
+00:33:00.960 is different k value so k value is a 2
+
+00:33:04.049 and k values 3 so i need to know for
+
+00:33:06.809 which K value I got this minimum answer
+
+00:33:09.570 k can be 1 K can be 2 k can be 3 so
+
+00:33:12.600 which k has given me a minimum answer so
+
+00:33:15.840 DISA table let us call it as k table
+
+00:33:18.539 okay and in the previous video I was
+
+00:33:21.210 calling it as si table so in the
+
+00:33:23.100 textbooks you will find s as the name so
+
+00:33:25.200 I have taken s only but now here I am
+
+00:33:27.600 using variable K so let us call it as
+
+00:33:29.880 key table K values will be there now I
+
+00:33:33.990 will take an example problem and I will
+
+00:33:36.840 solve it let us see how we can solve it
+
+00:33:39.510 by first solving smaller problems then
+
+00:33:42.000 with the larger problem so in this table
+
+00:33:44.549 already we knows 1 1 2 2 3 3 right and
+
+00:33:47.820 for food now let us fill up the list of
+
+00:33:50.789 the value so I will take some dimensions
+
+00:33:53.039 for the for mattresses
+
+00:33:54.570 and I will solve it so I have taken the
+
+00:33:56.730 dimensions for mitosis are there this is
+
+00:33:59.730 a dimension B 0 and this is D 1 this is
+
+00:34:05.039 D 2 D 3 before for dimensions that is
+
+00:34:11.460 total 5 dimensions starting from 0
+
+00:34:13.440 onwards 0 1 2 3 4 so format assess I
+
+00:34:18.030 have now as I said that we will use this
+
+00:34:21.569 formula but we will not directly put 1
+
+00:34:24.239 comma 4 here we will put smaller value
+
+00:34:27.000 so in which way we will start with
+
+00:34:29.310 differences that is a difference 0
+
+00:34:31.589 difference 1 and defense 2 different 0
+
+00:34:34.050 already I have fill there so it is just
+
+00:34:36.329 like C of 1 comma 1 if I want C of 1
+
+00:34:39.329 comma 1 so formula says minimum all
+
+00:34:42.089 right K takes the values greater than or
+
+00:34:45.569 equal to 1 but less than 1 so greater
+
+00:34:50.339 than equal to 1 equal to 1 I can take
+
+00:34:52.139 but less than 1 how I can take so I
+
+00:34:54.270 cannot take any K value so the result of
+
+00:34:56.760 a sea of 1 comma 1 s is ego that's where
+
+00:34:59.280 all that it is 0 similarly for 2 2 3 3 4
+
+00:35:02.670 4 also it is 0 now we will find out
+
+00:35:06.480 difference 1 so here I will write down C
+
+00:35:09.960 of 1 comma 2 so let us find out C of 1
+
+00:35:13.650 comma 2 this one I am finding so its
+
+00:35:18.690 minimum of let us put it in the formula
+
+00:35:21.300 formula says that k10 take the values
+
+00:35:24.569 starting from 1 but it should be less
+
+00:35:27.150 than 2 so yes K can take only 1 value
+
+00:35:30.930 that is 1 so let us put it if I make K
+
+00:35:34.740 as 1 then what it will be C of 1 comma k
+
+00:35:41.700 k is what 1 K I'm taking it as 1 so 1 C
+
+00:35:45.180 of 1 comma 1 plus C of k plus 1 case
+
+00:35:48.750 what 1 so 2 then J J's what to this is I
+
+00:35:53.310 this is J remember this so 2 2 plus D of
+
+00:35:58.710 I minus 1
+
+00:36:00.210 is 1 so B 0 into D K that is a d1 into
+
+00:36:05.160 DJ that is d2 with only one K value
+
+00:36:11.160 possible so this is only the value so
+
+00:36:13.859 that itself is minimum so find out what
+
+00:36:16.200 are D 0 D 1 D 2 so D 0 is how much 3
+
+00:36:19.890 right and D 1 is how much D 1 is a 2 and
+
+00:36:24.830 D 2 is how much D 2 is a 4
+
+00:36:29.089 then what about C 0 0 already we have it
+
+00:36:33.300 in a table that is the benefit we will
+
+00:36:35.369 get now if you start from smaller values
+
+00:36:37.980 for soldering such formulas this is 0
+
+00:36:41.160 plus 0 plus this one how much it is
+
+00:36:45.540 two-three-six-six for 34 so the result
+
+00:36:48.630 of 1 comma 2 is 34 so I will write here
+
+00:36:51.859 24 first time I do I got and for which
+
+00:36:56.099 value of K I got that 24 1 comma 2 here
+
+00:37:00.119 K value K value was 1 so put it as 1 so
+
+00:37:04.859 key of 1 comma 2 is 1 that K value has
+
+00:37:08.190 given us the result now let us find out
+
+00:37:10.500 C of 2 comma 3 cost of 2 comma 3 so here
+
+00:37:14.460 I write score of 2 3 I is 2 and J is 3
+
+00:37:20.310 so this is minimum of K can take the
+
+00:37:23.520 values starting from 2 but should be
+
+00:37:26.010 less than 3 so only one value that K can
+
+00:37:28.650 take that is 2 so C of I comma k k is
+
+00:37:33.750 what only possible values 2 i comma k
+
+00:37:36.839 plus c of k plus 1 to j j is 3 right
+
+00:37:42.119 then plus dimension of a k minus 1 that
+
+00:37:47.670 is a D 1 into K then jc2 2 we already
+
+00:37:56.730 have it in the table 0 3 3 also 0 plus D
+
+00:38:03.240 1 D 2 D 3 D 1 D 2 D 3 2 4 2
+
+00:38:08.130 so two for two
+
+00:38:11.160 so how much this is 0 plus 0 2 4 8 and 8
+
+00:38:16.020 into 2 16 so this value is 16 so I will
+
+00:38:19.740 land on the value 16 here this is 16 + 4
+
+00:38:23.840 which value of K we got that as 16 4 K
+
+00:38:27.870 value as a 2 so 2 comma 3 is 2 right now
+
+00:38:33.870 next value C of next is 3 comma 4 okay
+
+00:38:41.850 so I will not explain simply I will
+
+00:38:43.980 write off okay to save your time and my
+
+00:38:46.290 time so here already I have written it
+
+00:38:49.350 so only your time is saved because I
+
+00:38:51.450 have written this one so C of 3 food 3
+
+00:38:54.480 food so K takes values from 3 to 4 so
+
+00:38:57.450 only 1 K value is possible that is 3 so
+
+00:38:59.760 I have taken K value as 3 so these are
+
+00:39:01.800 the costs plus the dimension so tossed a
+
+00:39:05.250 zero cost is zero and this is 4 into 2
+
+00:39:07.320 into 5 so that is 4 into 2 into 5 so 5
+
+00:39:11.070 force 20 in 20 into 2 and that is 40
+
+00:39:13.740 what is the answer so the cost of 3 4 is
+
+00:39:16.500 how much 40 cost of 3 comma 4 is 44
+
+00:39:21.000 which value of K we got this K value as
+
+00:39:23.760 a 3 so this is 3 comma 4 is 3 which K
+
+00:39:29.040 value has given so one diagonal is over
+
+00:39:31.920 now next diagonal these 2 values with a
+
+00:39:34.950 difference of 2 so I will remove this
+
+00:39:37.230 and I will find out the values for those
+
+00:39:39.420 2 so the first one is 1 comma 3 so cost
+
+00:39:43.350 of 1 comma 3 cost of 1 comma 3 formula
+
+00:39:48.780 says that minimum K takes the values
+
+00:39:51.090 greater than equal to 1 and less than 3
+
+00:39:54.410 right so what are the possible values ki
+
+00:39:57.180 can take K can be 1 and K can be 2 K
+
+00:40:02.880 cannot be 3 because it should be less
+
+00:40:04.650 than 3 so let us try both these K as 1 C
+
+00:40:08.820 is 1 and J is 3
+
+00:40:11.220 remember this 1 comma 3 you remember
+
+00:40:13.260 this
+
+00:40:13.820 so 1 comma 1 see off 2 to 3 plus D 0
+
+00:40:20.450 into D 1 into D 3 K value is 1 here you
+
+00:40:27.950 put this in the formula you get this one
+
+00:40:29.990 then here C of 1/2 C of 3 3 plus D 0
+
+00:40:39.800 into D 2 into D 3 these are the two now
+
+00:40:46.610 what are the values this is 0 1 1 is 0 2
+
+00:40:50.420 3 C 1 1 is 0 2 3 is 16 16 Plus this has
+
+00:40:58.160 to be added dimensions 0 1 3 0 is a 3 1
+
+00:41:04.610 is the to 3 years - so how much this is
+
+00:41:09.980 3 - 6 6 - 12 12 plus 16 s 28 so this is
+
+00:41:17.090 28 so here I will write on 28 many K is
+
+00:41:21.050 1 what about this c1 2 c1 2 is 24 this
+
+00:41:26.840 is 24 c3 3 is 0 + D 0 D 2 D 3 D 0 3 4 +
+
+00:41:37.880 2 so 3 into 4 into 2 3 4 - L to L into 2
+
+00:41:44.000 24 24 plus 24 this is what he ain't so
+
+00:41:48.290 which one has minimum
+
+00:41:49.430 this one is minimum so what is the value
+
+00:41:52.040 of K K is 1 and it is 28 so CEO of 1 3
+
+00:41:56.660 is 28 and 4 which value of K we got this
+
+00:42:01.670 one K value is 1 that's it
+
+00:42:05.930 now the next one this one right this is
+
+00:42:09.440 to the for C of 2 - 4 I will write down
+
+00:42:13.520 this and explain you so here C of 2 to 4
+
+00:42:16.610 K can take the values from 2 to 3 so 2 +
+
+00:42:19.850 3 so if you put 2 here
+
+00:42:21.570 get this n3 it is this one so what is
+
+00:42:24.690 this let us take them and it's 2 2 2 is
+
+00:42:26.490 0 & 3 to 4 3 to 4 is how much 40 40 plus
+
+00:42:33.230 dimensions I will right afterwards first
+
+00:42:35.400 let us fill up this C of 2 to 3 C of 2
+
+00:42:38.730 to 3 is how much is 16 16 plus 0 so this
+
+00:42:45.540 looks a smaller ok let us first put the
+
+00:42:48.420 dimensions of first one right what are
+
+00:42:51.060 the dimensions of this D 1 D 2 D for D 1
+
+00:42:54.660 D 2 D 4 2 4 5 2 into 4 into 5 what about
+
+00:43:00.840 this d1 d3 d4 2 2 5 so 2 into 2 into 5
+
+00:43:09.110 how much is this 5 4 is 20 into 2 that
+
+00:43:13.800 is 14 40 80 this is 80 and how much is
+
+00:43:17.490 this - 2 4 4 5 20 and this is 36 this is
+
+00:43:22.770 36 so this is minimum what is the value
+
+00:43:25.770 of K K is at 3 right so how much is this
+
+00:43:30.270 36 so 2 comma 4 is 36 and for which
+
+00:43:35.520 value of AK a we got this one K as a 3
+
+00:43:38.280 so kick ass 3 this is 2 comma 4 is 3
+
+00:43:42.890 only one value is remaining what is that
+
+00:43:45.810 C of 1 comma 4 so I'll remove this and I
+
+00:43:50.070 will find out C of 1 comma 4 C of 1
+
+00:43:54.210 comma 4 minimum what are the possible
+
+00:43:58.020 values of K K can take the values from 1
+
+00:44:00.930 2 less than 4 minutes 3 so K can be 1 K
+
+00:44:05.340 can be 2 and K can be 3 so I will expand
+
+00:44:11.580 these then we will put the values and
+
+00:44:13.290 see the result so here I have taken
+
+00:44:15.720 different K values K 1 and K s 2 and K s
+
+00:44:18.900 T so let us write down the values and
+
+00:44:20.910 get the result C 1 1 is 0 C 2 4 is 36
+
+00:44:24.990 this is 36 and plus D 0 D 1 D 0 and d 4
+
+00:44:29.970 C this is a 3
+
+00:44:31.600 and this is a 5 so this is 3 and this is
+
+00:44:34.270 5 and in between D 1 is 2 B 1 is 2 and
+
+00:44:39.550 what about this C of 1 2 1 2 is 24 and
+
+00:44:44.640 3/4 3/4 is how much 40 40 plus these
+
+00:44:51.580 dimensions this is 3 and this is a 5 and
+
+00:44:54.520 in between we have D 2 D 2 is 4 then 1
+
+00:44:59.230 comma 3 1 comma 3 is 28 28 one
+
+00:45:03.370 gamma-rays 28 this 1 plus 4 comma 4 is 0
+
+00:45:09.490 Plus this is 3 and this is 5 in between
+
+00:45:13.750 D 3 is there that is true sort of this
+
+00:45:16.600 which is minimum let us check 3 2 6 6 5
+
+00:45:20.740 30 and this is 36 so this is 86 and this
+
+00:45:25.930 is four fives 20 20 into 360 so this is
+
+00:45:31.060 101 24 this is 124 and this one is 28
+
+00:45:36.400 and this is 3 2 6 6 5 30 30 and 28 this
+
+00:45:43.000 is 58
+
+00:45:44.800 so which value K has a 3 has given us
+
+00:45:48.280 minimum value that is 58 and K as a 3
+
+00:45:54.360 that's it
+
+00:45:56.020 so I got the table filled based on the
+
+00:45:59.200 formula now this means that cost of
+
+00:46:01.900 multiplying these four matrices of these
+
+00:46:04.270 dimensions minimum cost is 58 imagine if
+
+00:46:08.770 you follow other methods the number of
+
+00:46:10.600 multiplications may be 124 or maybe this
+
+00:46:14.050 is 86 so it is much more than this one
+
+00:46:17.170 this is more than double so if you have
+
+00:46:19.810 a 10 Brandi mattis's and you want to
+
+00:46:21.850 multiply them first of all find out how
+
+00:46:24.430 you should multiply to save your time
+
+00:46:26.800 then start multiplication right so we
+
+00:46:30.160 got that the best method will give you
+
+00:46:33.870 58 number of multiplications so you have
+
+00:46:37.210 to perform only 58 multiplications for
+
+00:46:40.090 performing multiplication of these four
+
+00:46:42.190 matrices so that is the optimal
+
+00:46:44.630 result a minimal result right now how
+
+00:46:48.530 the parent this ization should be done
+
+00:46:50.560 which should be multiplied first then
+
+00:46:53.120 next what how the multiplication should
+
+00:46:55.190 be done that's what the important task
+
+00:46:57.020 is we want the parent is ization so who
+
+00:47:00.230 will give you the parent station this
+
+00:47:01.760 table will give you the K values will
+
+00:47:03.890 give you so let us find the parent in
+
+00:47:07.010 addition by following this K table right
+
+00:47:10.430 that is s table so I will remove this
+
+00:47:13.070 and I will parenthesize these four
+
+00:47:15.050 mattresses based on this so I have four
+
+00:47:20.390 mattresses that is a 1 a 2 a 3 a 4 right
+
+00:47:27.590 now how the parenthesis addition should
+
+00:47:30.710 be done follow this see this is the
+
+00:47:33.950 final answer the final answer I remember
+
+00:47:36.500 this this is 1 comma 4 so when you have
+
+00:47:38.690 1 2 4 then may the paranthesis addition
+
+00:47:41.570 should be done at a tree at a tree you
+
+00:47:44.090 have to do from one before you have to
+
+00:47:46.160 do parents in a tree so at a tree you
+
+00:47:49.280 put the balances for step algorithm once
+
+00:47:53.120 again so that you can separately see
+
+00:47:55.220 them ok this is a 4 so I have written
+
+00:47:59.480 them once again so this is the first
+
+00:48:01.610 parent is happenin so I have taken once
+
+00:48:03.950 again now this is only one matrix when
+
+00:48:06.770 one more text is there you don't have to
+
+00:48:08.270 worry what about these 3 comma 3 1 comma
+
+00:48:10.910 3 is how much 1 so parent isolation
+
+00:48:14.090 should be done at 2 1 so this has to be
+
+00:48:16.940 separated then definitely what is left
+
+00:48:19.310 over now this is 2 2 trees left over
+
+00:48:22.190 because you will be multiplying two
+
+00:48:23.480 minuses this is separated like how I
+
+00:48:26.510 have separated this ok I should have put
+
+00:48:28.460 parentheses here also
+
+00:48:29.810 see when it was 1 2 4 again I am showing
+
+00:48:33.770 you so it was said that K is 3 we said
+
+00:48:37.160 that K is 3 so I had the 3 I have
+
+00:48:38.960 separated and that side separated now
+
+00:48:41.420 within this bracket 1 2 3 1 2 3 said
+
+00:48:44.180 that 1 2 3 is 1 so put a bracket at 1
+
+00:48:47.360 then to do 3 goes on that side no this
+
+00:48:50.360 is complete this is total parenthesis
+
+00:48:53.030 Asia so this means that a 1
+
+00:48:56.560 should be multiplied with the result of
+
+00:48:58.840 a-two a-three and their result should be
+
+00:49:01.630 multiplied with a four so I will show
+
+00:49:03.970 you diagrammatically so as per the
+
+00:49:06.940 brackets if you see a 2 a 3 are
+
+00:49:09.220 multiplied right
+
+00:49:10.990 these two are multiplied then a 1 is
+
+00:49:13.750 multiplied with this then a 4 is
+
+00:49:18.360 multiplied with this final result so
+
+00:49:22.390 this is how multiplication should be
+
+00:49:23.890 done this should be multiplied with the
+
+00:49:25.660 product of this and this should be
+
+00:49:27.550 multiplied with the product of this
+
+00:49:30.360 that's all so from this table I have
+
+00:49:33.370 done the parentheses ation once again I
+
+00:49:35.620 will show you one to four say is three
+
+00:49:37.780 so put a bracket at the three so from
+
+00:49:40.060 one to three right this is food to four
+
+00:49:42.160 separate then one two three says one two
+
+00:49:44.680 three says put a bracket on one put a
+
+00:49:46.870 bracket one one remaining are two and
+
+00:49:49.530 three so two three is a single product
+
+00:49:52.510 that is two minus S one multiplication
+
+00:49:55.140 right don't have to check further so if
+
+00:49:58.030 you check this is 2 comma 3 then you
+
+00:50:00.610 will get 2 only so this says that put a
+
+00:50:03.220 bracket like this like this ok so don't
+
+00:50:05.980 have to do it further if you are doing
+
+00:50:08.500 also you will get the brackets like this
+
+00:50:10.680 so this or the multiplication should be
+
+00:50:13.120 done all right so that's all about the
+
+00:50:16.290 example problem no if you are interested
+
+00:50:19.780 in knowing how much time it will take
+
+00:50:21.340 for finding out the parenthesis ation of
+
+00:50:25.230 matte exchange multiplication how much
+
+00:50:27.850 time it has taken so I have filled the
+
+00:50:29.920 table right that table and this one how
+
+00:50:33.250 many values are there in that one so if
+
+00:50:35.770 you come from here 1 then 2 then 3 then
+
+00:50:39.070 4 so it means 1 plus 2 Plus 3 plus 4 so
+
+00:50:45.670 this is nothing but 4 into 5 by 2 for n
+
+00:50:49.840 mattis's it will be n into n plus 1 by 2
+
+00:50:53.880 so the time taken for filling that is n
+
+00:50:56.830 square but how I am getting each value
+
+00:51:01.000 so if you consider this 158
+
+00:51:03.220 I tried all possible values of K and I
+
+00:51:05.980 got that one
+
+00:51:06.880 so key is taken the values from I to J
+
+00:51:09.190 so
+
+00:51:10.090 let us assume that is all so and so that
+
+00:51:13.060 value is not just computed in a so that
+
+00:51:18.250 value is computed by taking different K
+
+00:51:20.740 values so let us say n values we are
+
+00:51:23.680 taking so it is into n n square into n
+
+00:51:28.240 so it is n cube and we can say this is
+
+00:51:31.510 upper bound we can say upper bomb Big O
+
+00:51:34.690 and cube so at most n cube that is the
+
+00:51:37.480 meaning because K is not always taking n
+
+00:51:40.330 value so if you want to go in detail
+
+00:51:42.160 analysis and take all possible values of
+
+00:51:44.770 KS and check it thoroughly also it may
+
+00:51:47.950 be somewhat less than n cube so let us
+
+00:51:49.930 say upper bound is ng so that's all
+
+00:51:53.650 about maddux chain multiplication
+
+00:51:55.960 problem that's all in this video

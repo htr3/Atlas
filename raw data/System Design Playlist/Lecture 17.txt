@@ -1,0 +1,433 @@
+# tactiq.io free youtube transcript
+# WHATSAPP System Design: Chat Messaging Systems for Interviews
+# https://www.youtube.com/watch/vvhC64hQZMk
+
+00:00:00.660 Hi everyone. This is GKCS. Thisis a video on designing WhatsApp.
+00:00:05.550 It's a chat based application, soonce you know how to design WhatsApp,
+00:00:08.880 you will be able to design any chatbased application to a large extent.
+00:00:12.990 The special things about WhatsApp arethat they have group messaging and they
+00:00:17.650 have these read receipts.
+00:00:19.380 So those are the two key features thatpeople look for in a normal system design
+00:00:22.680 interview.
+00:00:23.430 But there's also other features that we'llbe talking about and we'll be talking
+00:00:26.970 about the features that we should probablynot take up during an interview and
+00:00:31.170 basically choose the kind of things thatwe are doing so that we can actually
+00:00:34.720 finish in the hour that we have. Now,
+00:00:37.230 amongst all the features that youcan ask your interviewer as to,
+00:00:40.560 would you like this? Would you like that?
+00:00:42.390 Probably you should start simple andyou should start with things that you
+00:00:45.450 already know,
+00:00:46.170 because I've noticed that the firstfeature that you ask for the interviewer
+00:00:49.710 usually says yes. So one of the thingsI'm comfortable with is group messaging.
+00:00:54.420 So WhatsApp has groups at most,200 people can enter these groups,
+00:00:59.670 and so group messaging is somethingthat I understand to a good extent.
+00:01:02.640 Image sharing is another goodquestion to ask as to are images going
+00:01:07.590 to be shared in these messages?And almost obvious answer is yes,
+00:01:11.490 we will allow image sharingor video sharing. Also
+00:01:15.750 a good question, but I mean this issomething that if you have used WhatsApp,
+00:01:20.090 you'll know about is sent,delivered, and read receipts.
+00:01:23.730 So you have those tick marks coming inbased on what stage is the message on.
+00:01:27.810 The final two things are not criticalto an application in terms of features,
+00:01:31.560 but it's nice to thinkof in an engineering way.
+00:01:33.930 The first one being that is theperson online. And if they're not,
+00:01:37.830 then when was the last time that theywere seen on the chat? And the second
+00:01:41.400 thing is, are the chatstemporary or are they permanent?
+00:01:44.760 So if you have a look at Snapchat, oreven if you have a look at WhatsApp,
+00:01:48.030 in a way,
+00:01:48.660 they're much more temporary than a lotof the office messaging applications.
+00:01:53.670 The reason for this is becauseyou want a lot of privacy.
+00:01:56.320 You want to give the usera lot of power. Also,
+00:01:58.650 it actually saves a lot of storagespace if you think about the chats being
+00:02:02.460 stored in the user's applications only.
+00:02:04.740 But if there is any sort of compliancethat you need or if there is any official
+00:02:08.650 communication, then you want thatmessage to be stored somewhere forever.
+00:02:13.320 So that's another thing that we'll beasking. Although WhatsApp gives you,
+00:02:17.130 so to speak, only temporary chats,
+00:02:19.920 if you delete the app and ifyour friend also deletes the app,
+00:02:23.310 those chat messages are lost forever.So one thing I'd like to say is
+00:02:28.260 that image sharing has alreadybeen taken up on this channel.
+00:02:31.950 If you want to have a look at how thisis done, have a look at the Tinder video.
+00:02:37.230 It explains how images can be stored,retrieved, et cetera, et cetera,
+00:02:40.770 in a sensible engineering way.
+00:02:43.680 So you're left with fourfeatures for this video,
+00:02:46.680 and the first one we'll bepicking up is group messaging.
+00:02:49.260 Before we get to group messaging,
+00:02:50.400 we need to first talk about how doesone person send a message to another
+00:02:54.240 person? So that is one-to-onechat, and that is our requirement,
+00:02:58.680 which is 1, 2, 1 chat. Alright,
+00:03:03.370 this is what we are coming to,okay, let's take this step by step.
+00:03:08.260 A lot of the things that I'll bediscussing in this are there in the system
+00:03:11.650 design playlist.
+00:03:12.580 So have a look at that. When you'relooking for things like load balancing,
+00:03:15.280 when you're looking forthings like messaging cues,
+00:03:17.800 I'll be using thosethings as abstractions,
+00:03:19.840 as structures to meet all thefeatures that we have talked about.
+00:03:23.890 If you want any detail, thenyou can always go there.
+00:03:25.820 Single point of failure is also somethingpretty important in the WhatsApp
+00:03:28.660 architecture. So have a lookat those. Now let's start.
+00:03:31.960 You have the applicationinstalled in your cell phone.
+00:03:35.140 You connect to WhatsApp on the cloud.
+00:03:37.990 The place that you're connectingto is called a gateway.
+00:03:40.660 The reason for this is because you'll beusing an external protocol when you're
+00:03:44.200 talking to WhatsApp,
+00:03:46.240 but WhatsApp might be talking in adifferent language with its internal
+00:03:48.790 services. Main reason being thatyou don't need that much security.
+00:03:52.360 You don't need those big headers thatH T P provides you when you're talking
+00:03:56.410 internally because a lot of the securitymechanisms are taken care of on the
+00:03:59.710 gateway itself. So once youdo connect to the gateway,
+00:04:04.780 let's assume that you're actuallysending a message to person B.
+00:04:08.080 So you are person A andyou're sending to person B,
+00:04:12.070 person A connects to the gateway.
+00:04:13.720 The gateway actually needs tosend it to person B. Somehow
+00:04:18.790 you could store this informationas to which users are connected
+00:04:23.740 to which box in the gatewayitself. In that case,
+00:04:27.520 you would need some sort of a user
+00:04:32.110 to box mapping. Okay? For the gatewayservice, which is a microservice itself,
+00:04:37.270 it needs to store the information as tothis user ID is currently connected to
+00:04:42.050 box number two. So if thisis box number 1, 2, 3,
+00:04:46.480 then there needs to be information sayingthat B is connected to two and A is
+00:04:49.840 connected to one.
+00:04:51.970 When you have this kind of informationbeing stored on the boxes itself,
+00:04:55.240 it's going to be an expensive thing.Why is it expensive?
+00:04:58.660 Because maintaining a connection, a TCPconnection itself takes some memory.
+00:05:03.700 What you want to do is you want toactually increase the maximum number of
+00:05:07.630 connections that you can store in a singlebox and you don't want that memory to
+00:05:10.690 be wasted by keeping informationfor who is connected to which box.
+00:05:16.360 Second thing is this information isbeing duplicated on all three servers.
+00:05:21.550 Either it's being duplicated,there's some caching mechanism,
+00:05:24.340 or there is some database whichis actually handling this.
+00:05:27.910 This is transient information,
+00:05:29.530 so there's going to be a lot of updatesgoing on over here and this is not nice.
+00:05:34.210 There's a lot of couplingthat I can see in this system.
+00:05:37.870 So what you want to do is youwant to keep a dumb connection.
+00:05:41.530 This TCP connection should be dumb inthe sense that it just takes information,
+00:05:44.830 gives information, it doesn't knowwhat it's doing. Apart from that,
+00:05:50.110 the person you want to be asking forwhen it comes to information on who is
+00:05:54.490 connected to which box isa microservice in itself,
+00:06:00.380 and this microservice can bethe sessions microservice.
+00:06:04.370 What does a sessions microservice store?Well, who's connected to which box?
+00:06:08.930 Just that information that we werestoring over here and was being handled by
+00:06:12.260 the gateway has been decoupled from thesystem and being sent to the sessions
+00:06:15.830 Microservice,
+00:06:16.340 you can see that there are multipleservers for single point of failure
+00:06:20.480 avoidance. Okay?
+00:06:22.760 So when a user is sending userA is sending some message,
+00:06:26.480 it actually asks for send messageWith
+00:06:31.460 the user ID for B, when thegateway gets this message,
+00:06:36.080 it's pretty dumb. Itdoesn't know what to do,
+00:06:37.610 it just sends it to thesession service, okay?
+00:06:40.220 This session service is indirectlya router. When it gets this message,
+00:06:44.840 when it gets this request eitherof send message to user B,
+00:06:49.430 what it does is it figuresout where does user B exist,
+00:06:52.640 which box is user B connected to?
+00:06:55.040 And then routes this message basicallysending this message to gateway two to
+00:06:59.750 send it back to user B.
+00:07:03.140 Now what's happened is Ahas sent a message to B.
+00:07:08.480 Interesting.
+00:07:09.920 How can A send a message to B if theserver is sending this final bit where the
+00:07:14.480 gateway two is sending a message tobe. This can't be done using S G T P.
+00:07:18.320 It's a server to client protocol.
+00:07:20.360 I mean rather it's a client to serverprotocol. So the client sends requests,
+00:07:24.230 the server gives responses.
+00:07:26.570 So you cannot send a messagefrom the server to the client.
+00:07:29.330 You can only send requests fromclient to server. There's many ways to
+00:07:35.860 get over this using HTTP itself. Oneof them is long polling. In which case,
+00:07:40.370 what happens is every minuteor so B can ask for, Hey,
+00:07:43.910 are there any new messages for me?
+00:07:45.440 And then the gateway or thesessions management service,
+00:07:48.380 which are one you would likecan send it the message.
+00:07:51.410 Of course this is not real time.And if you want something real time,
+00:07:54.740 especially for chat applications,
+00:07:56.150 which it's very importantto have the real time thing.
+00:07:58.970 So S TT P is not something that wecan use and we need another protocol
+00:08:05.240 over T C P.
+00:08:08.180 And the thing that we are lookingfor really are web sockets.
+00:08:12.770 So web sockets are super nice whenit comes to chat applications.
+00:08:17.450 The main reason being that they canallow you peer to peer communication.
+00:08:22.040 So A send to B, B send to A, there's noclient or server semantics over here.
+00:08:26.780 So with that,
+00:08:27.800 what happens is literally the servercan send a message to the client. B,
+00:08:32.750 okay, so we are happy B got the message,
+00:08:37.370 what now? Well, B got the message.So that means it has been delivered.
+00:08:43.700 At this point, user A should be notifiedthat the message has been delivered.
+00:08:48.470 There's one place that I missed out on.
+00:08:51.170 When the message actually gets to thegateway and gets to the session service,
+00:08:53.750 what it can do is you can send aparallel response to gateway one saying
+00:08:58.680 that, okay,
+00:08:59.550 I got the message now it's going tobe sent to user B when it's possible,
+00:09:04.140 let's say a differentdatabase for the chat.
+00:09:07.500 And because it's stored in thedatabase, it's safe, it's persistent,
+00:09:11.040 it'll keep retrying themessage till user B gets it.
+00:09:14.970 So A is guaranteed that Bis going to get the message.
+00:09:17.760 So it should get the sent receipt.
+00:09:21.810 So just give a response saying that, okay,
+00:09:23.940 I got the message gateway one is nowgoing to send the message to user A.
+00:09:28.860 So sent is taken care of when thisentire flow is completed. When B gets the
+00:09:33.000 message for the first time, how deliver,how do we give a delivery receipt?
+00:09:38.220 Once you send the message to Band b actually got the message,
+00:09:41.160 it should respond.
+00:09:42.480 I mean it should again go to gatewaytwo and say that got the message.
+00:09:46.560 That's an acknowledgement,
+00:09:47.310 a TCP acknowledgement whengateway two gets this message,
+00:09:51.300 it sends it again to the sessionservice saying that, Hey,
+00:09:54.030 this message was received.So this message was received.
+00:09:58.590 The message is going to becontaining A two and A from field.
+00:10:03.870 Yeah. So the session service,what it can do is, okay,
+00:10:07.140 the message has been received by theperson who was tagged over here too,
+00:10:10.710 which is B.
+00:10:12.480 So the person who sentthe message from A should
+00:10:17.130 get a delivery receipt.
+00:10:19.080 And so sessions finds out again whereA exists. That is box number one,
+00:10:25.020 send a delivery receipt.A gets a delivery receipt.
+00:10:30.720 Okay?
+00:10:31.950 And of course you can thinkabout how red is going to work.
+00:10:36.480 The moment a person opens, theapplication comes and opens this chat tab.
+00:10:40.200 They send a message saying that red andthe exact same flow takes care of red
+00:10:45.120 also. Alright,
+00:10:48.510 so that's a lot to digest if you like.
+00:10:51.690 Then you can go throughthis a little more.
+00:10:53.730 This is the very first featureof sending and basically
+00:10:58.320 delivering receipts to the sender. Okay?
+00:11:02.130 The second feature we aretalking about is quite simple.
+00:11:04.170 It's about the last scene or isthe person online right now at a
+00:11:08.610 scale, I mean at huge scale,when there's millions of users,
+00:11:11.490 everything gets complicated.
+00:11:12.780 But one of the principle architecturalthings that we can do over here is this.
+00:11:18.690 Simply put B just wants to know when Awas online the last time this information
+00:11:23.670 has to be stored somewhere. And whatthe server can do is they can ask A,
+00:11:27.480 but that would be stupid. So instead,A is not even in the picture now,
+00:11:32.250 and the only messages which will be sentand received are from B and the server.
+00:11:37.260 So B asks the server,when does a online last?
+00:11:40.470 There needs to be some informationin some table saying that this
+00:11:45.150 user was lost online at this time.
+00:11:48.570 So some timestamp and it will have some
+00:11:53.410 entry over here with aparticular timestamp.
+00:11:57.520 The only question which remains is howis this row maintained the last seen
+00:12:01.240 timestamp for a particularuser? This key value pair,
+00:12:05.140 whenever a user A makes does an activity,
+00:12:08.900 basically sending a message or readinga message or any kind of request to the
+00:12:13.340 server should be logged as an activityand that current timestamp should be
+00:12:18.070 persisted in this table. In that way,
+00:12:20.900 we can say that whenever A didanything, definitely they were online,
+00:12:25.300 which means that the last seen timestampneeds to be updated based on this.
+00:12:30.550 B can be told that if A is online or not.
+00:12:35.080 One of the key features over here isthat if A was online three seconds ago,
+00:12:39.460 then B shouldn't be told that theywere online three seconds ago. Instead,
+00:12:44.470 the showing tag should be online.
+00:12:48.400 Probably they haven't done anyactivity in the last three seconds.
+00:12:51.970 You can keep this threshold to anythingthat you like, maybe 10 seconds,
+00:12:54.730 maybe 15 seconds.
+00:12:56.020 But the important thing is they're eitheronline or they were last seen at least
+00:13:00.880 let's say 20 seconds ago.
+00:13:02.860 The last scene tag is a little trickyto update even after taking in all
+00:13:06.970 activities.
+00:13:07.930 So what I'll be doing is whenevera user sends a request to
+00:13:12.860 the gateway, I'll be havinga microservice, which isthe last seen microservice.
+00:13:18.880 And what this will be doing isit's doing user activity tracking.
+00:13:22.180 Anytime there's an activity, theydefinitely send a message to the gateway.
+00:13:26.830 When they send a message to the gateway,
+00:13:28.060 I'm going to say that they're lastseen at this point. Now interestingly,
+00:13:31.660 there might be some requests whichare not being sent by the user,
+00:13:34.210 but by the applicationitself. For example, when youpull for certain messages,
+00:13:38.140 maybe you're offline,you're not using the app,
+00:13:40.300 but you want your application tonotify you whenever there's a message.
+00:13:45.340 So for example, delivery receipt,that's not an activity by me.
+00:13:49.300 So the request should be smart in thesense that the client should be smart
+00:13:52.240 saying that this is a user activity andthis is something that the application
+00:13:56.470 itself is doing. So two types ofmessages being sent by the client.
+00:14:02.050 One type is user activities,
+00:14:04.720 and the other one is let's saysystem generated or app messages.
+00:14:10.300 App requests. This can be aflag in the request itself.
+00:14:14.380 If it's an app request, don'tsend it to the last scene service.
+00:14:17.950 If it's a user activity, sendit to the last scene service,
+00:14:20.560 it'll go and update thelast seen timestamp for this
+00:14:25.430 user. And in that way,
+00:14:27.440 what can happen is user B cansay whether the user is online,
+00:14:30.610 or at least they were last seen at thistimestamp by querying this service.
+00:14:36.250 So feature three is also done.
+00:14:45.370 Alright, so we are.
+00:14:46.030 Very close to actually completing.
+00:14:47.480 This chat messagingapplication. As you can see,
+00:14:49.820 it's a pretty complicated hacker,but we get to everything one by one.
+00:14:54.350 Certain things that I liketo skip over so to speak,
+00:14:57.440 is load balancer because wehave already talked about this,
+00:15:00.020 so I won't be talking about howthe load balancer balances the load
+00:15:04.770 across the system.
+00:15:05.990 There's one interesting thing whichwe have not talked about in the CDs,
+00:15:08.660 which is service discoveryor heartbeat maintenance.
+00:15:12.260 And that will be taken in a separatevideo, but it's pretty interesting.
+00:15:15.380 You can have a look at some blogs,
+00:15:17.180 I'll probably post themin the description below.
+00:15:20.510 The authentication service is anotherthing that I'll be talking about later.
+00:15:25.760 Main reason being that it's quite simple,
+00:15:28.310 but it's something worth talkingabout as a basic principle.
+00:15:31.700 So that'll also be takenlater. As you can see,
+00:15:34.340 these four services are things whichare not really relevant to WhatsApp,
+00:15:38.180 so to speak. The profile services isa very generic service image services,
+00:15:42.830 sending emails and sending SMSs. Okay,
+00:15:45.350 then what is quota chatapplication sending messages.
+00:15:48.530 Now you can see that there are fiveusers that are drawn over here.
+00:15:51.800 The red guys are in one group, thegreen guys are in the other group.
+00:15:54.950 So whenever a user from thered box sends a message,
+00:15:58.910 it should go to all other red boxes. Andthis is the feature of group messaging.
+00:16:04.160 So this red user isconnected to gateway one,
+00:16:08.360 while we have the other redusers connected to gateway two.
+00:16:11.900 So let us assume that we send agroup message through this user.
+00:16:17.270 The problem here is that if the sessionservice stores all the information for
+00:16:20.600 all groups,
+00:16:21.470 let us say the red group has these threeusers and they're connected to these
+00:16:25.640 three boxes. It's too complicated forthe session service to handle. I mean,
+00:16:30.530 it's something that you can decouple.So that's what we have done.
+00:16:34.070 We have decoupled the information forwho is existing in which group in a group
+00:16:38.450 service. Now, the session service,
+00:16:40.460 when it gets a message from a reduser is going to be asking the group
+00:16:44.840 service, who are the othergroup members in this group?
+00:16:48.650 The group service can thenrespond saying 10 members with
+00:16:53.520 these user IDs exist in this group.
+00:16:56.270 Now the session service runsthrough its own database.
+00:16:59.600 Usually this information is goingto be cached as much as possible,
+00:17:02.750 but it can figure out wherethese users are connected to
+00:17:07.609 through its database.I mean those 10 users.
+00:17:09.530 It had a mapping foruser ID to connection.
+00:17:14.000 And that connection tells you whichbox, which gateway it exists in.
+00:17:17.750 So with this information,
+00:17:19.099 it can then route the messages toeach of these users one by one.
+00:17:24.050 What if the group has toomany members? Too bad?
+00:17:27.920 WhatsApp actually givesyou a maximum limit of 200.
+00:17:30.980 There's a lot of chat applicationswhich try to contain that to 500, 600.
+00:17:34.850 Main reason being that you'll be otherwisefanning out the request too much.
+00:17:38.150 If you've seen the Instagram design video,
+00:17:40.490 what happens in that is also when acelebrity actually posts something,
+00:17:43.400 it's effectively sending messagesto sometimes millions of people,
+00:17:47.120 and that's not practical.
+00:17:47.990 So you have to either batch process themor you have to wait for these guys to
+00:17:51.180 pull them in a chat application becauseyou want the messages to be real
+00:17:56.010 time as much as possible. You can'treally have too much of a pull mechanism.
+00:18:01.500 Instead, what you do is you limitthe number of people in a group.
+00:18:04.500 200 is a slightly reasonablenumber compared to millions. Yeah,
+00:18:07.890 it's a very reasonable number. So whatwe are going be doing is we are going to
+00:18:11.570 be limiting the number ofusers we have to sum number X,
+00:18:15.780 and we are going to be assuming thatthe sessions can handle web sockets
+00:18:21.150 sending these messages tothe relevant users. Okay?
+00:18:25.080 Now let's get into the detailsof this mechanism. I mean,
+00:18:27.870 we have the bare bones thing,how it's going to work,
+00:18:30.240 but the details are important.
+00:18:33.180 The first thing that I would do in thisarchitecture is because a lot of users
+00:18:37.810 are going to be connecting to my gateways.
+00:18:39.540 These gateways are goingto be starving from memory.
+00:18:42.870 That's the reason why we haveseparated out the session service.
+00:18:44.970 That's one good way toreduce memory footprint.
+00:18:48.330 The second thing you can do ispassing in the message, right?
+00:18:51.600 Maybe the message is sent over SG T P, it's a chase on message,
+00:18:54.870 so on and so forth. You don't really wantto pass the message converted into an
+00:18:59.670 object, do some smart things on it,
+00:19:01.710 find out whether it has been authenticatedor not on the gateway itself,
+00:19:06.270 all those responsibilities, asmany responsibilities as you can,
+00:19:08.670 you want to push away from thegateways because those are web sockets.
+00:19:11.730 Those are expensive. Those areactual users connected to your box.
+00:19:15.450 So I would send an UNPASSED message tothe session service or to anyone I am
+00:19:20.490 sending it to.
+00:19:22.110 One smart way to actually sendan UNPASSED message to any
+00:19:26.820 service that you want to isto have this unpassed message
+00:19:34.080 go through a passer microservice.
+00:19:37.200 You don't really need too manyserver just too hard enough.
+00:19:41.520 So I'll just call it parser and unser
+00:19:46.380 microservice.
+00:19:48.000 What it's going to be doing is it'sgoing to take the unpassed message
+00:19:53.550 and going to be convertingit to a sensible message.
+00:19:55.920 So if your internalprotocol is instead of T
+00:20:00.900 P or written something or T C Paudio, you have something like thrift,
+00:20:04.440 which is used by Facebookinternally. So I would say thrift.
+00:20:10.530 Then you can pass the messageover here itself, right?
+00:20:15.390 What is the advantage? Letme just, again, retrade,
+00:20:18.480 you get an electronic message over here.
+00:20:20.190 You send the electronic message forward,
+00:20:21.990 there's no work that you'redoing on the gateway itself.
+00:20:25.980 This electronic message will be convertedto a sensible programming language
+00:20:30.330 object by this passer on passer, alright?
+00:20:34.380 And that will then route itto the right place. Okay?
+00:20:39.030 So that's one way to reducethe memory footprint ratio.
+00:20:42.060 What are the other concerns or keyareas that we should focus on? Group.
+00:20:46.780 ID to user id? And this is aone to many mapping, right?
+00:20:51.670 One group can have many user IDs andto reduce a lot of the duplication in
+00:20:56.570 information that you have, we go forsomething called consistent hashing.
+00:21:00.520 We should have a look at that.
+00:21:01.600 Consistent hashing helps you reducethe memory footprint across servers by
+00:21:06.490 delegating only someinformation to some boxes. Okay?
+00:21:10.300 Have a look at the video in caseyou're not sure what this is.
+00:21:13.300 Consistent hashing is going to allowyou to actually route the request to the
+00:21:16.190 right box. What should be routed on
+00:21:20.650 the group id. If you have therequest routed on the group id,
+00:21:24.310 then it can tell you that for this group,
+00:21:26.830 who are the users belongingto this group? Alright?
+00:21:31.960 That takes care of therouting mechanism we have
+00:21:36.340 in case anytime the group service fails,
+00:21:40.330 you send the message to the box, it fail.What do you do?
+00:21:44.950 You can retry,
+00:21:46.390 but you can only retry if you knowwhat request you needed to sign
+00:21:50.950 next. So one of the mechanismsfor this is message cues. Yeah,
+00:21:55.420 we have discussed this in the playlistso I won't be getting into too much
+00:21:58.510 detail,
+00:21:59.170 but message cues are nice in the sensethat once you give a message to the
+00:22:03.220 message queue,
+00:22:03.970 it ensures that the message will besent maybe now maybe 10 seconds later,
+00:22:07.940 maybe 15 seconds later. Thoseare configurable options.
+00:22:10.360 And also how many timesyou're going to retry.
+00:22:11.980 All of this is configurablein the message queue.
+00:22:15.040 If the message queue fails to sendthe message, even after five retries,
+00:22:18.310 it can tell you that it's failed.
+00:22:19.840 You propagate the failure all theway to the client saying that, no,
+00:22:23.170 I couldn't send this groupmessage. Okay, that's also fine.
+00:22:25.690 But the client needs to be told that it'sfailed or it's cleared. Interestingly,
+00:22:29.770 when the group service gets this message,it can send a response that, yes,
+00:22:33.940 I got the message sessions, thensends a response to gateway,
+00:22:37.030 and the user who sends the originalmessage, gets a sent tick mark.
+00:22:42.910 Group receipts when itcomes to delivered or seen
+00:22:47.950 is pretty expensive. Main reason beingthat everyone needs to say, yeah,
+00:22:52.180 I got the message, I got the message,
+00:22:53.350 and then finally it hasto come back to this guy.
+00:22:55.810 So we won't be getting intothat many chat applications.
+00:22:57.940 Actually don't evenhave that. So it's fine.
+00:23:01.300 The final few interesting things whenit comes to chat messaging or group
+00:23:03.790 messaging especially, isthat you need item potency.
+00:23:07.540 There's an entire video I made onretrial and item potency. Again,
+00:23:11.350 taking the Tinder messaging example,
+00:23:13.390 so you can have a look at thatfor the technical details.
+00:23:16.030 This architecture is actually veryresilient and as a chat system,
+00:23:19.190 it's going to do pretty well.
+00:23:20.890 There's some tips and tricks over herethat you can get to know only if you have
+00:23:25.690 worked on messaging systems. So I'llgive you a few examples. For example,
+00:23:30.310 I mean,
+00:23:30.550 I was just reading this blog thatFacebook Messenger does it deprioritizes
+00:23:35.370 prioritises messages in case there's ahuge event like let's say New Year's or
+00:23:40.070 let's say some festivallike the Valley in India,
+00:23:42.400 there's going to be a lot of messages.
+00:23:43.540 Everyone's going to be wishing eachother happy. The valley Happy New Year,
+00:23:46.760 and that's going to be puttinga lot of load on the system.
+00:23:50.720 So all the principles of great limitingcome in here where you don't take
+00:23:55.400 messages, which are very important.
+00:23:57.200 Or sometimes you just drop messagesinstead of dropping. I mean,
+00:24:00.980 the best thing to do isto deprioritize messages.
+00:24:05.990 Things like last seen can be ignored.The entire feature can be ignored.
+00:24:10.010 Has this message beendelivered? Has it been received?
+00:24:12.620 Those are not as important as actuallysending the message to the user.
+00:24:15.830 The first thing of the server,
+00:24:17.990 getting the message andthe acknowledgement. That'sall the user needs to know.
+00:24:21.890 Okay?
+00:24:22.280 That's more important than seeing whetherthe person has read the message or
+00:24:25.100 not.
+00:24:26.030 So by deprioritizing unimportant messages,
+00:24:30.710 you're actually keeping the systemhealth good and you are performing okay
+00:24:34.770 instead of not performing atall. So do check out the course.
+00:24:38.360 It's really useful when you aredesigning systems like these. Of course,
+00:24:42.260 this takes care of the lastrequirement that we had,
+00:24:45.830 which was to send group messages. Yeah,
+00:24:47.750 that is requirement number onetaken care of in the end. Alright,
+00:24:51.380 thank you so much for listening.
+00:24:53.180 Thank you so much for goingthrough this system design.
+00:24:56.090 If you have any doubts or suggestions,you can leave them the comments below.
+00:24:59.570 If you liked the video,
+00:25:00.500 then hit the like button and ifyou want for other notifications,
+00:25:03.470 then hit the subscribe buttonand I'll see you next time. Oh,
+00:25:06.950 and I'll be posting a poll. So wordfor what you want to see next time.
+00:25:11.780 See ya.

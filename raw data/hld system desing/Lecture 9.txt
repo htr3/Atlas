@@ -1,0 +1,2052 @@
+# tactiq.io free youtube transcript
+# Rate Limiter: Low Level System Design
+# https://www.youtube.com/watch/Eg5uH5sU3zw
+
+00:00:02.100 okay
+00:00:05.759 hey folks we are live good evening this
+00:00:09.480 is a Thursday evening uh sorry you
+00:00:12.240 missed the live session yesterday but uh
+00:00:15.299 Thursday evening we are back with
+00:00:17.100 another design question thank you for
+00:00:19.740 joining the stream uh and uh before we
+00:00:22.980 start I just want to put forward the the
+00:00:25.260 useful tools that you have here uh if
+00:00:27.660 you open the description you'll see a
+00:00:29.279 slider link and you can post your
+00:00:31.679 questions on the slider link it's useful
+00:00:34.260 because
+00:00:36.000 we are basically streaming to multiple
+00:00:37.680 platforms and
+00:00:41.219 yeah
+00:00:42.840 all the questions will be put together
+00:00:44.520 in one place if you have the same
+00:00:46.140 question it is supported many many
+00:00:48.899 benefits so I'll just open the slider
+00:00:51.420 link
+00:00:52.320 I'll just share this letter link with
+00:00:53.640 you right now
+00:01:04.440 looks like the slider link has been
+00:01:08.340 overwritten
+00:01:12.119 how interesting
+00:01:13.979 wait I'll share the link in the
+00:01:16.200 description sorry for this
+00:01:20.759 what language would we be using
+00:01:24.000 let me video using Java
+00:01:27.540 so
+00:01:30.960 90 what do you think
+00:01:33.180 are you uh are you going to be answering
+00:01:35.340 the question or will I be answering it
+00:01:37.439 no no I can answer as well okay great
+00:01:40.439 then and which language will you be
+00:01:42.600 comfortable
+00:01:43.740 and comfortable in both actually seeing
+00:01:46.680 the first Java
+00:01:48.360 most of my today will be using Java only
+00:01:51.200 at what what do you use and what did you
+00:01:53.579 use in college
+00:01:54.960 so in college I used to use C plus plus
+00:01:57.540 actually but at work Java is the
+00:02:00.299 language
+00:02:06.719 okay uh this is the link
+00:02:10.258 is feel free to join
+00:02:12.900 um
+00:02:13.560 also on LinkedIn guys if you
+00:02:20.640 are tuned in from LinkedIn you can you
+00:02:23.160 can probably switch to YouTube sorry for
+00:02:25.020 this late informing but yeah okay 13 of
+00:02:28.800 us have voted in what's the most
+00:02:30.840 important benefit of rate limiting I'll
+00:02:32.400 just share my screen first
+00:02:36.360 okay if you want it
+00:02:41.519 can you don't know the answer right okay
+00:02:43.140 you don't know the answer before and
+00:02:44.400 then yes uh so I just shared my screen
+00:02:50.580 let's wait for one more minute before
+00:02:52.200 everyone else joins but let's read the
+00:02:54.420 question before that what's the most
+00:02:55.800 important benefit of rate limiting okay
+00:02:57.840 Aaron uh heads up accuracy
+00:03:01.860 consistency
+00:03:03.720 availability or fault tolerance
+00:03:07.560 rate limiting what's the most important
+00:03:10.739 benefit
+00:03:13.319 so I feel uh availability something
+00:03:17.879 okay fault also tolerance
+00:03:20.519 it would okay so if you bring in
+00:03:23.040 limiting do you increase the chance of
+00:03:25.379 your availability or do you increase the
+00:03:26.819 chance of your fault tolerance
+00:03:33.900 actually availability I'll make it
+00:03:36.000 available for other folks also
+00:03:40.920 yes yes you see most of the people have
+00:03:42.959 voted for availability now I'll just
+00:03:44.220 show the correct answer
+00:03:45.780 yes
+00:03:47.159 availability is Fault tolerance it
+00:03:49.920 doesn't increase fault tolerance because
+00:03:51.480 if something crashes it's not like you
+00:03:54.360 know late limiting will help you
+00:03:56.599 and then accuracy
+00:03:59.400 No in fact rate limiting uh
+00:04:03.840 has nothing to do with accuracy yeah
+00:04:05.819 right
+00:04:08.760 so people are still voting for accuracy
+00:04:10.200 so nice
+00:04:12.420 okay availability is the answer uh
+00:04:16.199 question and answer guys please feel
+00:04:17.760 free to post your questions if you post
+00:04:19.380 it now we'll pick it up first for the
+00:04:21.779 next 10 minutes we are looking to take
+00:04:23.580 questions unless if you don't have any
+00:04:26.880 questions then I have some questions
+00:04:28.139 forever
+00:04:29.160 because
+00:04:30.440 around system design and creativity
+00:04:35.520 so I'll just open the questions that I
+00:04:38.040 have
+00:04:39.720 okay Arun firstly is rate limiting a low
+00:04:42.479 level design or a high level design
+00:04:43.860 thing like uh
+00:04:46.020 dumb question maybe but what uh what is
+00:04:49.380 it is it like if you get a question like
+00:04:51.660 design a rate limiter
+00:04:54.120 what is it a lower design question or a
+00:04:56.400 hello design question
+00:04:57.960 so uh
+00:04:59.580 generally I've seen people are asking it
+00:05:02.759 for both actually and that's why you
+00:05:04.560 have made a full-fledged chapter also on
+00:05:07.320 this on your agility course
+00:05:09.180 yeah and today we are going to do a low
+00:05:12.120 level design as well and I've seen quite
+00:05:15.240 a few places also
+00:05:17.100 feeling support
+00:05:25.080 okay so but okay let's say that you you
+00:05:27.840 go you ask your interviewer that if it
+00:05:31.080 both like how do you deal with it
+00:05:34.919 okay like if a person asks you a rate
+00:05:37.080 committee question will you do both
+00:05:38.160 lower level and high levels
+00:05:40.320 no uh I'll basically talk about uh what
+00:05:45.479 algorithm I'm going to use to limit and
+00:05:47.880 then whichever data structure uh I would
+00:05:50.280 be using in that algorithm we'll go
+00:05:53.220 ahead and talk about the high level for
+00:05:55.320 that structure for storage or for
+00:05:58.440 basically I'll have to make that data
+00:06:01.380 structure fast also because I'll have to
+00:06:03.360 decrease my access time uh decrease my
+00:06:06.600 deletion time increase my insertion time
+00:06:09.300 so we can go ahead and talk about that
+00:06:12.419 while we talk about the algorithm which
+00:06:16.080 we'll use for rate limiting
+00:06:18.180 okay okay so
+00:06:21.600 now
+00:06:23.940 had you talk about the algorithm and
+00:06:25.560 everything but uh
+00:06:27.780 like uh
+00:06:29.880 what do you do then okay you got the
+00:06:31.860 requirements that your rate limiter
+00:06:33.300 needs to be x y z uh
+00:06:36.000 let's run through it no let me say Okay
+00:06:37.680 I I asked you uh other designer rate
+00:06:39.900 limiter okay and you don't know whether
+00:06:41.400 it's your level or high level design now
+00:06:43.199 what you're going to do you're going to
+00:06:45.180 ask me which algorithm should you use
+00:06:47.160 I'll be like okay fine you can use some
+00:06:48.900 token based algorithm maybe you token
+00:06:51.060 bucket maybe you can use uh some
+00:06:53.699 accounts
+00:06:55.340 sliding window
+00:06:57.360 sure I would like multiple algorithms
+00:06:59.639 yeah
+00:07:00.479 actually uh I lost basically uh each and
+00:07:04.319 every algorithm is having their own
+00:07:06.240 advantage and disadvantages so first
+00:07:08.400 I'll go and talk with you about uh talk
+00:07:11.580 more about rate limiter like what are
+00:07:13.979 you expecting uh when will you limit
+00:07:16.319 okay accordingly we'll design the
+00:07:18.600 algorithm
+00:07:19.680 right and in that for example if you
+00:07:24.060 if we see in leaky I think we use we'll
+00:07:28.080 be using in actually sliding or we'll be
+00:07:30.599 using let's say Q right so we can go
+00:07:33.479 ahead and talk about uh any sort of
+00:07:35.639 storage which is available
+00:07:37.979 right
+00:07:41.460 no I kept
+00:07:45.599 or maybe a hash map
+00:07:49.979 just wondering like if a person ask me
+00:07:51.840 what is the rate like a designer rate
+00:07:53.699 limited for me and then
+00:07:55.440 probably you start with why do you need
+00:07:57.180 it right
+00:07:58.139 yeah this is what why do we why do we
+00:08:00.720 need it uh what is something which you
+00:08:03.360 want to limit the rate limit yeah
+00:08:09.180 yeah so uh you want to limit API calls
+00:08:11.280 then I mean what do you need
+00:08:15.900 you're building a product and you're
+00:08:17.520 going to sell it or you're going to make
+00:08:19.139 this open so then it is a pure rate
+00:08:20.460 limiter if you need the rate limiting
+00:08:22.560 for a particular application then I can
+00:08:24.180 look at it in a different angle if you
+00:08:26.699 want a proper product engineering
+00:08:28.680 product then I need to be able to give
+00:08:31.259 you customized rate limiting algorithms
+00:08:33.059 so let's make it super extensive right
+00:08:35.520 which means that you can feed in which
+00:08:37.860 algorithm you want and uh basically you
+00:08:40.679 can think of it here you hit the queue
+00:08:43.020 actually that you can use a factory here
+00:08:45.180 you can make a factory here that you
+00:08:46.680 feed in the algorithm and you'll get the
+00:08:48.060 rate limiter
+00:08:49.320 okay okay
+00:08:51.060 that that's great so different types of
+00:08:53.640 rate limiters you'll give me based on my
+00:08:56.220 if I say this uh yeah what about
+00:08:59.160 persistence like do you want persistence
+00:09:01.560 in this
+00:09:02.820 or do you want everything in memory
+00:09:05.339 um do you have a distributed service in
+00:09:08.100 which case you need distributed rate
+00:09:09.420 limiting
+00:09:10.860 or do you have it you just care about
+00:09:12.660 one rate limiter
+00:09:14.940 I I guess yeah this is something which
+00:09:18.060 we can talk about and which I think a
+00:09:20.339 person should talk about in an interview
+00:09:21.660 while
+00:09:23.040 just to clear out the requirements and
+00:09:24.839 then we can uh he or she can go ahead
+00:09:27.240 and design accordingly
+00:09:31.560 okay great yeah yeah that makes sense
+00:09:33.779 okay this is quite good
+00:09:35.820 okay we have some questions also uh
+00:09:38.100 let's see if we can take some of them uh
+00:09:42.120 52 people have voted 87 have voted for
+00:09:44.940 availability which means around five out
+00:09:47.700 of six
+00:09:48.839 it must be uh five into 9 40 44 45
+00:09:54.120 people have voted for availability so
+00:09:56.100 they got the right answer that is good
+00:10:00.060 uh
+00:10:03.660 what is the best way to store the count
+00:10:05.519 of
+00:10:07.140 request from a particular client within
+00:10:09.180 a rate limiter
+00:10:10.860 count of particular requests from a
+00:10:13.080 particular client
+00:10:15.360 store count of requests
+00:10:17.899 in in this case we can use a hash map
+00:10:20.880 wherein we can have a ID of the user so
+00:10:24.300 who is requesting and of course uh there
+00:10:27.360 used to be there should be some data
+00:10:29.279 structure let's say if you are using
+00:10:30.779 sliding window so in that case there
+00:10:32.519 would be a queue
+00:10:33.899 right
+00:10:35.519 right next so the simple account will be
+00:10:39.120 just the hashtag okay right can we have
+00:10:41.519 one with the LNG videos stream in go
+00:10:44.040 live
+00:10:44.880 maybe in future okay very interesting
+00:10:47.700 yeah
+00:10:49.079 I have not worked in golangby
+00:10:51.500 there is if you are looking for a great
+00:10:53.700 limiter in goal and weight Limited
+00:10:56.220 Cooper
+00:10:57.600 uh you get a
+00:11:00.959 H this is a rate limited written in
+00:11:03.720 go
+00:11:04.860 okay uh and if you want to see the
+00:11:08.100 basically the algorithm is simple this
+00:11:10.560 is the um
+00:11:12.540 should I say API like how you use the
+00:11:14.279 library it's quite easy
+00:11:15.660 yeah and you can see the corridor so
+00:11:18.120 it's open source
+00:11:20.060 sorry
+00:11:21.600 yeah it's useful it's not bad
+00:11:24.480 net limited rate limit dot go I think
+00:11:26.519 this is it yeah
+00:11:28.440 so I'll just share this
+00:11:32.040 in the chat here
+00:11:36.860 let's not talk about the internals of
+00:11:39.300 uber uh but yeah this is open source
+00:11:41.519 this is good
+00:11:43.019 uh
+00:11:46.200 great this is good is practical
+00:11:47.820 knowledge on system design enough to sit
+00:11:49.260 for an sd2 role
+00:11:52.260 what do you mean by practical knowledge
+00:11:54.000 is enough practical knowledge is enough
+00:11:56.339 for anything uh theoretical knowledge
+00:11:58.680 enough to sit for a SD tool if you've
+00:12:00.420 been that uh
+00:12:02.220 I think
+00:12:03.860 yeah what do you think so uh theoretical
+00:12:07.140 knowledge is something that you know
+00:12:09.180 stuff right and then of course you can
+00:12:11.100 go ahead and set which most people do I
+00:12:13.620 feel okay uh but if you have done that
+00:12:16.500 in Practical or if you have done most of
+00:12:18.480 things in Practical or used most of the
+00:12:20.399 things then I feel you are much more
+00:12:21.899 prepared and you can answer
+00:12:25.440 in a much better way I feel
+00:12:27.899 yeah
+00:12:30.240 they are true so if you're looking for
+00:12:32.459 practical knowledge guys maybe
+00:12:34.500 either a have your own side project
+00:12:36.839 but then you have this issue of you know
+00:12:39.660 you are self-motivated for the side
+00:12:41.279 project maybe you have to find a problem
+00:12:43.560 that you're wanting to solve we have
+00:12:45.420 discussed this earlier I think uh
+00:12:47.420 but still yeah problem you want to solve
+00:12:50.160 start a side project or there is already
+00:12:52.860 a problem that people are solving you
+00:12:54.240 want to contribute to that open source
+00:12:56.579 uh projects exist if you want to work as
+00:13:00.060 a freelancer uh in a particular language
+00:13:02.760 you can try doing that obviously
+00:13:04.500 freelancing they're not going to say
+00:13:05.760 sure build me a rate limiter and go live
+00:13:07.500 like they don't care 90 of the time
+00:13:09.540 freelance projects are like just get me
+00:13:10.980 this website
+00:13:12.240 or or do this for me so getting such a
+00:13:15.060 niche thing in freelance is hard uh open
+00:13:17.040 source data is better
+00:13:19.560 I I feel uh there could be there are two
+00:13:22.560 sort of projects which I like the most
+00:13:24.180 which have helped me and my people learn
+00:13:28.380 a lot there's one thing try to build any
+00:13:30.660 social media platform any social media
+00:13:32.760 platform uh people will get to learn a
+00:13:35.160 lot or maybe they can go ahead and try
+00:13:38.160 to make an e-commerce any e-commerce
+00:13:40.860 platform for example let's try and clone
+00:13:42.600 Amazon
+00:13:43.560 people will get to learn a lot uh and
+00:13:46.680 there's one thing uh even in your recent
+00:13:48.779 post on LinkedIn where you have
+00:13:50.579 mentioned that when you started building
+00:13:52.139 interview ready you learned a lot about
+00:13:54.540 system design rather than
+00:13:56.880 being when you are learning stuff this
+00:13:59.160 is one such example uh second is if
+00:14:01.920 people actually want theoretical
+00:14:03.300 knowledge
+00:14:04.440 first of all there's uh your playlist on
+00:14:06.839 YouTube otherwise there's the best
+00:14:08.339 course available on hld on interview
+00:14:10.200 ready
+00:14:12.240 go ahead and have that theoretical
+00:14:14.459 knowledge
+00:14:16.139 speak would be available yeah but if you
+00:14:18.959 want practical knowledge of course
+00:14:20.519 you'll have to go uh gaurav is not going
+00:14:22.860 and designing Gmail
+00:14:24.600 right exactly I don't know exactly yeah
+00:14:30.120 yeah so for practical if you have
+00:14:32.700 practical knowledge I think it's the
+00:14:34.320 best which means you've got a chance to
+00:14:36.660 experience to uh get your hands dirty on
+00:14:39.660 the actual stuff rather than just
+00:14:41.519 reading stuff here and there that's what
+00:14:44.459 even I think you know that uh you can
+00:14:46.320 read the book designing data intensive
+00:14:47.820 applications you can take the interview
+00:14:48.899 ready course
+00:14:50.100 that gives you a good base like 20 I
+00:14:53.100 would say something like 80 20 principle
+00:14:55.380 20 is uh probably
+00:14:59.699 figuring out uh how do I do this and
+00:15:02.940 using the set design patterns that are
+00:15:05.339 there in large scale systems but 80 is
+00:15:08.339 coming through by coding every day uh
+00:15:10.980 having said that without the 20 it's
+00:15:12.540 very hard
+00:15:13.560 to survive because you you learn by
+00:15:16.680 getting you know uh in Hindi they said
+00:15:19.339 meaning you uh you stumble and you
+00:15:22.260 stumble and you stumble there are some
+00:15:23.459 stumbles which are unnecessary we'll
+00:15:25.399 eradicate those stumbles for you but
+00:15:27.959 having said that yes there is going to
+00:15:29.459 be obviously
+00:15:31.019 something which is in your custom path
+00:15:32.880 some steps you have to take specifically
+00:15:35.100 that can be taken care of in any
+00:15:36.480 theoretical course you try practical
+00:15:39.360 okay uh in the interview do we need to
+00:15:41.639 implement the Fred safe rate limiter
+00:15:44.399 depends on your designation that you're
+00:15:46.980 applying from
+00:15:49.040 [Music]
+00:15:50.120 yeah it totally depends uh on the level
+00:15:53.699 or the role which you're applying for
+00:15:55.380 for example if uh any if you are
+00:15:57.899 applying for a principal engineer role
+00:15:59.459 right of course you will be asked like
+00:16:01.139 this but if you're applying for let's
+00:16:03.000 say sd1 or HD2 or like like that only
+00:16:07.560 I don't think yeah you won't be asked
+00:16:09.540 much more complex I think having basic
+00:16:11.820 knowledge of design pattern or getting
+00:16:14.459 to know about what rate limiter is and
+00:16:16.860 if you know or if you have used any of
+00:16:18.959 the algorithm that that would be great I
+00:16:21.480 think
+00:16:23.940 it's a good a good point yes it depends
+00:16:26.820 on the level okay uh alone in today's
+00:16:30.120 interview I had to decrease
+00:16:34.880 I hope he would have got your post your
+00:16:37.920 first chapter is absolutely kilometer
+00:16:39.420 right
+00:16:40.139 it is it is and also
+00:16:45.899 a little bit of machine coding that also
+00:16:47.519 exists
+00:16:48.360 so that would help I once met a sd3 who
+00:16:51.720 was talking to me and saying that your
+00:16:53.220 course is nice but you know um
+00:16:56.040 in low level design they ask difficult
+00:16:57.839 things like latency like concurrency and
+00:17:00.000 all that and I was like uh I'm sorry
+00:17:02.639 this we will try and do better than I
+00:17:05.699 thought about it and I was like happy
+00:17:07.079 have you checked the material inside
+00:17:08.699 it's like uh I didn't get the time so I
+00:17:12.540 I understand it is my I mean I should do
+00:17:15.780 better to make it more exciting and more
+00:17:17.699 palatable but having said that it exists
+00:17:20.699 yeah like there is concurrency there is
+00:17:23.280 those high level uh you know uh design
+00:17:27.540 patterns for for Led questions but
+00:17:31.559 I have to make it more exciting I guess
+00:17:33.540 if we cover all the systems and
+00:17:35.100 questions performed provided in system
+00:17:36.780 design blog of top 20 systems that will
+00:17:38.400 be sufficient for us you to actually run
+00:17:40.380 uh no
+00:17:42.360 it will be good though why don't you
+00:17:44.220 just uh go to the free resources either
+00:17:46.620 on YouTube or on interview ready start
+00:17:48.720 there at least do that much sd2 is a
+00:17:51.179 pretty you know it's a decent role you
+00:17:54.480 in two years you learn a lot as a proper
+00:17:56.880 professional engineer so we are
+00:17:58.740 expecting you to know at least that much
+00:18:01.740 okay uh let's take questions for five
+00:18:04.080 more minutes is that okay yeah
+00:18:06.900 difficult to decide where to take the
+00:18:08.460 discussion example on just algorithms
+00:18:10.620 whole
+00:18:11.580 low level or just higher concerned
+00:18:13.380 interviewer not giving hint
+00:18:14.940 you can upfront ask them also I guess or
+00:18:17.460 you just talk about rate limiters and
+00:18:18.900 then you say that you want me to code
+00:18:20.580 this or do you want me to design at a
+00:18:22.620 high level you can ask also
+00:18:26.220 right okay
+00:18:28.880 please recommend good resources
+00:18:32.580 for back-end developers using Java it
+00:18:34.919 would be really helpful
+00:18:37.559 is he asking about a low level design
+00:18:40.020 questions or what is he asking you
+00:18:44.220 I think this guy doesn't know what he's
+00:18:45.720 talking about
+00:18:47.700 I mean if you are looking for I have
+00:18:50.580 heard this all the time like yeah please
+00:18:52.020 ask for Java or spring or something like
+00:18:54.780 do your goddamn job right uh think like
+00:18:57.539 engineer don't think like uh I need to
+00:19:00.000 do spring so that I get through the
+00:19:01.380 interview and this is what I feel
+00:19:05.840 Engineers with you if you're looking for
+00:19:08.520 good resources on uh system design or
+00:19:11.340 programming and all that there's a lot
+00:19:12.660 on the internet
+00:19:14.039 um we can guide you a little bit maybe
+00:19:15.780 we can just show you if you're looking
+00:19:17.460 for system design specifically then
+00:19:18.780 there is this
+00:19:23.580 these are all resources one of high
+00:19:25.440 level resources projects you want
+00:19:27.600 search for
+00:19:31.200 LM gpf5 this is good
+00:19:35.120 you can search for the top uh let's say
+00:19:38.039 10 Java open source projects even that
+00:19:40.740 won't solve your problem because Kafka
+00:19:42.240 will come up how are you going to
+00:19:43.679 contribute to Kafka right so
+00:19:47.280 try I think
+00:19:49.140 Eddie guardo that's his name uh he talks
+00:19:52.860 about open source talks open forward
+00:19:55.020 open source try it out
+00:19:57.299 um how can we deal with the time
+00:19:59.039 constraint when counting the number of
+00:20:01.200 requests for a client in a real limiting
+00:20:03.539 algorithm
+00:20:05.100 TTL okay okay maybe we can look at this
+00:20:08.100 uh
+00:20:09.539 maybe how do we deal with the time
+00:20:11.940 Constitution
+00:20:14.700 sorry
+00:20:16.320 I think they're talking about expiry
+00:20:17.640 time like time to live so three seconds
+00:20:19.380 the request came in when you went to
+00:20:22.140 process it uh you saw that it's already
+00:20:24.240 expired
+00:20:25.559 that's what I from what I understand or
+00:20:27.299 when you're processing it
+00:20:28.799 has it already expired I don't think
+00:20:30.419 you'll go and kill it in between but you
+00:20:32.400 could
+00:20:33.840 so that is that
+00:20:36.240 um it's a good question
+00:20:39.140 capital okay uh
+00:20:43.260 okay
+00:20:45.840 how to design Integrity backend rate
+00:20:47.700 limiting on IP address is reasonable it
+00:20:49.919 is sometimes if someone is you know
+00:20:51.720 being malicious if you preferred to be a
+00:20:54.120 system design course in a specific
+00:20:55.559 language not really we have covered
+00:20:57.840 things in Java for both lld and also uh
+00:21:00.900 in the HLT side of machine coding side
+00:21:02.820 of things Java is quite popular
+00:21:05.460 I started studying system design through
+00:21:07.140 Tech blogs but I get confused about what
+00:21:09.120 to study first you get basic theoretical
+00:21:10.980 knowledge
+00:21:14.400 I think they should start with
+00:21:17.160 uh free playlist which is available
+00:21:19.440 first of all yeah I think that is quite
+00:21:21.900 structured
+00:21:23.880 yeah great and if people want they can
+00:21:28.140 go ahead and purchase the course also
+00:21:30.070 [Music]
+00:21:31.440 right and I always got cases also this
+00:21:34.080 is also quite structured uh the paid
+00:21:35.940 course also but yeah this the basics I
+00:21:38.520 feel you should go ahead and read it or
+00:21:40.679 see
+00:21:42.299 all of this stuff is free exactly like
+00:21:44.580 you said and then there's the
+00:21:45.720 fundamentals you can start here then go
+00:21:47.400 to highlight design and do a lower
+00:21:48.539 Design This is
+00:21:52.380 okay
+00:21:54.059 I'll just share that with
+00:21:55.919 one
+00:22:03.120 I never use nosql but system design
+00:22:05.580 sometimes I tell about Cassandra just
+00:22:07.740 overview how to ski is this for me if it
+00:22:10.260 will go into depth
+00:22:12.179 what do you think it is quite risky I
+00:22:14.880 feel because if an interviewer goes into
+00:22:17.220 depth and you don't know it
+00:22:19.260 then you are from
+00:22:21.200 yeah yeah
+00:22:23.000 because you you made some claims you can
+00:22:26.400 say also that I don't know I don't know
+00:22:29.640 and you can say I've read it I've seen
+00:22:32.159 it people using it I've read it and I
+00:22:34.799 think that should solve the problem
+00:22:36.720 uh
+00:22:38.100 but I generally
+00:22:39.799 yeah exactly yeah that's a good way to
+00:22:42.840 put it
+00:22:44.580 does your course teach capacity
+00:22:46.679 estimation and how much CPU memory is
+00:22:48.419 required for a service
+00:22:53.539 estimations actually there so this this
+00:22:57.179 document actually is pretty helpful for
+00:22:58.980 all the people who uh who like first of
+00:23:01.679 all estimating stuff and secondly it has
+00:23:03.240 asked also sometimes in the interview
+00:23:05.880 right right
+00:23:08.100 having said that yeah one of the tips
+00:23:10.440 that I would say is don't go for
+00:23:12.780 capacity estimation unless it is
+00:23:14.280 required so you have a concern then go
+00:23:16.020 first
+00:23:16.799 yeah okay
+00:23:19.320 what's the roadmap to becoming a
+00:23:21.059 software system architect is it just
+00:23:25.159 or something else
+00:23:29.580 yeah Architects are the one who actually
+00:23:31.620 designed stuff who actually Design
+00:23:33.200 Systems Architects are the one these are
+00:23:36.419 also called principal engineers and
+00:23:38.039 companies right
+00:23:39.720 yeah so uh definitely a good experience
+00:23:42.720 hands-on experience in system design
+00:23:44.880 will get you to this level I haven't
+00:23:47.760 seen people just with theoretical
+00:23:50.220 knowledge at this post
+00:23:53.900 it is actually a higher Post in the
+00:23:56.400 company in any company right and if
+00:23:59.400 people want to get their hands dirty in
+00:24:01.320 an early age then I think they should go
+00:24:03.539 for startups because there you'll
+00:24:05.280 actually get to learn a lot
+00:24:07.740 yeah and the youngest software
+00:24:09.720 Architects or staff Engineers or
+00:24:11.280 everyone that I have seen is like at
+00:24:13.799 least 10 years right I mean if you're
+00:24:16.559 going to a startup shop they'll make you
+00:24:18.539 CTO like but uh like you know at larger
+00:24:22.260 let's say if you want to be a software
+00:24:24.000 architect it's
+00:24:25.440 a big deal I have
+00:24:27.360 met usually the uh the staff Engineers
+00:24:30.240 that I've seen they're like in my life
+00:24:32.100 I've created one operating system
+00:24:34.080 or one database or one you know this
+00:24:37.260 entire pipeline have optimized it's like
+00:24:38.880 insane if you think of it oh my God
+00:24:40.799 already do that but they're done once
+00:24:44.159 which means just imagine how many
+00:24:45.780 smaller tasks they have done right
+00:24:49.980 so what is the best strategy to learn
+00:24:52.380 lld and design pattern used
+00:24:54.900 uml diagrams or remember it impossible
+00:24:58.140 remember it is not possible yeah like
+00:24:59.940 you said what's the best strategy here
+00:25:02.940 okay so we had this question last time
+00:25:05.340 also if you remember uh the best thing
+00:25:07.559 is just uh pick up any system okay let's
+00:25:11.520 talk about hotel management okay it's a
+00:25:13.980 system it's a heavy system
+00:25:16.020 go ahead and start designing it just
+00:25:18.780 start writing the code I am pretty sure
+00:25:21.360 people would see issues then they can go
+00:25:23.640 ahead and optimize it this is the way
+00:25:26.700 they'll learn about uh system uh design
+00:25:29.100 patterns actually that's okay if I use
+00:25:31.260 this design pattern this is uh made my
+00:25:34.260 code so simpler and easier right
+00:25:37.500 so I feel just by taking picking systems
+00:25:41.279 and go ahead and design it I think that
+00:25:43.440 is the best practice and if they
+00:25:46.260 actually want to learn I actually didn't
+00:25:50.039 find any resource earlier on internet
+00:25:52.140 for which we are making this course so
+00:25:55.740 people can go ahead and purchase this
+00:25:57.419 course also which we are building
+00:26:05.820 smoothing out all
+00:26:08.640 okay great thank you for that Karen
+00:26:12.600 new topics we are planning to cover feel
+00:26:14.700 uh
+00:26:15.960 okay the existing interview course there
+00:26:17.820 are two topics Google Docs is coming and
+00:26:19.860 yesterday only I launched one thing I
+00:26:21.539 didn't mention it anywhere I didn't
+00:26:22.679 announce it database migrations
+00:26:25.020 so that is that chapter is already
+00:26:27.900 launched
+00:26:29.580 so we have now at a value of 14 and then
+00:26:31.559 Google Docs will hit 15.
+00:26:33.840 I'm having four years experience as a
+00:26:35.580 backend node.js developer having little
+00:26:37.080 bit of knowledge about these what should
+00:26:38.220 I learn first TSA or HIV and led
+00:26:40.860 I think practical will be HLT and led
+00:26:43.740 know for you
+00:26:46.020 go there
+00:26:48.020 but BSA is always the first round that's
+00:26:51.240 that's true yeah it's unfortunate but
+00:26:54.360 yeah yeah seven years of experience in
+00:26:56.880 Java in Europe and uh
+00:26:59.580 if do we need to find a new job in the
+00:27:01.679 company is it nc3 or
+00:27:03.900 staff and main focus on system design or
+00:27:06.419 live coding
+00:27:07.559 uh
+00:27:08.940 I think live coding is pretty important
+00:27:10.919 for you system design is also important
+00:27:12.360 for you like you mentioned if you are
+00:27:14.700 like there's almost a pair coding round
+00:27:16.320 that you have where you code things
+00:27:18.480 yes
+00:27:21.480 how to do data modeling for feature C to
+00:27:23.520 view we have already taken care of this
+00:27:24.659 book my show kind of application
+00:27:27.120 we have taken care of that area yes
+00:27:31.140 yeah
+00:27:33.720 okay uh front-end LED actually right now
+00:27:37.080 we don't have anything uh
+00:27:39.360 chorus and your course covers actually
+00:27:40.740 also and is it enough for four to five
+00:27:42.179 years experience yes yes uh okay
+00:27:48.120 is system design or local design
+00:27:49.620 required for sd1 Lola design is required
+00:27:51.960 for sd1
+00:27:54.419 uh
+00:27:56.400 today's interviewer asked me to build a
+00:27:58.200 token bucket algorithm should we read
+00:27:59.580 about specific Algos as well I don't
+00:28:01.320 think so can we shed some light on the
+00:28:03.179 challenges or downsides that create
+00:28:04.500 limiting creates how do we deal with
+00:28:06.360 requests where batching is done
+00:28:11.100 batching okay
+00:28:12.840 uh I think it's a little intense for
+00:28:15.000 local design I just go through the
+00:28:16.799 questions seeing if there's anything
+00:28:17.880 good or useful
+00:28:20.900 I have asked this question in atlasian
+00:28:23.520 and two other companies
+00:28:25.140 difficult to decide whether to take the
+00:28:26.460 where to take the discussion
+00:28:28.740 okay we have spoken about this a little
+00:28:30.059 bit earlier
+00:28:32.640 here priority mechanism where requests
+00:28:34.620 from a particular set of clients are
+00:28:36.120 never intermitted I guess you can put
+00:28:38.159 them in different rate limiters then
+00:28:40.140 distributor
+00:28:47.940 okay I am a non-java developer with nine
+00:28:51.120 plus experience I don't see more job
+00:28:53.279 opening as back-end developers that were
+00:28:54.900 changing programming language
+00:28:59.220 really
+00:29:00.240 does that happen
+00:29:02.400 sorry there's a non-java developer with
+00:29:05.940 nine plus years of experience but they
+00:29:07.440 don't see job openings as a backend
+00:29:08.880 developer
+00:29:10.080 is
+00:29:13.260 no I I see a lot of openings
+00:29:19.320 would you said they've been coding in
+00:29:20.940 p plus plus
+00:29:24.679 yeah not that hard
+00:29:29.100 how does work differ
+00:29:31.380 the product inside like Amazon do I need
+00:29:33.840 to
+00:29:34.860 need to study design patterns principles
+00:29:36.600 and Cloud before doing your course lower
+00:29:38.399 design design patterns field mention it
+00:29:40.200 in the resources section and uh in the
+00:29:43.320 existing course that we have no you
+00:29:45.779 don't need to you just need to go here
+00:29:47.580 and start knocking off these lessons
+00:29:51.299 right all the prerequisites already
+00:29:53.520 there in the course
+00:29:57.539 where can I find HD of jira tagging
+00:29:59.520 system
+00:30:00.899 okay none of this matters switch to
+00:30:03.000 devops because I'm liking tools moreover
+00:30:04.620 coding your user devops as a career long
+00:30:06.600 term
+00:30:07.860 it's a pretty good career you get paid
+00:30:09.360 also decently so nothing to worry about
+00:30:16.500 okay we are done with all uh questions
+00:30:20.580 which is great
+00:30:22.380 uh how do we
+00:30:25.440 how do we start will you be sharing your
+00:30:28.140 screen or something
+00:30:30.000 yeah yeah so uh for now uh of course I'm
+00:30:34.559 pretty sure people uh know about rate
+00:30:36.779 limited right
+00:30:38.100 yeah if not uh let me give a small
+00:30:41.520 introduction about rate limiter
+00:30:44.220 okay so uh rate limiter if you see there
+00:30:47.640 could be a so when you hit a server
+00:30:50.820 there could be there are a lot of
+00:30:52.620 requests now there could be malicious
+00:30:54.419 users also who could be sending lot many
+00:30:56.580 requests just to uh crash your server or
+00:30:59.940 maybe your server to hang right for
+00:31:02.279 example there's a robot
+00:31:04.380 who is just
+00:31:05.880 hitting your server again and again and
+00:31:07.679 again with requests which means your
+00:31:10.559 server would not be able to address the
+00:31:13.020 other requests or your server would be
+00:31:15.240 down or something would happen but which
+00:31:18.779 means we'll have to limit the number of
+00:31:20.820 requests now this user could be
+00:31:23.760 malicious
+00:31:25.080 so do I need to limit other people's
+00:31:28.980 request no so rate limiting could be on
+00:31:33.179 the basis of a particular user also and
+00:31:35.580 in general also if there are a lot many
+00:31:37.679 number of requests mostly it is on the
+00:31:40.020 basis of a particular user
+00:31:42.419 like mostly in the questions also it is
+00:31:44.279 asked like this right that there could
+00:31:47.220 be malicious user hitting the server so
+00:31:49.799 for example in our second let's say this
+00:31:52.020 person has made 100 requests which means
+00:31:54.419 of course this is a malicious person and
+00:31:56.640 we should limit the rate for this so we
+00:31:59.220 can have a count or upper capacity which
+00:32:01.559 you can say let's say five requests in a
+00:32:03.960 second
+00:32:04.679 right
+00:32:06.000 so we will allow
+00:32:08.159 a person making fire requests at Max in
+00:32:11.220 a second so which means if you want to
+00:32:13.440 make six requests
+00:32:15.059 he'll have to make it in the second
+00:32:16.440 second not the first second
+00:32:18.899 okay if he makes that request would not
+00:32:21.240 be admitted
+00:32:23.880 so this is
+00:32:27.059 okay so you're saying that I will only
+00:32:28.919 allow X number of requests in y amount
+00:32:31.140 of time
+00:32:31.980 yes
+00:32:34.620 yeah
+00:32:35.700 one of the common use cases that you
+00:32:37.500 said is if you have a denial or service
+00:32:38.940 attack
+00:32:40.500 a man this is user trying to just flood
+00:32:42.960 your system buff up your AWS cost or
+00:32:45.899 Azure or gcp cost okay yes so now the
+00:32:50.220 question is isn't this person I mean is
+00:32:52.260 it rate limiting itself also expensive
+00:32:53.940 you are getting the request then you're
+00:32:55.260 passing it you see it then you'll drop
+00:32:57.240 it uh isn't I mean what was the point
+00:33:00.240 right uh did you did you save anything
+00:33:05.220 did you did you save on any resources
+00:33:07.320 here like uh you I gave you one million
+00:33:10.080 requests you have to read one million
+00:33:11.220 requests so what did you save exactly so
+00:33:14.519 uh we saved the network calls actually
+00:33:16.679 okay which we are making right uh which
+00:33:19.860 is not flooding the server so for
+00:33:21.480 example this is a rate limiter and the
+00:33:23.039 request comes in right I just checked in
+00:33:25.620 my database that in the previous one
+00:33:27.600 second
+00:33:28.500 which request is it for the server from
+00:33:31.200 this person or from this IP address or
+00:33:33.299 whatever right
+00:33:34.980 so I just checked that okay let's say it
+00:33:37.260 is fourth request so I'll allow it if it
+00:33:40.200 is not if it is more than fifth request
+00:33:42.720 so I'll
+00:33:44.039 just not allow it so my server would not
+00:33:47.460 be flooded with bad requests uh
+00:33:50.340 basically the actual users who want
+00:33:53.220 those would be answered
+00:33:55.320 these malicious
+00:33:59.880 good point yeah you're saving on the
+00:34:01.440 internal Network calls all the resources
+00:34:03.120 which are would have been used maybe
+00:34:04.740 some database entries would have been
+00:34:06.120 made so you choke the the people who are
+00:34:09.780 trying to attacker user for example if
+00:34:12.839 I'm just logging in okay or making
+00:34:16.199 unnecessary Facebook accounts let's say
+00:34:18.239 right yeah and my database could be
+00:34:21.119 filled with the entries yeah actually
+00:34:23.099 are there entries no they are not
+00:34:26.219 correct
+00:34:27.839 there's one person who's asking is rate
+00:34:29.520 limiting done on server side or client
+00:34:31.139 side
+00:34:31.918 on both sides you can do it on server
+00:34:33.960 side uh there is this concept of
+00:34:35.580 de-bouncing which is
+00:34:37.320 kind of like rate limiting when you type
+00:34:39.659 very quickly
+00:34:40.800 you don't want to send 50 requests 50
+00:34:42.960 updates you want to take them together
+00:34:45.599 and send it as one single update that is
+00:34:48.780 uh in electronics there's a concept of
+00:34:51.300 debouncing the it goes into Infinite
+00:34:53.940 look like a lot of requests will come so
+00:34:56.960 I can give a better example uh so for
+00:35:00.480 example uh D bouncing let's talk about
+00:35:02.700 debunking so there are two ways to
+00:35:05.760 uh stop the unnecessary request for
+00:35:08.040 example in Amazon let's say in the
+00:35:10.920 search bar you're writing
+00:35:13.680 uh let's say
+00:35:15.180 bad okay you're trying to search back
+00:35:18.000 okay so now
+00:35:20.099 will you send a request for B then you
+00:35:22.619 type 8 so b a so it would get you all
+00:35:25.440 the suggestions that are starting with
+00:35:27.119 ba T so these are three requests
+00:35:30.540 but do you need three requests actually
+00:35:33.359 no we can
+00:35:35.220 basically type two letters or we can
+00:35:37.440 have a threshold that after these many
+00:35:38.940 characters the request would go so this
+00:35:42.119 would uh actually front-end load is also
+00:35:45.119 reduced and the backend load is also
+00:35:46.800 reduced front end will not have to
+00:35:48.540 refresh or you know again and again
+00:35:50.820 showing the search results
+00:35:52.500 right and backend also is like if you
+00:35:56.579 see if I'm making one request after
+00:35:58.200 every three characters input so number
+00:36:01.200 of requests are one third now
+00:36:04.380 this is one yeah we can have this on
+00:36:07.200 time interval also on the base of time
+00:36:09.060 interval also so for example your
+00:36:11.520 writing
+00:36:13.200 uh Play Books Okay
+00:36:15.900 so play and books these are two words so
+00:36:19.079 if the time interval between two
+00:36:21.480 subsequent key presses is above a
+00:36:24.000 certain threshold then only I'll send a
+00:36:26.160 request and get the responses this is
+00:36:28.079 very simple uh for example when you stop
+00:36:31.440 typing only then you would want to see
+00:36:33.359 the responses right
+00:36:36.000 so this is also one way to limit the
+00:36:38.339 rate that
+00:36:39.540 time interval between the subsequent key
+00:36:41.820 presses is let's say uh more than one
+00:36:44.520 second
+00:36:45.359 okay then yeah we would get the results
+00:36:48.960 yeah that's actually a really really
+00:36:50.579 good point yes
+00:36:52.940 and one is called debouncing
+00:36:55.800 okay that that makes sense yeah
+00:36:57.780 throttling is where you're stopping
+00:36:58.920 because de-bouncing is when you're
+00:37:00.180 collecting them and putting them
+00:37:01.619 together
+00:37:02.880 um you can be smart about this also you
+00:37:05.040 can put stuff in your cache like
+00:37:06.720 everyone searches for B and then maybe
+00:37:08.460 stop so put the letter B in the cache
+00:37:11.339 and get those results popular queries uh
+00:37:13.800 there is captcha that you can use in the
+00:37:15.720 client side which if someone is trying
+00:37:18.240 to uh flood your system then you you ask
+00:37:21.599 them to validate the captcha on the
+00:37:23.460 client side so uh okay and then there
+00:37:26.280 are tools also on Amazon which help you
+00:37:28.920 put a firewall
+00:37:31.380 for automated stops it so
+00:37:34.260 okay I think WTF is one of them
+00:37:41.420 the intent of this is that you should be
+00:37:44.040 able to if possible we need to have some
+00:37:46.619 sort of an expiry time uh that you know
+00:37:49.400 if a request comes in and if it hits 10
+00:37:52.859 seconds then you just drop the request
+00:37:55.980 if you were not able to process that
+00:37:57.420 because within that time just drop it
+00:37:59.400 um
+00:38:00.000 also uh what should happen is you should
+00:38:03.359 be able to have let's say multiple
+00:38:04.920 algorithms like you mentioned okay so
+00:38:08.220 these are the two most important things
+00:38:09.660 for the state limiter got it got it so
+00:38:13.140 we can go ahead and build a factory for
+00:38:15.359 two algorithms let's pick two for now of
+00:38:18.540 course third could also be implemented
+00:38:20.400 uh let's pick sliding window first
+00:38:23.700 okay okay
+00:38:25.320 I'll share my screen and
+00:38:28.800 we can straight away go and start
+00:38:31.320 writing the code
+00:38:34.980 okay
+00:38:41.180 uh is asking a question which is a very
+00:38:43.500 good question
+00:38:44.940 and I hear this very often but I'll
+00:38:46.980 answer it once and I'll answer it again
+00:38:48.720 and again uh so that I just thought
+00:38:51.540 about this does pressure need to know
+00:38:53.339 about these Concepts having below two
+00:38:54.780 years of experience
+00:38:57.000 don't yeah limit yourself just don't
+00:38:59.700 limit yourself like this don't keep
+00:39:01.320 asking do I need to do I need to in your
+00:39:03.599 job if you want to increment your
+00:39:05.160 manager can also ask do I need to give
+00:39:06.839 you an increment
+00:39:08.280 think like that right think about your
+00:39:10.680 benefit don't always think about
+00:39:12.540 syllabus
+00:39:13.920 no one
+00:39:15.480 cares in the long run
+00:39:18.060 if you want to be an average engineer
+00:39:20.460 then there's a lot of people
+00:39:22.560 over there I'm not saying you you are
+00:39:24.359 saying this specifically to you I'm
+00:39:25.800 saying because I am heard
+00:39:27.839 fifty percent of the people uh who watch
+00:39:29.940 the channel
+00:39:31.320 or want it is this necessary
+00:39:34.260 what do you mean is this necessary right
+00:39:36.839 is trigonometry necessary for a
+00:39:39.420 seven standard kid maybe not
+00:39:42.060 but it's useful if you like it watch it
+00:39:44.280 if you don't like it that's okay or if
+00:39:46.500 it's going totally about you uh you can
+00:39:48.540 watch the prerequisites so any person
+00:39:51.000 who's thinking about you know is this
+00:39:53.400 necessary
+00:39:55.079 is it necessary for you to be an
+00:39:56.640 engineer
+00:39:57.599 uh think about that if it's not if
+00:40:00.240 you're doing this just for the next one
+00:40:01.800 year or two years sure there's no need
+00:40:03.599 to you know study all these Concepts you
+00:40:05.400 can always go for some other field also
+00:40:07.500 that you are more interested in but yeah
+00:40:09.240 if you want to develop as an engineer
+00:40:10.619 don't think like that is it necessary or
+00:40:12.720 not if you're understanding everything
+00:40:13.800 go for it absorb the knowledge it's good
+00:40:16.859 I don't know I'm going on a rant sorry
+00:40:19.020 no no noise
+00:40:20.940 do you think it is it is fair uh like in
+00:40:23.160 general we are asked this question so
+00:40:24.300 often is it necessary like what what are
+00:40:26.760 you going to do to your
+00:40:28.140 in your product or in your manager or
+00:40:30.000 when you come up with a startup and
+00:40:31.079 people say this is what I need you can't
+00:40:33.780 tell them that this is necessary or not
+00:40:35.220 right
+00:40:35.940 so uh so uh my my perspective with this
+00:40:39.960 is
+00:40:40.920 uh the first point which you said uh is
+00:40:43.859 absolutely right if you uh do I need to
+00:40:47.099 something which should not be in the
+00:40:48.780 question uh it should be if you have
+00:40:51.480 this question which means you are
+00:40:52.619 doubtful about the career if you want to
+00:40:54.300 go out in this career of course you'll
+00:40:55.920 have to learn uh every new thing right
+00:40:59.099 that comes into the market this Market
+00:41:01.440 this industry is like this every other
+00:41:03.420 day there's something new that's come up
+00:41:05.040 that comes up and that is much more
+00:41:06.960 useful uh future it is saving on time or
+00:41:10.200 experience or space
+00:41:12.240 right and you'll have to go and that's
+00:41:15.180 why we have code revamping also in every
+00:41:17.760 company there's code revamp also there
+00:41:19.740 are systems also which get optimized
+00:41:21.839 there's a lot that is invested so of
+00:41:23.940 course you'll have to if you want to be
+00:41:25.260 in this industry if you want to change
+00:41:26.940 your career
+00:41:28.200 and you're thinking it for let's say uh
+00:41:31.500 let's say in a year or two I want to
+00:41:33.119 have the startup of my own of course
+00:41:34.859 that
+00:41:36.359 maybe if you are thinking of a tech
+00:41:37.920 startup or Tech Consulting then of
+00:41:39.540 course you'll have to learn but if
+00:41:42.060 you're thinking of selling something
+00:41:44.160 of course you'll have to hire engineers
+00:41:45.900 and they will take care of it or the CTO
+00:41:47.940 will take care
+00:41:50.820 yeah
+00:41:52.020 I've never seen a professional doctor
+00:41:55.800 career as a doctor saying do I need to
+00:41:58.320 know this with two years experience
+00:42:00.180 never I have not seen a doctor talk like
+00:42:02.760 this it sounds so dumb uh and uh
+00:42:05.040 similarly with lawyers this new law has
+00:42:07.020 come out do I need to learn it or a
+00:42:08.880 chartered accountant saying a new law
+00:42:10.260 has come out for tax do I need to learn
+00:42:11.760 it you have to learn
+00:42:13.560 a profession so don't think about your
+00:42:16.079 user experience giving you a lot of
+00:42:17.940 protection
+00:42:18.839 syllabus based approach that Indians
+00:42:21.240 have only bought in for everything
+00:42:23.040 I think so
+00:42:26.099 please uh
+00:42:28.140 learn if you can okay should I add your
+00:42:31.440 uh you know this is the stream okay yeah
+00:42:34.079 peace
+00:42:41.760 public interface yeah yeah so let's say
+00:42:45.599 and let's
+00:42:47.040 write and go ahead
+00:42:48.900 so there should be one function
+00:42:52.680 granting an access
+00:43:03.180 so I'll exit my presentation you are you
+00:43:07.440 are using an interface why because oh
+00:43:09.420 okay because you want different types of
+00:43:10.740 rate limiters and yeah algorithms uh is
+00:43:13.500 my screen visible uh now yeah
+00:43:20.460 if I increase my how to increase my font
+00:43:23.760 in Java maybe you can press the command
+00:43:26.700 and scroll up the mouse I have seen
+00:43:31.200 I've seen the pressing command
+00:43:33.119 or controller it depends on whether your
+00:43:35.099 Mac or no I'm using Mac
+00:43:39.540 you can also go for presentation mode
+00:43:41.760 yeah actually that was quite territory
+00:43:44.160 because I couldn't see I'll have to make
+00:43:45.839 new files actually
+00:43:47.280 okay you want to make new files or do
+00:43:48.960 you want to create the classes here you
+00:43:50.280 know because it's a
+00:43:52.500 okay okay we can do that as well you can
+00:43:55.740 go for presentation one and create the
+00:43:57.119 classes here itself
+00:44:04.800 presentation just having such a casual
+00:44:06.599 conversation I don't know whether this
+00:44:07.980 will happen in India
+00:44:10.680 okay
+00:44:13.440 let me make a class first uh for one let
+00:44:17.700 me make so that people get a good view
+00:44:24.420 let's
+00:44:26.099 lighting
+00:44:31.520 now let me enter
+00:44:35.160 okay
+00:44:36.420 now
+00:44:38.099 if we see in a sliding window of course
+00:44:40.800 we'll have to remove the entries
+00:44:43.500 that are Before Time like
+00:44:45.839 right before one second entries should
+00:44:48.300 go away right so I'll be using a cube
+00:44:51.900 right
+00:44:53.940 two of let's say integer
+00:44:57.420 and just put let's name it sliding
+00:45:00.000 window
+00:45:03.540 go ahead and import it
+00:45:08.760 so now uh so there's one thing uh
+00:45:13.079 there would always be a cap on the
+00:45:15.180 window right so for example 10 requests
+00:45:17.460 are allowed
+00:45:18.599 so
+00:45:20.819 let's have this bucket cap and the third
+00:45:25.319 thing is uh final seconds right so
+00:45:29.040 what's the so uh in the sliding window
+00:45:32.160 which entries do I have to remove
+00:45:34.319 like one second before one second
+00:45:37.200 entries I should remove right so
+00:45:40.140 there's always time
+00:45:43.800 let's
+00:45:45.300 go ahead and make the first time is the
+00:45:47.040 current time
+00:45:48.240 no it is not a current time so from
+00:45:50.520 current time I want entries data in this
+00:45:53.940 one second window
+00:45:55.440 right okay
+00:45:57.240 yes so all the entries before this one
+00:46:00.240 second should pass or should be removed
+00:46:02.160 from my queue right
+00:46:03.480 got it so this sliding window is almost
+00:46:06.119 so suppose uh I hope everyone is able to
+00:46:08.880 see my hand movement right yeah the
+00:46:11.460 studio also open on the right so that I
+00:46:13.319 can see myself
+00:46:15.720 okay so suppose this is the window
+00:46:18.420 sliding window for one user okay now
+00:46:22.440 you came and you made a request at say
+00:46:25.140 1.1 second request came at 1.2 second
+00:46:28.560 third request came at 1.3 1.4 1.5 now
+00:46:33.240 other request came in at 1.6
+00:46:37.140 right so are these requests relevant yes
+00:46:40.920 it is relevant because I want that in my
+00:46:44.099 sliding window I should have requests
+00:46:45.780 from 0.6 to 1.6 in this one second
+00:46:49.440 window and I can see that there are five
+00:46:51.540 requests that are in this one second
+00:46:52.920 window which I've already made so I need
+00:46:55.319 not to address this request I'll have to
+00:46:58.260 say no to it now let's say other request
+00:47:01.380 which you made at
+00:47:02.940 uh let's say 2.5 second okay okay now
+00:47:06.780 which requests are valid from 1.5 till
+00:47:10.079 2.5 all these requests are valid so this
+00:47:12.300 request which you made at one point is
+00:47:13.920 this valid no I think you should wash it
+00:47:15.480 off 1.2 you should wash it
+00:47:18.000 1.3 you should wash it off
+00:47:21.480 okay okay so this is the time that okay
+00:47:26.099 in this time I want these at Max these
+00:47:29.160 many requests can be handled right so
+00:47:32.220 this is that time
+00:47:34.700 so okay okay so of course we'll get time
+00:47:38.540 and capacity that how many requests will
+00:47:42.060 we be handling in which window so
+00:47:57.359 right and I think we should initialize
+00:47:59.220 our sliding window also
+00:48:06.420 on current
+00:48:07.619 linked
+00:48:10.500 pretty intense huh
+00:48:12.240 yeah
+00:48:13.800 so we can have this okay
+00:48:16.500 now
+00:48:17.760 I think when we'll have because this is
+00:48:21.180 a sliding window of course it will have
+00:48:23.280 to implement
+00:48:27.660 and my rate limiter
+00:48:29.760 which means we'll have to implement the
+00:48:32.460 method which is Grant access right and
+00:48:35.579 this is the only method which will have
+00:48:37.200 to implement right that should we Grant
+00:48:39.420 access to this request or not
+00:48:42.599 right so
+00:48:45.240 so first things first what do we have to
+00:48:47.880 do first of all I think we should update
+00:48:50.460 our queue according to this current time
+00:48:52.800 which means in the queue only the valid
+00:48:55.500 request should be there
+00:48:57.420 so
+00:48:58.800 let's have current time
+00:49:09.060 in Dot
+00:49:10.560 okay
+00:49:17.880 no no I think we should complete turkey
+00:49:21.119 so let's make a private function update
+00:49:26.099 where we'll send the current time
+00:49:29.280 okay and we'll need this private
+00:49:30.960 function because I don't think anyone
+00:49:32.940 outside or a customer needs to know how
+00:49:35.640 we are updating it so we can have this
+00:49:37.500 private
+00:49:43.980 and this would get the current time that
+00:49:46.920 on the basis of this I'll have to update
+00:49:49.800 my key right now
+00:49:52.740 after this we'll make this function okay
+00:49:55.020 but just imagine for now the queue is
+00:49:57.660 updated the queue is updated so now what
+00:50:00.780 do I have to do
+00:50:02.220 I just have to check if
+00:50:04.500 the number of requests in this updated
+00:50:07.140 queue is total number of requesters up
+00:50:10.619 greater than bucket cap or not if it is
+00:50:13.079 greater then of course I'll have to
+00:50:14.700 decline this request if it is then of
+00:50:17.400 course we can address this request
+00:50:19.440 so
+00:50:21.119 if my sliding window
+00:50:25.140 what size
+00:50:27.359 is lesser than bucket cap
+00:50:30.900 and I think sliding we should put this
+00:50:33.780 request in here
+00:50:35.280 but offer
+00:50:38.880 current time
+00:50:41.880 okay why is it showing this issue
+00:50:44.640 okay we'll have to cast it to integer
+00:50:46.740 because we have written integer and
+00:50:49.619 since we have addressed this request
+00:50:51.119 will return true
+00:50:55.260 it's not what this is Boolean
+00:50:59.040 okay I think
+00:51:05.099 this should be Boolean yeah otherwise if
+00:51:07.800 we have not handled this request we can
+00:51:09.540 go ahead and return
+00:51:10.859 false
+00:51:13.319 right so this is about granting access
+00:51:16.920 when will we Grant access but I think
+00:51:19.440 we'll have to update the queue also here
+00:51:21.420 so this is quite simple because we'll
+00:51:24.240 have to remove all the entries from the
+00:51:25.920 front right
+00:51:27.480 so this is just simple TS and I'll go
+00:51:29.700 stuff uh people can do it but let me do
+00:51:33.180 it okay but it's specifically to one app
+00:51:35.460 yeah yeah this specific to this
+00:51:37.740 algorithm right
+00:51:39.480 foreign
+00:51:53.300 so I'll have to remove all the frontal
+00:51:55.740 entries right so let me calculate the
+00:51:59.040 time that before this time I'll have to
+00:52:01.260 remove the entries right
+00:52:03.000 so
+00:52:05.579 this is the new time
+00:52:10.140 current time minus
+00:52:14.339 think we should do
+00:52:16.740 I think this dot time will be done
+00:52:19.260 it's like so I'll have to pick the peak
+00:52:22.020 element right
+00:52:24.660 topmost element
+00:52:31.200 right
+00:52:33.359 yeah I mean you want to do this in a for
+00:52:35.099 loop I guess
+00:52:38.280 yeah yeah this is the for Loop so this
+00:52:40.859 gives me the time in millisecond and of
+00:52:43.740 course I'll have to just run the for
+00:52:45.720 Loop that while
+00:52:48.599 by this time
+00:52:50.880 is greater than actually
+00:52:54.540 equal to
+00:52:56.099 this dot time this time right
+00:53:00.559 okay
+00:53:02.520 interesting then you will have to just
+00:53:05.160 remove the stuff from my
+00:53:08.940 window and now update
+00:53:14.160 sorry
+00:53:20.420 this is part of the query I'm not
+00:53:23.040 understanding you have current time
+00:53:24.300 which is being passed in uh the update
+00:53:27.119 queue is saying that take the first
+00:53:29.579 element which is
+00:53:31.440 list element
+00:53:32.940 what do you mean it is the youngest
+00:53:34.500 element it's the oldest element right
+00:53:35.760 it's the oldest element right yes oldest
+00:53:38.640 element so this is the gap between the
+00:53:40.319 oldest and current time current time yes
+00:53:42.839 so if that so yeah you got that okay so
+00:53:46.200 that Gap is bigger than if that Gap is
+00:53:48.839 bigger than this time which we decided
+00:53:51.540 in the beginning
+00:53:53.119 yes so pole is the function which kicks
+00:53:56.280 It Off
+00:54:03.839 sorry sorry what did you say so once you
+00:54:06.540 got the first element
+00:54:09.059 or you're setting the time to okay
+00:54:13.020 yeah so now you'll go sliding window dot
+00:54:15.119 p and assuming that studying window.p
+00:54:16.980 does not return none yes but yeah
+00:54:20.900 yeah so if it returns when will it
+00:54:24.240 return When the queue will be empty so
+00:54:26.819 if
+00:54:28.260 sliding window dot is empty
+00:54:32.400 I think you can just break the link
+00:54:35.339 okay okay yeah that's right
+00:54:38.819 so this is the implementation for the
+00:54:41.460 sliding window now how would the users
+00:54:44.400 use it I think we can go ahead and make
+00:54:46.740 one of the user classes also
+00:54:49.020 one of the interesting things about this
+00:54:50.520 entire LED question is you didn't make
+00:54:53.700 any uml diagrams you didn't make any
+00:54:55.680 class diagrams because it's not
+00:54:58.140 necessary there's no features as such as
+00:55:00.920 so I want to uh I wanted to highlight
+00:55:03.780 this point actually that in the previous
+00:55:06.180 sessions which you have which we have
+00:55:08.220 already taken in that we used to follow
+00:55:10.200 this practice that okay first of all
+00:55:12.359 build the use so first of all list on
+00:55:14.460 the requirements which the interviewer
+00:55:16.020 has said then go ahead and build the
+00:55:17.940 activity diagram using the uh this using
+00:55:21.420 the requirements then use this use case
+00:55:24.240 diagram to build the class diagram then
+00:55:26.339 using the class diagram you can go ahead
+00:55:27.900 and write the code
+00:55:29.520 but here in rate limiter or in cash
+00:55:32.040 which we took in the last session there
+00:55:33.839 are not much requirements there are just
+00:55:35.579 one or two requirements which is
+00:55:36.900 basically insertion and deletion that is
+00:55:39.119 it simple systems
+00:55:41.640 um that is why we started just by
+00:55:44.040 writing the code straight away because
+00:55:46.520 there are no assets requirements it's
+00:55:49.200 just about insertion and deletion
+00:55:55.800 yes
+00:55:57.240 to you're just getting them apis yeah
+00:55:59.940 your eight limiter is just giving an API
+00:56:01.619 for insertion and deletion
+00:56:03.359 and that's the reason why you're not
+00:56:04.680 going
+00:56:05.460 into a class diagram perfect I think
+00:56:07.980 you're setting up really well
+00:56:10.380 even with the cash I think you didn't go
+00:56:12.119 for you know here's a class diagram or
+00:56:14.520 something it's a engineering tool with
+00:56:18.000 the clear definition of requirements
+00:56:20.640 you just go ahead straight with the code
+00:56:22.740 yeah and this is very similar to cash
+00:56:26.460 actually rate limiting like the design
+00:56:28.440 because in cash also we had an eviction
+00:56:31.079 policy and we had different eviction
+00:56:33.059 policies so we used to feed in the
+00:56:35.579 election policy and our Factory used to
+00:56:37.260 give us the cash here also we'll do the
+00:56:39.660 same thing uh we'll give the policy and
+00:56:43.319 our Factory would give us the rate
+00:56:45.240 limiter some people are comfortable with
+00:56:47.960 uh leaky uh rate limiter some font
+00:56:52.559 sliding window right
+00:56:54.980 so yeah
+00:56:57.180 yeah I mean depending on the situation
+00:56:59.160 maybe you want different types of
+00:57:00.359 algorithms or right this is a common
+00:57:03.480 thing with any engineering tool that you
+00:57:06.059 want to plug and play and some
+00:57:08.339 some algorithms you want to give them
+00:57:09.720 out of the box
+00:57:11.400 like um
+00:57:13.579 I think exponential back off
+00:57:17.220 if I want the assure or simple back off
+00:57:19.619 if I want yeah sure so I've used weight
+00:57:22.319 limiters which actually do this so okay
+00:57:24.720 uh it's good that you're building
+00:57:26.520 multiple weight limiters which shows
+00:57:28.079 that multiple algorithms can be used and
+00:57:31.500 plugged and plate
+00:57:34.500 what do you call this design pattern
+00:57:37.260 Factory design pattern I've heard
+00:57:39.960 okay Factory so you pass in the type and
+00:57:42.540 it gives you a type of object so a
+00:57:44.640 factory of rate limiter yeah so uh to
+00:57:47.579 explain this in a much better way for
+00:57:49.680 example there's generally this given
+00:57:51.780 shape is the factory and you feed in
+00:57:54.780 square so the shape Factory would give
+00:57:56.819 you a square you feed in Triangle the
+00:57:59.099 shape Factory would give you a triangle
+00:58:00.480 so you could tell people what you if you
+00:58:02.760 tell the factory what you want and this
+00:58:04.500 Factory would give you exact same thing
+00:58:06.960 so if you see both of these triangle
+00:58:09.300 circles where all of these are shapes
+00:58:10.980 but you feed in what shape you want so
+00:58:13.980 here also you will feed in what you want
+00:58:16.020 so for example you want sliding window
+00:58:17.880 so you'll feed in that you want sliding
+00:58:20.099 this would give you sliding uh window
+00:58:22.440 rate Limited
+00:58:26.160 and if you can see this in the cache
+00:58:28.980 actually lecture which we took on
+00:58:30.900 YouTube so we have designed cash and we
+00:58:33.300 have discussed each and everything in
+00:58:34.559 depth so you can go ahead and everyone
+00:58:36.180 can go ahead and check that with you
+00:58:39.599 so now uh let's come back to the code
+00:58:42.000 here if we see
+00:58:44.640 now we want to rate we have made the
+00:58:46.920 rate limiter now we want rate limited
+00:58:49.140 for each and every user right so for
+00:58:51.119 each and every user
+00:58:53.099 you can have a map
+00:58:55.380 wherein we can have a ID let's say
+00:58:57.720 integer
+00:58:58.799 and of course what will it have it will
+00:59:01.680 have a sliding window for each and every
+00:59:03.359 user
+00:59:04.500 so let's say
+00:59:19.200 thank you
+00:59:28.040 am I there or
+00:59:39.660 okay Arun you're lagging here
+00:59:41.819 oh thank God I thought again it's my
+00:59:43.619 internet I just turn off my camera for a
+00:59:47.099 second
+00:59:48.480 maybe I can make it a
+00:59:51.500 a nice image
+00:59:56.579 you put a virtual background okay Arun
+00:59:58.559 is I'll run this out I can turn on my
+01:00:00.599 camera
+01:00:01.920 I'll take a couple of questions from
+01:00:03.420 slido uh while Lauren comes back
+01:00:07.380 LED is completely covered in your course
+01:00:09.119 or do you share some more resource
+01:00:11.160 machine coding is covered in the course
+01:00:13.200 uh lower design you're creating another
+01:00:16.020 course Lola design actually is a subset
+01:00:18.660 of machine coding I would say so if you
+01:00:20.760 go through the chapters it will help you
+01:00:22.319 a lot but specifically for interviews
+01:00:24.540 and for SD ones we are
+01:00:27.240 sd1 sv2 and even sd3 Pro division we are
+01:00:30.599 coming with the LED course on interview
+01:00:32.460 ready so if you sign up
+01:00:35.579 let me tell you frankly if you purchase
+01:00:37.260 you are going to get earliest access to
+01:00:39.299 the course we are opening the course
+01:00:40.980 just for a limited number of people in
+01:00:42.540 the start
+01:00:43.799 and then
+01:00:44.940 um
+01:00:46.260 we'll be sending our email to the signed
+01:00:48.420 up users
+01:00:49.740 like people who have not purchased but
+01:00:51.299 at least have signed up for interview
+01:00:52.319 ready and then it will come to
+01:00:55.680 it will be a public announcement so yes
+01:00:58.079 if you want a quick access Early Access
+01:01:02.040 if you have already purchased the course
+01:01:03.299 of course you are coming to you first
+01:01:05.160 and then
+01:01:06.420 I can be ready if you have signed up
+01:01:08.819 uh you know you will get uh
+01:01:12.059 you'll get a chance to purchase it it's
+01:01:13.859 more like a I don't know it's not an
+01:01:15.839 invitation based thing but it's a very
+01:01:18.000 select group which is going to get it in
+01:01:19.680 the start
+01:01:21.720 will this course keep getting updated
+01:01:23.339 with new problems yes
+01:01:26.099 um
+01:01:27.960 so as an example
+01:01:31.500 there is
+01:01:33.240 the current course had four chapters in
+01:01:36.660 the start it now has 14 and 15 is coming
+01:01:39.119 up soon so I'll just
+01:01:41.819 add Arun back to the Stream
+01:01:43.859 yeah so sorry I can my internet went off
+01:01:55.200 until then asking these questions
+01:01:58.339 I've learned almost all the concepts
+01:02:02.160 start shedding
+01:02:06.059 speed
+01:02:08.299 but in interviews I fail to present
+01:02:10.380 everything which is required for the
+01:02:11.460 system in one hour
+01:02:14.280 I think don't don't get scared keep the
+01:02:18.359 discussion
+01:02:19.680 channels open recently we were taking in
+01:02:22.380 one of the doubt solving sessions it was
+01:02:24.240 a very complex question which is asked
+01:02:25.740 to this person and
+01:02:29.400 it was just unlucky like she was asked
+01:02:31.799 to design I think
+01:02:33.900 some complex like almost like an
+01:02:36.660 operating system like you had to come up
+01:02:37.980 with a file uh file system manager so
+01:02:40.559 that was crazy but okay
+01:02:42.780 okay uh you you have started sharing
+01:02:44.940 your screen I'll just add you to the
+01:02:46.619 stream okay
+01:02:48.900 let's let's take the rest of the
+01:02:50.339 question later guys
+01:02:53.700 okay I think I wrote a little I realized
+01:02:57.059 it later that I my internet is off so
+01:03:01.380 yeah okay
+01:03:02.339 okay so okay I just made the computer
+01:03:04.799 all right that is it uh so there's one
+01:03:07.920 thing which we'll have to do uh that if
+01:03:10.020 we are allowed to access the application
+01:03:11.579 or not and since we already have that
+01:03:15.420 function Grant permission in the sliding
+01:03:18.240 window protocol which we made we just
+01:03:20.400 have to use it
+01:03:21.839 if my bucket
+01:03:24.660 or get
+01:03:28.680 ID
+01:03:29.819 so basically I want the sliding window
+01:03:31.980 for this particular ID right so I'll
+01:03:36.240 take out that bucket and I'll access the
+01:03:38.819 grant access function
+01:03:40.440 this will return me true or false
+01:03:42.240 because we had uh made it Boolean
+01:03:45.780 actually
+01:03:46.740 so I'll exit the presentation mode and
+01:03:48.720 I'll show folks
+01:03:52.140 okay so if you see we had this function
+01:03:54.420 Grant access which is Boolean and which
+01:03:57.240 was returning to if you were able to
+01:03:59.040 Grant the access and which was returning
+01:04:01.140 false
+01:04:02.520 so we are using the same function only
+01:04:07.200 and I'll enter the presentation mode
+01:04:09.900 again
+01:04:11.160 right so
+01:04:13.920 yeah
+01:04:14.760 so if it is granting access so I think
+01:04:17.160 we can print that okay access granted
+01:04:22.680 let's write able to access
+01:04:26.760 otherwise
+01:04:28.980 we can print and write
+01:04:31.140 not able to access
+01:04:32.940 or maybe too many requests
+01:04:43.260 okay so this is it for the sliding
+01:04:46.559 window if you see
+01:04:48.480 we are done with the sliding window
+01:04:50.160 protocol so if anyone wants a rate
+01:04:54.119 limited which is using sliding window
+01:04:55.680 you can just simply return this and this
+01:04:58.319 will be okay
+01:04:59.640 there's a comment uh which is saying
+01:05:01.319 this is in the sliding window your
+01:05:02.579 implemented a fixed window design you
+01:05:04.740 aren't doing anything with the ratio
+01:05:06.059 slash percentage fill of the current
+01:05:08.160 window
+01:05:11.520 let's see this
+01:05:17.220 so if you see
+01:05:18.960 uh in the granting permission
+01:05:21.359 we are updating the queue beforehand
+01:05:23.819 right
+01:05:25.619 we are updating the queue so we are
+01:05:27.480 popping out the entries
+01:05:30.119 on the basis of time and capacity right
+01:05:34.319 so we are so our window is sliding on
+01:05:36.660 the basis of time interval and of course
+01:05:39.299 it uh it has a capacity as well
+01:05:42.359 every time you're granting access you
+01:05:44.460 are going through the thing so you are
+01:05:45.599 sliding your window uh like this yeah
+01:05:48.000 okay yes yeah make sense
+01:05:51.480 makes sense uh common things to keep in
+01:05:55.020 mind uh when dealing with bot scrapers
+01:06:01.319 okay uh
+01:06:03.059 okay yeah let's do you want to try
+01:06:05.400 another algorithm uh I don't know or do
+01:06:07.140 you think this is sufficient it's an
+01:06:08.579 interface which has extended and
+01:06:09.839 algorithm
+01:06:12.720 [Music]
+01:06:14.160 I can go ahead and Implement leaky also
+01:06:17.059 leaky algorithm okay uh
+01:06:21.740 bucket okay
+01:06:26.119 if people want
+01:06:28.559 I can but the point is uh what I want to
+01:06:33.359 uh what we want to discuss is uh the low
+01:06:37.020 level design of a rate limiter which we
+01:06:38.760 which I think we already have if guys
+01:06:41.039 yeah
+01:06:45.740 you don't need to implement it right now
+01:06:47.819 just tell me what would you override you
+01:06:50.039 would override the grant access okay yes
+01:06:52.380 and we would have different data success
+01:06:55.200 that's it
+01:06:57.420 yeah so you are saying that change the
+01:06:59.460 state change the internal Behavior but
+01:07:02.099 the external behaviors have to be the
+01:07:04.859 same
+01:07:05.760 the only thing is this might get more
+01:07:08.160 optimized for different kinds of
+01:07:09.480 scenarios the behaviors will not change
+01:07:11.480 yeah so let me uh tell everyone what a
+01:07:14.579 leaky bucket is actually because
+01:07:17.400 so people can imagine this like a water
+01:07:19.559 bucket okay wherein the flow of water
+01:07:22.859 could be uneven
+01:07:24.960 but suppose you have a hole in the
+01:07:27.119 bucket so the outflow of that water from
+01:07:30.660 that hole is constant
+01:07:32.819 which means that uh
+01:07:36.180 you are removing three requests every
+01:07:39.660 second
+01:07:41.520 but the inflow of the request could be
+01:07:43.980 uneven so for example again let's take
+01:07:45.900 this uh queue are you guys able to see
+01:07:49.200 my hands
+01:07:50.280 yeah
+01:07:51.420 yeah okay
+01:07:53.220 so suppose uh
+01:07:55.980 you get a request at 1.1 so you put it
+01:07:59.339 here
+01:08:00.480 you bought a request at 1.2 so you put
+01:08:03.059 it here now you got a request at
+01:08:06.720 let's say fifth second okay now you'll
+01:08:09.900 have to see that which all older
+01:08:12.000 requests are so now suppose you are
+01:08:14.400 popping off three requests every second
+01:08:17.640 which means that from one to two
+01:08:21.060 you would have bought three requests so
+01:08:22.859 one point one should have been popped
+01:08:24.299 one point two should have been popped
+01:08:26.040 right at six now the queue actually gets
+01:08:29.339 empty
+01:08:30.238 suppose you get another request at 5.2
+01:08:34.198 5.1 you have put it 5.2 so
+01:08:38.279 from current time
+01:08:40.560 and the previous time okay so you are
+01:08:44.100 popping off three requests every second
+01:08:46.500 so it is one second occurred no so you
+01:08:50.759 will not be popping off this request
+01:08:53.040 should leaky bucket is something of this
+01:08:55.259 sort that you are popping off fixed
+01:08:56.880 number in sliding window
+01:08:58.859 you're popping off all the requests that
+01:09:00.600 are before this time
+01:09:03.738 requests which is constant
+01:09:06.899 every time
+01:09:11.939 yeah I mean uh I think the name comes
+01:09:14.219 from you have a bucket
+01:09:15.839 you fill it as much as the the inflow
+01:09:18.179 rate is anything but the Leaky bucket
+01:09:19.979 the drops will keep falling because the
+01:09:21.359 surface area is the same yeah so it's a
+01:09:24.000 pretty like the the people who name
+01:09:26.040 these things think a lot but then we go
+01:09:27.899 like
+01:09:29.640 token bucket
+01:09:31.620 it is more like okay you take tokens out
+01:09:33.420 of the bucket at the same rate so you
+01:09:35.339 might be dumping thousands of tokens but
+01:09:37.799 the rate of pulling out a token is the
+01:09:39.719 same so pretty interesting to think of
+01:09:42.479 it that way their behaviors are
+01:09:45.779 very similar
+01:09:49.140 leaky bucket I think is a more
+01:09:50.759 continuous one token bucket is like you
+01:09:52.560 can take a small burst of traffic
+01:09:54.299 leaking is more like you know take
+01:09:57.420 so
+01:09:58.500 okay okay uh quite a few you know
+01:10:01.560 comments on what is the price of the
+01:10:03.179 course and is there a value offer on the
+01:10:04.920 course the price of the course is three
+01:10:06.600 triple nine which is around 4000 rupees
+01:10:10.560 there is a special discount coupon that
+01:10:12.420 we have just for this live stream which
+01:10:14.760 is festive season Diwali is coming up so
+01:10:17.160 after this live stream uh you know the
+01:10:21.239 thing will be taken off but festive
+01:10:23.159 season is something you can use to get a
+01:10:24.719 massive 25 off
+01:10:26.520 so
+01:10:27.659 Happy Diwali yes
+01:10:30.780 okay okay uh
+01:10:33.900 what
+01:10:35.640 I can see some comment on you know
+01:10:38.100 improving the font size this is I think
+01:10:40.980 it's sufficient that we are able to feel
+01:10:42.420 thank you there is one question on why
+01:10:44.100 concurrent link DQ
+01:10:46.860 why do you use that data structure no no
+01:10:49.380 I use Q
+01:10:51.420 you used queue but the implementation
+01:10:54.120 was a concurrent linked DQ I think
+01:10:57.420 no no implementation was a concurrent
+01:10:59.820 link Cube
+01:11:01.380 concrete linked Q okay okay sorry uh so
+01:11:04.500 why did you use a concurrent link key
+01:11:07.560 because of the sliding window and
+01:11:09.480 concurrent requests coming in yes yes
+01:11:12.000 yes
+01:11:14.760 great
+01:11:17.280 of course
+01:11:18.540 E1 here
+01:11:21.600 which course are they are asking what
+01:11:24.060 are I think sufficient the one we are
+01:11:26.159 releasing in lower design is sufficient
+01:11:28.380 definitely and so is
+01:11:31.800 I think was definitely so are we going
+01:11:34.860 to identify the point of generation
+01:11:36.000 interest with IP address Mac address or
+01:11:37.739 the special machine code generated for
+01:11:39.239 each point maybe from the client side
+01:11:41.580 what would you say
+01:11:44.300 you can have the MAC address action
+01:11:49.800 problem with IP address
+01:11:53.100 es okay but uh
+01:12:01.860 it's a some sort of a bucket algorithm I
+01:12:05.640 guess
+01:12:09.659 you know there was this one time when I
+01:12:11.159 was in Mumbai and they were bomb blasts
+01:12:13.320 so it was just like a firecracker and
+01:12:16.739 okay I could see black smoke and uh car
+01:12:19.980 station the train station was when it
+01:12:22.140 happened and it was like I I went down
+01:12:24.960 then uh for I think some errand I had
+01:12:28.199 but everyone was trying to escape get
+01:12:31.679 into a bus get into a just get back home
+01:12:34.620 and phone lines and everything so every
+01:12:37.320 time there's a cracker
+01:12:39.420 although I know that's stupid of me to
+01:12:41.219 think this way because you know Diwali
+01:12:42.480 happens every year
+01:12:44.060 oh my God
+01:12:51.719 small things can create a big problem
+01:12:53.699 that's the reason why you have Security
+01:12:55.380 Forces like one small incident and they
+01:12:58.500 remember it forever
+01:13:00.600 how uh so this is a good question how do
+01:13:02.640 you need to point uh domain change from
+01:13:04.620 Android development to backend
+01:13:05.880 development what are the steps I'm
+01:13:07.980 confused about it what would you suggest
+01:13:11.820 okay
+01:13:15.120 so Android development Android is
+01:13:17.520 something sort of front-end
+01:13:19.080 right
+01:13:21.179 first thing so which means that you're
+01:13:23.100 going from front end to back end
+01:13:25.500 right which means uh people should start
+01:13:28.800 learning about systems they should start
+01:13:31.199 seeing about systems
+01:13:34.699 uh maybe they should start with
+01:13:38.760 the three resource which you have I
+01:13:40.620 think that is pretty structured
+01:13:42.600 becomes a coding will you will you tell
+01:13:44.280 them that hey greatest
+01:13:45.780 my project yeah
+01:13:50.340 let's say build an authentication system
+01:13:52.199 which just allows you to logs in uh sign
+01:13:55.080 up login logout
+01:13:56.880 uh this could be the great start
+01:14:00.840 okay yeah absolutely absolutely 100
+01:14:03.659 agree with you on that at least if you
+01:14:06.360 start with this then you'll you start
+01:14:08.219 seeing then if you can host it on AWS
+01:14:09.840 nothing like it yeah you can hit those
+01:14:11.460 apis key it's very cheap they give you
+01:14:13.560 some free credits also so all of those
+01:14:15.960 benefits take it when you have no
+01:14:17.580 opportunity why not
+01:14:19.380 vineet had asked this question long back
+01:14:21.300 I didn't highlight it because I think we
+01:14:23.219 were in the flow but how do you approach
+01:14:25.260 if you have a DDOS attack across every
+01:14:28.080 exposed server
+01:14:29.340 okay A little dancer ad server
+01:14:32.520 um there are a bunch of people who are
+01:14:34.560 doing a DDOS attack
+01:14:36.120 how do you handle that
+01:14:37.739 so maybe have an eightilometers on each
+01:14:41.699 of these servers
+01:14:43.620 um
+01:14:45.840 recently there was a paper that I shared
+01:14:48.420 on LinkedIn for Google which had a big
+01:14:50.640 DDOS attack
+01:14:51.780 so maybe you want to see how they did it
+01:14:53.580 in the real world the concept is similar
+01:14:55.679 though all of these uh Edge servers need
+01:14:58.260 to have some sort of rate limiters in
+01:14:59.940 them
+01:15:02.400 uh how do you decide what order of
+01:15:05.580 things to do in terms of priority you
+01:15:07.800 can set priority of requests from the
+01:15:09.840 client you can set creative requests on
+01:15:12.120 the server the type of request which has
+01:15:14.159 to be taken when you validate the
+01:15:16.140 request that time you can see you know
+01:15:18.239 which queue to put it in
+01:15:20.699 okay and there is a follow-up on this uh
+01:15:23.460 how do you avoid something similar to
+01:15:25.140 fb's outage where the server might drop
+01:15:26.820 packets related to your control plane
+01:15:28.500 without going to Data Center
+01:15:32.460 I think
+01:15:33.960 this was something to do with
+01:15:36.840 the Border Gateway protocol or or they
+01:15:39.600 basically unregistered themselves out of
+01:15:41.340 the internet so this is not really
+01:15:42.719 anything to do with rate limiting
+01:15:45.860 it's it's a configuration problem I
+01:15:48.360 think which had happened
+01:15:50.460 so you can read the outage information
+01:15:52.560 more in Facebook
+01:15:54.960 but it was not related to rate limiting
+01:15:56.820 though uh how do you avoid this
+01:16:00.960 conflict changes yeah you can go make
+01:16:03.360 them go through a stringent staging
+01:16:05.340 process and all that I'm sure Facebook
+01:16:06.659 has that
+01:16:07.860 it got missed because of particular
+01:16:10.080 reason I think so you can go and read
+01:16:12.179 the incident report
+01:16:14.219 at the end of the day things go wrong
+01:16:15.840 unless you're building a spaceship even
+01:16:17.820 then things go wrong unless you're
+01:16:19.440 building some hard monitor even then
+01:16:21.719 things go wrong people die
+01:16:23.640 so
+01:16:24.900 it's
+01:16:26.280 it's a real thing if you don't test
+01:16:27.900 properly people actually end up dead so
+01:16:31.560 better it happens like some
+01:16:33.360 mistakes always happen
+01:16:36.600 uh if multiple threads are accessing
+01:16:39.300 update you won't it be wrong in line 32
+01:16:42.659 and 36. yeah we have not taken care of
+01:16:44.880 concurrency at a very high
+01:16:47.360 depth I think here
+01:16:49.699 has the best questions thank you for
+01:16:52.140 these questions vineeth
+01:16:55.260 why are we performing an empty check at
+01:16:56.940 the beginning of the update you won't it
+01:16:58.199 always be empty at the start
+01:17:00.600 so uh we're just checking it uh for
+01:17:05.400 example
+01:17:07.260 uh right now let's say uh
+01:17:12.900 just checking it for the sake of
+01:17:14.280 checking I think that would not required
+01:17:15.960 yet
+01:17:17.480 because initially you are initializing
+01:17:20.340 that time to Peak so if you didn't check
+01:17:23.219 it it could have been
+01:17:24.480 none
+01:17:27.719 yeah yes yes
+01:17:36.719 okay I guess you can update the user
+01:17:39.000 config in Cache and Signal the rate
+01:17:40.260 limited to fetch the updated config from
+01:17:42.360 cash to achieve this you had to design
+01:17:43.920 it beforehand
+01:17:45.960 yeah this is more like propagating the
+01:17:47.580 ultimate conflict
+01:17:51.600 okay special coupon guys festive season
+01:17:53.580 25 off it stops after this live stream
+01:17:58.320 so best to celebrate Diwali uh get ready
+01:18:02.340 with system design
+01:18:03.659 and we have we have more chapters being
+01:18:06.540 added we have a amazing course coming up
+01:18:08.460 low level design field we have a high
+01:18:10.500 level design and you know fundamental
+01:18:12.480 scores already out there which is
+01:18:13.739 definitely
+01:18:14.820 super useful for you so go for it
+01:18:18.120 um yeah there's there's one person who's
+01:18:20.219 asking could setting up a read-based
+01:18:21.900 rule in AWS WF
+01:18:24.840 help in rate limiting yes it would WF I
+01:18:27.300 think is a firewall uh web application
+01:18:29.580 firewall I think offered by Amazon web
+01:18:31.920 services
+01:18:33.060 we use it at interview ready uh useful
+01:18:37.800 we had a health check
+01:18:39.780 at interview ready to check if our ec2
+01:18:41.940 instance is alive so it would keep
+01:18:43.320 pinging and uh the firewall saw that and
+01:18:46.620 it was like oh what so and then we we
+01:18:50.400 start getting alerts so then we had to
+01:18:53.280 work around that like either you uh
+01:18:55.560 allow that
+01:18:57.120 code to go through or there are Health
+01:18:59.520 tech services in AWS itself
+01:19:02.520 I think this brings us to the point
+01:19:03.900 around that system design in the real
+01:19:05.580 world like a lot of it is taken care of
+01:19:07.380 by AWS yes
+01:19:10.800 as speaking to this solutions architect
+01:19:12.659 at AWS her name is akamsha and she's
+01:19:16.140 like super smart super knowledgeable and
+01:19:18.900 she knows more system design than I do
+01:19:21.239 so I know I know Theory and all that but
+01:19:23.940 in practice actually uh she was
+01:19:28.199 super super smart and there are many
+01:19:30.360 people
+01:19:32.400 AWS who are super super smart when it
+01:19:34.739 comes to helping startups or
+01:19:36.420 medium-sized companies you know come up
+01:19:38.100 with corporations so yeah in the real
+01:19:40.739 world it's very different if you want to
+01:19:42.060 cut down on costs you want to keep
+01:19:43.440 things okay I was talking to a recipe
+01:19:45.900 engineer and uh
+01:19:48.420 I could tell that you know
+01:19:51.900 kudos to recipe they got our UPI backup
+01:19:54.360 but I could tell that this carry is
+01:19:57.780 too focused on engineering like he does
+01:20:00.000 not know what I am thinking as a
+01:20:01.739 business he's like you know my uh we hit
+01:20:04.980 the API
+01:20:06.300 it'll work
+01:20:07.679 that's what I got uh but I was like dude
+01:20:11.219 test it man just test it my entire
+01:20:13.500 business is dependent on this
+01:20:16.280 this 18 people
+01:20:19.080 who are working hard to make
+01:20:22.199 this interview ready platform possible
+01:20:24.780 if you don't test it that's 18 people
+01:20:27.960 suffering so and then the users like
+01:20:31.199 they are suffering so please help us out
+01:20:33.480 here and I could tell her he's read to
+01:20:36.000 me API docs you know he's just going
+01:20:37.679 like okay fine if the API gives the
+01:20:39.420 error then it's an error like okay I
+01:20:41.580 deployed I tested uh on my side you have
+01:20:44.280 to test it in fraud but so right
+01:20:55.460 details like you know
+01:20:58.280 it goes to a PSP the PSP doesn't
+01:21:02.940 just tell me how do I use you as a black
+01:21:05.699 box if I have to actually figure out
+01:21:07.020 what you're doing then I mean I will
+01:21:09.480 open reset pay right so they got the
+01:21:11.760 thing done uh like I said kudos to them
+01:21:14.159 they they got it back up they you know
+01:21:15.780 what they did
+01:21:17.460 they kind of rewarded their code like
+01:21:19.440 they reverted the car
+01:21:22.739 okay it's gonna happen I think a month
+01:21:25.320 back but yeah
+01:21:26.960 but at least it's happened now so if
+01:21:29.640 you're looking for a UPI payment
+01:21:32.840 which will work now
+01:21:35.159 good stuff
+01:21:36.420 can Mac address be false GS
+01:21:40.260 somehow the coupon is not working oh
+01:21:47.340 that's
+01:21:50.040 that's it pins
+01:21:52.739 you're made me emotional
+01:21:56.460 oh my God okay
+01:21:59.580 yeah try now
+01:22:01.440 [Laughter]
+01:22:14.880 here is gaurav with his announcement
+01:22:18.600 which doesn't the coupon is not working
+01:22:21.199 vishna thank you for for posting that I
+01:22:24.060 mean uh okay I'll keep it I'll keep the
+01:22:26.520 coupon alive for one more hour after
+01:22:28.140 this live stream just so that you know
+01:22:29.460 you get an opportunity sorry for this
+01:22:32.280 yeah this is this is what happens when
+01:22:34.080 you
+01:22:36.480 when you have got to send the Survey
+01:22:38.460 Monkey chaos monkey taking care of this
+01:22:39.960 okay a couple of no other questions I
+01:22:43.199 think we're good to go uh guys thank you
+01:22:46.260 so much for coming thank you for joining
+01:22:48.719 us uh on you know very close to Diwali
+01:22:51.120 on this Thursday evening you could have
+01:22:52.739 been doing anything but you chose to
+01:22:54.120 come here and learn system design
+01:22:56.280 um
+01:22:57.480 we'll see you soon we have some big
+01:23:00.300 announcements on the way
+01:23:02.760 and uh
+01:23:04.140 yes we would love to make that
+01:23:06.480 announcement but right now we are just
+01:23:08.100 making sure that the content is
+01:23:10.320 excellent and you know we want to have a
+01:23:13.260 staggered release
+01:23:15.540 of the lower design course
+01:23:19.140 so yeah are you in any last words before
+01:23:22.380 we write off
+01:23:24.739 so I would like to say uh we are excited
+01:23:28.080 while we were excited while building
+01:23:29.940 this course and we are excited uh
+01:23:33.540 while we are concentrating on all the
+01:23:37.080 quality stuff which we can provide it to
+01:23:39.480 people
+01:23:40.380 so just few days more and we'll be
+01:23:43.500 coming with a bank
+01:23:44.760 and this would be really helpful I
+01:23:47.400 personally think that this would be
+01:23:48.780 really helpful because
+01:23:51.239 your previous course also was like this
+01:23:53.280 only and this has changed a lot of lives
+01:23:57.000 and I'm pretty sure this new course
+01:23:58.620 would also so
+01:24:01.080 in just few more days
+01:24:04.920 from 4 to 14 we went there here also we
+01:24:07.860 are starting with some chapters and we
+01:24:10.020 are continuously increasing in fact we
+01:24:12.420 have like I said menu on the editing
+01:24:14.820 side in fact today we are discussing in
+01:24:16.440 the morning
+01:24:17.340 so
+01:24:18.780 so with Singh uh is saying
+01:24:20.580 congratulations and Happy Diwali thank
+01:24:22.440 you so much
+01:24:23.400 uh thank you ravish
+01:24:25.080 thank you virendra
+01:24:27.000 uh
+01:24:29.520 arush is saying I expected some Factory
+01:24:31.199 code to be written uh refactoring gurus
+01:24:33.900 some a place where you can see it
+01:24:35.520 factoring um
+01:24:40.199 yeah and Factory code is something which
+01:24:42.600 is already written in the cache
+01:24:45.440 foreign
+01:24:47.360 code has been written over here so you
+01:24:50.100 can go ahead and check that cash
+01:24:53.280 awesome
+01:24:54.679 okay guys uh let's catch up Plato thank
+01:24:58.560 you so much for coming you have one hour
+01:25:00.000 for this special coupon uh and then of
+01:25:03.000 course you know you can always buy the
+01:25:05.040 course at full price also it's
+01:25:06.659 definitely worth it
+01:25:07.980 that's that's the way it is priced it's
+01:25:09.719 not a big Basket sale uh so
+01:25:13.159 I'm quite well keep taking
+01:25:17.360 do not get into controversies see you
+01:25:20.340 guys bye bye have a great Diwali
+01:25:22.920 happy diwalior

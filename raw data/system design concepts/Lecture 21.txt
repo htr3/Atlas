@@ -1,0 +1,140 @@
+# tactiq.io free youtube transcript
+# 5 Tips for System Design Interviews
+# https://www.youtube.com/watch/CtmBGH8MkX4
+
+00:00:00.300 Hi everyone.
+00:00:01.020 We are talking about five do's anddon'ts for system design interviews.
+00:00:04.620 Now these tips are very useful if youhave your system design interviews coming
+00:00:07.841 up soon or if you're just practicing andyou want the maximum amount from each
+00:00:12.960 practice session. Now,
+00:00:14.420 the first system design interviewtip that I would like to give you is
+00:00:19.260 do not go into detail prematurely.
+00:00:21.670 This happens very often when you aredrawing services and databases and you
+00:00:25.921 know,
+00:00:26.150 clients that are going to be connectingto these people get into one part of the
+00:00:30.601 system and go into very, verydeep detail. For example,
+00:00:35.540 if I look at the client and I saythat I'm going be connecting to these
+00:00:38.720 services, sometimespeople say that, alright,
+00:00:41.950 there's going to be a gatewayhere. Is this too much detail?
+00:00:46.650 Maybe not, but this is,
+00:00:49.140 I'm gonna be using theHTTP protocol gateway.
+00:00:52.640 <Gibberish>.
+00:01:00.660 What's going to happen with this kindof a flow is that you are going to be
+00:01:05.400 talking all the time, and that's not whatyou want in a system design interview.
+00:01:08.620 You are gonna be talking forthe majority of the time,
+00:01:10.540 but you want the interviewer tobe giving feedback very often.
+00:01:13.801 What happens with this is that whenyou go into detail and you take a flow,
+00:01:17.001 which is not what the interviewerwants, they won't even stop you.
+00:01:21.560 They'll just let you run along.And once you make the mistake,
+00:01:24.830 you'll need to backtrack. And that'snot just wasting time in your interview.
+00:01:28.430 That's also a negative pointbecause in the real world,
+00:01:31.210 if you did this and you have to backtrackthat, that would cost money, right?
+00:01:36.270 So avoid this point.
+00:01:38.000 It's very important that youdo not get into detail until,
+00:01:41.510 and unless you're sure or youhave asked that, what should I do?
+00:01:45.470 So a good way to actually talk about thesame thing is I'm gonna be talking to
+00:01:50.371 all my services using a gateway.Yeah, this is reasonable.
+00:01:55.200 Wait for one second, wait for a response,
+00:01:57.670 and then say it's going to be talkingto this service using a protocol.
+00:02:02.890 I prefer H G T P because it's widely used,
+00:02:06.030 and so the clients don't need to dosomething. But again, take that pause.
+00:02:11.550 If there's somethingimportant, it'll come up.
+00:02:13.611 Maybe the interview will direct you.
+00:02:15.669 If you're going to be talking aboutdatabases and they want details,
+00:02:19.389 mostly they're gonna be talking aboutdrawing an entity relation diagram.
+00:02:23.470 So you, you'll bedefining your tables well.
+00:02:28.270 So that's how you go into detail. You,
+00:02:30.190 you wait for some time and youactually look for the first point
+00:02:35.131 which needs detail for thesystem to be defined better.
+00:02:39.310 Now for the second point,
+00:02:40.710 the second point is that don'thave a set architecture in mind.
+00:02:45.430 If you have something alreadythought out, you know,
+00:02:48.389 you have read some blog which says thatthis is a really good architecture,
+00:02:52.131 maybe MVC maybe event driven,and you just say that, okay,
+00:02:55.790 I'm going to be having thisarchitecture and I don't care about the
+00:02:58.960 requirements, I'm somehow goingto fit the requirements into the,
+00:03:02.430 into the system. So if I'm a fan ofpublisher subscriber models and I say,
+00:03:07.161 there's gonna be a publisherand subscriber here,
+00:03:09.730 which is the only way that servicesare going to be talking to each other,
+00:03:13.900 maybe it's not the bestfor the given scenario.
+00:03:17.310 So if you're doing this again,
+00:03:19.720 what could happen is the interiormight take it among upon themselves to
+00:03:24.370 actually break this architecturesomehow. So the requirements may change.
+00:03:28.790 In fact, very often that's,that's the thing that is done.
+00:03:31.840 It's to test your flexibility when youhave something which you feel is really
+00:03:36.251 good, and they throw requirementswhich are completely different.
+00:03:39.190 So don't have a very setarchitecture in mind.
+00:03:42.110 It happens often when we don't havetime for system design interviews.
+00:03:44.731 We are just reading all blog posts andwe see something really good and feel
+00:03:48.251 like, yeah, this, this is gonna fiteverywhere. That's not the case. You know,
+00:03:51.210 WhatsApp and Uber have verydifferent architectures.
+00:03:54.291 The third one is actually a KISS,
+00:03:58.020 which is very famous amongstprogrammers. It's keep it simple, stupid.
+00:04:02.710 You don't want to pick up onepoint of the service and just
+00:04:08.590 go on, you know, getting into moreand more detail about this service.
+00:04:12.120 Like I'm going to have maybe
+00:04:16.350 I'm going to have a heartbeat, which isgonna be talking to this specifically.
+00:04:19.790 I'm also going to be havinganother database for analytics
+00:04:25.190 for this service. You know,more and more you get into this
+00:04:31.570 specific portion of the architecture,the more and more narrow your view is.
+00:04:36.790 So what I would suggest istake a step back often enough,
+00:04:41.011 just take a step back and have alook at the entire architecture.
+00:04:43.860 Maybe some of the things that you'redoing here, maybe the heartbeat,
+00:04:45.891 maybe the analytics can beextended to the entire system.
+00:04:49.350 And very often what happens is if you,
+00:04:52.029 if you have a look at the DIdiagram that you're drawing,
+00:04:54.310 and if you see one partof the system, you know,
+00:04:57.040 huge <laugh> and the other one's alltiny thin, then it's a good idea.
+00:05:01.800 It's a good indicatorthat maybe your system,
+00:05:03.851 either it needs change or itneeds to become more simplified.
+00:05:08.510 You can extract out components from onepart and extend them to the other bits.
+00:05:14.350 The fourth point is probably the mostcommon mistake made in system design
+00:05:18.331 interviews, and that is to makepoints without justifications.
+00:05:22.230 If you have nothing backing upwhat you just said, for example, I,
+00:05:25.450 I say that the database is going tobe a NoSQL database and I go even more
+00:05:30.410 concrete and say it's Cassandra.One logical question is,
+00:05:35.350 why, why do you wantthat? And many of us in,
+00:05:40.040 in these interviews, wefeel the need to speak.
+00:05:43.040 We feel the need to actually makepoints continuously because it's,
+00:05:47.061 it's awkward.
+00:05:47.720 The silence that is between you explainingand the interviewer evaluating that
+00:05:52.800 is very awkward. So you might makea half-hearted comment on, Hey,
+00:05:57.400 I can use Cassandra here. Or you mightfeel like, Hey, Cassandra's really cool.
+00:06:02.500 So why not just add that to the system?Be sure about what you're speaking.
+00:06:08.180 If this Cassandra database is notgoing to be working well here,
+00:06:11.500 that's going be a negative pointand that's gonna be against you.
+00:06:14.540 So a wide speaking, withoutthinking the points through,
+00:06:20.480 the final point is to be aware ofcurrent technologies with this.
+00:06:24.221 What happens is if you draw a partof your system, which is for example,
+00:06:28.301 the database,
+00:06:29.120 you can actually name the technologyyou're using in that database.
+00:06:33.760 So for example, if I say I'm goingto be using a NoSQL database,
+00:06:36.701 and we have already said, Cassandra,
+00:06:39.000 you can also use Amazon DynamoDB and so on and so forth.
+00:06:43.640 What about a relational database,which is not like a NoSQL database?
+00:06:47.250 I can use MySQL, I can use Postgres.
+00:06:50.080 Another thing that you might usefor load balancing is elastic load
+00:06:55.051 balancer.
+00:06:55.589 So you might use the Amazon architectureto give you this for heartbeats.
+00:06:59.691 You might use zookeeper for thismessage queue, you might use RabbitMQ,
+00:07:03.350 so on and so forth. But mebeing aware of these databases,
+00:07:07.691 these off the shelf solutions shows thatI'm knowledgeable and I will probably
+00:07:12.451 take lesser time and lesser testingto implement my entire feature.
+00:07:16.710 So these are the five important do's anddon'ts for your system Design interview
+00:07:20.930 are three pillars that I see our systemdesign interview standing on are the
+00:07:25.531 first one being clarity of thought.
+00:07:26.910 So if you can express yourselfclearly to your interviewer,
+00:07:30.571 you can do the same with yourteammates. And that's a big plus point.
+00:07:33.990 The second one is flexibility.
+00:07:35.350 We talked about don't be stuckwith one architecture and you know,
+00:07:39.090 roll with the punches.
+00:07:39.950 So flexibility is importantwhen you are designing a system,
+00:07:43.091 system design interview. Andthe final pillar is knowledge.
+00:07:46.750 If you're aware of what's going on aroundthe world and you're able to design a
+00:07:50.171 system successfully, then the systemdesign interview is a success.
+00:07:54.190 So remember the five do's and Don'sthat we have discussed over here,
+00:07:57.310 and I'll be seeing you next time.
+00:07:59.110 That's about actually designinga system from scratch.
+00:08:02.790 So we are gonna be picking upsomething and building it from scratch.
+00:08:06.750 If you want notificationsfor that, you can subscribe.
+00:08:08.950 And if you like this video, hit thelike button. I'll see you next time.

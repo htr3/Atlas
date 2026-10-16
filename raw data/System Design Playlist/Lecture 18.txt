@@ -1,0 +1,218 @@
+# tactiq.io free youtube transcript
+# How NETFLIX onboards new content: Video Processing at scale 🎥
+# https://www.youtube.com/watch/x9Hrn0oNmJM
+
+00:00:03.980 Sometimes it feels like I am a god.
+00:00:09.400 Hi everyone, today we'll be talking about how NETFLIX onboards new content
+00:00:11.860 onboards new content onto their platform
+00:00:14.480 So if you have a TV series or a movie and you want to get it uploaded
+00:00:17.400 on NETFLIX, apart from the legal challenges there's also
+00:00:20.360 engineering challenges that NETFLIX solves. I'll be keeping this video as
+00:00:23.140 simple as possible so that the maximum number of viewers can
+00:00:26.080 understand what's going on. But there will be some technical details
+00:00:28.785 when it comes to video encoding and other
+00:00:31.535 technical processes. Firstly what kind of challenges will we
+00:00:34.205 face when we are uploading new content ?
+00:00:37.040 Well, we need to store it in different formats
+00:00:40.040 sometimes you might be knowing about MP4, AVI and other formats
+00:00:43.320 The reason they have this is because different people
+00:00:45.660 have different internet connection speeds. So if you have a really good
+00:00:48.740 internet connection speed and you can deal with a really
+00:00:51.760 difficult format for example a detailed one where the
+00:00:55.260 data loss is minimum and you want to see like maximum video quality
+00:00:58.975 And then you'll have something like medium quality and low quality too.
+00:01:02.280 So, all of these are nothing but codecs.
+00:01:05.200 A codec is a way in which you compress video.
+00:01:08.120 So originally, like this video right now,
+00:01:11.105 It's going to be taking a lot of detail, but when I edit this video
+00:01:14.145 I'll make sure that the size of the file is not huge.
+00:01:17.240 I'll try to keep it within 1GB. So that is one
+00:01:20.180 type of codec. If I reduce the quality more then the
+00:01:23.300 size of the file reduces because it is lossy compression. I'm losing some
+00:01:26.160 data to keep the file size smaller.
+00:01:29.115 And the second thing that NETFLIX does is
+00:01:31.975 play with different resolutions.
+00:01:35.040 If you are watching on a cell phone, then the
+00:01:38.040 resolution that you need is much lesser than the resolution you need on your
+00:01:44.400 "What's it called"
+00:01:45.400  
+00:01:48.320 TV or even on your laptop. In this way you're seeing
+00:01:51.240 that a single video has multiple formats and multiple resolutions
+00:01:55.200 and each of these formats and resolutions are creating tuples like they are creating pairs.
+00:01:59.500 You have high quality 720p
+00:02:01.900 The number of formats lets call that F
+00:02:03.895 into(multiplied by) the number of resolutions R
+00:02:06.995 are the number of videos that you'll end up processing.
+00:02:10.025 If the engineers in the Netflix come up with much better technique
+00:02:13.015 of storing data. Let's say you had high quality
+00:02:15.105 requiring you 6GB
+00:02:16.060 Now its just requiring you 1GB.
+00:02:18.155 Then you take the older movies that you had encoded
+00:02:20.965 which are 6GB big. You run them through the new process
+00:02:23.995 and it becomes 1 GB. But the thing is this process
+00:02:26.645 is going to take some time.So you don't want to give all this
+00:02:29.735 responsibility to a single computer because it's going to take time
+00:02:32.815 and it has a chance of failing. (what if the computer shuts down?)
+00:02:36.775 So what netflix does is really interesting and very smart.
+00:02:40.075 It takes the original video and breaks it into
+00:02:43.125 chunks.
+00:02:44.635 Now what you can do with each of these chunks is to
+00:02:47.485 run them through different resolutions and different formats.
+00:02:50.425 At the end of it, you will have this chunk
+00:02:53.085 lets say chunk A
+00:02:55.205 .mp4 So that's
+00:02:57.695 a format
+00:02:59.245 In resolution 1020.Then you will have
+00:03:01.955 A in avi may be 480
+00:03:04.905 and so on and so forth. Effectively you have taken a really big video
+00:03:07.785 and broken it into small parts, so that you can deal with it effectively
+00:03:10.925 per processor
+00:03:13.375 One resolution, one format, one chunk
+00:03:16.645 That's one task.
+00:03:18.435 The story of processing these chunks is pretty interesting.
+00:03:21.235 Initially what used to happen is, you would have this video file and you would
+00:03:24.245 break it into chunks of 3 minutes each.So that's equal size
+00:03:27.005 it looks good because every processor is doing the equal amount of work
+00:03:30.185 and you can actually quantify it. But the thing is
+00:03:32.985 imagine an action movie and at the 3rd minute
+00:03:36.225 the two cars-the villain's car is just about to overtake the hero's-
+00:03:39.285 and then you have a new chunk.
+00:03:42.335 If that's the case and someone makes an API call for this chunk
+00:03:46.455 it's going to take time. Like initially you are watching this video
+00:03:49.075 you come to this point, you get an API call
+00:03:52.165 and there is a lag.
+00:03:53.285 The user experience is bad because you wanted to see that seamlessly.
+00:03:56.305 What they ended up doing is
+00:03:58.425 breaking the chunks not based on time stamps but
+00:04:01.545 based on scenes. So you can make this
+00:04:04.455 instead of 3 minute thing, you can make it much more fine grained
+00:04:07.615 4 secs each. It's called a shot
+00:04:09.875 one shot 4 seconds and you can
+00:04:12.585 collate shots, put them all together to create a scene
+00:04:16.555 So that's the car scene you can think about. Instead of
+00:04:19.575 having it arbitrarily stop at 3 minutes
+00:04:23.435 you collate them into scenes
+00:04:27.515 and each scene has a lot of chunks. 4 second long chunks.
+00:04:31.315 Right. Now if a person is watching a video
+00:04:34.515 and they click on some point.The video suggestion algorithm will take
+00:04:37.475 this as one scene. And the user experience will be much better
+00:04:40.495 because you get the entire block fetched together.
+00:04:43.505 In fact this algorithm is much more complicated. What happens is
+00:04:46.545 netflix sees the entire movie
+00:04:49.615 and treats it like
+00:04:52.385 a set of chunks. If you arbitrarily go to points
+00:04:56.285 then netflix assumes that this movie is
+00:04:58.585 a sparse movie, in the sense that
+00:05:00.565 you go one point and you see a scene
+00:05:02.785 and then you head to next point and then you see a scene and so on and so forth
+00:05:05.855 So its recommendation algorithm, its prediction algorithm
+00:05:08.715 is going to say that this is a sparse movie
+00:05:11.525 or sparsely seen movie
+00:05:13.705 and what we should be doing is not trying to be too smart
+00:05:16.795 not trying to be sending a lot of data, instead just send the data
+00:05:19.945 that the user has asked for because they are probably clicking on
+00:05:23.045 different points in that buffer that you get. On the other hand if it's a very engaging movie
+00:05:26.865 lets say, I don't know whats an engaging movie but
+00:05:29.895 something that is dense movie meaning that people are watching it for a
+00:05:32.925 continuous period of time and you can easily say that
+00:05:35.905 you know linearly that this part is going to be picked up next.
+00:05:39.585 Then this is called a dense movie.
+00:05:42.445 Instead of sending just the part that you have asked for
+00:05:45.445 it predicatively, proactively fetches the
+00:05:48.255 future parts, gets it onto your computer
+00:05:50.955 and shows it to you.
+00:05:52.615 If you are wondering where netflix stores all this data, then its
+00:05:56.215 like google drive called Amazon S3
+00:05:59.135 Something that nearly all the engineers know.
+00:06:02.055 This is where people store their static data
+00:06:04.825 meaning that you don't change that data, you can go and store stuff.
+00:06:07.865 It's extremely cheap compared to a database
+00:06:10.805 because a database has updates and gives you
+00:06:13.715 other guarantees also. So Amazon S3 is what
+00:06:16.545 netflix uses to store that video content.
+00:06:19.625 The most interesting thing about netflix is that
+00:06:22.485 they were able to bring up an innovative solution to
+00:06:25.525 something that was there in the internet space for ages.
+00:06:28.535 You know about internet service providers. If you go on your browser right now
+00:06:31.445 and type facebook.com. What's going to happen is that
+00:06:35.315 you will talk to your internet service provider. They have a list of
+00:06:38.325 addresses.They map that to IP addresses.
+00:06:41.425 So if you facebook.com,its mapped to an IP address:
+00:06:44.335 they have a table over here, which maps it. And this
+00:06:47.425 IP address is, you can assume it to be
+00:06:50.275 physical place. Its actually a computer some where on the internet
+00:06:53.055 which is giving you Facebook. So you are literally talking to Facebook
+00:06:55.785 when you say facebook.com. So that's,
+00:06:58.625 let's say, over here.
+00:07:00.825 Very similarly when you say Netflix, it is an IP address.
+00:07:03.825 It's going to be taking you to a computer which gives you Netflix
+00:07:06.855 or is Netflix basically. So you can
+00:07:09.645 actually, end up chatting with it maybe.
+00:07:11.805 But Netflix exists somewhere
+00:07:15.415 and every time you ask your internet service provider to talk to
+00:07:18.455 netflix, it goes and talks to that computer
+00:07:21.435 and then returns you the response.
+00:07:24.455 These servers are usually in the U.S which means they are geographically concentrated.
+00:07:27.425 In a place like India which is really far
+00:07:30.405 its going to take a lot of time to send a signal and then receive it
+00:07:33.445 especially if its video because there is a lot data which is
+00:07:36.475 going to be coming in and its going to be slow.
+00:07:39.235 So to improve on user experience,one of the principle things
+00:07:42.335 you do as an engineer is to
+00:07:44.525 cache information.
+00:07:46.995 which means you pre-compute and store it in some place.
+00:07:50.355 Let's say sacred games comes out in India
+00:07:53.405 You want to watch that, you put in in a cache.
+00:07:56.055 Now Netflix extended the concept
+00:07:59.235 and applied it to ISP's.
+00:08:01.365 So what the ISP does is that when ever it gets a
+00:08:03.945 request from India, let's say
+00:08:06.025 and its a movie which is from Bollywood,
+00:08:08.685 they won't go and hit the Netflix U.S server just like that.
+00:08:12.405 They are going to be asking a cache
+00:08:15.235 which has been placed by netflix.This is called a
+00:08:17.845 Open Connect
+00:08:19.225 box.
+00:08:20.595 In this box, you are going to have a ton of movies. You can assume
+00:08:23.505 this to be something like a hard drive and
+00:08:25.755 if you find the movie here, that's well and good
+00:08:28.705 you just return it quickly. So that's a lot of bandwidth which was saved
+00:08:31.725 hitting the netflix server, that's a lot time which was saved
+00:08:34.605 that's much better user experience and also
+00:08:37.335 this is localized. So for India you can keep separate movies
+00:08:40.414 for Britain you can have different movies, for U.S you can  have different movies.
+00:08:43.115 This is a brilliant concept
+00:08:45.855 because what you have done is reduced the
+00:08:48.955 load on not just you but also the ISP's.
+00:08:52.035 So they really want to have these boxes. Every time you hit
+00:08:55.115 netflix and get a really quick response,you end up assuming that
+00:08:57.995 your ISP guy is a really nice guy. Its gone upto such an extent that
+00:09:00.785 around 90% of netflix trafic
+00:09:03.945 is taken care of by these ISP boxes that they provide.
+00:09:07.205 They are called open connect and this technology is
+00:09:10.455 revolutionary not so much
+00:09:13.195 who knows but youtube is also doing this. I think youtube
+00:09:16.175 red boxes come up with ISP again saving a lot of bandwidth for them
+00:09:19.145 and really improving user experience in a lot of places.
+00:09:36.560 in that case what you can do is, around
+00:09:39.280 4 am in the night is a good time:The load on boxes is minimum.
+00:09:42.440 So you can have a lot of write operations
+00:09:45.480 being sent in from the U.S server, so it will suggest you
+00:09:48.320 what to copy. 1) You register
+00:09:51.320 your movie on netflix, 2) netflix processes them
+00:09:53.600 the same way that we talked about.
+00:09:56.160 3) After it has been brought down to chunks
+00:09:59.920 4) It sends them to your ISP or maybe
+00:10:02.920 it can directly send it over here
+00:10:05.280 and populate this box with these new movie chunks.
+00:10:10.720 That way this box has the latest content and the users are happy.
+00:10:14.520 So its the innovative menthods on the video processing and the video serving side
+00:10:17.560 which keep netflix running at scale.If you think about
+00:10:20.600 90% of your requests are being taken care of by this box.
+00:10:23.680 So that is a superb gain and
+00:10:26.960 its a really innovative solution.We will be having a lot more videos like this
+00:10:30.520 which is system designing in the real world.This is the interesting bit and of course
+00:10:33.640 if you have any doubts or suggestions,you can leave them in the comments below.
+00:10:36.840 If you like the video then make sure to hit the like button
+00:10:39.440 and if you want notifications for further videos like this, hit the subscribe button
+00:10:42.360 I'll see you next time  :)

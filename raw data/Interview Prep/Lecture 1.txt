@@ -1,0 +1,394 @@
+# tactiq.io free youtube transcript
+# The Egg Dropping Problem - Interview Question
+# https://www.youtube.com/watch/o_AJ3VWQMzA
+
+00:00:02.399 hi guys this is gkcs we are talking
+00:00:04.319 about egg dropping today which is a very
+00:00:05.879 common problem in interview questions
+00:00:07.600 but the reason I picked this up is
+00:00:09.040 because it teaches us about dynamic
+00:00:10.519 programming and how to use it in certain
+00:00:12.679 scenarios all right you have this
+00:00:14.759 particular Tower of n floors and you
+00:00:17.480 have e eggs with you so when you throw
+00:00:20.320 an egg an egg might break or it might
+00:00:22.439 not break what you need to do is find
+00:00:25.640 the threshold floor in this Tower so uh
+00:00:28.760 you need to find that particular floor
+00:00:30.160 from which if you throw an egg it breaks
+00:00:32.520 but any floor lower than it you go to
+00:00:35.399 that and you throw an egg it will not
+00:00:37.200 break okay that's that's what with the
+00:00:39.200 threshold floor is another thing which
+00:00:42.000 is interesting is that you need to use
+00:00:43.840 the minimum number of
+00:00:49.520 tries so the number of times that you
+00:00:52.280 actually throw an egg has to be
+00:00:53.840 minimized not the number of eggs you're
+00:00:56.120 breaking you can break all e eggs as
+00:00:58.039 long as you can answer uh the question
+00:01:00.079 of which is the threshold floor all
+00:01:02.800 right so it's a pretty interesting
+00:01:04.280 problem it's a little different from how
+00:01:06.040 we usually think of saving eggs or
+00:01:08.400 something so one of the uh most Brute
+00:01:11.040 Force approaches is to
+00:01:12.960 actually start off at the bottom floor
+00:01:15.960 throw an egg and check if it breaks if
+00:01:17.920 it doesn't then you go up and so you
+00:01:20.720 work your way up all the way up to in
+00:01:22.680 the worst case all end flows and check
+00:01:25.240 which is the minimum
+00:01:26.920 floor so this might take you end rise
+00:01:31.320 and this is of course terrible you can
+00:01:33.040 start from the opposite side but even
+00:01:34.840 there the worst case is end
+00:01:37.439 rise so uh this Brute Force approach is
+00:01:40.280 not so good a common thing that people
+00:01:43.240 do uh when given this problem is to try
+00:01:46.119 to break this Tower into fixed size
+00:01:49.920 blocks all right so uh each block will
+00:01:52.600 be of size
+00:01:55.560 B so B floors are in each block and what
+00:02:00.000 try to do is they try to skip blocks so
+00:02:03.320 let's say that they have a block here
+00:02:06.320 that's B blocks in
+00:02:11.080 between so this is the first block that
+00:02:13.200 you have and your second
+00:02:16.239 block and your third block and so on and
+00:02:18.640 so forth till you are at the top of the
+00:02:20.560 tower what they try to do
+00:02:23.080 is go to the uh top of the first block
+00:02:26.440 drop an egg from
+00:02:28.400 here if the egg
+00:02:31.000 breaks then they know that the the
+00:02:34.200 threshold floor is between 0 and
+00:02:36.360 B if the egg doesn't break then they
+00:02:38.519 know that the threshold floor is uh
+00:02:40.760 between B and
+00:02:43.080 N all right so This Is How They approach
+00:02:46.040 it and let's say the egg doesn't break
+00:02:49.760 then they go up and up and up all the
+00:02:51.519 way up to
+00:02:52.519 n anytime that the egg breaks they are
+00:02:55.280 left with only B blocks to
+00:02:57.159 compute and in these B blocks there's a
+00:02:59.400 Brute Force approach so let's say the
+00:03:02.440 egg over here did not break the egg at
+00:03:05.200 to be broke so here it
+00:03:08.200 broke and now you have these many blocks
+00:03:10.920 to look into with e minus1
+00:03:14.040 x so what will happen is uh you
+00:03:19.239 have till now you used one egg by the
+00:03:21.640 way because the moment it broke you have
+00:03:23.720 uh B blocks to look at so now they start
+00:03:28.040 at block number B and slowly work their
+00:03:30.519 way up to
+00:03:31.439 2B so again you'll use only two
+00:03:34.360 eggs which you don't care about how many
+00:03:36.560 other eggs to use but the important
+00:03:38.400 thing
+00:03:39.280 is you have used two
+00:03:41.519 eggs and the number of computations that
+00:03:43.720 you're doing is n by B which is the
+00:03:47.720 worst case you go all the way up to the
+00:03:49.599 tower and at the very last floor your
+00:03:52.760 egg breaks so you have to do B
+00:03:57.400 computations all right so this is the
+00:03:59.879 equation that we looking
+00:04:01.920 at let's try to understand what is the
+00:04:04.920 minimum block size that we can
+00:04:06.760 use we could use some differentiation so
+00:04:09.200 this
+00:04:10.760 is n is a constant B is the variable so
+00:04:15.040 we are differentiating what we get is 1
+00:04:17.639 - n² by I'm sorry 1 - n by b² is equal
+00:04:23.600 to
+00:04:24.520 Z which in turn gives
+00:04:28.720 us n upon b^2 = 1 which gives us B =
+00:04:36.800 root
+00:04:38.600 n and just to be sure let's
+00:04:40.520 differentiate this again to find out if
+00:04:42.039 it is a Maxima or not or Maxima or a
+00:04:44.440 Minima we are looking for a Minima by
+00:04:45.880 way so if you if you uh differentiate
+00:04:50.440 this again you get 2 N upon
+00:04:54.440 BB so that is greater than zero which
+00:04:58.039 means that this is a minimum
+00:05:01.199 which is what we want
+00:05:02.919 so B should be equal to
+00:05:05.639 ro whatever Tower you given of n floors
+00:05:09.400 you break it into blocks of size Ro
+00:05:11.720 n and then do some brot fory stuff like
+00:05:16.199 throw it from the each floor end and
+00:05:18.720 then Brute Force out the next
+00:05:21.280 solution so this is very interesting
+00:05:23.319 because it's the heart of square root
+00:05:25.160 decomposition given an array of size n
+00:05:28.360 what is the most optimal way to break it
+00:05:30.000 into blocks square root of n all right
+00:05:33.080 and what we can do now is look at this
+00:05:36.400 term B + n by B and substitute b as root
+00:05:40.639 n so what we'll get is root n + n byun n
+00:05:45.919 which is root n so that is 2un n is the
+00:05:50.240 maximum number of tries that you'll
+00:05:51.960 need so 2 root n is of course much
+00:05:54.240 better than n so strong Improvement but
+00:05:58.160 still not the best so the function to
+00:06:00.800 calculate the minimum number of tries
+00:06:02.680 for any n number of flows and E number
+00:06:05.440 of eggs is very logical you have only
+00:06:08.000 two possibilities whenever you throw an
+00:06:09.400 egg so let's say you take an egg and
+00:06:11.560 throw it from floor number X all right
+00:06:14.639 if the egg breaks then it is somewhere
+00:06:17.280 below you so anything less than x X -
+00:06:20.319 one are the floors remaining and eus one
+00:06:24.000 are the eggs you have now you have e ex
+00:06:26.160 initially you lost one egg so it's e
+00:06:28.360 minus one now and that answer has to be
+00:06:31.039 taken into
+00:06:32.280 account the other possibility is that
+00:06:35.160 you throw the egg and it doesn't break
+00:06:37.560 so everything above you is now in doubt
+00:06:40.400 so you have n the topmost floor minus X
+00:06:43.880 number of floors remaining with you
+00:06:45.759 that's this and you didn't break your
+00:06:48.039 egg so that is e ex still with
+00:06:50.440 you all right these are two
+00:06:52.520 possibilities for any floor X so these
+00:06:56.199 two possibilities you need to take the
+00:06:58.120 worst case scenario and that's how
+00:06:59.800 you're going to
+00:07:00.840 maximize among these two you'll take the
+00:07:03.160 worst case among these two
+00:07:06.720 scenarios also you need to consider that
+00:07:09.000 when you're throwing from flow number X
+00:07:11.560 you are actually using one try so after
+00:07:14.120 you maximized these two you also need to
+00:07:16.319 consider that and add one over here one
+00:07:19.280 extra try whenever you're throwing from
+00:07:21.080 flow number
+00:07:22.479 X all right that is one scenario for X
+00:07:27.160 you need to try for all possible X of
+00:07:29.319 course
+00:07:30.440 so for all possible x what is our goal
+00:07:33.840 to minimize the number of tries so we
+00:07:35.919 are minimizing the worst case scenario
+00:07:39.080 for all possible
+00:07:40.720 floors less than n basically starting
+00:07:44.000 from 1 to n minus
+00:07:45.720 one all right and this function will
+00:07:48.560 give you the answer for any n and E with
+00:07:54.000 two things to keep in mind I mean when
+00:07:55.680 does this function ever end n minus X
+00:07:58.639 will go to a certain point and we need
+00:08:00.120 to give a base condition for that so
+00:08:04.039 that is going to be defined by F of a
+00:08:07.479 single floor how many tries do you
+00:08:09.960 need one
+00:08:12.120 try it doesn't matter how many eggs you
+00:08:14.400 have if you have a single flow remaining
+00:08:17.280 F of 1A e is
+00:08:19.800 1 similarly if you have just one egg
+00:08:23.720 remaining you need to try all possible
+00:08:26.199 flows in the worst case because you'll
+00:08:29.280 have have to start from the bottom and
+00:08:30.960 maybe you'll have to go all the way to
+00:08:32.120 the top you can't start from the top
+00:08:33.719 because if you throw an egg and it
+00:08:35.240 breaks you're never sure which is the
+00:08:36.519 threshold floor so you need to start
+00:08:39.159 from the bottom worst case go all the
+00:08:40.919 way to the top and that's how you have
+00:08:42.919 end rise in the worst case of this space
+00:08:45.080 condition otherwise for this base
+00:08:47.360 condition you have just one try any
+00:08:49.720 number of
+00:08:50.880 X so this problem has taken a long time
+00:08:53.200 to solve and that's why you'll see
+00:08:54.279 different attire often in this video but
+00:08:56.720 uh getting to the dynamic programming
+00:08:58.120 part of this we have have three
+00:09:00.279 conditions we need to satisfy so this is
+00:09:01.880 our recursive solution we can convert
+00:09:04.320 this to a dynamic programming approach
+00:09:06.120 with these three conditions if they if
+00:09:07.720 they satisfy then we can uh convert it
+00:09:10.480 so firstly there should be no Loops by
+00:09:12.800 that I mean if F of XA y depends on f of
+00:09:18.320 x + 1A y + 1 which somehow depends on f
+00:09:24.040 of x
+00:09:25.440 y then we finished because uh there
+00:09:28.920 isn't ter a direct way to approach the
+00:09:30.959 solution you can't go on increasing X
+00:09:33.720 and Y neither can you go on decreasing X
+00:09:35.880 and Y so there shouldn't be any cyclic
+00:09:38.519 dependency and basically the term over
+00:09:40.920 here that you should know is a
+00:09:43.920 dag the DED a cyclic graph is what you
+00:09:48.320 what you want when you're actually
+00:09:49.839 Computing these terms all right the
+00:09:52.560 second thing is optimal
+00:09:55.880 substructure so for what that really
+00:09:58.360 means is that if you break the problem
+00:10:00.680 into sub problems that does not change
+00:10:04.000 the solution of the sub problem so uh
+00:10:06.920 there is no history that you need to
+00:10:08.399 maintain that this is how I broke the
+00:10:10.000 sub problem and and basically the sub
+00:10:13.160 problem is still optimal you can use
+00:10:15.519 that solution to build a larger
+00:10:18.640 Solution that's what optimal
+00:10:20.279 substructure means what about recursive
+00:10:23.920 well it's basically you can break the
+00:10:26.000 problem into sub problems and solve it
+00:10:27.839 that will be your recurs solution so
+00:10:30.560 recursive is obvious we have that
+00:10:33.120 optimal substructure is also true for X
+00:10:36.800 floors and E ex if you break it down to
+00:10:39.720 Y floors and QX it will still work the
+00:10:43.279 solution is still valid because it's the
+00:10:44.720 exact same scenario all right so optimal
+00:10:47.200 substructure is also
+00:10:48.880 there you take these two solutions and
+00:10:51.120 make the bigger one that's the reason
+00:10:52.399 why and there's no Loops once you reduce
+00:10:55.160 the number of flows you're constantly
+00:10:56.760 reducing the number of flows or or
+00:10:59.399 you're reducing the number of eggs or
+00:11:01.519 both so we are reducing something we are
+00:11:04.160 never increasing anything so this is a
+00:11:06.880 directed basically graph
+00:11:08.720 guaranteed now what so we can actually
+00:11:11.519 apply DP on
+00:11:13.399 this how well one of the simplest ways
+00:11:18.120 and best ways to do dynamic programming
+00:11:22.200 is the bottom up approach
+00:11:26.360 so we take this solution
+00:11:30.839 and store for every
+00:11:33.320 n and
+00:11:37.519 E the
+00:11:39.880 minimum from X ranging from 0 to
+00:11:45.639 nus1 maximum
+00:11:47.920 of f which is an array storing n minus X
+00:11:53.200 comma e comma F again having X x
+00:12:00.519 -1 and E minus one so this is the row
+00:12:03.560 and column number and you'll be storing
+00:12:06.079 these and you'll be adding one which is
+00:12:07.600 one
+00:12:09.279 try and this is your solution for any
+00:12:11.760 given uh n and E now the way we'll be
+00:12:15.600 actually populating this array is by
+00:12:17.040 starting from
+00:12:19.920 columns 1A
+00:12:24.639 1 all right and
+00:12:27.079 so I and J will be running in a for
+00:12:32.040 loop I = 1 2
+00:12:36.079 N and J = 1 2
+00:12:40.600 e f of I comma
+00:12:43.480 J is found out using this
+00:12:48.360 formula and this solution is order
+00:12:55.399 of n computations over here
+00:12:59.240 into e computations over here I'm not
+00:13:01.720 getting into detail with this because
+00:13:03.320 the code is uh in the description below
+00:13:05.560 and it's far more simple to you know
+00:13:07.600 just read that and understand rather
+00:13:08.920 than explain this so n into e into what
+00:13:13.360 are the number number of computations
+00:13:14.920 you need for every
+00:13:16.800 IG you need to find out the max for
+00:13:19.199 every possible X where X goes from 0 to
+00:13:22.040 n minus one so n values that X can
+00:13:25.399 take and finding the max is an order one
+00:13:28.519 operation
+00:13:30.880 among two values so that will be and the
+00:13:33.600 minimum of all of them is again order n
+00:13:36.480 which is already shown
+00:13:39.040 so these are the number of computations
+00:13:41.120 you need to
+00:13:43.240 perform which in turn is
+00:13:46.240 order n²
+00:13:49.759 e and so this solution is exponential
+00:13:52.680 and using dynamic programming we have
+00:13:54.160 bought it down to just n sare into e so
+00:13:58.240 let's solve an example
+00:14:00.000 we have eight floors and four eggs with
+00:14:02.519 us the minimum number of tries that we
+00:14:04.920 need for this scenario is four so how do
+00:14:07.800 I know this uh well I ran the program
+00:14:09.560 and it took about 15 seconds to do this
+00:14:11.959 it had taken me half an hour to get
+00:14:13.279 somewhere over here and then the program
+00:14:15.800 and copying the values was very fast so
+00:14:18.399 uh that's what you need to do just use
+00:14:20.720 this particular formula that we have
+00:14:21.959 found out where you take the minimum of
+00:14:25.399 the worst case for all possible X such
+00:14:28.720 that
+00:14:29.800 either the egg doesn't break in which n
+00:14:32.519 minus X is the number of floors you have
+00:14:34.600 remaining and otherwise the floor you
+00:14:37.560 know the egg breaks at this floor so x
+00:14:39.920 -1a e minus one is what you're looking
+00:14:42.560 for and you tried one dropping an egg
+00:14:46.160 from this particular floor so that
+00:14:47.279 there's a plus one over there the base
+00:14:50.040 cases are if you have one floor
+00:14:51.720 remaining then it doesn't matter U how
+00:14:54.839 many eggs you have you have to give one
+00:14:57.519 try at least and similarly if you have n
+00:15:00.320 floors remaining but you just have one
+00:15:01.639 egg remaining in the worst case you have
+00:15:03.720 to start from the bottom and go all the
+00:15:05.880 way up so that will be end rise from
+00:15:08.000 every floor you need to throw the egg
+00:15:09.880 from the
+00:15:10.959 bottom so that's what this table
+00:15:13.160 represents uh on the first row we have
+00:15:15.920 every value equal to one because you
+00:15:18.560 just have one floor remaining so
+00:15:20.199 everything is one similarly the First
+00:15:22.839 Column everything is equal to n which is
+00:15:25.079 the row number you can see that over
+00:15:27.000 here and the remaining uh
+00:15:29.480 values are computed using this formula
+00:15:31.480 so let's try it for a simple
+00:15:33.360 one we'll try it for f
+00:15:36.839 of this one 2 comma
+00:15:41.519 2 so X starts with 1 and goes up to n
+00:15:46.959 minus one
+00:15:48.160 so n minus 1 here n is equal 2 so X
+00:15:51.800 starts with one and goes up to one so
+00:15:54.279 there's just one possible value of
+00:15:56.279 x that's nice we don't need to minimize
+00:15:59.160 the quantity ahead so worst case when x
+00:16:03.959 equal 1 is f
+00:16:06.040 of n which is 2 - 1 which is 2 - 1 so
+00:16:10.519 that is 1 you don't break an egg e e
+00:16:13.639 equal 2 or f of x which is one
+00:16:18.839 now and E you break the egg the second
+00:16:22.720 case so
+00:16:25.279 this maximum of this + one is what you
+00:16:29.040 will require F of 1A 2 1 comma 2 is
+00:16:35.120 1 and F of 1 comma 1 is one again so the
+00:16:40.880 maximum among these
+00:16:44.199 two is
+00:16:46.000 one so and there's a plus one over here
+00:16:48.399 so + one gives you
+00:16:51.160 2 so F of 2A 2 is equal to
+00:16:55.519 2 and that's what we have over here
+00:16:58.920 similarly if you have the time and if
+00:17:00.759 you want to verify then you can go all
+00:17:02.519 the way over here but uh don't uh it's
+00:17:05.959 better that you use some program to uh
+00:17:09.359 find this out and in fact a program
+00:17:12.119 using dynamic programming for this is
+00:17:13.679 very easy you can see the code in the
+00:17:15.359 description below so that's it about
+00:17:17.319 thousand and eggs if you have any
+00:17:18.679 comments or suggestions please leave
+00:17:19.959 them below I'll be sharing all relevant
+00:17:21.520 links in description and uh until next
+00:17:23.959 time see you

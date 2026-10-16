@@ -1,0 +1,808 @@
+# tactiq.io free youtube transcript
+# What is Bitwise Manipulation?
+# https://www.youtube.com/watch/JqxgC5zcdEw
+
+00:00:02.040 hi guys this is gkcs we are going to be
+00:00:04.160 talking about bitwise manipulation now
+00:00:05.839 and this topic is something that I
+00:00:07.640 really love because uh it makes the
+00:00:09.960 efficiency of your program go like off
+00:00:12.840 the roof if you get it right so this
+00:00:16.800 topic comes up in compettive programming
+00:00:18.720 uh in strange places you know sometimes
+00:00:20.680 you don't expect that this could work
+00:00:22.320 but it does so uh if you have seen the
+00:00:25.840 NP hard problem on code Chef NP complete
+00:00:28.560 problem which requires some sort of uh
+00:00:31.720 approximation algorithms to get right
+00:00:34.079 that's a place where this kind of
+00:00:36.399 optimization might help uh in AI
+00:00:38.840 contests for example in hacker Earth
+00:00:41.280 more often than not I am representing
+00:00:42.960 the board the the entire game State
+00:00:46.480 using these uh binary values so for
+00:00:50.199 example let's let's take this board it's
+00:00:52.039 a four cross no it's a five cross for
+00:00:54.480 board
+00:00:57.000 and if we store every in integer in this
+00:01:01.079 as a 32-bit integer then uh then it's
+00:01:04.920 going to take quite a bit of
+00:01:06.479 space but what we could do is we could
+00:01:09.360 observe the board understand that
+00:01:12.439 each value is associated to a single
+00:01:15.360 player so if it's zero nobody has claim
+00:01:18.320 for that cell if it's two then player
+00:01:21.119 two has claim on that cell and player
+00:01:22.640 one otherwise has claim on that
+00:01:24.400 cell so what are the numbers that each
+00:01:27.320 cell could take
+00:01:30.400 a cell can take values between 0 1 and
+00:01:35.840 two it can take three values basically
+00:01:39.040 so instead of taking 32 bits you could
+00:01:41.280 just take two bits to represent 0 1 and
+00:01:44.439 two so here 0 1 and
+00:01:48.280 two that's it three bits and this value
+00:01:52.360 of three will never be used because the
+00:01:54.000 cell doesn't take that
+00:01:55.320 value so from 32 you bought it down to
+00:01:57.960 just two bits that is
+00:02:00.960 16
+00:02:02.119 times
+00:02:04.640 lesser so basically whatever space
+00:02:06.759 requirement you had
+00:02:08.639 s is now s by is s by 16 now so that is
+00:02:14.160 more than 90%
+00:02:16.640 Savings in terms of space now you might
+00:02:19.560 think that space doesn't really matter
+00:02:21.160 because we have that much RAM but not
+00:02:23.920 always and secondly allocating that
+00:02:26.480 space and you know checking for each
+00:02:29.519 position in this Matrix costs you time
+00:02:32.599 so the constant factor of 16 is pretty
+00:02:34.959 big when you're going for Cutthroat AI
+00:02:37.120 contests all right so this bitwise
+00:02:40.800 manipulation is pretty important and
+00:02:42.840 let's have a look at how to do it one of
+00:02:45.120 the most common use cases for binary
+00:02:46.519 manipulation is when you have an input
+00:02:48.560 2D Matrix and you need to convert it
+00:02:50.560 into a binary number firstly this input
+00:02:54.319 2D Matrix needs to be converted into
+00:02:56.319 something that we are very familiar with
+00:02:58.159 a 1D Matrix or an AR
+00:03:01.360 so we come to the first index which is
+00:03:03.799 0a 0 and this is how we convert this 2D
+00:03:07.239 Matrix into a single array you take the
+00:03:09.879 row
+00:03:11.239 number and you multiply that with the
+00:03:14.280 length of each row so that is row number
+00:03:19.400 into length of each row so that is L row
+00:03:23.000 let us
+00:03:24.239 say plus you add the column number and
+00:03:29.000 this gives you the index of the element
+00:03:31.599 which is in your 1D Matrix now so this
+00:03:34.400 is your current index which is equal to
+00:03:37.159 this so using this formula let's go for
+00:03:39.519 0 comma 0 the very first element 0 row
+00:03:43.239 number into whatever doesn't matter plus
+00:03:45.799 Z gives you you are at this uh index now
+00:03:49.519 so this value needs to be mapped over
+00:03:51.560 here so let's do that seven comes here
+00:03:56.360 what about this row number still zero so
+00:03:59.000 this product will Z and column number is
+00:04:01.519 one so what do we have + one so we have
+00:04:05.480 to come here and basically what you're
+00:04:07.959 doing is you're just taking each row
+00:04:09.879 grabbing that slab putting it over here
+00:04:12.079 and then taking the next row and putting
+00:04:13.840 that slab next to this and so on and so
+00:04:15.720 forth so however big your Matrix is it
+00:04:17.680 doesn't really matter using this formula
+00:04:19.680 you're converting into a 1D
+00:04:21.639 Matrix uh what about this row number is
+00:04:24.280 one so the length of each row is equal
+00:04:27.000 to two one and two so 1 into 2 gives you
+00:04:31.840 2 plus column number is 0o so this is
+00:04:37.360 2 okay yeah the index is two but you
+00:04:40.600 need to map this element so that element
+00:04:42.560 goes over here this element finally will
+00:04:44.680 go over here using the same
+00:04:47.919 formula now that you have the 1D
+00:04:51.720 array now that you have the 1D array
+00:04:54.720 let's convert these into binary
+00:04:57.320 numbers seven in binary
+00:05:00.160 is equal to 1 1 1 3 in binary is equal
+00:05:05.280 to uh what is it 1 1 okay 4 in binary is
+00:05:08.919 equal to 1 0 0 and 6 in binary is equal
+00:05:12.240 to 1 1
+00:05:15.160 0 but that's not all in the computer
+00:05:18.600 you'll be requiring around 32 or 64 bits
+00:05:21.000 when you're storing this usually 32
+00:05:22.840 because you have these as ins but
+00:05:25.400 depending on the data type you'll have a
+00:05:27.039 lot of wasteful
+00:05:28.360 bits so what I mean by that is there'll
+00:05:32.199 be lots of zeros over
+00:05:34.160 here in this case 32 - 3 which is uh
+00:05:38.960 29
+00:05:40.520 zeros and then you have the 111 here you
+00:05:43.919 have 30
+00:05:45.880 zeros here you have 29 zos
+00:05:49.160 again and again here you have 29 zos so
+00:05:52.759 you see there's a lot of space being
+00:05:56.039 wasted what you could do is crunch all
+00:05:59.280 this space SP basically get get rid of
+00:06:01.400 all these zeros extra zeros and push
+00:06:04.120 them together so that you get this
+00:06:05.319 really small number really nice
+00:06:06.919 informative number now when you're doing
+00:06:09.080 this of course you need to be careful
+00:06:10.680 about a few things firstly you see here
+00:06:13.479 that there are 30 zos over here
+00:06:16.639 but the we we basically need to look at
+00:06:19.080 the maximum value that we can have in
+00:06:21.360 this array and once we know what is the
+00:06:23.840 maximum value then we can make a
+00:06:25.919 judgment on how many zeros we can
+00:06:27.400 actually skip uh when reading
+00:06:30.080 number so in this scenario our maximum
+00:06:33.240 value is seven or let's how look at this
+00:06:36.000 are maximum value is
+00:06:38.039 seven seven is the
+00:06:41.800 number understand that we are dealing
+00:06:43.479 with binary so we are looking for the
+00:06:45.479 number of bits the minimum number of
+00:06:48.319 bits which can contain this information
+00:06:51.759 comfortably so 2 ra^
+00:06:55.000 N -
+00:06:57.080 1 has to be greater than or equal to
+00:07:00.440 this number we are looking for this
+00:07:04.319 n why because when you take one bit in
+00:07:08.160 binary it can represent one or zero when
+00:07:11.759 you take two bits it can represent 0 1 2
+00:07:15.120 or three and so on and so forth so if
+00:07:17.400 you take n Bits you can represent 2^ n
+00:07:20.240 minus one values from
+00:07:23.000 zero uh and so basically the maximum
+00:07:26.240 value has to be less than or equal to
+00:07:28.280 that so so using this formula now this
+00:07:30.720 is a new formula that we have uh we are
+00:07:33.800 going to
+00:07:34.879 find the number of bits that we
+00:07:38.759 need so every
+00:07:40.840 element here will have n Bits let's go
+00:07:43.840 for
+00:07:44.599 n what can we do to find about n should
+00:07:48.240 we use B search yes you can you could
+00:07:50.919 use B search here to find out uh the
+00:07:53.319 right value of n but would that be
+00:07:55.879 sensible not really rarely is it
+00:07:58.520 sensible to put by search in this case
+00:08:01.120 because uh you're going to hit n very
+00:08:04.599 fast so let's just do this to show an
+00:08:07.000 example U Let's Take n = 1 so 2^ 2 which
+00:08:12.319 is 2^ 1 which is 2 -
+00:08:17.199 1 is equal to one oh yeah one bit
+00:08:21.240 doesn't contain any information so uh it
+00:08:23.680 contains one element it can represent
+00:08:25.560 one element 2 to^ 2 - 1 is 3 2 to^ 3 - 1
+00:08:30.960 is
+00:08:31.680 7 and this function goes up very fast so
+00:08:34.839 it goes up at an exponential rate at 2^
+00:08:37.479 32 -
+00:08:40.200 1 you're near 2
+00:08:43.200 billion so you understand that the
+00:08:45.160 maximum value contained here will be hit
+00:08:47.519 in login time you can work out that and
+00:08:50.560 probably understand why it's hit in
+00:08:52.440 login time but because this function
+00:08:54.240 goes at an exponential rate you hit the
+00:08:56.440 maximum value very fast and so in
+00:09:00.200 three bits we can represent seven which
+00:09:03.480 means in three bits we can represent any
+00:09:06.000 element in this Matrix why because 7 is
+00:09:09.959 the maximum value it will require the
+00:09:12.279 maximum information possible to
+00:09:14.720 represent itself therefore in three bits
+00:09:18.000 we can represent any element in this
+00:09:22.480 Matrix all
+00:09:25.440 right so we require three bits which
+00:09:28.240 means this is okay we are using three
+00:09:30.360 bits this is not okay we are using just
+00:09:33.160 two bits so we need to actually add a
+00:09:35.120 zero here and say that we have 29 extra
+00:09:38.800 zeros over here what about this this is
+00:09:41.440 fine and this is fine okay so all that's
+00:09:45.160 left to do is to take these numbers get
+00:09:47.480 rid of the useless zeros squash them
+00:09:49.480 together and put it into this binary
+00:09:51.079 value result so the way we are going to
+00:09:53.480 do that is by using this code we have
+00:09:56.360 already found that the block size
+00:09:58.399 required per binding element is three uh
+00:10:02.160 and so we are going through every
+00:10:03.560 element a of I which I goes from 0 to n
+00:10:06.279 minus1 and we are left shifting by a
+00:10:08.399 particular margin so this left shift
+00:10:11.040 margin is something that we look at
+00:10:12.959 right now let's take the first element
+00:10:15.200 seven seven in binary is 111 we have the
+00:10:18.800 binary value being set to at index I
+00:10:22.680 equal to Z binary value set to Binary
+00:10:24.600 value which is initially zero plus 7
+00:10:29.839 left shifted by I which is zero so 0
+00:10:33.000 into anything is zero so it is not left
+00:10:35.279 shifted at all so a of I is 11
+00:10:38.800 one and binary value is zero so binary
+00:10:41.279 value is set to 11 one so that'll be
+00:10:44.399 over
+00:10:49.120 here one one
+00:10:52.959 one let's take the next
+00:10:55.320 value value three so we are at index now
+00:11:00.639 binary value is going to be added to
+00:11:03.519 three left shifted by 1 into the block
+00:11:07.639 size three so three left shifted by
+00:11:13.200 three when you take three and left
+00:11:15.519 shifted by three you're basically
+00:11:17.920 appending three zeros at the end and
+00:11:20.120 then going for one one over here and
+00:11:22.120 this this is what three looks like and
+00:11:24.200 this is what the left shift operation
+00:11:26.839 does so what we are doing is
+00:11:30.480 we are
+00:11:32.360 adding this value over here to this
+00:11:36.959 value so first three are zero so that
+00:11:39.639 makes no difference in binary and then
+00:11:41.800 you have 0 1 one so that is
+00:11:44.480 0 one
+00:11:48.880 one these didn't change because it was 0
+00:11:51.440 0 0 okay and now you can probably
+00:11:54.399 understand why there is this left shift
+00:11:56.200 operation because we are skipping these
+00:11:58.279 bits we don't want to touch touch these
+00:11:59.639 bits we don't want to corrupt them uh
+00:12:02.480 logically this is seven
+00:12:06.279 this is
+00:12:09.240 three and now we come to this part where
+00:12:12.360 I is equal to
+00:12:13.880 2 you come here I = a of I gives you 4
+00:12:18.079 and you have I into B which is 2 into 3
+00:12:21.600 so 4 now is left
+00:12:25.760 shifted by 2 into 3 which is six so you
+00:12:29.320 have three more zeros
+00:12:30.920 now at the end and this number has
+00:12:34.040 changed to four so that would be one and
+00:12:39.240 zero H interesting yeah I don't even
+00:12:42.959 know my Bandy values so it's one0 0
+00:12:46.079 thank God it's written over here so uh
+00:12:48.440 yeah you take this entire thing so
+00:12:49.800 that's that's a lot of zeros three three
+00:12:52.560 and two so eight zeros so you see here
+00:12:55.360 eight zeros and then a
+00:12:57.680 one and as
+00:13:00.839 expected you have logically a four over
+00:13:03.480 here but you see that instead of using
+00:13:06.199 uh 32 into 3 which is 96 bits we have
+00:13:09.480 just used nine bits and we have shown
+00:13:11.720 three numbers till now what about the
+00:13:14.120 third index the final index binary value
+00:13:16.959 is set to whatever it is
+00:13:19.320 plus six left shifted by 3 into 3 so
+00:13:26.000 that is nine bits to be
+00:13:27.600 skipped N9 bits of are skipped and then
+00:13:30.320 you put the six over
+00:13:32.240 here so what is six again I
+00:13:37.519 could SK rubbing this zero but okay so
+00:13:40.800 this is
+00:13:42.000 your
+00:13:43.639 new array so to speak but it's a single
+00:13:47.519 value because there are only 12 bits in
+00:13:49.839 this you can actually represent this
+00:13:51.079 using a 13 16bit data type and in Java
+00:13:54.800 uh integers are 32 bits but that's much
+00:13:56.880 better than using four ins instead of
+00:13:59.160 using four in you're just using one in
+00:14:01.880 and that's a lot of
+00:14:03.079 savings okay so this is an example where
+00:14:05.639 you're converting a 2d array or a 1D
+00:14:07.959 array to a single number but what if you
+00:14:12.360 can't do that what if there are too many
+00:14:14.880 numbers in your 2D array or what if the
+00:14:16.880 maximum value is so big and the product
+00:14:19.959 of the numbers and the maximum value you
+00:14:22.199 know maximum bits requir to represent
+00:14:24.360 this number is so big that you can't
+00:14:25.759 represent it using a single number let
+00:14:28.920 me just clarify
+00:14:30.360 everything if you have an array which is
+00:14:32.639 quite big let's say 10,000 elements
+00:14:36.160 there's no way that you can fit that
+00:14:37.880 into a single integer or long or
+00:14:40.519 whatever that data type is not big
+00:14:42.680 enough to store that much information it
+00:14:44.680 will require 10,000 bits which no uh
+00:14:48.199 sensible language contains as a data
+00:14:50.880 type so you need multiple Longs or inss
+00:14:56.440 to represent that Matrix and in that
+00:15:00.680 case you'll need an array of binary
+00:15:07.560 values okay so in this case a single
+00:15:10.440 binary value was enough to represent our
+00:15:12.759 Matrix but there will be times when you
+00:15:15.160 need an array and let's talk about how
+00:15:17.519 we can do that so we have the more
+00:15:19.480 interesting case now where we have fixed
+00:15:22.079 size data types uh each of size four so
+00:15:25.160 integers usually have about 32 bits in
+00:15:27.040 Java and Boolean has one long as 64 but
+00:15:30.040 in our theoretical scenario we have four
+00:15:32.199 bits per data Type U and it's our old
+00:15:37.160 example again you just have these four
+00:15:38.519 elements with block size equal to three
+00:15:40.279 so you need three bits to represent one
+00:15:41.839 of these and remember we need 12 bits in
+00:15:44.040 total so we need three of these data
+00:15:46.199 types to represent our entire array okay
+00:15:49.440 now interestingly binary value is an
+00:15:51.279 array now as you can see and the code
+00:15:53.759 has also changed a bit so let's
+00:15:55.360 understand that Bing value of I into B
+00:16:00.759 what does that tell you of I into B
+00:16:03.240 tells you the information that you
+00:16:05.600 needed till now to represent the array
+00:16:07.639 up to this point so I into B is
+00:16:09.959 that divided by data
+00:16:13.120 size so each block can contain data size
+00:16:17.199 amount of bits and the total information
+00:16:21.360 uh that you have till now is I into B so
+00:16:24.600 total divided by how many blocks you
+00:16:26.880 needed up to this point will give you
+00:16:28.759 the index of the result by any value all
+00:16:32.759 right that makes
+00:16:34.319 sense plus equal to this is an operator
+00:16:37.399 often used uh plus equal to means that
+00:16:40.319 whatever value is on the left hand side
+00:16:42.480 so A+ equal to
+00:16:45.360 b means that whatever value is on the
+00:16:48.199 left hand
+00:16:49.720 side should be
+00:16:53.120 assigned the same value A +
+00:16:56.319 B right this is just a programming
+00:16:58.600 language syntax uh that's it we we are
+00:17:01.800 just adding whatever is on the right
+00:17:03.040 hand side to the left hand side value
+00:17:04.359 and then assigning it to the left hand
+00:17:05.720 side value so this is just a short form
+00:17:08.119 and I was running out of space even now
+00:17:09.679 it's untiy but it's all right
+00:17:13.679 uh so this left hand side value this
+00:17:17.559 block index is found out using this
+00:17:19.959 formula plus equal to a of I so the
+00:17:25.439 element at that index left shifted Again
+00:17:28.600 by
+00:17:29.559 I into B similar to last time but mod
+00:17:34.880 data
+00:17:36.679 size why is that the reason you have
+00:17:40.160 this is because I into B gives you the
+00:17:43.200 total number of bits you need to
+00:17:45.320 skip this divided by data size gives you
+00:17:48.919 the number of blocks that you need to
+00:17:50.799 skip but now that you skipped all those
+00:17:52.760 blocks and you know the number of bits
+00:17:54.200 also that you have to skip so let's say
+00:17:56.840 let's say you need to push something in
+00:17:58.640 here here you need to know that for this
+00:18:01.280 block how many bits do I need to skip
+00:18:03.080 from the right so how many bits do I
+00:18:05.600 need to skip from the right will come by
+00:18:07.720 total number of bits that you need to
+00:18:09.320 skip I into
+00:18:11.240 B excluding these blocks which are
+00:18:13.520 behind you so that is given by the
+00:18:16.559 remainder so that is
+00:18:18.600 modular size of each data block which is
+00:18:21.280 data
+00:18:22.280 size right so what we essentially doing
+00:18:25.440 is finding out where we need to insert
+00:18:27.640 our element and also finding out how
+00:18:30.240 many bits we need to skip before
+00:18:31.640 inserting our
+00:18:33.280 element right this part is a little new
+00:18:36.000 and this part is also slightly new but
+00:18:37.840 both of them are very logical if you
+00:18:39.400 take your time to understand what's
+00:18:40.480 happening and let's just run through the
+00:18:41.840 code to understand it better all right
+00:18:44.760 so
+00:18:47.280 uh firstly we have seven so seven comes
+00:18:51.919 in this is going to be a happy scenario
+00:18:54.280 because at 0 I into B is0 this is also
+00:18:58.440 zero
+00:18:59.520 so a of I is what is assigned here 7
+00:19:03.640 isal 1 1
+00:19:06.520 1 there just four bits so I'll write it
+00:19:08.880 cleanly one one and
+00:19:13.440 one now we come to one and this is where
+00:19:16.679 things get a little tricky one requires
+00:19:19.280 three bits you come here I into to B
+00:19:23.080 becomes three 3id 4 is still zero so you
+00:19:26.440 should go here and then you have a of I
+00:19:30.679 which is three left shifted
+00:19:33.960 by
+00:19:35.679 3 div modul 4 so that is three again so
+00:19:39.960 we
+00:19:40.720 have binary
+00:19:42.880 value of 0 plus equal to 3 left shied
+00:19:49.280 by
+00:19:51.080 3 okay so we have 0 0 0 here 1 1 0 this
+00:19:56.400 is equal to this value and the first
+00:20:00.840 block has to be added to
+00:20:03.320 this there's a
+00:20:05.440 problem this value is larger than the
+00:20:08.520 number of bits which can be contained by
+00:20:11.159 this
+00:20:12.760 block so what we are going to do is use
+00:20:15.720 a little more binary
+00:20:17.360 manipulations and convert this plus
+00:20:19.360 operator into an or
+00:20:23.240 operator right this makes a difference
+00:20:25.679 because when you're doing a plus
+00:20:27.159 operation it means that if there is an
+00:20:29.720 overflow the the data type goes into
+00:20:32.799 negative values to compensate for that
+00:20:35.320 right but when you do an or operation
+00:20:36.799 it's entirely binary so if there is any
+00:20:39.200 overflow it's
+00:20:41.679 excluded so what do we get with that we
+00:20:44.440 get skip three bits and put in one here
+00:20:49.159 so one comes here and
+00:20:52.720 01 are skipped because they don't fit
+00:20:55.880 into the data type so they just excluded
+00:20:58.720 remember plus will give you a wrong
+00:21:00.240 answer because then it'll try to
+00:21:02.640 actually add this number to the
+00:21:05.679 one0 and that'll that'll create an issue
+00:21:09.280 all right so this is what we want or do
+00:21:13.080 we we l these two
+00:21:15.919 bits and that information is critical
+00:21:18.159 when you're actually coming over here so
+00:21:19.760 when you're going for the next element
+00:21:21.600 four you need two bits over here and
+00:21:24.919 then four to actually come in
+00:21:27.039 here in fact four will also uh get
+00:21:30.600 mangled and go to two different blocks
+00:21:33.039 so how do we take care of that what you
+00:21:35.279 need to do is have a counter uh every
+00:21:38.279 time you are adding these bits to the
+00:21:42.480 blocks you're also having information
+00:21:44.919 about how many bits you're skipping and
+00:21:47.200 how many bits you're adding so the
+00:21:49.120 number of bits you're skipping is this
+00:21:50.640 quantity just Mark that in red this is
+00:21:53.760 the quantity that you're
+00:21:55.919 skipping and B is the quantity that
+00:21:58.080 you're adding
+00:21:59.400 so if I into B mod data size write that
+00:22:05.440 down
+00:22:07.000 blue I into
+00:22:09.799 B
+00:22:11.480 mod data
+00:22:17.200 size
+00:22:18.919 plus
+00:22:20.840 b if that is
+00:22:23.640 greater than data size
+00:22:29.080 then you have a problem then there's an
+00:22:30.360 overflow and in that case you need to
+00:22:33.480 actually go for the next index you
+00:22:36.000 already have the current index you need
+00:22:37.240 to go for the next
+00:22:39.000 index and take the remaining bits which
+00:22:43.080 is which is this over
+00:22:46.480 here get some space over
+00:22:51.120 here number of bits that you need to uh
+00:22:54.360 still take care of is given
+00:22:56.760 by this quantity
+00:22:59.600 minus this quantity so data
+00:23:03.840 size so here and I into
+00:23:07.840 B
+00:23:09.919 mod data
+00:23:11.960 size is
+00:23:14.200 here right these are the number of bits
+00:23:16.320 that you still need to take care of once
+00:23:18.200 you have done this operation this
+00:23:19.799 initial operation uh so these many bits
+00:23:23.400 are what you need to take care of you
+00:23:25.360 can store this value the index value and
+00:23:27.679 increment it by one so that will
+00:23:31.400 be
+00:23:33.880 binary
+00:23:36.440 value index + 1 plus equal
+00:23:41.600 to oh yeah better not make that mistake
+00:23:44.720 or equal
+00:23:46.240 to these are the number of bits that you
+00:23:48.279 need to take care of which means that
+00:23:50.480 you already taken care of some bits
+00:23:52.400 which you can skip right and here's
+00:23:55.320 where things get more and more
+00:23:56.320 complicated when you get into binary
+00:24:01.960 you need to take care of these many
+00:24:05.240 bits
+00:24:07.039 so what is block size three block size
+00:24:10.640 minus number of bits that you need to
+00:24:12.240 take care of so uh let's call this
+00:24:17.520 x block size minus number of bits that
+00:24:20.000 you need to take care of is what you
+00:24:21.320 have already taken care of so
+00:24:26.360 already done
+00:24:30.159 the already done bits should be skipped
+00:24:33.520 they you should lose that information
+00:24:34.840 you shouldn't uh go on appending that
+00:24:37.279 you you don't want to be putting this
+00:24:39.159 one over here also all right that's what
+00:24:41.600 we want to avoid so we need to know how
+00:24:43.840 many we need to get rid of so you take
+00:24:46.760 your element which is three now you take
+00:24:50.080 three 1 1 Z and you write shift by the
+00:24:56.039 amount already done
+00:24:58.720 this will make you lose some information
+00:25:01.799 necessary to have the Matrix in the
+00:25:04.159 right form so you write shift in this
+00:25:07.720 case already done will be equal to one
+00:25:10.880 so you WR shift to get this
+00:25:12.720 number 11 1 0 you lost this bit this
+00:25:16.120 single
+00:25:17.120 bit all right so your new value now
+00:25:20.480 needs to be put into the index +
+00:25:24.720 one I don't know why I intered so index
+00:25:27.480 plus one
+00:25:29.559 will have this new
+00:25:31.039 value uh odd with it so that is equal
+00:25:37.120 to 0 0 and
+00:25:41.919 one 0 0
+00:25:44.200 1 just write it nice and
+00:25:47.159 neat okay similarly you come to the
+00:25:50.520 second element again you find out its
+00:25:52.919 index it'll it'll fall over here U which
+00:25:56.039 has index equal to one so yeah well I
+00:25:58.399 can write eight because that's that's
+00:26:00.760 fine uh index is equal to one so you
+00:26:03.120 fall at this position you need
+00:26:07.200 to put the information over here in this
+00:26:11.399 block so that is equal
+00:26:13.720 to 1 0 0 needs to be put in this after
+00:26:17.840 skipping how many bits well if you take
+00:26:21.120 the I into B mod data size it'll come
+00:26:24.799 out to be one so you skip one bit
+00:26:29.399 no it'll come out to be two actually
+00:26:30.880 yeah so you skip two bits this is over
+00:26:33.279 here you see that three can be formed
+00:26:34.960 using these three bits seven can be
+00:26:36.960 formed using these three bits and these
+00:26:39.799 three bits should logically form
+00:26:43.039 four so you skip two bits and then again
+00:26:46.559 you perform the or operation which gives
+00:26:49.919 you 1 0 0
+00:26:52.960 so what you have here now is zero and
+00:26:55.520 zero and the one which should have come
+00:26:57.600 over here
+00:26:59.120 is lost because like we lost the zero
+00:27:01.799 and one over here the one is lost in
+00:27:03.919 this scenario with the one skipped you
+00:27:06.039 again come back to this procedure which
+00:27:07.600 tells you I into B so that is 2 into 3 6
+00:27:12.399 mod 4 that is 2 2 + 4 which is six again
+00:27:17.840 so six if it is greater than data size
+00:27:20.080 yes it is uh 6 is greater than four so
+00:27:23.399 we need to do this procedure 6 - 4 gives
+00:27:25.880 you
+00:27:26.720 2 2 are the number of bits that you need
+00:27:29.520 to take care of which means 4 - 2 which
+00:27:32.080 is two are already done so two bits are
+00:27:35.399 already done as we
+00:27:37.559 expected and now two bits are already
+00:27:40.760 done you need to take your value 1 0 0
+00:27:44.679 right shifted by two which gives you one
+00:27:48.159 you're appending these two zeros but
+00:27:50.080 this is the new thing that you need to
+00:27:52.519 or with the next index over here all
+00:27:56.360 right I went through it pretty fast but
+00:27:58.840 you can have a look at it slowly and
+00:28:00.559 understand why this entire thing makes
+00:28:03.360 sense and why this will then you know
+00:28:06.159 make the entire representation
+00:28:08.200 concise all right so we have 0 01 to be
+00:28:13.240 Ed into this let's do that 0 0 1 and you
+00:28:18.960 can see now that this is four these
+00:28:20.679 three bits form four 1 0 0 all right
+00:28:24.480 finally we come here with the number of
+00:28:26.679 bricks that you need to skip equal to
+00:28:27.840 one how is that well I into B is equal
+00:28:30.720 to what now 3 into 3 9 9 mod data size 4
+00:28:36.240 gives you 9 mod 4 is one so yeah one bit
+00:28:39.799 is
+00:28:40.600 skipped and then you
+00:28:43.080 or this index I into B which is 9
+00:28:46.519 divided by data size which is 2 so 0 1 2
+00:28:50.000 this is the index that we need to go
+00:28:52.159 to what comes up here seven is odd with
+00:28:55.840 these three bits so 7 is 11
+00:29:01.640 1 and therefore finally we have
+00:29:03.840 converted this
+00:29:05.640 array
+00:29:07.240 into an array of binary so we have
+00:29:10.840 converted uh potentially four ins into
+00:29:14.840 really concise
+00:29:17.200 representations okay in fact our
+00:29:20.440 theoretical data size is pretty good so
+00:29:22.120 it's just four but instead of using 4
+00:29:24.399 into 4
+00:29:29.799 instead of using 4 into 4 bits which
+00:29:31.840 would have been 16
+00:29:33.360 bits we are using Just 4 into three
+00:29:36.600 three blocks that we have four bits each
+00:29:39.039 so that is 12 bits so those are savings
+00:29:41.799 and practically of course uh this is
+00:29:43.480 just to keep things concise and easy for
+00:29:45.159 me to write practically you're saving
+00:29:47.760 instead of 32 bits maybe just you're
+00:29:50.200 you're representing in three bits or two
+00:29:51.720 bits so usually you have huge data
+00:29:55.320 savings so now things are going to get
+00:29:57.399 tougher we have this set or S which is
+00:30:02.919 of size n and people can either exist in
+00:30:06.399 the set or not exist in the set so they
+00:30:08.240 can either be alive or dead in a way so
+00:30:10.919 if they're alive then it's a one
+00:30:12.960 otherwise it's a
+00:30:14.600 zero what we need to do is for any given
+00:30:17.760 index find out if that person is alive
+00:30:20.000 or dead and this set is going to be
+00:30:22.240 represented using Bally so single bits
+00:30:25.559 are going to represent one person
+00:30:28.919 okay so we'll be defining our set using
+00:30:31.279 this single binary number it has 12
+00:30:34.640 people in it and the zeros and ones
+00:30:36.880 represent whether they're alive or
+00:30:38.760 dead so what if you want to find out if
+00:30:41.919 the person at index six is alive so
+00:30:45.440 let's go for some simple operations how
+00:30:47.760 to find out if a person at index I is
+00:30:50.519 alive all you need to do is set all
+00:30:53.840 other indexes to
+00:30:55.840 zero and set the index at I to
+00:30:59.679 one take these two numbers and
+00:31:03.679 them if the
+00:31:07.120 result is not equal to zero then that
+00:31:09.880 person at index I is
+00:31:12.600 alive otherwise that
+00:31:17.240 de that's
+00:31:19.200 all what do you do if you need to make
+00:31:22.039 the person at index I
+00:31:25.880 alive well take the same number
+00:31:31.039 and or it so this is an or
+00:31:34.200 operation store that in the result the
+00:31:36.559 person now is
+00:31:38.000 alive because all actually sets it to
+00:31:40.919 one what happens if you make want to
+00:31:43.039 make that person dead this is more
+00:31:44.360 interesting you want to kill them so
+00:31:48.000 uh you're going to add them
+00:31:51.039 again and not just and you need to
+00:31:54.360 negate the entire thing so and
+00:31:59.039 neate this entire thing so this will be
+00:32:01.440 all ones
+00:32:02.960 now and this will be a zero and this
+00:32:05.480 will be a one so the same number that
+00:32:07.440 you had earlier when negated turns to
+00:32:11.480 this and then when add with this is
+00:32:14.519 going to actually keep all values except
+00:32:17.200 the index that you're looking at it's
+00:32:19.039 going to send that to
+00:32:20.799 zero and you're you're going to be
+00:32:23.399 basically killing the person at index I
+00:32:29.960 what if you want to set an entire block
+00:32:31.559 to zero just that block
+00:32:35.639 so what you could
+00:32:38.880 do is find you you need a block of ones
+00:32:42.480 basically uh and a block of zeros in
+00:32:45.720 between so you need blocks of ones and
+00:32:47.320 blocks of zeros so this is no longer
+00:32:49.399 just a single element it's a block so
+00:32:52.480 let's go for some simple operations how
+00:32:54.840 to find out if a person at index I is
+00:32:56.760 alive
+00:32:58.559 all you need to do is set all other
+00:33:01.159 indexes to
+00:33:02.919 zero and set the index at I to
+00:33:06.720 one take these two numbers and
+00:33:10.720 then if the
+00:33:14.159 result is not equal to zero then that
+00:33:16.919 person at index I is
+00:33:19.679 alive otherwise they're
+00:33:24.320 dead that's
+00:33:26.240 all what do you do if you need to make
+00:33:29.000 the person at index I
+00:33:32.880 alive well take the same
+00:33:37.039 number and or it so this is an or
+00:33:41.200 operation store that in the result the
+00:33:43.559 person now is
+00:33:45.000 alive because all actually sets it to
+00:33:47.919 one what happens if you make want to
+00:33:50.080 make that person dead this is more
+00:33:51.360 interesting you want to kill them so
+00:33:55.039 uh you're going to add them again
+00:33:58.960 and not just and you need to negate the
+00:34:02.519 entire thing so and
+00:34:06.039 negate this entire thing so this will be
+00:34:08.480 all ones
+00:34:09.960 now and this will be a zero and this
+00:34:12.520 will be a one so the same number that
+00:34:14.480 you had earlier when negated turns to
+00:34:18.480 this and then when add with this is
+00:34:21.480 going to actually keep all values except
+00:34:24.239 the index that you're looking at it's
+00:34:26.040 going to set that to zero
+00:34:28.839 and you're you're going to be basically
+00:34:30.719 killing the person at index
+00:34:35.960 I what if you want to set an entire
+00:34:38.320 block to zero just that block
+00:34:42.599 so what you could
+00:34:45.879 do is find you you need a block of ones
+00:34:49.480 basically uh and a block of zeros in
+00:34:52.719 between so you need blocks of ones and
+00:34:54.320 blocks of zeros so this is no longer
+00:34:56.399 just a single element it's a
+00:34:59.480 block what you could do
+00:35:03.400 is take this
+00:35:11.560 block what you should do is start from
+00:35:14.160 the reverse
+00:35:15.880 so you have a block of zeros you need a
+00:35:19.079 block of ones and you you need a block
+00:35:22.200 of zeros again and you just need to
+00:35:23.880 negate this to get this or uh the value
+00:35:26.920 that you want
+00:35:29.359 so have a look at
+00:35:31.760 this these many are zeros that will be
+00:35:34.680 let's say
+00:35:36.440 p p number of zeros is what you require
+00:35:39.079 on the right hand side so a single left
+00:35:41.800 shift of size P will bring these many uh
+00:35:45.040 ones to the left P to the left so
+00:35:49.920 uh now first what we need to do is
+00:35:52.720 negate and we are backtracking now from
+00:35:55.520 here we need to left shift and and now
+00:35:57.839 let's
+00:35:59.000 backtrack to a block of
+00:36:02.040 zeros and just a block of
+00:36:04.599 ones let's say the size of this
+00:36:07.400 is
+00:36:10.240 B so you need a block of B
+00:36:14.720 once what is 2 to the^ B in
+00:36:18.960 binary well that is nothing but just
+00:36:21.079 having one here and Zero's here so
+00:36:25.280 exactly as uh one left sh shied by B
+00:36:29.400 this is the number that you have rwise
+00:36:32.480 manipulation what happens if you
+00:36:35.119 subtract one from this
+00:36:39.839 number if you subtract one from this
+00:36:42.760 number this digit and the MSB is going
+00:36:45.599 to turn to zero and every digit after it
+00:36:48.040 is going to turn to one so you now have
+00:36:50.960 block of size P set to
+00:36:53.560 once and so from
+00:36:56.520 here from the start this position we can
+00:37:00.760 then left shift negate that and then end
+00:37:05.400 with the original result to set an
+00:37:06.920 entire range to zero all right that's
+00:37:09.920 how you can use uh bitwise manipulations
+00:37:12.800 there's lots of other stuff you can find
+00:37:14.720 out what the MSB or the LSB is I'll be
+00:37:16.800 sharing relevant links in the
+00:37:17.880 description below but what I really want
+00:37:20.760 uh you to do is appreciate how awesome
+00:37:23.079 this uh could be it really helps reduce
+00:37:26.000 the space complexity and sometimes even
+00:37:28.520 uh allows you to do computations that
+00:37:31.359 you couldn't do otherwise in in your
+00:37:34.040 program so try it out in your next
+00:37:37.319 contest and I'll see you next time
+00:37:39.119 thanks

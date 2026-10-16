@@ -1,0 +1,579 @@
+# No title found
+
+# https://www.youtube.com/watch/zPtI8q9gvX8
+
+
+
+00:00:01.680 Hi, our next problem is job sequencing
+
+00:00:05.680 with deadlines.
+
+00:00:08.400 This problem we are going to solve it
+
+00:00:10.320 using greedy method. So first of all we
+
+00:00:13.920 will understand what the problem is.
+
+00:00:16.560 Already I have an example. Through an
+
+00:00:18.560 example we'll understand what the
+
+00:00:20.000 problem is. Then we'll see how to solve
+
+00:00:23.039 it using greedy method.
+
+00:00:26.480 So let us know about the problem. See
+
+00:00:30.480 here in example five jobs are given,
+
+00:00:33.600 five task are given
+
+00:00:36.480 and if that task is completed we will
+
+00:00:39.040 get this profit. So associated with each
+
+00:00:41.360 job there is some profit
+
+00:00:45.040 but that job must be finished within
+
+00:00:48.640 this deadline. It must be completed
+
+00:00:50.559 within the deadline like first job
+
+00:00:53.120 should be completed within a deadline
+
+00:00:54.800 two and deadline job two also two. Job
+
+00:00:58.079 three is one. So like that every job is
+
+00:01:00.320 having some deadline.
+
+00:01:02.559 So the problem is jobs are given every
+
+00:01:04.559 job is having some profit and if you
+
+00:01:06.400 complete the job you'll get the profit
+
+00:01:08.479 and you have to complete that job within
+
+00:01:10.720 a deadline. Now let us understand what
+
+00:01:13.520 all these means. Assume that assume that
+
+00:01:17.920 there is a machine
+
+00:01:25.280 on that each job has to be processed.
+
+00:01:28.960 Each job takes one unit of time for
+
+00:01:31.680 completion. This is the assumption.
+
+00:01:36.560 This is the assumption in the problem.
+
+00:01:39.759 Right? So what is this one unit? I will
+
+00:01:43.119 assume this as 1 hour. So on a machine
+
+00:01:47.840 each job needs 1 hour for its
+
+00:01:50.399 completion. So you can take an example
+
+00:01:52.640 like a DTP operator or uh see mostly for
+
+00:01:57.280 making a legal documents for on a bond
+
+00:01:59.759 paper you'll find people in the market
+
+00:02:02.159 who will prepare documents. Suppose that
+
+00:02:04.719 preparation you take the job. So he's a
+
+00:02:06.880 typist
+
+00:02:08.800 right and he completes each job in 1
+
+00:02:11.360 hour.
+
+00:02:12.800 That's it. So that example you can take.
+
+00:02:15.760 Now what is the situation? Let us
+
+00:02:17.840 understand.
+
+00:02:20.239 See assume that in the morning he has
+
+00:02:23.520 opened the shop.
+
+00:02:25.440 The moment he has opened the shop, these
+
+00:02:27.680 five people are standing there for
+
+00:02:29.520 getting their jobs done.
+
+00:02:32.959 All right? So you have to take this
+
+00:02:34.400 situation to understand the problem.
+
+00:02:37.519 And each person is having his own
+
+00:02:40.239 deadline. He is saying that I want my
+
+00:02:42.879 job to be done first in first hour only.
+
+00:02:46.080 Can you do it or not? If you can do it,
+
+00:02:48.080 do it. And this person is saying that I
+
+00:02:51.120 am ready to wait for 3 hours. No doubt
+
+00:02:54.239 my job needs only 1 hour but I am ready
+
+00:02:56.720 to wait for 3 hours. Suppose this
+
+00:02:58.800 morning 9:00. So he's ready to wait till
+
+00:03:00.959 12:00 and he's ready to wait till 11:00
+
+00:03:04.560 and he's ready to wait till 10:00. So
+
+00:03:08.080 whose job should be done first? This job
+
+00:03:09.760 should be done fat. But what is the
+
+00:03:12.640 profit we are gaining? If this job is
+
+00:03:15.280 done, let us say this is rupees and we
+
+00:03:18.080 get just 10 rupees and if this job is
+
+00:03:21.040 done then we get 20 rupees. So obviously
+
+00:03:24.159 which job should be done first? Highest
+
+00:03:27.440 profit job should be done first.
+
+00:03:30.159 Yes. Now the problem is we want the set
+
+00:03:34.720 of those jobs which can be completed
+
+00:03:37.840 within their deadlines such that the
+
+00:03:41.040 profit is maximized. The profit is
+
+00:03:43.920 maximized. So this is a maximization
+
+00:03:46.319 problem.
+
+00:03:48.720 And what is the constraint in the
+
+00:03:50.159 problem? Job must be completed within
+
+00:03:52.159 the deadline.
+
+00:03:54.799 All right. So this is suitable for
+
+00:03:57.120 greedy method because it is an
+
+00:03:58.879 optimization problem. It's a
+
+00:04:00.720 maximization problem. So we can apply
+
+00:04:03.200 greedy method. Now let us solve this
+
+00:04:05.360 problem using greedy method. Let us see
+
+00:04:07.120 how we can apply greedy method. So first
+
+00:04:09.360 of all how many hours are available for
+
+00:04:13.040 that typist to complete the job. See one
+
+00:04:16.798 of the person or two people are ready to
+
+00:04:18.639 wait till 12:00 or for 3 hours they are
+
+00:04:22.560 ready to wait. So after that nobody's
+
+00:04:24.960 there. Suppose this is the only jobs
+
+00:04:27.360 that he have when he has opened the shop
+
+00:04:29.680 and he has to complete this within their
+
+00:04:31.840 deadline. How many slots he is having?
+
+00:04:35.360 From zero hour to first hour one unit of
+
+00:04:38.400 time. In this hour he can complete one
+
+00:04:40.400 job. Then first hour to second hour he
+
+00:04:43.520 can complete second job and second to
+
+00:04:46.240 third he can finish third job. So it
+
+00:04:49.280 means nobody is ready to wait beyond 3
+
+00:04:52.639 units of time 3 hours. So he has to
+
+00:04:55.360 finish jobs within these three slots
+
+00:04:58.400 only. If I give the time this is 9:00 to
+
+00:05:01.759 10:00 and this is 10:00 to 11:00, 11 to
+
+00:05:05.120 12:00. Now there are only three slots.
+
+00:05:07.759 How many jobs he can do? Deadlines are
+
+00:05:10.560 giving just three slots. So he can do
+
+00:05:12.240 only three jobs. Out of five he has to
+
+00:05:14.800 select just three. So that the profit is
+
+00:05:17.199 maximum.
+
+00:05:18.960 Now if we apply greeding method then on
+
+00:05:21.440 what basis we will select the objects.
+
+00:05:23.280 We will select the objects in the order
+
+00:05:25.919 of their maximum profit. So first
+
+00:05:28.160 maximum profit then next maximum next
+
+00:05:30.160 maximum and so on. So let us see how to
+
+00:05:32.880 solve this one. Who is having highest
+
+00:05:35.280 profit? This one. So you can see already
+
+00:05:37.600 that the jobs are already arranged in
+
+00:05:39.600 the decreasing order of the profit. So I
+
+00:05:41.440 have to consider them in the same order.
+
+00:05:44.160 This is having highest profit. Now I
+
+00:05:46.800 will select this job for completion. I
+
+00:05:49.280 will select it. I will not perform it.
+
+00:05:50.960 But in which slot I should do? He's
+
+00:05:52.639 ready to wait for 2 units of time. Means
+
+00:05:55.440 he came at 9:00. He's ready to wait till
+
+00:05:57.520 11:00. And his job needs only one unit
+
+00:05:59.840 of time. So let us do it in this slot.
+
+00:06:04.800 Now let us pick up the next job. Second
+
+00:06:07.680 highest profit is 15. And what is this
+
+00:06:10.400 deadline? Two. Now again go to 1 to2.
+
+00:06:13.759 He's ready to wait till 11 2 units of
+
+00:06:16.080 time. But this is already occupied. Now
+
+00:06:18.560 see if there are any slots available on
+
+00:06:21.600 this side. Yes, it is available. So that
+
+00:06:24.000 job two here.
+
+00:06:28.400 Now let us select the next job. Third
+
+00:06:30.880 job, its deadline is one. Can we do it?
+
+00:06:34.960 Let us see. One means what? 0 to 1
+
+00:06:38.160 within this one. No, this slot is
+
+00:06:40.319 already gone. So this job is rejected.
+
+00:06:43.039 We cannot do this job. So we have
+
+00:06:45.120 selected already these two jobs.
+
+00:06:48.240 Then what about this job? This can be
+
+00:06:50.479 done because the deadline is 3. So he is
+
+00:06:53.280 ready to wait till 12:00 or third unit
+
+00:06:55.840 and every job needs one unit of time.
+
+00:06:57.919 Remember that. So we will do this in
+
+00:07:00.080 this slot. So that's it. And what about
+
+00:07:03.440 this job third already occupied? Is
+
+00:07:06.080 there any slot free on this side? No. If
+
+00:07:09.120 there is no slot available there, you
+
+00:07:10.720 can look for the slots in this site. So
+
+00:07:13.360 there is no job slot available.
+
+00:07:17.599 That's all. We have a solution. What are
+
+00:07:19.360 the jobs that we are going to do? We are
+
+00:07:21.599 going to complete jobs two then job one
+
+00:07:25.280 and job four. And in which sequence we
+
+00:07:29.440 have to do them? So here both the jobs
+
+00:07:32.400 are having deadline two. So we can do
+
+00:07:34.560 them in sequence J1 then J2 then J4 or
+
+00:07:38.479 else J2 to J1 then J4.
+
+00:07:43.680 We can complete them in any of these
+
+00:07:45.440 sequences. So these are the sequences
+
+00:07:47.120 possible for completing those jobs
+
+00:07:50.080 as both are ready to wait for 2 hours.
+
+00:07:52.160 Total profit will be this job is 20 and
+
+00:07:56.240 this job is 15 and the profit of this
+
+00:07:58.960 job is 5. So it is 20 + 15 + 5 is 40.
+
+00:08:05.440 So the total profit that we gain will be
+
+00:08:08.879 40. Now let us solve this. Here I have a
+
+00:08:11.680 taken table. Now initially there is
+
+00:08:14.319 nothing and uh there is nothing in the
+
+00:08:16.080 solution and the profit is also zero.
+
+00:08:17.599 Let us start first. Which job we will
+
+00:08:19.680 consider? Job to be considered. First
+
+00:08:21.440 job I'll write one or J1. First job I'm
+
+00:08:24.879 considering and first job as the
+
+00:08:27.120 deadline is two. We will assign a slot
+
+00:08:29.120 from 1 to two.
+
+00:08:32.320 1 to two. You remember we have the slots
+
+00:08:34.640 from 0 to 1 and 1 to two and 2 to 3
+
+00:08:37.679 because the maximum deadline is three
+
+00:08:39.440 here. So these are the slots available.
+
+00:08:42.399 Now solution as this is included. We
+
+00:08:45.120 have allotted this slot. Job one comes
+
+00:08:48.160 into the solution. And what is the
+
+00:08:50.160 profit? 20 is the profit. So this first
+
+00:08:53.600 job is included.
+
+00:08:56.240 Then consider second job. Okay, J1. I'll
+
+00:08:59.760 write J2.
+
+00:09:02.320 Can you assign a slot to this second
+
+00:09:04.080 job? Like J1 was here. Yes, J2 can come
+
+00:09:07.040 here. So we will assign a slot from 0 to
+
+00:09:10.320 1. And already 1 to two was already
+
+00:09:13.040 assigned to this one. So already two
+
+00:09:14.720 slots are over you see and we have the
+
+00:09:17.040 solution J1 and J2 how much profit we
+
+00:09:21.680 have 20 plus the profit of the second
+
+00:09:24.480 job is 15 so this is 35 I'm just keeping
+
+00:09:28.720 it as it is
+
+00:09:31.120 now next job to be considered J3
+
+00:09:35.040 third job it deadline is 1 0 to 1
+
+00:09:39.040 already occupied so no slot is assigned
+
+00:09:42.320 and Everything remains the same and the
+
+00:09:45.839 jobs are J1 and J2 only and this is 20 +
+
+00:09:50.160 15 only. So this job is not included in
+
+00:09:54.000 the solution.
+
+00:09:56.720 Now next job J4
+
+00:09:59.360 J4 so we can assign a slot 0 to 1 is
+
+00:10:02.399 already gone 1 to2 is already gone. J4
+
+00:10:05.360 can be done in slot 2 to three. So this
+
+00:10:09.760 is J4. So here we have 2 to three and
+
+00:10:15.440 the solution is having J1, J2, job four
+
+00:10:19.920 is selected and it is five and job five
+
+00:10:25.920 it cannot be selected. So this remains
+
+00:10:27.920 same. This remains same and this total
+
+00:10:30.399 will be 40.
+
+00:10:33.200 Total will be 40.
+
+00:10:36.959 I have taken one more problem for
+
+00:10:38.720 solving this using greedy method. It's a
+
+00:10:42.079 problem for job sequencing with
+
+00:10:43.440 deadlines. We have to follow greedy
+
+00:10:45.360 method. So we decided that we'll select
+
+00:10:47.600 the jobs in the decreasing order of
+
+00:10:49.440 their profits and that's how we may be
+
+00:10:51.680 getting maximum profit but the
+
+00:10:54.640 constraint is they have to be finished
+
+00:10:56.079 in a deadline. So how many deadlines are
+
+00:10:58.320 there here? What is the maximum time we
+
+00:11:00.240 have to submit any job? Maximum time a
+
+00:11:02.320 job can be submitted is four. So how
+
+00:11:05.040 many slots are available?
+
+00:11:07.360 0 to 1 then 1 to 2 2 to 3 3 to 4
+
+00:11:16.399 maximum deadline four. After that
+
+00:11:18.560 nobody's ready to wait. The job should
+
+00:11:20.399 be completed within that four units of
+
+00:11:23.120 time. But every job needs just one unit
+
+00:11:25.279 of time. So how many slots we have with
+
+00:11:27.279 one one unit? Four slots we have. Now
+
+00:11:29.920 let us solve this by selecting jobs. So
+
+00:11:32.320 the first job first job what is the
+
+00:11:35.440 deadline three is the slot vacant 2 to
+
+00:11:38.240 three means not beyond three so two to
+
+00:11:40.480 three yes job one can be done and we got
+
+00:11:42.959 the profit 35 I'll write just below this
+
+00:11:45.360 one
+
+00:11:47.760 then next job J2 deadline is four so
+
+00:11:52.079 check 3 to 4 yes it's free it can be
+
+00:11:54.399 done so J2 and the profit that we got is
+
+00:11:57.120 30
+
+00:11:59.519 then J3 J3 3 it deadline is 4. No, 3 to
+
+00:12:04.720 4 is already occupied. Then check this
+
+00:12:06.800 side if it can be done early.
+
+00:12:10.320 Yes, already occupied here. Yes, it can
+
+00:12:13.839 be done. See this means that this person
+
+00:12:16.480 is ready to wait for four unit of time.
+
+00:12:19.279 So 4 hours we can finish it early also.
+
+00:12:23.120 We don't have to do it in three to four
+
+00:12:24.959 slot only. We can finish it early also.
+
+00:12:27.519 No doubt he is ready to wait. But that
+
+00:12:29.519 slot already we are doing it for
+
+00:12:30.880 somebody else. So let us bring that one
+
+00:12:32.560 here. So this third job can be done here
+
+00:12:36.320 and it profit is 25.
+
+00:12:40.320 Now J4 what is the deadline? 1 to 2 2 1
+
+00:12:44.959 to2 already occupied but can it be done
+
+00:12:47.440 early? Yes this slot is free. So job
+
+00:12:49.920 four can be done here and its profit is
+
+00:12:52.399 20.
+
+00:12:54.079 Now job five, job six and seven, I even
+
+00:12:57.120 don't have to check them because I see
+
+00:12:59.360 that all the slots are already occupied.
+
+00:13:02.000 So those jobs cannot be completed. So
+
+00:13:04.959 when we have limited slots and we have
+
+00:13:07.519 more jobs then we have to select the
+
+00:13:09.519 jobs such that the profit is maximum.
+
+00:13:12.399 Final profit is add all these it is 110.
+
+00:13:17.360 That's all. The problem is very simple
+
+00:13:19.920 to solve. Right? Once you understand the
+
+00:13:23.040 problem, then it's very easy to solve.

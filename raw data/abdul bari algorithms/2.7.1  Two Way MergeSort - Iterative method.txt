@@ -1,0 +1,741 @@
+# 2.7.1  Two Way MergeSort - Iterative method
+
+# https://www.youtube.com/watch/6pV2IF0fgKY
+
+
+
+00:00:00.140 hi the topic is merge sort
+
+00:00:04.110 so for understanding my sort first of
+
+00:00:07.140 all we should know what is merging so
+
+00:00:09.780 let us know about merge that is merging
+
+00:00:12.809 see marching is a process of combining
+
+00:00:15.560 two sorted lists into a single sorted
+
+00:00:19.619 list so if I have two lists let us say a
+
+00:00:22.920 is one list B is one list with some set
+
+00:00:26.490 of elements like now there are two lists
+
+00:00:31.199 given and I have taken equal sizes they
+
+00:00:33.600 can be of different size also but they
+
+00:00:37.140 are sorted now let us see how we can
+
+00:00:40.649 combine them such that the result is
+
+00:00:43.559 also sorted so I will prepare a third
+
+00:00:46.170 list that is see these lists can be in
+
+00:00:52.500 array also or they can be in linked
+
+00:00:55.800 lists also so irrespective of data
+
+00:00:58.859 structure just we are looking at two
+
+00:01:00.750 lists now let us understand how to
+
+00:01:03.000 combine them so for each list I need
+
+00:01:06.479 some index pointer let us take I here
+
+00:01:09.659 and G here and K for this C list which
+
+00:01:14.280 is in the beginning of empty list no
+
+00:01:18.479 procedure starts the procedure for
+
+00:01:21.150 merging is like this compare a of I with
+
+00:01:24.479 B of G if a of I is smaller then copy
+
+00:01:28.439 that one here and the element which is
+
+00:01:32.549 copied there you move index and this
+
+00:01:36.720 index also moves to next location Nanak
+
+00:01:42.479 compare a of I with B of J this is
+
+00:01:46.079 smaller than this one so copy this
+
+00:01:48.030 element and move to next element here
+
+00:01:52.259 and here also move to next free location
+
+00:01:58.880 continue a of I will be of j8 is smaller
+
+00:02:03.960 copy this one then move to next
+
+00:02:10.389 and Kay also to the next in the same way
+
+00:02:14.740 if I continue now nine is a smaller nine
+
+00:02:17.140 is copied then it will move to the next
+
+00:02:19.780 one then twelve and fifteen twelve is a
+
+00:02:22.180 smaller 2l is copied then it will move
+
+00:02:24.819 to next one here and fifteen and
+
+00:02:26.830 seventeen so 15 is a smaller then it
+
+00:02:30.100 will come to this one
+
+00:02:31.330 I will move here and this two are
+
+00:02:33.880 compared seventeen is a smaller and
+
+00:02:36.130 finally K will be on the next free space
+
+00:02:39.040 and I is still here J has crossed the
+
+00:02:44.530 list now you can see that one of the
+
+00:02:48.220 lists has finished now remaining
+
+00:02:50.980 elements are there in one of the lists
+
+00:02:52.989 here in example misty is having some
+
+00:02:55.330 remaining elements so simply copy those
+
+00:02:57.760 remaining elements so that's it I got a
+
+00:03:03.810 third list that is with the sorted
+
+00:03:07.600 elements so we have combined two lists
+
+00:03:10.630 by comparing the elements from one each
+
+00:03:13.690 list and whichever is smaller we have
+
+00:03:16.000 copied them and we got a sorted list
+
+00:03:18.840 this process is merging the property of
+
+00:03:26.410 this process is that if two lists are
+
+00:03:29.350 already sorted then the result is sorted
+
+00:03:32.769 so the important thing is the result is
+
+00:03:34.989 sorted now let us look at the time taken
+
+00:03:37.600 by this process if I say this list is
+
+00:03:40.180 having M number of elements and this
+
+00:03:42.730 list is having and the number of
+
+00:03:44.500 elements then what is done here M
+
+00:03:47.230 elements and elements are copied here so
+
+00:03:49.840 this list is having M plus and element
+
+00:03:52.360 so what we did just we compare the
+
+00:03:54.880 elements and we have written the list
+
+00:03:56.620 here so the amount of time taken for
+
+00:03:59.140 moving the data from here to there is
+
+00:04:01.170 Theta of M plus n though the time
+
+00:04:06.549 complexities are written just using
+
+00:04:08.500 variable n but for merging we use theta
+
+00:04:12.340 of M plus n so this resemble become
+
+00:04:15.180 the notation for marching M plus n means
+
+00:04:18.418 okay merging is being done there so this
+
+00:04:21.779 has became like a notation for March now
+
+00:04:24.930 we have understood marching I will write
+
+00:04:26.759 on the algorithm what a procedure for
+
+00:04:28.710 merging what the procedure I have shown
+
+00:04:30.960 you same thing I will write on the code
+
+00:04:33.210 there and go down merge which takes list
+
+00:04:46.919 a and B and excises m and M algorithm
+
+00:04:58.530 urge is taking to list a V and let us
+
+00:05:00.930 say Amen
+
+00:05:01.560 it depends whatever you like we can pass
+
+00:05:03.449 the parameters it depends on you now
+
+00:05:06.539 what we are doing here we have taken I
+
+00:05:09.060 that is as beginning place and J also
+
+00:05:11.820 had beginning place and K also at
+
+00:05:13.560 beginning place initially if you
+
+00:05:14.970 remember that means I is 1 J is also 1
+
+00:05:20.070 and K is also 1 so I am starting the
+
+00:05:23.760 indices from 1 onwards not like C C++
+
+00:05:26.310 where we start from 0 onwards so for
+
+00:05:29.820 making it simple I am starting from an
+
+00:05:31.889 oven works what is the procedure we
+
+00:05:34.349 compare a of I with B of G so if a of I
+
+00:05:39.150 is less than B of J then in C of K or I
+
+00:05:46.259 should copy a of
+
+00:05:48.060 I if this is smaller copy this one and
+
+00:05:53.520 move I and K also so k plus plus and I
+
+00:05:58.050 plus plus if this is not smaller this is
+
+00:06:02.669 smaller ends in C of k plus plus copy B
+
+00:06:11.039 of j plus plus this process will
+
+00:06:18.990 continue that's what we have seen
+
+00:06:20.610 compare them and copy whichever is
+
+00:06:22.800 smaller
+
+00:06:23.449 this process will continue how long as
+
+00:06:25.969 long as I is less than or equal to M and
+
+00:06:31.539 J is less than or equal to M the size of
+
+00:06:37.069 the list is M on the size of this list
+
+00:06:38.990 is M this process will continue and once
+
+00:06:45.620 this process complete this loop
+
+00:06:47.270 completes we know that any one of the
+
+00:06:50.210 lists will have some remaining elements
+
+00:06:52.189 like in our example 18 was remaining in
+
+00:06:54.979 the first list so I should copy the
+
+00:06:58.699 remaining elements so we don't know in
+
+00:07:00.860 which lists the elements will be
+
+00:07:02.089 remaining maybe in a or maybe in B see
+
+00:07:06.550 if suppose here I have few more elements
+
+00:07:10.400 eighteen nineteen twenty five so there
+
+00:07:13.580 are three elements so I is pointing here
+
+00:07:15.259 from here onwards I should copy all the
+
+00:07:17.870 elements means wherever eyes pointing I
+
+00:07:21.229 should copy all the elements or else
+
+00:07:23.899 here I may be having some elements 19 25
+
+00:07:28.430 30 so J may be here
+
+00:07:31.279 so wherever J is I should copy rest of
+
+00:07:33.349 the elements so here I write for
+
+00:07:37.300 wherever I may be
+
+00:07:39.229 don't initialize it let it be at the
+
+00:07:41.330 same place wherever it is and is less
+
+00:07:44.479 than equal to M I plasmus and in c of k
+
+00:07:49.490 plus plus copy a of I Phi plus plus is
+
+00:07:55.490 already there so just I'm saying copy
+
+00:07:57.110 the remaining elements from list a to
+
+00:07:58.669 let us see otherwise if there are some
+
+00:08:03.560 remaining elements in second list then
+
+00:08:07.240 copy the remaining elements from second
+
+00:08:12.050 list this procedure for merging here
+
+00:08:19.909 this procedure this while loop is for
+
+00:08:22.879 comparing and copying the elements then
+
+00:08:25.219 the first for loop is if there are any
+
+00:08:27.409 remaining elements and let's check copy
+
+00:08:29.779 them to list see in followers if there
+
+00:08:33.049 are any remaining elements and
+
+00:08:34.559 let's be copied them into lists of see
+
+00:08:37.099 this is marching now let us see if there
+
+00:08:41.789 are more than two lists then how merging
+
+00:08:44.760 is done let me take two more than two
+
+00:08:47.430 lists now here I have multiple lists let
+
+00:08:50.310 us see how I can merge them so I can
+
+00:08:52.850 compare first elements of all these
+
+00:08:55.380 lists and copy the one which is very
+
+00:08:57.480 smaller so as a twos is smaller so I can
+
+00:09:00.330 copy in the final list as two then as
+
+00:09:03.660 this is taken now I should go on to the
+
+00:09:06.240 next element of this list now the
+
+00:09:09.240 smaller one is three copy this three
+
+00:09:11.490 now as I have already taken this one
+
+00:09:13.440 then I should go to next element of this
+
+00:09:16.020 list so I should compare 4 5 8 4 and
+
+00:09:22.050 this 4 is smaller two are there so I can
+
+00:09:24.720 copy the first one so now this is
+
+00:09:26.550 completed so I should go to next element
+
+00:09:29.160 here so I should computer 6 5 8 and 4
+
+00:09:32.670 and whichever is minimum I should take
+
+00:09:34.350 that so in this way I can compare all
+
+00:09:37.200 the elements first one one element from
+
+00:09:39.990 each list and take the minimum one so at
+
+00:09:42.960 a time I am merging multiple lists
+
+00:09:44.820 together
+
+00:09:45.300 how many lists four lists I am watching
+
+00:09:48.480 together so this method if I take
+
+00:09:51.240 example 4 then this will be called as
+
+00:09:54.200 four-way merging it will be called as
+
+00:09:59.310 form a merging so I fullest so for
+
+00:10:03.750 emerging so as many lists you have and
+
+00:10:06.330 if you are following this procedure then
+
+00:10:08.670 it is called as MV merging as MV merging
+
+00:10:19.040 if I am merging just to illustrate a
+
+00:10:22.650 time see here I was trying to merge all
+
+00:10:24.839 four lists together at a time if I were
+
+00:10:27.270 just to list at a time then it is called
+
+00:10:30.570 as two-way much and mostly we followed
+
+00:10:35.339 this method two way marching so let us
+
+00:10:38.339 see if I have these four lists how I can
+
+00:10:40.589 more
+
+00:10:41.120 them by following two-way marching not
+
+00:10:44.779 to emerging I can take two lists and get
+
+00:10:48.260 one list so that will be 3 4 5 6 9 and
+
+00:10:52.339 12 and I will take these two lists and
+
+00:10:55.820 get one list that is 2 4 8 10 16 and 18
+
+00:11:01.720 now I have two lists and I can merge
+
+00:11:04.880 these two into a single list so one
+
+00:11:09.230 Marsh then second March then third much
+
+00:11:12.620 so four lists are there so I have to
+
+00:11:14.570 take pair of two lists at a time pair of
+
+00:11:17.120 lists at a time and merge them so I have
+
+00:11:19.730 to perform worse three times this is one
+
+00:11:22.760 way the other way is suppose I just take
+
+00:11:25.190 this one a b c d full list are there i
+
+00:11:29.060 can merge these two and get one list
+
+00:11:31.279 list one then I can merge these two then
+
+00:11:33.920 I can get second lists then again were
+
+00:11:36.020 these three these two and I can get a
+
+00:11:38.330 third list or else if a b c d are list
+
+00:11:43.700 given they can merge these two and get
+
+00:11:46.160 first list and once these two and get
+
+00:11:49.279 second list then i can merge these two
+
+00:11:51.650 and get third list so i have various
+
+00:11:55.730 options available here i can first merge
+
+00:11:59.990 a with a D or a with C also more than
+
+00:12:04.430 one possible patterns of merging are
+
+00:12:08.390 there so when you follow to the merging
+
+00:12:10.910 and you have multiple lists then you can
+
+00:12:14.300 merge them in various patterns so we
+
+00:12:19.130 have learned that multiple lists can be
+
+00:12:21.050 merged in various patterns now let us
+
+00:12:24.529 look at two way my short there are two
+
+00:12:27.820 more short method one is to way more
+
+00:12:30.980 sort other one is just a mossad mostly
+
+00:12:34.610 people get confused with the two mo sort
+
+00:12:36.980 and merge sort
+
+00:12:38.080 actually it's a minor difference between
+
+00:12:40.430 them to them and sort is a iterative
+
+00:12:43.640 process repeating procedure that is
+
+00:12:47.089 using loop and mansour is a recursive
+
+00:12:51.589 procedure a recursive
+
+00:12:54.280 let us talk about two women sort already
+
+00:12:58.430 have explained you my marching or to
+
+00:13:02.240 emerging emerging minutes you can merge
+
+00:13:04.400 more than two lists that is M list at a
+
+00:13:06.920 time but to Waymarsh as two lists are
+
+00:13:11.480 taken at a time and they are merged so
+
+00:13:14.210 we'll follow that one for sorting the
+
+00:13:16.340 numbers here our list is given array is
+
+00:13:19.700 given array is having eight elements and
+
+00:13:23.000 I have to sort the side but I have to
+
+00:13:27.620 sort this using merge process so how I
+
+00:13:30.890 can merge I need at least two arrays for
+
+00:13:34.280 merging and that must be sorted but this
+
+00:13:37.790 single array is given and even that is
+
+00:13:39.890 not sorted so what I can do this I will
+
+00:13:43.400 assume that each element in the array is
+
+00:13:47.240 a list so there are eight lists
+
+00:13:51.130 containing one element in each list each
+
+00:13:55.670 list is having just a single element so
+
+00:13:58.370 if there is a single element then it
+
+00:13:59.840 means it is already sorted so yes
+
+00:14:03.230 can I merge them yes I have to merge
+
+00:14:06.260 eight lists into a single sorted list so
+
+00:14:11.780 that's how I will merge all of them
+
+00:14:14.390 shall I merge all of them together no I
+
+00:14:17.450 will follow two way merge method
+
+00:14:20.690 so using to the merge I will merge them
+
+00:14:24.290 into a single list that will be a sorted
+
+00:14:27.050 list so let us do I will select first
+
+00:14:32.870 two lists
+
+00:14:33.800 actually these are two elements but I am
+
+00:14:35.660 calling them as to who lists merge them
+
+00:14:38.120 so what I get tree is smaller than nine
+
+00:14:42.980 so I got one list that is merging of
+
+00:14:47.240 those two is done I got a single list
+
+00:14:49.100 with two elements then I merge these two
+
+00:14:52.690 five and seven now I got one more list
+
+00:14:58.040 with two elements next I'll merge these
+
+00:15:01.310 two so I get four and six
+
+00:15:04.190 and same way 2 & 8 2 is smaller than 8
+
+00:15:09.530 so I have more these two and I got a
+
+00:15:11.930 sorted list of two elements so I got
+
+00:15:13.820 such sorted list of two two elements
+
+00:15:16.400 each now they were 8 less now I have
+
+00:15:19.370 four lists and I have completed all the
+
+00:15:22.250 elements so this is first pass one pass
+
+00:15:28.940 is completed I have gone through all n
+
+00:15:31.580 elements now one more thing if there
+
+00:15:35.510 were nine elements then 9th element will
+
+00:15:39.170 not have pairing with anybody so that
+
+00:15:41.660 will come directly right so don't worry
+
+00:15:44.630 if there are odd number of elements then
+
+00:15:46.700 that will simply come here and that may
+
+00:15:49.190 go to merge sometime later and one more
+
+00:15:53.750 thing when I'm merging them where I am
+
+00:15:57.020 keeping the elements they are not kept
+
+00:15:59.390 in the same array a definitely when you
+
+00:16:02.570 merge two lists you need to store it in
+
+00:16:05.570 a third list that is third array so here
+
+00:16:08.300 I have two lists in a single array so
+
+00:16:10.310 after merging I need one more array B
+
+00:16:13.550 where I will be keeping this result so
+
+00:16:17.510 remember that when you merge the result
+
+00:16:19.790 has to be kept in a separate array but I
+
+00:16:23.090 want the result in a only ok copy but
+
+00:16:25.700 copy it back from B to a so if there is
+
+00:16:29.360 an ArrayList if there is an array then
+
+00:16:32.690 the elements are much and we get the
+
+00:16:34.850 result in B then all these elements will
+
+00:16:37.610 copy them back to a so again the lists
+
+00:16:41.930 are in a only this what we do so I'm not
+
+00:16:45.290 showing it here programmatically it can
+
+00:16:47.690 be done now I have four lists I have to
+
+00:16:51.410 merge them so full list
+
+00:16:53.630 I'll pick up two so two lists each with
+
+00:16:57.020 to do elements merge these two so the
+
+00:16:59.540 smaller is three the next is five the
+
+00:17:02.510 next is seven the next is nine so I have
+
+00:17:05.599 done merging I got one list of four
+
+00:17:07.970 elements then merge these two so two is
+
+00:17:11.510 smallest and then 4 then 6
+
+00:17:14.760 then ain't now I have to list of four
+
+00:17:19.349 element each and I have completed one
+
+00:17:21.930 more pass means I have gone through all
+
+00:17:23.699 the elements so this is second pass no I
+
+00:17:28.950 have just to list I have to merge them
+
+00:17:31.770 and I get a single list now with two is
+
+00:17:35.160 smallest then three then four five six
+
+00:17:39.470 seven eight nine
+
+00:17:43.640 that's it I got a single sorted list
+
+00:17:47.070 this was the third pass and that's it
+
+00:17:54.720 now the elements are sorted finally you
+
+00:17:57.150 can keep this elements back in a so
+
+00:18:00.270 single array of eight elements is sorted
+
+00:18:03.450 by using moles process and that too we
+
+00:18:07.170 are using two the merging that is
+
+00:18:09.210 reimagining two lists at a time now let
+
+00:18:13.620 us do some analysis how much work is
+
+00:18:17.460 done in each pass so I am merging and
+
+00:18:19.890 elements in this pass and again merging
+
+00:18:23.430 and elements in this pass so together
+
+00:18:25.890 total n elements are moist here so
+
+00:18:28.410 actually eight element eight is n here
+
+00:18:30.440 how many times this is done how many
+
+00:18:33.810 times it is done three times eight
+
+00:18:36.480 elements three times so if you see this
+
+00:18:39.990 one eight elements were there eight
+
+00:18:43.710 lists were there they are divided and we
+
+00:18:47.100 got four so they are divided by two and
+
+00:18:49.980 we got four lists again they are divided
+
+00:18:53.010 by two
+
+00:18:53.670 then we got two lists again that 2 is
+
+00:18:57.450 divided by 2 so we got one list so
+
+00:19:00.420 finally this is one so how much this is
+
+00:19:02.970 eight is divided by 2 raised to 3 that
+
+00:19:07.860 is becoming one list finally we have
+
+00:19:10.110 stopped but it became one list so this
+
+00:19:13.230 is 8 is equals to 2 power 3 so how many
+
+00:19:16.860 passes three passes three passes so this
+
+00:19:20.400 is log 8 base 2 that is 3 so it means
+
+00:19:24.690 log of 80 gives me 3
+
+00:19:27.010 so I can know the number of passes by
+
+00:19:29.750 taking log of that number of elements so
+
+00:19:34.160 it means how many passes are required
+
+00:19:36.650 number of passes are number of passes
+
+00:19:42.970 log and whatever the number of elements
+
+00:19:47.240 are now in each pass and merges are
+
+00:19:51.620 there and likewise log in process are
+
+00:19:54.950 there so total time is n into log n yes
+
+00:20:00.680 I can take it as theta because there is
+
+00:20:03.470 a class available for this function and
+
+00:20:06.100 login so the time complexity for two-way
+
+00:20:10.730 must Fortis and log and this is the
+
+00:20:13.940 working of - Emma sort

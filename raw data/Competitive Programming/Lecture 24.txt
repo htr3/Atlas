@@ -1,0 +1,199 @@
+# tactiq.io free youtube transcript
+# Myths every Competitive Programmer should know
+# https://www.youtube.com/watch/5WOQSVJEt_g
+
+00:00:01.270 Hi everyone.
+00:00:02.440 This video is on a different format ofv logging and the primary reason I'm
+00:00:06.731 doing this is because I don'thave a whiteboard with me,
+00:00:08.750 and I wanted to talkabout this since a while.
+00:00:10.910 So please bear with me forall the mistakes I make.
+00:00:14.070 The topic.
+00:00:14.750 Is five myths on comparedprogramming, especially as a beginner,
+00:00:18.411 because when you're starting,
+00:00:19.600 there's a lot of thingsthat's going on in your head.
+00:00:21.611 There's a lot of things that you'll bereading and these things should not deter
+00:00:25.051 you from compare programming.
+00:00:27.070 Before we get to the myths in compareprogramming one thing that I like to bring
+00:00:30.731 to your attention in case you're juststarting off is don't ask silly doubts to
+00:00:34.909 the experience. Compare programmers.It just irritates them to no end.
+00:00:39.670 And one thing, I mean,
+00:00:41.550 that's happened after I started thischannel is nearly every day I get the same
+00:00:45.571 doubt of how do I startcompare programming. You know,
+00:00:48.291 you could have Googled that beforeactually putting it out there. For,
+00:00:52.470 for a person, you know,asking them personally.
+00:00:55.070 It would save time for both parties.
+00:00:58.430 And the important thing in thecommunity that we have here is
+00:01:03.251 that the quality of questions andthe quality of doubts is pretty good.
+00:01:07.110 You don't want to be asking things whichare stupid because that just breaks the
+00:01:11.850 moral of the whole community.And that's, that's bad.
+00:01:16.930 Myth number five, it's too late tostart compare programming. Well,
+00:01:21.301 there's no fixed age to start compareprogramming and although it's best to
+00:01:25.341 start as early as possible,you can start anytime you like.
+00:01:28.940 For some people it is too lateto start compare programming.
+00:01:32.550 There's a lot of people who think aboutcompare programming four years or five
+00:01:36.481 years after joining the job. Andthe fact is it's just not practical.
+00:01:40.860 It takes too much time.
+00:01:42.660 You're going to get fired if you keepdoing compare programming at a serious
+00:01:45.521 level after you have got three,four years of job experience.
+00:01:49.201 Because algorithms and data structuresare only so valuable inside a job.
+00:01:55.180 You have a requirement,you need to fulfill it.
+00:01:57.900 You do everything required toget that, to get that job done.
+00:02:02.420 And computer programming will onlyimprove your algorithm skills.
+00:02:05.660 And that too in a, in a weird way,
+00:02:07.841 because it's not teachingyou very deep algorithms.
+00:02:10.669 What it's doing is teaching youhow to solve a problem quickly.
+00:02:16.020 And that's a fact.
+00:02:18.139 So you'll meet a lot of people who areexperienced, I mean 12 years experienced,
+00:02:23.080 13 years experienced, andthese guys have no idea how,
+00:02:26.790 what computer programming is,
+00:02:28.419 but it's fine because they'rereally good at their jobs.
+00:02:31.419 So we have to take thatinto consideration.
+00:02:33.220 We have to understand that this issomething that is used for cracking entry
+00:02:38.240 level interviews. Alright,
+00:02:42.210 entry level in the softwareengineering domain. Now,
+00:02:45.161 if you want to start with compareprogramming 10 years after software
+00:02:47.919 engineering, I wish you the bestof luck, but understand this,
+00:02:52.380 it has no practical significance foryou because you will be dealing with
+00:02:56.361 distributed systems or you'll be dealingwith people a lot more than you'll be
+00:03:00.481 dealing with some weird algorithm.
+00:03:04.980 The fourth myth is thatthere's a programming language,
+00:03:07.321 which is the best for compared programmingall the c plus plus is the most
+00:03:10.321 common. There's tons of languages youcan use for hacker earth, hacker rank,
+00:03:13.510 code chef everywhere. So you canstart with anything you like.
+00:03:16.700 I'm going to go ahead and give you morepieces of advice if you're just joining
+00:03:20.230 because this seems to be another problemas to choosing a language for compared
+00:03:25.081 programming.
+00:03:26.139 And there are people who believe thatthere's a perfect language for compared
+00:03:30.081 programming,
+00:03:30.850 which is silly to no endbecause once you start
+00:03:35.481 programming at a professionallevel or even before that, I mean,
+00:03:38.361 if you are serious about it,
+00:03:39.780 you realize that a program isa set of instructions and those
+00:03:44.561 instructions can mean any language.
+00:03:45.961 You're just expressingyourself to the computer.
+00:03:49.540 So when people say c plus plus and isbetter than Java or Java is better than
+00:03:54.521 Python what they're doing isthey're probably talking about their
+00:03:59.760 personal experience or they're talkingabout the runtime required for that
+00:04:03.400 language. Please, please,
+00:04:05.121 please don't get into languagewars in competitive programming.
+00:04:08.380 It has nothing to do with algorithms andjust makes a person fighting this war
+00:04:12.150 look very stupid.
+00:04:15.270 The third myth about<inaudible> programming is
+that it's the only way to get a
+00:04:18.451 good software engineeringjob. That's not true.
+00:04:20.750 You can practice for interviews byjust learning algorithms and solving
+00:04:23.530 problems. As long as you'reaccustomed to solving problems.
+00:04:26.410 Compare programming is not the, it's notthe only way and the ranks matter only.
+00:04:31.651 When you are thinking aboutthe leaderboard not during
+an interview following.
+00:04:35.650 Up on it,
+00:04:36.450 I would like to say that we shouldn'tbe extremely focused on a job when
+00:04:39.570 starting compareprogramming. It's a sport.
+00:04:42.029 And if you want to get better atalgorithms, you can directly attack that.
+00:04:45.310 You can you know,
+00:04:46.651 theoretically get better at algorithmsinstead of trying your level best at
+00:04:51.170 compare programming, not succeeding,
+00:04:52.710 not having the passion and thensaying that, why am I not improving?
+00:04:56.839 It's probably because you're nottrying hard enough and it's a harsh,
+00:05:00.270 but a very simple fact that thatactually answers all the questions
+00:05:05.171 that most people have. People whoare at a particular level, yes,
+00:05:08.971 they do hit a plateau and they need toget to the next level through theory and
+00:05:13.011 through more hard work,
+00:05:14.710 but there's a lot of people who haven'teven started and just keep saying that
+00:05:18.251 this is too difficult for me.
+00:05:20.450 I would say probably becauseyou're not trying hard enough.
+00:05:25.190 Myth number two is that you needto solve lists and lists or lots
+00:05:30.121 of computer programming topicsbefore you can start. Not at all.
+00:05:32.860 You can actually take the contest andsolve problems ad hoc as you learn things.
+00:05:36.950 Your list will getcompleted by themselves.
+00:05:39.020 So you don't need to actually have alot of prerequisites before you start
+00:05:42.320 compare programming.
+00:05:43.060 One of the biggest issues I see withcompare programming is that people talk
+00:05:47.089 about it a lot instead ofdoing it. This channel is,
+00:05:51.450 seems to be an example where I talkabout compare programming a lot,
+00:05:54.980 but since the past two years,
+00:05:56.680 I haven't actually participatedsensibly in any contest.
+00:06:00.260 So what we have here is that a personwho's talking a lot about algorithms
+00:06:04.460 trying to help you guys out, but who'snot very good at compared programming.
+00:06:08.620 I'm sure if I participate in a contestin a recent contest, I'll do terribly.
+00:06:14.020 And the reason for that is because youactually need to get your hands dirty and
+00:06:17.441 you actually need to startcompeting for this to be a
+00:06:22.401 success.
+00:06:23.460 You can learn the theory all day andyou can keep thinking about how to get a
+00:06:27.041 problem solved. But unlessyou're in that situation,
+00:06:29.481 unless you're trying yourlevel best to crack a problem,
+00:06:32.180 you won't get the compare programmingfeeling and you won't be doing better at
+00:06:35.521 it.
+00:06:37.110 Myth number one, you need tobe really good at algorithms.
+00:06:40.779 And the answer to that is no.
+00:06:43.660 You don't need to be anexpert at algorithms.
+00:06:46.280 You just need to try to solve theproblems to the best of your abilities and
+00:06:49.321 also be prepared to researchevery time you fail at a problem.
+00:06:52.750 Participate in as many contestsas you can. Olympic racers,
+00:06:56.310 it's not that they were thefastest when they started off,
+00:06:59.020 but they had the passion and theylearned step by step to be the best.
+00:07:04.260 So this is a sport, do your best.
+00:07:06.620 The truth is you need to be very good atalgorithms to move to the next level of
+00:07:10.360 compared programming. Andwhenever you hit a plateau,
+00:07:14.320 whenever you feel likeI'm not getting better,
+00:07:16.860 you need to study and you need to practicea lot before you can get to the next
+00:07:20.561 level. This is very difficult and in fact,
+00:07:23.480 I have been saying this for a long time,
+00:07:24.681 but I'm sure it's easier said than done.
+00:07:27.220 My advice to you wouldbe to start immediately,
+00:07:30.220 try to solve as many problems as youcan. And once you hit that plateau,
+00:07:33.590 once you hit a wall,which you cannot pass,
+00:07:37.340 you will have to get into the theory andyou have to look at those problems and
+00:07:40.481 understand the theory behindthose solutions. Yeah,
+you are going to go ahead,
+00:07:44.241 but before that you need to actuallymove ahead. Like to meet the wall,
+00:07:48.020 to hit that wall, you actually needto move towards it. So do that,
+00:07:52.860 and once you're there,actually celebrate that. Okay,
+00:07:56.580 now is the time that I'll actuallyget better at algorithms. Hey guys.
+00:08:01.570 Now when I started this vlog I wasthinking about the myths on compare
+00:08:05.611 programming and how I can putthem in a nice, fluffy, soft way.
+00:08:09.430 But as I was editing this,
+00:08:11.450 I just realized that I can't take the the
+00:08:15.800 sugarcoated answers that I havefor every so-called myth in
+00:08:20.890 compared programming. It's,
+00:08:21.531 it's kind of obvious now thatthese things don't work. You know,
+00:08:25.010 choosing a language in a dumb way orthinking about algorithms or lists the
+00:08:29.411 whole time is not gonna get youbetter at compared programming.
+00:08:32.169 I think this is obvious for the peoplewho even ask these questions, but, well,
+00:08:36.851 the reason I'm putting it out there isbecause I was thinking about the core
+00:08:41.390 reason why this channel existsand this channel doesn't exist to,
+00:08:47.030 you know, make people feel better or,
+00:08:49.630 or increase the number ofsubscribers it has at its score.
+00:08:53.240 It's there to help people getbetter at compare programming,
+00:08:57.140 get better at system design, getbetter at artificial intelligence.
+00:09:00.440 Whatever it picks up.
+00:09:01.750 That subject should be something thatis explained in a way that helps and
+00:09:06.760 benefits people. You know, Iwant to improve this community.
+00:09:10.040 I don't wanna make this communityfeel nicer. If it happens together,
+00:09:14.660 that's great, but it's always goingto be the first option for me.
+00:09:20.530 Thank you so much for watchingthis video. I'm very, you know,
+00:09:24.520 privileged to actually have thismedium to voice my thoughts.
+00:09:27.961 And please leave your, yourthoughts and comments in the,
+00:09:32.660 in the, you know,comments below, of course.
+00:09:35.740 And thank you all for subscribing.I never thanked you guys for,
+00:09:39.940 for listening to what I had to say.I, I think because whatever I did was
+00:09:46.140 was from the bottom of my heart. I,I was actually trying to help people.
+00:09:48.420 So I think I got a lot of supportfrom all of you guys. I, I,
+00:09:53.080 I'm so happy when Imeet people who are who
+00:09:58.001 are positively influenced by mychannel. In fact, in, in fact,
+00:10:00.840 as if there's criticism also,
+00:10:02.540 I'm always happy to listen tothat and it's been a wonderful
+00:10:07.161 experience. I thank you all.You know, the way I'm saying it,
+00:10:12.240 it sounds like I'm going toquit the channel. Of course not.
+00:10:14.670 I'll continue making content,which I think will help people.
+00:10:18.300 And there will be sometimescontent, which is silly.
+00:10:20.730 There are some marketrealities that are there. If,
+00:10:24.121 if I feel like I need tohave more subscribers or if
+I feel like there needs to
+00:10:28.241 be more views, then I'll bemaking those kind of videos.
+00:10:30.700 But at least for this video,I, I chose to stay with the,
+00:10:35.590 with the heart of this channel,with the core of this channel,
+00:10:37.860 and that is to help people. And it'snot an excuse for the things I've said.
+00:10:43.220 If there's something thatyou feel like it's not true,
+00:10:47.100 you should definitely let meknow in the comments below,
+00:10:50.340 and I'll see you next time. Bye-Bye.

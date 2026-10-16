@@ -1,0 +1,11 @@
+Lecture 1	https://www.youtube.com/watch?v=hNDjd9I_VGA	Apache Kafka: a Distributed Messaging System for Log Processing
+Lecture 2	https://www.youtube.com/watch?v=u8lKJWWVE0M	Google Dremel: Interactive Analysis of Web-Scale Datasets
+Lecture 3	https://www.youtube.com/watch?v=cU01EnyBwQI	Amazon DynamoDB: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service
+Lecture 4	https://www.youtube.com/watch?v=9gvJHf9FqmM	Zanzibar: Google’s Consistent, Global Authorization System
+Lecture 5	https://www.youtube.com/watch?v=I-PwfcNurWo	Apache Spark: Cluster Computing with Working Sets
+Lecture 6	https://www.youtube.com/watch?v=uS8f5SSYDck	Scaling Memcache at Facebook
+Lecture 7	https://www.youtube.com/watch?v=Dg07kVN4U28	TAO: Facebook’s Distributed Data Store for the Social Graph
+Lecture 8	https://www.youtube.com/watch?v=AZhIjNHzURQ	Google Dapper, a Large-Scale Distributed Systems Tracing Infrastructure
+Lecture 9	https://www.youtube.com/watch?v=l35hqwTY5W0	Google Borg: Billions of Distributed Linux Containers
+Lecture 10	https://www.youtube.com/watch?v=NxPTVhc1tFA	Monarch: Google's Planet-Scale In-Memory Time Series Database
+Lecture 11	https://www.youtube.com/watch?v=WWGM4hY34pI	20 Whitepapers that changed the world [For Senior Software Engineers]

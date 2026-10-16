@@ -1,0 +1,156 @@
+# tactiq.io free youtube transcript
+# What is a MESSAGE QUEUE and Where is it used?
+# https://www.youtube.com/watch/oUJbuFMyBDk
+
+00:00:00.799 Hi everyone!
+00:00:01.799 Welcome to a new system design video whichis on messaging queues.
+00:00:05.050 The example that we are taking is that ofa standard pizza shop.
+00:00:09.370 In a normal pizza shop you must be seeingthat there is somebody taking orders.
+00:00:13.800 When the pizzas are being made they don'tstop taking orders, of course.
+00:00:17.490 They keep taking orders from the new clients.
+00:00:20.159 So multiple clients request for pizzas andthey get their responses immediately like:
+00:00:25.599 "Please sit down" or "Can you come back aftersometime?".
+00:00:28.630 So you relieve the client from expecting animmediate response by giving them a response
+00:00:35.230 which is not the pizza but a confirmationthat the order has been placed.
+00:00:41.460 What you will need then is a list.
+00:00:43.690 A list which maintains order no.
+00:00:46.129 1 order no.
+00:00:47.129 2 and so on and so forth.
+00:00:50.300 Once you are maintaining this list, you notedown the order.
+00:00:53.269 You start making pizzas.
+00:00:54.960 When the second client comes in you you canstop making the pizza, or if you have multiple
+00:00:58.969 people somebody takes the order and just addsit to the queue of making pizzas.
+00:01:04.089 If this is a queue of pizza orders.
+00:01:08.710 Pizza order 1, pizza order 2 and so on andso forth.
+00:01:13.440 That's being mirrored by the list.
+00:01:16.210 And while you're working on this pizza youcan take as many add orders as you like.
+00:01:20.330 It's a simple architecture.
+00:01:21.670 And when you are done making a pizza you removeit from this queue, which also removes it
+00:01:27.670 from this queue.
+00:01:29.920 This might be the same queue itself.
+00:01:31.110 Once you remove it, you ask for the clientto pay and the client sends you back some
+00:01:38.510 money.
+00:01:40.440 And now they're entirely relieved.
+00:01:42.200 But the special thing about this was thatthe whole thing is asynchronous.
+00:01:45.500 Meaning that they did not wait.
+00:01:46.500 You did not make the client wait for yourresponse for the payment or for the pizza.
+00:01:53.400 What happens this is that the client was ableto do other tasks during that time.
+00:01:57.910 They might be checking out their phone, theymight be going out, it doesn't really matter.
+00:02:01.140 But you allowed the client to be happier tobe distributing its resources elsewhere instead
+00:02:06.020 of just focusing on you.
+00:02:08.320 Similarly this allows you, as the pizza maker,to order your tasks according to your priority.
+00:02:15.410 There might be one pizza which has to be madeimmediately.
+00:02:18.030 There might be something which is very easyto do: like filling up a coke can.
+00:02:23.650 Maybe.
+00:02:24.730 So those orders can be put according to thepriority.
+00:02:29.100 And so you are able to manipulate this queueaccording to the priority and allow clients
+00:02:33.290 to spend the time more judiciously just byusing asynchronous processing.
+00:02:41.110 With this in mind, what could possibly happen?
+00:02:46.050 One really good scenario is that you becomesuper successful and you have a chain.
+00:02:51.470 You have multiple outlets in your pizza shop,something like dominos.
+00:02:54.840 Let's say pizza shop no.1, pizza shop no.2and pizza shop no.3.
+00:03:01.680 Of course, each pizza shop has multiple clientsconnected to them.
+00:03:12.320 Assume the worst.
+00:03:13.570 Assume that one of these shops actually goesdown: there's a power outage, could be anything.
+00:03:18.549 If it does go down then we need to get ridof all our takeaway orders.
+00:03:21.760 So that's easy: we just need to dump them.
+00:03:24.040 But the delivery orders can actually be sentto the other shops so they can complete those
+00:03:29.000 delivery orders.
+00:03:30.000 And you can still save some money in whichcase let's say pizza shop no.3 goes down.
+00:03:37.270 If it does, then the clients which are connectedto it had some orders.
+00:03:41.370 Now they should be connected to these shopsand their orders should be sent to them.
+00:03:47.209 How do you do this?
+00:03:49.200 Well, the simple way of maintaining a listin memory won't work because once the shop
+00:03:54.070 is down it loses electricity.
+00:03:56.030 The computer is going to shut down.
+00:03:58.050 You need some sort of persistence in yourdata.
+00:04:00.540 Which means you need a database.
+00:04:05.900 And this list has to be stored in that database.
+00:04:09.520 So in our new and slightly complicated architecture,what we are going to have is a set of serveres
+00:04:15.239 from 1 to 4.
+00:04:17.639 And we also have a database which is goingto be storing the list of all orders that
+00:04:21.519 you have.
+00:04:22.519 So the order ID and the contents and 'is itdone or not?'.
+00:04:25.520 Now let's say that the servers get orders.
+00:04:29.849 So this is containing order no.
+00:04:31.340 3 order no.
+00:04:32.449 8 or no.
+00:04:34.160 20 and order no.
+00:04:36.029 9.
+00:04:37.139 Now let's put some more over here which isorder number 11.
+00:04:42.300 So 9 and 11 are being served by s3 and s3crashes.
+00:04:46.620 If that's the case, 9 and 11 need to be reroutedsomewhere.
+00:04:51.800 But how do you do this one?
+00:04:53.620 One way is to check in the database whichorders belong to s3.
+00:04:59.289 So you can note down the server ID which isactually handling the order every time it's
+00:05:03.030 making an entry but this is getting complicatedso instead what you could do is have some
+00:05:09.009 sort of a notifier, so that will be somewhereover here, which is going to be checking for
+00:05:17.629 a heartbeat in each server.
+00:05:21.860 It talks to each server and asks them every15 seconds.
+00:05:27.610 What happens with that is, if a server doesnot respond, then the notifier assumes that
+00:05:31.009 server is dead.
+00:05:32.009 If it is dead, it can't handle orders andthen it can query the database to find all
+00:05:39.689 of those orders which are not done.
+00:05:42.310 Once they are not done it picks those ordersand distributes them to these three servers
+00:05:50.199 remaining servers.
+00:05:52.919 Problem!
+00:05:55.240 What if there is duplication?
+00:05:57.089 What if order no.
+00:05:59.080 3 is not yet done and it's picked by the queryin the database.
+00:06:05.460 So no.3 no.8 no.20 no.9 and no.11 are pickedup, and then distributed.
+00:06:12.009 So order no.
+00:06:13.009 3, let's say this time, goes to server no.
+00:06:15.029 1.
+00:06:16.029 Server no.
+00:06:17.029 2 already has order no.
+00:06:18.029 3 and is processing it, and is going to endup making a pizza sending it to the same place
+00:06:21.830 as s1.
+00:06:23.259 And you have a big loss and lots of confusion.
+00:06:26.520 So one of the things you can do is go forsome sort of load balancing.
+00:06:33.759 Now, the load balancing seems like sendingthe right amount of load to each server.
+00:06:40.789 But the principles of load balancing ensurethat you do not have duplicates: duplicate
+00:06:45.271 requests to the same server.
+00:06:47.080 If you haven't checked out the video for loadbalancing I suggest you do because consistent
+00:06:51.770 hashing is one technique by which you canactually get rid of duplicates also.
+00:06:57.020 That principle itself will take care of twothings:
+00:07:01.319 1) Balancing the load2) Not sending duplicates to the same server
+00:07:08.960 Reason for that is because s1 is going tobe handling a set of buckets.
+00:07:12.240 s2 is going to be handling a set of buckets.
+00:07:14.900 Once this server crashes s2 won't lose itsbuckets it'll only get new buckets added to
+00:07:19.919 it.
+00:07:20.919 s1 will also get new buckets added to it andtherefore the third order will now come because
+00:07:25.449 they belong to s2 even now.
+00:07:28.629 Maybe the other orders of no.9 might comein and no.11 might come in here.
+00:07:33.000 So that's how it works!
+00:07:34.949 Okay...through load balancing and throughsome sort of a heartbeat mechanism, you can
+00:07:42.669 notify all the failed orders to the newerservers.
+00:07:49.210 Now what if you want all the features of assignmentor notification, load balancing, a heartbeat
+00:07:56.770 and persistence in one thing?
+00:08:00.800 That would be a message queue.
+00:08:04.430 And for us it's not so much a message as atask queue.
+00:08:09.969 So what this does is it takes tasks, persiststhem, assigns them to the correct server and
+00:08:18.039 waits for them to complete.
+00:08:19.099 If it's taking too long for the server togive an acknowledgment, it feels that server
+00:08:23.710 is dead and then assigns it to the next server.
+00:08:27.439 So there are multiple strategies of coursefor assigning it.
+00:08:30.949 That is just like load balancing has multiplestrategies, but that's all encapsulated by
+00:08:36.318 a task queue.
+00:08:38.889 And this is an important concept in systemdesign: using messaging queues or task queues
+00:08:42.679 to get work done easily so that you can encapsulateall that complexity into just one thing.
+00:08:48.610 The pizza example is a little extreme becauseit does everything together.
+00:08:53.660 That's exactly what a pizza shop would wanta: task queue, right?
+00:08:58.889 And an example of messaging queues is RabbitMQ.
+00:09:03.660 There are some libraries like zeroMQ whichallow you to write a messaging queue quite
+00:09:09.740 easily.
+00:09:10.740 There's JMS, which is Java Messaging Service.
+00:09:14.190 And then so on and so forth.
+00:09:15.800 I think Amazon also has a few messaging queues,but yeah, you can try out messaging queues.
+00:09:21.529 They are really good encapsulations for complexitiesin the server side.
+00:09:27.620 This is just a fundamental concept of systemdesign: not really a system which has been
+00:09:32.360 designed.
+00:09:33.360 But yes, if you are going to make a pizzashop, it seems like a good idea.
+00:09:38.420 If you want to have some more discussion onthis, let's have a discussion in the comments
+00:09:41.480 below.
+00:09:42.579 If you liked the video press 'like' button.
+00:09:44.170 If you want to subscribe for further systemdesign notifications, please do so.
+00:09:48.160 I'll see you next time!

@@ -1,0 +1,739 @@
+# 2.6.1 Binary Search Iterative Method
+
+# https://www.youtube.com/watch/C2apEw9pgtw
+
+
+
+00:00:01.879 yeah
+
+00:00:03.060 our next topic is binary search binary
+
+00:00:06.569 search is a searching technique
+
+00:00:08.809 surrounding a method for such there are
+
+00:00:12.179 two different methods one is a linear
+
+00:00:14.190 search in the second one is binary
+
+00:00:16.170 search this binary search follows divide
+
+00:00:19.680 and conquer strategy if you remember in
+
+00:00:22.949 divide and conquer strategy we learned
+
+00:00:24.570 that if the size of a problem is large
+
+00:00:26.760 break the problem into subproblems once
+
+00:00:29.010 the sub problem is solve problems are
+
+00:00:30.960 solved combine them to get the solution
+
+00:00:33.300 from main problem so I have already
+
+00:00:36.030 taken some set of elements here I have a
+
+00:00:38.160 list of elements that is 1 to 15 total
+
+00:00:41.399 15 elements I have now let us learn how
+
+00:00:44.340 binary search works first and foremost
+
+00:00:49.770 eeriness to perform a linear search list
+
+00:00:53.010 must be in the sorted order all the
+
+00:00:55.500 elements will be all of the deans sorted
+
+00:00:57.449 order then only you can perform binary
+
+00:01:00.570 search this is a prerequisite for binary
+
+00:01:02.670 search so here I have the list of
+
+00:01:04.799 elements in the sorted order then let us
+
+00:01:08.010 see the approach of binary search so for
+
+00:01:11.040 performing binary search we need to
+
+00:01:13.590 index pointers one is low that it is a
+
+00:01:17.640 starting point and the second one is
+
+00:01:19.710 high that's the dynamic model so
+
+00:01:23.400 whatever I want to see search for a key
+
+00:01:25.680 element 42 which is already present here
+
+00:01:30.860 let us see how many research works lower
+
+00:01:36.360 and higher are taken low and high then
+
+00:01:39.810 we calculate mid but as blue plus high /
+
+00:01:44.520 blue and we take slow value what is low
+
+00:01:50.399 here this one high is 15 this is 1 plus
+
+00:01:54.659 15 by 2 this is 16 by 2 that is 8 this
+
+00:02:00.270 is men now the value more time searching
+
+00:02:05.219 is 42 check at a of minna de it is it 42
+
+00:02:09.360 no 42 is greater than response or
+
+00:02:12.640 definitely it's on the right hand side
+
+00:02:14.200 how we can ensure that is were on the
+
+00:02:16.450 right hand side because the list is
+
+00:02:18.400 sorted order so we ignore this part of a
+
+00:02:21.850 list and we service for this 42 in the
+
+00:02:24.160 second part for the second half list so
+
+00:02:27.850 here we are dividing the real-estate
+
+00:02:29.440 into two halves and in the search in the
+
+00:02:32.320 second half so we'll start from here and
+
+00:02:35.440 drill there so we will bring low here
+
+00:02:38.440 where middle plus one so we'll change
+
+00:02:41.200 low to mid plus 1 so minus 8 so we'll
+
+00:02:43.959 bring low at a 9 and high remains at 15
+
+00:02:47.680 only now we searched within this list so
+
+00:02:53.050 far so dashing again we calculate mid
+
+00:02:56.790 nine plus 15 by a 2 so this is 2 L 9
+
+00:03:04.060 plus 16
+
+00:03:05.610 24/2 is 12 so we minute we got it as to
+
+00:03:09.190 and so it will check HERE Minister L is
+
+00:03:12.550 it the number that I'm searching for 47
+
+00:03:15.400 known this is 42 so my number is on the
+
+00:03:18.130 left hand side so again this sub list we
+
+00:03:20.739 will split it into half now my number is
+
+00:03:23.230 on the left hand side so I'll search in
+
+00:03:25.239 this area so I'll bring hi here on mid
+
+00:03:29.410 minus 1 that is 11 so hi becomes 11 and
+
+00:03:34.799 this became this is 9 only for 9 to 11
+
+00:03:40.829 find out meda
+
+00:03:42.870 19 plus 11 by 2 as 20 so it is 20 but it
+
+00:03:48.670 will stand so this doesn't matter
+
+00:03:55.870 if we remember that I am searching for
+
+00:03:57.400 36 moe
+
+00:03:59.049 my numbers on the right-hand side so I
+
+00:04:01.420 mean we will split the risk list see now
+
+00:04:03.430 the list is narrowing down to a smaller
+
+00:04:05.379 list of just three elements for a 15 we
+
+00:04:08.019 have started now we are left with only
+
+00:04:09.610 three elements now I should look on the
+
+00:04:11.620 right-hand side of this list so change
+
+00:04:14.260 there is low to middle plus one so now
+
+00:04:16.418 this time low and high the both come on
+
+00:04:18.608 the same point that's 11 so low become a
+
+00:04:23.139 mid plus 1 so medicine so low become 11
+
+00:04:25.900 and high view all they're 11 now find
+
+00:04:27.970 out mid 11 plus 11 by 2 that is 11 only
+
+00:04:31.389 so middle is also here now check a tee
+
+00:04:35.320 off mid do you have that element yes
+
+00:04:38.410 this is the element that I am searching
+
+00:04:40.389 for so element is found how many
+
+00:04:44.470 comparisons I have done 1 2 3 4 in for
+
+00:04:48.729 comparison I got an element which was
+
+00:04:50.590 present at index 11 if I was performing
+
+00:04:55.270 linear search that and I would have
+
+00:04:57.400 started it from here and compare each
+
+00:04:59.560 element and after Lebaran compassion I
+
+00:05:01.900 would have got the number but in binary
+
+00:05:05.139 search I am able to get it in just 4
+
+00:05:07.810 comparisons so that's all binary so it
+
+00:05:11.349 looks faster than linear search so here
+
+00:05:15.970 one example I have taken let me take
+
+00:05:18.520 some more examples and quickly solve few
+
+00:05:21.400 more examples so you get some idea now
+
+00:05:23.860 let us search key value 12 I take a key
+
+00:05:28.960 value as I do and I am searching for 12
+
+00:05:32.800 if I perform linear search it can be
+
+00:05:35.020 found in just for comparison so let us
+
+00:05:36.910 see how binary search works so first
+
+00:05:39.099 take low here and high at the ending
+
+00:05:41.919 index so low and high and also we know
+
+00:05:45.430 we have to find out mid that is low plus
+
+00:05:47.410 high / to floor value low is one high is
+
+00:05:50.979 15 find out matter this is 1 plus 15 by
+
+00:05:54.639 2 that is 8 so 8 is met is it the
+
+00:05:58.660 element that you're searching it's 29 no
+
+00:06:01.000 my number is 12 so 12 is a smaller so
+
+00:06:04.360 look into the first half of a list so
+
+00:06:06.669 move high from here
+
+00:06:08.350 and bring it on mid minus one so high
+
+00:06:11.890 becomes seven high becomes seven and
+
+00:06:14.350 lower is still 1 so 1 plus 7 by 2 that
+
+00:06:18.130 is 8 by 2 is 4 mid is food is it the
+
+00:06:22.900 number that you are searching 12 yes
+
+00:06:25.300 found so search is successful again x4
+
+00:06:29.170 here you can see just in to comparison I
+
+00:06:32.200 got a number right so the number of
+
+00:06:35.290 comparisons seems to be less than linear
+
+00:06:38.080 search now let's search for any element
+
+00:06:41.230 which is not present in the list and let
+
+00:06:44.050 us see what binary search it does I am
+
+00:06:47.070 taking and key element 30 it's not
+
+00:06:52.900 present here after 29 we have 31 so 30
+
+00:06:56.110 is not present here so let us trace this
+
+00:06:58.780 one this is low it is 1 and this is high
+
+00:07:01.900 that is 15 low and high and mid so low
+
+00:07:07.180 is one high is 15 and MIT is one plus 15
+
+00:07:11.620 by 2 that is 8 so we know well that it
+
+00:07:15.190 is low plus high / - and the floor value
+
+00:07:18.400 8 see one thing if you observe I have
+
+00:07:22.060 solved all the reach to qyz every time I
+
+00:07:24.850 was getting made as 8 only because for
+
+00:07:26.680 this list from 1 to 15 minute is always
+
+00:07:28.630 8 okay this is the interesting we will
+
+00:07:32.410 see it further now 8 the key is 30 is it
+
+00:07:37.510 the key that you are searching for no my
+
+00:07:39.790 number is greater than 29 so look on the
+
+00:07:42.430 right hand side so change low to 9 so
+
+00:07:47.050 low becomes mid plus 1 that is 9 and
+
+00:07:50.140 this remains 15 so 9 plus 15 by 2 is 12
+
+00:07:55.450 so now the new meta value is 2 L this is
+
+00:08:00.550 min again the mid of this listens to a
+
+00:08:05.830 log basis so check here is it the number
+
+00:08:08.590 30
+
+00:08:09.100 no that is 47 so our number is smaller
+
+00:08:12.190 than that so change high to mid minus 1
+
+00:08:15.640 that is
+
+00:08:17.280 hi will become leaven and this remains
+
+00:08:19.470 nine notices 20 by 2 that is 10 so new
+
+00:08:24.990 lid will be at 10 is it the number 36 is
+
+00:08:34.049 the number that you are searching no 30
+
+00:08:35.789 30 is smaller so go on the left-hand
+
+00:08:38.159 side so what should change now I should
+
+00:08:41.880 change to make minus 1 so high will also
+
+00:08:44.520 become 9 that is 10 minus 1 9 so both
+
+00:08:48.030 are 9 9 so this is 9 plus 9 by 2 is 9
+
+00:08:54.120 only so what is the middle value I got
+
+00:08:56.310 middle value is also 9 right this is
+
+00:08:59.280 made is it the number that is searching
+
+00:09:02.250 for no the number is smaller so it's on
+
+00:09:05.400 the left hand side so when it's on the
+
+00:09:07.260 left hand side we should check this side
+
+00:09:09.000 so what I should change
+
+00:09:10.350 I should be changed to mid minus 1 so
+
+00:09:13.650 high becomes 8 and low is 9 right high
+
+00:09:19.170 becomes 8 and low is 9 so if you observe
+
+00:09:22.320 now if you observe now this 9 is greater
+
+00:09:28.620 than high so low has became greater than
+
+00:09:32.190 high but when we start low will be on
+
+00:09:34.500 the left hand side highs on the right
+
+00:09:36.240 hand side so low cannot cross high if it
+
+00:09:39.300 has cross means we did not find the
+
+00:09:41.760 element element is not found that's it
+
+00:09:46.140 so if low becomes greater than high the
+
+00:09:49.020 element is not found now let us write an
+
+00:09:54.420 algorithm for binary search binary
+
+00:10:01.950 search it takes array of elements and
+
+00:10:06.720 the size that is number of elements and
+
+00:10:09.150 the key to be searched these are the
+
+00:10:12.900 three parameters and it returns the
+
+00:10:17.010 index of a element found so instead of
+
+00:10:20.640 algorithm I am writing it like a
+
+00:10:22.140 function then
+
+00:10:26.940 low will be at one and high will be at n
+
+00:10:33.839 I'm not declaring them Ln and H are the
+
+00:10:38.709 variables integer variables now what it
+
+00:10:42.970 does it will find out mid that is low
+
+00:10:46.720 plus high / - it will find out matter
+
+00:10:53.430 then at mid it will check like we were
+
+00:10:56.200 doing here maybe we were getting it at
+
+00:10:57.880 eight so at that place it will check if
+
+00:11:01.800 key that we are searching is equals to a
+
+00:11:06.130 of manner if it is equal to a of mid a
+
+00:11:12.579 of matter if so then the element is
+
+00:11:15.250 found then what is the index of the
+
+00:11:19.570 element that is method return the mid
+
+00:11:22.480 element is found if it is not that same
+
+00:11:28.420 element then check if key element is
+
+00:11:32.490 less than a of mid means key element is
+
+00:11:38.320 on the left hand side if it is on the
+
+00:11:41.079 left hand side then what we should
+
+00:11:42.399 change high should be changed to mid
+
+00:11:44.800 minus one so H should be changed to mid
+
+00:11:48.339 a minus 1 if it is neither equal nor
+
+00:11:54.100 less then definitely it is greater so
+
+00:11:57.100 then what we should change low too
+
+00:11:58.750 should change to mid plus 1 so as low
+
+00:12:04.990 shift change to mid plus 1 now this
+
+00:12:10.990 process will repeat go on repeating
+
+00:12:13.810 until the element is found so this has
+
+00:12:16.540 to be written in a loop
+
+00:12:17.829 so I'll write a loop how long this loop
+
+00:12:24.339 should run as long as lowers on this
+
+00:12:28.930 side low and high right low should not
+
+00:12:33.430 cross high if low half cross high high
+
+00:12:36.699 means
+
+00:12:37.930 is not found so I should run this loop
+
+00:12:40.180 as long as Lou is less than or equal to
+
+00:12:43.420 high if low became greater than high it
+
+00:12:48.220 will stop and I should return not farm
+
+00:12:51.130 so I will return index 0 it means the
+
+00:12:54.970 element is not found so this is a binary
+
+00:13:00.550 search algorithm and this is a iterative
+
+00:13:03.610 process that is loop using loop ok let
+
+00:13:09.730 us already we have taken this example we
+
+00:13:12.279 have traced this we have calculated made
+
+00:13:14.440 an on on the left hand side or the right
+
+00:13:16.120 hand side all these things we have done
+
+00:13:18.310 we have checked how it behaves in case
+
+00:13:21.130 of element is found and how it works if
+
+00:13:23.860 the element is not found
+
+00:13:25.029 now let us see their tracing of this one
+
+00:13:28.360 with the help of a tree let us do it as
+
+00:13:33.160 for this example first time when we are
+
+00:13:36.310 calling this algorithm let us check how
+
+00:13:38.740 the meds are calculated first time mid
+
+00:13:41.830 will be 8 yes we have seen this and if
+
+00:13:46.420 your where elements is smaller then it
+
+00:13:48.190 will calculate mid from 1 to 7 that is 4
+
+00:13:50.680 so this side it will be 4
+
+00:13:52.709 if you are checking on this side that is
+
+00:13:55.330 9 to 15 and calculate mid it will be on
+
+00:13:57.850 12 then if the element is less than 12
+
+00:14:02.950 then it will calculate mid for this one
+
+00:14:04.930 that is 1 2 1 2 3 so we will get 2 on
+
+00:14:08.260 this left hand side and the right hand
+
+00:14:11.440 side if we check it from 5 to 7 then the
+
+00:14:14.560 middle value will be 6 and on the left
+
+00:14:20.740 hand side will have 1 and the right hand
+
+00:14:23.140 side will get 3 on the left hand side of
+
+00:14:25.690 this one is 7 so 5 and the right hand
+
+00:14:29.680 side of this one is 7 and the left of 12
+
+00:14:32.410 is see if you check this one leaving 8 9
+
+00:14:36.430 to 11 the middle is 10 and the left hand
+
+00:14:39.130 side of this is 9 right hand side is 11
+
+00:14:42.130 and on this side we will have 14 13 on
+
+00:14:45.760 left hand
+
+00:14:46.390 side 15 on right side now let me show
+
+00:14:51.100 you quickly some examples
+
+00:14:52.720 see if I am searching for 429 this
+
+00:14:55.930 algorithm will find out mid and go to 8
+
+00:14:58.540 and that is 1 plus 15 by 2 is 8 mid is
+
+00:15:02.380 eight an element is formed so income one
+
+00:15:05.140 comparison the element is formed if I am
+
+00:15:08.080 searching for an element 47 then it will
+
+00:15:11.710 first check at 8 and if the element is
+
+00:15:14.260 not 47 it is greater so it will look on
+
+00:15:16.780 this side that is 9 to 15 and the middle
+
+00:15:19.240 of that one is 47 so it will stop here
+
+00:15:22.510 your selamat is 4047 made of that is to
+
+00:15:24.850 us so it will stop at 12 if the element
+
+00:15:28.810 that I am searching is 14 then first it
+
+00:15:31.060 will check at mid this is 29 no 8 is 29
+
+00:15:35.290 my limit is 55 then it will go on the
+
+00:15:38.260 right hand side mid that is 12 so it is
+
+00:15:40.750 47 no element is 55 separator so then
+
+00:15:44.170 mid of this one is 14 that is 55 yes
+
+00:15:46.930 element is found so in 3 comparison the
+
+00:15:49.660 element is found the maximum how many
+
+00:15:53.170 comparisons it is taking for searching
+
+00:15:55.690 any element so that depends on the
+
+00:15:57.610 height of a tree so at most how many
+
+00:15:59.740 comparisons are required if I am
+
+00:16:01.330 searching for an element at index 7
+
+00:16:03.040 that's 25 it will take for comparison so
+
+00:16:06.820 maximum comparisons are dependent on the
+
+00:16:08.950 height of a tree and the height of a
+
+00:16:10.870 tree is log n that's 4 1 2 3 4 right so
+
+00:16:19.540 actually this is how many see there are
+
+00:16:22.750 8 elements here then 4 then 2 then 1 or
+
+00:16:26.950 from here if I see one then they are
+
+00:16:29.200 becoming two then they are becoming 4
+
+00:16:31.030 then they are becoming 8 so how many
+
+00:16:33.430 times they are getting multiplied how
+
+00:16:35.710 many times we are getting multiplied
+
+00:16:37.000 that is 4 times so that is 4 levels are
+
+00:16:40.270 4 so approximately if I take these
+
+00:16:43.360 elements as 15 plus 1 that is 16
+
+00:16:47.320 elements then log 16 ways to as for
+
+00:16:54.510 rightful comparisons required
+
+00:16:56.800 so the time taken by binary searches
+
+00:17:00.420 login so from the tree we can analyze
+
+00:17:03.730 and one more thing if I am searching for
+
+00:17:07.179 any element if I'm searching for an
+
+00:17:10.089 element which is not present then what
+
+00:17:12.789 happens suppose I am searching for a 65
+
+00:17:15.659 then first it will go here mid ate then
+
+00:17:19.089 on 12 then on 14 then on 15 then it will
+
+00:17:23.619 try to go that side but the element is
+
+00:17:25.419 not there so it will stop on this side
+
+00:17:29.580 same way if I am searching for any
+
+00:17:31.870 elements that are lying in between 55
+
+00:17:34.299 and 62 it will stop on this side
+
+00:17:37.559 likewise I can draw some external nose
+
+00:17:40.809 to represent those elements which are
+
+00:17:43.000 not present in the list and how much
+
+00:17:45.549 time it will take for unsuccessful
+
+00:17:47.200 search 1 2 3 4 stop
+
+00:17:51.039 so again maximum for comparisons are
+
+00:17:54.159 required now one more thing if I am
+
+00:17:57.640 searching for any key minimum how much
+
+00:18:00.820 time it may take if I am searching for a
+
+00:18:03.730 key element present in the mid that is
+
+00:18:05.770 29 then it will take only one comparison
+
+00:18:08.409 so this is order of 1 the maximum how
+
+00:18:11.770 many comparison it takes it depends on
+
+00:18:14.139 the height of a tree that is log n so
+
+00:18:17.260 this is order of log n so the minimum
+
+00:18:20.470 time of binary search is order of 1 9 mm
+
+00:18:24.070 timeless log n so best case it is if you
+
+00:18:27.520 are searching for a key element in the
+
+00:18:29.020 middle of August that it is best case
+
+00:18:31.240 and the time is 1 what is cases Ciara
+
+00:18:35.320 searching for a key element present in
+
+00:18:37.240 the leaf and at the time is log n versus
+
+00:18:41.529 time this log again that's it
+
+00:18:45.399 this is their else of binary search
+
+00:18:47.830 Alfred may have seen how it works we
+
+00:18:50.380 have written an algorithm and traces
+
+00:18:52.480 that algorithm in form of a tree and the
+
+00:18:54.520 time we are getting is log and if you
+
+00:18:58.059 want to note our reached
+
+00:18:59.679 time if you want to know the average
+
+00:19:01.750 time then you have to add the time for
+
+00:19:04.090 each and every
+
+00:19:05.300 element and divide by number of elements
+
+00:19:09.040 it is the time for each and every
+
+00:19:11.450 element so for this one comparison in to
+
+00:19:13.760 comparison very comparison for
+
+00:19:15.350 comparison three comparison for for
+
+00:19:18.560 every element you should to take that
+
+00:19:19.760 and divide it by number of elements and
+
+00:19:21.560 then you get average and average also
+
+00:19:23.990 you get in the form of logins if you
+
+00:19:26.480 analyze this one so best case it is best
+
+00:19:29.810 case standing as one worst case time is
+
+00:19:31.940 log and average case time will also be
+
+00:19:34.430 logged

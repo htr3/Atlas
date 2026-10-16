@@ -1,0 +1,471 @@
+# tactiq.io free youtube transcript
+# Prime Number Sieves
+# https://www.youtube.com/watch/Xxu95iiVcPI
+
+00:00:00.240 hi guys I'm
+00:00:01.399 gkcs and we are talking about prime
+00:00:03.320 number SES today so a prime number seve
+00:00:06.640 is like a typical SE when you are done
+00:00:09.440 processing with this whatever you have
+00:00:11.440 remaining is what you want so over here
+00:00:13.719 you'll be remaining with prime numbers
+00:00:16.400 and our task is to take numbers from one
+00:00:19.520 to n for as n over here is 100 and find
+00:00:23.119 all the prime numbers within that range
+00:00:25.920 so you see here that all the numbers
+00:00:27.760 marked in yellow are prime numbers and
+00:00:29.960 and the rest are
+00:00:31.719 composite okay so let's
+00:00:36.040 start so to find all the numbers in this
+00:00:38.360 data structure we start from one and one
+00:00:42.399 divides everything so actually taking
+00:00:44.360 this as a prime number won't make sense
+00:00:45.960 because every prime number is divisible
+00:00:47.280 by one so we ignore that so one is out
+00:00:50.360 of the list right two is the next number
+00:00:54.559 that you need to take two divides all
+00:00:58.160 even numbers so firstly first first
+00:01:00.000 thing to notice is that two has not been
+00:01:01.239 touched yet so that will be added to
+00:01:04.599 your prime number list right two is
+00:01:07.640 added and this is your list current list
+00:01:11.560 now okay and then two is marked as
+00:01:15.560 touched and now you'll start jumping at
+00:01:18.040 length of two because you can multiply
+00:01:21.799 uh two by a certain number and reach
+00:01:23.720 other numbers which means that those
+00:01:24.960 numbers are composite okay so we have 4
+00:01:28.360 6 8 10 all these numbers marked as not
+00:01:33.240 Prime 11 not really 12 yes 14 yes 15 we
+00:01:39.079 don't know 16 yes and so on and so forth
+00:01:41.479 so we Mark all the numbers even numbers
+00:01:43.720 as Prime which is 50 numbers
+00:01:49.320 approximately now once you are done with
+00:01:51.719 this entire marking which is up to
+00:01:54.560 100 98 so on and so forth so you reach
+00:01:57.200 100 finally and then you realize okay we
+00:01:59.680 have run out of numbers in our range so
+00:02:02.119 we go for the next number which is
+00:02:04.079 three three has not been touched that's
+00:02:07.119 nice so three is a prime because no one
+00:02:10.399 till this point was able to touch three
+00:02:12.000 which means it cannot be touched By Any
+00:02:14.319 number apart from one which means it is
+00:02:16.160 prime okay it has no other devices apart
+00:02:18.319 from
+00:02:19.239 one so three is now marked and we start
+00:02:22.800 making jumps of three now so five we
+00:02:25.280 don't know six yes we should touch it
+00:02:27.879 but it's already been touched by two so
+00:02:30.760 doesn't really matter we could again
+00:02:32.080 mark it as false doesn't really matter
+00:02:34.519 nine will now be
+00:02:36.239 marked as not Prime and then 12 again it
+00:02:39.519 has already been touched uh 15 is marked
+00:02:41.760 as not prime now and so on and so forth
+00:02:43.720 till you reach finally 99 yeah because
+00:02:46.319 33 into 3 was 99 so we made that jump
+00:02:48.840 here and what that what does that do it
+00:02:51.599 marks about n by 6
+00:02:54.760 numbers as Prime this marked about n by2
+00:02:58.760 numbers and why is this n by 6 because
+00:03:02.560 you should have marked n
+00:03:04.000 by3 but instead half of them were
+00:03:06.799 already marked so you mount n by
+00:03:10.519 6 half of them so this is n by 6
+00:03:14.720 approximately the next number is four
+00:03:17.760 but do we need to make those jumps of
+00:03:19.400 four no because four has already been
+00:03:21.840 marked meaning that it has a divisor
+00:03:25.440 which has marked itself so if there is
+00:03:27.920 any number divisible by four it is defin
+00:03:30.000 divisible by the divisor which is marked
+00:03:31.680 four so that divisor would have marked
+00:03:34.040 the other numbers which four is going to
+00:03:35.360 Mark so you don't need to take care of
+00:03:36.959 those all right fine so four doesn't
+00:03:40.400 have any jumps five has not been marked
+00:03:43.120 it's added to your Prime list and then
+00:03:46.439 you start again making those jumps so 10
+00:03:48.840 has already been marked 15 has been
+00:03:50.239 marked 20 is not so it's marked and so
+00:03:53.159 on and so forth until what until
+00:03:57.560 I is
+00:04:01.239 greater than equal to root
+00:04:04.879 n in fact not equal to until I is
+00:04:07.760 greater than
+00:04:08.879 n and why is that well because if you
+00:04:12.640 have a number I which is Prime and
+00:04:15.280 greater than Ro 10 then the only numbers
+00:04:17.880 that you need to Mark now are I into
+00:04:21.120 2 but that's already been marked that's
+00:04:23.400 marked by two so maybe I into three but
+00:04:26.360 three is also marked because three
+00:04:28.320 marked it before I which because I is
+00:04:30.240 greater than root 10 so 3 will be marked
+00:04:33.000 uh I into 5 will be marked I into 7 will
+00:04:35.160 be marked all these numbers will be
+00:04:36.240 marked already so the only number that
+00:04:38.520 you can start from is actually root 10
+00:04:41.400 because I is greater than root 10 so in
+00:04:44.240 fact you'll have J equal to J is greater
+00:04:46.600 than root n so let's take that as root n
+00:04:50.759 this will be less than equal to n so
+00:04:53.440 that gives you I is less than equal to n
+00:04:56.600 byun n which gives you I is less than
+00:04:59.680 equal to n and you have a contradiction
+00:05:02.080 this is not matching up with what you
+00:05:04.680 want so you only process for all I Which
+00:05:09.639 is less than equal to root n and what
+00:05:13.280 have I done here this is root n okay so
+00:05:17.000 this is the condition uh at which you go
+00:05:19.680 on making those jumps from all prime
+00:05:21.560 numbers that you find okay and there's a
+00:05:24.880 lot of optimizations that you can make
+00:05:26.600 here for example you don't need to go at
+00:05:28.800 jumps of two 3 4 and so on and so forth
+00:05:30.720 you can directly start from I
+00:05:32.880 square and we'll see in the code how
+00:05:34.960 that can be done but importantly uh this
+00:05:38.880 this prime number saing method
+00:05:41.160 dramatically reduces the time complexity
+00:05:44.120 of find finding out the prime numbers
+00:05:46.319 because the brute force is n root
+00:05:49.039 n n complexity and we bring this down to
+00:05:53.080 approximately n log
+00:05:55.080 n using a few optimizations but yeah it
+00:05:58.440 can be done quite
+00:06:00.479 reasonably so now that we have a
+00:06:03.280 technique to find out all prime numbers
+00:06:05.639 in a given range 1 to n let's see how we
+00:06:09.280 can find out the prime
+00:06:10.639 factors nothing special really because
+00:06:13.240 if you at two to find out the prime
+00:06:16.120 factors of every number divisible by two
+00:06:19.280 you need to go to that number which is
+00:06:20.759 basically make a jump of two and go on
+00:06:23.560 dividing that number till it is
+00:06:24.919 divisible by two okay so let's say these
+00:06:28.360 are the values and indexes are separate
+00:06:31.080 so you have an array from 1 to
+00:06:34.080 100 which are the values over here
+00:06:37.639 initially all values are equal to the
+00:06:38.880 index values but then you start so you
+00:06:41.680 go to two you see that two is divisible
+00:06:44.479 by nothing else apart from two so you
+00:06:47.319 mark it as Prime but now you are also
+00:06:49.840 going to be counting factors so here's
+00:06:52.720 what we
+00:06:54.520 do you take
+00:06:57.759 two okay and you divide by 2 so that
+00:07:02.199 gives you the prime factorization of 2
+00:07:03.879 as 2^ 1 now you make the jump of two you
+00:07:08.520 jump all the way
+00:07:10.199 here four four is div divisible by two
+00:07:14.759 so 4 is 2^ 1 into who knows what so you
+00:07:19.479 divide 4 by 2 first this becomes
+00:07:22.720 two now is it divisible by two even
+00:07:26.080 now yes so you divide it again by two
+00:07:29.520 this becomes one and this becomes 2^ 2
+00:07:33.120 so essentially the prime factorization
+00:07:35.120 of
+00:07:37.360 four is equal to 2^ 2 and when you go to
+00:07:41.680 six you'll see prime factorization of 6
+00:07:45.759 is 2^ 1 into who knows so 6 / 2 becomes
+00:07:51.960 3 right uh so at every index we are
+00:07:58.319 keeping an array of prime
+00:08:01.840 factors which is 2
+00:08:04.400 3 six so 2 3 5 7 so on and so forth and
+00:08:10.120 we are also keeping an array of
+00:08:14.599 frequencies which is what is the
+00:08:16.199 frequency of two in the prime
+00:08:17.360 factorization so for so for index 2
+00:08:20.720 these values will be PF is equal to 2
+00:08:23.560 and frequency is equal to
+00:08:25.560 1 at 49 let's say PF is equal to 7 and
+00:08:32.839 frequency is equal to 2 similarly at
+00:08:36.559 98 PF is equal 2A 7 and frequencies is
+00:08:40.958 equal to 98 by the
+00:08:43.080 way so this is 1 comma
+00:08:46.519 2 so you can see that the frequencies
+00:08:48.800 can be stored quite easily uh if you
+00:08:50.720 follow this method so what we are doing
+00:08:52.399 is jumping to a particular number
+00:08:53.880 marking it as touched so that you know
+00:08:56.200 we jump from a particular number so this
+00:08:57.600 is composite definitely and we are also
+00:09:00.000 going to be uh updating its prime
+00:09:02.040 factorization based on how many times it
+00:09:03.880 is divisible by that particular prime
+00:09:05.680 number from which you just jumped okay
+00:09:08.120 so the code for this is over here so
+00:09:11.040 this is the code and it's purposely not
+00:09:13.519 written very clearly so that there might
+00:09:14.959 be mistakes and you never catch it uh
+00:09:17.240 but it it will work don't worry uh you
+00:09:19.640 have this outer loop which goes from 2
+00:09:23.160 to root 10 uh that's that's basically
+00:09:26.040 the I that we were talking about right I
+00:09:28.040 is going from 2 to root 10 we also have
+00:09:30.640 in case I is not touched that means that
+00:09:33.160 it is prime so when you're traversing
+00:09:35.880 from the outer loop and you come to a
+00:09:37.519 position which has not been touched yet
+00:09:38.920 that means it is prime so you mark it as
+00:09:41.480 Prime you add it to the prime list you
+00:09:43.519 also Mark it as touched now although it
+00:09:45.519 doesn't really matter and then you add
+00:09:48.000 it to the factors uh of that particular
+00:09:50.560 number so I now has the factor of itself
+00:09:54.000 okay it is divisible by itself this part
+00:09:56.360 is very easy because it's called a prime
+00:09:58.000 number now you need to mark all the
+00:10:00.079 composite numbers as not prime so that's
+00:10:02.440 what we do we take another counter J
+00:10:05.160 which is going to be making the jumps of
+00:10:08.040 this this is the inner loop which is uh
+00:10:09.920 making jumps of two or jumps of three
+00:10:11.560 and so on and so forth all right the
+00:10:12.959 outer loop is going at speed of one so
+00:10:16.360 at the inner loop you initialize JAL 2
+00:10:18.760 into I because everything after this
+00:10:21.800 everything which is a multiple of this
+00:10:23.360 has to be not Prime and J should be less
+00:10:26.480 than equal to n of course because you
+00:10:27.880 can't go out of range uh and here you
+00:10:30.360 have
+00:10:31.160 J equal to J +
+00:10:35.040 I why because every multiple of J will
+00:10:38.399 then be considered because J plus I will
+00:10:40.760 become 3 i j plus I again will become 4
+00:10:43.639 I and so on and so forth 5 I 6 I and
+00:10:46.720 that will be canceling out all the
+00:10:48.360 composite numbers that J can make
+00:10:51.279 okay why is that because J + I after 2 I
+00:10:55.680 will be 3 I and then if you add I again
+00:10:58.000 to it it will be 4 I so that is the
+00:11:00.000 inner loop making jumps of multiples of
+00:11:03.480 I so everything divisible by I will be
+00:11:05.480 now marked so we get B Mark touched of J
+00:11:09.399 as true for all these numbers and while
+00:11:12.560 a of J this is important because you
+00:11:15.360 have one thing which is the index J and
+00:11:17.160 I but you also have values in them which
+00:11:19.519 is initially equal to the index of that
+00:11:22.160 number so one has value one two has
+00:11:24.399 value two so let's take the case of
+00:11:26.920 54 54
+00:11:30.040 comes over here initially two marks 54
+00:11:32.519 as not prime but when it does that it
+00:11:35.079 also goes into this inner loop it sees
+00:11:38.000 that so uh 2 into 27 will come up at
+00:11:41.959 some point because that is less than
+00:11:43.560 equal to n so once you come there you
+00:11:45.639 mark it as not prime you see if 54 a of
+00:11:49.920 J initially is 54 so a of J mod 2 is 0
+00:11:55.160 this is 54 mod 2 is 0 so 54 divid 2
+00:11:59.200 gives you zero this condition is
+00:12:01.200 satisfied you go inside you see that the
+00:12:03.399 factors of 54 have now added two as a
+00:12:07.959 factor so this is 54 it has prime
+00:12:11.880 factors of two now and
+00:12:15.480 frequencies of 54 this is the prime list
+00:12:18.240 of 54 this is the frequency list of 54
+00:12:20.480 and this has one as the count of prime
+00:12:24.600 factorization with
+00:12:27.440 two at this point
+00:12:29.399 54 this value over here has become 27
+00:12:32.480 because we divided it by
+00:12:35.760 2 so you come to this y loop again you
+00:12:38.600 see that 27 is not divisible by two
+00:12:40.680 anymore so you break from the loop and
+00:12:42.760 you you know you process the rest of the
+00:12:44.920 AR but we are interested only in this
+00:12:46.560 number the next number to come along is
+00:12:49.199 three three comes over here Sayes that
+00:12:53.279 54 is divisible by 3 so that's nice you
+00:12:58.440 know we we came to this point 54 is
+00:12:59.959 divisible by 3 that means that we can
+00:13:02.880 add the factors as
+00:13:05.680 three over here so we added to the prime
+00:13:09.279 list and we also add to the frequency
+00:13:12.240 list of one so three has frequency one
+00:13:15.839 and this number is divided by three so
+00:13:18.079 this becomes
+00:13:19.519 9 what now we are not done with the
+00:13:22.800 while while loop yet because we haven't
+00:13:24.920 broken out of it we come back we see
+00:13:27.040 that is 9 divisible by three yes it is
+00:13:30.199 so what do we do we seeing that we
+00:13:32.519 adding to the factors but whenever
+00:13:34.279 you're adding you're going to be
+00:13:35.560 checking if it already
+00:13:37.360 exists if it already exists there's no
+00:13:39.639 point adding it again you just increment
+00:13:41.600 the frequency of it so three now has
+00:13:43.920 frequency 2 and after dividing by three
+00:13:47.440 over here on this statement you get
+00:13:50.399 three again the Y Loop goes through uh 3
+00:13:54.360 is divisible by three so you add but you
+00:13:57.160 see that it already exists so you just
+00:13:58.800 increment the
+00:14:00.480 frequency and over here you again divide
+00:14:03.199 to get
+00:14:04.519 one is one divisible by 3 no all right
+00:14:08.279 that's fine we move on we move on to 57
+00:14:11.920 and so on and so forth so you see that
+00:14:14.920 we can using this technique get the
+00:14:17.519 prime factorization of a number and also
+00:14:19.880 get the powers that those prime factors
+00:14:22.240 will be raised by so we basically have
+00:14:25.120 at the
+00:14:26.320 end 54 is equal to 2 ra to the^ 1 into 3
+00:14:35.240 ra^ 3 and this is just for one number so
+00:14:40.240 we can get it for all numbers now right
+00:14:42.720 and time complexity is still n logn or
+00:14:46.360 to be precise it's
+00:14:49.360 n log n into log of log
+00:14:55.480 n okay but this is also reasonable
+00:15:00.199 now comes an interesting question you
+00:15:02.320 have a range of numbers from A to B
+00:15:04.720 which is of size 20 okay that range is
+00:15:06.519 of size 20 and B is quite large so if
+00:15:10.040 you try your old approach to find all
+00:15:11.959 primes between 1 to B it's going to take
+00:15:14.639 a lot of time right like the complexity
+00:15:16.680 that we said n log n into log log n so
+00:15:19.800 we can't afford this but using a special
+00:15:22.279 trick we can find all the Primes in this
+00:15:24.079 range as long as the range is of small
+00:15:27.360 size okay so the first thing we need to
+00:15:30.120 notice here is that this is very similar
+00:15:31.800 to what we did earlier we can remove all
+00:15:36.199 those composite numbers which are
+00:15:37.319 divisible by two okay so let's do that
+00:15:42.120 312
+00:15:43.880 314 316 and so on and so forth up to 330
+00:15:48.560 will be removed using the same Technique
+00:15:50.519 we start from here we see if it is
+00:15:52.199 divisible by two if it is then we start
+00:15:55.199 marking from here but is this Prime no
+00:15:58.959 it isn't okay two is dividing this
+00:16:02.120 number so it is not prime of
+00:16:04.360 course what else can we do we can go
+00:16:07.560 with
+00:16:08.519 three 3 divides
+00:16:11.600 312 which is already marked by two so
+00:16:14.560 fine it also touches 315 so this will be
+00:16:18.079 marked and 318 and so on and so forth up
+00:16:21.360 to 330 so now we marked some more
+00:16:23.959 numbers just like we were doing in the
+00:16:25.199 old
+00:16:27.240 SE all all the way up to what point we
+00:16:31.279 divided by two we divided by three now
+00:16:33.560 up to what point should we
+00:16:35.240 go root
+00:16:37.480 B just like we were going for RO
+00:16:40.920 10 okay what does this tell
+00:16:44.639 us it's marking all composite numbers in
+00:16:47.880 that given
+00:16:49.160 range why because you have range up to B
+00:16:52.920 you know that there are no primes
+00:16:54.199 greater than root B okay there are no
+00:16:56.600 prime numbers greater than root B in
+00:16:58.000 this range
+00:16:59.240 so you are taking all those prime
+00:17:01.240 numbers less than equal to root B and
+00:17:04.199 marking that given range by those prime
+00:17:06.119 numbers any number which is not marked
+00:17:08.199 by those prime numbers is bound to be
+00:17:11.359 prime so uh that's it that's exactly
+00:17:14.319 what you're doing so you have a minus
+00:17:18.240 B divided by two these are the
+00:17:20.280 computations you're doing for two plus a
+00:17:23.079 A to B okay we we'll take this range A
+00:17:25.359 to
+00:17:26.319 B / by 3 + A to B / 5 and so on and so
+00:17:32.720 forth so time complexity comes out to be
+00:17:34.720 approximately A to
+00:17:36.919 B log B into log of log of
+00:17:42.960 B all right this is the time complexity
+00:17:45.480 of finding
+00:17:46.520 out all prime numbers in the range A to
+00:17:49.120 B except that we haven't taken the
+00:17:52.760 complexity
+00:17:54.039 required to find out these root B
+00:17:57.000 primes not root B primes exactly but all
+00:17:59.520 prime numbers less than root
+00:18:01.320 B okay and for that we need to use our
+00:18:04.240 simple prime number
+00:18:06.360 c from 1 to n but of course we are
+00:18:09.720 finding out all prime mbers between 1 to
+00:18:11.919 root B now as over here so that's what
+00:18:14.880 we are doing we are going to be finding
+00:18:18.120 this number range from 1 to B all prime
+00:18:20.760 numbers and then we are going to be
+00:18:22.400 testing this range using those prime
+00:18:24.760 numbers that we found to get our final
+00:18:27.360 answer to get our
+00:18:28.840 final prime numbers in that
+00:18:30.760 range okay you can also use the very
+00:18:33.600 same technique to find out all the
+00:18:36.159 factors of these numbers because you
+00:18:38.640 have the primes with you all the Primes
+00:18:40.840 less
+00:18:41.880 than all the prime numbers I less than
+00:18:45.360 root B that means that you can also do
+00:18:48.120 prime factorization of any of these
+00:18:49.440 numbers just like we were earlier so we
+00:18:51.840 start from 2 we come to 312 we make it
+00:18:54.559 what
+00:18:56.200 one 56 and and then we
+00:19:00.039 set Prime of
+00:19:02.360 312 as two one of its factors and the
+00:19:07.880 frequencies are one so currently there's
+00:19:10.559 just one factor we have and then 156
+00:19:13.480 will again be divided by two so
+00:19:15.280 frequency of two goes up and this
+00:19:17.960 becomes 78 and now my mathematical
+00:19:21.080 skills will be tested because this
+00:19:22.840 becomes 37 and 37 itself is prime so
+00:19:27.440 later on when 37 comes up as one of the
+00:19:30.280 prime factors less than root P you'll
+00:19:32.720 add that to the prime list and set its
+00:19:35.760 frequency to one right so just the old
+00:19:38.320 technique except that we are finding out
+00:19:40.320 prime factors for any given range from A
+00:19:42.000 to B now and the time complexity is very
+00:19:45.440 similar so finding out the first root B
+00:19:49.039 prime factors will take
+00:19:51.000 you uh root B into log of root B into
+00:19:57.520 log of
+00:19:58.799 log of root
+00:20:01.240 B all right so that is reasonable
+00:20:05.280 because these factors are small and root
+00:20:08.039 B is quite large usually now if root B
+00:20:11.200 is 10^ 12 let's say like in the recent
+00:20:13.400 Cod sh
+00:20:14.480 question then this will be root no this
+00:20:17.679 is equal to B and root B then is 10^ 6
+00:20:23.159 log of root B is log of this which is
+00:20:26.960 log to the base 2 is around 20 for this
+00:20:30.240 and log of log of this which is log of
+00:20:32.919 this is
+00:20:35.320 approximately four but we'll be generous
+00:20:37.600 and give it five so this becomes 100 and
+00:20:39.919 this becomes 10^ 8 which is 1 second of
+00:20:44.640 computations on a reasonable
+00:20:47.640 processor all right and for every range
+00:20:51.960 if your range is 10 to^ 5 so A A to B
+00:20:57.159 has a range of 10^
+00:21:00.760 5 that in turn gives
+00:21:03.080 you D into log of root B into log of log
+00:21:09.760 of root B so if D is reasonable if D is
+00:21:14.720 less than root B then you're safe so
+00:21:17.799 that's it for prime number seing I'll be
+00:21:19.640 adding the code for this because it's
+00:21:20.840 relatively simple but if you want to
+00:21:22.440 contribute of course you're welcome to
+00:21:23.559 do so uh if you have any suggestions or
+00:21:25.480 doubts please leave them in the comments
+00:21:26.600 below

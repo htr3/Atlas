@@ -1,0 +1,731 @@
+# 9.1 Knuth-Morris-Pratt KMP String Matching Algorithm
+
+# https://www.youtube.com/watch/V5-7GzOfADQ
+
+
+
+00:00:00.030 hi the topic is K&B algorithm KMP
+
+00:00:04.350 algorithm is used for pattern matching
+
+00:00:06.330 if a string is given and a pattern is
+
+00:00:09.510 given then the problem is to find out
+
+00:00:12.210 whether this pattern is existing inside
+
+00:00:15.839 this string or not if it is there then
+
+00:00:18.990 find out its index now for this problem
+
+00:00:22.320 there are various algorithms where kmb
+
+00:00:24.810 is also a one of D algorithm there is
+
+00:00:27.420 also a basic algorithm nave algorithm so
+
+00:00:30.660 let us look at how nave algorithm works
+
+00:00:33.270 then we can understand the problem for
+
+00:00:35.760 the drawback of naval Gorem then we'll
+
+00:00:38.399 see how KMP is better than basic or
+
+00:00:42.239 knife algorithm let us see the basic
+
+00:00:44.730 algorithm see if there is a string G 1
+
+00:00:47.579 and we have to find out this pattern
+
+00:00:49.230 then we will check if it is there or not
+
+00:00:52.620 so we'll start from the first letter of
+
+00:00:54.870 the string so I'll read on this pattern
+
+00:00:56.760 here d e f compare the first letter of a
+
+00:01:01.949 string with the pattern it's not
+
+00:01:04.799 matching if it is not matching then
+
+00:01:07.320 shift the pattern to the right by one
+
+00:01:09.930 step d e f now compare this one with
+
+00:01:14.820 this it's not matching then shift the
+
+00:01:17.729 pattern by one step this is not matching
+
+00:01:21.720 so shift the pattern by one step this is
+
+00:01:26.580 matching if there is a match no need to
+
+00:01:29.369 shift check the next that is also
+
+00:01:32.130 matching and check the next this is also
+
+00:01:35.250 matching so yes a pattern is found
+
+00:01:37.950 inside the string at the displace at
+
+00:01:41.130 this index that is 4 to 6 index this
+
+00:01:44.549 example was very simple I'll take one
+
+00:01:46.320 more example and show you now one more
+
+00:01:48.270 example here this is a string and the
+
+00:01:51.270 pattern that I have to search is this
+
+00:01:53.909 one so I have to find out whether there
+
+00:01:56.009 is a match for this pattern in this
+
+00:01:57.509 string or not so I'll know draw a string
+
+00:01:59.729 and shift it but instead of that I will
+
+00:02:02.189 take index I and J here so first letter
+
+00:02:07.049 I and J this is matching
+
+00:02:11.380 there is a match so link J as well as I
+
+00:02:15.960 so i'll just write ing they are matching
+
+00:02:19.450 so move j as well as i they are matching
+
+00:02:24.220 so move j as well as i again they are
+
+00:02:29.740 matching now move j as well as i there
+
+00:02:35.050 is a mismatch see we started this
+
+00:02:38.110 pattern comparing from this position
+
+00:02:39.820 onwards as I just now said that in the
+
+00:02:42.490 previous example I have shown you that
+
+00:02:43.900 if there is a mismatch this pattern will
+
+00:02:46.240 move by one step so there is a mismatch
+
+00:02:48.820 so again J will come in the beginning
+
+00:02:51.430 but what about I I will start from this
+
+00:02:54.850 place now already we have started from
+
+00:02:57.910 the beginning a now we'll start from B
+
+00:03:00.520 that is index 2 so this is the problem
+
+00:03:05.140 in basic algorithm already I have each
+
+00:03:08.650 till 5 and it is again shifted back so I
+
+00:03:12.520 is shifting in the string this is the
+
+00:03:15.550 waste of time this is the extra work in
+
+00:03:18.400 basic algorithm so again we'll start
+
+00:03:21.280 from here so this means that we have
+
+00:03:23.230 started the pattern from here now
+
+00:03:24.850 shifted the pattern to the right by one
+
+00:03:26.710 step there is the meaning so I came here
+
+00:03:29.530 again there is a mismatch so go to the
+
+00:03:32.710 next so we will start appearing from
+
+00:03:34.450 here so it means we have moved the
+
+00:03:35.740 pattern from here onwards now from here
+
+00:03:37.480 we'll be checking mismatch there is a
+
+00:03:41.470 mismatch move I there is a match so lose
+
+00:03:45.670 J as well as I there's a match means J
+
+00:03:51.700 as well as I there's a match so means J
+
+00:03:57.940 as well as I now this is mismatch this
+
+00:04:03.340 match means move J again in the
+
+00:04:05.080 beginning and bring
+
+00:04:06.900 again on this part see just now we have
+
+00:04:09.209 started from here now we have to shift
+
+00:04:11.430 this one so we'll start from here so I
+
+00:04:14.220 will come at this place
+
+00:04:15.840 so already it has shed three alphabet so
+
+00:04:18.779 it should come back we alphabet so J
+
+00:04:20.728 should start from here again see just
+
+00:04:23.100 now already we have checked these
+
+00:04:24.360 alphabets we are checking them again so
+
+00:04:27.180 this is the drawback of basic algorithm
+
+00:04:29.100 we are repeatedly checking the
+
+00:04:30.810 characters in a main string let me
+
+00:04:33.780 finish it quickly there is a mismatch I
+
+00:04:36.180 is moved there is mismatch I mean no
+
+00:04:40.530 there is a match with a a so in the in
+
+00:04:43.320 this way now if I continue then I can
+
+00:04:45.539 find this pattern here available here
+
+00:04:48.210 every character will be matched till
+
+00:04:50.280 here till here
+
+00:04:53.750 so we learn one thing here that the
+
+00:04:56.729 characters in the string are compared
+
+00:04:59.810 repeatedly whenever there is a mismatch
+
+00:05:02.520 it is shifting I backtracking I are
+
+00:05:06.030 moving back I
+
+00:05:07.620 so this backtracking of I we want to
+
+00:05:10.410 avoid let us see a worst case of basic
+
+00:05:14.340 or knave algorithm
+
+00:05:16.349 worst case of basic algorithm I have a
+
+00:05:19.770 string and a pattern let us run
+
+00:05:23.940 basically got among this one I starting
+
+00:05:28.650 from here J is studying from here there
+
+00:05:31.050 is a match if there is a match move I as
+
+00:05:34.200 well as chain see you started from index
+
+00:05:38.880 1 of strength remember this there's a
+
+00:05:41.190 match so move I as well as J so first I
+
+00:05:44.099 will move J and also I will move I
+
+00:05:46.070 there's a match so you J and also I
+
+00:05:51.560 there is a mismatch when there is a
+
+00:05:54.840 mismatch move J to the beginning and
+
+00:05:58.190 move I to the second position this is
+
+00:06:01.680 the starting point just now we started
+
+00:06:04.080 from here that I should start from here
+
+00:06:05.849 now start from here again again start
+
+00:06:09.510 this is matching noise J move i matching
+
+00:06:15.210 move J move I
+
+00:06:18.559 again a a matching so move J and move Y
+
+00:06:23.539 a B is not matching
+
+00:06:25.879 so again move J in the beginning and a
+
+00:06:28.549 move I on the third place in this way
+
+00:06:30.949 continue see the problem in this one is
+
+00:06:33.409 e is repeating why I should move I
+
+00:06:37.669 should move just J one place and see
+
+00:06:40.909 that this is a this is a both are same
+
+00:06:42.979 just check that next alphabet is B or
+
+00:06:45.529 not you don't have to move back and
+
+00:06:48.739 start again from the beginning because
+
+00:06:50.689 all these are same only that's it that's
+
+00:06:54.169 it the basic algorithm doesn't study the
+
+00:06:57.439 pattern doesn't observe what is there in
+
+00:06:59.689 the pattern as blindly it is a checking
+
+00:07:02.239 every alphabet and just shifting this
+
+00:07:04.459 pattern by one step in case of mismatch
+
+00:07:06.769 as this is backtracking I what is the
+
+00:07:09.589 maximum time it is taking if the size of
+
+00:07:12.019 the string is N and the size of the
+
+00:07:13.879 pattern is Amma
+
+00:07:15.079 then almost this pattern is repeatedly
+
+00:07:17.809 comparing the string and this will be M
+
+00:07:20.779 into n order of MN time so this is the
+
+00:07:25.129 time taken by basic algorithm or name
+
+00:07:29.360 algorithm basic algorithm takes sort of
+
+00:07:32.329 MN time now can we study the pattern and
+
+00:07:37.759 reduce some time let us see what is the
+
+00:07:40.610 idea of kmb there is some terminology
+
+00:07:42.679 used in KMP algorithm first let us
+
+00:07:45.079 understand that terminology see if there
+
+00:07:47.479 is a pattern given here then we will can
+
+00:07:49.699 find prefix or suffix of a pattern so
+
+00:07:52.159 what does it mean by prefix of a pattern
+
+00:07:54.289 we have to take the subset of this
+
+00:07:56.629 alphabets in a pattern but we must start
+
+00:07:59.629 from the beginning of the pattern only
+
+00:08:01.729 how many subsets how many characters
+
+00:08:04.309 that should take in a subset as many as
+
+00:08:06.109 you want so I just take a okay yes it's
+
+00:08:08.779 a prefix no I will take a and D also yes
+
+00:08:12.079 this is also prefix I want to take ABC
+
+00:08:15.319 yes this is also prefix I will take ABCD
+
+00:08:18.979 yes this is also prefix all these are
+
+00:08:22.399 valid prefix then what about suffix I
+
+00:08:25.309 have to take the subset of this string
+
+00:08:28.219 but I should start from the right hand
+
+00:08:30.199 side
+
+00:08:30.780 only right and as many I want I can take
+
+00:08:34.229 so let us start can he takes he just
+
+00:08:36.719 serious can I take B and C yes BC can I
+
+00:08:41.340 take ABC is ABC
+
+00:08:44.130 can I take D ABC is B a B C and more but
+
+00:08:50.310 let us stop here now the idea of KMP is
+
+00:08:54.540 that inside this string is there any
+
+00:08:57.330 perfect same as suffix let us see a do
+
+00:09:01.530 you find an even know a be a be a be
+
+00:09:04.020 knows not there ABC yes it's there
+
+00:09:06.780 C this is matching so this is the prefix
+
+00:09:09.600 that is also there in suffix also there
+
+00:09:14.730 in suffix so this is the observation
+
+00:09:17.130 what kmpl go Adam will do on a pattern
+
+00:09:20.190 to avoid the number of comparisons
+
+00:09:22.700 instead of confusing with the perfect
+
+00:09:25.470 sense of X I'll make it simple is the
+
+00:09:28.260 beginning part of a pattern is appearing
+
+00:09:30.810 again anywhere else in the pattern or
+
+00:09:33.330 not that's what we have to observe
+
+00:09:35.610 I'll take few examples and show you let
+
+00:09:38.520 us look at the pattern and in KMP
+
+00:09:40.589 algorithm for a pattern we generate a
+
+00:09:43.320 pie table that pie is also called as
+
+00:09:47.150 longest prefix which is same as some
+
+00:09:50.670 suffix that is LPS we name it as pie or
+
+00:09:55.280 LPS whatever the name you like so how
+
+00:09:58.920 that table is prepared I will also show
+
+00:10:01.380 you that just observe it carefully let
+
+00:10:04.170 us take first pattern is it appearing in
+
+00:10:07.680 the middle sheis o being is also
+
+00:10:09.690 appearing a B so this a B is appearing
+
+00:10:12.630 here also then again a B again a is
+
+00:10:16.410 appearing here you see a as well as B is
+
+00:10:18.510 also appearing okay both are appearing
+
+00:10:20.160 again so what we do is we'll prepare a
+
+00:10:23.310 table we will write 0 0 0 0 this a B is
+
+00:10:29.130 matching that first and second as I said
+
+00:10:31.320 the indices we will start from 1 2
+
+00:10:33.060 onwards so this is matching with 1 & 2
+
+00:10:34.980 this is not matching this is matching it
+
+00:10:37.470 1 & 2 this is not matching this is the
+
+00:10:40.770 pie table now there is an algorithm I
+
+00:10:43.080 don't want to show you
+
+00:10:44.760 I'm not tracing algorithm simply I'm
+
+00:10:47.010 showing you how to prepare it if you
+
+00:10:49.110 trace the algorithm you get the same
+
+00:10:50.700 results next let us look at this pattern
+
+00:10:53.399 is it appearing anywhere yes it's
+
+00:10:55.290 appearing OB is also appearing so this
+
+00:10:57.779 is matching so this is one and two then
+
+00:11:01.470 a anywhere yes it's appearing here so BC
+
+00:11:04.079 also bearing so these three are matching
+
+00:11:06.120 one two three rest of them are all zeros
+
+00:11:10.370 there's a pie table now let us check is
+
+00:11:14.190 it appearing even here itself
+
+00:11:16.079 so mark 1 is it appearing yes it's
+
+00:11:18.779 appearing then next alphabet nodes not
+
+00:11:21.120 same it is appearing here the next cells
+
+00:11:23.820 are bit also matching too then rest
+
+00:11:26.639 all of them are zeros what about this is
+
+00:11:34.199 appearing here 1 and this are you also
+
+00:11:36.720 appearing so from here if you take this
+
+00:11:38.579 is matching with this 2 so 2 and these
+
+00:11:41.310 three are matching with this 3 so take 3
+
+00:11:43.470 then anywhere else he has a is appearing
+
+00:11:45.839 here the next day is also same so 2 and
+
+00:11:48.329 rest of all the values are zeros so this
+
+00:11:52.110 is the base of kmpl garden to prepare
+
+00:11:55.170 the table once you prepare the table the
+
+00:11:57.240 algorithm is simple then I will take one
+
+00:11:59.910 example and show you how algorithm let
+
+00:12:03.209 us look at the working of kmpl Gorda my
+
+00:12:06.209 explanation will be based on the tracing
+
+00:12:08.699 of an algorithm
+
+00:12:09.600 so one thing you have to observe that
+
+00:12:13.199 here in the string will not backtrack in
+
+00:12:16.620 the main string so let us start the
+
+00:12:19.260 working so this is a pattern so first of
+
+00:12:21.420 all prepare a pie table or NP r--'s so
+
+00:12:24.510 prefix table a this is appearing here so
+
+00:12:28.920 this is one the B is also there so two
+
+00:12:31.560 then D is not matching here so not just
+
+00:12:35.790 just two alphabets are matching so take
+
+00:12:38.399 this as 0 this and this all are zeros so
+
+00:12:41.970 let me put it in the table like this and
+
+00:12:48.029 also till indices 1 2 3 4 5 and also I
+
+00:12:54.480 will take 1 index 0
+
+00:12:56.360 that will act as a starting point of a
+
+00:12:58.430 pattern now let us start first alphabet
+
+00:13:02.690 I is there then various J now it's it is
+
+00:13:06.230 not on the first alphabet we will take
+
+00:13:08.180 it on zero this is a special thing you
+
+00:13:11.510 can start from here also but the working
+
+00:13:13.940 will change little bit I am starting
+
+00:13:15.920 from zero this is easy
+
+00:13:17.660 let us watch J is on zero eyes on one
+
+00:13:20.839 first alphabet now compare this string
+
+00:13:24.140 of I with the pattern of J plus one
+
+00:13:27.589 being here check the next alphabet they
+
+00:13:30.110 are matching if they match then move J
+
+00:13:33.290 as well as I know again compare
+
+00:13:39.380 stringify with a pattern of J plus 1
+
+00:13:42.769 this alphabet so wherever J is pointing
+
+00:13:45.140 you try to check the next alphabet
+
+00:13:46.970 that's B G is matching here so take J on
+
+00:13:51.380 the next and I also on the next now this
+
+00:13:56.680 J plus 1 yes this is matching this is
+
+00:14:00.589 matching J plus 1 so move J as well as I
+
+00:14:07.329 now J plus 1 is B and is B they are
+
+00:14:11.600 matching so move J as well as I now J
+
+00:14:18.170 plus 1 is not matching with I so now
+
+00:14:21.980 there is a mismatch what to do observe
+
+00:14:24.529 it carefully when there is a mismatch
+
+00:14:26.990 with the J plus 1 and I then mu J to
+
+00:14:30.410 this index to bring J here here move it
+
+00:14:36.890 here this means that this a B a B is
+
+00:14:39.829 repeating so he became 2 times so
+
+00:14:42.560 already we have checked one time so
+
+00:14:44.600 maybe we have to start from here so let
+
+00:14:47.240 us observe now J plus 1 but of this one
+
+00:14:50.690 is it matching more still there is a
+
+00:14:53.120 mismatch so again you j to displace J is
+
+00:14:56.959 here now is it a match with J plus 1 no
+
+00:15:01.310 still there is a mismatch but J's on 0
+
+00:15:04.560 so we cannot leave jail further so move
+
+00:15:08.990 so in case of mismatch you observe that
+
+00:15:12.000 only J is moving I is not backtracking I
+
+00:15:15.900 have simply moved to the next alphabet
+
+00:15:18.270 let us continue J plus 1 is a mash with
+
+00:15:21.450 this I so move J move I J plus 1 B and I
+
+00:15:28.320 is B match so move J and move I J plus 1
+
+00:15:34.980 and I see a mismatch so move J to
+
+00:15:40.830 displays J and still compare J plus 1 a
+
+00:15:45.360 and I miss match now there is a mismatch
+
+00:15:48.630 and even J is at 0 so we cannot move J
+
+00:15:51.930 further on the left so just move I now
+
+00:15:57.720 his this party observe carefully J plus
+
+00:16:01.860 1 a I this is matching mu J mu I decided
+
+00:16:08.070 Mac here now J plus 1 is B and I they
+
+00:16:12.210 are matching so move J and move i J plus
+
+00:16:16.980 1 is a and I is a matching so means J
+
+00:16:21.030 and move I J plus 1 that is B and I they
+
+00:16:26.940 are matching so means J and move i J
+
+00:16:32.310 plus 1 is a D but this is a they are not
+
+00:16:35.970 matching they are not matching then
+
+00:16:38.760 we're to move J at 2 2 then again
+
+00:16:43.890 compare J plus 1 a a match match C a B a
+
+00:16:52.380 B so a B already this portion is a B and
+
+00:16:55.920 this is also there here so we need not
+
+00:16:58.410 compare that we can continue from this
+
+00:17:00.900 portion here this was a mismatch you can
+
+00:17:03.330 again start from the beginning
+
+00:17:04.500 means we reach till here means this a we
+
+00:17:06.689 have came two times that came two times
+
+00:17:09.720 so one time you can skip on the second
+
+00:17:11.910 time on what you can continue checking
+
+00:17:13.560 so J plus 1 is matched with that
+
+00:17:17.180 one so Miss J move I J +1 match with
+
+00:17:23.960 that one so move J and move i J plus one
+
+00:17:29.090 is a D and I is also D so move J and i's
+
+00:17:33.340 incremented notice the end of a string
+
+00:17:35.570 actually this we have reached the end of
+
+00:17:37.310 a pattern so there is a pattern
+
+00:17:38.930 available inside the string that's all
+
+00:17:45.230 this is all kmpl for the work or the
+
+00:17:47.570 basic idea behind the kmpl go out almost
+
+00:17:50.000 that if the beginning part of a string
+
+00:17:51.980 is appearing again somewhere else in the
+
+00:17:53.750 string then don't again compare the
+
+00:17:57.140 characters right avoid the comparison
+
+00:17:59.750 and don't move i back again like it was
+
+00:18:02.960 happening in basic algorithm you might
+
+00:18:05.150 have observed that we were moving i only
+
+00:18:07.100 in forward direction we never back to at
+
+00:18:09.710 i then what is the time complexity of
+
+00:18:12.260 this k mb see the size of the string is
+
+00:18:14.960 and the size of the pattern if I say
+
+00:18:18.380 Emma then how many times we have gone
+
+00:18:21.020 through this only one time how many
+
+00:18:23.720 alphabets and so n is the time taken for
+
+00:18:26.530 parsing throw this string then for
+
+00:18:30.800 preparing a table we have parts for this
+
+00:18:32.810 one so how many alphabets here Emma
+
+00:18:35.690 so for preparing table M and for
+
+00:18:38.540 searching a pattern and this is for a
+
+00:18:41.420 table that is PI table and this is for
+
+00:18:44.990 search so the total time is n plus n so
+
+00:18:51.020 this is one of the faster algorithm for
+
+00:18:53.210 pattern matching

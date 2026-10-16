@@ -1,0 +1,607 @@
+# 4.5.1 0/1 Knapsack Problem (Program) - Dynamic Programming
+
+# https://www.youtube.com/watch/zRza99HPvkQ
+
+
+
+00:00:00.000 hi the topic is zero and have set
+
+00:00:02.220 problem using dynamic programming
+
+00:00:04.040 already I have one video on this problem
+
+00:00:06.810 where I have explained how the dynamic
+
+00:00:08.700 programming approach is used for solving
+
+00:00:11.610 zero knapsack problem then I have shown
+
+00:00:14.730 more than one methods but here I am
+
+00:00:17.490 going to discuss the program for that
+
+00:00:19.859 one so I have written a program and I
+
+00:00:22.020 will trace the program and solve the
+
+00:00:23.910 problem so that you get the idea how to
+
+00:00:25.650 write a program for this type of problem
+
+00:00:28.640 you may be aware of the problem that a
+
+00:00:31.080 knapsack problem is a bag is given you
+
+00:00:33.210 have to include the objects in the bag
+
+00:00:35.790 such that the capacity should not
+
+00:00:38.070 increase and when you include the bag
+
+00:00:40.379 you will get the profit and you should
+
+00:00:42.390 include the complete object or don't
+
+00:00:43.920 need it at all now for solving this one
+
+00:00:47.340 I have taken one instance example here
+
+00:00:49.980 so inside the program if you see look at
+
+00:00:52.469 the program this is the data that I need
+
+00:00:54.809 I need array of prophets array of
+
+00:00:56.940 weights and the number of objects and
+
+00:00:59.070 the total capacity of the bag now one
+
+00:01:01.949 thing to observe here is I have only
+
+00:01:03.270 four objects but the array size I have
+
+00:01:05.040 taken five because we want to start
+
+00:01:07.799 counting from one first object will not
+
+00:01:09.990 call it as zero we will call it as one
+
+00:01:11.729 that is the reason I am taking 0th index
+
+00:01:14.010 m/t that is 0 this is also 0 now for
+
+00:01:18.299 solving this problem we need a table so
+
+00:01:21.630 that table size should be of 5 comma 9
+
+00:01:24.630 so 5 is 0 2 4 4 4 objects and the 9 is 0
+
+00:01:29.159 2 8 for 8 waits so whatever the capacity
+
+00:01:34.409 is you should take that many columns and
+
+00:01:36.180 how many objects you have that many rows
+
+00:01:38.369 and you should add a 0th row and 0 2
+
+00:01:40.890 column also so that's all K of 5 - 9 5
+
+00:01:44.759 minutes leave it before 9 minutes 0 to 8
+
+00:01:46.740 so I will get 5 rows and nine columns
+
+00:01:49.939 now this is the working see one thing I
+
+00:01:53.759 have written just a main function
+
+00:01:55.920 everything inside main function I did
+
+00:01:57.780 not write it into multiple functions
+
+00:01:59.579 because I don't need it here if I have
+
+00:02:02.369 to write I can write the logic in some
+
+00:02:04.110 other function and divide the program
+
+00:02:05.640 into
+
+00:02:06.080 or three functions butts waste I have
+
+00:02:08.900 written a simple code here and this will
+
+00:02:11.390 work only for this example if you want
+
+00:02:13.400 it to work for a different example just
+
+00:02:15.170 change the values and compile it and run
+
+00:02:17.450 it if you say no it should always run
+
+00:02:20.180 for different type of objects a
+
+00:02:22.580 different number of objects then take
+
+00:02:24.470 these values as input from the keyboard
+
+00:02:26.390 ask how many objects are there what is
+
+00:02:28.730 the capacity and what are their weights
+
+00:02:30.920 and prophets you can add the code here
+
+00:02:33.140 now remaining part this is the logic so
+
+00:02:35.930 I have focused only on the logic let us
+
+00:02:38.060 follow this funnel how this is working
+
+00:02:40.550 this is nested for loop I'm Adam is
+
+00:02:43.250 taking from 0 to n then 0 to 4 is 4 rows
+
+00:02:47.840 of this table and the W value is from 0
+
+00:02:51.470 to n ma so 0 to 8
+
+00:02:54.650 it is 4 columns I and J will be changing
+
+00:02:57.650 the values of rows and columns how they
+
+00:03:00.620 work let us trace this to follow and
+
+00:03:04.220 fill up the table initially I is 0 I is
+
+00:03:08.060 0 and I is less than equal to M and so
+
+00:03:11.900 enter inside and W is also 0 W is 0 now
+
+00:03:20.570 enter inside if I is 0 or W 0 if any one
+
+00:03:24.410 of them is 0 then this condition is true
+
+00:03:26.030 if you observe there are 3 cases here so
+
+00:03:28.880 this is first in the second and the
+
+00:03:31.340 third so if is it true so I command a
+
+00:03:34.580 value as made as 0 that is 0 comma 0 is
+
+00:03:37.340 minus 0 this is 0 so actually right now
+
+00:03:41.270 I is here that is 1 0 through and the W
+
+00:03:44.570 was here now W will move to 1 so this is
+
+00:03:49.130 0 comma 1 so enter inside again I values
+
+00:03:54.950 0 only so this will be 0 see now W will
+
+00:03:58.400 be taking the values from 0 1 2 till 8
+
+00:04:01.370 so W will become 2 then 3 then 4 then
+
+00:04:04.519 till 8 always I is 0 only so this will
+
+00:04:07.459 be filled with zeros only now next is
+
+00:04:13.900 the signal loop ends now I plus plus I
+
+00:04:17.380 becomes one I moves to Row one now we'll
+
+00:04:20.769 be considering first object now let us
+
+00:04:23.530 start W W will be 0 the first time when
+
+00:04:27.130 W 0 then also the same first condition
+
+00:04:30.010 is true so this will be 0 so till now
+
+00:04:33.160 only first condition was true
+
+00:04:34.949 next let us see W becomes 1 W becomes 1
+
+00:04:40.810 now when W becomes 1 this is not true
+
+00:04:44.169 now check this one weight of ight object
+
+00:04:47.500 is less than equal to W what is w 1
+
+00:04:51.280 weight of the object is already I have
+
+00:04:53.410 written in here weight is 2 here 2
+
+00:04:55.660 weight of 1 but I is 1 is to 2 is it
+
+00:05:00.130 less then W no else this one what to
+
+00:05:04.360 write here in K of I comma W right I
+
+00:05:07.780 minus 1 comment a value that is 1 comma
+
+00:05:10.630 1 right 0 comma 1 so that is 0 only that
+
+00:05:14.260 value in the above row in the same
+
+00:05:17.110 column just fill up the same value so we
+
+00:05:20.050 have seen this also and this also now
+
+00:05:22.900 next W becomes 2 when W is 2 1 comma 2
+
+00:05:27.940 now this time this condition will be
+
+00:05:30.639 true weight of an object is less than
+
+00:05:32.830 equal to W so weight of an object rid of
+
+00:05:35.650 1 2 that is equal to 2 now this formula
+
+00:05:39.700 is computed let us see how this formula
+
+00:05:42.490 is computed so I follow the formula K of
+
+00:05:47.470 1 comma 2 1 comma 2 I comma W is max off
+
+00:05:57.360 T of I profit of first object so P of
+
+00:06:02.590 first object plus K of I minus 1 K of I
+
+00:06:09.580 is what 1 1 minus 1 and W of sorry W
+
+00:06:19.720 minus weight of the object
+
+00:06:21.909 what is it W 2 so what is the weight of
+
+00:06:24.960 object weight of an object is 2 2 comma
+
+00:06:30.470 next value K of I minus 1 I is 1 1 minus
+
+00:06:37.470 1 and W is 2 only I have to take the
+
+00:06:42.960 maximum out of these two let us fill the
+
+00:06:46.289 values and check profit of first object
+
+00:06:48.660 is 1 plus K of 0 comma 0 s 0 comma this
+
+00:06:55.410 is 0 comma 2 0 comma 2 this 0 so which
+
+00:07:00.090 is maximum 1 take it as 1 that's it next
+
+00:07:06.740 value of W changes it becomes 3 now I
+
+00:07:11.070 will simply change the values W is a 3
+
+00:07:13.650 now so this is a 3 w is 3 so this is 3
+
+00:07:19.590 and this is also 3 let us fill up the
+
+00:07:23.699 values P 1 profit will be 1 only Plus
+
+00:07:26.550 this is 0 comma 1 0 comma 1 is also 0
+
+00:07:31.080 only comma
+
+00:07:32.430 this is 0 comma 3 0 comma 3 this value
+
+00:07:36.240 now para value is 0 since 1 so anyway
+
+00:07:39.659 all these rows will be 1 only if I use
+
+00:07:41.729 the formula and always this second
+
+00:07:43.919 condition will be true and it will be
+
+00:07:45.419 entering in and finding the maximum rise
+
+00:07:47.659 let us go to next row I becomes 2 and W
+
+00:07:54.449 again starts from 0 now this time W is 0
+
+00:08:00.120 1 of the value is 0 so it will enter
+
+00:08:02.280 here it will fill 0 and 2 comma 1 when W
+
+00:08:09.090 is 1 see this condition weight of an
+
+00:08:12.449 object is less than or equal to W weight
+
+00:08:15.270 of an object is 3 is it less than this
+
+00:08:17.550 one no this is greater than that one so
+
+00:08:21.360 it will enter into L spot and it will
+
+00:08:23.070 write down the value in the previous row
+
+00:08:24.780 in the same column so it will write 0
+
+00:08:26.969 only for here also 1 & 4 here no it is
+
+00:08:31.320 equal so now it will enter into the
+
+00:08:34.320 second part so let me evaluate second
+
+00:08:36.929 part for this but
+
+00:08:38.010 Claro now this is 2 comma 3 2 comma 3
+
+00:08:44.720 profit of second object this is 2 minus
+
+00:08:48.660 1 weight is 3 and the weight of this
+
+00:08:53.880 object is also 3 2 minus 1 and the
+
+00:08:59.250 weight is 3 I have filled the values in
+
+00:09:02.520 this formula directly maximum of P of 2
+
+00:09:07.530 profit of the second object is 2 plus
+
+00:09:09.930 this is 1 comma 0 1 comma 0 is 0 comma
+
+00:09:15.600 this is 1 comma 3 1 comma 3 is 1 which
+
+00:09:19.830 is minimum 2 2 is written here now in
+
+00:09:24.360 the next value also you will get 2 only
+
+00:09:26.700 if you try that but here for this it
+
+00:09:29.850 will change let me show you this so I is
+
+00:09:33.690 it to only W is 5 so I will change the
+
+00:09:36.660 value of W this is 5 and this is 5 and
+
+00:09:41.160 this is fine for the same room what are
+
+00:09:45.270 the values profit of second object is 2
+
+00:09:47.550 plus K of 1 comma this is 2 1 comma 2 is
+
+00:09:53.580 1 1 comma this is 1 comma 5 1 comma 5 is
+
+00:09:59.370 1 only 1 out of this which is minimum
+
+00:10:01.800 maximum 2 plus 1 3 is maximum we got 3
+
+00:10:05.940 this means that when the capacity of the
+
+00:10:08.550 bag is 5 we can fill up two objects both
+
+00:10:11.820 objects this one would see their rates
+
+00:10:14.670 are 2 & 3 total is 5 so we can include
+
+00:10:17.490 both objects rest I'll get the same
+
+00:10:21.240 thing only 3 3 3 now when I becomes a 3
+
+00:10:26.370 third object till raid 4 will be getting
+
+00:10:30.390 same thing in the previous row now here
+
+00:10:34.830 this object can be included we get 5 and
+
+00:10:37.560 the next talks of 5 if you use the
+
+00:10:41.520 formula next this one I will show you 3
+
+00:10:45.420 comma 6
+
+00:10:46.810 kay of 3 comma 6 is maximum of P of
+
+00:10:52.930 third object plus K of 2 and the weight
+
+00:11:02.980 is how much 6 WS 6 and the weight of
+
+00:11:07.210 this furnace weight is 6 minus weight of
+
+00:11:12.850 the object is 4 6 minus 4 comma K of 2
+
+00:11:18.460 comma 6 let us check profit of this
+
+00:11:23.170 object 5 plus 2 comma this is 2 2 comma
+
+00:11:27.490 2 2 comma 2 is 1 1 comma 2 comma 6 2
+
+00:11:32.650 comma 6 is 3 which one is greater than 6
+
+00:11:35.589 so answer is 6 this means that when the
+
+00:11:39.070 capacity of the bag is a 6 wind can
+
+00:11:42.190 include these two objects these two
+
+00:11:44.770 objects for as well as 2 means first
+
+00:11:48.250 object and the second object so the
+
+00:11:49.660 profit that we get is 6
+
+00:11:51.810 let us try next when it is 7 so 3 comma
+
+00:11:56.950 7 so this becomes 7 and this becomes 7
+
+00:12:01.860 profit of this object is 5 plus 2 comma
+
+00:12:06.070 7 minus 4 that is 3 2 comma 3 2 comma 3
+
+00:12:09.820 is 2 2 comma 2 comma 7 2 comma 7 is 3 3
+
+00:12:15.670 which one is greater 7 7 what does this
+
+00:12:20.290 mean when the capacity of the bag is 7
+
+00:12:22.870 we can include these two objects you see
+
+00:12:24.910 their rates are 3 + 4 7 so it will be
+
+00:12:28.120 profit will be 7 5 + 2 7 so restaurants
+
+00:12:31.750 will get 7 this way every time second
+
+00:12:34.510 condition is true and these are getting
+
+00:12:36.580 filled right first and say last
+
+00:12:38.740 condition will not get filled now for
+
+00:12:41.020 the fourth room for through its weight
+
+00:12:44.560 is 5 till 5 these will be as it is and
+
+00:12:49.200 fifth profit will be 6 and when it is 6
+
+00:12:54.600 it will be 6 only and when it is 7 then
+
+00:12:58.690 these 2 can be included
+
+00:13:00.160 so that is two and five they can be
+
+00:13:03.460 included so this will be 7 7 and at 8
+
+00:13:07.870 these two can be included at 5 and 3 so
+
+00:13:10.810 this will be 8 without the formula I'm
+
+00:13:13.600 showing you know you have understood how
+
+00:13:14.920 this code is working finally see out K
+
+00:13:19.390 of N comma W and as a for W is 8 so this
+
+00:13:23.980 dancer this dance so this the optimal
+
+00:13:31.210 cost we got now we want to know which
+
+00:13:34.510 object is included which is not included
+
+00:13:37.180 so for that we can start I from n that
+
+00:13:44.110 is N and J from M that is 8 so 4 comma 8
+
+00:13:49.870 they will start for 4 comma 8 what to do
+
+00:13:53.530 if K of I comma J is equal to K of I
+
+00:14:02.260 minus 1 comma J this means that if this
+
+00:14:06.820 value is already present in this one
+
+00:14:08.650 also it means if this is also 8 means
+
+00:14:12.340 fourth object is not included this
+
+00:14:14.320 solution is not because of including
+
+00:14:17.050 fourth object we got eight now only so
+
+00:14:20.050 this means fourth object is included so
+
+00:14:22.840 if this is equal means it is not
+
+00:14:25.000 included so if it is not included then
+
+00:14:27.340 what I can do is see out for that is
+
+00:14:33.390 fourth object that is I is equal to 0
+
+00:14:39.550 this will be displayed right and then
+
+00:14:42.250 and also go to the previous object so
+
+00:14:46.150 and wait will be same only I - - I have
+
+00:14:49.660 written in the single row only because
+
+00:14:52.590 see this is not equal this is not equal
+
+00:14:55.540 then what to do it means this object is
+
+00:14:57.910 included so see out I is equals to 1
+
+00:15:03.820 this is included in the back and this is
+
+00:15:08.050 ended
+
+00:15:09.220 and then then what more I should do go
+
+00:15:12.280 to the previous row okay I - - but what
+
+00:15:16.330 about wait when this object is included
+
+00:15:18.670 I have to know to the previous object
+
+00:15:20.830 whether it is included or not so the
+
+00:15:22.630 weight of this object that is six should
+
+00:15:25.360 sorry five should be subtracted from J
+
+00:15:27.790 so as we move this J assign J - weight
+
+00:15:33.550 of that object ID object weight of that
+
+00:15:38.920 object and let's all this means part so
+
+00:15:44.560 this I have to continue I have to go on
+
+00:15:46.990 doing it while I is greater than zero
+
+00:15:51.190 and J is greater than zero so this loop
+
+00:15:55.180 will print what all the values included
+
+00:15:57.610 see how we do it see fourth object
+
+00:15:59.950 included now the weight of this object
+
+00:16:02.080 is five subtract five with three so go
+
+00:16:04.720 to 2 comma 3 sorry 3 comma 3 3 comma 3 -
+
+00:16:08.110 but this was there here also so third
+
+00:16:10.810 object is not included now - comma 3
+
+00:16:13.270 this one this is all was not there here
+
+00:16:16.900 so this object is in few dead right then
+
+00:16:19.900 the weight of this is subtracted 0 comma
+
+00:16:21.850 0 so you will get 0 1 comma 0 1 comma 0
+
+00:16:25.180 it was here also so this is not included
+
+00:16:27.850 so this means second and the fourth
+
+00:16:29.710 object is included okay so quickly I
+
+00:16:34.180 have shown you I guess you know how to
+
+00:16:35.800 do this form so the piece of code I have
+
+00:16:38.290 written if you want to continue writing
+
+00:16:39.670 here so using a loop you can go from the
+
+00:16:42.520 last row towards the first 0th row and
+
+00:16:45.250 find out which objects are included
+
+00:16:47.260 which are not included see it is just
+
+00:16:49.300 playing with the values only just
+
+00:16:50.710 filling the values but the code is
+
+00:16:52.930 important so I have shown you the code
+
+00:16:54.870 tracing of the program so this program
+
+00:16:57.970 you can find in the link

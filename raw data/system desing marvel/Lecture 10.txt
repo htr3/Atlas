@@ -1,0 +1,303 @@
+# tactiq.io free youtube transcript
+# Monarch: Google's Planet-Scale In-Memory Time Series Database
+# https://www.youtube.com/watch/NxPTVhc1tFA
+
+00:00:01.920 We are talking about Google
+00:00:03.480 Monarch today, which is a paper from
+00:00:06.720 2010.
+00:00:08.960 Monarch is a time series data store.
+00:00:11.240 So at Google,if you want to store server side metrics,
+00:00:13.920 for example, how much CPU was used,and if you want to plot that as a graph.
+00:00:18.280 So time is on the xaxis and CPU used on the y axis.
+00:00:23.480 Then monarch can store data points here
+00:00:26.960 such that later onyou can plot them on a graph.
+00:00:30.920 You might also noticethat there is a spike at one point,
+00:00:34.560 in which caseyou might want to dig into this position.
+00:00:38.680 Timestamp t one.
+00:00:39.880 What makes monarch unique is the scaleat which Google operates.
+00:00:43.480 So the amount of data that is being pushedin per second is 6 million data points.
+00:00:51.800 In total it is petabytes worth of data.
+00:00:56.440 And since it is a time series data storewhich will be used
+00:00:59.120 to track metrics in real time,this is going to need very low latency.
+00:01:05.720 I'm talking about less than 100milliseconds.
+00:01:09.680 There's one other major problemthat monarch solves.
+00:01:13.480 if a system at Google is down.
+00:01:15.880 The reaction timetotally depends on monarch.
+00:01:19.800 If spanner goes down,monarch doesn't go down.
+00:01:22.920 if Colossus goes down,monarch still goes on.
+00:01:26.120 It can't have a hard dependencyof any of these systems.
+00:01:29.280 you have extremely high availability.
+00:01:32.240 Let us see how Google built this system.
+00:01:40.040 So let's go back to 2010.
+00:01:41.560 You are the principal engineer at Google.
+00:01:43.120 And you hear these complaintsfrom engineers who say, I have a system.
+00:01:47.680 I am running Google Photosand my fleet of servers.
+00:01:53.400 Pushes metrics to
+00:01:55.720 a system, a monitoring system.
+00:01:59.200 Every time there's a problem,I have to log in to this system
+00:02:02.960 and see where things went wrong.
+00:02:05.880 You ask them, how did they develop this?
+00:02:07.720 And they say, oh,there's a common library.
+00:02:09.919 There's something called Borgman,
+00:02:12.880 which means board monitor at Google.
+00:02:15.200 This library is used by all systems,all of the server fleets that we have
+00:02:20.800 to push metrics.
+00:02:22.400 To the monitors.
+00:02:24.840 So this is likeyou having a very large company,
+00:02:27.720 and you have different teamsin that company.
+00:02:29.520 Each of those teams is deploying Borgmanindividually in their own set of servers.
+00:02:34.400 If Borgman goes down for them,then they have to manage it, okay?
+00:02:37.800 And they also have to know some internalsof Borgman to actually be able to use it.
+00:02:42.880 And this is not very good.
+00:02:44.080 You see thatmultiple teams are doing the same thing.
+00:02:46.520 Duplicate work.
+00:02:48.160 If you can save engineering time,you can save engineering money.
+00:02:51.120 Okay. Money for the company.
+00:02:53.080 So you are the principal engineer.
+00:02:55.120 Like I said, you are
+00:02:57.640 going to look at this problem and say,
+00:02:59.920 I can solve this problem in a common way
+00:03:03.720 by moving away from Borgman to one arc.
+00:03:07.960 This is going to be my time
+00:03:08.960 series data storewhere various metrics will be pushed in.
+00:03:12.760 People do not need to worry about itmuch because they will have other clients,
+00:03:15.960 which will be taking data and periodicallypushing to the monarch's servers.
+00:03:20.640 And so one decision that you makealmost immediately is you have petabytes
+00:03:24.360 worth of data, which has to be accessedat any given point in time.
+00:03:27.480 So this system has to be in-memory.
+00:03:35.520 Okay.
+00:03:36.080 And in-memory data store having petabytes
+00:03:39.600 worth of datais going to be a very expensive system.
+00:03:43.120 But hopefully with the requirementsthat we have,
+00:03:45.840 it is going to be worth it.
+00:03:53.000 Let's understand what kind of datais being stored in monarch.
+00:03:55.680 For observing the health of systems.
+00:03:58.000 One important metric is request latency.
+00:04:00.480 Servers emit eventsevery time they process a request.
+00:04:04.280 The amount of time that this requesttook to complete.
+00:04:07.440 So that could be ten, five, ten, two, six,
+00:04:10.120 and so on.
+00:04:13.760 If you plot these values in a graph.
+00:04:15.960 It will look something like this.
+00:04:17.600 Visually, you can see the anomaly,
+00:04:19.399 but what monarch does ismake this detection even easier.
+00:04:23.160 Instead of plotting request latencies,
+00:04:25.960 it makes a histogram of request latencies.
+00:04:29.360 So 0 to milliseconds were takenfor eight of the requests.
+00:04:34.080 One request was servedwithin 11 to 20 milliseconds,
+00:04:37.240 and one request took between 81and 90 milliseconds.
+00:04:40.880 When you plot the histogram of this,
+00:04:42.560 engineers can easily tell youwhat are p99 latencies.
+00:04:46.480 And also if they detect anomalieslike this.
+00:04:49.200 They can trace the request using examples.
+00:04:52.280 Monarchs stores examples for every.
+00:04:54.760 Window in the histogram.
+00:04:56.400 So from 0 to 10 you will find one examplerequest that is a normal processing time.
+00:05:02.280 From 11 to 20you will find another example.
+00:05:04.800 In our case there is only one requestwhich took 16 milliseconds.
+00:05:07.760 So that will be stored.
+00:05:08.720 The trace ID will be storedand 81 to 90 has one request.
+00:05:13.160 which engineers can use.
+00:05:14.560 To dig deeper in the system.
+00:05:17.120 So this histogram
+00:05:18.440 explains how well requests were servedwithin a time window.
+00:05:22.680 The initial graph had requests with timeon the x axis and latency on the y axis.
+00:05:28.160 If you look at the time window here.
+00:05:30.080 The resultant frequency graph.
+00:05:31.840 Notes down this time window.
+00:05:33.680 And what monarch does is for every timewindow it stores a histogram.
+00:05:38.400 which explains howwell the system is doing across time.
+00:05:41.480 So an engineer can.
+00:05:42.800 Dig into a single time window,or they can get an aggregate.
+00:05:46.200 Across multiple histograms.
+00:05:49.920 One of the most impressive
+00:05:51.280 things about monarchis you store billions of data points.
+00:05:55.040 In memory.
+00:05:56.200 This would not be feasible unless Googleapplied compression algorithms.
+00:05:59.640 If you try to keep the raw data in memory.
+00:06:01.840 You will require millions of servers,which is going to be too expensive.
+00:06:06.280 So Google applies two techniques here.
+00:06:08.080 One is to share the timestamp.
+00:06:10.440 You see timestampone here is going to be shared across
+00:06:13.520 all the histogramsgenerated for different metrics.
+00:06:17.360 This results in 90% savingswhen storing timestamp values.
+00:06:21.640 The other benefit of thisis interpolating data or doing joints
+00:06:25.840 across metrics is much easier nowbecause they are broken into time.
+00:06:30.280 Windows Sharing the same timestamps.
+00:06:33.120 So if you want to see.
+00:06:34.240 How did request latency?
+00:06:35.640 React to changing memory usage.
+00:06:37.480 Doing so is easy because.
+00:06:39.400 You have a direct mapping with timestamps.
+00:06:43.400 The otheralgorithm is differential encoding.
+00:06:46.160 Here you have values in each histogram.
+00:06:49.600 Let's say 811 for these time windows.
+00:06:53.080 In the next histogram you expect thatmost of the values will be similar.
+00:06:57.040 You are probably going to get 7 to 1.
+00:06:59.240 So instead of storing these threebig numbers we can take the differences
+00:07:02.520 of the numbers And storethese smaller numbers using fewer bits.
+00:07:06.680 This helps compress every time seriesfor every metric.
+00:07:10.200 By around 90%.
+00:07:11.800 So instead of storing exabytes of datain memory,
+00:07:14.880 we can do with just petabytes of data.
+00:07:23.800 So this is the high levelarchitecture of monarch.
+00:07:25.640 You have a route in blue.
+00:07:28.000 And this is just one rootnode in the world.
+00:07:31.360 You also have zones.
+00:07:32.640 So 30 or 40 zones around the world.
+00:07:34.840 And these are like childnodes for the route.
+00:07:37.240 And each of those zoneshas a bunch of leaf nodes.
+00:07:41.200 Okay.So the data points are being stored here.
+00:07:44.640 And the query actually comes and hitsthe root.
+00:07:46.800 Always very similar to Dremel.
+00:07:49.320 In fact you will see many components areextremely similar to Dremel.
+00:07:54.120 You have datawhich is being written to by services.
+00:07:57.360 So every one second tell me how much CPUis consumed per server, that kind of data.
+00:08:02.200 Those data pointsare being ingested into this server.
+00:08:04.680 This is going to buffer the datafor a while,
+00:08:07.320 and it is also going to route itto the right zone.
+00:08:11.400 Okay.
+00:08:12.040 So this router belongs to a particularzone.
+00:08:16.320 the router then is able to move the datato the right leaf node.
+00:08:20.160 It has a mapping of key to list
+00:08:23.080 And so data can be persisted over here.
+00:08:25.800 Each of these leaves
+00:08:27.960 is connected to.
+00:08:29.560 Colossus.
+00:08:31.200 Which is a distributed filestored at Google.
+00:08:33.440 There was a Google file systemearlier GFS which used to do this.
+00:08:38.000 This is used for storing logs.
+00:08:42.400 So you
+00:08:43.039 can think of each metric as a log linein case a leaf server crashes.
+00:08:46.840 It can go and pick up from Colossusthat data and rehydrate itself.
+00:08:51.200 So there is fault tolerancealso over here.
+00:08:54.280 Whenever there is a query, it comes
+00:08:57.960 to the root.
+00:08:59.840 The root tries to findwhere this query belongs to.
+00:09:02.280 What zones are responsiblefor the incoming query.
+00:09:06.480 It then sends the query to relevant zones.
+00:09:10.240 The zone itself has multiple leaves.
+00:09:12.920 It looks at the key, the list of keysthat have been asked in this query.
+00:09:16.880 And then it hits the right leaves.
+00:09:19.600 Once the leaves have a result,they propagate it upwards to the zone.
+00:09:23.560 The zone aggregates.
+00:09:24.520 The result sends it back to the root,which aggregates it again
+00:09:27.560 and sends it back to the client.
+00:09:30.320 To speed upquery execution, you also have an index.
+00:09:33.360 So at the root level you have one index
+00:09:35.280 which tellsyou where a query should be rooted.
+00:09:37.720 So instead of storing that index hereand managing the index here,
+00:09:40.720 you have it in a separate component.
+00:09:43.760 You also havethe same concept in the zone.
+00:09:47.520 So where does a key belong.
+00:09:48.920 Which leaves does it belong tois stored in an index.
+00:09:51.920 This is similar to a database index.
+00:09:54.680 One major optimization for.
+00:09:56.600 Making queries fast in monarch.
+00:09:59.160 Is the idea of field hints index.
+00:10:02.080 This is stored in the index. So.
+00:10:03.960 What this does is takeevery key That a leaf is storing.
+00:10:08.160 And convert it into trigrams.
+00:10:10.360 So that's three consecutive characters.
+00:10:12.560 Created by sliding a window of sizethree across the key.
+00:10:16.320 So trigramfour courses will look like this.
+00:10:19.680 Start. Start c.
+00:10:20.960 Start c o c or u, and so on.
+00:10:24.200 Till s dollar dollar.
+00:10:25.560 Okay. Dollar. Here is the ending sign.
+00:10:27.760 And now you take each of these trigramsand hash them.
+00:10:30.960 You will get a bunch of numbers.
+00:10:32.640 This is like the unique fingerprintOff that key.
+00:10:36.400 When you get a query for the key,the only leaves that you are interested in
+00:10:40.440 are the ones which satisfy all of thesetrigrams which contain all of these.
+00:10:45.120 So this is very similarto the idea of a bloom filter.
+00:10:48.000 where an element can exist if and only if.
+00:10:50.640 All the indexescorresponding to those trigrams.
+00:10:52.920 Are set to value one.
+00:10:55.040 If this is the case, we go to leaf.
+00:10:57.000 Otherwise we do not.
+00:10:58.120 The benefit of this is 99.5%.
+00:11:01.200 of all leaves are ignoredthanks to this field hints index.
+00:11:05.120 Thanks to this trigram algorithm.
+00:11:06.960 So you have sped up your query execution.
+00:11:09.640 By 200 x. At the zone level.
+00:11:12.520 And on top of that the root index.
+00:11:14.080 So reduces fan out by 80%.
+00:11:17.400 So again you have.
+00:11:18.560 Sped up your query execution by five x.
+00:11:21.640 In total queries execute 1000 times fasterthanks to the indexes.
+00:11:26.960 This lets engineers at Googlefind data blazingly fast.
+00:11:31.960 And the other commonuse case is a pre-computed cache.
+00:11:34.400 Very often you have periodic queriesbeing fired on manok.
+00:11:37.760 So you want to see the overall healthof a server.
+00:11:40.680 You say, what is the maximumCPU usage in the last one minute
+00:11:45.080 So you do not need to fire a queryevery time from root
+00:11:47.440 reaches the zoneand hit the leaf for that.
+00:11:49.600 Maybe you can pre-compute that queryand store it in a cache for ozone.
+00:11:54.880 In some cases there
+00:11:55.840 are global querieswhich you want to keep pre-computed.
+00:11:58.840 So in that case you will be usingthe pre-computed cache of the root.
+00:12:04.520 You can imagine them to fire a queryevery 10s to the root node.
+00:12:08.680 The root node goes to the zone, getssome value from the pre-computed cache.
+00:12:12.960 Most of the data is right here,but in case it needs to,
+00:12:15.320 it will go and hit some leavesand give a response.
+00:12:18.440 The cache is helpfulmainly for repeated queries.
+00:12:20.920 Any general query follows the rootzone and leaf path.
+00:12:25.200 Also for fault tolerance.
+00:12:26.240 What monarch does is store the datanot just in one leaf, but in three leaves.
+00:12:30.440 So these three leaves are chosenfor a single zone.
+00:12:33.600 If a zone goes out, thenyou may not be able to query those leaves,
+00:12:36.880 but that is fine.
+00:12:37.800 At least one leaf server going outis not going to stop your queries.
+00:12:41.520 This reducesthe tail latency of most queries.
+00:12:44.040 Also it provides some fault tolerance.
+00:12:46.240 in case the leaf server has a lot of load,and you want to assign
+00:12:48.800 some of the shards in that leafto some other leaf.
+00:12:51.400 What you can do is continueserving requests on this leaf.
+00:12:55.120 Meanwhile, migratethe data from Colossus to this new leaf.
+00:12:59.040 Once the leaf is ready,after a second or two, You can stop
+00:13:02.280 answering queries from this leafand answer queries only from this leaf.
+00:13:06.560 Okay, so there is a periodwhere both leaves can respond to queries,
+00:13:10.200 but that helps avoid request latencythat keeps the availability of the
+00:13:13.680 system high.
+00:13:14.440 In case there's any problemwhile migrating data.
+00:13:17.160 Well, that doesn't reflect on the client.
+00:13:20.120 These two other things which increasethe availability of the system.
+00:13:23.040 One is when a rootis trying to get a query from a zone.
+00:13:27.080 If the zone is not respondingfor the first five seconds.
+00:13:30.680 And let's saythe request timeout in total is 10s, then
+00:13:34.720 what the root expects is the zone to startgiving partial results.
+00:13:38.760 So this is called a soft timeoutin case you do not give me any results
+00:13:42.520 in the first five seconds.I'll cancel the query.
+00:13:45.320 If you start giving me resultsfor the first five seconds,
+00:13:48.320 then I'll wait for you to complete.
+00:13:50.400 I will wait in total for 10s.
+00:13:52.040 That's my request timeout.
+00:13:53.240 But my soft timeout is just five seconds.
+00:13:56.000 So in this wayI'm not depending on you too hard.
+00:13:58.400 I can go and hit some other zoneif needed,
+00:14:00.520 or at least I can feel the queryand tell the client that you know
+00:14:03.240 it didn't work out.You can try again after some time.
+00:14:05.920 The other thing is,if a zone is trying to query a leaf
+00:14:09.560 and the leaf is not responding,then it can start hedging its bets.
+00:14:13.320 Meaning,if you know that both of the leaves
+00:14:15.560 have the data,Then you send the query to the first leaf.
+00:14:18.400 Wait for a second.
+00:14:19.720 If there is no response,send the query to the second leaf.
+00:14:22.000 Also, you do not wait for an entire 10sbefore this fails and tells you I'm sorry.
+00:14:26.680 The zone at second number one and secondnumber two can query the other leaf.
+00:14:30.320 Get the response quickly.
+00:14:31.720 Even if you have the samerepeated response here, you just ignore it
+00:14:34.960 and you can send back the responsewithin two seconds instead of ten.
+00:14:39.000 So that's it for Google.
+00:14:39.960 Monarch.
+00:14:40.320 It's an in-memory time series databasewhich stores petabytes worth of data
+00:14:44.640 and is able to respond to queriesin tens of milliseconds.
+00:14:48.280 Also, it has some dependency on Colossus,
+00:14:52.240 on Spanner, on maglev,which is the load balancer at Google,
+00:14:55.920 but it doesn't have any hard dependencyin case things go wrong.
+00:14:59.080 This is a quote from a Google engineerif things are literally on fire,
+00:15:03.280 monarch is still runningIf you have any doubts
+00:15:05.560 or suggestions on this video,do let me know in the comments.
+00:15:07.920 And if you like this kind of systemdesign content, check out interview ready.
+00:15:10.840 I'll see you next time.

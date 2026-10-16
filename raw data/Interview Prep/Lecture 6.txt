@@ -1,0 +1,318 @@
+# tactiq.io free youtube transcript
+# What is Fast Exponentiation?
+# https://www.youtube.com/watch/-3Lt-EwR_Hw
+
+00:00:00.780 I guess this is ekts we are talking
+00:00:03.600 about fast experimentation today and
+00:00:05.250 specifically what you're trying to say
+00:00:07.019 is you have a number a raised to the
+00:00:09.690 power n and what you're trying to get is
+00:00:12.059 B so of course the most beautiful way to
+00:00:15.089 do this is to take a multiply it with a
+00:00:18.300 itself n times taking a result so this
+00:00:23.100 is us to approach which is order N and
+00:00:27.230 complexity that's a little too slow and
+00:00:30.180 usually in context to people much better
+00:00:32.759 isn't it so what's our first idea but
+00:00:36.629 you have this entire
+00:00:38.870 expression why not divide and conquer
+00:00:42.059 why not break it into parts and
+00:00:43.199 recursively pause so you have this a 2
+00:00:48.149 into 2 and so forth n by 2 n
+00:00:52.309 into this is the merging operation
+00:00:56.719 into a into again current of course n by
+00:01:00.389 three times now here of course I'm
+00:01:02.039 undoing that n is an even number and so
+00:01:04.680 I could divide it property to two using
+00:01:06.869 power look at what happens if n is on so
+00:01:10.530 this is equal to P
+00:01:12.170 what we see here we see that this
+00:01:15.450 expression is exactly the same as this
+00:01:18.090 expression
+00:01:19.579 so if you can calculate from this part
+00:01:22.049 you never need to touch this part you
+00:01:24.329 can just it in this part if I needs to R
+00:01:27.899 which is the good all we need to do is
+00:01:30.780 multiply that with oil itself without
+00:01:32.880 evaluating this expression and you can
+00:01:35.310 be
+00:01:37.820 what happens if n is odd because if n is
+00:01:42.359 odd then you would have an extra a over
+00:01:44.789 here
+00:01:49.670 even have extra a and you could take the
+00:01:52.890 flow of n by D
+00:01:55.399 that will be the flow of n by 2
+00:02:00.469 right
+00:02:02.899 what can we do about this but we have
+00:02:05.969 the expression value equal results are
+00:02:08.598 we have this value R so why don't we
+00:02:12.060 just multiply both of them is a to get
+00:02:15.320 me
+00:02:16.210 but this is the season on a competition
+00:02:18.980 that stays around what NY to poverty
+00:02:22.600 right and why we clapping here we can
+00:02:25.640 take our itself which is equal to
+00:02:29.830 into into it turn to put n by two times
+00:02:33.830 and
+00:02:34.930 break that into two
+00:02:39.010 components of n by for
+00:02:46.540 the may be able to break of course is
+00:02:48.650 very simple to how we procure tickets
+00:02:50.270 even then we just multiply both result
+00:02:52.940 if it ought then be multiplied with a
+00:02:54.980 photosensitive and so that is equal to
+00:02:58.580 our
+00:02:59.350 this we can say value a to protect and
+00:03:02.090 solid support so what is the base
+00:03:04.820 condition if n is raised to power
+00:03:08.450 whatever we are dividing it by 2 raised
+00:03:10.700 to the power of fa e is equal to 1
+00:03:16.660 then we know that this is a single
+00:03:19.040 element remaining
+00:03:20.410 which is equal day
+00:03:23.980 so that'll mean that
+00:03:26.440 FY this number is equal to K and once
+00:03:33.020 there is good to be equal f of 0 is
+00:03:37.610 equal to 1
+00:03:39.520 that's the way they are going to be
+00:03:41.390 working this problem are let's write
+00:03:43.850 some code for this so now let's have a
+00:03:46.160 look at the code we have power which
+00:03:48.950 takes this base a and an exponent n what
+00:03:52.970 happens if n is 2 power video is given
+00:03:55.610 to us that would mean n is equal to 0 so
+00:03:58.520 we should return water because there
+00:04:00.950 integrates about the good one
+00:04:02.680 secondly if a is for 1000 that is equal
+00:04:07.520 to 8 cents
+00:04:08.590 so that's what we're doing over here if
+00:04:10.760 n is equal to 1 then you return a simple
+00:04:13.489 base conditions done let's go political
+00:04:15.410 partner that we in this block we go so
+00:04:19.940 in R is being assigned the power of n
+00:04:22.760 comma n by T
+00:04:24.580 so a to the power n by 2
+00:04:29.680 is one will be told an odd
+00:04:33.669 what is it is called a series of n is
+00:04:37.040 nothing but R into R
+00:04:39.639 if n is even so if any reason then you
+00:04:43.940 have R into R and that will be returned
+00:04:46.000 so the curse of usually more doing this
+00:04:49.870 you know they didn't follow the boundary
+00:04:52.190 it gets to these base conditions but if
+00:04:55.280 n is odd then like we discussed we have
+00:04:57.949 missed out on a particular event is
+00:04:59.300 coming between so what we need to do is
+00:05:01.780 here is for n then is equal to R into 8
+00:05:05.600 into us which is what we have done here
+00:05:09.940 so this entire function this simple
+00:05:12.979 function which actually
+00:05:14.950 reduce the time complexity that you have
+00:05:17.150 from one with any this is obviously we
+00:05:20.870 were doing a brute-force approach of
+00:05:22.190 order n
+00:05:26.199 so something much much better so this
+00:05:28.610 analyzer so let's understand the time
+00:05:30.979 complexity we have a raise to power n
+00:05:33.620 which is initially you pass in the
+00:05:35.720 parameters en n to the function and it
+00:05:38.600 will be broken into two sub parts of a
+00:05:40.729 combine by 2 and e comma n by 2 so you
+00:05:44.479 see that over here
+00:05:47.260 everything in blue needs to be computed
+00:05:49.700 everything in red will never be computed
+00:05:51.889 because it's already been done with the
+00:05:54.229 blue touch ok and the blue branches
+00:05:57.349 represent this line over here
+00:06:00.849 now it is for n by 2 breaks into two
+00:06:05.780 subparts himself which is a delta n by 4
+00:06:07.970 n is n square by 4 and so on and so
+00:06:10.639 forth it is it n is 2 power water
+00:06:13.570 so what we have it is the power 1 will
+00:06:17.539 give us a base condition will terminate
+00:06:20.330 and the time we go to the parrot when
+00:06:23.539 you are a parent you come to this this
+00:06:26.150 has now been computed and you come here
+00:06:29.060 over here you do have single computation
+00:06:31.360 particular creation which is option 1
+00:06:34.789 finishes basically so that is order 1
+00:06:38.820 - Tommy alert to your own parent which
+00:06:41.979 is somewhere over here and so on and so
+00:06:44.199 forth so
+00:06:46.680 after the point that we have n by two
+00:06:52.479 degrees to the power X equal to one we
+00:06:55.449 go on branching at this point n by
+00:06:58.240 English about X is equal to one for some
+00:07:00.370 integer X
+00:07:01.650 so let's find out what X is n
+00:07:04.979 is equal to 3 to the power X excuse us
+00:07:08.949 you take the log over here so log of n
+00:07:12.220 base 2 is equal to X less
+00:07:16.560 is that we have to we are doing
+00:07:21.930 order log in operation or
+00:07:26.190 XO with order dog in branching and order
+00:07:30.370 log in merging we are getting the entire
+00:07:32.440 set of a raised to power n because the
+00:07:36.970 result will be propagated of the better
+00:07:38.320 in this Mustang so your oranges answer
+00:07:43.530 your group shows answer used to take
+00:07:45.940 order n operations
+00:07:47.729 and beyond watered down to order log in
+00:07:50.460 so this result is actually basically
+00:07:52.840 treats because if you have n equal to 10
+00:07:55.270 is to part with that
+00:07:58.139 means that you will take about Arista
+00:08:02.560 part will into every computer can make
+00:08:06.010 our 10 is about 8 computations per se so
+00:08:09.340 that is n is the power short at
+00:08:13.590 10,000 seconds for this kind of number
+00:08:17.139 on the other hand this baggage
+00:08:19.360 operations to do
+00:08:21.870 you require about 40 computation that's
+00:08:25.330 all what the upon which is in
+00:08:28.349 microseconds
+00:08:31.680 so that's how big the difference is if
+00:08:35.559 you choose a good algorithm
+00:08:38.940 finally what we are going to look at is
+00:08:41.490 taking this number and actually finding
+00:08:45.130 the remainder of it with a number so B
+00:08:48.550 mod n is what you're looking for
+00:08:52.060 so that in turn is equal to e raise to
+00:08:54.589 power n mod n how do you evaluate this
+00:08:58.579 expression efficiently
+00:09:01.689 the previous example that you look down
+00:09:04.160 a little contrived because if you are
+00:09:06.709 multiplying a number by itself lots and
+00:09:09.680 lots of and then you are going to see
+00:09:12.439 the details of it very fast so let's say
+00:09:14.870 you have equal to 6 and you multiply 6
+00:09:19.610 with itself 10 9
+00:09:21.819 2016 it's about 10
+00:09:24.639 so this is equal to about
+00:09:27.249 here let's just go for something simple
+00:09:29.569 let's go for 8
+00:09:32.889 8 raised to power 10 is importantly to
+00:09:35.899 calculate because n is equal to n so
+00:09:39.559 this is to waste about 3
+00:09:41.769 this about 10 to swing for 30 which is
+00:09:45.259 on one belief so you see that for small
+00:09:48.649 numbers 8 and 10 we are getting really
+00:09:51.740 big values and what would be a double
+00:09:54.860 book so this becomes 16 this becomes
+00:09:59.470 2016 is the power 20 is what we need
+00:10:02.740 that's equal to
+00:10:05.050 2 is above whole range over 20 which is
+00:10:09.920 2 minutes about 80 now this number would
+00:10:13.040 not even fit in long
+00:10:14.800 so
+00:10:16.449 the bone day that I have is 64 bits 64
+00:10:19.490 bits they are going to throw something
+00:10:21.199 likes to it for 64
+00:10:23.290 so yes
+00:10:25.329 even for the seemingly small values make
+00:10:27.769 it easily hit the original bit so what
+00:10:31.220 we really need to do is look at those
+00:10:33.529 questions which have a
+00:10:35.709 modulo operation in this that so you can
+00:10:38.209 actually use Heart Association
+00:10:39.800 more often than not the first thing we
+00:10:41.929 need to prove is that all is an
+00:10:43.610 expression a is about n mod n is equal
+00:10:47.089 to a 2 power n by 2 mod n into various
+00:10:50.569 power n by 2 water
+00:10:52.149 model of the entire thing and the e2
+00:10:55.429 expression should be equal that's what
+00:10:57.230 this condition should point for us to do
+00:11:00.230 some fancy degrees later on so
+00:11:04.160 let's try to do that for me
+00:11:07.630 let's simplify the expression let's say
+00:11:10.520 this is 2 power n by 2
+00:11:13.900 is equal to some P
+00:11:17.290 so what we have now is P mod n
+00:11:22.660 into P mod n
+00:11:26.770 should be put okay yes modest and
+00:11:30.140 outside -
+00:11:32.650 this should be equal to e
+00:11:36.100 raised to power n is equal to P Square
+00:11:38.510 so P Square
+00:11:40.900 mod n that's all that we need to prove
+00:11:45.100 so
+00:11:46.720 let's find out what T is in terms of n
+00:11:50.350 he can be defined in terms of n this
+00:11:54.170 will be 0 for some constant K now let us
+00:11:58.610 do some ok let's have the quotient
+00:12:03.160 with n plus remainder that would be is
+00:12:07.250 let's use that so the left hand side
+00:12:10.100 expression is M Q plus R
+00:12:14.200 mod n
+00:12:16.030 into M Q plus R mod n
+00:12:21.940 modern mentality
+00:12:25.810 what does that tell when this term is
+00:12:29.630 divisible by n the remainder with any
+00:12:32.540 which should be equal to 0 so this term
+00:12:34.160 should be equal to 0 some genuine in
+00:12:36.470 this term
+00:12:37.570 so now what we have is
+00:12:41.290 this is equal to R
+00:12:44.050 mod n
+00:12:46.300 into R mod M
+00:12:50.050 mod n
+00:12:52.900 R is less than n okay so after taking
+00:12:57.590 the remainder with M is 1 why didn't you
+00:13:00.260 so it was either greater than n then you
+00:13:02.480 put the powerful that is a quotient
+00:13:03.650 itself it would become the machine so
+00:13:06.440 mod n is not going to be taken into
+00:13:09.740 consideration when we have an R square 1
+00:13:11.780 it all right and we are nearly there
+00:13:14.180 also
+00:13:15.190 this is equal to R square Martin
+00:13:24.389 so let's - let's just say R square mod n
+00:13:28.199 equal to n is it
+00:13:30.930 now let's take the right hand side
+00:13:38.459 the right hand side is e square morning
+00:13:41.610 that tells us that
+00:13:44.370 P was equal to NQ + R so
+00:13:49.949 NQ + r the whole square
+00:13:54.180 mod n is equal to n square Q square plus
+00:14:00.399 R square plus 2n q our business and
+00:14:03.670 identity of course we're
+00:14:07.290 more n
+00:14:09.720 this term is moved by n so it remainder
+00:14:13.689 with n is going with you this is U this
+00:14:17.430 term is divisible by n again you have n
+00:14:21.069 here so it's divisible by n n to be the
+00:14:24.430 0
+00:14:25.529 so all you have the minis are Square and
+00:14:28.720 you can from this U is now R square mod
+00:14:32.350 n is what you have here this is your
+00:14:35.529 other this this is your little and
+00:14:38.279 like a true interview on your phone and
+00:14:40.420 it is equal to artist so this identity
+00:14:44.259 holds these two bodies valid I'll put a
+00:14:47.350 things like we have the power function e
+00:14:50.139 n which is going to give you a valid mod
+00:14:53.769 n so if n is even we do the same thing
+00:14:56.769 except then we also mod with n for every
+00:15:00.519 dessert a little bit through bit right
+00:15:03.130 now that that is requirement and then
+00:15:05.380 more than that multiplication with
+00:15:08.079 Omegan otherwise if it's odd then we
+00:15:12.579 have an extra a is no here and the same
+00:15:14.829 thing happens we just wanted to test
+00:15:16.180 again finally you have a
+00:15:19.680 step of n mod n in this log and six
+00:15:27.380 all right so that's it for our party
+00:15:31.380 presentation you could extend this to
+00:15:33.510 matrix's also you can have this number a
+00:15:36.000 and that could be a matrix and
+00:15:39.320 the same thing will work so morning with
+00:15:42.900 n is also fine if your monument every
+00:15:45.150 element of it and this comes up often in
+00:15:48.270 programming contests so if the useful
+00:15:50.220 thing to know about as we sharing some
+00:15:52.080 cold and red links in the description
+00:15:54.210 below if you have any doubts or comments
+00:15:55.800 please leave them below and we looking
+00:15:57.570 at them soon enough thanks for watching
+00:15:59.340 and see you next

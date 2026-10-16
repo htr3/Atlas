@@ -1,0 +1,705 @@
+# Row-Major and Column-Major Mapping
+
+# https://www.youtube.com/watch/MJZd6uPi88E
+
+
+
+00:00:01.840 hi in this video I'm going to talk about
+
+00:00:04.759 row measure and column measure
+
+00:00:06.240 representation or
+
+00:00:09.759 mapping here we will learn how
+
+00:00:13.400 compilers manage arrays either single
+
+00:00:17.119 Dimension or two dimensional or three
+
+00:00:19.600 dimension how they manage the arrayment
+
+00:00:22.279 what the machine code they write when we
+
+00:00:24.760 use arrays in our
+
+00:00:27.320 program so let us see
+
+00:00:30.480 here I have declared an array of size
+
+00:00:33.440 five in our program when we declare any
+
+00:00:37.280 array then at run time we get the array
+
+00:00:40.320 space of specified
+
+00:00:42.280 size here the indices are starting from
+
+00:00:45.000 0 to 4 as a c language example if you
+
+00:00:49.840 take this is called as Base
+
+00:00:55.480 address or this is also called as
+
+00:00:59.519 location Z or
+
+00:01:01.840 l so L here is
+
+00:01:07.119 100 in our
+
+00:01:09.200 program if we write a of 2 assign
+
+00:01:15.040 15 here is
+
+00:01:19.920 15 when we write this statement compiler
+
+00:01:22.960 will convert this into machine code so
+
+00:01:26.200 for storing the value 15 at this
+
+00:01:28.280 particular location it needs the address
+
+00:01:31.360 of that location and that address of
+
+00:01:33.119 that location is 104 as per our example
+
+00:01:36.280 so here it should be replaced with
+
+00:01:40.240 104 so let us see how compiler will make
+
+00:01:43.560 it as
+
+00:01:44.960 104 so when we use any index or any
+
+00:01:49.159 location of an array when we access
+
+00:01:51.520 compiler will convert it into a formula
+
+00:01:54.840 which will get the address of that
+
+00:01:57.200 location at
+
+00:01:58.439 runtime so let us see how it will write
+
+00:02:01.719 down the
+
+00:02:02.719 formula address
+
+00:02:05.600 of a of
+
+00:02:09.720 2 this address cannot be absolute it
+
+00:02:13.720 will generate a formula for getting
+
+00:02:16.280 relative address so for relative address
+
+00:02:19.239 the base address is taken L KN plus the
+
+00:02:24.040 index what we have written two then
+
+00:02:28.640 into the size of the data type here we
+
+00:02:32.200 have taken integer as a data type so
+
+00:02:34.920 integer is two bytes so that is two so
+
+00:02:38.200 this
+
+00:02:39.560 is size
+
+00:02:42.440 of data
+
+00:02:48.159 type so at runtime if the program is
+
+00:02:52.239 getting the memory at location 100 that
+
+00:02:55.280 100 is becoming the Base address of an
+
+00:02:57.200 array then here it will be 100 + 2 into
+
+00:03:02.159 2 that is
+
+00:03:04.760 104 that's how it gets the address of
+
+00:03:07.480 any
+
+00:03:11.159 location for any location a
+
+00:03:15.120 ofi to get the address of any location
+
+00:03:18.560 compiler will replace it with the
+
+00:03:20.959 formula L KN I into W and W is word size
+
+00:03:29.159 this is in
+
+00:03:30.799 index and this is word size so word size
+
+00:03:35.080 is the size
+
+00:03:37.360 of data
+
+00:03:39.640 type if it is float in C language it
+
+00:03:42.599 will be four bytes if it is character
+
+00:03:44.480 then it will be one by depending on the
+
+00:03:46.680 data type the value of w may
+
+00:03:50.319 change so this is how the formula is
+
+00:03:53.040 written by the compiler we write simply
+
+00:03:56.280 a of I or a of two anything but it will
+
+00:03:59.879 replaced by the formula by using that
+
+00:04:02.159 particular
+
+00:04:06.040 index some languages preor to C language
+
+00:04:09.599 before c language languages used to
+
+00:04:11.640 allow the indices starting from one
+
+00:04:14.560 onwards so here you can see the index is
+
+00:04:17.759 starting from one onwards and in the
+
+00:04:19.839 Declaration also a array a starts from
+
+00:04:22.759 one and at five now in this case what
+
+00:04:26.320 will be the formula so for getting the
+
+00:04:29.120 address of an any
+
+00:04:31.240 location a of
+
+00:04:34.520 I formula will be L
+
+00:04:39.160 + I
+
+00:04:41.160 -1 into
+
+00:04:43.400 W as for this example if you get the
+
+00:04:46.639 address of a of
+
+00:04:50.280 2 then L KN is
+
+00:04:55.360 100 + I is 2 - 1
+
+00:05:00.919 into 2 so this
+
+00:05:03.720 gives 100 + 2 that
+
+00:05:07.199 is2 so yes this is2 index of 2
+
+00:05:11.600 is2 so this is the formula used for
+
+00:05:16.280 accessing any location if the indices
+
+00:05:19.240 are starting from one
+
+00:05:22.199 onwards this used to happen in the
+
+00:05:25.639 languages before c language after C
+
+00:05:27.919 language every language started
+
+00:05:29.319 supporting array indices starting from
+
+00:05:31.720 zero onwards the reason is if you see
+
+00:05:34.560 the formula for indices starting from
+
+00:05:38.520 zero just now we saw the formula was L +
+
+00:05:43.080 I into W if you compare with this
+
+00:05:46.160 formula for indices starting from one
+
+00:05:48.840 then one operation is extra here minus
+
+00:05:52.280 is extra so from C language onwards this
+
+00:05:56.400 extra operation is removed and they
+
+00:05:58.720 force the program Hammer to declare an
+
+00:06:00.639 array starting from index zero
+
+00:06:06.080 only now before that c language some
+
+00:06:09.160 languages used to allow the indices
+
+00:06:10.880 starting from any index ending at any
+
+00:06:13.400 index let us say even we can declare an
+
+00:06:15.919 array a
+
+00:06:17.240 of
+
+00:06:18.800 -3 to
+
+00:06:21.880 5 as some type let us say
+
+00:06:25.520 integer so even this was allowed so if
+
+00:06:29.319 the language is allowing the indices
+
+00:06:31.039 like this it depends on the compiler if
+
+00:06:33.800 the compiler is allowing it like this
+
+00:06:35.800 then what will be the formula so the
+
+00:06:38.080 address of any location a of
+
+00:06:41.479 I can be obtained by taking L KN plus
+
+00:06:47.520 IUS lower
+
+00:06:49.800 bound into word
+
+00:06:52.120 size this will be the formula for any
+
+00:06:55.000 starting
+
+00:06:57.000 index that's all for one dimensional
+
+00:06:59.879 arrays now let us go to two dimensional
+
+00:07:05.280 arrays in two dimensional array there
+
+00:07:07.599 are two options either a compiler can
+
+00:07:10.440 follow row measure method or column
+
+00:07:12.840 measure method so there are two type of
+
+00:07:17.520 mapping here I have declared an array of
+
+00:07:20.199 size 3x 4 and we draw using pen and
+
+00:07:24.120 paper we draw an array like this with
+
+00:07:26.479 indices so and so but in real
+
+00:07:30.280 the array will be created as a single
+
+00:07:34.080 Dimension single dimension in real
+
+00:07:36.400 because memory is linear and the memory
+
+00:07:39.000 has a single value address that is
+
+00:07:41.960 integer
+
+00:07:43.400 address so actual array will be created
+
+00:07:46.720 like this but compiler will allow us to
+
+00:07:50.000 access the array in the two-dimensional
+
+00:07:52.240 form so I have taken the addresses 500
+
+00:07:55.560 52 4 6 and the NEX is this is 8 this
+
+00:07:59.720 this location so this how the addresses
+
+00:08:02.120 are
+
+00:08:07.720 taken now first we will see row measure
+
+00:08:10.840 mapping for this
+
+00:08:12.720 one here I have taken some elements I
+
+00:08:17.159 have also filled with the elements then
+
+00:08:19.840 let us see how these elements are stored
+
+00:08:22.039 in real in the main
+
+00:08:27.680 memory a 0 is stored
+
+00:08:31.000 here then a
+
+00:08:33.440 01 02 and
+
+00:08:37.080 03 this is first row the
+
+00:08:40.799 next 1 1 1 1 2 1 3 this is second row so
+
+00:08:48.080 the elements will be filled row by Row
+
+00:08:50.800 in row major
+
+00:08:54.200 mapping so compiler Maps this two
+
+00:08:57.440 dimensional array on the single Di
+
+00:08:59.440 Dimension
+
+00:09:05.320 array so the elements will look like
+
+00:09:11.120 this now this is row major
+
+00:09:13.120 representation the elements
+
+00:09:15.480 from this 2D array are mapped on a
+
+00:09:18.120 single Dimension array row by row this
+
+00:09:22.920 is row
+
+00:09:26.959 0o row one and this is row
+
+00:09:32.959 two now let us see how the compiler will
+
+00:09:36.200 make use of Base address and generate
+
+00:09:39.680 the
+
+00:09:41.760 formula for getting the address of an
+
+00:09:46.040 location a
+
+00:09:48.640 of 2
+
+00:09:51.440 comma
+
+00:09:53.000 1 now 2 comma 1 if you see it is 518
+
+00:09:57.440 here it is 518
+
+00:10:00.279 so this will be location 0
+
+00:10:08.040 plus location zero is this
+
+00:10:11.640 address now it has to go to second row
+
+00:10:15.720 so it should skip two rows first row and
+
+00:10:18.839 second row so it has
+
+00:10:21.160 to skip two rows and in each row how
+
+00:10:24.920 many elements are there the dimension of
+
+00:10:27.120 this array is 3x4 3 cross 4 so each row
+
+00:10:31.640 is having four elements so this is
+
+00:10:37.279 four now when you skip two rows you'll
+
+00:10:40.600 be at the beginning of third row that is
+
+00:10:44.720 row two now you have to move one element
+
+00:10:48.079 ahead so that is
+
+00:10:50.160 one and this whole thing is multiplied
+
+00:10:53.639 by the size of
+
+00:10:55.560 integer so this gives 500
+
+00:11:01.240 + 9 into
+
+00:11:03.600 2 so that is
+
+00:11:06.519 518 so this how it gets the address so
+
+00:11:10.120 it means for getting the address of any
+
+00:11:14.320 location a of I comma
+
+00:11:17.560 J compiler will write the
+
+00:11:22.320 formula L KN I into if the dimensions
+
+00:11:27.760 are M cross n
+
+00:11:30.040 then this is
+
+00:11:31.920 n
+
+00:11:33.560 plus
+
+00:11:35.079 J and this is V
+
+00:11:38.240 size that's it this is the row measure
+
+00:11:41.839 formula when the indices are starting
+
+00:11:44.440 from zero
+
+00:11:48.519 onwards if the indices are starting from
+
+00:11:51.000 one
+
+00:11:52.120 onwards then the formula for any
+
+00:11:55.680 location
+
+00:11:57.320 address of any location
+
+00:12:00.920 is written
+
+00:12:03.480 as
+
+00:12:07.480 l+ I -1 into
+
+00:12:12.399 n
+
+00:12:14.279 plus
+
+00:12:16.720 jus1 this whole thing multiplied by
+
+00:12:20.880 W let us find the address of 3 comma 2
+
+00:12:25.079 here
+
+00:12:26.959 518 so address of
+
+00:12:33.760 of
+
+00:12:38.199 32 L KN is
+
+00:12:41.800 500
+
+00:12:43.880 plus 3 -
+
+00:12:47.120 1 into
+
+00:12:49.800 4 + 2 -
+
+00:12:54.920 1 this whole thing is multiplied by w
+
+00:12:59.760 and this is 500
+
+00:13:02.880 +
+
+00:13:04.920 8 + 1
+
+00:13:08.000 9 into 2 so this is
+
+00:13:14.399 518 that's it this all about row major
+
+00:13:24.120 representation next we will see column
+
+00:13:26.240 measure mapping or column measure
+
+00:13:27.800 representation
+
+00:13:30.160 I have taken a two dimensional
+
+00:13:32.800 array and basically the array created in
+
+00:13:36.959 main memory will be single Dimension and
+
+00:13:39.560 these will be the addresses assume that
+
+00:13:41.480 address starts from 500 onwards and I
+
+00:13:44.480 have taken some
+
+00:13:47.240 elements then how the elements are
+
+00:13:49.279 filled
+
+00:13:51.120 are a0 0 a 1 0
+
+00:13:57.639 a20 this is
+
+00:13:59.600 column
+
+00:14:01.000 Z then column
+
+00:14:08.600 1 column two and so
+
+00:14:12.800 on so the array looks like
+
+00:14:18.639 this AR looks like
+
+00:14:21.959 this now let us see how the column
+
+00:14:24.399 measure formula is written if you want
+
+00:14:27.240 to get the address of a location
+
+00:14:30.959 that is a of 1A 2 1A 2 is at
+
+00:14:36.199 54 so address of a of 1 comma
+
+00:14:43.120 2 is taken
+
+00:14:45.920 as location Z
+
+00:14:51.279 Plus now two it has to go into second
+
+00:14:55.199 column so location Zer is 500 it's here
+
+00:14:59.040 so it has to skip two columns so two
+
+00:15:02.959 columns so as the dimensions are 3 cross
+
+00:15:07.399 4 that is M cross
+
+00:15:10.320 n number of elements in each column are
+
+00:15:14.759 three so this is three
+
+00:15:18.519 plus once we skip two columns we will be
+
+00:15:22.600 here in the beginning
+
+00:15:24.240 of third
+
+00:15:26.759 column then we have to move only one
+
+00:15:29.040 location that is what I so this is one
+
+00:15:34.199 and this whole thing multiplied by
+
+00:15:37.040 2 so this is
+
+00:15:39.240 500 + 7 into
+
+00:15:42.959 2 this is
+
+00:15:48.319 514 if you make it as a formula formula
+
+00:15:51.560 for finding the address of any
+
+00:15:53.880 location I and
+
+00:15:57.199 J is
+
+00:15:59.560 L KN
+
+00:16:01.279 + J into
+
+00:16:04.680 m +
+
+00:16:10.199 I multiplied by
+
+00:16:13.360 W that's it this is the form formula for
+
+00:16:17.199 column major
+
+00:16:19.480 mapping in some languages array indices
+
+00:16:22.560 start from one onwards then what will be
+
+00:16:24.800 the
+
+00:16:26.199 formula address of any location
+
+00:16:29.920 e of i
+
+00:16:33.240 j will be L KN
+
+00:16:37.199 + gus1
+
+00:16:41.120 into
+
+00:16:44.560 m+ i -
+
+00:16:47.040 1 whole thing multiplied by
+
+00:16:50.560 W if you want to get the address of any
+
+00:16:53.360 location
+
+00:16:59.000 let us
+
+00:17:00.720 say a 1A 4 that is
+
+00:17:04.280 518 let us get the address by putting
+
+00:17:07.119 the values in the
+
+00:17:08.439 formula address of
+
+00:17:12.839 14 this is location L KN is
+
+00:17:16.839 500 plus J value is 4 so 4 -
+
+00:17:22.400 1
+
+00:17:24.039 into this is 3 CR 4 that is M CR n
+
+00:17:29.520 so M value is
+
+00:17:31.080 3 so
+
+00:17:33.000 3 + 1 -
+
+00:17:37.240 1 this is integer
+
+00:17:39.600 type if you assume that this is integer
+
+00:17:42.320 type then this is
+
+00:17:46.280 two so this is 500
+
+00:17:52.559 + 9 into
+
+00:17:54.799 2 and this is
+
+00:17:57.360 518 that's it we got the address
+
+00:18:02.360 518 now finally let us look at the
+
+00:18:05.200 formula for R major and column major
+
+00:18:07.840 mapping if the array indices are
+
+00:18:09.640 starting from zero
+
+00:18:11.600 onwards both the formulas are given here
+
+00:18:14.840 l l + I into n + J into W and here J
+
+00:18:20.200 into n + I into W if you see the
+
+00:18:23.080 operations this is having 1 2 two
+
+00:18:26.760 addition operations and two
+
+00:18:29.240 multiplications so here also two
+
+00:18:31.440 additions and two multiplications so we
+
+00:18:34.640 can see that both the formulas are
+
+00:18:37.280 equally efficient both are equally
+
+00:18:40.039 efficient so a compiler can use any one
+
+00:18:42.760 of the formula so if we are designing
+
+00:18:45.120 our own compiler we are designing our we
+
+00:18:48.039 developing our own language then we can
+
+00:18:50.600 use any one of these formulas but the C
+
+00:18:53.520 language and all the
+
+00:18:55.280 languages that belongs to C family they
+
+00:18:58.440 use row major
+
+00:19:01.080 mapping that's all thank you for
+
+00:19:03.159 watching the video please leave comments
+
+00:19:07.400 so that I can improve the videos based
+
+00:19:10.480 on your feedback thank you for watching

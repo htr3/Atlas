@@ -1,0 +1,989 @@
+# 4.8 Reliability Design - Dynamic Programming
+
+# https://www.youtube.com/watch/uJOmqBwENB8
+
+
+
+00:00:00.060 the problem has a reliability design in
+
+00:00:03.659 this video I'll explain you what the
+
+00:00:05.640 problem is then I'll take a example
+
+00:00:08.670 problem from the textbooks mostly found
+
+00:00:10.530 in the textbook then I'll explain how to
+
+00:00:12.210 solve that problem first of all let us
+
+00:00:14.700 understand what the problem is see the
+
+00:00:16.830 problem is we have to set up our system
+
+00:00:21.769 set up our system a system consists of
+
+00:00:28.380 some devices let us say d1 d2 d3 d4 I
+
+00:00:33.120 have some devices and have to take this
+
+00:00:35.610 dividers and set up a system for example
+
+00:00:37.890 I have to set up a studio for that I
+
+00:00:40.050 need a board and the camera and the
+
+00:00:42.750 batteries and lights and markers these
+
+00:00:45.690 things I need in the setup so let us
+
+00:00:48.329 call them as devices now each device is
+
+00:00:51.149 having some cost say there is some cost
+
+00:00:53.610 cost 1 cos 2 cos 3 and gospel and each
+
+00:00:57.539 device is having some reliability means
+
+00:01:00.510 what is the probability of working good
+
+00:01:02.340 like board that reliability is high
+
+00:01:04.979 lights the reliability is low they may
+
+00:01:07.979 go off and the marker the reliability is
+
+00:01:10.710 much lower it may dry up select that
+
+00:01:14.130 what is the chances that it works
+
+00:01:16.049 perfectly that is called as a
+
+00:01:17.400 reliability so each device is having
+
+00:01:20.009 some reliability now what the problem is
+
+00:01:25.340 see the reliability of devices may vary
+
+00:01:29.100 suppose the reliability of hdy was 0.9
+
+00:01:33.420 each device is 0.9 then what is the
+
+00:01:37.110 reliability of an entire system that is
+
+00:01:39.750 product of all the reliability so it is
+
+00:01:42.689 0.9 power 4 this is 0.65 6 1 see though
+
+00:01:52.500 the reliability of each device is 0.9
+
+00:01:55.470 but the reliability of entire system is
+
+00:01:58.409 0.65 means there are 35% chances of that
+
+00:02:03.090 system may fail so it means if I talk
+
+00:02:05.880 about the studio setup so I have to stop
+
+00:02:08.639 recording because of any of the reason
+
+00:02:11.068 that
+
+00:02:11.680 sargon or the camera is not working or
+
+00:02:14.650 marker is a tried so this could be the
+
+00:02:18.099 reasons I have to stop my recording so
+
+00:02:20.680 there are 35 person chances 65% chances
+
+00:02:24.670 it works perfectly so I have to improve
+
+00:02:27.489 my system and the problem is I want to
+
+00:02:30.129 set up a system such that the
+
+00:02:33.099 reliability is maximum so what I should
+
+00:02:37.150 do I should have more than one copies of
+
+00:02:40.299 markers or I should have more than one
+
+00:02:42.640 cameras I should have more than one
+
+00:02:44.739 lights see if one camera is off or gone
+
+00:02:48.280 damaged then I should use another camera
+
+00:02:50.470 in its place if the light is gone
+
+00:02:52.480 because of fluctuation then I should
+
+00:02:54.129 have another set of lights for
+
+00:02:56.829 continuing my recording so that's it so
+
+00:03:00.099 I should have the multiple copies of
+
+00:03:01.959 these devices we will call these that
+
+00:03:04.329 these devices are connected in series so
+
+00:03:07.150 now we should have the devices connected
+
+00:03:10.450 in parallel so same copies multiple
+
+00:03:13.480 copies of first device and multiple
+
+00:03:15.819 copies of second device so I should have
+
+00:03:19.090 multiple copies so we say that these are
+
+00:03:26.139 stages at each stage stage 1 and stage 2
+
+00:03:30.370 stage 3 stage 4 at each stage we'll have
+
+00:03:34.180 the multiple copies where one of the
+
+00:03:35.829 copy may be working the rest of the
+
+00:03:37.510 copies will be acting as backup if this
+
+00:03:39.970 fails then this will continue working in
+
+00:03:41.859 its place so we say they are in parallel
+
+00:03:43.959 and the system is designed with taking
+
+00:03:46.989 parallel copies of devices so what is
+
+00:03:49.419 the meaning here so that is I should
+
+00:03:50.829 have the multiple copies of marker or I
+
+00:03:53.139 should have multiple copies of Lights
+
+00:03:55.000 that is the meaning then if I have
+
+00:03:57.340 multiple copies whether the reliability
+
+00:04:00.430 of each will increase now let us see how
+
+00:04:03.579 to know whether the reliability of this
+
+00:04:05.500 stage has improved or not so I am having
+
+00:04:08.379 three copies the reliability of each
+
+00:04:10.659 device is 0.9 if I have three copies
+
+00:04:12.669 what will be there Allah
+
+00:04:13.950 of the stage so let us learn how to
+
+00:04:16.260 calculate the reliability of a stage see
+
+00:04:19.260 for the first device the probability of
+
+00:04:21.810 working wood is 0.9 then 1 minus r1 that
+
+00:04:25.710 is the probability of not working wood
+
+00:04:28.620 as 0.1 then I have 3 copies of this one
+
+00:04:33.389 see I have 3 copies here so for 3 copies
+
+00:04:37.110 what is the probability that all three
+
+00:04:39.150 copies has failed so all three copies
+
+00:04:42.389 has fail means point power 3 then this
+
+00:04:46.350 will be point zero zero one this is the
+
+00:04:49.470 probability that all three copies have
+
+00:04:51.570 failed then 1 minus 1 minus r1 to the
+
+00:04:55.950 power of 3 gives me the probability that
+
+00:04:58.229 three copies are working perfectly so
+
+00:05:01.290 that is 0.999 see there is a much
+
+00:05:06.720 improvement in the reliability it was
+
+00:05:08.729 just 0.9 now the reliability of first
+
+00:05:11.700 stage is 0.99 9 now finally it means
+
+00:05:17.340 that if I have multiple copies of the
+
+00:05:18.900 same device then the reliability of the
+
+00:05:21.120 system entire system may increase and we
+
+00:05:24.030 want maximum reliability so for that I
+
+00:05:26.460 should have the extra amount with me the
+
+00:05:28.680 extra capital for buying multiple copies
+
+00:05:31.940 so now the actual problem is if I have
+
+00:05:36.150 some cost with me C is the cost the
+
+00:05:39.180 total amount in my hand and I have to
+
+00:05:41.880 set up a system by buying these devices
+
+00:05:44.760 and connecting them so these devices how
+
+00:05:47.910 many copies of each device I should buy
+
+00:05:50.220 if within that cost such that the total
+
+00:05:53.880 reliability of the system is maximized
+
+00:05:56.570 this is the problem now let us take an
+
+00:05:59.729 example problem and solve it now here is
+
+00:06:03.210 an example I have three devices and the
+
+00:06:05.639 cost of the devices is given let us say
+
+00:06:08.010 that is in dollars thirty dollars
+
+00:06:09.690 fifteen and twenty dollars and the
+
+00:06:11.460 reliability of the devices is also given
+
+00:06:13.560 that is point nine point eight and 0.5
+
+00:06:15.590 then UI is the upper bound so let us
+
+00:06:21.599 understand what this upper bound is see
+
+00:06:23.940 we are trying to set up a sister
+
+00:06:26.200 by taking multiple copies so at least
+
+00:06:29.650 one copy I must take so for each device
+
+00:06:33.220 I must take C 1 plus C 2 plus C 3 that
+
+00:06:37.720 is sum of C I I should take one copy of
+
+00:06:40.660 each so that is 30 plus 15 plus 20 so
+
+00:06:45.640 this will become $65 so definitely I
+
+00:06:49.780 should take one copy of each device then
+
+00:06:52.150 the remaining amount I can spend for
+
+00:06:54.580 buying multiple copies of other devices
+
+00:06:57.690 so what is the remaining amount so
+
+00:07:00.310 actual cost is given as C so C minus sum
+
+00:07:04.450 of all CI is the remaining amount this
+
+00:07:07.930 is remaining so what is remaining one
+
+00:07:11.710 not five minus sixty five as forty so
+
+00:07:15.610 $40 sorry meaning and in that $40 how
+
+00:07:19.720 many copies of first device I can take
+
+00:07:21.730 how many I can take some second device
+
+00:07:24.100 for how many third like that I have to
+
+00:07:26.530 calculate so maximum how many copies I
+
+00:07:29.050 can take for each device so in this
+
+00:07:31.450 fifth 40 I can spend all 40 dollars on
+
+00:07:34.780 the first device only so how many copies
+
+00:07:37.450 I can take so 40 divided by 30 so I can
+
+00:07:41.770 take just one copy and this one so I can
+
+00:07:45.880 take one extra copy already one copy I
+
+00:07:50.170 said I must take it so how to know this
+
+00:07:52.810 now let me take it as a formula this is
+
+00:07:55.780 the remaining amount in that I have to
+
+00:08:00.160 divide it by CI the cost of that device
+
+00:08:02.800 and I should take the floor value plus
+
+00:08:05.740 one copy which I am already taking plus
+
+00:08:08.350 one so this result the remaining amount
+
+00:08:10.630 is $40 and this is $30 this is one then
+
+00:08:14.110 plus 1 so upper bound is 2 so I can take
+
+00:08:17.590 two copies of this device this is how we
+
+00:08:21.640 use the formula to find out in the
+
+00:08:24.100 remaining amount how many copies of each
+
+00:08:26.440 device I can take let us do it for the
+
+00:08:29.050 second device see $40 is remaining and
+
+00:08:31.960 the $15 is this one so I can take two
+
+00:08:35.169 copies and plus
+
+00:08:36.390 that is already there so three copies I
+
+00:08:39.059 can take and similarly this I can take
+
+00:08:42.679 for the third device I can take 40 by 20
+
+00:08:45.780 so two copies and plus one copy that I
+
+00:08:48.630 am already having so three copies I can
+
+00:08:51.330 take so this means that this gives the
+
+00:08:53.850 upper bound of any device how many extra
+
+00:08:57.210 copies I can take this is the formula so
+
+00:09:00.270 I have upper bounds for all this means
+
+00:09:03.090 that after taking one one copy of each
+
+00:09:06.030 by spending sixty five dollars in the
+
+00:09:09.780 remaining $40 if I spend all $40 on
+
+00:09:13.620 first device I can take two copies the
+
+00:09:16.110 first actually one I am taking plus one
+
+00:09:18.390 copy if I spent everything on second
+
+00:09:20.820 device then total how many copies of
+
+00:09:22.410 second device the one already we are
+
+00:09:23.850 taking here then remaining two more
+
+00:09:25.890 copies then likewise total three copies
+
+00:09:28.500 in so we have the upper bond for each
+
+00:09:30.710 now we have to find out how many copies
+
+00:09:34.200 of each device we should take such that
+
+00:09:36.480 the reliability of a system is maximized
+
+00:09:39.500 that's all about the problem I have
+
+00:09:42.660 explained you about the problem now how
+
+00:09:44.850 to solve it is just like the set method
+
+00:09:48.090 of zero-one knapsack problem now I will
+
+00:09:51.330 show you how to solve this one for
+
+00:09:53.040 solving this problem we will take a set
+
+00:09:56.160 of order pair so each order pair will
+
+00:09:59.370 have a reliability and the cost now
+
+00:10:03.660 first order page first said set a 0 this
+
+00:10:07.710 will be having ordered pair 1 and cost
+
+00:10:10.980 is 0 see so far nothing I have spend I
+
+00:10:14.700 have not purchased anything there is no
+
+00:10:16.440 system at all so right now the
+
+00:10:18.270 reliability is 1 starting because
+
+00:10:20.190 reliability will multiply if I take 0
+
+00:10:22.770 then the entire answer will be 0 so
+
+00:10:24.600 that's why we take reliability as fun
+
+00:10:26.990 now let us start consider d1 if I
+
+00:10:32.100 consider first device then how many
+
+00:10:34.170 copies I can take I can take 2 copies if
+
+00:10:37.320 I take only one copy of our device then
+
+00:10:39.960 what happens first device one copy
+
+00:10:43.350 device and the copy so
+
+00:10:46.670 reliability is 0.9 multiplied by this
+
+00:10:49.430 one 0.9 and the cost will be how much 30
+
+00:10:54.040 $30 added so if I take just one copy of
+
+00:10:58.520 the first device then the reliability
+
+00:11:00.230 will be 0.9 that is multiplied and the
+
+00:11:02.810 cost is added I can take two copies
+
+00:11:05.330 there so I will prepare one more set two
+
+00:11:08.000 copies of first device if I take two
+
+00:11:11.150 copies of the device then what will be
+
+00:11:13.310 the reliability of a stage so you
+
+00:11:15.050 remember we have calculated this one for
+
+00:11:17.240 first stage two copies we are taking so
+
+00:11:19.700 this is 1 minus 1 minus 0.9 whole square
+
+00:11:24.530 so this is 1 minus 0.9 this is point 1
+
+00:11:28.670 whole square 1 minus 0.01 and the
+
+00:11:33.170 reliability is 0.99 so this is 0.99
+
+00:11:37.840 multiplied by 1 so we get the same thing
+
+00:11:40.430 and we are taking 2 copies so this will
+
+00:11:42.740 be 16 then combine these two and form
+
+00:11:48.200 set 1 so this set 1 is for first device
+
+00:11:53.270 so what are the possibilities we have
+
+00:11:55.990 0.9 and $30 and 0.99 and $60 if I take
+
+00:12:05.690 one copy if I take two copies that's all
+
+00:12:09.320 this is the consideration of facet
+
+00:12:10.940 device now I will do the same thing for
+
+00:12:14.150 second device let us see consider d2 for
+
+00:12:18.920 second device so I have to prepare this
+
+00:12:20.770 sets now second device one copy if I
+
+00:12:25.040 take second device one copy what is the
+
+00:12:27.140 reliability 0.8 and the cost is 15 so
+
+00:12:31.040 that point 8 and cost 15 I should
+
+00:12:33.710 multiply with these to order pairs
+
+00:12:36.890 point 8 into 0.9 so this is 0.72 and the
+
+00:12:41.720 cost is 30 and this is 15 dollars so
+
+00:12:44.420 this will be 45 comma then with this
+
+00:12:48.980 also I should multiply that is point 8
+
+00:12:51.920 into point 9
+
+00:12:53.910 nine point seven nine two and the cost
+
+00:12:58.800 of this device is 15 so 15 added to this
+
+00:13:02.250 will be $75 this is one copy we have
+
+00:13:09.810 taken now actually we can take three
+
+00:13:12.240 copies let us take a second copy so if I
+
+00:13:16.380 take two copies of this one first of all
+
+00:13:19.170 let me calculate the reliability of this
+
+00:13:22.380 stage if there are two copies eientei it
+
+00:13:25.020 is the reliability if there is only one
+
+00:13:27.000 copy then if there are two copies I will
+
+00:13:29.640 calculate here one minus one minus
+
+00:13:33.230 reliability of second device two copies
+
+00:13:35.850 and this will be one minus one minus 0.8
+
+00:13:39.600 whole square one minus this will be
+
+00:13:42.660 point two whole square so this will be 1
+
+00:13:46.980 minus 0.04 this will be zero point nine
+
+00:13:51.930 six so I am taking two copies so the
+
+00:13:54.930 cost will be $30 so 0.96 and 30 I should
+
+00:13:59.010 multiply and add with these two order
+
+00:14:01.500 page so 0.9 into 0.96 will be point
+
+00:14:06.120 eight six food and the cost that is $30
+
+00:14:09.480 and this is $30 so it will be $60 then
+
+00:14:13.290 next one is throw into nine six with
+
+00:14:17.220 this one this one so 0.96 into point
+
+00:14:20.820 nine nine point nine five zero four and
+
+00:14:24.240 the cost will be sixty plus 30 90 so two
+
+00:14:30.570 copies I have taken now one thing to
+
+00:14:32.550 observe here see when I have two copies
+
+00:14:37.470 the total cost is $90 I am having and
+
+00:14:41.220 one not $5 $95 gone remaining $15 now if
+
+00:14:47.430 I take this that is two copies of second
+
+00:14:52.260 device then coming purchased her device
+
+00:14:55.290 do I have that remaining amount or not
+
+00:14:58.260 five minus 90 15 $20 I need $20 in my
+
+00:15:03.840 hand so based on that this
+
+00:15:06.630 order Pierre will become infeasible so
+
+00:15:10.350 we can cut off this one I'll just strike
+
+00:15:14.399 off this one so installs calculating the
+
+00:15:17.220 reliability I could have done it
+
+00:15:18.930 directly just by checking the cost so
+
+00:15:22.139 from now onwards first we will find cost
+
+00:15:24.509 then we will multiply the reliability so
+
+00:15:27.360 that we can save some calculations now
+
+00:15:30.329 next three copies are possible so I
+
+00:15:33.600 should take the thread copy so second
+
+00:15:36.089 device third copy so let us see what is
+
+00:15:40.649 the reliability and what is the cost so
+
+00:15:42.899 this will be three copies and this is
+
+00:15:45.000 free copy so this is three so this is
+
+00:15:48.839 zero eight so this is nine nine two
+
+00:15:52.769 and if we have three copies of fifteen
+
+00:15:55.050 this is 45 so I should multiply 0.99 two
+
+00:15:59.819 and add fortify in both these order pair
+
+00:16:03.690 this is the result coming from first
+
+00:16:05.100 device so let me check by adding 45 plus
+
+00:16:08.819 30 it will be 75 yes we'll be having
+
+00:16:12.630 remaining amount to buy this one so this
+
+00:16:15.180 is 75 and point two nine nine two into
+
+00:16:19.949 point nine eight nine - eight then one
+
+00:16:27.149 more this I should multiply an ad with
+
+00:16:29.880 this one 16 plus 45 it will be one not
+
+00:16:34.230 five so I cannot buy the third device so
+
+00:16:38.279 no need of this ordered pair so cut off
+
+00:16:41.100 this one so I am NOT calculating it also
+
+00:16:43.040 then I have set to this said to is how
+
+00:16:48.959 many order pairs it is having one two
+
+00:16:51.389 three four so I'll be reading four
+
+00:16:54.870 ordered pairs so the order page that we
+
+00:16:57.779 got from the second device are 0.72 for
+
+00:17:05.000 50.7 nine seven five and 0.864 60 and
+
+00:17:16.790 0.89 to 875
+
+00:17:21.449 now I have to calculate for third device
+
+00:17:24.609 also but there is no space so what I
+
+00:17:26.709 will do is I will rewrite this one in
+
+00:17:29.080 smaller size so that we get some free
+
+00:17:31.120 space here so that is the last step
+
+00:17:32.740 remaining so let me rewrite this again
+
+00:17:35.440 with smaller size so I have changed the
+
+00:17:38.230 size here I am made a little small
+
+00:17:41.320 see this is set 0 this is for first
+
+00:17:43.540 device 1 copy 1 copy 2 copies and this
+
+00:17:46.480 is the combined form of this one merged
+
+00:17:48.310 of this one then second device first
+
+00:17:51.190 copy to copy and 3 copy 3 copies are
+
+00:17:53.320 there so then remaining whatever the
+
+00:17:55.660 other place we got we have taken now one
+
+00:17:59.020 thing we have to do here see reliability
+
+00:18:03.100 is 0.72 cost is 45 7 9 so from 7 to 2 7
+
+00:18:09.040 9 it is increasing reliability
+
+00:18:10.510 increasing cost is also increasing 35 30
+
+00:18:14.080 dollars are added to this one now 7 9 10
+
+00:18:18.520 8 6 so the reliability is increasing
+
+00:18:22.120 reliability is increasing but the cost
+
+00:18:24.220 is from 75 to 60 how come the
+
+00:18:27.730 reliability increases only if you spend
+
+00:18:30.130 extra money but here you are editing the
+
+00:18:32.500 amount and the reliability is increasing
+
+00:18:34.150 this is wrong so reliability increases
+
+00:18:37.210 cost should also increase otherwise you
+
+00:18:40.600 have to cut off one order pair by
+
+00:18:43.090 applying dominance rule and the dominant
+
+00:18:46.510 rule says that the first one with higher
+
+00:18:48.520 costs you remove it remove this ordered
+
+00:18:50.890 pair based on the dominance rule this
+
+00:18:53.740 order paid is gone so now we are having
+
+00:18:55.630 just three ordered pairs now let us
+
+00:18:58.570 start working on third device and the
+
+00:19:02.890 third device b3 first copy one copy so
+
+00:19:08.800 s3 one copy so what is the reliability
+
+00:19:13.750 of this third device point 5 and the
+
+00:19:17.530 cost is 20 so multiply with all these
+
+00:19:21.490 three so the first one the reliability
+
+00:19:23.650 is point 5 is multiply so this is 0.36
+
+00:19:27.880 and the COS 45 plus $20 is 65
+
+00:19:32.330 and the second this is not there this is
+
+00:19:35.680 0.864 into 0.5 as a point 4 3 2 and the
+
+00:19:42.110 cost is 60 plus 20 this is 80 then 0.89
+
+00:19:48.950 2 8 into 0.5 s 4 4 6 4 and the cost is
+
+00:19:55.820 20 plus 75 this is $95 this is when we
+
+00:20:02.540 are taking one copy off at her device
+
+00:20:05.000 now I should take two copies of the
+
+00:20:07.940 third device so for that I should
+
+00:20:10.370 calculate its reliability so the
+
+00:20:12.590 reliability of third device is 0.9 but
+
+00:20:15.980 if I have two copies how much it will be
+
+00:20:18.110 this is our 3 power 2 so this will be 1
+
+00:20:21.980 minus 0.5 square so this is 1 minus 0.5
+
+00:20:29.750 whole square this is 1 minus 0.25 this
+
+00:20:34.490 is 0.75 is the reliability of 2 copies
+
+00:20:38.420 and the cost will be $40 now these are
+
+00:20:42.050 the things multiplied with this and add
+
+00:20:44.270 40 so one thing I told you that see the
+
+00:20:47.660 total cost notice we are on the third
+
+00:20:49.430 device lastly there is nothing remaining
+
+00:20:51.260 so the total cost should not exceed 1
+
+00:20:53.690 not $5 0.75 into 0.72 this will be 5 4
+
+00:21:00.350 and the cost is $45 plus 40 this will be
+
+00:21:05.200 $85 this is the time now next is 0.864
+
+00:21:11.960 into 0.75 this is 6 for 8 and the cost
+
+00:21:17.900 is 60 plus 40 hundred dollars now the
+
+00:21:22.730 last one is $75 plus $40 this will be it
+
+00:21:29.120 will be 1 $15 so this one $15 will
+
+00:21:32.660 exceed the
+
+00:21:34.100 we have so no need to calculate the
+
+00:21:36.169 reliability and this will be gone
+
+00:21:38.600 like I told you it should be feasible
+
+00:21:41.179 within the given amount so that is gone
+
+00:21:44.299 now I have to take third set three
+
+00:21:47.929 copies so three copies means this will
+
+00:21:51.140 be Q this will be Q and this is Q so
+
+00:21:55.160 this is 0.125 and this will be eight
+
+00:21:59.510 seven five and this will be 40 plus
+
+00:22:03.320 forty three times this is $60 now $60 is
+
+00:22:07.850 their $60 in this one yes we can add
+
+00:22:11.270 some point seven two into 0.875 this
+
+00:22:15.080 will be six three and the cost is 45
+
+00:22:18.440 plus sixty this is one not five and
+
+00:22:23.049 sixty plus sixty one twenty this is not
+
+00:22:28.010 possible so don't take this then 75 plus
+
+00:22:31.429 sixty this is not possible this is 135
+
+00:22:34.669 don't take this so we are left with only
+
+00:22:37.750 sixty three point one not five only this
+
+00:22:40.429 ordered pair now set three that is
+
+00:22:42.799 formed is Marge all these and purge also
+
+00:22:46.250 so I will write on 0.366 five point zero
+
+00:22:52.340 three 280 point four four six four nine
+
+00:22:58.640 five see reliability is increasing cost
+
+00:23:03.590 is also increasing reliability
+
+00:23:04.970 increasing yes perfect then eight five
+
+00:23:08.510 so shall I take eight five point five
+
+00:23:11.840 four eight five see the reliability is
+
+00:23:15.890 increasing but the cost is decreasing so
+
+00:23:17.929 this will go away then 0.64 first comes
+
+00:23:21.650 what 6 3 then 6 4 so first is 0.6 a
+
+00:23:25.850 three and one not 5 then the last one is
+
+00:23:35.409 0.64 so i have to take them in order
+
+00:23:38.650 point 6 4 8 comma hundred comma hundred
+
+00:23:46.610 see 63-64 this is increasing and the
+
+00:23:51.110 cost is one not five 200 decreasing so
+
+00:23:53.480 this is also gone so the order is that
+
+00:23:56.330 are remaining are this one two three and
+
+00:23:59.630 four
+
+00:24:00.529 now if you have the final order pay for
+
+00:24:03.140 three divisors at the third stage so
+
+00:24:05.929 what is the maximum reliability I am
+
+00:24:07.850 getting here that is 0.6 for 800 so the
+
+00:24:11.779 reliability of system that can be
+
+00:24:13.820 maximum is 0.64 8 and the cost will be
+
+00:24:17.889 100 so this is the final answer now the
+
+00:24:22.700 question is how many copies of each
+
+00:24:24.830 device I should purchase now so for that
+
+00:24:28.309 I get done so like this this ordered
+
+00:24:31.279 pair 6 for 800 where we got it see we
+
+00:24:34.580 have merge these three and we got this
+
+00:24:36.350 one so that was here here so it means I
+
+00:24:40.340 should take two copies of device 2 3 so
+
+00:24:44.720 device 3 I should take 2 copies because
+
+00:24:47.210 I got dancer here and this we got it by
+
+00:24:50.570 multiplying with these ordered pairs
+
+00:24:52.070 first one was with one this one and the
+
+00:24:54.980 second one was with this one so this
+
+00:24:58.730 ordered pair see the reliability of two
+
+00:25:02.570 copies and the cost is multiplied and
+
+00:25:05.090 added we got this one so it was done
+
+00:25:07.279 from here this we got where here so this
+
+00:25:10.940 is here right so this is also for two
+
+00:25:14.360 copies of second device two copies then
+
+00:25:17.870 this regard by multiplying which one see
+
+00:25:20.480 we multiply these two and got these two
+
+00:25:22.820 answers right this was multiplied with
+
+00:25:24.440 this one so this is from coming from
+
+00:25:26.779 this and this we obtain where here so
+
+00:25:30.019 this is just one copy of first device so
+
+00:25:33.200 the answer is first device one copy
+
+00:25:35.899 second device two copies third device
+
+00:25:39.159 two copies and the cost of the system
+
+00:25:42.649 and the reliability will be this one
+
+00:25:44.960 this is the reliability and this is the
+
+00:25:47.299 cost of a system product of reliability
+
+00:25:51.679 and the summation of so the reliability
+
+00:25:54.230 is this one and the cost is
+
+00:25:56.870 hundred right total reliability of the
+
+00:25:59.540 system so we have improved the
+
+00:26:01.400 reliability of entire system if we don't
+
+00:26:04.580 take the multiple copies then the
+
+00:26:06.170 reliability will be less when we have
+
+00:26:08.210 taken multiple copies the reliability
+
+00:26:10.160 has improved that's all with the
+
+00:26:13.520 reliability design it is same as zero
+
+00:26:15.320 and knapsack problem I did not make this
+
+00:26:17.690 because there are a lot of calculations
+
+00:26:19.490 so just it is nothing but calculations
+
+00:26:22.100 only but this is little difficult for
+
+00:26:24.380 the students so I have prepared the
+
+00:26:26.270 video so if you face any difficulty let
+
+00:26:29.030 me know I will prepare another video for
+
+00:26:30.950 this one

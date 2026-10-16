@@ -1,0 +1,351 @@
+# 1.5.1 Time Complexity #1
+
+# https://www.youtube.com/watch/9TlHvipP5yA
+
+
+
+00:00:00.030 welcome that I relate few pieces of code
+
+00:00:03.389 and show you how to analyze them how to
+
+00:00:05.430 find out the time complexity for them
+
+00:00:07.109 this is a simple loop I am not reading a
+
+00:00:09.840 complete algorithm I have this written a
+
+00:00:11.790 piece of code in which one statement is
+
+00:00:13.740 there but we are already familiar with
+
+00:00:15.690 this one we know that this will execute
+
+00:00:17.760 for n plus 1 9 and this way is good for
+
+00:00:20.760 and we don't want this time because
+
+00:00:24.810 anyway when we are at the order of be
+
+00:00:26.939 writing a degree so this will not affect
+
+00:00:29.400 the degree at all so it will be same
+
+00:00:31.230 only so just you need to move the
+
+00:00:33.059 statement how many times it is executed
+
+00:00:35.160 so that's it so this is order of n you
+
+00:00:41.010 can avoid this one skip this one next if
+
+00:00:49.140 suppose this loop starting from N and
+
+00:00:52.410 the condition is greater than 1 or 0 and
+
+00:00:56.940 this was getting subtracted so this loop
+
+00:01:00.780 is decrementing then also this statement
+
+00:01:05.400 will execute for n times and it sort of
+
+00:01:08.310 in whether you go from one to ten ten
+
+00:01:12.270 steps or come from ten to one then also
+
+00:01:15.479 ten steps so you go from one to ten or
+
+00:01:18.479 ten to one signal process so that's how
+
+00:01:21.060 n to 0 at us so it's also all wrong and
+
+00:01:25.610 if this is starting from one and
+
+00:01:28.759 condition is less than N and I is being
+
+00:01:32.340 incremented by 2 so this statement will
+
+00:01:37.650 not repeat for ten times but half of the
+
+00:01:40.409 end times and by two if it is n by 2
+
+00:01:46.079 also if I say function s and by 2 what
+
+00:01:51.570 is the degree of polynomial and only
+
+00:01:54.450 search part of n again
+
+00:01:56.579 so in this case also it sort of end even
+
+00:02:01.020 if it is incrementing by 20 then this is
+
+00:02:05.340 20 degree of a polynomial is and
+
+00:02:07.920 so resolves forever friend so end by
+
+00:02:11.220 anything this whatever the number of
+
+00:02:14.130 times it is implementing the time will
+
+00:02:16.590 be same
+
+00:02:18.240 nice we are already familiar with this
+
+00:02:20.610 one these are two loops nested loop one
+
+00:02:24.390 inside another and this we know this
+
+00:02:26.700 relates q4 n times so this is also n
+
+00:02:30.420 times and resolves right times actually
+
+00:02:32.880 is n plus 1 but what about this one
+
+00:02:35.430 again this is repeat for n plus 1 times
+
+00:02:37.470 and so they before any time and this is
+
+00:02:40.830 all rough and squared
+
+00:02:45.590 the next is again nested for loop this
+
+00:02:50.010 looks similar to the previous one but
+
+00:02:52.140 not see I did travel 0 I less than n but
+
+00:02:56.040 G takes value G less than I so here is a
+
+00:02:59.520 defense so let us analyze this by
+
+00:03:02.700 tracing this one and find out how much
+
+00:03:05.130 time it is checking so for this I will
+
+00:03:08.430 take I value and J value and paste them
+
+00:03:13.190 let us start initially I is 0 when I 0 J
+
+00:03:19.380 starts from 0 and 0 less than 0
+
+00:03:22.110 no it will not execute for any number of
+
+00:03:24.540 times so here I have to find out how
+
+00:03:27.299 many times the statement is executed so
+
+00:03:29.820 number of times so it will not execute
+
+00:03:33.180 at all so 0 times then this loop ends
+
+00:03:37.019 again I am plus plus I becomes 1 I is
+
+00:03:41.850 less than n in suppose it's enters
+
+00:03:44.190 inside then again this group 0 0 is less
+
+00:03:47.850 than 9 yes then J plus plus J is 1 1 is
+
+00:03:54.780 not less than I so for 1 it will not
+
+00:03:57.209 execute so how many times it has
+
+00:03:59.250 executed one time and then goes up again
+
+00:04:05.310 I plus plus I becomes 2 then J will
+
+00:04:09.780 execute for 0 1 and when it becomes 2 it
+
+00:04:12.810 will stop so this will be 4 2 times and
+
+00:04:17.640 when I is the 3 J will take 0 1 2 & 3 so
+
+00:04:23.280 this will be 4 3 times and this process
+
+00:04:26.070 continues
+
+00:04:26.970 see when I was 0 it was never executed
+
+00:04:29.820 when I was 1 it was executed for one
+
+00:04:32.700 time this is statement
+
+00:04:34.080 I was true it was a spirit for two time
+
+00:04:36.660 three rate and so on so on up to what
+
+00:04:40.650 and so total when it is n right how many
+
+00:04:45.900 times this will execute n times when I
+
+00:04:49.229 was three so three times so if it is
+
+00:04:52.380 reaching till n actually it is less than
+
+00:04:54.570 n but let us say m is reaching till 10
+
+00:04:57.390 so it will execute for 10 times so total
+
+00:05:00.240 how many times it is executed this one
+
+00:05:07.070 right so I am assuming that it is going
+
+00:05:09.930 till then no it is not didn't this less
+
+00:05:12.960 than n times 1 plus 2 Plus 3 plus goes
+
+00:05:16.830 on to and this is nothing but n into n
+
+00:05:20.280 person
+
+00:05:20.810 by 2 what is the degree of this one F of
+
+00:05:27.380 n as n square plus 1 by 2
+
+00:05:31.430 Davy's square so all Roth and square for
+
+00:05:38.090 the time complexity is order of n square
+
+00:05:40.900 though this is not similar to the
+
+00:05:43.280 previous one but if you're analyzed
+
+00:05:45.380 answer is coming 2 and square only the
+
+00:05:48.320 degree of the polynomial is n square
+
+00:05:49.940 only next for is here
+
+00:05:53.930 Beasley's rest with you and as a loop
+
+00:05:56.120 does not get very good for n times C the
+
+00:05:59.570 speed P is less than equal to n it's not
+
+00:06:02.750 a less than equal to n so the condition
+
+00:06:05.120 is different then what is P P is
+
+00:06:07.640 initially 0 and every time I is added to
+
+00:06:10.550 P so now we don't know how many times
+
+00:06:12.860 it's going to execute
+
+00:06:14.320 let us analyze I will take I value and B
+
+00:06:18.860 value initially this is 0 and this is 1
+
+00:06:23.020 so what happens first time this one is
+
+00:06:26.300 added and it becomes 1 the next time it
+
+00:06:29.270 will be do so it will be 1 plus 2 so it
+
+00:06:32.360 will be 3 then next time I will be 3 and
+
+00:06:35.450 this will be 1 plus 2 Plus 3 then idle
+
+00:06:39.169 before it will be 1 plus 2 Plus 3 plus 4
+
+00:06:42.550 goes on how many times it's going to
+
+00:06:48.800 execute it's going to execute for K
+
+00:06:51.590 times so what this will be 1 plus 2 Plus
+
+00:06:57.710 3 plus 4 plus goes on to K time my hope
+
+00:07:02.419 K here is not reaching it is not
+
+00:07:05.180 repeating for n times definitely it is
+
+00:07:08.270 red waiting for some number of times so
+
+00:07:10.669 that we don't know
+
+00:07:11.660 we are sure that it still not execute
+
+00:07:13.880 for n times this how many times because
+
+00:07:16.669 the conditions
+
+00:07:17.439 so I said let it be came and let us find
+
+00:07:20.349 out that came so if it is repeating for
+
+00:07:23.709 K times then what is the tradition we
+
+00:07:28.059 are seeing that P has became greater
+
+00:07:31.749 than M so when P became greater than n
+
+00:07:34.479 it is stopping we assume this as long as
+
+00:07:38.110 E is less than equal to n it is
+
+00:07:39.610 repeating so when P becomes greater than
+
+00:07:41.679 n it is stopping right since P is what
+
+00:07:47.639 CP see it is getting to k plus 1 by 2 P
+
+00:07:54.969 is akin to k plus 1 by 2 so what's the
+
+00:07:58.360 condition K mu K plus 1 by 2 is greater
+
+00:08:03.309 than n so when it will stop when k k
+
+00:08:07.779 plus 1 by 2 has became greater than n
+
+00:08:09.939 it'll stop so what is K roughly as limit
+
+00:08:15.579 as K square so what is K gains and K is
+
+00:08:24.729 a root n so this loop will execute for
+
+00:08:28.169 order of n times let me show you quickly
+
+00:08:35.349 I assignment 1 I P is less than equal to
+
+00:08:38.889 n I dismiss this is not I less than
+
+00:08:41.620 equal to n so we don't know how many
+
+00:08:43.899 times it is repeating II's here P is
+
+00:08:48.459 here so either these are incrementing
+
+00:08:51.040 and every time I is added to P so we
+
+00:08:54.579 don't know how many times so let us say
+
+00:08:56.470 K times and this will be 1 plus 2 plus 2
+
+00:08:59.500 K well so that K s P is gain k plus 1 by
+
+00:09:10.089 2 now so we know that this was repeated
+
+00:09:12.519 as long as P is less than equal to
+
+00:09:14.300 so if you'll stop then P becomes greater
+
+00:09:16.100 than n so then P becomes greater than n
+
+00:09:18.140 if it stops okay and keep us on white
+
+00:09:20.120 goo becomes greater than it will stop so
+
+00:09:22.820 this is K Square and K is okay in the
+
+00:09:27.410 next video we'll find more examples
+
+00:09:29.080 right so different type of course I will
+
+00:09:33.080 show you and I'll show you how to
+
+00:09:34.400 analyze them so this is all by tracing
+
+00:09:37.850 you canonized n so in the other video
+
+00:09:39.800 next video also you can find few more
+
+00:09:41.960 algorithms that the Tracy

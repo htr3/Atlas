@@ -1,0 +1,13 @@
+Lecture 1	https://www.youtube.com/watch?v=o_AJ3VWQMzA	The Egg Dropping Problem - Interview Question
+Lecture 2	https://www.youtube.com/watch?v=-YiQZi3mLq0	Interview Question: Start of Loop in a Linked List
+Lecture 3	https://www.youtube.com/watch?v=Xxu95iiVcPI	Prime Number Sieves
+Lecture 4	https://www.youtube.com/watch?v=YG6iX28hmd0	What is the Trie data structure and where do you use it?
+Lecture 5	https://www.youtube.com/watch?v=fcf56RTbkHc	Median of Medians - Order Statistics
+Lecture 6	https://www.youtube.com/watch?v=-3Lt-EwR_Hw	What is Fast Exponentiation?
+Lecture 7	https://www.youtube.com/watch?v=Fgp6CKSH_b4	Divide and Conquer - Odd Even Subarrays
+Lecture 8	https://www.youtube.com/watch?v=PttgNGRyYQg	Understanding Dynamic Programming
+Lecture 9	https://www.youtube.com/watch?v=XJ6e4BQYJ24	Edit Distance of two strings - Real world application
+Lecture 10	https://www.youtube.com/watch?v=IG9OtI54zPk	Episode 6: Balance the Array - Rachit Challenges Gaurav - Amortization
+Lecture 11	https://www.youtube.com/watch?v=57SUNQL4JFA	Meet in the Middle Algorithm
+Lecture 12	https://www.youtube.com/watch?v=g4Y-CRS_QRI	What happens inside a software interview? Algorithms, Data Structures, System Design and Behavioral
+Lecture 13	https://www.youtube.com/watch?v=Gr861i8aB3k	8 Rules for Offer Negotiations by Gaurav Sen

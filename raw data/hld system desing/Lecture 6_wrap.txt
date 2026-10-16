@@ -1,0 +1,335 @@
+So let's uh let's talk about this question. Firstly, you need to implement a log class which has
+three functions inside it. One is the start which takes a process ID. So this is an event. Okay. Uh
+and this method over here is something that's called a listener. So every time there is a start
+event on a process, this function will be called okay with its start time. So in fact in our case
+the start time will be calculated by us. We are just going to do a system.curren time release. And
+similarly uh there's an end time with a process ID. So this process has ended. This process has
+started. These are the two events that we have. And what else? We have something called a poll
+function. This poll actually looks at the earliest completed process and then prints that out. So
+that's the reason why this is a log. All it does is it just prints things out. But this is
+effectively an aggregator. And we'll see why. When you say the earliest completed process, okay, it
+will actually wait for the process which is the earliest process in this system. So I have three
+processes, process ID 1, 2, and three. And they are starting the start times are 12, 8, and 7. Okay.
+So this logger is going to be taking the very first process which has started and waiting for it to
+finish. Till it finishes the pole method will block. Okay, that's important. The pole method needs
+to block and till the process finishes uh it's going to be just you know returning null possibly not
+printing anything that is another thing. But when it finishes when the end method on process ID 3 is
+called and it's say let's set to 19 then the pole method should print um process ID3 started at 7
+and ended at 19. Okay, that's what needs to happen. If you call poll again then the second earliest
+process like this is the second oldest process which is process ID 2 which started at 8 and ended at
+12 that will be printed out and finally if you call the poll method again then I'm going to be
+printing out process ID 1 started at 12 and ended at 15 okay so these are the three functions you
+have two of them are just listeners event listeners and one of them is an actual function in which
+you need to output something. Okay, there is void over here but because that is the reason why this
+is a log. So you will be printing to the output stream. Is this point clear guys? Okay. So if you
+have any doubts of course you can keep posting them in the comments uh in the live stream chat and
+let's think about how do we solve this first. So in a lowal design interview, by the way, this
+happens to be a question which was asked in a Google interview. So it's not uh it's not going to be
+extremely difficult, but it's not going to be too easy either. When you come up with a solution over
+here, you'll probably see that there's a lot more you can do with the same question. Okay, that's
+one of the specialtities of usually Google interview questions that they have simple solutions but
+you can always make them more complex with a little you know tweaking around in the question. So
+firstly we are going to be defining something called a process. So this is the process class and uh
+what does it have? It has an ID. It has a start and an end time. So I say string id and uh you know
+this is not going to change so I'll just set it to final and I also have a start time which is not
+going to change and then I have an end time which is actually going to be sent to me. So this is
+going to be a long the both of them are going to be long basically. All right. And I can initialize
+these two in the constructor. Every time the process is like created when you call a start method
+I'll be registering a process. Okay. So this is a string ID. And what else do I need? I need the
+start time. So the start time is going to be in fact I can just take the start time also as a
+parameter. Final long start time. So there'll be a timer which is going to be giving me this. And
+the reason I'm actually taking start time as a parameter is because you know later on when we'll be
+trying to test this function it'll make life easier. We can do some dependency injection there.
+Okay. This dot id equal to id. Perfect. So we have a process now and what we are going to try to do
+is we need some sort of a data structure which is going to be allowing this kind of thing like you
+know being able to tell you what is the earliest event uh and then checking if that event has ended.
+If it has ended then we print it out to the log otherwise we don't need to except hold these events
+in memory. Okay. So okay uh Satiendra Kumar has an interesting you know suggestion that start time
+can be system.curren current time millies but the reason I'm not doing that is because I can
+actually pass this in and later on through dependency injection I can actually set a different kind
+of timer. So during tests I don't need to depend on the system timer. I can actually define my own
+timer which will be a mock and that will work well and we'll see how that works. But so I have
+defined the process and now let's see how we can implement this log client. Uh interestingly most
+interview places will not allow you to use your own IDE. So um you know all this fast typing that
+I'm doing is not going to be possible there. But the general idea is the same of course. So I'll
+just call this logo implementation. Uh and it extends actually it implements the log client and over
+here I can just override these three methods of start, end and poll. Okay. Now let's think about
+what do we need to actually store processes in our logger because till they have ended we need to
+store them somewhere in memory right so one of the things we can do is to have a mapping between the
+ID of the process and its start and end times okay uh okay there's there's actually multiple things
+we can do firstly you can use a linked list okay but that's not a great idea Because when you use a
+link list, every time a person says start this event, you can add to the link list quickly. But
+every time someone says end an event, you'll have to do a linear search on the list for the
+processes. So I'll just in fact do the I mean I'll make the data structure. So list of processes.
+This is what our logger implementation is holding till they are completed. Right? You need to hold
+this So processes and in a real interview you don't need to prove all these things. You can just
+tell them that hey the list will not work. But in our case I'm just trying to make it a little more
+clear. So I'm going to be taking this and setting that as an array list. Great. Now when a person
+says start this process, what I need to do is I need to go to the processes and I say add this
+process. I'm sorry. I actually need to add a new process. So new process. Uh and what do I need to
+pass here? The process ID and the start time. So over here the interesting thing comes in. Uh I need
+a timer. So private final timer. Now this is weird like initially u in fact thinking that into the
+future is not natural in a in a low-level design interview or any interview because you are under so
+much pressure you can't you know plan everything out well. So I'll just keep this as system.curren
+current time release. Okay. And uh okay. So adding a process is simple enough. when a process ends,
+we need to be able to somehow tell that the poll uh the the poll method needs to know that this
+process is, you know, done. So, I'll just get the process. Ah, yes. And here we see the problem of
+course. So when you want to get a process with a particular process ID you can loop in the for loop
+for all processes but that is going to be slow that is going to be an order n operation and in
+interview you're not you know not even in real life do you want to do order in operations when you
+can skip them so one very natural thing about this is to just go for a map a map of what you have a
+key of process ID and for that you need a process so you just go for a string to process mapping.
+Okay. And no longer the array list. So I'll just go for a hashmap. And over here I don't just put
+the new process. I actually say that process ID needs to be put in. Okay. So now I can do a simple
+get process ID. uh you know I need to set this end time. So end time is private. So I'll just put a
+getter method over there. I'm sorry I need a setter method. So this is not going to be true for all
+languages but most of you program in Java. So uh it's fine. And over here I have system dot current
+time release. If you're programming Golang or Python, you don't need to, you know, set any getter or
+settle methods usually. Okay. So, uh you have pole and this is the big method. So, uh what do I need
+here? Well, you need to find the process which has the smallest start time, which has started the
+earliest, right? So that is difficult to do in a map especially when I have initialized it as a
+hashmap because a hashmap has no ordering. Now some of you might be thinking that I need a map with
+ordering like a sorted map in C++ and in Java you have a tree map. So when you have a tree map
+what's going to end up happening is you are going to have login operations for everything which is
+you want to make an update or search basically is login and also deletion updation all those things
+are login. So we can think of a tree map. Okay. And let's say you go ahead with this this thing over
+here. Um and you tell the tree map that okay processes dot remove this process ID if it has end
+time. So if this process ID has an end time then you need to remove it. Now which process ID? The
+very smallest one like the first one. So it has a you know method for that first entry dot get value
+dot get end time. If this is not equal to minus one. So this is basically a null value. then you
+print this statement. So they have given you the the format process ID and so on so forth. So I'll
+just do that. This is the value that you have. So interestingly uh you know how is this map going to
+be implemented? Like all of us know that order one is the time required for a hashmap to store stuff
+and remove stuff and delete stuff and all that. But uh this map is actually giving you some sort of
+ordering also and it's g it's a map. So a lot of people assume that it's going to be order one.
+That's not the case. It gives you login time, updates, deletions, searches, everything. So basically
+there's a AVL tree or no a red black tree inside this tree map. Yeah. So the red black tree has
+login operations speed and when you say if the end time is minus one is not equal to minus one then
+you just go ahead and print. So process dot let's set some other getter methods okay get ID plus
+process dot get start time and finally the end time also will be printed out. Okay. Also,
+interestingly, you might be seeing that you know this is taking a lot of time and stuff. In an
+interview, you can tell it even more. It's it's even more clear that uh every line that you're
+writing seems to be taking too much time. So, if you can like in Google it's not possible because
+they give you a Google doc in which to write. So, formatting is hard. But if you have any other ID
+that has been told to you maybe hacker ranks ID or something have a look whether you can format the
+lines easily because although the interview will say that they don't care about formatting they do.
+They're human beings they are going to like clean code a lot more and clean has a lot to do with
+presentation instead of just you know structuring of the code also. So processes remove um you're
+going to be removing this process. Okay. And this seems easy. Uh once you have removed the process,
+you're done, right? Okay. I'll just be taking doubts from you guys for the next 2 minutes. This
+solution is wrong, by the way. It's not going to work uh for various reasons. But uh let's see what
+kind of doubts you guys have. Oh yeah, before the live chat started, Yuvraj was someone who asked
+whether this is useful for freshers. Now that I'm coding it, I know it's not. It's it's really uh
+you know it is actually this bit is algorithmic. So it is very useful for freshers. But later on
+what will happen is that we look into the design of this code very deeply. In that case it won't be
+useful. till now and also for the next 10 15 minutes this is going to be very useful for your very
+first job interview also because I have not done any rocket science I've just used a tree map for
+god's sake okay okay so one go says I think we can use a heap here yes that is true you can but that
+also won't work alone uh and we'll see why okay if you use a heap First of all, just a heap. Let's
+say the problem is how do you get this process ID quickly? That's going to be an order in operation
+in the heap. You can't search in a heap efficiently. You can only pull out the maximum. Okay. So,
+your poll function will be really fast order one. Your start function will be uh fast again auto
+order auto order auto order auto order auto order auto order auto order auto order auto order auto
+order auto login because a heap actually heapifies itself if required and your end operation is
+going to be very slow. So, that's the game we have here. We have three operations and you want all
+of them to be less than login right and so you can't use a heap you can't use a lot of the data
+structures we have been thinking about we can't use a simple hashmap we have seen that we can't use
+a simple list so a hashmap the problem is the pole becomes slow a list the problem is the end method
+becomes slow a heap has the same problem what can we do okay P. All right. Sorted map. Yeah, that's
+that's what we're using. What we need to do in our case is to use a complicated data structure in
+the sense that you can't have a single data structure which is going to do your job. Okay. So, we
+are seeing that there's good stuff here in a map. When you say start and end, it's order one for a
+map. But the pole becomes really slow order n. So can we take some of the good stuff from a map and
+some of the good stuff from a tree map, merge them together and reduce the overall time complexity
+of all three functions? Yeah, Sorkumar has a really good insight. Of course, this tree map is not
+sorted on anything. So the process method like the process class is not comparable. You can't
+compare two processes till you have defined uh how is the tree map going to store these processes
+right? Oh, in fact it has a string. So it's going to be sorted on this process ids not on the start
+times and that is not what we want. So first entry is going to give you the smallest process ID
+which is not necessarily the you know the oldest process as we saw here three is the oldest one is
+the youngest. Okay, that is a good catch and we'll get to that also. But firstly, what we need to do
+is we can't actually use any of these data structures alone. A tree map has the issue that you can't
+sort on um on start times and get good end and start functions right if I sort this if I sort this
+function in fact I'll do that in front of you so it makes sense. So this is saying comparator of
+string. So I don't want that because I want it sorted on the start times. So instead I need to
+actually store the long the process ids. Instead of the process ids I need to store the start times.
+I don't know why I sound so confused but in the real interview actually I didn't make any mistakes
+and I cleared it. Yeah. Okay. Uh okay. Yeah. Of course the process ID is not what I want here. So I
+I can't have that. uh I need another data structure which is going to be a map and this is going to
+be processes uh while I'll change this to a que because that is what it is. I can pull from this Q
+and I can add to this Q right based on the start times. So my tree map is no longer the set of
+processes I have. It is a queue in which one by one processors will be removed. uh how is this going
+to be initialized? Well, I'm going to be saying that uh take the start times of both these
+processes. So that is start time one and start time two. Uh and all I need to do is say that you
+know you need to compare the two start times and then you're good. Okay. Um, what is the problem
+here? Oh, of course I haven't actually set this at the queue. Yeah. So now the tree map is correctly
+uh you know initialized. I need the processes to be also initialized. So this processes is new
+hashmap. Perfect. Shang Agarwal actually has the right answer. He's saying use a heap plus map. In
+my case, I'm using a tree map plus map because that logically, you know, that's the conclusion we
+come to. But a heap plus map is enough because like you can see it's a Q, right? So priority Q in
+Java is implemented using a heap. You can also use that over here. I'm just using this because it's
+a little more convenient. So the start method says that you have processes uh you push this ID and
+then you say that you know this is this is what you have over here. So this doesn't change. What is
+the problem here? You need the required type as long. Oh, okay. I messed it up. Yeah, this is
+actually the processes. Yes. What is what is wrong with this? Oh, this is string. Thank god. Okay.
+So the start now needs to also notify the queue that there is a new entry. So I'll just add that um
+system.curren time release. These two have to be the same. So I'll say the time now is this in both
+these cases. And the Q I I need to actually insert this um now, comma this process over here. Okay.
+Now again going to the end method, all you need to do is you need to actually tell the Q that
+there's a end time in this process. Now, so uh interestingly, if you don't do this, if you don't
+tell the Q that there's a new end time, then the old start time remains, right? But the Q has not
+been updated. So every time you try to pull from the que, you're going to be seeing that the queue
+does not have an end time. The the task in the queue, the process in the queue does not have an end
+time. Okay. Um, now what can we do about this? I'll throw the question in the chat guys. When I'm
+starting a process, when I'm getting the event of a start, I'm actually publishing that to the to
+the map and to the queue. But when the process is ending, I'm publishing that to the map. Do I need
+to publish that to the queue? Food for thought. We'll just wait for a minute till we get an answer.
+The question is simple. Do I need this line of code? Does the Q need to know that there has been
+update? There has been an update in the process. Okay. Um, two answers till now. Yes and no. Okay.
+Most people are Oh, wow. There's a 50% of yes and no going on. Okay. So, let's try not to publish it
+and see what happens. Okay. Um, poll says that I need to go to the queue. take the very first entry.
+This is sorted on the smallest time stamp. I get the value. If the end time is set, then I need to
+print this and remove it from the queue. All right? So, I need to actually remove it from here from
+processes and also remove it from the queue. So, Q dot pole first entry will do the job. Okay. And
+if it is if it is not set then all I need to do is I just need to hold these processes in memory.
+Okay. And let's try to see how this works. So in fact what I'll do is I'll just create a new class
+or I can test it here itself because you're unlikely to get a testing class in this. Okay, this is
+weird. I forgot to add class. Wow, look at that. Huh, much better. Is declared already. Okay, that's
+okay. Sometimes I really think whether I know how to code in Java or not. Okay. Uh so and what we
+need is we need a logger. So log client implementation is over here and we have uh logger. Okay. So
+now what I'll be doing is I'll be sending some you know um what do they say? Processes in this.
+Yeah, they're calling it processes. In some cases, they're called tasks, too. So, that's another
+interesting thing. But, uh, yeah, I'll send process ID one, then I'll send process ID 3, then I send
+process ID 2, but before that, process ID 1 has ended. Uh, and then process ID 2 also ends. And
+finally process ID three ends. Okay. And is this according to the order that we have? I'll just copy
+this stuff. In fact, it's not. So three has to start first. But yeah in our case what should happen
+at the end of it is one should be printed out first then two should be printed out. Yeah. Yeah. Two
+should no three should be printed out next and then two should be printed out. Okay. And uh what I'm
+going to do is I'm going to be actually trying to pull the logger every time. Okay. So, okay. And
+finally, I'll just pull the logger again. So, this is a very poor way of testing, but this is just
+to also clarify, you know, what goes on. And in fact in the poll method if there is nothing then I
+will be printing out else no completed tasks in Q. Okay. Now let's run this waren has a good you
+know he's he's made a good observation we need them to wait so that will happen soon enough but this
+is just to make sure that things are working fine uh it's oh god okay there's a null pointer
+exception in some other us. Okay. Uh that is not what I want. I want uh the implementation over
+here. Oh, okay. So, while practicing for this like you can tell how original this interview is just
+to make sure that you know I don't mess up in this live stream. I have already coded this class out
+earlier. So by mistake I actually said that as the implementation. Okay. Shamagaral has a question.
+Uh can we use a mutx and pole method to not waste cogs? I don't know what cooggs is. and only
+release that mutx once the youngest process is complete. Okay. Well, a mutex uh like what are you
+going to take the lock on the whole class? If you take a lock on the whole class, it's as good as a
+single threaded thing. So, that is going to be a little bit of a problem. But you can tell your
+interviewer that if you want you know um all guarantees that you can have during concurrency then
+yeah go for a single threaded or a global lock basically on the other hand if you want to order it
+casually we'll see how we can do that I don't really know 15 minutes are remaining so this could be
+like part one of this because the first 15 minutes we lost but yeah uh what's the problem here.
+Okay, we have a null pointer exception now. That is better. But process one started uh and ended at
+zero. Oh, okay. And we can see that uh the problem of not actually updating the queue is clear here.
+Okay. Uh and then process three started and ended. That is good. But then you end up having a null
+pointer exception at line number 110 which is over here. Oh, okay. In fact, it's not even waiting.
+It's not even waiting for the class to be ready. So, I have made a mistake here. I haven't actually
+told them that the end time has to be initialized to minus one. So, that's a bug. And let's just run
+this again. Rajes Gupta is asking we need to remove the process which ends first not the one which
+starts first. Correct me if I'm wrong. Well um you need to actually remove the process which starts
+first. So effectively what you're doing is multiple processes and the events are being sent to you.
+You are ordering them according to the start times and you're printing them only when they are
+completed. So if a process has started 10 hours ago and another process has started 1 hour ago and
+you know the 1 hour ago process has ended, it's a short process. You're still not going to print it
+in your log because you are waiting for the first process the previous process to end. So the the
+printing is going sequentially and is waiting for each process to complete while the other processes
+are in Q in line. They'll be held in memory till the previous ones are printed out and then their
+turn will come in a poll. Okay. So over here we are seeing that there is you know no tasks had ended
+in the first two polls which makes sense. Then we ended task one that is correct. Uh then two other
+polls nothing had ended. You know there was a the next two polls like okay three yeah this is line
+number three uh line number four is nothing and ended two okay no completed tasks in Q for end of
+two because three has not completed three started before two and that's the reason why despite you
+know a process being ready to be printed. We didn't print it because this was inline. So I'll just
+actually no completed tasks in Q and I'll also tell you the uh Q dot first entry. Okay. Uh and uh
+dot get value dot get ID. So now this is going to tell you the first entry in the queue and that
+will be clear. What if this is null? Oh yeah, what if this is null? So in fact I can just print out
+the Q size and that will be good enough. Okay. uh now a lot of I mean I had asked this question that
+in the end event do I need to update the Q and the reason I didn't do that is because the update is
+happening on the object the Q has a reference to that object which also is I mean the uh the map
+also has a reference to the same object so it is updating it and the Q is automatically getting
+updated okay so we don't need to change that okay uh and finally like what are the number of tasks
+in the queue initially There is one then there is two then this task ended so you kicked it out of
+the queue uh over here. So when this process ended you should have kicked it out of the queue and
+the number of tasks should have been one. That is weird. Okay. Uh and after that of course you added
+a task. So I'll just say start. Yeah the start has happened and you have put in two but none of the
+tasks are ready. Uh then you ended two the you know the queue did not evict it. It said that no
+completed tasks in Q and then finally when you are done with three you kick that out and then again
+you kick this out and now finally the size should be zero. So let's see if that happens. Okay,
+Shbamagarwal again. If we take a lock mutx in pole method, the thread calling the pole method will
+not waste CPU cycles checking the top of the heap tree map. It will be notified once the youngest
+process is done. Okay, if you take a lock or a mutx in the pole method, okay, I'm I'm just going to
+think about a synchronized thing. the thread calling the pole method will not waste CPU cycles. Uh
+yes, that is interesting. But uh you have to take into consideration that if there is serious
+concurrency, someone might be updating this, someone might be updating this and the pole method is
+also updating the same data structures. So there is a possibility that concurrency might screw this
+uh solution completely and in fact it it will in the current implementation of course it's it's uh
+not going to be a problem but later on you'll see that if concurrency is allowed that's a real
+problem. Okay another null pointer exception. How very interesting but you're seeing that two has
+also been evicted from the queue. Um, oh okay, we need to actually check if if there are any entries
+in the queue. So if otherwise we'll have a null pointer exception. Q is empty. Okay. So, this will
+work. Of course. Uh I'll just make it a little clearer. Okay, Q is empty and then I threw a null
+pointer exception. Why? Oh, why would it do that? Oh, I didn't return of course. So, this is fine. I
+mean, we don't need to go through this bit, but uh okay. So guys this is a very like this solution
+has actually not touched on the key points of this problem. Okay the key point of this problem by
+the way what happened is once the solution was presented you need to think about two things in any
+LLD question and hopefully in the next one I'll be able to like do it more you know in a structured
+process but um firstly you think about what is the solution to your problem. Okay, in some cases
+like over here, there's an algorithmic solution. It's not straightforward. You don't just go ahead
+and talk about the classes and the objects and you know the state. No, you're going to be actually
+designing a solution which will have order login time for all three processes start, end, and pull.
+So that is going to take you some time. You are going to do that on a pen and a paper. Once you're
+sure of that, you go ahead with the code. But even when you're coding, you need to be aware that uh
+the interviewer is expecting you to talk about concurrency eventually. Okay? And they're going to be
+expecting you to talk about how do we test this class. So in part two, I will be talking about
+concurrency which is the most important thing in this uh low-level design question actually or I I
+would say like it's maybe maybe 60% has been taken care of honestly by just solving the algorithmic
+problem. you have you have you know done your job but now what about concurrency and what about the
+test cases that you can throw at this problem. Okay. And if you have like a low-level design
+question they're probably not going to be asking you both together unless it's a two-hour interview.
+They're going to be focusing either a on your test cases and your you know your your ability to
+handle concurrency or b they're going to be testing you on your algorithms. So, but whatever be the
+case, you need to be able to at least mention the kind of problems that your solution has
+algorithmically or engineering wise. Okay, that is the gist of this. Uh I'll take this as part one
+because we are just out of time. But uh guys, if you have any questions for the next 3 minutes, I'll
+be taking questions and let me know you know if you have any doubts on this on what we have built
+currently. Okay, Amrit M is asking, do you really get to code in a LD or is it just writing on the
+paper the objects and relationships? Uh, you do get to code. So, initially you have either paper or
+you know you have a board where you draw and you give a highle understanding of how you'd be solving
+the problem. But I think LD interviews are one of the toughest interviews out there mainly because
+it's very objective if you look at it like it brings a lot of objectivity to such a subjective
+design question where your code is expected to compile and one happy path is expected of you like
+because you're writing test cases right u if you are given two hours in your interview in some cases
+machine coding rounds like there's two hours so they expect you to have working code at the end of
+it you need to design and have a a little bit of working code. And of course, it's very similar to a
+highle design/algorithm interview where you are solving a problem and you're trying to, you know,
+find a solution and code it. But over here, your design also has to be good. So this is much more of
+a mixture of all three than anything else. like low-level design question for me is a mixture of
+algorithms, engineering and HLD. So that's the reason why I find this to be the hardest and that's
+the reason why in my course right now it's taking so much time to come up with good solutions to LLD
+problems. Yeah. And explaining them it takes a lot of time. It takes honestly it takes a lot of uh
+you know the code itself takes so much time and then you have to edit out things and then explain
+them on on paper. But of course, you know, that that has to be done. But hopefully I'll have a set
+of videos out which are going to be explaining this so much better. Uh the live session is to just
+give you a glimpse of what happens in a real interview when you're asked to code things live. So
+yeah, that's the idea. Zia Khan is asking where was this asked? Google. Yes, that is where it was
+asked. I mean in a Google interview rather. Okay, Anupam is asking please iterate the complexities
+now of these three methods. The start time has a complexity of log N because the Q is you're putting
+something in the Q. This is a tree map. A tree map has a complexity of login because a comparator
+over here uh it's not hashing. It's actually comparison operation. So there's going to be a binding
+search over here in the map. It's a BST for all purposes. The end method has a time of order one
+because you're not updating the Q. You're just updating the reference in the hashmap and the pole
+method has a time complexity of log N because the Q you're evicting the entry from the Q over here
+and you're removing from processes that is order one. So this is the total time complexity login
+order one login. So gosh is asking for the code to be put on GitHub. Yes, that is going to happen.
+Um guys, if I can if I can be honest like this part of the interview is what a fresher needs to know
+about. like this is the bare minimum that is expected of everyone that you are able to solve a small
+algorithmic problem. uh after this like in part two it's focused on SD2s SD3s okay where you're
+expected to have a good concurrency managing class okay so we'll get to that next time and thank you
+all for tuning in uh apologies for the first 15 minutes we had some technical issues I'll make sure
+that it doesn't happen again or if it does happen then I mean I'll make sure that you know we are
+well set for that. Uh thank you for having a look at this code. I'll be posting everything in
+GitHub. See you then. Bye-bye.

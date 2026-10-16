@@ -1,0 +1,195 @@
+# tactiq.io free youtube transcript
+# What is LOAD BALANCING? ⚖️
+# https://www.youtube.com/watch/K0Ta65OqQkY
+
+00:00:00.200 Hi everyone. This is GKCS. We aretalking about consistent hashing now.
+00:00:05.240 So this is, as you can expect,
+00:00:10.970 relevant to the conceptof hashing objects.
+00:00:15.870 So consistent hashinghas certain properties,
+00:00:18.070 and this is something that you needto know if you are building systems,
+00:00:22.910 if you're building systems whichcan scale to a large extent.
+00:00:27.390 So many of these terms that I'mstating right now might be, you know,
+00:00:31.430 jargon For you, you might besaying, what do you mean scale,
+00:00:33.570 but what do you mean systems?So if you have, let us say
+00:00:40.790 a box, just a, just a computerwhich is running a program, right?
+00:00:45.250 And someone your comes to youand says that, you know what?
+00:00:49.510 I really like your algorithm.
+00:00:51.700 I'll pay you money justto use your algorithm.
+00:00:57.180 Okay? So there's this person over here
+00:01:00.560 who has their cell phone and they canconnect to your box, your computer,
+00:01:06.510 they wanna use your algorithm, get theresult, and every time they do that,
+00:01:11.441 they pay you some money or maybe atthe end of the month or whatever.
+00:01:14.420 But keeping the money better aside,keeping the sales, marketing,
+00:01:17.601 everything aside, we havetechnical specifications, right?
+00:01:21.390 This algorithm needs to run forthe customer to be happy and you
+00:01:26.500 to be happy in turn.
+00:01:29.150 So when I say that thisis an algorithm running on
+00:01:34.131 a computer, this is like a server,
+00:01:39.620 right? That's what it means. A serveris something which serves requests.
+00:01:44.150 And when that person isconnecting through the mobile,
+00:01:46.900 they're technicallysending a request. Okay?
+00:01:52.490 You, they send a request,your algorithm runs,
+00:01:56.150 you understand what they want.
+00:01:58.140 Let's say the algorithm is afacial recognition algorithm,
+00:02:00.771 which gives them mustache, right?
+00:02:03.070 So your response is going tobe having that image sent back.
+00:02:09.500 So your server takes requests,sends backs, response.
+00:02:14.860 Now let's say one person comes to youand they're happy, they're really,
+00:02:19.801 really happy.
+00:02:20.500 So they tell all their friends and youhave thousands and thousands of requests
+00:02:25.241 coming in. Your computercannot handle this anymore.
+00:02:28.660 So what you do is you addanother computer because you know
+00:02:33.481 you're getting a lot ofmoney from all these people.
+00:02:35.340 Now you can afford to buy anew computer, a new server.
+00:02:40.440 If you can do this, there's one problem.
+00:02:44.150 Where do you send the requests?Like if there's a second person,
+00:02:50.000 then should the request go hereor should the request go here?
+00:02:57.040 At the bare minimum level, ifyou have, let's say, end servers,
+00:03:04.430 you want in general to balancethe load on all of these servers.
+00:03:09.750 Now you can imagine all of these serversactually carrying load these requests
+00:03:14.110 are things which they need to process.
+00:03:16.350 So the server has load
+00:03:21.000 On it. This is pretty important,
+00:03:25.990 right?
+00:03:26.680 And the concept of actually taking endservers and trying to balance the load
+00:03:31.680 evenly on all of them is called
+00:03:35.690 load balancing. Okay?
+00:03:41.410 So this is our very simple problem.
+00:03:43.780 What we are going to try todo is take these requests and
+00:03:48.690 evenly balance the loadon all of our end servers.
+00:03:52.890 And the concept of consistenthashing will help us do that.
+00:03:58.690 So.
+00:04:00.500 You want to evenly distributethe weight across all servers.
+00:04:04.540 You'll get a request ID in eachrequest, right? So that request
+00:04:10.660 ID is, you can expect uniformly random.
+00:04:14.940 So when the client says, when the, whenthe mobile actually sends you a request,
+00:04:19.500 it randomly generatesa number from zero to M
+00:04:24.610 minus one.
+00:04:27.339 And what happens is this request ID issent to your server. What you can then do
+00:04:33.660 is take this request id, I'll call it I,
+00:04:37.950 or I'll call it r
+00:04:41.060 r one and hash it.
+00:04:45.350 When you hash it, you get aparticular number. Let's say M one,
+00:04:51.380 this number can be mappedto a particular server. How?
+00:04:55.401 Because you have N servers,
+00:04:57.140 you take the remainder withinwhatever index you get here,
+00:05:01.060 you just send that tothe respective server,
+00:05:05.730 right? So let's say youhave four servers, S zero,
+00:05:10.420 SS one, SS two, and SS three
+00:05:14.220 R one is 10. When you pass itthrough your hash function,
+00:05:18.320 you get the value three, three mod
+00:05:23.860 four, and it's four In our case is three.
+00:05:27.529 So this will go to bucket number.
+00:05:32.000 This request, R one willgo to the server three,
+00:05:38.040 okay? Another example, H of 20.
+00:05:42.380 Let's say this somehow gives you 15
+00:05:45.870 and mod four. Again, this gives you three.
+00:05:51.110 So R two also goes to three.
+00:05:55.820 And.
+00:05:56.460 Finally, if we have
+00:05:59.790 edge of 35
+00:06:04.520 when hashed gives you 12,
+00:06:11.440 this mod four gives you zero.
+00:06:14.000 So R three maps to the firstserver, right? And in general,
+00:06:18.851 because this is uniformly random andyour hash function is uniformly random,
+00:06:23.190 you can expect all of theservers to have uniform load.
+00:06:27.830 So each of the servers, if there areX requests, will have X by end load.
+00:06:33.580 And the load factor is one by end.
+00:06:37.260 So everything's perfect andthat's all we need to do.
+00:06:42.339 Hmm, except
+00:06:45.089 what happens if you needto add more servers?
+00:06:48.880 We said that initially ourclients are very happy with us.
+00:06:51.920 So we are getting viral or for somereason, you know, people are really,
+00:06:55.701 really hitting our servers a lot.What happens if that happens?
+00:07:00.760 We need to add more servers, S four.
+00:07:06.710 But now there's a problem.
+00:07:08.670 The requests which are being servedhere are completely bamboozled.
+00:07:13.230 The request id. So when you pass 'emthrough the hash functions, the values,
+00:07:16.790 you are getting four threemod four, this has to change.
+00:07:22.690 Now you have in total fiveservers. So three mod five
+00:07:27.610 R one has to go to Serverthree. So that's okay.
+00:07:33.120 What about 15 mod five,this has to change.
+00:07:37.920 It has to go to
+00:07:41.850 server zero because this is zero, right?
+00:07:46.620 What about this 12 mod five,
+00:07:51.820 this is equal to two. So thisrequest, R three again, has to change.
+00:07:57.300 And.
+00:07:58.530 Go to S two.
+00:08:01.080 And this is very clearlyillustrated in a pie diagram,
+00:08:08.040 right? This is your pie.Initially you had four servers, so
+00:08:12.610 the pie was 25% for every person,
+00:08:17.320 right?
+00:08:19.490 So this is having 25, 25, 25, 25.
+00:08:23.890 So they have 25 numbers assigned tothem. Now, when the fifth server came in,
+00:08:29.660 this had to lose five of its buckets.
+00:08:34.169 So there was a change of five buckets.
+00:08:38.400 This had to take these fivebuckets. So that is plus five
+00:08:45.080 go up to 40, right? So insteadof 50, it goes up to 40 only.
+00:08:49.740 So this lost 10 buckets. Sothat's 10 buckets changed.
+00:08:55.600 When I mean buckets, I just mean numbers.
+00:08:57.830 So those are just numbers which it lost.
+00:09:03.290 So this is up to 14.
+00:09:04.490 Now this server S three or rather S two,
+00:09:08.511 so this is SS zero. SS one S two
+00:09:14.170 has to take these 10. Sothat's plus 10 as a change.
+00:09:19.860 Plus it goes only up to 16 now.
+00:09:23.559 So instead of 75, it goes only up to 16.
+00:09:26.261 So that's 15 plus 15 buckets changed.
+00:09:31.360 Now S two is done. We go to SS three,
+00:09:35.050 which is the last server that we had.
+00:09:38.220 And this now has to go only up to 80.
+00:09:43.170 So what happens is it lost.
+00:09:46.210 So it has five bucketsremaining in its old section.
+00:09:49.010 It lost 20 buckets here and it had to take
+00:09:53.871 15 buckets from here to havea total of 20 in SS three.
+00:10:00.130 Okay? So that is 15 buckets added to it
+00:10:05.010 and 20 buckets lost. And finally,
+00:10:10.309 SS four has to actually take 20buckets. So the cost of the operations,
+00:10:15.231 if you see the cost of thechange in this is five plus
+00:10:19.231 5,
+00:10:26.290 10, 20, 30, 40, 50, 60, 70, 80,9000. So in total the change was 100,
+00:10:31.309 which is actually your entire sort space.
+00:10:37.090 Now why is this such abig deal? You know? Okay,
+00:10:41.890 100 changes, the whole thing changed.So what, well, because in practice
+00:10:47.970 the request ID is neverrandom or it is rarely random.
+00:10:52.370 The request ID usually encapsulatessome of the information of the user.
+00:10:56.900 For example, the userid. So if I hash got up
+00:11:03.820 this hash is going to give me the sameresult again and again and again because
+00:11:08.391 the hash function is constant.If I'm getting the same result,
+00:11:12.330 it means that when I model A with N,
+00:11:15.300 it's going to send me to the sameserver again and again and again. Now,
+00:11:18.450 why not use that information if I'mbeing sent to the same server again?
+00:11:22.970 And if there is somethinglike fetching a profile
+00:11:27.600 from a database, why shouldI do that all the time?
+00:11:31.110 Why not store it inthe local cache, right?
+00:11:35.260 That seems like a smart thingto do depending on the user id.
+00:11:39.050 So instead of R one, I'll, I can callit U one, but I'll still call it R one.
+00:11:43.170 So depending on the user id,
+00:11:46.650 we can send people to specificservers and once they're sent there,
+00:11:51.470 you can store relevant informationin the cache for those servers.
+00:11:57.270 But through this policy, what's goingto happen is the entire system changes.
+00:12:01.830 All users are now Azar sent to differentplaces and all the useful cache
+00:12:06.411 information you had isjust dumped. It's useless.
+00:12:10.390 Almost all of it is uselessnow because the numbers
+00:12:15.400 that you are serving completelychanged. So what you want to avoid
+00:12:21.570 is a huge change in the rangeof numbers that you're serving.
+00:12:25.809 If you're serving from this to this,
+00:12:28.780 then a small change is what you wanthere. If you're serving from here to here,
+00:12:33.300 then you don't want a huge change here.What you want is a tiny change here.
+00:12:37.500 So in a new pie chart,
+00:12:38.721 what's going to happen is if thisis the pie chart and this is the
+00:12:43.711 quarter thing,
+00:12:45.020 what I would like to do istake a little from this first
+00:12:49.711 server, so that is, that is this bit,take a little from the second server,
+00:12:55.990 take a little from the third server,
+00:12:58.460 and take a little from thefourth server such that the,
+00:13:02.420 the sum of these areas isgoing to be 20%, right?
+00:13:07.059 Because you added one server, you havefive servers, you want 20% on each.
+00:13:10.520 So the sum of these areas should be 20%,
+00:13:13.240 but the overall change should be minimum.
+00:13:17.860 That's the general idea why theold standard way of hashing doesn't
+00:13:22.801 work. In this case, we needmore advanced approaches,
+00:13:26.429 and that's where comesconsistent hashing comes in.
+00:13:34.950 The topic that.
+00:13:35.570 We are gonna be talking about todayis relevant to hashing and it's called
+00:13:39.411 consistent hashing.

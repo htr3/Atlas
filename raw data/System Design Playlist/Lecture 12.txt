@@ -1,0 +1,382 @@
+# tactiq.io free youtube transcript
+# What's an Event Driven System?
+# https://www.youtube.com/watch/rJHTK2TfZ1I
+
+00:00:00.000 hi everyone welcome to the new system
+00:00:01.920 design video on event-driven
+00:00:03.570 architecture so as you can see we have a
+00:00:06.569 set of services with us the main
+00:00:09.090 difference between request response and
+00:00:10.650 event or in architecture is that you
+00:00:13.799 have requests sent by clients to our
+00:00:16.320 gateway services but internally what
+00:00:18.600 happens is these services never interact
+00:00:20.670 with each other directly instead they
+00:00:23.189 use events to state that yes something
+00:00:26.670 has changed so if a service is sending
+00:00:29.429 an event to the event bus it's basically
+00:00:31.830 saying something is happened which it
+00:00:34.170 concerns me and if it concerns anyone
+00:00:36.360 else
+00:00:36.960 you can consume this event so all
+00:00:39.180 interested consumers which can be called
+00:00:41.399 subscribers and this can be called the
+00:00:42.719 producer consume this event and see if
+00:00:45.930 this el event is relevant to them
+00:00:48.880 after that they might create events
+00:00:51.280 themselves because their internal state
+00:00:52.690 might change so on and so forth down
+00:00:55.000 this tree up to this service which might
+00:00:57.160 be sending an email to another client
+00:01:00.070 now I kept this email bit because it
+00:01:01.870 gets interesting with this for now just
+00:01:04.180 remember that this is very similar to
+00:01:06.280 publish a subscriber but some subtle
+00:01:08.980 differences coming in after some time
+00:01:10.840 once I explain what the applications are
+00:01:12.790 because looking at these architectures
+00:01:14.920 you might wonder why would I ever use
+00:01:16.690 this the most popular event-driven
+00:01:19.600 architecture that I can think of is gate
+00:01:21.369 gate uses events which are like commits
+00:01:24.640 to get its way through its history
+00:01:27.750 there's a react which is if you're a
+00:01:30.190 JavaScript pan then react is something
+00:01:31.990 that you probably know about nodejs if
+00:01:34.330 you are on the server side and many
+00:01:36.850 gaming systems also use event-driven
+00:01:38.950 architecture speaking of games there's a
+00:01:41.740 really interesting use case where
+00:01:43.780 event-driven architecture has come into
+00:01:45.610 play let's say you are the first player
+00:01:47.710 and there's a second player and there's
+00:01:49.330 this server in between and these are
+00:01:51.700 your timelines so in a first-person
+00:01:53.649 shooter game like counter-strike you
+00:01:55.840 know about the headshots that we can
+00:01:57.369 take let's say you you look at a person
+00:02:01.569 and you're at this point and you click
+00:02:03.880 you're your headshot so this information
+00:02:06.700 goes to the server the server then
+00:02:09.220 figures out where player two exists and
+00:02:12.100 maybe player two is at position 10 and
+00:02:14.470 while you take took the headshot you saw
+00:02:17.230 the player at position 9 after
+00:02:19.510 evaluating whether it's a headshot or
+00:02:20.860 not which it does not the server says no
+00:02:23.890 this is not a headshot but the thing is
+00:02:26.170 at this point in time T maybe 2 was at
+00:02:32.110 position 9 so if 2 was at position 9
+00:02:36.459 this should have given a headshot to 2
+00:02:38.650 and you should have won the game but
+00:02:40.300 instead what has happened is because we
+00:02:42.670 had a delay response maybe to move to
+00:02:46.209 position 10 told that to the server and
+00:02:49.569 the server has updated its position
+00:02:51.760 because of this movement but that's not
+00:02:54.670 fair because you know you took the
+00:02:56.530 headshot when the player was at position
+00:02:57.970 9 and you're getting position 10 you
+00:03:01.780 want headshots
+00:03:02.879 so what you can do here is as the server
+00:03:07.230 take these new movements or shots as
+00:03:12.760 events and when you have an event-driven
+00:03:15.370 architecture this is quite easy you just
+00:03:17.319 take the event you take the timestamp
+00:03:19.389 whenever required you can move back that
+00:03:23.019 is one way you can undo or you can
+00:03:25.870 replicate all the ones that you had up
+00:03:27.430 to this point you know you pass the
+00:03:29.530 timestamp of let's say 50 and you just
+00:03:32.829 move 50 events forward check this state
+00:03:36.639 if player 2 as a is at position 9 then
+00:03:40.840 you call that a headshot and you win the
+00:03:42.730 game in a system design question though
+00:03:45.250 there's very specific areas where you
+00:03:47.439 might find a mentor in architecture
+00:03:48.639 useful if you're not able to get them
+00:03:51.669 into an architecture working you know
+00:03:53.590 quickly enough or if it's if it's not
+00:03:55.359 fitting into the model don't pursue it
+00:03:57.819 and we'll get back to this in some time
+00:03:59.469 the reason why it's not it's not very
+00:04:01.930 flexible so as you can see there's a lot
+00:04:04.540 of places where even driven architecture
+00:04:06.400 can come into play the workings of this
+00:04:08.829 thing are explained right now so let's
+00:04:10.959 say this is service one service to
+00:04:12.609 service 3 and service for so service 1
+00:04:16.120 gets a request it sends an event over
+00:04:18.608 here it's in the event bus now when
+00:04:20.500 service 2 gets this event it actually
+00:04:23.320 stores that event in its own local
+00:04:26.770 database and this is one of the
+00:04:28.659 important things about given to an
+00:04:29.650 architecture each of the services stores
+00:04:31.930 the data it's getting from this event
+00:04:34.060 bus it's not compulsory necessarily I
+00:04:36.400 mean it can be a single store of data
+00:04:38.530 also the event bus can store all the
+00:04:40.659 data but you usually want to pass this
+00:04:45.180 persistence requirement to the services
+00:04:48.220 which are actually consuming this event
+00:04:49.900 because then the event bus can be free
+00:04:51.669 it can get rid of the events it doesn't
+00:04:53.800 even need to take care of persisting
+00:04:55.810 them in the right way the service can
+00:04:58.120 store these events by adding additional
+00:05:01.060 fields which are relevant to it or maybe
+00:05:03.190 removing some other fields which are not
+00:05:04.630 relevant to it but it stores them in the
+00:05:06.400 local database and so even if this
+00:05:08.949 service is not working the second
+00:05:11.860 service doesn't need to ask relevant
+00:05:13.450 information every time
+00:05:16.180 so this is a little different from the
+00:05:18.040 standard micro-service architecture that
+00:05:19.660 we have where all the services store
+00:05:21.910 data only is relevant to them
+00:05:24.210 sure you're storing data which is
+00:05:27.070 relevant to you but also coming from
+00:05:28.720 other services
+00:05:32.199 so the database is actually storing
+00:05:33.999 event information now what are the
+00:05:36.370 advantages of this one like we said is
+00:05:38.830 availability even if some service goes
+00:05:41.319 down you don't need to ask it for
+00:05:42.520 relevant events so you are available
+00:05:44.430 although with high availability comes
+00:05:47.800 one straight off problem which is
+00:05:49.659 consistency so if the data here has
+00:05:51.939 changed like over here then this data
+00:05:55.599 needs to get updated according to this
+00:05:57.939 data that usually doesn't happen and
+00:06:00.249 that's why consistency is not so good
+00:06:04.050 consistency is simply all of your data
+00:06:06.520 across all of your services being the
+00:06:08.499 same that is consistent and this won't
+00:06:11.110 be consistent what other good thing can
+00:06:13.930 be done by just storing all the events
+00:06:16.259 so if you have something like the event
+00:06:18.879 log which is basically what your
+00:06:20.889 database is doing it's logging all of
+00:06:22.210 the events you can actually move to any
+00:06:25.120 point in history using this event log so
+00:06:28.029 going from the start to a particular
+00:06:30.580 point is very easy you just run the
+00:06:32.589 events one by one and you are at that
+00:06:34.960 state so if you have any bug in your
+00:06:37.000 code which you know came after a
+00:06:39.219 timestamp T just go to that timestamp T
+00:06:42.159 run one event one by one and you can
+00:06:44.500 actually debug it even for a production
+00:06:46.330 system so that's a big advantage of
+00:06:49.680 event-driven architecture let's say you
+00:06:52.810 write a new service service v which
+00:06:56.649 needs to replace service two it's very
+00:06:59.080 easy all you need to do is ask the event
+00:07:01.629 bus to send you all the new ends before
+00:07:03.610 that you take all the events from x time
+00:07:06.580 0 to time stamp whatever the current
+00:07:08.740 time stamp replay these events into this
+00:07:12.069 service and service 5 will be consistent
+00:07:15.219 with service 2 then and then you have
+00:07:17.529 already accepted the newer events and
+00:07:19.180 this service will be online so it can
+00:07:22.210 replace service two very easily it's a
+00:07:24.909 smooth replacement instead of the clunky
+00:07:28.120 bits that we have in in one event-driven
+00:07:31.300 architectures
+00:07:33.030 okay two more advantages of this the
+00:07:36.090 first one is that it gives you a
+00:07:37.410 transactional guarantee messages when
+00:07:39.720 sent to any service are either at least
+00:07:42.270 one or at most one in this architecture
+00:07:44.880 so if it is at most one then you send a
+00:07:49.320 message and you don't care if it reaches
+00:07:50.880 or not if it doesn't reach it's fine
+00:07:52.590 maybe sending the email is not so
+00:07:54.000 important so at most one might be a
+00:07:57.210 welcome email on the other hand if it's
+00:07:59.130 an invoice email you want it to be sent
+00:08:01.140 definitely
+00:08:02.100 so that is at least one in which case
+00:08:04.260 you will be retrying your event bus
+00:08:06.720 logic in case the service doesn't get it
+00:08:08.430 try again try again but definitely send
+00:08:11.250 the email at least once
+00:08:13.210 so it's giving you that kind of
+00:08:14.350 transaction guarantee and finally when
+00:08:17.140 you're storing these events which are
+00:08:19.090 which is basically the relevant data to
+00:08:20.860 you you are also storing the intent of
+00:08:23.350 the event why did you change that data
+00:08:26.110 now because of this tomorrow if you have
+00:08:29.230 a new service you can actually look at
+00:08:31.570 the intent of the data and make changes
+00:08:34.539 in your code such that you have a
+00:08:37.000 completely different state in your
+00:08:41.380 service file finally it will be storing
+00:08:43.600 all the events of course but the actions
+00:08:45.910 it performs depends on the events only
+00:08:48.400 so if you have all the events logged
+00:08:50.110 with you you can actually do different
+00:08:53.080 actions compared to service two
+00:08:55.910 enough of that Vantage's in how let's
+00:08:58.070 get better at disadvantages service for
+00:09:00.620 is a point of interest it's sending
+00:09:03.530 emails to external services and in this
+00:09:05.780 event-driven architecture you might
+00:09:06.860 think that I can replace service for
+00:09:09.110 just like I replace service to but we
+00:09:11.630 can't because when we has any emails we
+00:09:14.360 are dependent on responses from external
+00:09:16.070 systems and if that response is
+00:09:18.830 dependent on time then when we are
+00:09:21.230 trying to actually replace this service
+00:09:22.970 by replaying all the events those events
+00:09:25.760 will get different responses so its
+00:09:28.490 behavior will change without us actually
+00:09:30.470 wanting it to that's one major issue
+00:09:33.340 with event-driven architectures all the
+00:09:36.980 services on the Gateway will need to be
+00:09:39.380 storing the timestamp of the responses
+00:09:42.950 sometimes that's ok but sometimes the
+00:09:45.800 responses are entirely dependent at a
+00:09:47.210 time and you know storing the timestamp
+00:09:50.330 and the response doesn't make any sense
+00:09:51.500 sometimes
+00:09:53.450 other thing is it's not it's not giving
+00:09:55.970 you too much control whenever we are
+00:09:57.440 sending and I went to the event bus and
+00:09:59.570 it's sending it to service two or
+00:10:01.040 service three we really don't have that
+00:10:03.070 fine-tuned control of a request and
+00:10:06.350 response with a request and response we
+00:10:08.660 can clearly mention how much time the
+00:10:10.820 request should take exactly the service
+00:10:12.800 you want to send it to with this it's
+00:10:16.120 dependent on the event bus and even if
+00:10:19.070 you can mention to the event bus in how
+00:10:20.540 many seconds it should be done that
+00:10:22.550 event might not come into the queue till
+00:10:25.430 quite some time and if you were to get
+00:10:27.860 over that then you have to set
+00:10:28.940 priorities things are getting
+00:10:30.530 complicated
+00:10:32.580 because we cannot fine-tune
+00:10:35.380 the handling of these events what should
+00:10:39.040 be an event if there's any interstate
+00:10:41.650 which has changed for me and it
+00:10:43.780 published that all the time is an event
+00:10:45.400 maybe that's a security issue maybe I
+00:10:47.890 don't want that data published outside
+00:10:50.440 but an event bus architecture it's
+00:10:53.020 difficult to know what people want to
+00:10:54.850 consume and what people don't want to
+00:10:56.710 consume the problem with this also is
+00:10:59.050 that maybe you want some services to
+00:11:01.270 consume your events and you want to stop
+00:11:03.940 some other services from ever touching
+00:11:05.350 your wins that brings an additional
+00:11:08.620 layer of complexity to the event bus I'm
+00:11:11.170 not saying that it's impossible it's
+00:11:12.850 just really difficult to do this another
+00:11:16.090 disadvantage is that if it's storing all
+00:11:18.370 the events one by one and you need to
+00:11:20.920 get to a particular point sometimes
+00:11:22.420 there's only three ways the first one is
+00:11:25.540 to replay from start and this is
+00:11:30.430 replaying the entire system of course
+00:11:32.830 it's completely impractical for many of
+00:11:34.510 the systems because there's too many
+00:11:35.830 events that you need to process the
+00:11:37.720 second one is diff based in which case
+00:11:40.090 you take the first event and then just
+00:11:41.800 store the diffs and the third one is to
+00:11:44.080 use something like an undo so this is
+00:11:47.380 really cool you can undo up to a
+00:11:49.480 particular point but some operations can
+00:11:52.090 be undone some operations cannot be
+00:11:53.650 undone like subtractions and additions
+00:11:55.210 yeah you can you can undo them but there
+00:11:58.810 are some operations which you cannot
+00:12:00.250 undo this
+00:12:00.790 like for example sending an email one
+00:12:03.910 way that you can get rid of it is to
+00:12:05.440 squash all events so compaction every
+00:12:08.440 maybe day or two days or three days you
+00:12:10.840 can compact all the events up to a
+00:12:12.310 particular day instead of up to a
+00:12:14.140 particular time stand so that will
+00:12:16.960 really help the system because you can
+00:12:19.060 roll to that point so if based or then
+00:12:23.650 replay is also going to work so that's
+00:12:26.110 just a disadvantage which can be
+00:12:27.610 overcome so it's not really so much of a
+00:12:29.560 disadvantage
+00:12:31.050 by now you might be feeling a little
+00:12:32.940 apprehensive about using this
+00:12:34.350 architecture so I'll give you two more
+00:12:36.570 disadvantages both of them are developer
+00:12:39.300 or the scientist is that software teams
+00:12:41.190 feel the first one is that it's
+00:12:43.050 difficult to reason about the flow of
+00:12:45.510 this system when you look at service one
+00:12:48.210 so this one is just publishing to an
+00:12:51.180 event bus but then that's where it code
+00:12:53.310 stops looking at service once cold you
+00:12:56.700 can just figure out that the AI
+00:12:57.840 publishes to an event bus but you don't
+00:12:59.490 know what happens with that event so you
+00:13:01.110 have to go to the event bus and see what
+00:13:02.790 are the subscribers for this event so
+00:13:05.280 the flow of the program is not easy to
+00:13:07.380 understand that's a major problem with
+00:13:09.320 designing these kind of systems the
+00:13:11.310 developers will not be looking able to
+00:13:13.200 look into the code and figure out where
+00:13:14.520 the things are going the second thing is
+00:13:17.520 it's difficult to move out of so if you
+00:13:19.530 have this kind of architecture and you
+00:13:21.300 suddenly want some part of it to be a
+00:13:23.610 request response architecture it's not
+00:13:25.560 so easy because everything is an event
+00:13:29.250 you're going to be consuming that and
+00:13:31.020 then passing that forward if you send it
+00:13:34.890 as a request to one of the event buses
+00:13:36.930 it is possible but it's not going to fit
+00:13:39.330 very well
+00:13:40.730 in conclusion we can think of services
+00:13:42.800 in event-driven architectures to be
+00:13:44.810 having some sort of a log of their
+00:13:46.580 events and using a publisher subscriber
+00:13:49.040 model to pass and consume those events a
+00:13:51.940 good way to actually remember all that
+00:13:54.470 Vantage's and discern disease of this is
+00:13:56.180 to think of what event-driven
+00:13:57.770 architectures are all the services in an
+00:14:00.920 event or in architecture they publish
+00:14:02.960 events when they feel like someone needs
+00:14:05.540 to know something
+00:14:06.410 so they publish an event while in the
+00:14:09.290 request response so service asks for
+00:14:12.770 something so that might be data it might
+00:14:14.930 be a service that's the primary
+00:14:16.790 difference between these two
+00:14:17.780 architectures and almost all of the
+00:14:19.580 advantages and the disadvantages come
+00:14:21.950 from this subtle point like I said a lot
+00:14:25.190 of systems actually use this
+00:14:26.150 architecture small talk and get I think
+00:14:28.640 are the oldest ones which use this while
+00:14:30.860 react and nodejs are the popular new
+00:14:34.040 ones who choose this architecture if you
+00:14:36.260 want to have a discussion on all those
+00:14:38.570 things then we can have them in the
+00:14:40.040 comments below if you want to subscribe
+00:14:41.660 or for the video similar to this please
+00:14:43.700 press the subscribe button and you can
+00:14:45.200 always like the video of course I'll
+00:14:46.430 catch you next time
+00:14:55.990 you

@@ -1,0 +1,373 @@
+# 1.4 Frequency Count Method
+
+# https://www.youtube.com/watch/1U3Uwct45IY
+
+
+
+00:00:01.520 knowledge is frequency count met her
+
+00:00:05.000 will did some algorithms and find out
+
+00:00:08.099 how this method is useful for five to
+
+00:00:10.710 ten complexity of algorithms this
+
+00:00:13.920 algorithm is for finding sum of all the
+
+00:00:17.400 elements in an ie here is an array
+
+00:00:20.490 assume that there's an ally of so many
+
+00:00:23.460 means I'm a piggelin array of size five
+
+00:00:35.160 with some elements in it so what is n +
+
+00:00:38.300 5 so it is this array and NS 5 what this
+
+00:00:45.329 algorithm is to me it is finding is a
+
+00:00:47.520 form of all the elements in an array let
+
+00:00:51.719 us analyze the time taken by the cell
+
+00:00:53.670 column so how do we do that by using
+
+00:00:56.579 frequency count method so the time taken
+
+00:01:00.660 by an algorithm can be known by
+
+00:01:02.750 assigning one unit of time for each
+
+00:01:05.489 statement and if any statement is
+
+00:01:08.880 repeating for some number of times the
+
+00:01:11.670 frequency of statement the frequency of
+
+00:01:13.920 execution of that statement will
+
+00:01:15.869 calculate and we find that time taken by
+
+00:01:19.619 that Alberto so here we have some
+
+00:01:22.560 statement this is a statement which is
+
+00:01:24.630 repeating for some number of times so we
+
+00:01:27.900 will find out its frequency and that
+
+00:01:29.670 will give us the time taken by the cell
+
+00:01:31.560 kata so let us see so this is a simple
+
+00:01:35.130 statement so this takes one unit of time
+
+00:01:39.049 and as the C language code follow by
+
+00:01:43.350 habit on this a C language for in this
+
+00:01:45.780 one we know of the still execute for one
+
+00:01:48.210 time and this will repeat for any time
+
+00:01:53.360 but this condition will be checked for n
+
+00:01:56.369 plus 1 time how when n is 5 the first
+
+00:02:02.850 time
+
+00:02:03.420 I go zero is less than and when I is the
+
+00:02:07.350 one one is less than n I used to tool is
+
+00:02:11.190 less than n is a 3/3 those who lived an
+
+00:02:14.819 N for those who less than fighters not
+
+00:02:18.810 less than n so it will stop so I was
+
+00:02:23.010 initially already zero so how many times
+
+00:02:25.380 I has changed fight ends then how many
+
+00:02:30.209 times condition is checked one two three
+
+00:02:33.030 four five six times five plus one four
+
+00:02:37.560 times it was true and fair time it was
+
+00:02:40.050 false when it became five it was false
+
+00:02:44.340 so it has stopped so this is executing
+
+00:02:46.440 400 us one times so you say that if you
+
+00:02:51.060 sum up this this is 2 n plus 2 but we
+
+00:02:54.299 write n plus 1 so it means we are
+
+00:02:57.000 bothered about this phenomena right we
+
+00:03:02.970 have whatever only this one we don't
+
+00:03:05.069 want to write about those things usually
+
+00:03:06.600 it is written n plus 1 only but if you
+
+00:03:08.640 observe it carefully it is true L plus
+
+00:03:10.560 true but we don't want to write the time
+
+00:03:13.769 taken by these two right as I said we'll
+
+00:03:17.880 be doing it briefly then whatever the
+
+00:03:21.180 statement is there inside this room I
+
+00:03:23.430 ask this is repeating for n times this
+
+00:03:26.340 is statement alone so we paid for at
+
+00:03:28.019 times so this is n times so now we can
+
+00:03:32.190 understand that whatever is written in
+
+00:03:34.470 the loop like this type of loop the
+
+00:03:37.350 statement legible for n times and the
+
+00:03:41.489 loop itself if you take it will execute
+
+00:03:43.500 for n plus 1 times then the last
+
+00:03:46.829 statement it will make you for one time
+
+00:03:49.970 then what's the time function f of n is
+
+00:03:55.100 2 n plus 1 2 3 that's it this is the
+
+00:04:03.480 time function now
+
+00:04:07.350 what is the degree of that polynomial it
+
+00:04:10.500 is a degree one it is just n so we say
+
+00:04:14.580 order off and I am calling it as order
+
+00:04:19.110 of I am NOT saying big or theta we will
+
+00:04:21.660 learn it in some other video now for now
+
+00:04:24.600 I will say order of n this complexity
+
+00:04:29.190 see what are the variables used here it
+
+00:04:32.550 is used and s and the size of is and
+
+00:04:43.140 words and all these are just one one
+
+00:04:47.370 word so total is how much n plus 3 so
+
+00:04:52.650 that space complexity is s of NS n plus
+
+00:04:57.120 3
+
+00:04:58.730 now this polynomial is also degree n so
+
+00:05:03.030 we say Otto space complexity we got it
+
+00:05:05.400 as order of N and the time complexity is
+
+00:05:08.190 also order now Nextel governments for
+
+00:05:13.380 finding the sum of two matrices a and B
+
+00:05:17.430 are square matrices of dimension n cross
+
+00:05:21.450 n cross n for example it is 3 cross 3
+
+00:05:25.710 then these mattresses or two-dimensional
+
+00:05:29.340 arrays of size 3 by 3 dimensions are 3
+
+00:05:34.650 where we assume that so n by n there and
+
+00:05:38.130 wagon now here I have an algorithm for
+
+00:05:40.710 finding the sum of two matrices let us
+
+00:05:44.850 find out the time complexity for this
+
+00:05:47.250 one for them already you know this will
+
+00:05:52.350 take n plus 1 time now whatever is there
+
+00:05:56.610 inside this loop will is u4 n times this
+
+00:06:01.890 is and this is all
+
+00:06:03.860 and two legs are two statements are they
+
+00:06:07.640 each is taking and then what is this
+
+00:06:11.330 again the Zulu so focus also and blessed
+
+00:06:17.030 one then the game whatever is there
+
+00:06:19.220 inside this one will execute for ten
+
+00:06:21.950 times that's it
+
+00:06:26.480 nor is the time taken by this one F of n
+
+00:06:30.080 is and square and square 2 m squared
+
+00:06:35.390 plus and this is the time function for
+
+00:06:44.810 this what is the degree highest degree 2
+
+00:06:49.730 so we don't write degree V night and
+
+00:06:52.900 square or rough and square so we are
+
+00:06:57.950 writing the degree we are not saying
+
+00:07:00.650 that it is equal to this one we are
+
+00:07:02.390 saying that degree of this polynomial is
+
+00:07:04.130 n square that's all this is the time
+
+00:07:08.840 complexity little state space complexity
+
+00:07:15.410 what are the variables that is having a
+
+00:07:18.460 we see the B and C I and I J what are
+
+00:07:35.510 ABC they are matrices two dimensional
+
+00:07:39.650 arrays and cross n and square and square
+
+00:07:45.410 and square
+
+00:07:48.580 what are an i J
+
+00:07:51.830 they are scalar variables simple
+
+00:07:54.200 variables one word one word one word
+
+00:07:57.620 so space function is 3 and square plus 3
+
+00:08:06.520 then
+
+00:08:08.570 what is the degree and square so this
+
+00:08:13.139 also and square space complexity is also
+
+00:08:17.280 N squared so the time and the space
+
+00:08:20.160 complexity of this algorithm is N
+
+00:08:22.620 squared how to find the time complexity
+
+00:08:24.960 I have shown it here how to find the
+
+00:08:27.180 space complexity I have shown it here
+
+00:08:29.130 so for few algorithms I'm going to be
+
+00:08:31.350 showing for any other algorithm you can
+
+00:08:34.200 find out this one by following this
+
+00:08:36.450 approach next algorithm is
+
+00:08:39.510 multiplication of two matrices you can
+
+00:08:43.110 see that there are three loops nested
+
+00:08:45.540 one inside another one inside another
+
+00:08:48.500 let us find out the time on this side I
+
+00:08:53.250 would write this would be little far
+
+00:08:55.680 away so this side is right
+
+00:08:57.839 so you can see them this is n plus 1
+
+00:09:01.400 whatever is there inside will execute
+
+00:09:04.080 for and dimes every statement and times
+
+00:09:14.839 then again this a loop so this is n plus
+
+00:09:20.820 1 whatever is there inside it will
+
+00:09:26.430 execute for n times so into n into n 2
+
+00:09:37.640 then again this loop so this is n plus 1
+
+00:09:42.780 times whatever is there inside will
+
+00:09:48.000 execute for n times again so as the
+
+00:09:52.950 statement is inside all 3 loops so this
+
+00:09:56.430 is going to execute 4nq times this is
+
+00:10:00.839 inside just these two lose these two
+
+00:10:03.620 so this is executing for n square and
+
+00:10:06.020 these are mu step so that's n plus 1 and
+
+00:10:09.110 this is n square and thank you if you
+
+00:10:12.590 finally write down the time function f
+
+00:10:15.020 of n will be equals to C thank you and
+
+00:10:21.410 one more and q2 and u plus this is the N
+
+00:10:28.910 squared and this is M square and this
+
+00:10:31.280 one wooden square so three n square plus
+
+00:10:39.670 this is one n + 2 n so 2 n plus 1 that's
+
+00:10:47.600 it now you've got the degree of the
+
+00:10:50.090 polynomial as Q so the time function is
+
+00:10:54.010 order off and you order of n cube policy
+
+00:11:03.350 space for this one space complexity for
+
+00:11:06.620 this one video sorry a B and C is a b
+
+00:11:12.650 and c and i j k and i'm g + k this is a
+
+00:11:24.710 matrix so n square and square and square
+
+00:11:28.820 and all these are 1 1 1 so this is
+
+00:11:34.060 spaces 3 and squared plus 4 so this is
+
+00:11:39.350 order of n square time is order of n
+
+00:11:45.350 cube spaces or rough n square you can
+
+00:11:55.100 have a look at this working
+
+00:12:04.709 so that's it so I have shown you three
+
+00:12:07.110 different algorithms taking different
+
+00:12:09.420 amount of time one was water of N and N
+
+00:12:12.869 squared and n cube next video you can
+
+00:12:15.899 watch the different type of algorithms
+
+00:12:18.029 and also the method how to analyze them

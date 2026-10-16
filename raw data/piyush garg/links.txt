@@ -1,0 +1,14 @@
+System Design for Beginners.txt	https://www.youtube.com/watch?v=lFeYU31TnQ8	System Design for Beginners
+System Design Crash Course - Part 2.txt	https://www.youtube.com/watch?v=YuB3OuF3MUE	System Design Crash Course - Part 2
+System Design - Event Sourcing.txt	https://www.youtube.com/watch?v=JTmgi0vO5Ug	System Design - Event Sourcing
+CQRS System Design Pattern.txt	https://www.youtube.com/watch?v=vNplj9LwQSw	CQRS System Design Pattern
+Back of Envelope Calculation - System Design Concept.txt	https://www.youtube.com/watch?v=DwqTon7ZS_s	Back of Envelope Calculation - System Design Concept
+Master Rate Limiting - System Design.txt	https://www.youtube.com/watch?v=CVItTb_jdkE	Master Rate Limiting - System Design
+Consistent Hashing - System Design.txt	https://www.youtube.com/watch?v=IC5Y1EE-aj4	Consistent Hashing - System Design
+How Video Streaming Works on Scale - System Design.txt	https://www.youtube.com/watch?v=-JtjQ-OA7XE	How Video Streaming Works on Scale - System Design 
+System Design of UPI Payments.txt	https://www.youtube.com/watch?v=fqySz1Me2pI	System Design of UPI Payments
+What are Bloom Filters_ _ System Design.txt	https://www.youtube.com/watch?v=vz0QUa4CS3o	What are Bloom Filters? | System Design
+System Design Behind Multi-Conference Video Calls - WebRTC vs SFU vs MCU.txt	https://www.youtube.com/watch?v=Zaz6hYVm-WE	System Design Behind Multi-Conference Video Calls - WebRTC vs SFU vs MCU
+Gossip Protocol System Design.txt	https://www.youtube.com/watch?v=TUc_hPtxyf8	Gossip Protocol System Design
+Master Queues _ System Design Interview.txt	https://www.youtube.com/watch?v=2tCfITBVKjA	Master Queues | System Design Interview
+System Design Patterns you should Master Right Now.txt	https://www.youtube.com/watch?v=OdNpY3WQniQ	System Design Patterns you should Master Right Now

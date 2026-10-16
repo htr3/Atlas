@@ -1,0 +1,323 @@
+# tactiq.io free youtube transcript
+# Google Dremel: Interactive Analysis of Web-Scale Datasets
+# https://www.youtube.com/watch/u8lKJWWVE0M
+
+00:00:02.160 Oh. Hello, everyone.
+00:00:03.960 We are going to be talking aboutGoogle Dremel today,
+00:00:07.240 and that is a paper from 2008.
+00:00:13.800 Dremelhas been an extremely influential system.
+00:00:16.800 In fact, even now,which is more than 15 years later,
+00:00:20.400 you will see thatDremel is being used at Google
+00:00:23.640 by a system called BigQuery.
+00:00:27.040 It has been so influential that, well, DB
+00:00:29.040 awarded it the Test of Time award in 2020.
+00:00:32.040 12 years after it was published.
+00:00:34.520 As a software engineer, it makes a lot ofsense to know about this paper.
+00:00:38.120 Now the first thing is what is Dremel?
+00:00:40.320 In 2008, Google had a lot of data.
+00:00:43.200 Its wealth of data,which it wanted to analyze.
+00:00:46.320 They wanted to mine the data and productmanagers, engineers, CXOs
+00:00:51.600 wanted to write queries on this datato see what patterns they can use.
+00:00:57.040 Now, the problem here
+00:00:57.960 was that petabytesworth of data takes a lot of time to scan,
+00:01:01.920 a lot of time to process,and a lot of time to output.
+00:01:05.480 Usually, product managers.
+00:01:09.960 And CXOs
+00:01:11.640 want to fire one off queries.
+00:01:15.920 For example, a product manager at Googlemay want to see how many people
+00:01:19.360 who take long rides, let's say Mumbaito Goa stopover at restaurants for food.
+00:01:24.720 So based on this information,maybe you want to serve contextual ads.
+00:01:29.000 We know you're on a long drive.
+00:01:30.400 Maybe we can give you an adfor a restaurant which is on the way.
+00:01:34.320 This is just an idea.
+00:01:35.400 You're kind of brainstorming right now.
+00:01:37.000 You want to know the data firstto help you make a decision.
+00:01:41.000 But how do you query this data?
+00:01:43.680 2008.
+00:01:45.240 The standardway of doing things was MapReduce,
+00:01:49.160 which basically meantthat you would have jobs running.
+00:01:52.800 And these jobs are defined using code.
+00:01:58.440 Engineers would write this code, writethese scripts
+00:02:01.200 based on what they heardfrom product managers.
+00:02:04.800 And once these scripts executed,
+00:02:07.200 you would get an output.
+00:02:11.000 In our example,that would be the number of people
+00:02:12.840 who go to restaurantsnearby during a long drive.
+00:02:15.880 It's 56%.
+00:02:19.040 The product manager looks at thisand says, this is great.
+00:02:21.960 I want to now know in the lastthree months what's the percentage?
+00:02:27.080 And before that, what was the percentage?
+00:02:30.160 So is it that this number is increasing?
+00:02:32.280 Are people more prone to takinga restaurant nearby during a long drive?
+00:02:38.280 What do you have to do now?
+00:02:39.960 You have to write another job.
+00:02:42.720 You have to write code again.
+00:02:44.160 Basically, this product manager hasto go to a software engineer,
+00:02:48.520 explain to
+00:02:49.160 them what the task is,wait for them to write the code.
+00:02:52.200 Wait for them to execute the code
+00:02:54.520 after the execution based on what you see,based on the insight.
+00:02:57.400 You might ask a new question.
+00:02:59.960 The iteration time forthis was very large.
+00:03:03.000 This used to be in days.
+00:03:06.000 Okay.
+00:03:06.400 And if you would have dedicated engineersjust for MapReduce jobs,
+00:03:09.600 it would still take hours.
+00:03:13.440 Usually 1 to 3 days
+00:03:16.360 beforeyou could make any sensible decisions.
+00:03:19.200 That's a long time.
+00:03:20.680 CXOs had the same problem.
+00:03:23.040 Now put yourself in the principalengineer's shoes.
+00:03:26.080 Eight Google.
+00:03:26.960 You have a lot of product managerscomplaining about engineers being slow
+00:03:30.360 or complaining about the systemsbeing slow.
+00:03:32.480 Sometimes this MapReduce job fails.
+00:03:34.440 You have to restart it.
+00:03:36.000 It's it's a nightmare.
+00:03:37.480 And you have engineers complainingabout the time being
+00:03:39.800 wasted by product managers because halfthe day is spent just mining data,
+00:03:43.800 and the rest of it is spent talkingto PMS, understanding the requirements.
+00:03:48.000 Google decided that they need some sort of
+00:03:51.840 interactive analytics system.
+00:03:54.920 Interactive,meaning you want to get results
+00:03:57.720 for any query within a minute.
+00:04:02.520 The second thing you want to do is free upthe software
+00:04:05.040 engineers who are currentlyjust writing MapReduce jobs.
+00:04:08.040 You can utilize them by putting themin different teams, and you can provide
+00:04:11.360 an interface to the product managers suchthat they can query the data themselves.
+00:04:15.240 This will remove one layer of dependency.
+00:04:17.079 The software engineers
+00:04:17.880 no longer need to be consultedbefore any kind of query is fired.
+00:04:22.120 So you want to remove.
+00:04:25.480 The dependency.
+00:04:28.640 How do you do this?
+00:04:30.120 One way would be to givean extremely detailed
+00:04:33.480 interactive analytics toolwhere a product manager
+00:04:36.080 without any coding experiencecan easily find queries.
+00:04:40.520 What kind of tool will that be?
+00:04:42.720 Most product managers know SQL
+00:04:45.600 at a high level, at least.
+00:04:48.360 And if they don't,they can hire a data analyst.
+00:04:50.320 They can use a team of data analystswho are great at writing SQL queries.
+00:04:54.600 Okay, so this is much cheaper.
+00:04:56.320 You don't need to have softwareengineers writing MapReduce jobs.
+00:04:59.320 You can have data analyst do this,
+00:05:00.920 or you can have the PMS themselveswriting the SQL queries.
+00:05:04.240 This was one major decisionwhich has really helped
+00:05:08.040 Dremel become very popularin the analytics space.
+00:05:11.880 And for interactive analytics, answeringqueries very quickly within one minute.
+00:05:15.960 You can't do this without lookingat the access patterns of the system.
+00:05:19.560 How is this system being used?
+00:05:21.640 So usually the system is used forgetting count queries statistical queries.
+00:05:26.880 This is a great insight.
+00:05:27.800 CXOs normally don't want to get the rows.
+00:05:30.160 I mean, the people who actually went toa restaurant that doesn't matter to them.
+00:05:33.360 They want the count aggregate percentage.
+00:05:35.760 Stuff like thisthat helps them make decisions.
+00:05:38.880 So you're mainly looking forstatistical data when it comes to queries.
+00:05:43.360 And usually this data is
+00:05:44.640 distributed across systems.
+00:05:47.640 So you need to filterthrough these systems.
+00:05:52.760 And then aggregate the data.
+00:05:55.680 So these two parts
+00:05:57.120 filtration and aggregationhave to be extremely fast.
+00:06:00.360 You want answers within one minute.
+00:06:02.160 Filtration and aggregation have to happenblazingly fast.
+00:06:05.840 Let's understand how this happens.
+00:06:12.920 So this is the queryarchitecture of Dremel.
+00:06:15.000 You see that you have clientswho are product managers using a dashboard
+00:06:18.360 or using some sort of interactive userinterface.
+00:06:21.480 The fire querywhich goes to the query manager
+00:06:25.920 okay.
+00:06:26.160 The query manager is partrate limiter, part load balancer.
+00:06:29.720 It finds which shard should be hit basedon how much load is there on each shard.
+00:06:35.440 If you do not know about sharding,please check out the video.
+00:06:38.600 It has a doubleroll. Ha ha ha ha ha! Right.
+00:06:41.520 So you have a query managerwhich is sending queries to the root.
+00:06:46.600 And the root node,
+00:06:47.400 as you can expect, is the root of a tree.
+00:06:50.400 So this is going to aggregateall the results
+00:06:53.040 and is going to return a responsewhen the query has finished processing.
+00:06:58.680 What the root does isit looks at the query,
+00:07:01.560 looks at those shardswhich have to be hit for this query.
+00:07:05.200 So each shard manages a rangea key range, little k one to k 1000 here.
+00:07:10.720 And you have k greater than 1000managed here.
+00:07:14.720 If you want keys
+00:07:16.800 101,100
+00:07:20.160 then the query has to flow to both nodes.
+00:07:22.920 What shards?
+00:07:25.320 What are these shards?
+00:07:26.120 Are these logical entities?
+00:07:27.400 No, they are physical servers.
+00:07:29.760 This shard then recursively,internally again queries its sub shards.
+00:07:34.200 So you get the query of 100 here.
+00:07:36.880 Maybe the first 500 exist here.
+00:07:40.320 And the next 500 exist herebecause 100 is less than 500.
+00:07:43.680 You do not need to query theshard. So that's some saving.
+00:07:48.320 And so k 100
+00:07:50.400 will eventually reach the leaf nodewhere it belongs.
+00:07:54.440 And the leafcan pick it up from its local disk.
+00:07:56.920 If it has it.
+00:07:58.080 If not it will go and pick it upfrom a distributed file store.
+00:08:01.880 In 2008, that was
+00:08:04.680 Google file system GFS.
+00:08:06.960 You might have heard of this.
+00:08:07.840 Will pick this paper sometime.
+00:08:10.160 And right now the newer version of thatis called Colossus.
+00:08:14.040 Okay.
+00:08:16.640 Interestingly, most systems
+00:08:17.840 at Google need some sort of store
+00:08:21.040 which is managed by Colossus.
+00:08:24.120 They need network.
+00:08:27.360 Capabilities, which is powered by Jupiter.
+00:08:32.039 They need compute
+00:08:33.559 and memory, which is powered by Borg.
+00:08:37.080 This is inside Kubernetes
+00:08:39.520 and they need some config
+00:08:42.000 set up which is taken care of by spanner.
+00:08:45.640 So amongstthese for Jupiter is used by Dremel
+00:08:49.760 for network capabilitiesand storage is also used.
+00:08:53.440 And these shards that you seeare definitely coming from Borg.
+00:08:57.400 So when you're making a
+00:08:58.160 query the query manager estimateshow much compute do you need?
+00:09:02.200 The compute is measuredas the number of machines
+00:09:06.120 into the number of threads that they have.
+00:09:09.040 So the total number of threads.
+00:09:13.080 Defines the compute power for this query.
+00:09:15.040 If you need more compute power,you can increase this.
+00:09:17.200 If you want to reduce the compute powerfor this query, you can do that
+00:09:20.360 based on that.
+00:09:21.160 The time taken by the querywill increase or decrease.
+00:09:24.360 Now, when the result is fetched from diskor distributed file store,
+00:09:29.040 it is propagatedupwards to the parent shard
+00:09:31.960 and then it is propagatedupwards to the parent shard.
+00:09:34.040 You see I have added dots over herevery sneakily.
+00:09:36.320 That means that there can beany number of levels.
+00:09:38.800 And the query manager is somethingwhich suggests how many shards
+00:09:41.880 will be needed to effectively aggregatethis kind of a query.
+00:09:45.600 What's happening at a high level?
+00:09:47.440 If you have worked with segment trees orinterval trees is we are taking results.
+00:09:51.880 We are aggregating them,putting them on the higher shard
+00:09:54.440 and we are going up the treetill we reach the root.
+00:09:57.560 This architecture you see repeatedat Google many times a tree architectures.
+00:10:01.680 I think they like it because they alsohave it in Google monarch.
+00:10:05.120 It's highly efficient because queries
+00:10:08.160 are usually answered in tens of seconds,and therefore the clients.
+00:10:12.120 The users can make decisions quickly.
+00:10:14.440 They do not need to go to lunchnow for every query to compute.
+00:10:17.440 Instead, they can sit on their desktop.
+00:10:19.160 Wait for a minute.
+00:10:20.280 Maybe the loading goes onand then they get a result,
+00:10:22.920 and then they file a new querybased on that insight.
+00:10:25.800 The system is also smart in the sensethat it has a prefetch cache,
+00:10:31.280 which fetches
+00:10:32.000 data relevant to the querythat you just made.
+00:10:35.160 For example,when you say tell me the number of people
+00:10:37.200 who have visited a restaurantwhile going on a long drive,
+00:10:39.680 it's going to get you data aroundlong drives,
+00:10:41.680 and it's going to get you data aroundrestaurants.
+00:10:44.200 Prefetch in cache.
+00:10:46.000 So the rest of the queries, the upcoming
+00:10:48.760 queries are most likely goingto fetch the same kind of data.
+00:10:51.960 It has a 95% hit rate.
+00:10:56.160 So you don't have to goall the way down to the leaf.
+00:10:58.200 You don't have to fetch from localdisk, and worst case,
+00:11:00.600 you do not have to fetch from this rootfile store.
+00:11:02.640 You can get from a cache with a 95% hitrate, which really improves the latency.
+00:11:08.160 Another
+00:11:08.520 optimization that is very usefulis when clients.
+00:11:11.680 When product managersdon't want perfect answers, they are okay
+00:11:15.240 with getting 99% accuracy or 90% accuracy.
+00:11:19.280 For example,you want to know the percentage of people
+00:11:21.480 who in a long triphave gone to a restaurant.
+00:11:24.120 You don't have to get 56%.
+00:11:27.440 You can be off by plus -2%.
+00:11:29.640 It's not going to affect you.
+00:11:31.040 But why is that important?
+00:11:32.920 If you have this luxury,if you can make an approximate result,
+00:11:37.560 then the query manager tells a routethat when you have 98%
+00:11:40.400 or 90% of the results, give me a response.
+00:11:44.040 Don't keep the client waiting.
+00:11:46.760 So it's possible that L3 is down
+00:11:49.280 or L4 is taking a long time.
+00:11:53.280 We do not need to wait on all the leafnodes.
+00:11:55.440 We can give it a responseto the moment we are short enough.
+00:11:59.160 This opens up a lot of possibilities.
+00:12:00.960 If you want to see the top key results.
+00:12:04.880 So what were
+00:12:05.440 the top ten most popular YouTube videos?
+00:12:08.480 You do not need to go to the entireYouTube video set.
+00:12:11.120 You can go through maybe 98%, 95%and those last 2%.
+00:12:15.840 The latency is very high.
+00:12:17.800 So if you ignore them,then you really save on latency.
+00:12:26.440 And the final optimization
+00:12:27.680 that Dremel brings is columnar storage.
+00:12:31.320 All data processed by Dremelis stored as columns.
+00:12:34.640 The benefit of this is columnarcompression is much better,
+00:12:38.240 especially when you are lookingat aggregate statistics.
+00:12:41.160 For example,if I have tuples like this where the name,
+00:12:45.840 countryand age of a person is to be noted.
+00:12:49.360 So this would be row one.
+00:12:50.960 The way I would store this would be.
+00:12:52.680 Next to thisI would attach row to name country,
+00:12:57.000 and each row three then would come here
+00:12:59.920 with name, country and age.
+00:13:03.200 If I wanted to do the average ageof my users,
+00:13:06.240 I would need to scan all of this data.
+00:13:09.920 I would need to sequentially readall the data instead.
+00:13:12.960 If I could keep all the columns together
+00:13:16.200 each one inch to each three.
+00:13:20.480 Name one, name two.
+00:13:22.320 Name three, and country one,country two, country three.
+00:13:25.640 Then the average agewould just require a scan
+00:13:28.440 of three data pointsinstead of nine data points.
+00:13:32.160 So faster scans
+00:13:34.600 would be possiblebecause of columnar storage.
+00:13:37.760 The other thingwhich is really important is compression.
+00:13:42.000 If you have the same kind of databeing stored together,
+00:13:44.400 then you can use compressionalgorithms like nonzero
+00:13:47.880 run length encoding to reduce the spaceconsumed by your data.
+00:13:53.240 This means you need less storage,less bandwidth.
+00:13:55.640 So the processing is usually fasterbut non-zero.
+00:13:58.880 Run length encoding has some issues.
+00:14:00.960 One of the things is whenever
+00:14:02.280 you have a block of zerosand you want to query between
+00:14:06.120 that block, it's difficult to find aheadwhen all the records are zeros.
+00:14:11.000 To actually hydrate this data,you have to go up
+00:14:14.040 to the top header to avoid this.
+00:14:16.760 Google came up with its own compressionalgorithm, which has inspired many
+00:14:20.560 other systems. Apache spark,
+00:14:23.880 for example, has picked up ideas here.
+00:14:25.600 The engineers at Twitterdeveloped this format.
+00:14:28.600 Now it's open source and it'sgot even better algorithms than this.
+00:14:32.320 But the basic idea here,if you know about Huffman encoding,
+00:14:35.400 is you take your data,you spread it out like a tree.
+00:14:39.400 So a trip has an ID,a trip has multiple locations in it.
+00:14:44.200 It has multiple users, zero to start.
+00:14:47.160 Each of those usersmay have multiple interests.
+00:14:49.480 They have a country definedor they do not have a country defined.
+00:14:53.040 The interest may have a type.
+00:14:54.840 So I am interested in burgers.
+00:14:56.280 I am interested in pizza and locationmay actually be a polygon.
+00:14:59.720 So that includes space.
+00:15:01.800 And you also have a type of location.
+00:15:03.240 So it may be a restaurant,it may be a playground whatever.
+00:15:06.720 What Google did is take each of these datafields and compress them in a way
+00:15:11.040 that it is easy to decompress laterwhen you are querying for that data.
+00:15:15.640 It's going to be easyto find the range that you are looking for
+00:15:18.600 and get the aggregate statistic.
+00:15:21.040 The algorithm for converting these objectsinto a format
+00:15:23.400 which is suitable for columnarstorage is very involved.
+00:15:26.840 I went through hours of resourcesand decided not to put it here.
+00:15:30.280 If you're interested,I have the links in the description
+00:15:32.800 and if you want to know, is itgoing to be useful to me as an engineer?
+00:15:36.240 Well, no.
+00:15:37.360 But if you want to play aroundwith the math, go ahead.
+00:15:39.720 Huffman encoding algorithmfor you know, choosing a path in a tree
+00:15:44.440 have some similaritiesto the Dremel algorithm.
+00:15:47.400 So that's it for Google Dremel.
+00:15:48.720 It's a short, concisepaper. It's just eight pages long.
+00:15:51.640 That's why the main core ideaswould expand so quickly.
+00:15:54.760 If you have any doubts or suggestions,you can let me know in the comments below.
+00:15:57.720 I'm trying to create a system design judgeat my startup called Interview Ready.
+00:16:01.400 Do check it outand I'll see you next time. Bye bye.

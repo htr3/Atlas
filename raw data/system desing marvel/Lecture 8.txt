@@ -1,0 +1,246 @@
+# tactiq.io free youtube transcript
+# Google Dapper, a Large-Scale Distributed Systems Tracing Infrastructure
+# https://www.youtube.com/watch/AZhIjNHzURQ
+
+00:00:00.240 Hi everyone, this is GKCS.
+00:00:01.840 In this video we talk about Google Dapper.
+00:00:08.800 That is a requesttracing system at Google.
+00:00:12.000 So when you type &quot;Large languagemodels&quot; in Google search,
+00:00:15.120 you will see a list of pagesin front of you in the back end.
+00:00:18.280 What happened is that this query stringwas taken to the Google servers.
+00:00:22.800 The Google serverspotentially hit thousands of data stores,
+00:00:26.720 fetch the results, and created them,and got them in front of you
+00:00:30.400 in your search page.
+00:00:31.600 So now you have them all paginated.
+00:00:33.360 You have them searched, but behindthe scenes a lot of things happened.
+00:00:37.400 And if you want to trace that request pathas a Google engineer, if you want to see
+00:00:40.800 how did go from client to server,
+00:00:42.400 how it go from server to all these datastores, what does the aggregation like?
+00:00:46.040 How much time did it taketo get a response?
+00:00:48.240 The entire tracing is managed by Dapper.
+00:00:51.800 This is from 2010.
+00:00:54.240 Now the first thing you want to do is
+00:00:56.200 make this processseamless and low latency.
+00:00:59.920 If engineers are given a tracing systemwhich is going to be impacting
+00:01:03.160 the production services,they will not be happy with them.
+00:01:05.319 They will not onboard.
+00:01:06.720 So the first requirement that you havefor this kind of a tracing system
+00:01:10.600 is it has to be very, very fast,
+00:01:13.920 basically have very low latency.
+00:01:18.240 The second thing like we mentionedis that it should be easy to onboard,
+00:01:21.840 easy to use, easyto setup, easy to maintain.
+00:01:25.200 And the third thing that we mentioned isit has to be universal.
+00:01:30.360 In the sense that all the services
+00:01:32.040 that you are hitting as an engineerhave to be using the app internally too.
+00:01:36.320 Otherwise, there's really no point.
+00:01:37.560 You're going to be seeingthe metrics of your service,
+00:01:39.920 but you wouldn't be able to tellif a RPC call to a different service
+00:01:43.440 caused the problem, or your service itselfhas the problem,
+00:01:46.880 so it has to be used by all services.
+00:01:52.000 Apart
+00:01:52.400 from this,you're also looking for high availability
+00:01:55.480 because if a service goes downor if it's slow, that is what
+00:01:59.160 you will be using to debug it.
+00:02:00.560 So the chance of this service going downhas to be low.
+00:02:05.480 You also want the data to be
+00:02:06.840 as consistentas possible, as fresh as possible.
+00:02:10.080 If a service is having problemsand an engineer logs into the system,
+00:02:13.600 you want to be able to see the requestswhich are going wrong.
+00:02:16.440 So this is going to be real time
+00:02:19.920 tracing.
+00:02:21.120 So this is less than one minutesince creation.
+00:02:26.280 Finally, the system has to be
+00:02:28.280 a Google system which is quite scalable.
+00:02:31.720 They have one terabyte
+00:02:33.720 of request traces per day.
+00:02:36.720 One terabyte is more than the size of mydatabase at the start of that interview.
+00:02:41.360 Ready? So that's a lot of request traces.
+00:02:44.520 Engineers usually are lookingfor request traces in the last two weeks,
+00:02:48.120 so they do not need to storeall the request traces forever.
+00:02:51.240 Just the past two weeks is enough.
+00:02:53.600 Now, most of these are technicalrequirements.
+00:02:55.400 These two,though, are a little political or,
+00:02:59.120 ease of use and adaptability is somethingthat senior engineers need to consider.
+00:03:04.920 Not so much on the technical side,
+00:03:06.560 but on how people are going to use thissystem side.
+00:03:10.680 Well, one thing that we have spokenabout many times in many systems,
+00:03:14.280 especially memcached, is the importanceof having clients,
+00:03:18.120 software, clients,which are basically libraries
+00:03:20.640 that other engineers in different systemscan use.
+00:03:24.600 Do check out that video.
+00:03:25.920 Using software
+00:03:26.600 clients is also what dapper does to makethe adaptability of the system high.
+00:03:31.200 In fact, Google has a very generic clientfor making any remote procedure calls,
+00:03:36.600 and so dapper is added to this client
+00:03:40.520 so that request tracing becomes universal.
+00:03:43.880 But for the rest of the requirements,
+00:03:47.320 you need to have a technical understanding
+00:03:49.680 of how the system is going to be built.
+00:03:52.800 So let's look into that.
+00:03:59.760 Now this iswhat is actually stored inside dapper.
+00:04:03.000 You have this objectwhich is called a span.
+00:04:07.720 And internally this span stores
+00:04:09.600 a set of events which have happenedduring the login request.
+00:04:13.680 So you try to log in at Google.
+00:04:15.120 Initially we check whether the domain thatyou are trying to login from is allowed.
+00:04:19.279 That is a remote procedure call.
+00:04:20.800 It has an ID of twoand a parent of one like two.
+00:04:24.120 Okay. The parent's panacea.
+00:04:26.480 Now after this RPC call is done,you can go and start a new span,
+00:04:31.040 which is basically a new remote procedurecall to the profile service.
+00:04:34.760 It checkswhether the profile exists at Google.
+00:04:37.680 If it does, then you get a responseand again
+00:04:40.600 you see that it has an ID and a parent,which is equal to one.
+00:04:43.800 Internally, the profile check resultedin two other remote procedure calls.
+00:04:47.480 One was to checkwhether you are already blacklisted
+00:04:50.440 and the other is to authenticate you,maybe with the password.
+00:04:53.560 Both of them have the same parentof three, which is this profile check.
+00:04:57.600 And eventuallywhen these calls have given a response,
+00:05:01.560 we go to the parentand complete the event stream.
+00:05:05.880 Okay.
+00:05:06.640 This is a single span.
+00:05:08.640 This is also a single span.
+00:05:10.240 So is this.
+00:05:10.960 So is this. And so is this.
+00:05:13.080 So how do you trace requests.
+00:05:14.880 Well all of these spanshave the same trace ID.
+00:05:18.440 So the trace ID here.
+00:05:21.880 Is equal to one trace ID
+00:05:23.880 here will also be equal to one.
+00:05:29.960 In all the children
+00:05:32.160 the trace ID will be one.
+00:05:35.880 So that when we query dapper
+00:05:39.360 for a trace ID,we can get all of these spans together
+00:05:42.840 and look at it from a high levelor a service specific level.
+00:05:46.920 Internally,like I said, each of these events
+00:05:50.040 is basically like a micro objectinside this span.
+00:05:53.560 It's like an array of objects.
+00:05:56.800 And this event is going to be storingthe timestamp.
+00:05:59.160 It's going to be storing the servicewhich actually started this.
+00:06:02.280 And one annotation okay.
+00:06:04.360 Like a text string of RPC calls startedRPC call stopped.
+00:06:09.160 Now let's see how these objectsare being created and stored in dapper.
+00:06:18.400 Behold the dapper system.
+00:06:21.360 It's a very simple system.
+00:06:22.440 That's the reason why I'm so excited.
+00:06:24.480 I guess you have clients,which are basically running
+00:06:28.000 on application servers,and those clients are persisting logs.
+00:06:31.800 I've drawn a database,but it's just a file, right?
+00:06:34.560 You have your log files.
+00:06:35.920 Those are being stored in local storage.
+00:06:42.600 And what's happening is these logs,
+00:06:44.080 these log files are being consumedby a dapper background process.
+00:06:48.360 It's a daemon process which buffers them
+00:06:52.600 till they're eventuallypulled by a collector.
+00:06:55.520 So there's a set of collectors, dappercollector servers
+00:06:58.680 which are pulling these log linesfrom these files.
+00:07:03.120 And then they process itto convert it into a span.
+00:07:06.280 Right. We talked about spans.
+00:07:07.680 This is where the magic is happeningthat objects are being converted
+00:07:11.720 for persistence.
+00:07:12.520 They are being stored in Bigtable.
+00:07:14.120 Bigtable is a storage solutionthat Google has.
+00:07:17.440 It's backed by GFS. Now Colossus.
+00:07:22.320 Okay.
+00:07:22.560 It's used for places where you need sparsedata or multiple versions of the data.
+00:07:28.000 Google search, for example,when it is storing pages,
+00:07:31.360 multiple versions of the same page.
+00:07:33.200 The document for search resultsuses Bigtable.
+00:07:35.920 It's a very old system.You can check out the paper.
+00:07:38.040 I will put the link in the description,but the basic idea is that
+00:07:41.080 this makes the dapper system reliable.
+00:07:45.720 So there is high availability here,
+00:07:48.120 and to some extentit also makes it scalable.
+00:07:51.240 One terabyte of data per dayis no big deal for Google Bigtable.
+00:07:54.840 Now this is just for a single machine.
+00:07:56.400 Google has hundreds of thousandsof machines which are running dapper
+00:07:59.720 and each of those machineshave multiple applications running.
+00:08:03.200 All of those applicationshave their own log files.
+00:08:05.600 All of them are being pulledinto the background process
+00:08:07.880 and eventually into the collectorinto these objects.
+00:08:10.000 So spans the spans, like we said,have traces.
+00:08:13.440 See, single trace may have multiple spans.
+00:08:16.280 And when, engineer at Googlewants to query for a trace.
+00:08:21.240 Right.
+00:08:21.520 So they may sayget trace with the ID of the trace.
+00:08:25.720 Bigtable.
+00:08:29.160 Has an index on the trace ID.
+00:08:34.919 Which helps themsee the entire array of spans
+00:08:36.880 which are related to this trace ID.
+00:08:39.120 Okay, so if a single person makes
+00:08:41.200 a search request of large language modelsand you want to trace it later,
+00:08:46.680 you find the ID of that request,come to Bigtable,
+00:08:50.120 make that search query.
+00:08:53.760 And it will give you all of the spans,meaning all of the systems which are hit
+00:08:57.240 because of that single large languagemodel query.
+00:09:00.840 The interesting thingis this entire process from here to here
+00:09:05.200 takes about 15 seconds.
+00:09:10.120 So most of the requests
+00:09:11.760 reach Bigtable within 15 seconds.
+00:09:14.640 Most of the times when you are doingany kind of a get trace, you get it
+00:09:18.160 within a minute.
+00:09:19.440 In the worst case,it can take up to two hours.
+00:09:21.320 But that is also
+00:09:22.440 I mean, two hours is not good,but that is also acceptable for that. For
+00:09:25.960 now. One thing
+00:09:26.520 that we mentioned is that this systemhas to be very low latency.
+00:09:29.520 It has to be super fast.
+00:09:30.600 It has to have very little overhead.
+00:09:32.560 Otherwise engineerswill not use a tracing system
+00:09:35.280 which is slowing downthe production systems.
+00:09:37.760 I o calls are the bulk of latency, right?
+00:09:41.480 They take most of the time when you arelooking to process these traces.
+00:09:46.320 So how do you reduce the number ofIO calls in the system?
+00:09:49.720 One thing would beto try to batch the requests.
+00:09:52.280 I think it is already done,but another clever thing that Google does
+00:09:56.640 is instead of taking all the requests,
+00:09:59.640 it samples requests.
+00:10:06.840 If you sample requests,
+00:10:07.840 meaning out of 100 requests,you just take one request.
+00:10:12.680 As a Google engineer,
+00:10:14.240 you are going to be searching forget requests to a particular service.
+00:10:19.720 With start timestamp
+00:10:21.680 and end timestamp.
+00:10:25.120 Okay, these are going to give youall of the requests within this timestamp
+00:10:28.200 that have been sampled successfullyand persisted for that service.
+00:10:32.600 And the reason why this works for Googleis because they have a huge volume
+00:10:35.880 of requests.
+00:10:37.320 In fact,the production systems take 1 in 1 024.
+00:10:40.720 This is the sampling rate. It's insane.
+00:10:43.520 When they run the experiments on latency,they saw that the system got faster
+00:10:47.760 because the margin of error was so smallthat it looks like the system got faster.
+00:10:51.120 Some other thing must have happened,
+00:10:52.640 but you are taking only one out of 1024requests.
+00:10:56.160 It makes sense that your systemis having zero impact on latency.
+00:11:00.120 All the samples for the given requesthave the same trace ID,
+00:11:03.200 so if your total ID spaceis two based about 64,
+00:11:06.920 you divide this by 1000and you get roughly two about 54.
+00:11:11.160 So all the trace IDis having a number less
+00:11:13.680 than or equal to this will be sampled.
+00:11:15.560 Everybody else will not be sampled
+00:11:18.800 in caseyour service does not have much volume.
+00:11:21.040 In case your services like interviewready or something, then you have,
+00:11:24.960 adaptive sampling rate.
+00:11:29.040 Which means you can mention thatgive me at least ten samples per second.
+00:11:33.040 So instead of having a fixed samplingrate of one by 1024,
+00:11:36.400 you say I want ten requests per second.
+00:11:39.440 So if I have 100 requests per secondin my service and I just want ten of them
+00:11:43.920 to be sampled, then I automatically setthe sampling rate to one by ten.
+00:11:48.160 Okay. This would be adaptive sampling.
+00:11:50.120 This is rarely used because most serviceshave so much weight in them,
+00:11:54.400 but yes, it is used.
+00:11:56.640 So that's it for Google. Dapper.
+00:11:57.880 It's a simple, interesting system.
+00:11:59.480 I particularly like thethe approach that Google engineers took.
+00:12:03.120 Instead of tryingto build things from scratch.
+00:12:05.160 They used existing systems like Bigtableand their RPC
+00:12:09.080 clientsto increase the optimality of the system.
+00:12:12.120 Another thing I really like aboutit is other systems like Google, monarch
+00:12:15.680 actually use that for tracesto debug problematic requests.
+00:12:20.360 So it really integrates wellwith the rest of the Google ecosystem.
+00:12:23.920 Thank you so much for watching this.
+00:12:25.160 If you liked the videothen please hit the like button.
+00:12:27.160 If you have any doubtsor suggestions on this video,
+00:12:29.280 post them in the comments below.
+00:12:30.600 And if you're looking to learn more about
+00:12:31.920 system design, do check out InterviewReady. I'll see you next time. Buh-bye!

@@ -1,0 +1,659 @@
+# 4.4 Bellman Ford Algorithm - Single Source Shortest Path - Dynamic Programming
+
+# https://www.youtube.com/watch/FtN3BYH2Zes
+
+
+
+00:00:00.060 the topic is single source shortest path
+
+00:00:02.250 problem in this video I will show how
+
+00:00:05.400 build meant foot algorithm works and
+
+00:00:07.440 also the drawback of bellman-ford
+
+00:00:09.210 algorithm the problem is in a directed
+
+00:00:13.230 weighted graph we have to select one of
+
+00:00:15.089 the vertices as source vertex and find
+
+00:00:16.949 out the shortest path to all other
+
+00:00:18.510 vertices let us say if I select vertex
+
+00:00:20.789 one as one starting vertex so then I
+
+00:00:23.189 have to find out the shortest path to
+
+00:00:24.689 all of them before doing this already we
+
+00:00:27.869 have Dijkstra algorithm that will solve
+
+00:00:30.119 the shortest path problem but Dijkstra
+
+00:00:32.969 algorithm will not work if there are
+
+00:00:34.739 negative edges it will not work properly
+
+00:00:37.050 it may give correct result it may not
+
+00:00:39.719 give correct result so we cannot use the
+
+00:00:42.480 extra algorithm here and confirm that it
+
+00:00:45.300 is giving correct answer so we want a
+
+00:00:47.610 algorithm which confirms that the
+
+00:00:49.500 answers are correct so that algorithm is
+
+00:00:51.449 bellman-ford and it follows dynamic
+
+00:00:54.420 programming strategy so dynamic
+
+00:00:57.059 programming strategy says that you try
+
+00:00:59.489 out all possible solutions and pick up
+
+00:01:01.500 the best solution so here we want to try
+
+00:01:03.809 out all possible solutions and pick up
+
+00:01:05.729 the best solution how we will try all of
+
+00:01:07.500 them so this algorithm says that you go
+
+00:01:10.830 on relaxing all the edges how many times
+
+00:01:14.939 all that just you repeatedly relax them
+
+00:01:17.909 for n minus 1 time what is n here and
+
+00:01:21.479 it's the number of vertices number of
+
+00:01:23.640 vertices are 7 so I should relax them
+
+00:01:26.850 for 7 minus 1 what is the idea here if
+
+00:01:30.840 from the source vertex if the longest
+
+00:01:33.180 distance may be off all edges then total
+
+00:01:37.079 how many edges may be there so from 1 to
+
+00:01:39.360 7 there can be maximum 6 edges so if you
+
+00:01:43.560 are going on relaxing that just we may
+
+00:01:45.659 get a longest path also that is of 6 XS
+
+00:01:49.310 right so it will cover all possible
+
+00:01:52.049 paths if you relax all of them for 6
+
+00:01:55.049 times so what is relaxation if I take
+
+00:01:58.770 any two vertices let us say 2 & 5 and I
+
+00:02:02.130 know of some distance of this vertex in
+
+00:02:04.469 the path to this vertex and the path
+
+00:02:06.640 this vortex also then I should see that
+
+00:02:09.190 if the part of this one plus this is
+
+00:02:13.200 less than this one if so I will change
+
+00:02:16.360 this one so I will call them as you and
+
+00:02:18.819 me and I will write down just I will
+
+00:02:21.190 write down what does relaxation mean so
+
+00:02:23.050 then one I once I start using it I can
+
+00:02:25.660 explain you how it works
+
+00:02:26.950 so a relaxation means what between a
+
+00:02:30.970 pair of vertices u comma V if there is
+
+00:02:34.120 an edge then check if the distance of u
+
+00:02:37.120 plus cost of an edge u comma V is less
+
+00:02:40.930 than distance of V if so then change the
+
+00:02:45.040 distance of vertex V to distance of u
+
+00:02:48.220 plus cost of an edge u comma V what is
+
+00:02:53.140 that I will explain you while solving
+
+00:02:55.090 this now let us follow the algorithm
+
+00:02:57.370 what the algorithm says you prepare the
+
+00:02:59.769 list of all edges prepare a list so
+
+00:03:03.190 which as I should sell it first you
+
+00:03:04.900 select any edge first you select this
+
+00:03:06.580 one then this one or this one or this
+
+00:03:08.590 one
+
+00:03:08.860 you select anything but make sure that
+
+00:03:11.019 all edges are selected so I will select
+
+00:03:13.690 them vertex by vertex so I'll write on
+
+00:03:16.570 the list of edges here
+
+00:03:26.750 there are two Dalton edges I have taken
+
+00:03:29.760 all ten adjust here list of edges now
+
+00:03:32.580 have to relax all these edges for six
+
+00:03:36.510 times now let us start the procedure for
+
+00:03:40.129 initially I have to mark the distances
+
+00:03:42.599 of all these vertices so this vertex let
+
+00:03:45.090 it be zero
+
+00:03:45.930 and for all other vertices mark the
+
+00:03:48.810 distance as infinity market as infinity
+
+00:03:53.480 all are infinity now start relaxing the
+
+00:03:59.220 edges now I will show you how that
+
+00:04:01.290 relaxation procedure works first edge 1
+
+00:04:04.799 comma 2 1 2 2 what is the distance of
+
+00:04:08.310 this one 0 what is the distance of this
+
+00:04:10.230 infinity 0 plus 6 is less than infinity
+
+00:04:13.640 0 plus 6 is less than infinity so change
+
+00:04:17.100 this infinity to 0 plus 6 so make it a 6
+
+00:04:22.280 the next 1 comma 3 0 and this is
+
+00:04:25.770 infinity so 0 plus 5 is less than
+
+00:04:28.800 infinity so change this to 5 0 plus 5
+
+00:04:32.520 less than infinity so change it to 5 so
+
+00:04:35.820 first 3 it just completed now 2 comma 5
+
+00:04:38.850 2 comma 5 this is 6 minus 1 this is
+
+00:04:42.570 infinity so this is 5 6 minus 1 is 5
+
+00:04:45.930 this is already change you see 3 comma 2
+
+00:04:49.470 so 3 to 2 so this is 5 minus 2 is the 3
+
+00:04:53.850 so change it to 3 then 3 to 5 so this is
+
+00:04:58.800 5 plus 1 is a 6 and it is 5 so that is
+
+00:05:02.910 smaller don't modify that 1 4 comma 3 5
+
+00:05:06.600 minus 2 is 3 so this becomes 3 then 4
+
+00:05:10.889 comma 6 5 minus 1 this is 4 this is
+
+00:05:15.180 infinity so change it to 4 then 5 comma
+
+00:05:19.050 7 so 5 plus 3 is 8 this is infinity so
+
+00:05:22.590 change it to 8 6 comma 7 4 plus 3 is 7
+
+00:05:26.539 this is less so change so most of the
+
+00:05:31.229 changes we have seen first time only
+
+00:05:33.260 let us continue second time
+
+00:05:36.599 1 comma 2 so 0 + 6 6 + 3 so this is
+
+00:05:43.139 greater than that one so don't change
+
+00:05:45.209 that 1 1 comma 3 0 + 5 5 that is 3 don't
+
+00:05:49.289 change that 1 1 comma 4 0 + 5 this is 5
+
+00:05:53.339 only no change then 2 2 5 - 2 5 so 3 - 1
+
+00:05:58.860 2 this is 2 that is changing again so 3
+
+00:06:04.169 2 2 so 3 is how much 3 3 minus 2 is 1 so
+
+00:06:08.759 this will change 1 then 4 comma three
+
+00:06:12.529 four comma 3 5 minus 2 this is 3 this is
+
+00:06:16.169 perfect for comma 6 5 minus 1 is 4
+
+00:06:19.319 perfect 5 comma 7 5 is how much 2 + 2 +
+
+00:06:24.300 3 - 5 this is 7 so change it to 5 then 6
+
+00:06:28.889 comma 7 4 plus 3 is 7 and it is 5 no
+
+00:06:32.759 change
+
+00:06:33.330 let it be as it is I have completed 2
+
+00:06:36.240 times 4 more times I have to do 1 comma
+
+00:06:40.860 2 this will not change 1 comma 3 this
+
+00:06:42.869 will not change 1 comma 4 also will not
+
+00:06:44.789 change then 2 comma 5 1 minus 1 this
+
+00:06:48.930 becomes 0 this becomes 0 right then 20
+
+00:06:55.349 comma 2 so 3 is how much 3 3 - 2 3 - 2
+
+00:07:00.990 is 1 already 1 now no more changes the 3
+
+00:07:05.129 5 so this is 3 plus 1 for all that it
+
+00:07:09.599 is 0 that is better for 2 3 4 - 3 is how
+
+00:07:13.559 much 5 minus 2 that is 3 no change
+
+00:07:15.839 4 - 6 4 no change 5 to 7 5 is how much 0
+
+00:07:20.729 0 + 3 3 this becomes 3 then 6 - 7 4 + 3
+
+00:07:26.279 7 that tree is better right so I am
+
+00:07:30.629 updating there only so 3 times I have
+
+00:07:33.449 completed three more times I have to do
+
+00:07:35.669 what unto 2 will not change 1 2 3 will
+
+00:07:38.279 not change for the 4 will not change to
+
+00:07:40.139 2 5 2 is how much 1 1 - 1 0 that is not
+
+00:07:43.979 changing then 3 - 2 so 3 2 - 3 is how
+
+00:07:47.339 much 3 - 2
+
+00:07:49.330 one is holiday 1 then 3 to 5 so this 3
+
+00:07:52.840 plus 1 4 that is better 0 4 to 3 will
+
+00:07:55.629 not change 4 to 6 will not change then 5
+
+00:07:58.509 to 7 0 plus 3 3 only 6 to 7 no change
+
+00:08:02.289 now this has stopped changing so what
+
+00:08:05.949 are the results I got what x1 is 0
+
+00:08:09.009 what x2 is 1 what X 3 is 3
+
+00:08:12.789 what x4 distance is 5 what x5 distance
+
+00:08:16.180 is 0 what x6 distance is 4 what X 7
+
+00:08:20.710 distance is 3 these are the distances I
+
+00:08:23.319 got if I continue for two more times
+
+00:08:25.780 also I will get the same result so
+
+00:08:28.210 finally these are the shortest paths you
+
+00:08:30.219 can observe that so as I am doing it
+
+00:08:32.320 manually I have stopped but when you
+
+00:08:34.990 write in any algorithm for doing the
+
+00:08:36.789 same thing it will continue for n minus
+
+00:08:38.828 1 time and some graphs may get the
+
+00:08:43.208 shortest part in just one time
+
+00:08:44.890 relaxation only and some graph may relax
+
+00:08:47.980 completely get the shortest path in the
+
+00:08:50.170 last relaxation so in this graph we find
+
+00:08:54.160 that after the third one on words there
+
+00:08:55.870 are no change no more changes I have
+
+00:08:58.029 taken the shortest paths so this is how
+
+00:09:00.450 bellman-ford algorithm works let us get
+
+00:09:03.790 the time complexity of bellman-ford what
+
+00:09:06.310 it is doing relaxing all edges how many
+
+00:09:08.860 edges are they e edges are there how
+
+00:09:11.290 many times it is relaxing V minus 1 time
+
+00:09:13.899 so this is order of V into e so if we
+
+00:09:20.320 say V and E are n n so this will be n
+
+00:09:23.079 square so it depends on the number of
+
+00:09:27.040 edges if this is a complete graph then
+
+00:09:31.089 how many edges will be there in a
+
+00:09:32.529 complete graph a complete graph means
+
+00:09:35.140 there is AZ between every pair of
+
+00:09:37.540 vertical total how many edges will be
+
+00:09:40.300 there and into n minus 1 by 2 it just
+
+00:09:43.329 will be there so if these many edges are
+
+00:09:45.880 there then the time will be n into n
+
+00:09:48.399 minus 1 by 2 into number of vertices
+
+00:09:51.040 minus 1 n minus 1 so if you simplify
+
+00:09:55.269 this one this will be order of n cube so
+
+00:09:59.140 in case of create graph bellman-ford
+
+00:10:01.120 algorithm may take
+
+00:10:02.390 an Ncube time right otherwise minimum
+
+00:10:06.020 time we say it takes n square and at
+
+00:10:08.240 most it may take any cubed time that is
+
+00:10:11.300 if the graph is complete graph now we'll
+
+00:10:14.690 take a small example and solve it and
+
+00:10:16.850 also I will show you drawback of
+
+00:10:19.100 bellman-ford a small example I will take
+
+00:10:22.220 the list of it just first of all I will
+
+00:10:24.530 take the edges starting from here first
+
+00:10:32.120 I will take 3 comma 2 then I will take 4
+
+00:10:36.680 comma 3 then 1 2 4 then 1 2 to see just
+
+00:10:46.430 to make you feel how the relaxation are
+
+00:10:49.520 done I have taken the vertices in the
+
+00:10:51.590 reverse I should have started from
+
+00:10:52.880 vertex 1 now let's solve this my source
+
+00:10:55.580 vertex is 0 and mark all of them as
+
+00:10:58.070 infinity mark all of them as infinity
+
+00:11:01.010 how many times I should relax there are
+
+00:11:02.990 4 vertices so I should relax it for 4
+
+00:11:06.200 minus 1 that is 3 times so let us relax
+
+00:11:09.290 all the edges at just one by one first
+
+00:11:12.680 three common to infinity minus 10 is
+
+00:11:14.930 infinity only so that is no change it is
+
+00:11:17.360 already infinity 4 comma 3 infinity plus
+
+00:11:19.820 3 is infinity only and this is already
+
+00:11:22.820 infinity then 1 comma 4 1 comma 4 0 plus
+
+00:11:26.690 5 5 is less than infinity so change it
+
+00:11:29.180 to 5 then 1 gamma 2 0 plus 4 4 is less
+
+00:11:33.770 than infinity change it before one time
+
+00:11:36.920 I already have relaxed second time 3
+
+00:11:40.280 comma 2 infinity minus 10 s 4 that is
+
+00:11:44.030 better for comma 3 5 plus 3 is 8 this is
+
+00:11:48.680 better than infinity so you may get
+
+00:11:50.780 infinity 1 2 4 0 + 5 5 only 1 2 2 0 +44
+
+00:11:55.370 only 2 times I have completed one more
+
+00:11:58.700 time I have to complete let us check 3 2
+
+00:12:01.520 2 8 minus 10 is minus 2 minus 2 is
+
+00:12:06.110 smaller than 4 now you can see that I
+
+00:12:08.510 got the correct answer for vertex 2 now
+
+00:12:10.720 then 4 2 3 5 + 3 8 only 1 2
+
+00:12:14.940 zero plus five five only one two two
+
+00:12:17.370 zero plus four and that is not great and
+
+00:12:20.400 not less than minus 2 so minus two is
+
+00:12:22.410 better let it be as it is so I have
+
+00:12:24.900 relaxed them for three times and I got
+
+00:12:27.870 the shortest paths so what are the
+
+00:12:29.550 shortest paths what X 1 is 0 what X 2 is
+
+00:12:33.020 minus 2 and vertex 3 is 8 what X 4 is 5
+
+00:12:39.740 did these are the shortest paths for
+
+00:12:42.360 starting vertex s to so bellman-ford has
+
+00:12:45.960 got the answer
+
+00:12:46.860 even when there are negative edges so
+
+00:12:50.460 this is answer if I relax this for one
+
+00:12:53.310 more time and see let us what happens 3
+
+00:12:57.090 comma 2 8 minus 10 minus 2 only for mine
+
+00:13:00.510 comma 3 5 plus the 8 only 1 2 4 & 1 2 2
+
+00:13:03.810 all are same so if I relax one more time
+
+00:13:06.630 extra also there is no change
+
+00:13:08.730 that means the answers are perfect now
+
+00:13:14.190 let us see the drawback of bellman-ford
+
+00:13:16.140 I will take the same graph only but a
+
+00:13:18.840 small change the same graph I will add
+
+00:13:20.940 one more edge that is 2 2 4 and I will
+
+00:13:24.240 make it as 5 so this is 2 2 4
+
+00:13:28.550 now let us relax them I have to relax
+
+00:13:31.530 them for three times so quickly I will
+
+00:13:33.360 do it because already till here I was
+
+00:13:35.550 doing it let us do so zero infinity
+
+00:13:38.930 infinity and infinity 3 2 to infinity
+
+00:13:42.420 only for 2 3 infinity only 1 2 4 0 plus
+
+00:13:45.480 5 this is 5 1 2 2 as 0 plus 4 this is 4
+
+00:13:49.440 now 2 2 4 4 + 5 9 this 5 is better no
+
+00:13:55.050 need of changing one time over now 3 2
+
+00:13:58.230 to infinity minus 10 that is infinity so
+
+00:14:00.810 4 is better for comma 3 5 plus 3 this is
+
+00:14:03.990 8 then 1 2 4 is same thing only 1 2 2 is
+
+00:14:07.620 same thing only then 2 2 4 4 plus 5 is 9
+
+00:14:10.800 and this is 5 that is better
+
+00:14:12.930 2 times compared the third time 3 2 2 8
+
+00:14:17.190 minus 10 minus 2 then so 2 3 5 plus 3 is
+
+00:14:22.020 8 8 is there 1 2 4 s 5 only 1 2
+
+00:14:26.930 to 0 plus 4 so minus 2 is better then 2
+
+00:14:30.470 to 4 minus 2 and 5 is 3 this food is
+
+00:14:35.120 changing right so this was the third
+
+00:14:39.740 time I have done and I got this answer
+
+00:14:42.399 let me try for one more time already n
+
+00:14:45.709 minus 1 time I have done but let me try
+
+00:14:48.230 one more time and check 3 comma 2 8 - 10
+
+00:14:52.339 s minus 2 only yes 4 comma 3 3 plus 3 6
+
+00:14:56.480 oh this is changing 1 2 4 will remain
+
+00:15:00.529 same 1 2 2 also remain minus 2 only and
+
+00:15:03.830 2 2 4 minus 2 2 5 is 3 only minus 2 plus
+
+00:15:09.680 5 is 3 only so one more vertex has just
+
+00:15:13.459 now relaxed that should not happen after
+
+00:15:16.880 completing 4 n minus 1 time I should get
+
+00:15:19.100 down so if I repeat it for one more time
+
+00:15:21.230 if I relax all the edges there should
+
+00:15:23.510 not be any change at all if I do one
+
+00:15:25.730 more time again something will change
+
+00:15:27.459 see 3 comma 2 6 minus 10 minus 4 so
+
+00:15:32.900 that's what there is a problem so why we
+
+00:15:35.390 got this problem bellman-ford is unable
+
+00:15:37.130 to solve this one after performing for n
+
+00:15:39.020 minus 1 time also I am not getting the
+
+00:15:40.940 correct answer still they are getting
+
+00:15:42.740 relaxed so even if I do it without
+
+00:15:45.560 bellman-ford directly if I try to do I
+
+00:15:47.630 cannot solve it reason s there is a
+
+00:15:50.330 cycle of edges that is 2 & 4 & 3 so this
+
+00:15:57.350 is forming a cycle this is minus 10 & 3
+
+00:16:02.360 & 5 so if I add this 5+3 8 minus 10 s
+
+00:16:07.250 minus 2 the total weight of a cyclist is
+
+00:16:10.550 negative so in this way I will be going
+
+00:16:12.620 on getting the path reduced every time
+
+00:16:16.100 so there is no end of this one so I
+
+00:16:19.640 cannot decide or freeze dance so if
+
+00:16:23.000 there is a negative weight a cycle then
+
+00:16:26.240 graph cannot be solved all right so
+
+00:16:30.140 bellman-ford fails to fight to solve the
+
+00:16:34.010 graph if there is a negative weight
+
+00:16:35.570 cycle total weight of a cycle is
+
+00:16:37.790 negative if it is positive it will work
+
+00:16:40.280 so if invade is negative it will not
+
+00:16:42.740 work
+
+00:16:43.480 that's all then but a bellman-ford
+
+00:16:48.080 algorithm can detect if there is a
+
+00:16:50.810 negative weight cycle or not because
+
+00:16:52.520 after performing for n minus 1 times we
+
+00:16:54.890 can relax one more time and check if the
+
+00:16:57.380 what is Azhar getting relaxed if any of
+
+00:17:00.710 the vertex is getting changed then it
+
+00:17:02.900 means there is a negative weight cycle
+
+00:17:05.770 so that's all about our dynamic
+
+00:17:08.540 programming bellman-ford algorithm

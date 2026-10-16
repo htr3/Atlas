@@ -1,0 +1,533 @@
+# 2.7.3 MergeSort in-depth Analysis
+
+# https://www.youtube.com/watch/ak-pz7tS5DE
+
+
+
+00:00:00.030 hi let us look at pros and cons of my
+
+00:00:03.629 sort first look at pros of Masad more
+
+00:00:11.730 sort is suitable for very large size
+
+00:00:13.950 list if you have millions of numbers you
+
+00:00:18.119 can sort them using more sort or if you
+
+00:00:21.630 have millions of records you can sort
+
+00:00:24.269 them using mossad no other sort can
+
+00:00:27.240 support very large size list I'll give
+
+00:00:30.990 you the reason afterwards so it is
+
+00:00:33.719 suitable for large size lists
+
+00:00:35.250 mossad is suitable for linked lists for
+
+00:00:39.899 example if i have two linked lists
+
+00:00:43.559 i explain how much sort is suitable for
+
+00:00:45.899 linked lists see more sort uses merging
+
+00:00:48.450 so if we understand merging upon linked
+
+00:00:51.690 list then mossad also works similarly
+
+00:00:55.160 see if I have two lists that are sorted
+
+00:00:58.800 two linked lists I can merge them
+
+00:01:02.010 without creating third linked list so I
+
+00:01:05.760 can just link these nodes and form a
+
+00:01:08.070 single linked list so two linked lists
+
+00:01:10.260 can be merging by just changing their
+
+00:01:12.810 links without creating third linked list
+
+00:01:15.150 so if I start comparing the elements I
+
+00:01:17.369 start the merge process to three twos is
+
+00:01:20.369 smaller so two should be the first
+
+00:01:22.770 number nexus 3 is a smaller so it should
+
+00:01:25.170 point on three then three and eight
+
+00:01:27.240 right so three and eight trees is
+
+00:01:30.030 smaller then eight and nine eight is
+
+00:01:31.860 smaller so this tree should point on
+
+00:01:34.380 this one then eight is over nine and
+
+00:01:37.590 twelve which one is smaller nine is
+
+00:01:39.090 smaller so eight should point on nine
+
+00:01:41.540 then ten and eleven so it looked well
+
+00:01:44.820 and eleven which is smaller level and
+
+00:01:47.100 smaller so the same thing is there then
+
+00:01:49.290 next is this one so that's it we have a
+
+00:01:53.790 single sorted list if I start from here
+
+00:01:55.979 two then three then eight nine eleven
+
+00:01:59.430 and two n so it is sorted without
+
+00:02:02.219 creating third linked list I have sorted
+
+00:02:04.649 i have merged two linkless so i can also
+
+00:02:07.770 perform worse
+
+00:02:08.940 over a link list without creating
+
+00:02:11.820 another link list
+
+00:02:13.050 Mossad supports external sorting
+
+00:02:15.980 actually merging process supports
+
+00:02:18.570 external sorting so all so much heart so
+
+00:02:21.390 what is this external sorting for
+
+00:02:23.610 explaining external sorting I have taken
+
+00:02:26.520 a hard disk here there's an hard disk it
+
+00:02:29.310 is having two files and this is these
+
+00:02:32.790 are having some data imagine they are
+
+00:02:35.550 having millions of records or millions
+
+00:02:37.950 of numbers these two files are very big
+
+00:02:41.810 this is 5 GB data and this is 10 GB data
+
+00:02:47.520 is there in these two files these are
+
+00:02:50.790 very big fights
+
+00:02:51.660 I want to March them if I can merge them
+
+00:02:56.430 then also I can perform a short because
+
+00:02:58.920 more sort photos merging let us see
+
+00:03:02.420 these files are the data of those files
+
+00:03:05.820 has to be brought in the main memory
+
+00:03:08.070 then only merging can be done let us say
+
+00:03:11.160 Ram I should bring this two files in the
+
+00:03:14.760 main memory then only merge algorithm
+
+00:03:17.820 running here can merge those two and
+
+00:03:20.340 store the result in the third list but
+
+00:03:24.890 size of my memory is just 4gb can I
+
+00:03:29.970 bring those two files 5 GB 10 GB no I
+
+00:03:33.620 cannot bring entire file in the main
+
+00:03:37.830 memory that how merging can be done so I
+
+00:03:41.730 can bring the part of a file and merge
+
+00:03:44.010 and then store the result here so I can
+
+00:03:47.220 bring that file in from in pieces in a
+
+00:03:51.000 runs or chunks of file the pieces of
+
+00:03:54.720 file I can bring so here to show you I
+
+00:03:58.140 can show that just I will bring number
+
+00:04:00.900 two and then number three from two files
+
+00:04:04.260 first file and the second file so
+
+00:04:07.020 imagine that I have brought some group
+
+00:04:08.910 of numbers or a block of data imagine
+
+00:04:13.140 that now I have this data compare which
+
+00:04:15.930 one is a smaller 2 so 2 will go here now
+
+00:04:19.320 the data from this file is copied there
+
+00:04:21.209 you bring
+
+00:04:21.839 next data of that file 10 that's it now
+
+00:04:28.560 compare this 3 goes here
+
+00:04:30.330 the next element from this comes here so
+
+00:04:34.620 I'm showing in terms of elements but you
+
+00:04:36.840 imagine them in terms of some group of
+
+00:04:38.940 elements or group of Records or blocks
+
+00:04:41.820 so I can bring few blocks here and merge
+
+00:04:45.060 them and store the result so I need very
+
+00:04:47.460 small space here I don't need 5 GB or 10
+
+00:04:50.639 GB total 15 GB of space this is external
+
+00:04:53.220 merging and external mass sort uses the
+
+00:04:56.550 same method so Mirsad can sort large
+
+00:05:00.450 sized data using external merging merge
+
+00:05:06.060 sort is stable what does it mean by
+
+00:05:09.630 stable if I have a list I have a list in
+
+00:05:13.470 which I have some duplicates 8 is
+
+00:05:16.169 duplicated so it is appearing two times
+
+00:05:18.510 I have taken one in small size one in
+
+00:05:21.150 large size to show that this is first
+
+00:05:22.860 eight and that is second eight after
+
+00:05:25.080 merging how I want the result is 4 then
+
+00:05:28.620 4 5 6 this is small 8 then this 8 then 9
+
+00:05:35.510 so if you see here after sorting the
+
+00:05:39.510 order of duplicate is maintained we did
+
+00:05:43.680 not get the array like this 3 4 5 6 that
+
+00:05:47.039 8 first then this 8 and 9 no we got them
+
+00:05:51.479 in the same order this was first aid
+
+00:05:53.039 that was second 8 so their order is
+
+00:05:55.229 maintained so for the numbers we cannot
+
+00:05:58.440 figure out why what is the importance of
+
+00:06:00.570 that imagine this is the record this is
+
+00:06:04.530 students data and these are the marks
+
+00:06:07.320 obtained by the students in particular
+
+00:06:09.840 subject out of 10
+
+00:06:12.620 now all the user data is having some
+
+00:06:15.330 arrangement based on their name or whole
+
+00:06:17.550 number somehow there in medicine says no
+
+00:06:19.440 I want to sort them based on marks the
+
+00:06:21.479 previous arrangement should not be
+
+00:06:23.190 disturbed so this 8 came first then that
+
+00:06:26.130 aids suppose this record belongs to Ravi
+
+00:06:28.800 and that records belong to
+
+00:06:31.290 so onions Eric Robbie's record should
+
+00:06:33.840 come first and then Sunil their cause
+
+00:06:36.450 should come that's it that's the
+
+00:06:39.330 stability if all there you have some
+
+00:06:41.220 arrangement of data and you want to sort
+
+00:06:42.990 it then if there are duplicates then
+
+00:06:45.120 they shouldn't preserve their order
+
+00:06:47.400 so Mossad can do that better Mossad is
+
+00:06:51.300 stable now a corn sophomore sort
+
+00:06:55.050 drawbacks of Mossad first is it needs
+
+00:07:00.330 extra space for sorting it is not in
+
+00:07:04.620 place sorting algorithm what does it
+
+00:07:07.800 mean by in place see if I have a array
+
+00:07:12.630 of elements I have to sort them 6 3 9 4
+
+00:07:18.770 10 12 and I want to sort them now
+
+00:07:23.340 sorting algorithm should rearrange the
+
+00:07:25.410 elements within the same array only and
+
+00:07:27.600 sort them if it is rearranging within
+
+00:07:30.870 the same array then we call it as
+
+00:07:32.490 in-place sorting merge sort is not in
+
+00:07:35.910 place sorting for sorting this one we
+
+00:07:39.810 have to merge the list will break the
+
+00:07:42.090 list into pieces and then we start
+
+00:07:44.130 merging you know the algorithm so for
+
+00:07:46.680 merging the result has to be kept in a
+
+00:07:49.289 separate early maash results cannot be
+
+00:07:53.640 within same array in place merging
+
+00:07:57.030 cannot be done so in-place sorting
+
+00:07:58.380 cannot become so we need some extra
+
+00:08:00.930 array it needs extra space and only in
+
+00:08:04.830 case of array not in case of linked list
+
+00:08:08.450 so Mossad is not much suitable for
+
+00:08:11.580 arrays it means extra space so in-place
+
+00:08:14.880 sorting is not possible you need extra
+
+00:08:17.550 space next one is no small problem we
+
+00:08:22.530 have seen the algorithm for most sort
+
+00:08:24.600 there was no small problem define we say
+
+00:08:27.479 that the problem is large if it is large
+
+00:08:29.130 we break it into small subproblems to
+
+00:08:31.950 half subproblems and when it is small if
+
+00:08:34.979 there is a single element it is small
+
+00:08:36.870 and we don't do anything there so it's
+
+00:08:39.900 not having small problem
+
+00:08:42.740 because it is divided in conquer and it
+
+00:08:45.140 is recursive it is observed that for
+
+00:08:47.900 small size lists at a slower for small
+
+00:08:51.470 size list it is much slower compared to
+
+00:08:54.170 other sorts so example insertion sort
+
+00:09:01.270 actually insertion sort takes order of n
+
+00:09:04.280 square time and merge sort takes order
+
+00:09:08.660 of and the login time insertion sort is
+
+00:09:13.850 n square and merge sort is and login so
+
+00:09:17.660 merge sort is much faster than insertion
+
+00:09:19.520 sort but it was observed that if the
+
+00:09:21.560 size of a list is very small then the
+
+00:09:23.930 Mon sort wastes a lot of time in
+
+00:09:26.480 recursion and it is becoming slower
+
+00:09:29.380 compared to insertion sort when you
+
+00:09:32.240 really run two algorithms on a machine
+
+00:09:34.340 on a computer we find that more sort is
+
+00:09:36.560 slower if the list is small so it is
+
+00:09:39.200 observed that for the list a less than
+
+00:09:40.910 or equal to fifteen number of elements
+
+00:09:43.520 merge sort is slower after that the list
+
+00:09:47.180 is larger then merge sort is slowly
+
+00:09:49.370 better than insertion sort so what we do
+
+00:09:52.610 is for small problem if the list is
+
+00:09:55.250 small we assign it to insertion sort so
+
+00:09:58.580 we use insertion sort as a part of merge
+
+00:10:01.100 short so merge sort will not sort small
+
+00:10:06.050 list it will take the help of insertion
+
+00:10:08.210 sort and the results it will March now
+
+00:10:12.770 next why insertion sort
+
+00:10:15.100 because insertion sort is also stable
+
+00:10:19.390 that is the reason we use insertion sort
+
+00:10:22.910 along with Mossad is there any other
+
+00:10:26.660 algorithm that is a stable
+
+00:10:28.520 yes bubble sort Bob
+
+00:10:39.720 sword is also n square and it is also
+
+00:10:42.060 stable in place of insertion we can use
+
+00:10:44.700 bubble also but mossad is suitable for
+
+00:10:50.640 linked lists and insertion sort is also
+
+00:10:53.430 suitable for link rest right
+
+00:10:57.090 so actually I am discussing about merge
+
+00:10:59.070 sort and the problem with the mascot and
+
+00:11:01.230 I have not discussed about insertion and
+
+00:11:03.780 bubble so you can find it in another
+
+00:11:05.400 video where I will be analyzing all the
+
+00:11:07.860 algorithms while comparing all the hell
+
+00:11:10.380 gardens on various criteria so here for
+
+00:11:14.910 solving merge sort for small problems we
+
+00:11:17.790 take the help of insertion sort the last
+
+00:11:20.460 thing is insertion sort is recursive and
+
+00:11:23.690 all the recursive algorithms use stack
+
+00:11:27.390 they use stack that is stack in the
+
+00:11:30.630 memory then most what also uses a stack
+
+00:11:35.970 so what could be the maximum size of the
+
+00:11:38.490 stack the maximum size of the stack
+
+00:11:40.980 depends on the tracing height of our
+
+00:11:43.020 tracing tree of more sort right so in
+
+00:11:47.370 the previous video you can find a tree
+
+00:11:49.050 of more sort and it depends on the
+
+00:11:51.060 height of that racing T of mascot so if
+
+00:11:53.400 you remember if the eight elements are
+
+00:11:55.290 given then it will call itself four one
+
+00:11:57.240 four and then here five to eight and
+
+00:12:00.780 then here one to two then here one to
+
+00:12:04.740 one so what is the height it is log n so
+
+00:12:08.730 the height of merge sort or the working
+
+00:12:11.940 if you see in the height is log n so how
+
+00:12:14.580 much stack space it needs log and stack
+
+00:12:17.370 space at a time it needs it may be
+
+00:12:21.690 creating many activation records but the
+
+00:12:23.880 maximum activation records will be log
+
+00:12:25.800 and so it needs space in the stack and
+
+00:12:28.589 also it is takes extra space for
+
+00:12:31.320 auxiliary extra space extra space choice
+
+00:12:35.430 should be N and plus that stack space is
+
+00:12:39.000 login so mansour takes n plus log n
+
+00:12:43.860 space and asymptotically when you take
+
+00:12:46.920 you can take it as theta of N or Big O
+
+00:12:50.130 of N
+
+00:12:51.000 and plus login is the total space taken
+
+00:12:53.130 what is n this extra space and login is
+
+00:12:57.810 the stack space so that's all the pros
+
+00:13:01.860 and cons of mass sort so you can watch
+
+00:13:04.800 my previous video and one more thing is
+
+00:13:06.510 if you're watching video for Mossad
+
+00:13:09.270 first of all you watch a video on
+
+00:13:11.540 two-way mass heart then you can follow
+
+00:13:14.820 my sword I have splitted the video into
+
+00:13:16.860 so that it should not become a very big
+
+00:13:18.630 sized video so you should watch first
+
+00:13:20.970 two women sword then more sort then the
+
+00:13:24.360 analysis of Mossad

@@ -1,0 +1,809 @@
+# 3.5 Prims and Kruskals Algorithms - Greedy Method
+
+# https://www.youtube.com/watch/4ZlRH0eK-qQ
+
+
+
+00:00:00.089 the topic is minimum cost spanning tree
+
+00:00:03.110 so for that first of all we'll
+
+00:00:05.250 understand what does it mean by a
+
+00:00:06.600 spanning tree here I have an example
+
+00:00:09.809 graphs graph is represented as G and V E
+
+00:00:17.570 V is the set of vertices 1 2 3 4 5 6 and
+
+00:00:25.039 E is the set of edges the set of edges
+
+00:00:28.619 are from 1 to 2 and 2 to 3 3 to 4 and so
+
+00:00:37.260 on
+
+00:00:38.809 graphs are represented as set of
+
+00:00:41.129 vertices and edges now what is the
+
+00:00:43.410 spanning tree spanning tree is a sub
+
+00:00:46.829 graph of a graph since I should take the
+
+00:00:49.559 subset of this so subset of what what is
+
+00:00:53.039 says an edges both the subsets or only
+
+00:00:56.219 one subset so I should take the subset
+
+00:00:58.440 of edges vertices must be as it is so I
+
+00:01:02.850 should take
+
+00:01:03.570 all were distance six spanning tree
+
+00:01:07.409 means I should take all what Isis then
+
+00:01:10.680 how many edges how many words I have
+
+00:01:13.850 number of vertices are n 36 so I should
+
+00:01:17.610 take number of what is this minus one
+
+00:01:19.950 that is only five edges span three is a
+
+00:01:25.080 sub graph of a graph having all vertices
+
+00:01:28.400 but only n minus one edges so all of
+
+00:01:33.150 these edges I should take only 5 so 1 2
+
+00:01:38.310 3 4 5 I did not take this one
+
+00:01:43.259 so the spanning tree see a tree will not
+
+00:01:47.520 have a cycle so there is no cycle here
+
+00:01:50.340 yes there is no cycle here if I this you
+
+00:01:54.540 can say it's a cycle if you start from
+
+00:01:56.130 one vertex you can again reach back to
+
+00:01:58.049 that vertex but here there is no cycle
+
+00:02:01.280 sure is it possible that I will take
+
+00:02:03.990 this one but I will not take this yes
+
+00:02:06.750 there's also a spanning tree I will
+
+00:02:11.430 this but I will not take this yes this
+
+00:02:14.519 is also a chance planning page
+
+00:02:16.319 so which adjective salad that is a
+
+00:02:18.780 choice that's a choice for a spanning
+
+00:02:21.900 tree so I can say that s is a sub graph
+
+00:02:25.950 of a graph where s is a define as set of
+
+00:02:29.969 vertices and a set of edges where set of
+
+00:02:33.329 vertices are same as the vertices of a
+
+00:02:35.879 graph and edges are number of vertices
+
+00:02:41.129 minus 1 so the number of edges are
+
+00:02:43.980 number of vertices minus 1 this how
+
+00:02:46.579 formally we can divide in mathematics we
+
+00:02:49.139 can define like this knowledge thing for
+
+00:02:51.569 a given graph how many different
+
+00:02:53.579 spanning trees can be generated I want
+
+00:02:56.730 to know that how many different spanning
+
+00:02:58.469 trees are possible so see number of
+
+00:03:01.319 edges are hominid 6 1 2 3 4 5 6 I have
+
+00:03:07.260 an aspiring tree I should only 5 I
+
+00:03:10.069 should take only five so 6c 5 out of 6
+
+00:03:16.709 edges out of 6 edges I have to select 5
+
+00:03:21.060 how many ways I can do that
+
+00:03:23.609 so 6 5 the Seavey's so if it's 6 5 see
+
+00:03:28.019 is how much 6 only so I can have six
+
+00:03:32.489 different spanning trees just now you
+
+00:03:35.400 can see it is a simple one that I have
+
+00:03:37.859 skipped this edge like this I can leave
+
+00:03:39.870 one one edge right and you can form a
+
+00:03:42.359 spanning tree right I can take all
+
+00:03:44.370 except this take all except this take
+
+00:03:46.409 all these six are possible suppose if I
+
+00:03:49.829 have one more edge now now I have seven
+
+00:03:54.000 edges and I want to select five now how
+
+00:03:57.269 many spanning trees are possible see a
+
+00:03:59.759 I'd have this esperen tree also or I can
+
+00:04:04.470 have this is a spanning tree also the
+
+00:04:08.069 possibilities are more of the 7c v 7c 5
+
+00:04:13.199 but this edge it will form cycle so how
+
+00:04:17.970 many cycles it is forming this is one
+
+00:04:20.310 cycle
+
+00:04:21.089 and this is another cycle so this edge
+
+00:04:23.550 is forming two cycles often number of
+
+00:04:26.550 word he says less than six so if it is
+
+00:04:30.300 forming number of vertices less than six
+
+00:04:32.580 then you suffer B 7 C 5-2 so that's it
+
+00:04:39.690 so what's the formula to know how many
+
+00:04:42.479 different spanning trees are possible
+
+00:04:44.430 from a given graph so whatever the
+
+00:04:48.150 number of edges you have you should take
+
+00:04:50.070 all those and see of how many are just
+
+00:04:53.040 you need you need five so five years
+
+00:04:55.860 what number of vertices minus one so
+
+00:04:58.229 this is not a vertices minus 1 and minus
+
+00:05:01.130 number of cycles you have to subtract
+
+00:05:07.169 number of cycles I have a graph where
+
+00:05:11.430 the edges are having weights so this is
+
+00:05:14.130 a weighted graph there's a weighted
+
+00:05:17.280 graph I want to know what are the
+
+00:05:20.639 possible spanning tree is possible so
+
+00:05:22.590 I'll draw a few spanning trees let us
+
+00:05:25.080 draw one spanning tree this is vertex 1
+
+00:05:27.750 & 2 & 3 & 4 so 4 what is this are there
+
+00:05:32.220 then how many edges I should take 4
+
+00:05:34.289 minus 1 only 3 so I'll select this one 1
+
+00:05:37.500 2 3
+
+00:05:38.880 so what is the weight of this one 5 3 &
+
+00:05:41.639 6 so what is the cost of the spanning
+
+00:05:44.280 tree cost of this spanning tree is 14 I
+
+00:05:48.229 take one more spanning tree 1 2 3 4 and
+
+00:05:54.419 I'll take these edges let us see what is
+
+00:05:56.880 the cost of this 4 6 3 then what is the
+
+00:06:00.270 cost of this one 13 I take one more
+
+00:06:06.450 spanning tree 1 2 3 4 and I take these
+
+00:06:12.090 edges this one and this one and this one
+
+00:06:15.330 4 2 & 3 so this is cost us how much 9
+
+00:06:23.539 now from this example some observation
+
+00:06:28.200 we can understand something if you have
+
+00:06:31.320 a weighted graph
+
+00:06:33.090 and you get different spanning trees the
+
+00:06:35.970 cause of the spanning trees may be
+
+00:06:37.590 varying you can get a different cost of
+
+00:06:40.889 spanning trees now the problem is can I
+
+00:06:46.500 find out the minimum cost spanning tree
+
+00:06:49.470 can I find out the minimum one which
+
+00:06:52.380 gives me a minimum yes you can find out
+
+00:06:55.200 how you can try all possible spanning
+
+00:06:59.040 trees and then from that you can check
+
+00:07:01.590 whichever is minimum you can pick up
+
+00:07:03.419 that answer and this is one method
+
+00:07:06.470 trying all possible spanning trees will
+
+00:07:09.450 be too lengthy
+
+00:07:10.410 is there any greedy met hurt yes
+
+00:07:14.040 the greedy methods are available for
+
+00:07:16.080 finding the minimum cost spanning tree
+
+00:07:18.780 if a weighted graph is given you can
+
+00:07:20.700 find out the minimum cost spanning tree
+
+00:07:23.280 by following the method without finding
+
+00:07:26.250 out all possible spanning trees so what
+
+00:07:29.340 are those methods one method is Prince
+
+00:07:33.930 algorithm and the second method is
+
+00:07:36.770 kruskal's algorithm there are two
+
+00:07:42.780 algorithms for finding minimum cost
+
+00:07:44.789 spanning tree I have a weighted graph
+
+00:07:47.460 here and I have to find a minimum cost
+
+00:07:49.740 spanning tree by following Ben's
+
+00:07:51.900 algorithm let us see how prims algorithm
+
+00:07:54.180 works through an example the asper prims
+
+00:07:57.360 algorithm he says that from a graph
+
+00:08:00.120 first of all you select a minimum cause
+
+00:08:03.330 edge so the smallest edge in the entire
+
+00:08:06.510 graph is this one then this is the
+
+00:08:11.940 initial one now for the rest of the
+
+00:08:14.280 procedure always select a minimum cause
+
+00:08:16.979 edge from the graph but make sure that
+
+00:08:20.370 it should be connected to all the
+
+00:08:22.950 riesling
+
+00:08:23.990 vertices now the next minimum is switch
+
+00:08:27.660 1 3 2 4 don't take that it will not be
+
+00:08:31.350 connected to 1 or 6 so take only those
+
+00:08:34.140 which are connected to 1 or 6 means what
+
+00:08:37.770 he is trying to do is always maintain a
+
+00:08:40.740 tree
+
+00:08:43.360 thinks that if some father away edge is
+
+00:08:46.989 selected then it may not be forming a
+
+00:08:50.079 tree finally so that is the reason he
+
+00:08:53.079 suggested that always select a minimum
+
+00:08:55.449 edge we should be connected so let us
+
+00:08:58.149 see what is the next one so for this
+
+00:09:00.339 connected one are this one and this one
+
+00:09:02.139 so this twenty five and twenty twenty
+
+00:09:04.360 five is minimum so select this twenty
+
+00:09:06.730 five then this twenty eight and five
+
+00:09:11.999 connected to five or twenty two and
+
+00:09:14.079 twenty four sort of this 28 24 and 22 so
+
+00:09:17.679 from one and six and five am checking so
+
+00:09:19.929 already six is over
+
+00:09:21.009 so one and five so out of those this is
+
+00:09:23.799 smallest one so four is selected now
+
+00:09:26.920 from one six and five four who is
+
+00:09:28.959 smallest the connected one so this is 24
+
+00:09:32.110 and 18 and 12 so to L is smaller so we
+
+00:09:35.079 will take two n then not of all these
+
+00:09:41.290 which collected as a smallest so here I
+
+00:09:44.230 have 24 18 and 16 so 16 is a smaller so
+
+00:09:47.889 take that 16 then an out of all these
+
+00:09:53.739 who is next connected so from 2 to 7
+
+00:09:56.649 there is an edge which is connected so
+
+00:09:58.720 this is 7 that's it
+
+00:10:03.689 there are 7 vertices so 1 2 3 4 5 6 6
+
+00:10:09.519 edges are selected and this how we got a
+
+00:10:11.889 minimum cost cost spanning tree and and
+
+00:10:15.399 this is how we got a minimum cost
+
+00:10:17.350 spanning tree what is the cost of a tree
+
+00:10:19.869 the cost of a tree is if I add all these
+
+00:10:25.049 if I add all these it is 99 so the
+
+00:10:30.999 approach of premises initially select
+
+00:10:33.459 the smallest one then always select the
+
+00:10:35.739 connected smallest one of it so this is
+
+00:10:41.079 the method of prims algorithm next if I
+
+00:10:45.249 have a graph 1 2 3 4 5 6
+
+00:10:54.730 seven if I have a graph like this which
+
+00:10:58.900 is not a connect data there are total
+
+00:11:01.360 seven vertices but there are two pieces
+
+00:11:03.280 in a graph can prim find out the minimum
+
+00:11:07.330 cost spanning tree for this one
+
+00:11:09.430 no no algorithm can find out because we
+
+00:11:13.390 cannot find a tree for this one spanning
+
+00:11:16.090 tree for this one in a spanning tree it
+
+00:11:18.520 must be connected so for non connected
+
+00:11:21.010 graph we cannot find spanning page at
+
+00:11:23.500 all but if I start prints on this one
+
+00:11:26.890 starting from vertex one if it is
+
+00:11:28.570 starting then it may find the spanning
+
+00:11:30.610 tree for only one component not the
+
+00:11:32.500 other component next method for finding
+
+00:11:34.750 minimum cost spanning tree is kruskal's
+
+00:11:37.450 meth hurt
+
+00:11:38.260 this also follows a greedy approach
+
+00:11:40.860 instead of trying out all possible
+
+00:11:43.390 spanning trees it shows a procedure by
+
+00:11:46.840 following which we can get a minimum
+
+00:11:49.150 cost spanning tree it says that always
+
+00:11:52.210 select a minimum cause edge always
+
+00:11:55.390 select a minimum cause edge let us
+
+00:11:58.000 follow this one select
+
+00:11:59.650 smallest edge one to six that is ten
+
+00:12:05.080 this one is the smallest and the next is
+
+00:12:07.360 smallest rest is three to four so the
+
+00:12:10.600 second edge and selecting is three to
+
+00:12:13.780 four and its cost is 2n next minimum is
+
+00:12:17.290 two to seven select two to seven and
+
+00:12:21.130 this is 14 the next minimum is two to
+
+00:12:24.820 three that is 16 and after this the next
+
+00:12:30.160 minimum edge is seven before but that is
+
+00:12:33.970 18 if I select that it will form a cycle
+
+00:12:37.450 yes crystal method say is that always
+
+00:12:40.330 select a minimum cause edge but if it is
+
+00:12:43.090 forming a cycle don't tuns
+
+00:12:45.040 include it in the solution discard that
+
+00:12:47.860 edge don't include attach so it means
+
+00:12:50.350 always select such that it is not
+
+00:12:52.060 forming a cycle so if I include 4 to 7
+
+00:12:54.940 it will form a cycle so next one you
+
+00:12:57.250 check so the next one is 22 so this is
+
+00:13:00.010 from 5 to 4 or 4 to 5 so this is 22
+
+00:13:03.070 next minimum is 34 so that is 7 and 5 if
+
+00:13:06.820 I include this also it will form a cycle
+
+00:13:08.949 don't include that one then the next
+
+00:13:11.320 minimum one is 25 that is from 5 to 6 so
+
+00:13:15.040 this is 25 and the cost of this one is
+
+00:13:18.250 if you add all these waves it's 99 so he
+
+00:13:24.490 also got the same result just how I got
+
+00:13:26.829 in prims algorithm so the Prince
+
+00:13:29.500 algorithm and critical algorithm has
+
+00:13:31.420 given the same result on this particular
+
+00:13:33.430 graph now find hidden by kruskal's
+
+00:13:36.100 algorithm how much time it takes see it
+
+00:13:39.370 has to always select a minimum cost H
+
+00:13:41.889 from the set of edges so let us say
+
+00:13:45.069 there are a number of edges so out of
+
+00:13:46.930 these edges it will find out the minimum
+
+00:13:48.699 one and how many such edges it will be
+
+00:13:51.339 selecting it will be selecting V minus 1
+
+00:13:54.730 yet this number of vertices minus 1 like
+
+00:13:57.550 we know in a spanning tree if there are
+
+00:13:59.259 7 vertices we need 6 adjusts for forming
+
+00:14:02.620 a spanning tree so that is 7 minus 1 so
+
+00:14:05.139 as many vertices we have minus 1 number
+
+00:14:07.209 of edges we have to selects so the total
+
+00:14:09.339 time will be theta of V into e the e V
+
+00:14:16.569 is number of vertices and E is number of
+
+00:14:19.089 edges so it is n into e n is the number
+
+00:14:22.930 of vertices and E is the number of edges
+
+00:14:25.810 we should also be written as n square if
+
+00:14:29.889 we say both are n then it is n square so
+
+00:14:33.100 the time taken by kruskal's algorithm is
+
+00:14:35.199 n square but crystal algorithm can be
+
+00:14:41.019 improved when we have to always select a
+
+00:14:43.779 minimum cause edge then there is one
+
+00:14:46.540 data structure which will always give
+
+00:14:48.490 you a minimum value that is min heap if
+
+00:14:53.500 min heap is used then min heap will
+
+00:14:56.050 always give you a minimum value whenever
+
+00:14:58.689 you delete a value you get a minimum
+
+00:15:00.130 value so if all these edges are kept in
+
+00:15:02.800 a min heap whenever you delete
+
+00:15:05.340 getting an X minimum at so you don't
+
+00:15:07.680 have to search so from many games
+
+00:15:09.960 whenever you delete the time taken is
+
+00:15:12.300 login so how much time it will take for
+
+00:15:15.450 finding a minimum cause edge login time
+
+00:15:19.170 so how many times you have to do that
+
+00:15:21.150 that is n time number of vertices minus
+
+00:15:23.640 one time so n so by using min-heap the
+
+00:15:27.900 time come time capacity of kruskal's
+
+00:15:29.430 algorithm will be n log n so that's how
+
+00:15:32.640 critical algorithm can be made faster
+
+00:15:37.070 now if there is a draft given that is
+
+00:15:39.780 not connected graph it is having two
+
+00:15:41.520 components for vertices on this side
+
+00:15:43.350 five vertices on that side can we find a
+
+00:15:45.960 spanning tree on a non connected graph
+
+00:15:47.850 no spanning tree is not possible
+
+00:15:50.010 but what happens if I run a school
+
+00:15:51.930 skills algorithm so critical algorithm
+
+00:15:54.480 will try to find out total number of
+
+00:15:56.610 edges that is nine minus one so it will
+
+00:15:58.560 try to select eight edges and it will
+
+00:16:01.140 not be forming a spanning tree for
+
+00:16:02.430 entire graph but it may be finding the
+
+00:16:05.340 spanning tree for each component let us
+
+00:16:08.550 say is the first minimum da one it will
+
+00:16:10.350 select us this one then the next minimum
+
+00:16:12.570 it is having more than one edges let us
+
+00:16:16.230 say it selects next minimum and the next
+
+00:16:18.390 minimum it will select this next minimum
+
+00:16:20.190 it selects this and this is the next
+
+00:16:21.930 minimum so in this way it is selecting
+
+00:16:24.090 the minimum right just from both the
+
+00:16:26.070 components or it will be selecting from
+
+00:16:27.900 all the components so it may be finding
+
+00:16:30.360 spanning trees for all the components
+
+00:16:33.210 but not for the entire terms so critical
+
+00:16:36.630 algorithm may work for non connected
+
+00:16:39.330 graphs also but it may give spanning
+
+00:16:42.960 tree for those components let us take a
+
+00:16:46.710 problem here our graph is given and the
+
+00:16:49.440 weights of the edges are also given but
+
+00:16:52.230 here two edges are not having their
+
+00:16:54.480 weights if I take only these edges which
+
+00:16:57.660 are having a weight they are forming a
+
+00:16:59.400 spanning tree of a graph just hide these
+
+00:17:02.070 two edges it becomes a spanning tree now
+
+00:17:05.190 the question is what could be the
+
+00:17:07.079 minimum values of these two axes what
+
+00:17:10.260 could be the minimum possible value
+
+00:17:12.060 it can be anything but at least what
+
+00:17:14.280 could be the value see as this is
+
+00:17:17.339 included in the spanning tree this is
+
+00:17:19.589 included in a spanning tree this is not
+
+00:17:21.329 included because it is forming a cycle
+
+00:17:23.280 so it is forming a cycle if it is
+
+00:17:25.920 included this will form a cycle so it
+
+00:17:28.470 will be considered after selecting these
+
+00:17:30.750 true after selecting these two so the
+
+00:17:33.540 weight of this could be four right first
+
+00:17:38.550 this is selected then this is selected
+
+00:17:40.080 then this is not selected once
+
+00:17:42.000 definitely it is four if it is less than
+
+00:17:43.890 four then that would have been selected
+
+00:17:45.960 first right so it came later so it is
+
+00:17:49.650 forming a cycle so it is not taken that
+
+00:17:51.450 this four is taken then this force is
+
+00:17:53.400 taken this 5 is taken so then what could
+
+00:17:55.170 be the minimum weight of this one so it
+
+00:17:57.300 is not selected at last it is left over
+
+00:17:59.640 means minimum weight of this one could
+
+00:18:01.650 be 6 so this is 4 and that is 6 so if
+
+00:18:06.630 any missing edges are there you can find
+
+00:18:08.520 out this type of problems we find in
+
+00:18:10.440 examinations so some missing edges you
+
+00:18:13.920 can find out so if you know spanning
+
+00:18:15.480 tree you can answer this type of
+
+00:18:16.710 question let us take this example and
+
+00:18:19.110 let us find out spanning tree for this
+
+00:18:21.330 one minimum cost spanning tree so if I
+
+00:18:24.750 follow crystals method so first I will
+
+00:18:26.730 select the minimum cause edge this edge
+
+00:18:29.310 I have selected then the next minimum is
+
+00:18:31.740 this 3 and that tree so I can select any
+
+00:18:33.840 one so I will select this one first just
+
+00:18:36.980 selected next I will select this one
+
+00:18:39.930 so is it forming a cycle inclusion of
+
+00:18:42.450 this one no so I will select that one
+
+00:18:44.970 then which other just 4 and 4 these two
+
+00:18:47.850 are there so I can select any one so I
+
+00:18:49.950 will select this one but if this will
+
+00:18:52.140 form any cycle no so total how many
+
+00:18:54.690 edges I have selected 1 2 3 4 and total
+
+00:18:59.070 how many vertices are there 5 vertices
+
+00:19:01.050 are there so 4 edges are selected that's
+
+00:19:03.540 all I got a spanning tree so what is the
+
+00:19:05.700 cost of the spanning tree 2 plus 3 plus
+
+00:19:08.610 3 plus 4 and this is two ends spanning
+
+00:19:13.410 tree is a minimization result so
+
+00:19:15.570 definitely there will be only one result
+
+00:19:17.130 so for a problem there can be only one
+
+00:19:19.270 de Mille solutions so we should have
+
+00:19:21.280 exactly one spanning-tree only there
+
+00:19:24.040 cannot be more than one spanning tree
+
+00:19:26.040 right but in this example you can see
+
+00:19:29.170 instead of taking this fool this edge I
+
+00:19:33.610 can take this fool also now also it's
+
+00:19:39.730 forming a spanning tree yes so I can
+
+00:19:42.820 select one more but what is the cost
+
+00:19:44.710 cost is 12 so cost is only one the
+
+00:19:48.160 optimal cost is 2l only you will get
+
+00:19:50.890 definitely only one answered in the
+
+00:19:53.200 minimization or maximization problem but
+
+00:19:55.810 for that answer the set of input may be
+
+00:19:58.150 changing so either you can include this
+
+00:20:01.870 for or this for so total how many
+
+00:20:04.180 spanning trees are trees are possible to
+
+00:20:06.790 spanning these are possible but what is
+
+00:20:08.980 the minimum cause that is true it

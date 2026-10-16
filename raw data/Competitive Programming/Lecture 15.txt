@@ -1,0 +1,698 @@
+# tactiq.io free youtube transcript
+# Mo's Algorithm With Updates
+# https://www.youtube.com/watch/gUpfwVRXhNY
+
+00:00:03.040 hi everyone we're going to be talking
+00:00:04.359 about Mo algorithm with updates today
+00:00:06.279 and it's a very interesting topic
+00:00:07.640 because you have these set of queries
+00:00:09.519 and set of updates and uh even though
+00:00:12.880 you take them offline everything works
+00:00:14.799 out the correctness the time complexity
+00:00:16.400 everything and there's a special thanks
+00:00:17.840 to nikil chandak for this who actually
+00:00:19.400 pointed out a Cod Chef problem from The
+00:00:21.680 febr Challenge I think it's primitive
+00:00:23.279 queries so that's the reason why I
+00:00:25.439 actually learned about this and now
+00:00:27.160 finally I got the hang of it so uh
+00:00:30.560 in case you don't know about the mo
+00:00:32.079 algorithm uh you should have a look at
+00:00:34.000 that because that's a prerequisite for
+00:00:35.360 understanding this thing but if you do
+00:00:37.320 know about it then you'll know that uh
+00:00:39.559 simple updates don't work there because
+00:00:42.000 after you have sorted the queries you
+00:00:43.680 might need to redo updates or undo
+00:00:45.920 updates all right so let's just take an
+00:00:48.160 example explaining that now let's say we
+00:00:50.480 have some input array for which we need
+00:00:52.359 to find for any given range left to
+00:00:54.320 right the sum of all elements in them so
+00:00:57.079 left is four right is 6 2 6 4 is equal
+00:01:00.120 well so these are the kind of queries
+00:01:02.359 we'll be answering and mo algorithm is
+00:01:04.479 going to take the left block
+00:01:08.840 index and the right index and sort all
+00:01:11.840 queries based on this
+00:01:13.640 couple okay so what happens if you have
+00:01:16.680 Point updates over here now you have a
+00:01:19.320 problem
+00:01:20.799 because firstly when you sort these
+00:01:23.520 queries you're going to get the order of
+00:01:26.320 block size is equal to 3 and N is equal
+00:01:28.439 to 8 so block size should be equal to 3
+00:01:30.680 um the left block index of these two is
+00:01:33.399 are the same so but the right index of
+00:01:36.119 this tle is smaller so you'll have 2
+00:01:40.560 7 1
+00:01:43.079 8 and 6 six now this is without the
+00:01:47.159 updates if you want to squeeze in
+00:01:49.040 updates we have to do something a little
+00:01:51.320 brute forcey so that
+00:01:53.280 is squeezing updates like this at 27 how
+00:01:57.520 many updates had happened two
+00:02:00.600 so those two updates will be done first
+00:02:02.240 so we'll set A2 12 and
+00:02:07.000 a12 minus
+00:02:09.199 one now at 18 it's not trivial to just
+00:02:13.599 answer what 18 is because these two
+00:02:15.360 updates had never happened when you were
+00:02:17.560 asked to find out what 18 is
+00:02:21.640 so we take that into consideration and
+00:02:25.440 we say all right we are going to undo
+00:02:27.480 the updates so undo
+00:02:32.440 A2 being set to 12 and
+00:02:36.360 undo
+00:02:38.000 A1 being set to minus
+00:02:40.879 one now you can answer this query so we
+00:02:45.879 have 1 to8 being answered but
+00:02:49.599 unfortunately these two updates had
+00:02:51.519 happened for the next query 6 comma 6 so
+00:02:54.560 we have to do them again now again A2 is
+00:02:58.519 set to one I'm sorry 12 and A1 is set to
+00:03:02.280 minus
+00:03:03.400 one and finally we can answer this s
+00:03:07.040 66 so and you see what's happening here
+00:03:10.480 you have for any given range query you
+00:03:13.360 have to do all the updates again or you
+00:03:15.400 have to undo all the updates again so in
+00:03:18.519 the absolute worst
+00:03:20.120 case for any query that is every range
+00:03:23.599 query let's say range query uh let's say
+00:03:27.680 they Q by two in number half of the
+00:03:29.920 total queries and update
+00:03:32.000 query is again Q by2 in number half of
+00:03:34.640 the total
+00:03:35.599 queries the multiplication of these two
+00:03:37.640 is the number of operations you are
+00:03:38.640 performing so that is Q by 2 into Q by
+00:03:44.920 2 order of this which comes out to be
+00:03:48.799 order Q
+00:03:51.439 ^2 all right that is uh pretty bad order
+00:03:56.120 Q square is not something that any
+00:03:57.599 contest will allow you to uh your your
+00:03:59.840 solution to pass through with that time
+00:04:02.280 complexity so we are looking for
+00:04:04.000 something better now it's time to
+00:04:06.519 understand what the mo algorithm really
+00:04:08.159 means it's not just about taking two
+00:04:10.760 poins left and right and finding out uh
+00:04:13.120 the sum query between them it's more
+00:04:15.799 about working with Dimensions so you
+00:04:19.040 might
+00:04:20.238 have the left pointer where is it
+00:04:22.479 pointing at that's one
+00:04:24.560 dimension where's the right poter
+00:04:26.440 pointing at that's another
+00:04:28.080 one what about
+00:04:30.600 what is the time at which this query
+00:04:32.039 came so what is the index of this query
+00:04:33.800 how many updates had happened before
+00:04:35.840 it how much space is left in this
+00:04:39.520 universe etc etc so you have lots of
+00:04:42.080 Dimensions that you you can actually
+00:04:43.680 take into consideration but if you take
+00:04:45.759 these
+00:04:47.520 three then you can actually answer for
+00:04:49.800 updates
+00:04:54.160 also so with these three we are going to
+00:04:56.400 answer updates how well if you remember
+00:04:59.800 the old Mo algorithm it gives free reain
+00:05:02.639 to one of its parameters to start from
+00:05:05.440 the minimum value and go all the way to
+00:05:07.000 the maximum
+00:05:08.080 value in the previous Mo algo that we
+00:05:10.560 knew the right pointer could start from
+00:05:12.919 zero and go all the way to end here we
+00:05:15.520 are going to do something slightly
+00:05:16.840 different we're going to allow time to
+00:05:18.240 do that so time essentially
+00:05:23.000 means what is the index of the query how
+00:05:25.360 many updates have happened before this
+00:05:27.720 query has come to us so that could be
+00:05:30.280 from
+00:05:31.120 0o to Q all right time has free rain
+00:05:36.080 except that it has to increase just like
+00:05:40.039 the right point I had to do it had free
+00:05:42.120 R but it could only increase per block
+00:05:44.919 now what what about
+00:05:47.720 right right and left will be sorted in
+00:05:50.720 such a way that this
+00:05:53.479 Behavior can be allowed so the right
+00:05:57.840 pointer will be constrained by by a
+00:06:00.240 block of size
+00:06:02.440 B the left pointer will also be
+00:06:04.680 constrained by a
+00:06:06.680 block of size
+00:06:10.160 B all
+00:06:12.319 right so what we have done is we have
+00:06:15.000 taken all parameters except one
+00:06:17.960 constrained them into blocks and given
+00:06:20.280 the last one an increasing free
+00:06:23.680 rain so what is the total time
+00:06:26.639 complexity that you get out of
+00:06:28.560 this if you notice now it's not about uh
+00:06:33.240 Q
+00:06:34.960 sare I mean the time complexity is no
+00:06:37.039 longer Q Square because time can go from
+00:06:40.160 0 to Q for every left and right block so
+00:06:44.919 uh the number of left blocks that you'll
+00:06:46.759 have distinct left blocks are n by B the
+00:06:50.400 number of distinct right blocks that you
+00:06:51.880 can have are again n by
+00:06:54.759 B and so the number of distinct pairs
+00:06:58.680 that you can have is the product of
+00:07:00.280 these two
+00:07:02.319 into the amount that the time can move
+00:07:04.639 by so that is now Q into n² by B
+00:07:08.639 squ so instead of having an oq Square
+00:07:11.759 algorithm we have an o q n² by B sare
+00:07:16.840 algorithm and we look at the time
+00:07:18.680 complexity
+00:07:20.440 later it's not like we can make the
+00:07:22.639 block size huge and then reduce the time
+00:07:24.280 complexity we'll have a detailed look at
+00:07:26.280 that and what is the optimal block size
+00:07:28.039 that we can have but important to
+00:07:30.280 understand is that we have made a
+00:07:31.240 significant improvement over our
+00:07:32.960 original algorithm we at least now stand
+00:07:35.039 a chance to have a good time complexity
+00:07:38.599 algorithm so we just said that we're
+00:07:40.520 going to be sorting the queries on left
+00:07:42.360 index left block Index right block index
+00:07:44.879 and the time of the query so what does
+00:07:47.039 time mean well time tells you the number
+00:07:49.840 of updates performed up to that point so
+00:07:53.000 if there is a range query it will have a
+00:07:55.159 parameter of time which will tell you
+00:07:57.080 how many updates have been performed
+00:07:58.800 till that range quer was actually asked
+00:08:01.159 so we take the
+00:08:02.560 original uh set of
+00:08:04.800 queries at 10 comma 20 there were no
+00:08:08.280 updates till this point so that'll be
+00:08:11.080 zero at this point 10 comma 19 there are
+00:08:14.240 two updates so that will be two these
+00:08:17.120 two
+00:08:17.919 updates there's another update over here
+00:08:20.280 so this query has time of
+00:08:24.280 three you can you can call this time
+00:08:26.400 stamp if it makes more sense actually it
+00:08:28.000 does so uh time stamp over here is
+00:08:33.440 four right because 3 + 1 is 4 and so if
+00:08:39.039 we sort the queries now it's not like
+00:08:41.799 you get rid of the updates you keep them
+00:08:43.519 in a separate list and these queries the
+00:08:46.880 range queries will be sorted in this way
+00:08:49.959 so block size equal to three which
+00:08:53.519 means the smallest query is over here 0
+00:08:57.000 0 so both of them fall in the same l
+00:08:59.480 left block index we need to use the
+00:09:01.079 right block index now 19 and 12 4 and
+00:09:05.839 what six yeah so this is the first query
+00:09:07.880 that we have 1A 12a
+00:09:11.480 4 then we have 1A 19a
+00:09:16.480 3 and similarly we have over here and
+00:09:19.000 over here uh if you notice the left
+00:09:20.959 block index and the right block index of
+00:09:22.519 both of these are the same so we need to
+00:09:25.560 find some way to differentiate them
+00:09:27.800 using time 2 is greater than zero so we
+00:09:32.440 take this first 1 it's 10 10 comma 20
+00:09:37.160 comma
+00:09:39.640 0 and next is 10
+00:09:43.279 comma 19a 2 you see that in the mo
+00:09:46.800 algorithm this would have been different
+00:09:48.079 you would have had 19 coming before the
+00:09:50.160 20 and also you see that in the most
+00:09:53.040 algorithm uh there's a similar thing
+00:09:55.160 which is being done we are trying to
+00:09:57.760 constrain the amount by which uh the one
+00:10:00.760 of the pointers can move so over here if
+00:10:03.360 you had more queries let's
+00:10:05.720 say 10A 18
+00:10:08.839 comma
+00:10:10.560 6 and 10
+00:10:15.000 comma 20 comma
+00:10:18.640 7 you can also understand that how it
+00:10:21.160 helps you this arrangement of queries
+00:10:24.079 because the number of updates that
+00:10:25.360 you're doing is only
+00:10:27.040 increasing it's not allowed to go back
+00:10:29.079 it can can only increase so in that way
+00:10:31.880 you are giving it a free reain but only
+00:10:34.000 in One Direction so the number of
+00:10:36.240 updates go on increasing at
+00:10:38.839 most up to a size of Q and these two
+00:10:43.040 other parameters uh they keep shifting
+00:10:46.079 so now that we know how to sort our
+00:10:47.440 queries let's look at some
+00:10:50.000 code uh if the number of updates you
+00:10:52.240 have done till now is actually less than
+00:10:54.480 the number of updates required for this
+00:10:56.320 query to be processed then you need to
+00:10:58.680 perform more updates well all the
+00:11:02.120 updates after the current time up to the
+00:11:06.079 time of the query right time signifies
+00:11:08.519 the number of updates done till that
+00:11:10.079 point so for a query number of updates
+00:11:12.000 done till that query was met in the
+00:11:14.200 original order and current time means
+00:11:16.519 the number of updates you have done
+00:11:17.839 right now so you perform the update and
+00:11:21.079 then you increment the number of updates
+00:11:22.839 you have done till now all right very
+00:11:25.959 similar to that is the uh if the number
+00:11:29.680 of updates you have done till now is
+00:11:31.800 greater than what was required by this
+00:11:34.560 query then you need to perform some undo
+00:11:36.920 operations you need to undo all the
+00:11:38.959 updates which are in excess so till this
+00:11:41.720 condition is true you will perform undos
+00:11:44.920 for
+00:11:45.880 all the updates in current time so
+00:11:48.279 current time will be decremented and
+00:11:49.800 therefore you'll be getting rid of the
+00:11:51.680 excess
+00:11:52.800 Updates this is the excess code that we
+00:11:55.160 have compared to the standard M
+00:11:56.600 algorithm after this comes in the normal
+00:11:58.839 you know if the left index is greater or
+00:12:01.240 lesser then you move it around and so
+00:12:03.079 with the right let's take an example now
+00:12:06.040 we have this set of queries with us and
+00:12:08.440 our job is to find out just like in the
+00:12:10.240 old question uh for a given range left
+00:12:12.720 to right how many elements have
+00:12:14.839 frequency greater than or equal to three
+00:12:16.760 and based on that we give out the count
+00:12:19.680 okay uh and we also have Point updates
+00:12:21.880 now so how do we process this firstly we
+00:12:25.839 have talked about the tle that we really
+00:12:27.360 want which is left block
+00:12:30.320 Index right block index and the time
+00:12:34.320 stamp so these two can be calculated
+00:12:37.240 what about the time stamp the time stamp
+00:12:40.000 is the number of updates that have been
+00:12:41.760 performed till this point so over here
+00:12:44.600 it is zero no updates yet we perform One
+00:12:47.920 update here so after that this query
+00:12:50.199 comes in having time stamp
+00:12:52.800 one Four more updates happen here so
+00:12:56.920 this has time stamp 1 + 4 which is
+00:13:00.720 five now if you sort according to this
+00:13:03.360 tle you get so the first index the first
+00:13:08.000 left index is 2 and one will fall in the
+00:13:10.279 same left index because block size is
+00:13:12.600 three because the AR size is eight so uh
+00:13:16.760 that would
+00:13:17.959 be now we need to look at the right
+00:13:20.079 index so right index of this is smaller
+00:13:22.320 right block index basically that is 1 4
+00:13:25.760 five as your first query you have two
+00:13:30.120 7 1 as your second query and your last
+00:13:33.760 query is 4 6
+00:13:37.440 and0 this is interesting what we need to
+00:13:40.320 do is process these queries in this
+00:13:42.880 order and look at the first query it has
+00:13:45.399 five updates to be performed the current
+00:13:47.519 number of updates you are performed is
+00:13:48.720 zero so we need to do five updates
+00:13:51.040 before we can actually answer this query
+00:13:52.959 that's exactly what we do uh five
+00:13:56.240 updates so let's go to the first update
+00:13:58.639 AF becomes two so I'm writing that in
+00:14:01.680 blue a of
+00:14:03.320 6 becomes
+00:14:06.519 two but that's not the only information
+00:14:09.320 that you need to have what if you need
+00:14:10.759 to undo these updates so quickly before
+00:14:14.040 I forget I'm going to make this back to
+00:14:17.680 one and set these values according to
+00:14:20.880 what the previous value was so a of 6
+00:14:24.519 becomes two was previously 1 so I'm
+00:14:28.480 writing that down brackets a of 1
+00:14:32.040 becomes seven was previously
+00:14:35.120 one a of 4 was
+00:14:39.320 previously two becomes one a of0 was
+00:14:44.519 previously uh zero becomes three and a
+00:14:48.440 of
+00:14:49.480 three was previously two and becomes one
+00:14:52.079 all right so that's that's good what if
+00:14:54.800 you had an update over here which said a
+00:14:57.480 of3 is set to
+00:15:00.440 six well what you need to have is a
+00:15:03.519 pointer so over here whatever value
+00:15:05.880 comes actually points to whatever was
+00:15:08.240 there previously a of3 is previous which
+00:15:11.199 is over
+00:15:14.600 here what af3 was set to so that will be
+00:15:17.120 one over here and that's how you set
+00:15:19.480 these uh previous values you'll check
+00:15:22.240 whatever is the current value and said
+00:15:23.680 that to previous in fact in the code
+00:15:25.560 it's much simpler than it looks over
+00:15:26.920 here so uh you can have a look at that
+00:15:29.880 there
+00:15:31.839 okay let's process these queries
+00:15:34.720 then perform five updates huh should be
+00:15:38.319 simple like we said a of six changes to
+00:15:44.240 two a of one changes to S A of one
+00:15:48.319 changes to
+00:15:49.639 seven a of four changes to one so that's
+00:15:54.240 here a of Z changes to three that's nice
+00:15:59.319 and a of three changes to
+00:16:01.839 one
+00:16:03.680 okay okay let me just confirm that a of
+00:16:06.639 six a of 1 a of four yes now I need to
+00:16:11.800 use both hands zero and uh yeah so this
+00:16:16.839 is
+00:16:17.639 fine now we can actually answer this
+00:16:20.040 query now so 1 to 4 is what we need to
+00:16:23.360 do our left index is pointing at one
+00:16:27.360 first
+00:16:30.800 and so is our right
+00:16:33.160 index frequency of one is the the value
+00:16:37.399 at one is incremented so F of 7 is
+00:16:39.800 incremented that becomes one it still
+00:16:42.199 hasn't hit three so count is still zero
+00:16:44.680 what about
+00:16:47.600 uh yeah now now the right index has to
+00:16:50.040 be incremented because it's not equal to
+00:16:51.360 four so one is added F of
+00:16:55.959 one is set to one our right index is now
+00:16:59.959 pointing here then it starts pointing
+00:17:01.959 over
+00:17:03.439 here F
+00:17:05.280 of 1 is set to two it's then set over
+00:17:10.199 here and that's equal to the right index
+00:17:12.520 so we are done F of one is set to three
+00:17:17.119 that triggers this condition and count
+00:17:18.880 is set to one so for this
+00:17:21.520 query count is
+00:17:25.959 one all right what uh actually Mark is
+00:17:30.799 here Mark
+00:17:33.080 any okay 271 is the next qu that we need
+00:17:36.480 to look at but there's just one update
+00:17:39.400 here so we need to roll back four
+00:17:42.200 updates because our because our current
+00:17:44.960 update counter is actually five we
+00:17:48.760 should have incremented the update
+00:17:49.960 counter when we were actually doing the
+00:17:51.600 update so this is now set to five uh
+00:17:53.919 this is one so we need to actually roll
+00:17:55.480 back four of the updates so our current
+00:17:57.720 update pointer is over here at five
+00:18:00.720 start rolling back a of3 has to be
+00:18:03.200 rolled back to what value two so a of3
+00:18:06.520 is rolled
+00:18:07.840 back to but that's not
+00:18:11.080 all this value was one I'll just write
+00:18:13.919 that down uh the frequency of one
+00:18:17.559 basically got decremented and the
+00:18:19.240 frequency of two got incremented because
+00:18:23.120 this value falls in the range that we
+00:18:24.960 looking at right now
+00:18:26.960 so this index
+00:18:29.720 J Falls within left and right and
+00:18:32.840 therefore we need to perform an
+00:18:34.200 operation such that this is allowed so
+00:18:36.440 whether it is actually uh making an
+00:18:39.760 update or undoing an update it doesn't
+00:18:41.840 really matter both operations
+00:18:42.880 symmetrical we need to check for this
+00:18:44.960 condition whenever we are doing it and
+00:18:47.159 whatever value was there earlier like f
+00:18:49.720 of one that needs to be decremented to
+00:18:53.640 two and uh these two are redundant
+00:18:59.640 yeah and uh it's being set to two so F
+00:19:02.520 of
+00:19:04.280 two has its value incremented to one now
+00:19:08.159 the next update we have undone this
+00:19:10.400 that's great by the current updates is
+00:19:12.600 now set to
+00:19:13.880 four a of
+00:19:16.200 Z becomes is rolled back to zero so this
+00:19:19.280 becomes
+00:19:21.120 zero is that falling in our range no so
+00:19:24.840 nothing to do that's nice finally let's
+00:19:27.360 work uh
+00:19:30.159 and current updates becomes
+00:19:32.159 three a of four should be rolled back to
+00:19:34.559 two does it fall in now range yeah yeah
+00:19:37.520 it does so first we decrement the
+00:19:39.799 frequency of this element F of
+00:19:42.679 one is set to
+00:19:45.440 one and what is that set to two it needs
+00:19:48.679 to rolled back to two so this element
+00:19:51.880 has its frequency updated to
+00:19:55.080 two Okay we we doing reasonably well we
+00:19:58.360 need to to go back
+00:20:00.320 here current updates
+00:20:03.720 are what two yeah so we need to go all
+00:20:06.919 the way back here but we aren't there
+00:20:09.799 yet so roll this back a of one is set to
+00:20:15.880 one so F of 7 had to be decremented
+00:20:19.679 that's over here a of one needs to be
+00:20:22.480 incremented so that becomes two and you
+00:20:25.400 see that this is consistent with what we
+00:20:27.200 have
+00:20:28.840 now current updates needs to be
+00:20:30.760 decremented because we have rolled this
+00:20:32.280 back and we are pointing here we have
+00:20:34.720 just one update which is exactly what we
+00:20:36.360 wanted these are the frequencies of the
+00:20:39.320 elements none of them are equal to three
+00:20:43.919 and count is therefore I mean it remains
+00:20:47.240 zero basically it didn't hit three
+00:20:51.240 here so yeah count is zero well count
+00:20:55.799 became zero actually because F of one
+00:20:57.480 was three but then then when we made it
+00:20:59.280 two count should have been decremented
+00:21:01.400 and so the answer for this is
+00:21:04.799 zero all right the final update the
+00:21:08.320 final query actually and thank God it
+00:21:10.320 just has one roll back so let's roll
+00:21:13.120 that
+00:21:16.039 back so yeah first let's roll the update
+00:21:19.400 back a of 6 becomes one a of 6 becomes
+00:21:24.840 one current number of updates is zero
+00:21:27.200 which is what we want
+00:21:30.120 current number of updates is pointing to
+00:21:32.240 nothing and uh what do we need to do
+00:21:35.960 yeah af6 became one which was two
+00:21:39.080 earlier
+00:21:44.000 so a
+00:21:45.720 of2 has its frequency decremented to
+00:21:49.600 one or does it no not really because it
+00:21:52.799 didn't fall within our range so we don't
+00:21:56.440 do anything a of two is still F of is
+00:21:58.799 still
+00:22:00.200 two so yeah no update in the frequency
+00:22:03.880 array now all we need to do is perform
+00:22:06.080 the normal M algorithm which is move
+00:22:08.400 from the left index up to four and the
+00:22:11.039 right index up to six so left index
+00:22:13.720 needs to move up to four that is going
+00:22:15.799 to decrement the frequency of 1 1 2 2 so
+00:22:19.919 get these guys
+00:22:22.080 out they have frequency 0
+00:22:24.720 0 and I'm fast forwarding a little bit
+00:22:27.120 but that's because because this is the
+00:22:29.159 standard mes
+00:22:30.840 algorithm that's where left is pointing
+00:22:33.360 now what about right right is going to
+00:22:36.600 point to
+00:22:38.120 six so over here we have right pointing
+00:22:41.320 to
+00:22:42.520 six and when it does that it grabs these
+00:22:45.799 two elements and increments their
+00:22:47.080 frequency so that would
+00:22:49.320 be one and
+00:22:51.720 one doesn't really matter in terms of uh
+00:22:55.679 count because count is never incremented
+00:22:57.360 till you hit three
+00:22:59.279 so count for this is still zero so in
+00:23:02.960 fact if you look at this this was our
+00:23:04.279 original array and uh the count within
+00:23:07.679 this range would have been zero so this
+00:23:09.120 makes sense and so this example is
+00:23:12.360 solved the time complexity of this is
+00:23:14.600 quite interesting there are three things
+00:23:16.080 we need to look at one is how much the
+00:23:18.320 right po to moves by second how much the
+00:23:20.559 left poter moves by and finally what is
+00:23:22.799 the time stamp movement for all given
+00:23:24.720 queries combined so let's have a look at
+00:23:26.840 the right pointer first the right
+00:23:28.919 pointer when you have a given left index
+00:23:31.720 left block index for you the right
+00:23:34.120 pointer can move
+00:23:36.240 freely in an increasing way so the right
+00:23:39.919 pointer might start at
+00:23:41.559 zero and go all the way to n in fact
+00:23:44.840 this won't be correct because uh the
+00:23:46.919 left pointer will have a nonzero index
+00:23:49.720 more often than not but let's take the
+00:23:51.720 absolute worst case scenario let's say
+00:23:53.039 the right point is going all the way up
+00:23:54.400 to n from zero so that is n computations
+00:23:58.840 for every fixed left
+00:24:01.440 block so that is into n by
+00:24:05.640 P okay but that's not the only thing the
+00:24:08.400 right pointer for a given left
+00:24:11.120 block so now let's say you have a fixed
+00:24:13.760 right block
+00:24:16.880 also in this your right pointer might be
+00:24:20.120 starting over here so you went all the
+00:24:22.520 way here that is B
+00:24:24.760 computations plus in the next query your
+00:24:28.440 right pointer has to go over here and
+00:24:31.120 point here so that is B in the very next
+00:24:34.760 query again you have to go all the way
+00:24:36.240 back here this is possible when your
+00:24:38.440 updates are coming in a very weird
+00:24:39.799 fashion so every time you when when
+00:24:42.559 you're over here you have the minimum
+00:24:43.760 number of updates you have the second
+00:24:45.440 most minimum number of updates here then
+00:24:47.120 the third most here fourth most here and
+00:24:49.039 back and fourth so you have to do a lot
+00:24:50.279 of competition over there and basically
+00:24:52.760 B for every
+00:24:55.240 query
+00:24:56.840 so in toal
+00:24:58.919 for any given query you might have to
+00:25:01.960 jump by B so that is in
+00:25:05.440 total Q into B this thing is a little
+00:25:09.360 difficult to get your head around but if
+00:25:10.880 you think of it every given query for
+00:25:13.039 any given query the right pointer is
+00:25:15.000 moving by at most B and so the total
+00:25:18.480 complexity of that is Q into B and this
+00:25:21.000 is for every block you have n into n by
+00:25:24.559 B all right now let's have a look at the
+00:25:26.960 left pointer the left pointer analysis
+00:25:28.720 is very similar to most algorithm you
+00:25:30.559 have for every given query at most
+00:25:33.080 movement of B because the left pointer
+00:25:36.000 is constrained by that Block B so that
+00:25:39.440 is equal to Q into
+00:25:42.679 B right and what about time stamp well
+00:25:46.440 in fact left pointer is Q into b +
+00:25:49.919 n because it might go all the way to the
+00:25:52.440 right before hitting any uh any block so
+00:25:56.760 yeah you see that that doesn't really
+00:25:58.000 matter
+00:25:58.760 what about time stamp though for every
+00:26:02.480 left index for every left block and
+00:26:06.120 every right block the time stamp has
+00:26:08.960 free
+00:26:09.840 movement so time stamp has free movement
+00:26:12.240 from what 0 to q that is Q values that
+00:26:15.559 it can take for
+00:26:18.960 every left block which is this in number
+00:26:23.120 n byp and right
+00:26:25.799 block so for a distinct pair of left and
+00:26:29.960 right blocks it has fre R up to Q so
+00:26:36.120 these are the three parameters that we
+00:26:37.480 have finally the order time complexity
+00:26:40.200 we
+00:26:41.399 get is order
+00:26:44.960 of
+00:26:47.120 QB +
+00:26:49.159 n + n² by
+00:26:53.440 B plus
+00:26:56.159 QB in fact we don't need this because QB
+00:26:59.320 is already there and Order complexity
+00:27:01.320 this term won't matter uh now we have
+00:27:05.960 q
+00:27:07.559 n² by
+00:27:09.640 b² and this is the complexity that we
+00:27:11.880 have all right U do we really need this
+00:27:15.080 term if B is equal to n this term is
+00:27:18.240 still greater than n if B is equal to 1
+00:27:20.159 this term is much greater than n so we
+00:27:21.760 don't need this term
+00:27:24.640 and do we need QB
+00:27:29.159 uh what if B is equal to n then this
+00:27:32.320 will be n² and this will be Q so we'll
+00:27:35.360 need this term what if B is equal to 1
+00:27:38.200 well qn squ will be greater but we can't
+00:27:40.080 say basically this term might be useful
+00:27:42.519 what about this term if b equal to n
+00:27:47.159 this is equal to n and if B is equal
+00:27:50.640 to yeah there'll be q and N over here so
+00:27:54.760 q n will be over here and there'll be n
+00:27:57.679 over here if B is equal to n if B is
+00:28:00.840 equal to
+00:28:01.720 1 then this will be q
+00:28:04.240 n² and this will be n² so this will be
+00:28:08.720 smaller than either this term or this
+00:28:10.399 term so we can get rid of this
+00:28:13.360 term n² by b square won't be
+00:28:18.320 required all right and this is the final
+00:28:21.240 time complexity that we have QB into uh
+00:28:25.600 plus Q n² by b² all right so let's write
+00:28:30.399 that down a little more
+00:28:32.080 neatly order
+00:28:34.720 of Q in
+00:28:37.440 common what is all there I think n
+00:28:40.320 yeah no B
+00:28:43.480 okay and we don't need a q or here okay
+00:28:47.200 so this is the final time complexity
+00:28:48.640 that we
+00:28:50.159 have how do we analyze
+00:28:53.240 this well we can differentiate it and
+00:28:55.559 find out what is the best block SI
+00:28:58.559 that we can have
+00:29:00.200 so let's do
+00:29:03.000 that differentiating this
+00:29:06.440 term Q is a constant so we don't really
+00:29:08.919 need to take that into
+00:29:10.320 consideration b + n² by
+00:29:14.080 B has to be
+00:29:16.799 minimized with by differentiating with B
+00:29:19.200 so for an extremum this must be equal to
+00:29:21.720 zero uh differentiating we get 1 -
+00:29:26.360 n² 2 over here
+00:29:29.880 here I'm sorry there's a there's a
+00:29:32.039 square here okay so yeah - 2 by B CU is
+00:29:36.399 equal to
+00:29:37.679 Z what we then get
+00:29:40.640 is B
+00:29:44.600 Cub I'm trying some focus focus here
+00:29:47.039 yeah = 2
+00:29:49.080 n² which in turn gives us that b
+00:29:53.120 is cube root of 2 n² now if you're not
+00:29:58.720 bothered about too much accuracy that's
+00:30:01.760 equal
+00:30:02.840 to n 2^
+00:30:05.360 3 which tells you that this is what your
+00:30:08.480 block size should
+00:30:11.559 be and that gives you the number of
+00:30:13.840 blocks in
+00:30:15.720 turn should be equal
+00:30:19.240 to cube root of
+00:30:21.720 n n^ 1 by3
+00:30:25.200 basically so if you have these many
+00:30:27.440 blocks
+00:30:28.600 of size uh n power 2x3 then you're
+00:30:32.840 looking for an optimal kind of solution
+00:30:35.399 so that's it for most algorithm with
+00:30:36.760 updates in case you have any doubts or
+00:30:38.519 comments please leave them below I'll be
+00:30:40.039 sharing the code for the problem that we
+00:30:41.840 talked about below and this is a pretty
+00:30:43.679 Advanced topic so in case you have any
+00:30:45.640 uh suggestions or you know if you if
+00:30:47.240 there any mistakes that I made then
+00:30:48.640 please feel free to point them out uh
+00:30:50.679 I'll be working on this problem called
+00:30:52.200 primitive queries from the Cod Che Feb
+00:30:54.360 challenge so that should come out next
+00:30:56.240 in case you want a notification for that
+00:30:57.639 you can subscribe uh and yeah until next
+00:31:01.039 time see you

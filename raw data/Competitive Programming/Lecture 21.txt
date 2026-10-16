@@ -1,0 +1,422 @@
+# tactiq.io free youtube transcript
+# Ukkonen's algorithm for approximate string matching
+# https://www.youtube.com/watch/7GCSA4u5ynw
+
+00:00:00.089 hi everyone this video is action
+00:00:02.669 enhancement on the previous video we had
+00:00:04.650 on edit distance so approximate string
+00:00:07.049 matching is going to give you an
+00:00:08.429 algorithm which is going to use the Edit
+00:00:10.590 distance algorithm to find the
+00:00:12.480 difference between two strings so in
+00:00:15.109 edit distance we had a string of size M
+00:00:17.880 plus 1 comma n plus 1 so you see that
+00:00:21.270 this matrix is that big the order
+00:00:24.330 complexity of that was order M cross N
+00:00:27.930 and that makes sense because the matrix
+00:00:30.630 is that big and you're filling it up in
+00:00:33.360 approximate string matching what happens
+00:00:35.130 is you also given another parameter
+00:00:36.270 which is a threshold parameter T and
+00:00:40.700 what you need to do is you need to just
+00:00:43.050 answer a yes I know between can the Edit
+00:00:46.860 distance between these two strings be
+00:00:49.950 less than T okay so if I take an example
+00:00:53.280 let us say a and B B and let's assume
+00:00:58.800 that all costs are 1 1 1 so if I say
+00:01:03.120 that can the Edit distance be with T
+00:01:05.220 equal to 2 can you convert this string
+00:01:08.850 to this string with cost equal to 2 then
+00:01:11.100 the answer is going to be yes because I
+00:01:13.560 can convert this a to a B and they say
+00:01:15.509 to a B and get this string which is
+00:01:17.640 equivalent similarly if I say what
+00:01:20.820 happens with T equal to 1 then the
+00:01:22.770 answer is impossible I cannot convert
+00:01:24.780 this string I mean I cannot convert a A
+00:01:27.509 to B B with this as my threshold value
+00:01:31.909 so of course one way to do this is to
+00:01:36.420 entirely traverse the matrix but that is
+00:01:38.159 dumb and therefore you won't do it what
+00:01:40.799 you can do is also when you're
+00:01:42.450 traversing the matrix to find positions
+00:01:45.000 where the cost becomes greater than T
+00:01:47.250 and that point you can actually leave
+00:01:49.110 the matrix and try only those positions
+00:01:52.170 which are less than equal to T but that
+00:01:54.420 is also not efficient enough so what we
+00:01:56.490 are going to do is we are going to find
+00:01:57.540 some mathematical properties in this to
+00:02:00.000 bring down the complexity right so now
+00:02:03.180 things are going to get a little
+00:02:04.200 involved especially in math so I'll need
+00:02:06.060 your full concentration the first thing
+00:02:08.369 that is very easy to notice is that the
+00:02:10.470 Edit distance D MN which is stored over
+00:02:13.260 here and
+00:02:14.490 is the Edit distance between the two
+00:02:16.380 strings so that has to be less than the
+00:02:19.020 threshold value that is a given
+00:02:20.130 condition the second thing to note is
+00:02:22.170 that this matrix can instead be
+00:02:25.920 converted into a graph you can consider
+00:02:28.320 all of these points to be nodes and the
+00:02:31.920 cost to get from here to here and here
+00:02:34.590 to here can be given through the dynamic
+00:02:36.930 programming function that we had in the
+00:02:38.280 previous lecture okay so this will be a
+00:02:42.420 new node and so on and so forth such
+00:02:44.490 that each node is connected with a
+00:02:46.110 weighted edge right that that edge
+00:02:48.780 weight is going to be the cost of
+00:02:50.010 addition or cost of relation or cost of
+00:02:51.690 transition so one thing that you can do
+00:02:56.580 is you can you just use the extras from
+00:02:58.320 here and you can go here but the order
+00:03:00.780 complexity of that is even higher than
+00:03:02.370 the normal distance that we have but I'm
+00:03:04.709 trying to like think in terms of graphs
+00:03:06.930 now okay if you are thinking in terms of
+00:03:09.600 graphs think about the cost of a point D
+00:03:14.400 of X comma Y to a point D of P comma Q
+00:03:22.130 when you moving from this point at this
+00:03:24.180 point what is the minimum distance that
+00:03:26.420 you will have to traverse so one thing
+00:03:30.300 that can happen is that you get all
+00:03:31.560 characters the same from XY to PQ
+00:03:33.720 all characters are the same and you're
+00:03:34.890 just heading along the diagonal if you
+00:03:36.989 head along that angle that's damn good
+00:03:38.220 because the cost can be 0 but if this
+00:03:43.260 line is not along the diagonal so let us
+00:03:45.780 say the diagonals are put like this and
+00:03:49.610 this line is slightly tilted so it's not
+00:03:52.350 along the diagonal it's moving a little
+00:03:53.970 away what you can do is you can find the
+00:03:56.610 difference between this diagonal which
+00:03:59.430 is starting over here right this point
+00:04:02.430 coincides with one diagonal and this
+00:04:04.500 diagonal which PQ coincides with and you
+00:04:07.769 can take the difference between these
+00:04:08.940 two points right where it should have
+00:04:10.830 been had it mean cost 0 and where it
+00:04:13.170 actually is okay so if that happens then
+00:04:18.630 what's going to happen is that you will
+00:04:20.310 have D of P comma Q at least greater
+00:04:25.440 than or equal to
+00:04:27.150 D of X comma y plus let us say cost so
+00:04:34.290 what I'm going to do is I'm going to
+00:04:35.790 take the minimum cost because it has to
+00:04:37.320 be greater than equal to at least the
+00:04:39.060 minimum cost so C of min which is seaman
+00:04:42.840 is nothing but minimum among CA CB CT
+00:04:48.240 and you can intuitively understand that
+00:04:50.430 this is because you're making steps here
+00:04:52.950 right each step is going to cost you
+00:04:54.270 something so I'm taking the minimum step
+00:04:55.560 as the cost into the difference between
+00:05:01.590 the two diagonals so that's going to be
+00:05:06.229 it's going to be a P minus X minus Q
+00:05:14.970 minus y okay this is the diagonal at
+00:05:20.790 which this is the difference in the
+00:05:23.550 diagonals in the Y portion and this is
+00:05:25.979 the difference on the diagonals in the X
+00:05:27.060 portion okay the next thing to notice is
+00:05:30.930 that D of MN has to be greater than
+00:05:33.060 equal to D of PQ and to understand this
+00:05:35.789 logically have a look at D of PQ why are
+00:05:39.270 we even seeing D of PQ we are trying to
+00:05:41.400 figure out whether this exists in the
+00:05:43.590 path from 0 comma 0 to M comma n that's
+00:05:51.630 what we want to do we want to find out
+00:05:52.919 if PQ exists in the path from 0 to C 0
+00:05:55.950 comma 0 to M n right the shortest path
+00:05:58.530 possible so of course if it exists in
+00:06:01.830 the path then it has to be less than or
+00:06:03.120 equal to D of MN itself which is the
+00:06:05.520 threshold so which is internal lesser
+00:06:08.070 than the threshold so I can just replace
+00:06:10.169 this with the T and what I'm getting
+00:06:12.810 here is that D of XY to make things
+00:06:16.080 simple I'll just give x and y the value
+00:06:18.060 0 because that can be any point so this
+00:06:19.740 point can be this point also so giving
+00:06:22.530 this d of 0 0 which converts this to 0
+00:06:26.550 itself because the first point is 0 x is
+00:06:32.039 0 Y is 0 we have P minus Q so this turns
+00:06:38.820 out to be
+00:06:42.010 T is greater than equal to D of P Q
+00:06:47.500 which is greater than equal to C min
+00:06:51.520 into P minus Q right and there's a
+00:06:56.870 there's a mistake I made here because if
+00:06:59.720 you just take P minus Q what could
+00:07:01.370 possibly happen is that P is less than Q
+00:07:04.270 all right and if that happens if P is
+00:07:07.400 less than Q so if the row number is
+00:07:09.170 small and the column number is large
+00:07:10.430 then what you are supposed to do is
+00:07:12.470 you're supposed to take them modulo
+00:07:14.560 right because we want to see the
+00:07:16.370 distance distance is a like magnitude
+00:07:20.060 wise so that's how we can explain this
+00:07:22.180 so a difference between a diagonals when
+00:07:24.920 you take from starting position to any
+00:07:26.990 point PQ which has to be going to the
+00:07:30.110 point MN is giving you this equation so
+00:07:34.840 what we have is T is greater than equal
+00:07:38.900 to this quantity which is C of min into
+00:07:43.130 P minus Q mod which gives us T is
+00:07:48.130 greater than equal to divide this by C
+00:07:51.800 of min mod P minus Q which in turn gives
+00:07:56.720 us T by C of min is when when you negate
+00:08:04.880 this it becomes less than equal to P
+00:08:07.280 minus Q and when it is positive that
+00:08:11.300 time it is greater than equal to P minus
+00:08:14.660 Q okay so what is this giving us P minus
+00:08:20.419 Q can be thought of as a diagonal right
+00:08:23.180 it's a diagonal where this point exists
+00:08:25.940 so for this point to exist in the path
+00:08:29.419 from 0 0 to M n it has to be within the
+00:08:34.370 diagonal and searching for a searching
+00:08:37.429 for a duster for a long time yeah so
+00:08:40.729 this is P Q and for it to be on the part
+00:08:44.420 of the final point it has to be within
+00:08:47.390 these two diagonals and what are those
+00:08:49.850 two diagonals they are
+00:08:53.180 dear punchy of men and minus T upon C of
+00:08:57.170 min right those two diagonals which have
+00:09:00.110 X minus y giving them this these two
+00:09:03.470 quantities so what we have done is we
+00:09:05.450 have just reduced the time complexity of
+00:09:07.279 the overall equation by instead of
+00:09:10.460 evaluating the whole matrix we just
+00:09:13.160 evaluate the points which fall within
+00:09:15.140 these two diagonal points within these
+00:09:17.180 two lines okay but you actually can do
+00:09:20.600 even better so the first thing I'll do
+00:09:23.089 is actually simplify this to call it t
+00:09:28.910 steps right because that's exactly what
+00:09:31.100 it is T divided by semen is the minimum
+00:09:33.529 number of steps that you're going so T
+00:09:38.660 divided by C minus T steps and can we do
+00:09:43.550 better
+00:09:43.850 yes because I just replaced 0 0 2 X Y
+00:09:49.089 what you can do is you can also take it
+00:09:51.620 further take a point P Q again right
+00:09:57.620 what's happening here is that you can
+00:10:00.709 take P Q to be in the path from 0 0 to
+00:10:05.810 MN in two conditions the first one if it
+00:10:10.580 is existing from if there's a path from
+00:10:12.860 P Q to M in then here's the thing D of P
+00:10:17.240 Q plus the minimum cost which we have
+00:10:22.130 said is T steps or actually seem in for
+00:10:25.459 us into the difference between the two
+00:10:30.589 diagonals so this is M minus n minus
+00:10:38.500 this is M minus P rather and this is n
+00:10:43.279 minus Q okay this has to be less than or
+00:10:50.690 equal to d of MN because this is the
+00:10:54.740 last point and that makes sense so what
+00:10:57.589 we get is T which is the threshold has
+00:11:00.980 to be greater than equal to D of P Q
+00:11:02.720 plus C of men
+00:11:06.070 M minus B minus n minus Q on the other
+00:11:12.130 hand what we have is this path which is
+00:11:17.890 D of P Q itself from 0 0 to D of P Q so
+00:11:21.900 D of P Q is greater than equal to C of
+00:11:28.860 min into mod I keep forgetting the mod
+00:11:34.390 but remember that there is a modular
+00:11:35.860 here and there's modular here this is a
+00:11:38.560 multiplication into modulo P minus Q
+00:11:46.110 okay fine so what's happening is this is
+00:11:50.680 greater than this quantity which means P
+00:11:54.490 has to be greater than equal to because
+00:11:56.290 there's an addition here C of min I'll
+00:11:59.100 take that in common mod of P minus Q
+00:12:02.740 plus mod of M minus P minus n plus Q
+00:12:10.470 okay so again dividing it by this I get
+00:12:14.980 these steps and like I want you I have
+00:12:19.780 kept up to my promise of keeping this
+00:12:21.480 mathematically involved right this is
+00:12:26.680 what we have T steps so at any given
+00:12:30.190 point P and Q we can check if this
+00:12:32.860 condition is satisfied T steps right
+00:12:36.090 it's easier actually when you're at that
+00:12:38.530 point to check for this condition but if
+00:12:41.290 you want to find out the asymptotic
+00:12:43.840 complexity what's going to happen is we
+00:12:45.760 need to analyze this so when you're
+00:12:48.100 implementing use this condition at any
+00:12:51.070 point P Q use the condition to find out
+00:12:54.100 if T steps is greater than equal to this
+00:12:55.750 all right these steps is nothing but T
+00:12:57.580 by C min so to simplify the analysis
+00:13:03.160 what I'm going to do is I'm going to
+00:13:04.240 assume M minus n is some quantity X and
+00:13:09.330 P minus Q is some quantity Y so this is
+00:13:13.660 the number of the diagonals that they
+00:13:14.950 have right and I'm always going to
+00:13:17.200 assume that M minus n is positive
+00:13:20.020 the reason for that is because if not
+00:13:22.810 then you can just switch the strings and
+00:13:24.190 M minus n is always positive so this is
+00:13:26.290 greater than zero
+00:13:27.130 okay so there's just two conditions here
+00:13:30.900 T of steps this gives you T of steps is
+00:13:34.290 greater than equal to mod y plus mod of
+00:13:40.920 X minus y okay this is just because I
+00:13:47.740 put M minus n here and a minus B here so
+00:13:50.980 this is minus of this which is X minus y
+00:13:53.980 so this leaves us with just two
+00:13:57.280 conditions if Y is positive then T of
+00:14:00.970 steps is equal to y plus X minus y mod
+00:14:07.260 with again two conditions what if X is
+00:14:10.150 less than Y and what is if X is greater
+00:14:11.680 than Y so if X is greater than Y then
+00:14:14.950 you have the condition P of steps equal
+00:14:18.580 to minus y minus y canceled you just
+00:14:21.430 have X remaining which is if you
+00:14:25.750 actually read into this what's happening
+00:14:27.280 is X is M minus n T of steps is T by
+00:14:34.680 seamen so if I multiply both quantities
+00:14:37.780 by C min then this is just T all right
+00:14:40.960 and this is I'm sorry this is greater
+00:14:43.330 than equal to okay so is this condition
+00:14:46.780 of any use to us and the answer is no
+00:14:50.830 not at all because this is the base
+00:14:53.530 condition right M minus n is the
+00:14:56.050 diagonal on which MN resides what this
+00:14:59.440 is saying is okay the difference between
+00:15:01.330 the diagonal between 0 0 &amp; MN has to be
+00:15:05.440 at most this which is which is obvious
+00:15:08.080 because you're taking M minus n steps at
+00:15:10.000 least and the costs minimum cost has to
+00:15:13.390 be less than equal to this all right so
+00:15:15.340 this condition is useless I just get rid
+00:15:18.070 of that the second thing that can happen
+00:15:21.280 is X is actually less than Y so if that
+00:15:26.680 happens then we have T of steps
+00:15:30.850 greater than equal to Y minus X plus y
+00:15:35.809 in which case this is 2y minus X right
+00:15:43.029 okay let's keep it like this the second
+00:15:46.879 thing that can happen is T of steps is
+00:15:49.540 greater than equal to now we are
+00:15:51.769 assuming that Y is negative so this is
+00:15:54.709 minus y plus if Y is negative then this
+00:15:59.389 quantity is definitely positive so we
+00:16:03.470 have already said X is positive so
+00:16:05.300 positive plus positive is going to be
+00:16:07.519 positive which is going to be X minus y
+00:16:12.399 all right X minus y has to be positive
+00:16:15.439 because Y itself is negative so it's a
+00:16:16.819 positive quantity plus a positive
+00:16:18.350 quantity this entire thing is positive
+00:16:20.089 that means so you have X minus y so this
+00:16:24.439 turns out to be T of steps is greater
+00:16:28.369 than equal to X minus 2y okay
+00:16:33.350 so can you see some interesting things
+00:16:36.589 here this is the inverse of this right
+00:16:40.100 just the signs have been changed so
+00:16:42.230 let's multiply both sides by minus what
+00:16:46.699 happens is this inequality was greater
+00:16:48.920 than equal to now to become less than
+00:16:50.240 equal to and by shifting signs it
+00:16:52.730 becomes 2y minus X okay so what you have
+00:16:56.990 is 2y minus X is less than equal to P
+00:17:03.889 steps this is greater than equal to
+00:17:07.270 these steps when negated what is 2y
+00:17:11.750 minus X 2y minus X is 2p minus 2q minus
+00:17:18.760 X gives us minus M plus n okay now is X
+00:17:27.500 a constant for two strings yeah so this
+00:17:32.779 turns out doing minus X I'm sorry this
+00:17:35.690 is plus X because what we're doing is
+00:17:37.299 this minus X is now being added to both
+00:17:39.919 sides so this is TF steps plus
+00:17:43.010 X less than equal to plus X or here two
+00:17:47.330 and this is what you have now divide
+00:17:49.309 both quantities by two I know this is
+00:17:50.960 getting really messed up but this is
+00:17:53.600 just how this all this calculation is
+00:17:56.240 just so that we can find the complexity
+00:17:57.950 of this when you're actually
+00:17:59.390 implementing November you need to
+00:18:00.530 implement only this okay so why is the
+00:18:05.090 diagonal you're at Y like we said is P
+00:18:07.250 minus Q is equal to some constant and
+00:18:12.820 some constant and between those two
+00:18:15.080 values so P minus Q this diagonal has to
+00:18:18.770 be between these two values all right
+00:18:22.460 and writing that neatly this will turn
+00:18:25.640 out to be minus T by seaman plus M minus
+00:18:34.090 in the whole thing divided by 2 right
+00:18:40.540 this thing I'm sorry this is not minus T
+00:18:44.840 by C man this is T by C min so this
+00:18:47.090 quantity is actually this alright and to
+00:18:54.020 actually find this this is a constant
+00:18:55.429 operation of course you know the
+00:18:56.690 threshold you know Seaman you know MN
+00:18:58.730 you know - so this is going to be a
+00:19:01.070 constant this is going to be a constant
+00:19:02.890 whenever you are adding any point you
+00:19:05.299 can check if that diagonal falls within
+00:19:07.130 these two constants so what's
+00:19:08.690 effectively happened is that this
+00:19:10.220 diagonal has just gotten Li no it's
+00:19:13.820 gotten thinner
+00:19:14.890 okay and if you want to prove that it
+00:19:16.850 has gotten to know I'll leave that proof
+00:19:19.190 up to you basically it's just 2t
+00:19:22.690 initially that you had two T steps and
+00:19:25.040 now it is you need to multiply this by
+00:19:28.940 two right so that is 2 s plus X which is
+00:19:32.330 M minus N and T has to be less than M
+00:19:36.710 minus n T steps you can't take more than
+00:19:39.679 M minus n steps to get here ok I hope
+00:19:43.940 you understood that I'm sorry if this
+00:19:46.460 point became too mathematical but there
+00:19:48.679 is no other choice what you can do is
+00:19:50.150 you can actually just take the cases one
+00:19:52.100 by one and see that the math proof works
+00:19:54.380 out for yourself of course
+00:19:55.730 implementation stops right
+00:19:56.909 because you know that if P and Q are not
+00:20:00.059 satisfying this condition you are done
+00:20:01.879 at the distance through this way with a
+00:20:05.759 threshold value what you can do is you
+00:20:07.830 can actually approximate where the two
+00:20:10.229 strings are matching or not by throwing
+00:20:12.570 a particular threshold value so if you
+00:20:18.210 had the complexity of course of M cross
+00:20:20.340 n then with the threshold value what's
+00:20:22.529 going to happen is you can see that this
+00:20:24.389 is almost like a rectangle of this width
+00:20:28.909 and height which is going to be the
+00:20:31.289 minimum amongst m and n right because if
+00:20:33.929 M is very small then M comes in and if n
+00:20:38.700 is very small means columns are very
+00:20:40.499 small then n is going to be taken into
+00:20:42.179 consideration
+00:20:42.720 so overall time complexity I'll just
+00:20:46.259 write it down over here to make it even
+00:20:48.899 more messy is going to be T into minimum
+00:21:01.499 of M comma n that's the overall time
+00:21:07.979 complexity so a P is small which is what
+00:21:10.440 it usually is you can actually get this
+00:21:12.299 done and so your approximate string
+00:21:14.099 matter now is going to work like magic
+00:21:16.489 so if you have any doubts or suggestions
+00:21:19.200 you can leave them in the comments below
+00:21:20.279 do you understand that this is a heavily
+00:21:23.299 mathematically involved proof so if you
+00:21:26.099 have any issues you can you know go
+00:21:28.229 through the links in the description
+00:21:29.549 because that's that's written by Oh
+00:21:31.679 Conan he's the one who discovered the
+00:21:33.539 algorithm and he's a brilliant guy he's
+00:21:36.419 been doing a lot on strings if you liked
+00:21:38.789 this video then please press the like
+00:21:40.019 button if you want further videos on
+00:21:41.879 string processing all the algorithms you
+00:21:43.830 can click the subscribe button and I'll
+00:21:45.720 see you next time
+00:21:47.179 do you - why the whole square right why
+00:21:52.619 I'm doing this

@@ -1,0 +1,167 @@
+# tactiq.io free youtube transcript
+# Lambda functions in Python | Python Tutorial - Day #52
+# https://www.youtube.com/watch/UfFWf-PXUqE
+
+00:00:00.008 There is a function in Python calledLambda function which is very useful.
+00:00:03.837 It is used writeanonymous functions.
+00:00:05.626 Anonymous function is a function which doesnot have a name but it is an expression.
+00:00:09.102 What am I talking about?
+00:00:10.807 When and how to use Lambda function?
+00:00:12.384 Let's go to the computer screen.
+00:00:13.900 And let's get started.
+00:00:15.605 [ MUSIC 🎶]
+00:00:24.525 Lambda functions are single expressions.
+00:00:27.056 For example, we have anexpression such as a + b.
+00:00:29.454 In which value of a is 1and value of b is 2.
+00:00:31.337 A + B is an expression whose value is 3.
+00:00:35.345 Lambda function arevery similar to expressions.
+00:00:39.182 I’ll show you.
+00:00:40.578 So, I'll start by creating afunction called def(sum).
+00:00:48.195 I can also name the function as avg.
+00:00:51.244 But I’ll name it as double becauseI've already used it in an example.
+00:00:56.434 The example was x*2.
+00:01:00.046 If I write print(5) thenyou’ll say don't teach this.
+00:01:04.928 I know that you all knowthis and it will print 10.
+00:01:08.054 Which is correct.
+00:01:09.630 Sorry, I should’ve written double(5).
+00:01:14.350 You'll say that the value will gointo the function and it will print 10.
+00:01:18.107 Now, what to do?
+00:01:20.053 Listen to me carefully.
+00:01:22.600 Instead of writing double likethis I can also write it like this.
+00:01:26.881 I'll write &quot;double = lambda x: x*2 &quot;.
+00:01:33.897 Which takes x as input and returns x * 2.
+00:01:37.040 Now, you’ll think that areboth of them the same?
+00:01:40.201 Yes, they are the same as you can see.
+00:01:41.906 This is Lambda function.
+00:01:43.102 That's it.
+00:01:44.157 If you have listenedcarefully what I’ve said till now.
+00:01:46.805 Then you’ll understandwhat Lambda function is.
+00:01:49.764 We are creating a functionvariable and using it as a function.
+00:01:53.157 Either I can write these two lines.
+00:01:57.538 After doing this much indentation.
+00:02:01.359 Or I can also write&quot;double = lambda x: x*2 &quot;.
+00:02:05.585 Now, you’ll think what is the difference?
+00:02:08.579 You could have written it in two lines.
+00:02:10.390 Some people will arguethat this is more readable.
+00:02:14.704 But according to me, if you have to makemini functions like this in your program.
+00:02:21.038 So, Lambda functions are the best approach.
+00:02:25.593 Lambda functions areused to transform a value.
+00:02:28.321 For example, multiplying the variableby 2 or the square of the variable.
+00:02:32.938 If you want you can alsoget the cube of a number.
+00:02:35.956 For example, I'll makea function called cube.
+00:02:38.195 You can easily make afunction using the def method.
+00:02:40.516 And I am not judging you.
+00:02:42.298 It is a very big achievement that you arefollowing the 100 days of code till now.
+00:02:48.008 It will take the value ofx and return the cube.
+00:02:50.477 There is no need to write return or def.
+00:02:52.702 Nor I have to thinkabout the indentation.
+00:02:55.627 If I print the cube of 5 thenthe output should be 125.
+00:03:02.649 The output is 10 and 125.
+00:03:04.110 You can also make thisfunction using the def method.
+00:03:07.719 By writing return x*x*x.
+00:03:09.758 Then you’ll have to do the indentation.
+00:03:12.554 So, this is Lambda function.
+00:03:15.922 Now, some of you will argue that how can wewrite Complex functions in Lambda function?
+00:03:21.451 Do you have to write each andevery function in Lambda function?
+00:03:24.086 It is not like that.
+00:03:25.586 You can write function justas you have written it till now.
+00:03:29.187 This is a new method.
+00:03:30.937 You'll see this in most of theplaces then don't get confused.
+00:03:36.000 This is Lambda function.
+00:03:37.705 You thought that it will bedifficult and complex but it is not.
+00:03:40.313 But it is this easy as I’ve shown you.
+00:03:45.705 Can it take multiple values?
+00:03:48.441 For example, if I try tocreate a function called avg.
+00:03:52.931 So can I write lambda x,y: andthen it should return X + Y / 2?
+00:04:00.893 Is this possible?
+00:04:02.870 Yes, it is possible.
+00:04:06.555 If I want an average of3 and 5 then it will print 4.
+00:04:10.899 As you can see 4.0 is printed.
+00:04:14.638 No problem.
+00:04:16.560 Will it take an extra valueif I also add variable Z?
+00:04:21.240 Now, I want X + Y + Z / 3.
+00:04:28.099 I'll give the input as 3, 5 and 10.
+00:04:33.560 So, the total of 3 + 5 + 10 is18 and the average should be 6.
+00:04:39.006 Will it give the output as 6?
+00:04:40.554 Yes, it will.
+00:04:41.911 In this you can also give many values.
+00:04:46.365 You can also give 5 to 6 values.
+00:04:50.475 You can also writemultiple lines using brackets.
+00:04:56.827 But the thing is, do you want to do thiswhen you have multiple lines of code?
+00:05:01.421 Are you willing to compress the logic?
+00:05:03.685 The answer is no.
+00:05:05.366 So, when should you use Lambda function?
+00:05:08.125 You should use it when you wantto write function in a single line.
+00:05:12.834 In fact, we use Lambda function whenwe pass the function as an argument.
+00:05:18.092 Don't get confused.
+00:05:19.257 We can pass function as an argument.
+00:05:21.554 Can we pass a function to another function?
+00:05:24.446 The answer is yes.
+00:05:26.709 For example, I'll make a functionand name it as &quot;apply&quot; or &quot;appl&quot;.
+00:05:32.779 I’ll give this function another function.
+00:05:37.319 Then it will return 6 +that another function.
+00:05:40.295 fx(value).
+00:05:42.765 I'll write value here.
+00:05:48.232 So, now if you want toprint the appl function.
+00:05:53.067 I'll pass the cube function andthe value 2 inside the appl function.
+00:05:58.397 Now, cube function andtwo will go inside this function.
+00:06:02.295 Now, it will give 6 + cube of 2 as output.
+00:06:05.905 The output should be 14.
+00:06:09.077 As you can see, 14is printed in the output.
+00:06:12.174 You can pass a functioninside another function.
+00:06:14.569 Now, I can make a function usingthis instead of using the def method.
+00:06:19.074 I can pass another function.
+00:06:21.622 Using def I would have writtenmultiple lines for this same function.
+00:06:24.507 But here I have done it in a single line.
+00:06:26.973 Don't get confused.
+00:06:28.518 Try to adapt the thing that I told you.
+00:06:30.382 About passing a functioninside another function.
+00:06:32.685 Say it to yourself that it canbe done and then try it yourself.
+00:06:35.585 Practice it bywriting a program.
+00:06:37.819 Don't just watch the video and be done.
+00:06:41.209 Watch, execute, take abreak and then take notes.
+00:06:45.499 Please read this which I havewritten for your understanding.
+00:06:49.335 In Python, a Lambda function is asmall anonymous function without a name.
+00:06:53.522 It is defined using Lambda keyword.
+00:06:55.608 It is the syntax.
+00:06:57.310 Lambda functions are used in a situationwhere small functions are required.
+00:07:00.771 For a short period of time.
+00:07:02.678 They are commonly used asarguments to higher order functions.
+00:07:05.952 I already told you that we use this whenwe need to fast higher order functions.
+00:07:09.491 The next video will be map, filter andreduce and you can see it in that video.
+00:07:12.765 Then we'll talk about it.
+00:07:14.405 As you can see I havewritten an example here.
+00:07:17.061 The above Lambda function has thesame functionality as the double function.
+00:07:21.319 But Lambda function does not have any name.
+00:07:23.413 Here, we gave it the name as appl but thishas no name until and unless we use “==”.
+00:07:28.483 For example, if I passed the cubefunction directly inside this function.
+00:07:31.951 This function is forcube but it has no name.
+00:07:34.397 We didn't use the “cube”word while passing it.
+00:07:36.888 I have created a function called cubeover here and even if I didn't created it.
+00:07:40.147 And I would’ve written itdirectly then also it will work.
+00:07:44.288 There would have been no needof making a function called cube.
+00:07:46.936 A function with no name.
+00:07:48.641 An anonymous function.
+00:07:50.022 Instead of a cube, I'll makea function called square.
+00:07:53.288 I have not made a functioncalled square till now.
+00:07:55.921 But here I have passed an expressionwhich will work as the square function.
+00:08:01.584 As you can see I have not createda function with the name square.
+00:08:05.584 But I am getting thesame output which is 10.
+00:08:10.349 So, I am passing a function withouteven creating or naming that function.
+00:08:15.421 So, this is anonymous function.
+00:08:17.513 A person with no name is called anonymous.
+00:08:19.905 Now, if I wear this maskthen I'll become anonymous.
+00:08:22.124 You know my name but ifanyone comes with this mask.
+00:08:25.477 Then you not be able to recognisetheir name until you see their face.
+00:08:28.506 It is simple.
+00:08:29.842 As you can see here that Lambda functionscan also include multiple statements.
+00:08:34.335 I already told you this over here.
+00:08:35.999 It is very similar to regular functionsand I have told you the differences.
+00:08:40.530 Go through this slowlyand try to digest it.
+00:08:44.390 In the next video we are goingto discuss map, filter and reduce.
+00:08:47.382 If you haven't accessed theplay-list yet please access it.
+00:08:50.249 Drop your reviews in thecomment section of the first video.
+00:08:52.990 That's it for this video.
+00:08:54.483 Thank you so much guysfor watching this video.
+00:08:56.647 And I'll see you next time.
+00:08:59.179 [ MUSIC 🎶]

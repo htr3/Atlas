@@ -1,0 +1,425 @@
+# tactiq.io free youtube transcript
+# Persistent Trie - Codechef - GothamPD
+# https://www.youtube.com/watch/0FgKhpyBTcw
+
+00:00:00.320 hi guys it's gkcs we are talking about a
+00:00:02.520 problem called Gotham PD this time and
+00:00:04.720 it was there in the Cod Chef May
+00:00:07.000 challenge so this was one of the
+00:00:08.480 difficult problems and that's why we'll
+00:00:10.040 be joined by jatin later on because uh
+00:00:13.400 the problem is a little complicated and
+00:00:14.920 I don't understand all of it Concepts so
+00:00:16.720 yeah later on but so this is the problem
+00:00:20.000 you have a graph given to
+00:00:21.720 you okay set of cities essentially and
+00:00:26.080 they are connected by edges but there's
+00:00:29.519 a special City that we have which is
+00:00:31.480 Gotham's Police Department itself City
+00:00:33.800 zero right so the thing is this graph is
+00:00:37.200 like a
+00:00:40.079 tree none of them can have edges
+00:00:42.440 connecting this
+00:00:45.120 way right I just confirmed that but so
+00:00:48.920 this is the graph given to you there are
+00:00:50.320 two types of operations you can perform
+00:00:52.680 one is to add a city which is adding a
+00:00:56.520 city yeah that's that's quite simple but
+00:00:58.879 the important operation that you can
+00:01:00.640 perform is from the root which is
+00:01:04.920 city0 to any other City let's say the
+00:01:07.479 newly added one we can take a
+00:01:10.759 path like
+00:01:12.799 this this is your path and we take all
+00:01:15.799 the IDS of the Cities so each city has
+00:01:18.040 like this one has zero this might have
+00:01:19.640 23 as its ID 46 so on and so forth so
+00:01:22.600 you take all the IDS as a
+00:01:24.920 list and you take another number
+00:01:27.520 K so this will be provided in the query
+00:01:30.320 itself you take this list you take this
+00:01:32.520 number and you find the maximum zor
+00:01:35.000 possible with this number k for any
+00:01:37.640 other ID in the
+00:01:39.360 list so for example if you have 23 as
+00:01:42.680 your ID
+00:01:45.000 2346 and one as your ID list and you
+00:01:48.520 have K as
+00:01:50.360 46 then you need to find both minimum
+00:01:52.640 and maximum actually so the minimum over
+00:01:55.040 here is of course zero the maximum will
+00:01:58.840 be with this it will be 47 with this it
+00:02:01.079 will be zero so uh with this it'll be
+00:02:04.280 yeah whatever you need to find the
+00:02:05.399 maximums Z so so for now let's solve a
+00:02:08.840 simple problem we have a set of numbers
+00:02:11.440 the ID list that we had let's just take
+00:02:13.239 this as a set of
+00:02:15.400 numbers okay which is your ID
+00:02:18.360 list we call it number list to keep it
+00:02:22.519 generic and we have a number
+00:02:25.319 K we need to find the maximum that K can
+00:02:29.480 have zaring with any number in this list
+00:02:31.959 okay the minimum is the exact opposite
+00:02:33.280 we'll look at that later but our idea is
+00:02:37.160 taking K and trying it with every number
+00:02:39.440 over here that's the first idea that's
+00:02:41.360 the most Brute Force idea you Z it with
+00:02:43.159 every other number in this list and the
+00:02:44.959 complexity is if the list size is n that
+00:02:47.720 is o
+00:02:48.599 n so pretty large okay you don't want to
+00:02:51.640 be trying this out in a context because
+00:02:53.800 it's too
+00:02:55.280 slow there's another approach you can
+00:02:57.280 try which actually uses try okay uh
+00:03:00.560 which is t r i e so you can use a binary
+00:03:04.200 try
+00:03:05.280 here a binary try is like we have
+00:03:08.080 discussed in the previous videos you can
+00:03:09.920 look at the video for try if you want
+00:03:12.720 some reference but a try data structure
+00:03:15.519 actually
+00:03:16.440 has alphabets and the alphabets which
+00:03:20.920 come after it in represented as a data
+00:03:24.239 structure so a binary Tri will have at
+00:03:26.120 most two children because the alphabet
+00:03:27.920 is just 0 and one and and if this number
+00:03:31.599 is 0 0 1 0 1 then the TR data structure
+00:03:35.400 will come like this you go to the root
+00:03:37.400 put on a zero here you add zero so you
+00:03:40.760 go to the left and then you go to the
+00:03:43.159 right which is
+00:03:44.560 one here then you go to the left again
+00:03:47.799 which is
+00:03:49.120 zero and then you go to the right which
+00:03:51.319 is one so this is this number
+00:03:53.519 represented as a try you won't be having
+00:03:55.760 this
+00:03:56.799 part right so once you have the try what
+00:04:00.040 you can do is you can find the maximum
+00:04:03.840 with K and this list very
+00:04:08.439 efficiently here's how you do that let's
+00:04:11.239 take an example let's take this number
+00:04:13.280 and let's take K
+00:04:15.199 as I don't know 1 1 1
+00:04:18.880 01 okay you want the
+00:04:21.079 maximum so here's a
+00:04:23.919 strategy you come to the
+00:04:26.040 root okay you already had this try
+00:04:28.600 constructed
+00:04:34.440 you come to the root you see that the
+00:04:37.120 number is zero but even before that
+00:04:39.600 actually what you do is you look at K
+00:04:41.639 you look at the very first character you
+00:04:43.000 have there which is one so you want the
+00:04:45.639 maximum right zor will be maximum when
+00:04:49.280 two characters are not equal to each
+00:04:51.720 other okay zero and one and one and zero
+00:04:54.320 give you one otherwise zor is zero so
+00:04:56.720 you want two different characters
+00:05:00.479 so here's the thing if you have one you
+00:05:02.160 want the different character try
+00:05:04.000 possible so there is no try possible
+00:05:06.120 with one in its root this try is
+00:05:09.759 empty you go for this one you go for
+00:05:13.479 zero okay uh fine in fact this try is
+00:05:18.400 not really helping us because there's
+00:05:19.919 just one number so it's not explaining
+00:05:22.160 the concept so let's add two more
+00:05:24.600 numbers 0 1 0 0 0 and 0 1 1 01 okay come
+00:05:32.400 to the root and let's add another number
+00:05:34.360 just for fun because this won't be
+00:05:36.720 used this try is represented the last
+00:05:40.479 number is going to be represented as one
+00:05:43.680 0
+00:05:45.720 0 0o and zero okay this is the try for
+00:05:51.440 the last number for these two remaining
+00:05:53.720 numbers we have 0 1 so we need to make a
+00:05:57.000 note here one 0
+00:06:00.880 0 and
+00:06:02.919 zero over here you have 0
+00:06:06.560 1 one so you know to be
+00:06:10.120 added
+00:06:11.800 0
+00:06:14.560 1 these are your two trees let's get
+00:06:18.000 back to the question we go for k k has
+00:06:20.639 one over here in the first character so
+00:06:22.880 we'll go for the try which doesn't have
+00:06:25.000 one because we're trying to maximize so
+00:06:27.160 we go for this try come here you see
+00:06:30.199 that the next character is also one so
+00:06:33.039 next character in K is
+00:06:34.720 one so you should be going for the
+00:06:37.240 character which doesn't match which is
+00:06:38.960 zero does it exist yes it does so till
+00:06:42.479 now we are going down this path 0 0 and
+00:06:44.919 what's our
+00:06:45.919 resultant with one we exort with zero
+00:06:48.680 and got one again we came here we had a
+00:06:51.759 one we exort with zero we got a one now
+00:06:54.319 look at the third character one is our
+00:06:56.960 character so if possible we would have
+00:06:59.479 gone to zero we would have gone to
+00:07:00.479 something which is different but we
+00:07:01.599 can't so we have to go to one we do that
+00:07:04.879 we exort this with the third character
+00:07:06.199 and get a zero all right
+00:07:09.160 and then our character is zero again we
+00:07:12.400 would like to go to one now because it's
+00:07:14.400 the different character but we can't we
+00:07:15.960 have to come here zero exal with Z gives
+00:07:18.360 us
+00:07:19.120 zero finally one no choice again going
+00:07:23.199 to one we have zero so this is the
+00:07:25.360 maximum Zord that we can have in this
+00:07:27.479 set of
+00:07:28.319 numbers
+00:07:30.360 for the minimum zor it's simple you come
+00:07:33.840 here when you want a minimum you want
+00:07:35.639 equal characters zaring so with one you
+00:07:39.440 go for the try having one come here and
+00:07:43.960 your zor Su till now is zero because the
+00:07:46.680 first character has been matched second
+00:07:48.960 time you want to go
+00:07:50.400 to one because you want to minimize this
+00:07:53.800 time you want equal characters so but
+00:07:56.199 you can't well you come here and you go
+00:07:58.319 to zor of one and zero which gives you
+00:08:02.319 one exact same procedure for the next
+00:08:04.479 character one you want to go to one but
+00:08:06.159 you can't so one now you are lucky
+00:08:09.919 because you wanted to go to a zero you
+00:08:11.319 wanted to minimize and you got a zero so
+00:08:13.199 that gives you zero and finally one and
+00:08:16.360 zero so you could you had no choice you
+00:08:18.960 had to take the one and this is the
+00:08:21.159 minimum that you can get by Zing K with
+00:08:24.919 any of these
+00:08:27.240 numbers Okay so the simple problem has
+00:08:30.280 been explained and the complexity has
+00:08:33.240 been reduced from order n which was the
+00:08:35.640 size of the
+00:08:36.799 list to order
+00:08:39.120 B okay the number of bits that you need
+00:08:41.679 to represent this number any number so
+00:08:44.519 usually in 32 bits you can easily
+00:08:46.680 represent numbers as large as this but
+00:08:49.560 depending on the constraints you know it
+00:08:50.839 might extend up to 64 let's say so Tri
+00:08:53.519 are very efficient ways in which you can
+00:08:55.760 uh search for the maximum or the minimum
+00:09:00.120 right so let's talk about the more
+00:09:02.200 complicated problem now so in the
+00:09:04.079 original problem we are given two kinds
+00:09:06.240 of queries so one of the queries asks
+00:09:10.880 for the maximum and minimum
+00:09:14.240 EXO from a particular node to the root
+00:09:17.320 okay given K and suppose this node X and
+00:09:22.480 this is suppose the root R so
+00:09:26.000 so query is given k
+00:09:29.959 and X okay consider the set s consisting
+00:09:33.959 of all the
+00:09:36.760 IDS from X to the r and now we have we
+00:09:43.640 have to find out the maximum possible XR
+00:09:45.880 value we can find if we take xor with XR
+00:09:49.720 of K with any of these and similarly you
+00:09:51.440 have to find the minimum minimum XR
+00:09:53.279 value we can get if we take XR with any
+00:09:55.640 of these okay and this is the query and
+00:09:58.560 the update is
+00:10:01.600 is
+00:10:04.480 add some node
+00:10:07.480 y with
+00:10:10.360 id id by
+00:10:12.600 suppose 2x okay so so we have some
+00:10:18.800 structure and now we are asked to add
+00:10:21.760 this modde by to the structure okay so
+00:10:25.160 add y to X like uh such that X is the
+00:10:29.480 parent of Y and such that the ID in this
+00:10:33.399 is ID y it's given so we are given the
+00:10:36.000 ID of the node we have to add and the
+00:10:38.320 parent of the node we have to add okay
+00:10:40.800 so now let's think about it if we try to
+00:10:44.920 do it in the way that was described
+00:10:48.120 earlier so we actually need the try of
+00:10:51.600 all these elements
+00:10:53.200 right if if we have the try consisting
+00:10:55.959 of only these elements exactly these
+00:10:57.760 elements which R from X to the root the
+00:11:01.399 we can solve the quy right yes so uh if
+00:11:04.839 we construct a trial for every note to
+00:11:07.680 the root okay that would be two
+00:11:10.399 expensive why because for every note to
+00:11:13.040 the root we have order and noes and
+00:11:15.680 constructing a try again would take
+00:11:17.320 order end time okay so but we have n
+00:11:19.880 noes so
+00:11:21.920 overall we will have to use order n
+00:11:25.600 Square time and Order n Square memory
+00:11:27.360 too because we have n Square different
+00:11:30.200 notes right because a try has memory
+00:11:33.440 complexity order n and we have order n
+00:11:35.839 tries considered each consisting of
+00:11:37.800 order and nodes right so the memory and
+00:11:40.240 time complexity would be order and
+00:11:41.680 square for this method if we construct
+00:11:43.839 to if we try to construct uh tries for
+00:11:46.839 all individual nodes okay but see what
+00:11:50.800 we are doing wrong is suppose
+00:11:57.959 uh
+00:12:02.079 now suppose we have the try for x to the
+00:12:05.240 root okay so let's say this is a
+00:12:12.199 try something like this say
+00:12:16.320 Okay okay so suppose this is a try for X
+00:12:21.079 for suppose this is our
+00:12:27.880 uh
+00:12:30.160 okay so this is a node X and this
+00:12:32.639 corresponds to the TR consisting of all
+00:12:35.639 the elements which lie between X from
+00:12:39.519 from on the path from X to the root okay
+00:12:42.320 so let let us say that this is the root
+00:12:44.079 of that TR and these are like these
+00:12:46.880 corresponds these correspond to all the
+00:12:49.440 elements which are lying from X to the
+00:12:50.959 root okay now now suppose we want to try
+00:12:54.440 from y to the root okay so what what
+00:12:57.600 what do we have to change okay we have
+00:12:59.720 we if we try to construct a completely
+00:13:02.279 new TR from for all elements from y to
+00:13:05.839 the root we are actually not using all
+00:13:09.079 the we are actually not using this tree
+00:13:12.680 or this try but what is the use of
+00:13:14.959 constructing
+00:13:16.519 X if we have to construct y again so
+00:13:19.440 let's say that the try for x to the root
+00:13:22.320 consists of all these numbers okay now
+00:13:25.240 suppose I add white as a child of X and
+00:13:28.880 now we want to find a separate TR which
+00:13:31.800 is which is consisting of all the noes
+00:13:33.959 which Lie from y to the root okay so now
+00:13:37.079 let us try to add one1 to this note ID
+00:13:41.199 because idy equal to 101 and we want to
+00:13:43.560 add all the IDS from the root from the
+00:13:46.560 node to the root so we have to add one
+00:13:48.639 one to this to the TR for X so that we
+00:13:51.720 can find a TR for X Y to the root okay
+00:13:54.720 so how do I add this so first of all
+00:13:58.040 notice that when I want to Traverse the
+00:13:59.880 try for why if if suppose for some node
+00:14:04.800 for some in for some integer lying on
+00:14:08.120 the paths from y to root the first bit
+00:14:10.959 is zero okay there is no change if we
+00:14:14.000 consider X or Val why because the only
+00:14:16.199 change is one one and one 1's first bit
+00:14:18.680 is one okay so if we go to the zero if
+00:14:22.120 if the first first integer is zero then
+00:14:25.480 we have we get the exact same TR so the
+00:14:27.240 only change we want is for the side one
+00:14:30.199 okay so let us add a new root okay and
+00:14:34.199 for that root the zero side would be the
+00:14:37.759 same and one side will be something
+00:14:40.920 different
+00:14:42.600 okay similarly for the next part since
+00:14:47.320 we are adding
+00:14:48.519 one1 the Zero
+00:14:51.279 part will be something different but the
+00:14:55.399 one one side will be the same
+00:14:59.560 similarly when we are adding 1 1 we we
+00:15:02.160 next have to add a one and the zero side
+00:15:05.480 would be the same but there is no zero
+00:15:07.560 side okay so we only had to
+00:15:11.800 add
+00:15:16.800 order order B new notes when we are when
+00:15:20.360 we are finding a try for y to all the
+00:15:23.000 noes from X to all the noes okay let me
+00:15:25.519 try to explain this again so so let's
+00:15:28.959 say that we have this try for X the
+00:15:32.720 black nodes okay and now I want a new TR
+00:15:36.319 which consists of of the integers in the
+00:15:40.240 TR for X plus the integers which are
+00:15:45.440 added after that there is only one such
+00:15:47.279 integer which is one1 so we want to add
+00:15:49.800 one1 to this dve and we want to form a
+00:15:52.480 new root such that if we go to this root
+00:15:54.720 and then Traverse the try we can we can
+00:15:57.279 find all the integers which are from X
+00:16:00.399 to the root and also the integer one
+00:16:02.720 okay so we want to add integer one one
+00:16:04.959 to this part so so so let's just first
+00:16:08.880 add one Zer okay now notice that if we
+00:16:12.279 if the first bit is zero okay then we we
+00:16:15.319 get no difference if it is the TR for y
+00:16:18.639 or if it is the TR for X why because the
+00:16:22.040 only change is one1 and and it and this
+00:16:26.560 side this side of the tri for x is not
+00:16:28.959 affected only the right side can be
+00:16:31.519 affected so we can just form uh we can
+00:16:35.079 we can just use the previous subt in
+00:16:39.560 such a way that we have to add only
+00:16:41.040 order B notes not not order n notes for
+00:16:44.600 making the try completely so in this way
+00:16:47.639 we can find we can get a new try in only
+00:16:50.519 order B steps okay so the set of IDs for
+00:16:53.639 x is 0 0 1 0 1 0 1 1 0 okay and now we
+00:17:00.120 have to add one 1 to this try in order
+00:17:02.560 to get a new try but in such a way that
+00:17:04.760 we we add only four different nodes to
+00:17:07.679 the overall structure okay so uh so the
+00:17:10.679 set of idas of Y is 0 0 1 0 1 0 1 1 0
+00:17:13.599 and an extra Node 1 01 okay so let's see
+00:17:16.000 where these nodes are in our new
+00:17:17.319 structure okay so the new structure has
+00:17:19.160 root at this new node this new root is
+00:17:22.520 the root corresponding to Y okay so let
+00:17:24.799 us see where is 0 0 1 0 01 okay
+00:17:29.480 0 0 1 uh 0 1 0 0 uh 0 1 0 okay 0 1 0
+00:17:37.600 then we have 1 1 0 so this is
+00:17:41.559 one this is one this is zero okay then
+00:17:44.440 we have one1 so this is the newly added
+00:17:47.240 path 1 1 okay so now we we have exactly
+00:17:51.679 the notes we want we have exactly the
+00:17:54.160 integers we want which are on the path
+00:17:56.400 from y to the root okay so as as is very
+00:17:59.720 clear from this example so now suppose
+00:18:01.679 we have a query in which we get a
+00:18:03.559 particular node say
+00:18:05.760 x
+00:18:07.840 and K okay so now so now in the earlier
+00:18:12.159 in the example gorov show we we had a
+00:18:15.000 try okay try of elements and we we were
+00:18:17.400 given an element we we were given an
+00:18:19.840 integer K and we had to find the maximum
+00:18:21.679 and minimum AOL values okay so now here
+00:18:24.280 also we have the tri okay and we have to
+00:18:27.200 find the maximum and minimum Val so that
+00:18:29.080 is the exact same problem okay which can
+00:18:31.120 be solved in order B
+00:18:33.120 type where B is like 32 or 64 whatever
+00:18:36.960 okay so
+00:18:38.919 so so the complexity of query is order B
+00:18:44.200 okay now what is the complexity of an
+00:18:45.960 update in an update we have to add at
+00:18:48.640 Max order b+1 noes Okay order B noes
+00:18:52.360 okay so in this case b was four okay so
+00:18:57.679 we had to add four
+00:18:59.880 notes so in so in update since we have
+00:19:04.520 to add at Max order B notes to our
+00:19:06.840 structure the query the complexity of an
+00:19:09.919 update is also order B okay and moreover
+00:19:12.960 since we are adding only order B notes
+00:19:14.520 to the structure the overall complex
+00:19:16.520 overall memory
+00:19:20.640 complexity the overall memory needed is
+00:19:24.760 order B into n remember that b is 32 and
+00:19:28.360 it can be taken as a small constant
+00:19:29.840 consider as considered as a small
+00:19:31.679 constant okay so we solve the memory we
+00:19:34.840 solve the problem in order B update
+00:19:37.039 query time order B update time and Order
+00:19:39.159 B into an overall memory okay okay so
+00:19:43.360 that's it from our side for the problem
+00:19:44.880 if you have any doubts you can comment
+00:19:47.000 below and we will be leaving all the
+00:19:49.159 relevant links uh in the description
+00:19:51.400 thank you

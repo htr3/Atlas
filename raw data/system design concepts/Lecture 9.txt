@@ -1,0 +1,141 @@
+# tactiq.io free youtube transcript
+# What is DATABASE SHARDING?
+# https://www.youtube.com/watch/5faMjKuB9bc
+
+00:00:00.120 So.
+00:00:06.180 So how do you query this database?
+00:00:14.100 So I would optimize the queriesusing an SQ optimizer. Well,
+00:00:17.761 let's say we have a lot of data. Sooptimizing queries is so, you know,
+00:00:22.700 old school.
+00:00:25.239 Just so.
+00:00:28.600 I could make an index on the table.Alright. Indexing is, indexing is cute,
+00:00:33.540 but we are looking for something whichis serious. Right, we got lots of data.
+00:00:39.440 So can we use a NoSQL? No, weare not gonna learn audio m s.
+00:00:42.460 Now for the final time, what do youthink we should do? So shorting,
+00:00:45.830 I'll use shorting. Hmm.
+00:00:50.610 Okay.
+00:00:53.300 Hired. What is sharding?
+00:00:56.310 Let's say you have pizza and you can'thave the entire thing by yourself.
+00:01:00.200 So you break it into slicesand call your friends.
+00:01:03.861 Over eight friends.
+00:01:06.240 Now each of these friends isgoing to get one slice of pizza.
+00:01:09.250 What you have done effectively ispartitioned the pizza according to each
+00:01:14.500 friend's share.
+00:01:16.010 Just like that we can have servers whichare going to be taking the load of the
+00:01:20.661 requests, which are, which are being sentinto it. So if there's a server here,
+00:01:25.350 now how do you get thatto the pizza model?
+00:01:28.200 User id number zero is going tostart here. 100 starts here, 200.
+00:01:34.530 What you have effectively done is takenall the server requests that you had and
+00:01:38.941 mapped them onto a pizza such thateach of these slices is going to be
+00:01:43.701 served by one server,in this case, server id.
+00:01:48.611 Number six.
+00:01:49.880 The key thing to noticehere is we couldn't eat theentire pizza by ourselves.
+00:01:54.840 We needed friends to finish the pizza.To handle the pizza effectively.
+00:01:59.280 And when you're getting friends along,
+00:02:00.920 you're effectively taking the rangeof the pizza and breaking into pieces.
+00:02:06.720 When you're doing that, youare partitioning the pizza.
+00:02:10.680 This kind of partitioning,
+00:02:11.651 which uses some sort of a keyto break the data into pieces
+00:02:16.810 and allocate that to different servers,is called horizontal partitioning.
+00:02:22.040 Horizontal partitioningdepends on one key,
+00:02:25.120 which is an attribute of the datathat you're storing to partition data.
+00:02:28.970 You can contrast this withvertical partitioning.
+00:02:30.900 There's a link in the description below,
+00:02:32.551 which uses columns topartition data effectively.
+00:02:35.431 But we are focusing on the horizontalpartitioning bit and specifically we are
+00:02:40.070 focusing on one concept,which is sharding. Now,
+00:02:44.071 we mentioned that sharding is taking oneattribute in the data and partitioning
+00:02:48.071 the data such that each server getsone chunk. But what I mean by servers,
+00:02:53.310 the servers here are database servers.
+00:02:56.790 Can contrast this with what we have beentalking till now about normal servers.
+00:03:00.521 Normal servers are application servers.
+00:03:03.280 They're platform serverswhich deal with data,
+00:03:05.740 but they try to be as stateless aspossible to keep things decoupled and
+00:03:10.880 really nice and clean. This is going tobe dealing with the meat of the data,
+00:03:15.010 alright? And we can't affordto have any goof ups over here.
+00:03:19.440 Consistency is important.
+00:03:21.000 This is one of the key attributesof any database that whatever data
+00:03:26.150 you persist in it is what youcan read out of it later on.
+00:03:29.590 And there is some sort of synchronizationthat if a person makes an update,
+00:03:33.150 the new request is goingto read that update. Okay?
+00:03:37.360 So that is consistency. Alsowhat we look at is availability,
+00:03:42.290 meaning that the databaseshould not crash and stay down.
+00:03:46.760 You don't want that, you want yourapplication to be running all the time,
+00:03:49.360 but consistency trumpsavailability. When it comes to data,
+00:03:52.760 in most cases there aremore things to think about.
+00:03:56.490 What should you shard your data on?In our case, we have used user id,
+00:04:01.400 but in applications likeLindo, which use location,
+00:04:04.920 you could shard on the location.And then if a person says,
+00:04:08.410 find me all the users in C x,
+00:04:11.770 then X may fall in this shard and allyou need to do is just read through this
+00:04:16.339 shard, which is what thisdatabase, database servernumber seven can do for you,
+00:04:21.079 right? That shard is goingto be smaller in size,
+00:04:23.620 it's also going to be easier to maintain,
+00:04:25.990 probably going to giveyou faster performance.Everything good about sharding?
+00:04:29.370 And the first problem that you haveto take into consideration is joins
+00:04:34.410 across shard. If these are across shards,
+00:04:38.360 what's going to happen is the queryneeds to go to two different shards.
+00:04:41.770 They need to pull out their data,then join the data across the network.
+00:04:46.520 And this is going to be extremelyexpensive. So one of the problems here
+00:04:52.110 joins.
+00:04:53.640 The second point comes when you look atthe pizza and you realize that this is
+00:04:57.021 completely inflexible.The shards are inflexible.
+00:04:59.640 You can't have more pizza slices orless pizza slices. It's already done.
+00:05:04.960 But we want our database serversto be flexible in number.
+00:05:07.960 So one of the really good algorithmsfor this is consistent hashing.
+00:05:10.941 You should have a look at that. There'sone database which actually uses this,
+00:05:15.730 and that is mem cached,
+00:05:21.850 right? This doesn't reallyimplement consistent hashing.
+00:05:24.840 You can use an application logicabout the database mem cashed
+00:05:30.020 to get your work done. So it's notreally a problem. It might be a problem,
+00:05:35.140 but you can't havedynamic number of shots.
+00:05:42.779 Now to overcome this problem,what we do is take a shot,
+00:05:46.081 which has too much data in it andthen dynamically break into pieces.
+00:05:51.460 So this pizza slice islike a pizza for us. Yeah,
+00:05:55.940 when we magnify it enough, it'sgoing to be a really large slice,
+00:05:59.540 and then we break it into smaller pieces.
+00:06:02.410 So there's going to be some sort ofa manager for every particular shot,
+00:06:07.430 which is going to map the requeststo the correct mini slice,
+00:06:12.480 so to speak, in the pizzaslice, single pizza slice.
+00:06:17.100 Using this technique, whichis hierarchical sharding,
+00:06:20.750 we can get rid of the inflexibilityover here. So point number two
+00:06:27.230 is no longer a big problem. Now,
+00:06:31.021 one of the smart things to do here isto create an index on these shards.
+00:06:37.540 Assuming your query requires that thisindex could be on a completely different
+00:06:42.181 attribute compared to the user id.
+00:06:45.160 And one of the good examples of this isfind me all the people in New York who
+00:06:49.741 have age greater than 50. Soif these are the city IDs,
+00:06:54.810 then New York is going to land, let'ssay here, and then you can index on age.
+00:06:59.960 So you'll find all users
+00:07:02.640 in New York within a given range of age.
+00:07:07.020 So all of your queries are fast.
+00:07:09.279 So that's the most importantthing about sharding.
+00:07:12.030 Your read performance goes up and yourright performance goes up because all of
+00:07:16.081 your queries fall on one particularpoint. But what happens if a shard fails?
+00:07:21.670 Let's say there's some sort of electricityissue over there. In that case,
+00:07:26.200 you could have something likea master slave architecture.
+00:07:29.040 The master slave architectureis a very common architecture.
+00:07:31.850 What happens in this is that you havemultiple slaves which are copying the
+00:07:35.301 master. Whenever there's a rightrequest, it's always on the master.
+00:07:39.240 The master is the most updated copy,
+00:07:41.150 while the slaves continuouslypull the master and read from it.
+00:07:44.930 What then happens is ifthere's a read request,
+00:07:46.960 it can be distributed across slaves.While if there's a right request,
+00:07:51.120 it always goes to the master.In case the master fails,
+00:07:54.400 the slaves choose one masteramongst themselves, right?
+00:07:57.770 And so there's good single pointof failure tolerance over here.
+00:08:02.940 Conceptually, it's quiteeasy. You just take your data,
+00:08:05.301 break into pieces breakinto ranges essentially,
+00:08:08.960 and then persist in different places.
+00:08:12.120 But when it comes topractical application,
+00:08:14.290 this is quite tough becausethis guy consistency is
+00:08:19.141 difficult to do.
+00:08:20.860 And if you're just starting out withyour system and you you're thinking about
+00:08:24.320 charting, I suggest thatyou take into consideration.
+00:08:26.920 Although mechanisms like indexing,like using NoSQL databases,
+00:08:30.521 which internally actuallyuse these kind of concepts,
+00:08:34.380 but to use those ready-madesolutions or to use well-known
+00:08:39.041 solutions like indexing is probably theway to go before you go for sharding,
+00:08:43.841 a database even more difficult thansharding is to hit the like and the
+00:08:48.330 subscribe button at the sametime. If you're able to do that,
+00:08:51.480 then you'll get notifications for furthervideos and I'll catch you next time.

@@ -1,0 +1,406 @@
+# tactiq.io free youtube transcript
+# Episode 6: Balance the Array - Rachit Challenges Gaurav - Amortization
+# https://www.youtube.com/watch/IG9OtI54zPk
+
+00:00:00.380 hey guys this is Mira Chet welcome to
+00:00:03.030 yet another video this is the sixth
+00:00:05.310 episode of ratchet selling this car of
+00:00:07.470 and today I have a problem on arrays so
+00:00:11.460 the problem is basically there are
+00:00:13.860 elements in the array and and every
+00:00:18.029 element has a particular cost associated
+00:00:20.160 with it to remove it from the array and
+00:00:22.560 what God needs to do is to minimize the
+00:00:25.019 overall budget of removing elements so
+00:00:27.090 that the area becomes balanced so what
+00:00:29.279 do I mean by arrays balanced so an array
+00:00:32.279 is balanced when an area of size n has
+00:00:35.010 the maximum element occurring at least n
+00:00:37.649 by two times for example if we have an
+00:00:40.170 array 1 2 3 3 3 the N is 5 and the max
+00:00:47.340 is 3 the frequency of 3 over here is 3
+00:00:50.520 so 3 is greater than 5 by 2 and this is
+00:00:55.680 why we will call it balanced but let's
+00:00:57.930 say we were having something like this
+00:00:59.309 so now in this case there are six
+00:01:02.670 elements and the max is only occurring 1
+00:01:04.890 times whereas the max should occur at
+00:01:06.990 least n by 2 which is 3 times
+00:01:09.210 so what Gaara needs to do is remove some
+00:01:11.250 elements each element has some cost
+00:01:13.470 associated with it like this can have a
+00:01:16.170 cost of 3 this can have 79 10 and so and
+00:01:21.119 on so power-up has to minimize the
+00:01:23.340 overall cost and make the area balanced
+00:01:25.500 let's see how we do all right so I need
+00:01:27.840 to make the array balanced which is
+00:01:29.640 stating that it means the maximum number
+00:01:31.619 of elements n by 2 times when a person
+00:01:33.900 talks about some extremes like maximum
+00:01:35.820 minimum the first thing that comes to my
+00:01:37.680 mind to solve the problem especially in
+00:01:39.150 interview is just sort the array you
+00:01:42.119 know what this does is it gives you a
+00:01:43.439 nice ordering although it has a
+00:01:44.729 particular cost so I will just mention
+00:01:46.439 that cost beforehand so that we know
+00:01:48.509 what's happening here that is n log n
+00:01:50.909 where n is the size of that it and I'm
+00:01:52.799 going to sort this array so we have in
+00:01:55.409 fact it is sorted already in terms of
+00:01:57.979 the values in the array okay so I'm
+00:02:02.130 going to build the solution step by step
+00:02:04.140 and I'm going to start with the minimum
+00:02:06.719 so one is my first maximum if I just
+00:02:12.239 take these two elements one and
+00:02:13.620 and the associated costs of seven and
+00:02:15.900 four the cost of actually building this
+00:02:18.720 array is the sum cost of removing all of
+00:02:23.370 these elements it's effectively removing
+00:02:25.260 all of these elements so that'll be 11
+00:02:28.019 22 and then 33 I'm sorry yeah 33 is the
+00:02:33.329 cost of actually building this area with
+00:02:36.989 one is maximum so that is one solution
+00:02:39.659 I'm going to note it down 33 now what I
+00:02:43.019 could do is I could have three as my
+00:02:46.260 maximum but if I add just one three
+00:02:49.980 doesn't make sense for me to ever add
+00:02:51.690 just one three an answer to that is no
+00:02:54.750 if I add one three I can definitely add
+00:02:57.329 another three and even if I have let's
+00:02:59.700 say five or six threes it doesn't really
+00:03:01.890 matter I am saving costs because are
+00:03:03.930 non-negative so I'm saving costs and I
+00:03:05.190 should add as many three as I can so you
+00:03:08.010 are seeing that each element is actually
+00:03:09.750 part of a group so because of this group
+00:03:13.049 behavior what we can do is we can treat
+00:03:14.730 each element as a group so I am going to
+00:03:18.660 take the cumulative cost of removing
+00:03:22.859 elements based on the value that they
+00:03:25.349 have so for one the cost of removing is
+00:03:27.870 equal to 7 plus 4 which is 11 for three
+00:03:31.560 the cost of removing is equal to 11 plus
+00:03:34.829 8 which is 19 and for 4 we have the cost
+00:03:39.090 of removal as 14 all right so now they
+00:03:42.750 have all got their group behaviors I'm
+00:03:45.690 sorry this 3 was being left out now now
+00:03:51.930 the I mean we are thinking about in
+00:03:53.400 terms of group costs and one obvious
+00:03:56.090 intuitive thing that you can do over
+00:03:57.750 here is to also pre compute the cost of
+00:04:01.799 removals for all the elements from index
+00:04:04.049 I to the end of the array because using
+00:04:06.449 that we are actually building it step by
+00:04:08.010 step
+00:04:08.370 so we should have that pre computed some
+00:04:10.530 already so just writing it down it will
+00:04:12.750 be 11 14 we have 22 we have 24 we also
+00:04:20.548 have 33 coming up to 27 and finally 44
+00:04:27.780 so the total cost of removals 44 which
+00:04:29.970 we shouldn't do and the cost of removal
+00:04:33.240 at this point is like we said 23 okay
+00:04:36.510 now let's add 3 as a potential maximum
+00:04:41.250 with 3 as a potential maximum do we have
+00:04:43.950 any issues with the remaining of the
+00:04:46.110 array and the answer that is no because
+00:04:48.660 3 has a frequency of 3 1 1 works we are
+00:04:51.630 good to go
+00:04:52.110 so the cost of removal for the two
+00:04:54.570 demeaning force is 14 okay I'm going to
+00:04:57.360 move that down now comes the point of 4
+00:05:04.070 when I had 4 I actually see that there's
+00:05:06.720 an issue this is 2 of these elements and
+00:05:08.750 in this remaining array which is not the
+00:05:13.440 maximum I need to remove five out of the
+00:05:16.980 five elements I need to make it of size
+00:05:19.020 two
+00:05:19.440 so I need to remove 5 minus 2 elements
+00:05:22.500 which is I need to remove three elements
+00:05:23.850 from this idea all right and you know
+00:05:29.280 manually I can do this by myself
+00:05:31.080 I can say that I'm going to remove the
+00:05:32.940 cheapest element so in these five
+00:05:35.250 elements what are the cheapest ones this
+00:05:36.390 is cheap - this is cheap for and finally
+00:05:39.240 the third cheapest would be 7 so I have
+00:05:41.720 11 plus 2 which is 13 so the cost of the
+00:05:45.180 moles will be 13 if I take for as my
+00:05:47.789 maximum and that gives me the minimum
+00:05:50.310 area how there's a problem I can't do
+00:05:55.320 this efficiently if I if I do it in the
+00:05:58.320 brute force way then for every maximum
+00:06:01.169 that I take the maximum I mean the
+00:06:03.930 number of distinct elements at most is n
+00:06:06.140 and for each element maximum I will need
+00:06:11.640 to traverse this added find the minimum
+00:06:13.890 key elements to remove and that would
+00:06:16.830 take me n time so the overall complexity
+00:06:20.190 will be order n square plus n log n but
+00:06:22.650 we can ignore that so this is the Olin I
+00:06:25.320 complexity so over here we have the
+00:06:31.020 solution everything is nearly there but
+00:06:33.300 the problem is that we need to have an
+00:06:35.820 efficient data structure to find these
+00:06:38.460 smallest key elements for any
+00:06:41.090 in maximum and if we can find an
+00:06:43.669 efficient data structure what we are
+00:06:44.900 looking for this n log n is the minimum
+00:06:46.760 time complexity of this problem so if
+00:06:49.520 for every element n which is in total n
+00:06:52.160 we can find the K minimum elements in
+00:06:55.190 log n time then we are good to go
+00:06:57.139 alright and your mind might be buzzing
+00:07:00.260 with stuff like segments trees and you
+00:07:02.840 know cumulative data structures actually
+00:07:04.010 range queries and that is one way to go
+00:07:06.949 about this but it is quite complicated
+00:07:08.389 also so what we will try to do is we
+00:07:10.970 will try to find a simpler solution
+00:07:13.460 which still works alright so now let's
+00:07:16.010 go through this in the data structure
+00:07:17.840 wait what are the things that we need in
+00:07:19.940 our data structure the first thing is we
+00:07:22.100 should be able to add elements to it
+00:07:26.620 because every time we are doing a
+00:07:28.310 maximum and we go into the next maximum
+00:07:30.229 all the elements in this current maximum
+00:07:33.200 let us say we were at 3 and we went to 4
+00:07:35.030 so all the threes have to be added into
+00:07:37.100 the remaining array so that is adding
+00:07:39.590 elements that is the first operation and
+00:07:41.270 a trim perform and it should perform it
+00:07:42.560 efficiently
+00:07:43.449 the second thing we need to do is to
+00:07:45.860 remove the first K elements so the K
+00:07:48.320 smallest
+00:07:48.950 in terms of their costs so first K in
+00:07:52.789 terms of the cost elements and also get
+00:07:55.220 the cumulative cost the first K elements
+00:07:56.560 like so we also want to do a get along
+00:08:00.500 with the remove so this is a complicated
+00:08:02.599 operation we are doing a get plus remove
+00:08:04.430 we are returning not just the cost but
+00:08:06.919 we are also actually performing you know
+00:08:09.470 data manipulation kind of thing over
+00:08:11.000 there these two if we are able to do
+00:08:13.370 these two things they are going to go
+00:08:15.229 and you know in fact I should make it
+00:08:18.289 easier I can separate this out into a
+00:08:20.479 simple function of get the first key
+00:08:23.030 element cost and remove first key
+00:08:25.070 elements all right
+00:08:26.120 if these three things work we win let's
+00:08:29.930 start the simplest data structure we can
+00:08:31.639 think about and that is a set okay now
+00:08:34.640 we are initially adding elements so we
+00:08:36.260 add 1 and 1 every time we are adding
+00:08:38.240 elements it has to be sorted upon the
+00:08:40.250 cost so these two elements will be in
+00:08:43.458 this fashion
+00:08:44.300 the cost is 7 4 is not genetic but it
+00:08:46.610 will be added as 4 and 7 now let us go
+00:08:48.980 for 3 3 3 we're adding 3 3 3 the costs
+00:08:53.089 are 92
+00:08:54.320 which means that there needs to be some
+00:08:56.240 sorting done over here so it'll be in
+00:08:59.149 nine
+00:08:59.600 I'm sorry it'll be eight nine and this
+00:09:02.540 three is very cheap so it has to be
+00:09:05.240 poised in the front three two we have
+00:09:08.959 one in one over here with their costs of
+00:09:11.120 four and seven now you're just seeing
+00:09:12.740 that this array is sorted and when four
+00:09:14.870 and for coming they're going to pop into
+00:09:16.880 the right places which is four will come
+00:09:18.649 in here with the cost of three and four
+00:09:20.959 will come over here with cost of lemon
+00:09:22.820 at the end of the day this is how the
+00:09:25.760 set will look like so let's take this
+00:09:28.399 example to understand that in their
+00:09:29.720 deeper way you're seeing that initially
+00:09:32.360 we're going to take one as the maximum
+00:09:33.560 all right
+00:09:34.790 and then these five ones that we have so
+00:09:37.490 this is in your set you have basically
+00:09:39.860 five ones in the sorted order as we said
+00:09:43.310 now three comes in three has a frequency
+00:09:46.040 of 1 which means that the frequency of
+00:09:48.910 these elements the remaining at it has
+00:09:51.740 to be at most one the remaining area
+00:09:53.870 basically has to be of size 1 4 3 to
+00:09:56.079 keep the array balanced let's remove
+00:09:59.480 these guys they are going to remove of
+00:10:01.339 course the cheapest elements so we are
+00:10:04.940 going to remove one one one and any
+00:10:08.600 other medium we have two we are forced
+00:10:10.220 to move on to so the cost of removal
+00:10:13.550 till now is four and five but that
+00:10:17.480 doesn't really matter what we'll see is
+00:10:18.860 we have a general algorithm to take care
+00:10:20.390 of this so yeah
+00:10:21.940 what we have is three with the frequency
+00:10:25.070 of one and one with frequency of one
+00:10:28.360 this is our current array now let's take
+00:10:32.120 four into consideration with four into
+00:10:36.110 consideration what we are doing is a
+00:10:38.329 frequency of four and we have the
+00:10:40.370 opportunity of increasing the elements
+00:10:42.350 over here what this means is that we can
+00:10:45.949 undo some of the removals we had in the
+00:10:48.620 array to save on cost now when you are
+00:10:52.640 undoing when you are removing elements
+00:10:54.230 you want to remove the cheapest ones
+00:10:55.339 when you are getting back elements you
+00:10:57.620 want the most expensive ones it's the
+00:10:59.029 reverse operation right so in this case
+00:11:01.880 the frequency of this is four and the
+00:11:06.070 right over here it's just too so I have
+00:11:08.660 a difference of two over here I can add
+00:11:11.300 two elements so I'm going to add the
+00:11:12.950 most expensive ones too and forstride
+00:11:15.650 one so this is how it's going to go
+00:11:18.590 there's going to be additions which will
+00:11:22.130 happen in login time over here I am
+00:11:24.680 assuming some sort of a height balanced
+00:11:26.330 binary search tree the removals are all
+00:11:31.190 same log in time and you know the get
+00:11:35.690 first K is in K log n time removes are
+00:11:41.780 also always case so that is Gilligan all
+00:11:45.110 right so now let's take this step by
+00:11:49.070 step
+00:11:50.320 when four came and you saw that there
+00:11:52.370 are some additions how many additions
+00:11:54.650 can we have in total four has a
+00:11:56.660 frequency of four and the maximum number
+00:12:01.280 of elements you can have in this array
+00:12:02.870 in the remaining add a basic a apart
+00:12:05.000 from four is of course for because the
+00:12:07.700 frequency of four has to be greater than
+00:12:09.980 n by 2 greater than equal to so you
+00:12:13.460 could have added at most four elements
+00:12:15.800 when this element came in all right so
+00:12:18.890 frequency of four was the maximum it's
+00:12:20.630 ago time when three came in the maximum
+00:12:23.180 number of elements you could have
+00:12:23.990 possibly added was the frequency of
+00:12:25.880 three similarly when one came in the
+00:12:29.030 maximum element you can add in the
+00:12:30.590 remaining array in this case it was the
+00:12:32.060 null set but I'm just taking a general
+00:12:33.890 case what's the frequency of one and if
+00:12:37.190 there are four elements then again the
+00:12:38.690 maximum number of elements you can add
+00:12:40.100 is always the frequency of that element
+00:12:44.080 because you know you can't add more
+00:12:46.220 elements than the current frequency
+00:12:48.140 because otherwise you would have very
+00:12:50.570 imbalanced all right this is a very
+00:12:54.590 important consideration because what
+00:12:57.590 this means is that the total number of
+00:13:00.130 additions you can have is the sum of the
+00:13:03.440 frequencies of all the elements which is
+00:13:06.550 the number of elements in the array
+00:13:08.890 right some of the frequencies this is
+00:13:11.420 frequency for frequency to frequency of
+00:13:16.070 this is five so these are the total
+00:13:18.110 number of elements and
+00:13:18.920 this is just lemon and you have lemon
+00:13:21.709 elements in there so what we have now is
+00:13:24.079 that total number of elements in the
+00:13:26.450 array which is n into cost of addition
+00:13:29.959 which is log n so the total cost of
+00:13:34.910 additions through the entire array is
+00:13:37.760 going to be n log n and we are doing
+00:13:40.760 well we are doing well the only problem
+00:13:42.920 of course here is that the rules and the
+00:13:45.410 gates are kill it together
+00:13:47.149 so it seems like it's going to be very
+00:13:49.100 expensive but there is a very
+00:13:51.410 intelligent technique over here that you
+00:13:53.510 can use and that is the concept of flow
+00:13:58.240 you can remove only so many elements as
+00:14:01.899 you can add I mean initially this as we
+00:14:05.360 said this set is empty so the total
+00:14:08.420 number of elements that this set can
+00:14:09.589 hold at any given point of time is n but
+00:14:13.220 also the total number of additions you
+00:14:14.600 are ever doing into this set is n so the
+00:14:18.440 total removes you'll have is also N and
+00:14:22.930 the cost of these removals I mean the
+00:14:26.240 total number is is log n so when you
+00:14:32.750 take this asymptotically what you are
+00:14:33.949 getting is n log n plus n log n plus the
+00:14:37.100 cost of sorting which is n log n so wait
+00:14:40.490 for it the maximum time complexity is n
+00:14:47.500 log n for the total array and we have
+00:14:52.519 solved this problem in n log n time so
+00:14:55.519 guys this problem was like really very
+00:14:58.370 very difficult for us also to solve
+00:15:01.010 first and then explain explaining it was
+00:15:03.529 like way 200 and you have no idea how
+00:15:06.740 many retakes it took but what I want to
+00:15:09.350 say is we were easily able to prove that
+00:15:11.510 the number of insertions can be at max n
+00:15:14.660 so but if you look at it in the complete
+00:15:18.230 journey we are at most adding n elements
+00:15:21.260 right so if you are looking at the
+00:15:23.269 removal stuff also if you are not
+00:15:25.010 putting more than n elements in
+00:15:26.540 throughout the journey so you cannot
+00:15:28.279 remove more than
+00:15:29.190 in limits in throughout the journey and
+00:15:30.690 this is what Emma dyes means yeah I
+00:15:32.850 think that I think the keyword over here
+00:15:34.380 is amortized and yeah
+00:15:37.830 and the spelling like this I think this
+00:15:41.340 is fairing and I'm quite sure it is but
+00:15:43.260 also another thing that is the concept
+00:15:45.180 of flow so in fact it was the one who
+00:15:48.120 came up with a flow concept and I
+00:15:49.740 thought about the advertiser editions so
+00:15:52.170 it took a collective effort and it's
+00:15:54.510 it's actually complicated problem in an
+00:15:56.610 interview because it's not very
+00:15:57.750 intuitive the first time you think about
+00:15:59.070 this it's not like you you come up with
+00:16:01.320 okay this is going to be amortized okay
+00:16:03.120 and also I can prove the amortization
+00:16:04.830 using flow so this is a difficult
+00:16:06.750 problem it might take you some time to
+00:16:08.460 understand it yeah yeah it will take you
+00:16:11.010 some time to absorb what's going on but
+00:16:13.140 yeah the key learning that I want the
+00:16:15.450 key learning that we want you to take is
+00:16:18.260 understand what is the concept this
+00:16:20.340 amortize time complexity and how you can
+00:16:22.830 basically think of flow to get a bitter
+00:16:25.140 to get a better picture of how this is
+00:16:27.060 working
+00:16:27.450 all right then so guys this is the end
+00:16:31.140 of the sixth episode four challenges
+00:16:33.900 Gaurav and I hope you liked it I hope
+00:16:35.970 you liked the video share subscribe
+00:16:37.830 everything that you do normally if you
+00:16:39.570 liked this video you know what you have
+00:16:40.950 to do you have to like share and
+00:16:42.960 subscribe to our channel guys see ya
+00:16:45.030 bye
+00:16:48.320 zero then it's growing green green then
+00:16:51.050 maybe we had to remove some elements
+00:16:52.670 then it was growing growing growing and
+00:16:54.050 so on or not but if you look at it in
+00:16:56.870 Emmet toys amortized amortized but if
+00:17:00.440 you will look at it
+00:17:01.780 good be destruction I guy examples
+00:17:04.339 anywhere
+00:17:07.910 [Laughter]
+00:17:13.990 all right you take this example to one
+00:17:16.339 you get a better let's take this example
+00:17:19.240 let us take this example to understand
+00:17:22.589 [Laughter]
+00:17:26.260 the computer must be in my genes i got a
+00:17:28.930 laptop in my back pocket my pen'll go
+00:17:30.820 off when i half-cock it got a fat knot
+00:17:32.560 from that rap profit made a living and a
+00:17:34.180 killing off

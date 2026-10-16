@@ -1,0 +1,503 @@
+# 1.5.2 Time Complexity Example #2
+
+# https://www.youtube.com/watch/9SgLBjXqwd4
+
+
+
+00:00:00.050 this I have this piece of code I have to
+
+00:00:03.300 analyze and find the time complexity of
+
+00:00:05.819 this one and this court also for loop is
+
+00:00:08.940 used but loop is starting from one going
+
+00:00:12.599 up to end that is less than n and it is
+
+00:00:15.990 being multiplied by two eyes multiplied
+
+00:00:19.140 by two every time so blindly we cannot
+
+00:00:21.869 say this will execute for n times we
+
+00:00:24.630 have to analyze this one let us see how
+
+00:00:27.539 many times this will execute it's not
+
+00:00:29.369 Emma we don't know how many times let us
+
+00:00:31.890 see I will take the I value initially
+
+00:00:36.270 this one the next time is going to be 1
+
+00:00:40.260 e 2 2 that is true and this time it will
+
+00:00:44.129 be 2 into 2 again so it will be 2
+
+00:00:46.620 squared see every time is getting onto
+
+00:00:48.690 that right - there is 2 square into 2
+
+00:00:51.750 again so this will be 2 bar 3 goes on
+
+00:00:55.340 how many times that we don't know so let
+
+00:00:59.520 us say this will execute for 2 power K
+
+00:01:02.340 times 2 pi K times now we know that this
+
+00:01:09.210 will terminate when I becomes greater
+
+00:01:12.689 than equal to n so we assumed that when
+
+00:01:16.080 it has a reach for sub K number of times
+
+00:01:18.299 it has repeated assume I became greater
+
+00:01:24.659 than or equal to n and whatever I value
+
+00:01:28.650 2 over K since I is equals to 2 power K
+
+00:01:33.380 therefore 2 power K has became greater
+
+00:01:38.310 than equal to
+
+00:01:39.729 now if I hate to part a is equals to n
+
+00:01:43.490 then K is how much log and base - yes
+
+00:01:50.630 this is the time complexity so the
+
+00:01:53.479 statement will execute for order of log
+
+00:01:57.439 n base 2 times so from this we can
+
+00:02:02.090 observe that if you have a loop where
+
+00:02:05.810 the counter variable it's not
+
+00:02:08.598 implementing but it's getting multiplied
+
+00:02:10.940 by something let us say 2 or 3 then it
+
+00:02:13.879 will get log base 2 time so you'll
+
+00:02:19.370 execute form operates two times now I
+
+00:02:22.340 have a implemented for the three at the
+
+00:02:24.500 regular loop that we use let us analyse
+
+00:02:26.780 that one and then we will analyze once
+
+00:02:29.209 again here the other method I will show
+
+00:02:31.579 you see here I is initially 1 and it is
+
+00:02:36.040 implemented by 1 plus 1 plus 1 n plus 1
+
+00:02:40.250 goes on plus 1 and it will stop and
+
+00:02:43.730 finally it becomes greater than n so up
+
+00:02:46.819 to n so how many times is getting added
+
+00:02:49.819 so let us say K times and that is equal
+
+00:02:52.579 to n so how many times K times what is
+
+00:02:56.120 that K is equal to n now let's take this
+
+00:02:59.480 one I use initially 1 then it isn't it's
+
+00:03:03.109 trying to tell again into 2 then again
+
+00:03:05.930 into 2 so up to sometimes so finally it
+
+00:03:10.130 will stop when it becomes greater than
+
+00:03:12.139 equal to n then this is how many times
+
+00:03:16.400 so this will be let us say K time so
+
+00:03:18.859 what will be the result this will be 2
+
+00:03:20.389 power K that will be equal to n so K is
+
+00:03:23.930 how much log in these two so the other
+
+00:03:29.150 we have analyzed this one so that is
+
+00:03:30.950 implementing 1 1 1 so kid I'm sorry
+
+00:03:33.550 d x - boo - every time so k times it's
+
+00:03:37.450 getting mighty tired so it's 2 per K
+
+00:03:39.340 that is equal to n so K is how many
+
+00:03:41.950 times games logon base to time so if you
+
+00:03:45.490 have any look like this the value of I
+
+00:03:47.350 is getting multiplied then it is going
+
+00:03:49.660 to take log and time so you can take it
+
+00:03:51.550 as a formula that I promised it click
+
+00:03:54.340 apply this algorithm as log and the
+
+00:03:59.230 statement will be forgotten times
+
+00:04:01.650 now you take log in log in me give
+
+00:04:05.940 decimal values float values so we need
+
+00:04:09.340 to know whether I have a have to take
+
+00:04:11.370 float or C log that value so that's
+
+00:04:14.950 important means should be truncated or
+
+00:04:17.380 round up the value so for that let us
+
+00:04:20.140 take some example and check it suppose n
+
+00:04:22.960 value is 8 right now I got him let us
+
+00:04:29.830 stop trace this one by taking a sample
+
+00:04:31.900 value is 1 initially then I have
+
+00:04:34.930 multiplied by 2 so it is 2 - miss less
+
+00:04:37.630 than 8 2 is less than 8 then I get x - 4
+
+00:04:41.590 so 4 is less than 8 and is 8 right so
+
+00:04:45.669 again x true now it is not less than 8
+
+00:04:49.630 so it will stop
+
+00:04:50.919 so total how many times it is repeating
+
+00:04:52.930 it is like waiting for three times the
+
+00:04:56.710 list if I take the N value and n if a
+
+00:05:00.910 rent of n value at 10
+
+00:05:02.590 let us see what happens is initially 1 1
+
+00:05:06.460 is less then 10 now n value is at 10
+
+00:05:09.220 once less then 10 continued its
+
+00:05:11.890 multiplied by 2 so 2 is left then four
+
+00:05:15.040 four is less then 10 eight multiplied
+
+00:05:19.240 with it is 8 8 is also connected then 16
+
+00:05:22.750 so 16 is I is not less than 10 so it
+
+00:05:26.950 will stop here
+
+00:05:27.880 so total how many times four times as
+
+00:05:32.560 executing four four times
+
+00:05:34.240 if I find log eight log interval between
+
+00:05:38.890 how long eight is written as two for
+
+00:05:42.460 three days
+
+00:05:43.279 and in the system as 3 log 2 base 2 and
+
+00:05:46.549 this is 1 so ancestry now save me if I
+
+00:05:50.719 find out the longer 10base2 now 10 is
+
+00:05:55.369 not in exact powers of 2 so I will not
+
+00:05:58.159 get the decimal valid integer value I'm
+
+00:06:01.219 gonna get a decimal value right so let
+
+00:06:03.859 us take it as an example 3.2 imagine
+
+00:06:07.399 audacity point to I what required you
+
+00:06:10.159 but if you see the number of times
+
+00:06:11.809 repeated four times so it should be
+
+00:06:14.569 taken as see the value so this log
+
+00:06:18.079 should be taken as seen when you use log
+
+00:06:22.909 sometimes whether it is seal or flow
+
+00:06:25.099 that is also important other piece of
+
+00:06:30.529 code here let us see how it's going to
+
+00:06:32.539 ask you what will return opposite of
+
+00:06:34.549 this one see here is starting from M a
+
+00:06:39.309 next time I values and bye to the mix
+
+00:06:43.399 timers n by 2 square then n by 2 cube so
+
+00:06:48.079 on how many times and by 2 for King we
+
+00:06:51.379 don't know the number of right should we
+
+00:06:52.699 are assuming it as for K times and we
+
+00:06:55.999 know that the loop will terminate when I
+
+00:06:59.719 becomes less than 1 so it will continue
+
+00:07:03.769 as long has a greater than equal to 1 so
+
+00:07:05.839 assume I have became less than 1 so
+
+00:07:08.779 therefore once I value 2 power K is less
+
+00:07:12.769 than 1 so if I equate it then is going
+
+00:07:17.509 to be 1 and n is equal to 2 power K so k
+
+00:07:21.860 is how much log n base 2 so again the
+
+00:07:27.379 time for this one is order of log and
+
+00:07:30.469 base 2 so the type of the city of this
+
+00:07:34.129 piece of course also without in this -
+
+00:07:36.829 so the previous one in the first example
+
+00:07:38.869 I have shown you that it was multiplying
+
+00:07:41.540 time and starting for a month now this
+
+00:07:43.820 is dividing every time starting from N
+
+00:07:46.070 and and up - what up - 1 it is reaching
+
+00:07:49.550 so it's part of login makes these
+
+00:07:53.810 fullest the 7th example and in here so
+
+00:07:57.680 here I started from zero and I need to
+
+00:08:00.440 add is less than equal to M so how many
+
+00:08:03.860 times the Select secured this is will
+
+00:08:06.620 execute as long as I is less than n but
+
+00:08:13.010 it will terminate when I into I is
+
+00:08:15.020 greater than equal to n we are seeing
+
+00:08:17.420 that ie twice I squared is equal to M so
+
+00:08:21.860 what is I is so 10 so I don't have to K
+
+00:08:25.460 here I am NOT Yusuke here that are ready
+
+00:08:27.350 using I only have shown you I advise the
+
+00:08:30.080 gentleman this is a square if you send
+
+00:08:32.059 that side it's a root so it will execute
+
+00:08:34.370 for root n times
+
+00:08:36.979 now the next example here I have 2
+
+00:08:40.370 follows these are independent loops one
+
+00:08:42.650 after another
+
+00:08:45.520 don't mistake it as a nested loop they
+
+00:08:48.920 are not one inside another so the time
+
+00:08:52.190 complexity for this one is this is
+
+00:08:53.780 independent rule and it is situated for
+
+00:08:56.030 n times and it's incremental who sits
+
+00:08:58.880 order of N and this will also implement
+
+00:09:01.730 the loop this also order of n so if you
+
+00:09:06.080 combine them and take their time that is
+
+00:09:08.060 2 plus 2 so n plus n that's true and and
+
+00:09:11.150 it is part of n so this is our
+
+00:09:15.260 independent group at the time is all
+
+00:09:17.120 rough and the only n plus n that is n
+
+00:09:20.950 it's not n square uh next one I have the
+
+00:09:25.970 easier independent loops this next loop
+
+00:09:29.810 I have to find out what is the time
+
+00:09:32.000 taken by the statement if I also only
+
+00:09:35.030 this one then J is taking rugs from one
+
+00:09:37.520 James less than
+
+00:09:38.640 J is implementing that is updating by x
+
+00:09:41.339 2 every time so this is going to take a
+
+00:09:44.310 log value log of what love of people so
+
+00:09:48.450 this is log of P what is it be if you
+
+00:09:54.269 see the previous rule here be using
+
+00:09:56.459 demented so P is incremented in this
+
+00:09:58.709 group so this P will take the value that
+
+00:10:01.260 number of times this loop is repeating
+
+00:10:03.380 how many times the slope is repeating I
+
+00:10:05.880 get the runs 1 1 to N and I assign I
+
+00:10:09.750 introduce so again it's log log of what
+
+00:10:12.810 it is log n so P value will be log n and
+
+00:10:16.459 this statement will repeat for log P
+
+00:10:19.800 times so what is e he is evaluated here
+
+00:10:23.010 and it is used here right so this is log
+
+00:10:27.420 of love and as P is equal to log n so it
+
+00:10:33.510 is log of log n so the time complicities
+
+00:10:36.300 order of love
+
+00:10:39.050 next example here i have nested follow
+
+00:10:42.240 the outer loop is taking i assign 0 is
+
+00:10:45.899 less than n and eyes increment n so this
+
+00:10:48.300 is order of n as this is the increment
+
+00:10:51.420 loop so this order of n and whatever is
+
+00:10:54.630 they recite will repeat for and times
+
+00:10:59.060 next the in the follow this is using j j
+
+00:11:03.360 is less than n and j is every time x 2
+
+00:11:06.750 right so this will take login time so
+
+00:11:10.170 this is a friend a login time and
+
+00:11:13.310 anything inside that also will take
+
+00:11:15.810 login time if remember initially I've
+
+00:11:19.470 shown you that this is mistakes n plus 1
+
+00:11:22.140 no it will not be any useful if it I can
+
+00:11:26.400 don't write it makes no difference just
+
+00:11:28.980 you can take it as em now total homage
+
+00:11:31.529 to an organ plus n so hey Gaston is this
+
+00:11:38.790 one services or drove and log n so the
+
+00:11:44.580 type of the city of this one is order of
+
+00:11:46.980 n log n now let us write some pieces of
+
+00:11:50.730 code and see what the time complexities
+
+00:11:53.220 that we have got so far see if I write a
+
+00:11:56.810 for loop or I assign 0 I is less than n
+
+00:12:02.210 eyewitness for this for this figure that
+
+00:12:05.040 is order of n this link even a clue if
+
+00:12:09.600 this is written as by assign 0 I is less
+
+00:12:12.810 than n I I assign I plus 2 this is going
+
+00:12:16.950 to be n by 2 that also we take order of
+
+00:12:20.160 n then for any sign and I is greater
+
+00:12:26.370 than 1 I - - this also order of n so if
+
+00:12:32.490 it is incrementing also order friend if
+
+00:12:34.410 it is decrementing also order of n then
+
+00:12:37.529 for I assign 1 I less than then I assign
+
+00:12:44.040 I multiplied by 2 this is order of log n
+
+00:12:49.830 base 2 so it means before I assign one I
+
+00:12:55.320 use less them and I assign I in to 3
+
+00:13:00.540 this will be order of log and base 3 4 I
+
+00:13:09.209 assign and I is greater than 1 and I
+
+00:13:13.980 assign I by 2 this order of log in base
+
+00:13:21.150 2 so now we can take these as formulas
+
+00:13:26.970 if our loop is incrementing that is n
+
+00:13:30.100 or decrementing it is and whether it is
+
+00:13:33.670 in demanding by one hour two or even ten
+
+00:13:36.370 or even hundred also it's sort of
+
+00:13:38.470 Emily's same weight and my rules also
+
+00:13:42.480 order of N and by 200 is also order of
+
+00:13:49.560 because we are writing the degree of the
+
+00:13:52.360 polynomial that is n is the term used
+
+00:13:54.790 there the variable n is you said sort of
+
+00:13:57.430 an now sin square by 2 then the same
+
+00:14:00.790 square right so this is a summary of the
+
+00:14:08.260 time felicity we have seen

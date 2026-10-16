@@ -1,0 +1,633 @@
+# 4.7 [New] Traveling Salesman Problem - Dynamic Programming using Formula
+
+# https://www.youtube.com/watch/Q4zHb-Swzro
+
+
+
+00:00:00.089 hi the topic is traveling salesperson
+
+00:00:02.100 problem already I have one video on this
+
+00:00:04.920 problem already I have taken the same
+
+00:00:07.020 example and I have solved there but now
+
+00:00:09.389 I am going to explain you in a different
+
+00:00:11.280 way by using the forum line each and
+
+00:00:14.340 every step so let us see about the
+
+00:00:17.910 problem quickly I will tell you see the
+
+00:00:20.010 problem is a directed weighted graph is
+
+00:00:22.980 given so it means every edge is having
+
+00:00:25.529 some weight see these are actually
+
+00:00:27.449 parallel edges two edges one two two
+
+00:00:29.340 also two two one also but to show two
+
+00:00:32.009 edges I have shown it them as only one
+
+00:00:33.989 edge bi-directional now every edge is
+
+00:00:37.800 having weight so this is the cause
+
+00:00:39.570 adjacency matrix for this directed graph
+
+00:00:42.360 now the problem is we have to start from
+
+00:00:46.440 some vertex and travel all the other
+
+00:00:48.960 vertices once and we have to return back
+
+00:00:52.860 to the same starting vertex so start
+
+00:00:56.280 from any vertex and go through all the
+
+00:00:59.489 vertices once and return back to the
+
+00:01:02.010 starting vertex and the cost of
+
+00:01:05.489 travelling must be minimum
+
+00:01:07.909 this is the traveling salesperson
+
+00:01:09.780 problem for solving that this is a
+
+00:01:13.439 formula given this is a dynamic
+
+00:01:14.760 programming formula this is the general
+
+00:01:17.340 form of a formula now I will write on
+
+00:01:19.619 this formula according to these four
+
+00:01:21.720 vertices graphs then I will discuss
+
+00:01:24.450 about it the cost function is termed as
+
+00:01:26.700 G here our starting vertex is 1 and we
+
+00:01:30.720 have to visit remaining vertices those
+
+00:01:32.520 are 2 3 &amp; 4
+
+00:01:35.130 and minimum of what is this let us see
+
+00:01:40.290 see from any starting vertex I I can go
+
+00:01:44.399 to any of the K vertices that belong to
+
+00:01:46.350 the set it means from starting vertex 1
+
+00:01:48.720 I can go to 2 also 3 also for also so
+
+00:01:52.759 here C of 1 2 K what K can be K can be
+
+00:01:58.500 anything from 2 3 &amp; 4 plus G of starting
+
+00:02:06.420 vertex K and from 2 3 4 subtract key
+
+00:02:12.730 this is a general formula but we have
+
+00:02:15.370 written a formula with respect to four
+
+00:02:17.470 vertices the formula says that starting
+
+00:02:20.440 vertex is 1 and you have to visit
+
+00:02:22.599 remaining what it says in any order you
+
+00:02:24.459 want so you can move from 1 to 2 also 1
+
+00:02:27.250 to 3 also 1 to 4 also so that all
+
+00:02:29.680 possibilities we are trying here we will
+
+00:02:31.930 be going from 1 to 2 or 1 to 3 1 to 4
+
+00:02:34.420 anything out of that we have to take the
+
+00:02:36.580 minimum so whichever one we are going
+
+00:02:39.040 that vertex we should subtract from the
+
+00:02:40.959 set of vertices see if you observe this
+
+00:02:43.660 the formula is recursive it's a
+
+00:02:45.910 recursive formula cost of a root is
+
+00:02:48.489 defined in terms of cost of a root again
+
+00:02:51.269 here the set of vertices to be visited
+
+00:02:54.100 are two three four and here it is one
+
+00:02:55.870 less this is recursive formula how we
+
+00:02:59.319 can find the result of any recursive
+
+00:03:02.140 function we generated a recursive tree
+
+00:03:05.170 so let us generate a recursive tree for
+
+00:03:07.810 this one see here I can go from 1 to 2
+
+00:03:11.350 so the starting vertex is 1 so if I go
+
+00:03:14.319 to vertex 2 then as per the formula C of
+
+00:03:18.670 1k what is the K we are considering 2 so
+
+00:03:21.790 C of 1 2 + G of 2 2 remaining so 2 to
+
+00:03:28.420 see k k here so remaining remaining what
+
+00:03:32.079 K is a 2 here so 2 is removed so
+
+00:03:34.660 remaining will be 3 &amp; 4 so this is 3 &amp; 4
+
+00:03:39.000 see again we got a cost function next I
+
+00:03:42.930 can go on vertex 3 also so 1 2 3 if I go
+
+00:03:47.290 from 1 to 3 so this is cost of an edge
+
+00:03:49.630 from 1 to 3 plus cost of 3 2 remaining
+
+00:03:53.859 so G of 3 2 what is remaining 2 &amp; 4 so
+
+00:03:58.510 this is 2 &amp; 4
+
+00:03:59.910 and one more
+
+00:04:03.370 I can go from 1 to 4 also so this is for
+
+00:04:07.359 cost of an edge from 1 to 4 from G of 4
+
+00:04:12.069 2 remaining
+
+00:04:13.299 what are those 2 &amp; 3 see this is just
+
+00:04:17.168 like I have substituted 3 different
+
+00:04:19.899 values of K what are those 2 &amp; 3 &amp; 4 2 &amp;
+
+00:04:23.110 3 &amp; 4 I have substituted so
+
+00:04:25.240 three different formulas now out of
+
+00:04:27.669 three different formulas all these three
+
+00:04:29.919 I have to take the minimum so this
+
+00:04:32.229 expansion I have done here I have
+
+00:04:34.240 written them separately I am showing
+
+00:04:35.830 them in the form of a tree out of these
+
+00:04:37.780 three I have to take minimum this
+
+00:04:40.270 minimum can they know minimum I don't
+
+00:04:44.050 know this I don't know this and this I
+
+00:04:47.199 don't know the cost of this so unless I
+
+00:04:49.960 know the cost of these functions I
+
+00:04:52.810 cannot get dancer and he cannot find
+
+00:04:54.970 minimum so how to find out this one
+
+00:04:57.070 again the same formula applies the same
+
+00:04:59.710 formula now here the starting point is
+
+00:05:02.500 two and here the starting point is three
+
+00:05:04.300 and the starting point is four so again
+
+00:05:07.449 use the formula expand them but before
+
+00:05:10.389 going further I can show you one thing
+
+00:05:12.160 cost refer netsy of one to two one two
+
+00:05:15.190 three one two four I can get it here
+
+00:05:18.099 they are given 1 2 2 1 2 3 1 2 4 that is
+
+00:05:21.910 10 15 and 20 so I will write down 1 2 2
+
+00:05:25.660 is how much then ok this value will be
+
+00:05:28.509 remaining I have to find out this one
+
+00:05:29.949 this is how much 15 this is remaining I
+
+00:05:33.159 have to find out this this is 20 this is
+
+00:05:36.130 remaining now let us expand these
+
+00:05:38.979 formulas and get the answer and add it
+
+00:05:42.460 to this one then out of this take
+
+00:05:44.050 minimum so first let us expand this now
+
+00:05:46.810 from here what is the possibility
+
+00:05:48.760 starting about X is 2
+
+00:05:50.620 I can go to 3 or 4 I can go to vertex 3
+
+00:05:55.210 if I am going to vertex 3 this is from 2
+
+00:05:58.330 to 3 so cost of an H 2 to 3 plus G of 3
+
+00:06:03.220 to four remaining vertex well before C 2
+
+00:06:06.909 to 3 and then remaining is 4 so 3 4
+
+00:06:09.849 where there so now 3 came out only four
+
+00:06:12.159 is remaining or else from two I can go
+
+00:06:16.210 to 3 also - I can go to four also so if
+
+00:06:19.270 I go on forward then C of 2 to 4 plus G
+
+00:06:23.199 of 4 then if I am going one for what
+
+00:06:26.470 will be remaining 3 will be remaining
+
+00:06:29.580 now in the same way I will expand these
+
+00:06:32.139 formulas also 3 to 2 I can go so co of 3
+
+00:06:36.580 + G of 2 to 4 or 3 to 4 I can move so
+
+00:06:43.960 this is 4 so C of 3 comma 4 plus G of 4
+
+00:06:49.659 2 remaining vertex is 2 then here also I
+
+00:06:54.280 will expand so this is I can go from 4
+
+00:06:57.400 to 2 also and 3 also so if I am doing 4
+
+00:07:01.960 to 2 this is C of 2 2 + G of 2 2
+
+00:07:07.599 remaining vertex will be 3 plus C of 4
+
+00:07:11.860 to 3 then G of 3 2 remaining vertex will
+
+00:07:16.270 be 2 now total 6 formulas we have now I
+
+00:07:20.259 can fill up these C values the cost of
+
+00:07:22.960 an edge
+
+00:07:23.530 so I will write all the values C C of -
+
+00:07:27.069 3 - 4 - 3 is 9 - 4 is 10 so this becomes
+
+00:07:33.689 9 and this becomes 10 then 3 2 3 4 3 2
+
+00:07:40.629 is 13 3 4 is 12
+
+00:07:43.479 so this is 13 and this is 12 then C 4 2
+
+00:07:49.900 s 8 + 4 3 is 9 this is 8 and this is 9 4
+
+00:08:01.300 2 is 8 4 3 is 9 still we don't know the
+
+00:08:04.719 value of these functions so let us use
+
+00:08:07.089 the formula and expand them if you
+
+00:08:09.279 observe here this says that starting
+
+00:08:11.620 what its history and the remaining
+
+00:08:12.969 vertex that we have to visit it only for
+
+00:08:15.129 so I'll go to vertex 4 so this will be
+
+00:08:18.099 from 3 to 4 so C of 3 4 plus G of 4 2
+
+00:08:24.219 remaining is nothing when 4 is also gone
+
+00:08:28.000 we have visited for also there's nothing
+
+00:08:29.919 is remaining so same thing here
+
+00:08:31.599 remaining is 3 so say C or 4 - 3 + G or
+
+00:08:36.969 4 3 2 nothing - 3 plus G of 3 to nothing
+
+00:08:42.640 is remaining then this is 3 to 2 so C of
+
+00:08:47.079 3 2
+
+00:08:48.610 G of 2 nothing is remaining say you know
+
+00:08:52.600 you can realize if we are solving it
+
+00:08:56.350 using a recursive tree then the tree
+
+00:08:59.200 will expand like this no doubt it will
+
+00:09:01.240 not execute like this the order of
+
+00:09:03.040 execution will be different but the
+
+00:09:05.110 complete tree looks like this
+
+00:09:06.970 now these cost or suggests I can write
+
+00:09:09.459 down here C of 3/4 C of 3/4 is how much
+
+00:09:14.170 3 4 is 12
+
+00:09:16.470 so let us take that 12 plus so-and-so
+
+00:09:20.519 function is there then C off for 3 is 9
+
+00:09:24.959 C of 2 for 10 C of 4 2 is 8
+
+00:09:31.170 C of 2 3 is 9 C of 3 2 is 13 now
+
+00:09:40.529 remaining still functions are there so I
+
+00:09:43.839 will show here C cost of a root from 2
+
+00:09:47.560 to nothing so you are on what X 2 and no
+
+00:09:50.709 other vertex you have to visit because
+
+00:09:52.750 if you see from this 1 from 1 to 4 we
+
+00:09:56.079 have gone from 4 to 3 then 3 to 2 and as
+
+00:10:00.220 first traveling salesperson problem you
+
+00:10:02.410 must go back to the starting vertex
+
+00:10:03.850 again so from 2 we have to go back to
+
+00:10:06.160 vertex 1 again so for 2 to nothing means
+
+00:10:09.190 we have to go back to vertex 1 so 2 to 1
+
+00:10:12.070 is how much 5 so we can replace this
+
+00:10:14.860 with 5 so let us start from here so -
+
+00:10:17.649 nothing will fall to 1/4 - 1 is how much
+
+00:10:20.170 see you can see this column 4 to 1 is 8
+
+00:10:22.329 3 2 1 and 6 2 2 1 is 5 so here I have 4
+
+00:10:27.370 to nothing
+
+00:10:28.149 4 to 1 4 to 1 is how much 8 &amp; 3 to
+
+00:10:32.380 nothing
+
+00:10:32.800 3 2 1 is how much 6 4 to nothing so 4 to
+
+00:10:39.930 1 is 8 2 to 1 s fine 3 2 1
+
+00:10:47.110 s 6 and 2 2 1 s 5
+
+00:10:54.230 so the last level we have the values now
+
+00:10:57.140 just you look at the three ones I am
+
+00:10:59.480 going to substitute the values and get
+
+00:11:01.670 back to the final answer just really
+
+00:11:04.430 have a look at a tree once the tree have
+
+00:11:12.260 expanded so much if we try to use a
+
+00:11:14.720 recursive tree then this is how it will
+
+00:11:17.000 expand so to avoid this we don't follow
+
+00:11:21.050 this method for solving and getting the
+
+00:11:23.480 answer but we will make it as a table
+
+00:11:26.900 and we get the values for this last
+
+00:11:29.600 level first then the upper level then
+
+00:11:32.300 above level then automatically we get
+
+00:11:34.310 dancer so I will show you how actually
+
+00:11:36.500 this is solved this is not the way I am
+
+00:11:38.480 just explaining this one I was just
+
+00:11:40.790 explaining this now let us see what is
+
+00:11:42.920 the way of solving this I'll remove this
+
+00:11:45.560 one here I will write on so actually you
+
+00:11:47.750 will find out the last level values what
+
+00:11:49.910 are those G off we are on the second
+
+00:11:53.510 vertex is nothing is remaining G off we
+
+00:11:56.240 are on the third vertex and nothing is
+
+00:11:58.010 remaining G of your unfold vertex
+
+00:12:00.590 nothing is remaining so we need answer
+
+00:12:02.720 to do nothing total thing is how much 5
+
+00:12:07.300 + 3 - nothing s 6 4 - nothing s 8 see
+
+00:12:18.940 this is like a table will generate
+
+00:12:21.380 actually dynamic programming programming
+
+00:12:24.440 means with tabular values it's not
+
+00:12:26.870 software it's not computer programming
+
+00:12:29.360 programming means table or values
+
+00:12:31.460 dynamic programming dynamic collision at
+
+00:12:34.160 the table actually we should solve it
+
+00:12:37.010 like a recursion but we don't solve it
+
+00:12:38.960 like this we will prepare a table we
+
+00:12:41.960 what values you find out we find out the
+
+00:12:43.760 smaller values first then we can know
+
+00:12:45.860 that this value C unless I know this
+
+00:12:48.110 value it cannot get dance for this this
+
+00:12:50.600 why we followed these now in the next
+
+00:12:53.420 level you will find out these values C
+
+00:12:55.400 what are these 3 to 4 4 to 3 2 to 4 4 to
+
+00:12:59.390 2 2 to 3 3 to 2 so we need these values
+
+00:13:03.350 we are on vertex
+
+00:13:04.880 two and three is remaining we are on
+
+00:13:08.270 vertex 2 and 4 is remaining we are on
+
+00:13:12.680 vertex 3 and what x2 is remaining we are
+
+00:13:16.640 on vertex 3 and vertex 4 is remaining
+
+00:13:19.250 and we are on vertex 4 2 is remaining to
+
+00:13:23.390 be visited what it's for
+
+00:13:25.580 3 is remaining to be visited see here
+
+00:13:29.240 nothing remaining so 2/5 3/5 4/5 now one
+
+00:13:33.140 vertex remaining so if you are one two
+
+00:13:34.790 there are two possibilities three may be
+
+00:13:36.440 remaining or 4 maybe remaining so this
+
+00:13:38.660 way we have taken these functions and
+
+00:13:41.750 that are actually representing this
+
+00:13:43.430 second last level you see 4 2 2 3 3 2
+
+00:13:47.810 all these are representing them now let
+
+00:13:51.320 us see what are these values see this is
+
+00:13:53.570 3 for 3 we are on 3 and remaining is 4
+
+00:13:56.690 so this is 20 so 3 we are on three
+
+00:14:00.320 remaining 4 is 20 so we know this value
+
+00:14:03.350 now I will change it with 20 we are on
+
+00:14:08.510 four remaining what is this 3 so this is
+
+00:14:10.430 15 we are on four remaining what is 3
+
+00:14:13.760 this is 15 so I'll change this value to
+
+00:14:17.420 15 I know the answer now here on what x2
+
+00:14:21.680 remaining value is 4 so this is 18 2 &amp; 4
+
+00:14:25.400 this is 18 I'll replace this with 18
+
+00:14:30.140 Vinod ons are now here we are on 4
+
+00:14:33.260 remaining is true it is 13 we are on 4
+
+00:14:37.250 remaining is - as 13 so we know this
+
+00:14:41.270 answer 13 we are on to remaining is 3 we
+
+00:14:45.740 are on to remaining is 3 is how much 15
+
+00:14:48.650 so this is 15 15 we are on 3 and
+
+00:14:55.160 remaining is 2 so this is 18 so 2
+
+00:14:59.390 remaining we are on 3 and remaining is 2
+
+00:15:01.460 is 18 so this is 18 now I'll show you
+
+00:15:08.900 from the table leave it on one vertex
+
+00:15:11.540 and remaining only one what X was
+
+00:15:13.190 remaining now if we say - what is this
+
+00:15:16.339 what are the possibilities we are on
+
+00:15:18.350 vertex 2 &amp; 3 for our remaining or we are
+
+00:15:26.839 on vertex 3 &amp; 2 for our remaining we are
+
+00:15:31.999 on what X 4 and 2 3 are remaining these
+
+00:15:36.920 are the possibilities see these 3 sets
+
+00:15:40.699 are representing this one we are one two
+
+00:15:44.509 three four remaining three to four
+
+00:15:46.249 remaining four to three minute how to
+
+00:15:50.120 get these values minimum of these two
+
+00:15:52.430 what is minimum 29 and 25 so this is 25
+
+00:15:58.480 25 so this is 25 we don't need this now
+
+00:16:05.300 I will remove this now this is 31 and 25
+
+00:16:11.269 3 to 4 or remaining is 25 25 so I remove
+
+00:16:17.689 this I'll write 25 years now if you do
+
+00:16:21.649 not answer for this also 4 remaining is
+
+00:16:23.870 2 3 this one out of this which is
+
+00:16:26.629 minimum
+
+00:16:27.199 this is 23 and this is 27 so 23 is
+
+00:16:32.240 minimum so 23 is many more no remove
+
+00:16:35.480 this and write 23 now out of these we
+
+00:16:41.870 can find out minimum that will be done
+
+00:16:43.579 so for this so that is finally G of 1
+
+00:16:47.269 and 2 3 4 3 vertices sorry meaning out
+
+00:16:52.939 of the switches minimum this is 35 and
+
+00:16:57.040 this is 40 and this is 43 out of this
+
+00:17:02.689 minimum is 35 so answer is 35 so answer
+
+00:17:07.039 for this one is 35 so the shortest route
+
+00:17:11.510 or for traveling salesperson problem is
+
+00:17:15.339 35 so that's it

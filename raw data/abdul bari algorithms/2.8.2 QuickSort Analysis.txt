@@ -1,0 +1,451 @@
+# 2.8.2 QuickSort Analysis
+
+# https://www.youtube.com/watch/-qOVVRIZzao
+
+
+
+00:00:00.030 now let us look at analysis of quicksort
+
+00:00:03.330 let us analyze it find out its time
+
+00:00:05.910 complexity see one important thing is as
+
+00:00:09.690 a recursive and it is following divide
+
+00:00:12.840 and conquer strategy it is using
+
+00:00:16.440 partitioning procedure partitioning
+
+00:00:18.510 algorithm and the partitioning algorithm
+
+00:00:21.359 will find out the position of P vote and
+
+00:00:23.570 it will divide the list suppose I have
+
+00:00:27.840 the list of elements let us say 1
+
+00:00:31.140 through 15 I have a list of 15 elements
+
+00:00:36.980 then if I call quicksort by passing
+
+00:00:40.739 first index as one and last index as 15
+
+00:00:46.610 suppose it is partitioning at the middle
+
+00:00:51.170 then I am getting elements from 1 to 7
+
+00:00:55.170 on this side and 9 to 15 on this side so
+
+00:01:02.100 partitioning was done at index 8 that is
+
+00:01:05.729 at the middle of a list so elements 1 to
+
+00:01:08.610 7 here and 9 to 15 on this side suppose
+
+00:01:14.369 the partitioning is done in the middle
+
+00:01:16.439 assume this then what about this
+
+00:01:19.320 left-hand side this part and this part
+
+00:01:21.799 assume always partitioning is in the
+
+00:01:24.600 middle then here the middle element will
+
+00:01:29.070 be 4 and this side we get a list from 1
+
+00:01:31.650 to 3 and in this side 5 to 7 similarly
+
+00:01:36.150 if it is happening here then the
+
+00:01:37.500 partitioning will be ad to well
+
+00:01:39.180 middle of a list then we get the
+
+00:01:41.460 elements 9 to 11 here and 13 to 15
+
+00:01:46.399 suppose partitioning is again in the
+
+00:01:48.450 middle then I get one element on this
+
+00:01:50.220 side that is 1 to 1 and 3 to 3 here the
+
+00:01:54.149 partitioning is on 4 so then 5 to 5 and
+
+00:01:58.549 7 to 7
+
+00:02:03.940 parsing is at 10 here 9 to 9 here limit
+
+00:02:08.680 11 and here 13 to 13 14 partitioning is
+
+00:02:14.410 done 15 to 15
+
+00:02:18.510 if partitioning is always done in the
+
+00:02:21.520 middle I have given 15 elements and
+
+00:02:24.250 suppose the partitioning was at 8 and
+
+00:02:26.290 that's all for every node I have written
+
+00:02:28.330 partitioning so the working of the
+
+00:02:30.370 quicksort will be like this then if I
+
+00:02:34.180 analyze this one based on the trainee
+
+00:02:36.630 what the partitioning algorithm is doing
+
+00:02:39.250 it is comparing the element and
+
+00:02:41.140 exchanging them so what is the time
+
+00:02:43.030 taken by this algorithm it is n it will
+
+00:02:46.390 go through an entire list so the time
+
+00:02:49.960 taken for this is n and the time taken
+
+00:02:53.950 at this level this left side and right
+
+00:02:55.600 side together is almost M no doubt one
+
+00:02:59.260 element is reduced but let us say it is
+
+00:03:01.540 n then at this level also it is N and
+
+00:03:06.310 that's all that is the end of the level
+
+00:03:09.209 then what is the height of a tree see it
+
+00:03:13.660 was 15 / - is it as the partitioning is
+
+00:03:17.350 always in the middle half half the side
+
+00:03:19.989 divided by 2 by 2 by 2 when something is
+
+00:03:23.739 getting divided by 2 every time how many
+
+00:03:26.500 times it will divide such that it
+
+00:03:28.239 reaches 1 so if you say n by 2 then by 2
+
+00:03:31.989 then by 2 so how many times such that it
+
+00:03:35.440 becomes 1 1 1 element so this n by 2
+
+00:03:37.989 power K is equals to 1 and n is equals
+
+00:03:40.750 to 2 power K so k is log n B is 2 so yes
+
+00:03:45.850 how many levels are there login levels
+
+00:03:48.700 are there and in each level what is the
+
+00:03:51.430 time taken I am assuming that
+
+00:03:53.190 partitioning algorithm will compare the
+
+00:03:55.480 elements for n times so it's n so the
+
+00:04:02.140 time complexity of quicksort will be
+
+00:04:04.950 order of n log n assume that always
+
+00:04:09.340 partitioning is done in the middle of a
+
+00:04:12.310 list so that assumption has given as
+
+00:04:15.490 this
+
+00:04:16.459 so this will be best case of an
+
+00:04:20.510 algorithm what is the case if the
+
+00:04:23.360 partitioning is always in the middle and
+
+00:04:26.060 what is the time in best case it's order
+
+00:04:29.120 of n log n so the best case time of
+
+00:04:33.050 quicksort is n log in and this will
+
+00:04:36.350 going to achieve only if the
+
+00:04:38.000 partitioning is done in the middle let
+
+00:04:41.030 us see whether this best case is
+
+00:04:42.800 possible or not for that let us know
+
+00:04:47.180 about median what is median if I have
+
+00:04:54.140 the numbers 1 2 3 4 5 6 7 the numbers
+
+00:04:59.750 are sorted and this is the middle
+
+00:05:02.660 element of the sorted list and this is
+
+00:05:05.990 called as median so median is the middle
+
+00:05:09.830 element of self sorted list then the
+
+00:05:16.820 best case of quicksort is always the
+
+00:05:19.370 partitioning should be in the middle so
+
+00:05:22.010 if partitioning is in the middle means
+
+00:05:23.930 the element that is selected as P word
+
+00:05:27.790 should be a median so how can you know
+
+00:05:32.210 median unless the list is sorted we
+
+00:05:34.850 cannot know the median so is it possible
+
+00:05:37.460 that always the element selected is a
+
+00:05:40.250 median and it is sitting in the middle
+
+00:05:41.930 of a list partition in the middle of a
+
+00:05:43.940 list it's not possible randomly it may
+
+00:05:47.300 happen but we cannot control it so
+
+00:05:50.870 achieving best case is not possible in
+
+00:05:53.360 quicksort you cannot achieve it may
+
+00:05:55.370 randomly happen that always the element
+
+00:05:58.280 is median what is the worst case of
+
+00:06:02.330 quicksort suppose I have a list to food
+
+00:06:07.310 8 10 16 18 17 suppose I have a list
+
+00:06:15.830 which is already sorted then if I
+
+00:06:19.520 perform quicksort how it works
+
+00:06:21.940 partition algorithm we saw it will
+
+00:06:24.110 select the first element as pie wood and
+
+00:06:26.150 it will start I here and
+
+00:06:28.280 here I will continue until it finds a
+
+00:06:30.980 greater number so here and J will
+
+00:06:33.290 continue until it finds a smaller or
+
+00:06:35.570 equal number so it's not small not small
+
+00:06:37.850 it's not so it will come and stop here
+
+00:06:40.690 then way the partitioning will be done
+
+00:06:42.889 at the same place now this is sorted so
+
+00:06:46.430 rest of the elements we have to sort so
+
+00:06:49.220 you can see that partitioning will be
+
+00:06:51.080 done in the beginning of a list because
+
+00:06:53.720 the list was already sorted now from
+
+00:06:56.150 this list if I select four where it will
+
+00:06:58.970 be partitioned very it will be
+
+00:07:00.620 positioned finally at the same place
+
+00:07:02.240 again so always the partitioning will be
+
+00:07:05.270 happening in the beginning of a list
+
+00:07:06.890 that is the worst case of quicksort if I
+
+00:07:10.760 give the numbers from one to seven then
+
+00:07:14.030 one will be sorted and on this side I
+
+00:07:16.760 get two to seven then two will be sorted
+
+00:07:20.630 and this side will get the number from
+
+00:07:22.100 three to seven then four to seven then
+
+00:07:26.360 five to seven six to seven and seven to
+
+00:07:32.960 seven now you can see that always the
+
+00:07:37.340 partitioning is happening on the
+
+00:07:38.570 beginning of a list or it can happen at
+
+00:07:40.669 the end of the list also it depends here
+
+00:07:42.979 it is all sorted in ascending order if
+
+00:07:45.140 it is in descending order always will be
+
+00:07:47.060 at the end now what is the time taken
+
+00:07:50.419 here first partitioning algorithm takes
+
+00:07:52.910 makes n combinations then n minus 1
+
+00:07:55.970 comparisons and minus 2 and so on so 2
+
+00:07:59.539 then 1 so what is this equal to this is
+
+00:08:02.840 equal to n into n plus 1 by 2 that is
+
+00:08:06.860 order of n square that's it
+
+00:08:11.630 the worst case time of quicksort is n
+
+00:08:14.660 square worst case time is order of n
+
+00:08:19.340 square best case time of quicksort is n
+
+00:08:23.840 log n which is not possible for us to
+
+00:08:26.300 achieve it but worst case time is n
+
+00:08:29.120 square and when it will happen if the
+
+00:08:31.370 list is already sorted so this is the
+
+00:08:34.010 problem with quicksort that it's worst
+
+00:08:37.458 case is N squared if you compare this
+
+00:08:39.799 with the mossad more sort
+
+00:08:41.490 was not having any best or worst cases
+
+00:08:44.010 it was just average time and logon but
+
+00:08:47.820 here the average time is in log n but
+
+00:08:50.339 the worst case is n square now we need
+
+00:08:53.940 to solve this one how can we reduce this
+
+00:08:57.180 problem see the probability that if the
+
+00:09:00.450 list is already sorted we are again
+
+00:09:03.089 sorting it the chances are high because
+
+00:09:05.970 we want to keep the list in sorted order
+
+00:09:08.070 we will be sorting it again and again so
+
+00:09:10.470 if it is already sorted and you are
+
+00:09:11.880 sorting it then the time is going to be
+
+00:09:13.770 N squared so this is the problem with
+
+00:09:16.589 quicksort so what we do is we say that
+
+00:09:20.420 don't always select the first element s
+
+00:09:23.790 by vote you can select the middle
+
+00:09:27.450 element as before if you select middle
+
+00:09:29.880 element then what happens if you select
+
+00:09:32.550 this one where it will come it will come
+
+00:09:34.050 here only so the partitioning will be
+
+00:09:35.970 done here
+
+00:09:36.660 if partitioning is happening here then
+
+00:09:39.870 the list gets divided into two equal
+
+00:09:41.399 halves that's it if always we select the
+
+00:09:46.290 middle element as pie wood then the
+
+00:09:48.839 partitioning will be done always in the
+
+00:09:50.520 middle of a list because the list is
+
+00:09:52.020 already sorted and that's how it will
+
+00:09:54.540 convert from n square to and log in the
+
+00:09:59.279 worst case will become best case there
+
+00:10:02.430 are two suggestions for improving the
+
+00:10:04.490 worst case of quicksort removing worst
+
+00:10:08.100 case of quicksort always select middle
+
+00:10:11.459 element as pie wood so if the list is
+
+00:10:15.870 already sorted it will become best case
+
+00:10:18.209 that is n log n but still the maximum
+
+00:10:21.810 time will be n square for some element
+
+00:10:24.240 some arrangement of elements other
+
+00:10:27.060 solution is a randomly selects some
+
+00:10:29.399 element s by wood if you randomly select
+
+00:10:32.520 some element SP wood again it will be
+
+00:10:35.520 possible that it may take a log in time
+
+00:10:37.500 or maximum again in square time so
+
+00:10:41.250 always the worst time taken by quick
+
+00:10:44.970 sawdust and square about this
+
+00:10:50.200 complexity quicksort is a recursive
+
+00:10:52.540 algorithm and it doesn't need any extra
+
+00:10:55.360 space but it will use a stack so what
+
+00:10:59.620 could be the maximum size of the stack
+
+00:11:01.750 in worst case it may be n what is the
+
+00:11:05.500 minimum size of the stack in best case
+
+00:11:07.690 the height may be log n so the quicksort
+
+00:11:10.780 takes stock size that is log in to n so
+
+00:11:15.670 how you can know this just now have
+
+00:11:17.740 shown trees in best case the height of a
+
+00:11:20.710 tree was log n so the size of the stack
+
+00:11:23.260 depends on the height of a tree
+
+00:11:24.910 tracing tree and in worst case it was n
+
+00:11:28.740 so maximum size of the stack may be n so
+
+00:11:35.080 that's all about the quicksort this is
+
+00:11:36.520 the

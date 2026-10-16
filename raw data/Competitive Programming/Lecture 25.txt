@@ -1,0 +1,967 @@
+# tactiq.io free youtube transcript
+# Segment Trees explained - LIVE
+# https://www.youtube.com/watch/W4KUVTjh8RQ
+
+00:00:00.240 So this topic today is segment
+00:00:04.160 trees
+00:00:06.720 and what we'll be doing is understanding
+00:00:08.480 them at a deep level. So I'll be
+00:00:10.160 discussing a few things about
+00:00:11.200 segmentries. The first one is
+00:00:14.160 range queries,
+00:00:17.279 right?
+00:00:22.640 and range queries like sum or I'll just
+00:00:26.480 call it f of range x to y where x and y
+00:00:32.640 belong in the array. So 0 to n minus
+00:00:35.840 one.
+00:00:37.360 Okay, so this is the first thing that
+00:00:38.800 we'll be doing and the second thing will
+00:00:40.640 be lazy
+00:00:43.120 propagation.
+00:00:46.559 Lazy propagation basically means that
+00:00:48.079 you need to update which is uh let's
+00:00:50.719 call it u an entire range x to y and
+00:00:54.640 this will be let's say add one to all
+00:00:57.280 the elements between x to y and
+00:00:59.120 subsequent functions uh function calls
+00:01:01.359 of x to y which is getting the sum or
+00:01:03.520 getting the product let's say uh have to
+00:01:06.320 also be done quickly okay so two types
+00:01:09.600 of queries
+00:01:11.280 in the range queries we also need to
+00:01:13.439 allow lazy propagation that's what we'll
+00:01:15.360 be studying
+00:01:16.320 uh and let's first we'll start you know
+00:01:18.880 slow understand the scenario where a
+00:01:20.560 segment tree is used and should be fun
+00:01:25.520 so I'll just open the chat now and you
+00:01:27.439 can all see the chat now [laughter]
+00:01:29.840 and you can see my reaction uh to the
+00:01:32.000 chat
+00:01:34.479 okay please remove the chat section uh
+00:01:37.280 all right can we discuss k minimum
+00:01:39.280 unsorted ar
+00:01:41.759 so segment it is
+00:01:46.560 Okay,
+00:01:49.520 so starting off usually uh the way that
+00:01:51.920 we identify a question requires a
+00:01:53.600 segment tree is if you're given a
+00:01:57.119 question like this where you have range
+00:01:59.040 queries,
+00:02:01.040 right? Uh so [clears throat] maybe
+00:02:02.960 you're given a question for example you
+00:02:05.840 have an array A
+00:02:08.239 from
+00:02:10.000 of size n. So this is the n minus one
+00:02:13.520 index and this is the zeroth index. This
+00:02:15.440 is the first index and so on and so
+00:02:16.720 forth. You have two types of operations.
+00:02:18.480 The first one being an update operation.
+00:02:22.319 Update element
+00:02:24.800 at x
+00:02:26.959 to y and the second type of operation is
+00:02:30.640 query
+00:02:32.239 element
+00:02:34.800 from x to y. So this does not make
+00:02:37.760 sense. So instead we'll have something
+00:02:40.000 which is a aggregation operation given a
+00:02:42.959 range x to y give me the sum of all
+00:02:45.360 elements in that range. Now if you had
+00:02:47.599 been here for the last
+00:02:51.280 you know live chat that we had we did
+00:02:54.080 discuss range queries and they're
+00:02:55.920 exactly as mentioned here. However this
+00:02:58.959 time what we're going to do is solve
+00:03:01.040 them using segment trees which are a
+00:03:02.560 more efficient way of solving these kind
+00:03:04.400 of problems. If you have Q queries, each
+00:03:08.080 query will take you login time and
+00:03:10.720 therefore the overall time complexity at
+00:03:12.640 the end of this should be Q login.
+00:03:16.400 Previously we had discussed square root
+00:03:18.000 decomposition
+00:03:23.440 which takes for Q queries it takes Q
+00:03:26.319 into root time. So per query it had root
+00:03:28.800 10 time complexity and the order
+00:03:30.400 complexity came out to be this.
+00:03:34.560 Okay.
+00:03:36.159 Is is this point clear? Like uh is
+00:03:38.720 everyone understanding why we would need
+00:03:40.560 segmentries.
+00:03:53.360 All right. Rajat says yes. I take that
+00:03:56.159 as a yes for the 110 people watching.
+00:03:59.439 That's how classrooms work, don't they?
+00:04:02.080 Okay.
+00:04:06.480 All right.
+00:04:08.560 So when we're given these kind of
+00:04:09.920 queries, uh there's one brute force
+00:04:11.760 approach that we know. I won't be
+00:04:13.519 discussing it, but the basic approach is
+00:04:16.000 you just
+00:04:19.440 head in the range
+00:04:21.918 from X to Y using a for loop. And the
+00:04:25.040 time complexity for this is at most
+00:04:27.199 order n because the range might be
+00:04:29.040 encapsulating the entire array. uh and
+00:04:31.840 if that is not the case
+00:04:34.400 I mean uh if if the range is or rather
+00:04:36.800 if the query is of the type of update
+00:04:38.880 then it's order one operation.
+00:04:41.759 However, we have to take the worst case
+00:04:43.199 into consideration. So what we'll be
+00:04:45.919 doing is we'll assume every query is
+00:04:47.840 going to be a range query for the entire
+00:04:49.440 array and that is Q into N.
+00:04:52.960 You could optimize it for for a range
+00:04:56.560 query by doing something called prefix
+00:04:58.160 sums like we discussed in the previous
+00:04:59.680 live video.
+00:05:01.600 But even this in the worst case just
+00:05:03.600 flips the update and query time to
+00:05:09.360 order one for the range queries and
+00:05:11.039 order n for the updates. So it still
+00:05:13.039 remains worst case order q into n.
+00:05:17.440 So that's bad. And what we want to do is
+00:05:19.440 we want to reduce the worst case time
+00:05:20.880 complexity because if Q is of the size
+00:05:24.000 10^ 5 and N is of the size 10^ 5 then Q
+00:05:28.000 into N is 10^ 10 and the processors
+00:05:31.680 being offered by compared programming
+00:05:33.600 sites run 10^ 8 computations
+00:05:42.720 in 1 second.
+00:05:45.840 And the whole purpose of this is to
+00:05:48.240 complete 10^ 5 10^ 5 with constraints Q
+00:05:52.960 and N within 1 second.
+00:05:55.440 Okay. So what are the possible
+00:05:57.280 algorithms that we could use? We could
+00:05:59.039 use Q root n like we discussed
+00:06:00.639 previously square root decomposition.
+00:06:02.720 But what we will be using this time is
+00:06:04.560 segment tries. Okay. So that is the
+00:06:06.880 reason why we will be using segmentries.
+00:06:10.960 Now let's get to the algorithm.
+00:06:15.280 I think segmentries are discussed a lot.
+00:06:17.039 A lot of you might have already heard of
+00:06:18.400 it. But what I'm going to try to do here
+00:06:21.280 is to explain the concept in such a deep
+00:06:24.319 level that you know you don't forget it
+00:06:26.479 the next time you try to solve a segment
+00:06:29.120 problem. Also you can then use this as a
+00:06:31.840 base concept to solve a variety of
+00:06:34.960 problems which can be solved. I mean
+00:06:36.400 which require range query um range
+00:06:39.840 queries to be answered.
+00:06:42.479 Okay. So let's imagine our array instead
+00:06:45.120 of being a big block to be
+00:06:49.440 elements spread out elements. And I'm
+00:06:51.840 going to be giving them values. I'm
+00:06:53.680 going to give them a value of min -1 3 7
+00:06:58.960 2 4 8 - 1 0.
+00:07:04.479 And if we count the elements in this
+00:07:05.919 array, it's going to be eight elements,
+00:07:08.240 I think. So that's 1 2 3 4 5 6 7 8. Yes.
+00:07:16.319 Now the thing is I'm going to be given
+00:07:19.039 range queries from X to Y. And this is
+00:07:21.680 my problem. The range queries are the
+00:07:23.440 problem. The updates are really fast.
+00:07:24.960 Updates are order one. Right? So I'm not
+00:07:26.960 so interested in converting A of X to I
+00:07:31.280 and trying to optimize this a lot. I'm
+00:07:33.199 mainly concerned about optimizing my
+00:07:34.639 range queries.
+00:07:36.560 If I could reduce the number of
+00:07:38.720 computations required when I am
+00:07:40.479 answering a range query, I should be
+00:07:42.319 good. I should be able to do well in
+00:07:44.560 this contest. So what I'm going to try
+00:07:46.720 to do is condense the information of
+00:07:49.919 these nodes into smaller nodes into
+00:07:52.080 simpler nodes. Now imagine a tree
+00:07:55.840 structure where every parent answers
+00:07:58.800 something. So what does it answer? Let's
+00:08:01.680 take the first two guys over here and
+00:08:04.720 let's assign them a parent. Okay, binary
+00:08:07.120 trees is what we are comfortable with.
+00:08:09.440 So binary trees is what we will be
+00:08:11.280 using.
+00:08:14.160 Minus one three have a parent. What
+00:08:17.360 should this parent answer? It should be
+00:08:18.879 able to answer something which is
+00:08:20.639 relevant to what will be queried. So the
+00:08:23.280 range query and I'm going to be assuming
+00:08:24.800 the range query is a sum query from X to
+00:08:26.720 Y. So give me the sum of all elements
+00:08:29.280 between 1 and two. That's what this
+00:08:31.360 parent will be able to answer
+00:08:32.559 immediately. Uh and to do that it needs
+00:08:35.839 that sum. So it is minus 1 and three
+00:08:37.519 which is two.
+00:08:39.440 Okay. This is the sum of all elements
+00:08:42.640 between 1 to two. I've taken one base
+00:08:45.040 indexing. You can take zero based hands
+00:08:46.800 just the same.
+00:08:49.120 Similarly I'm going to be assigning a
+00:08:51.120 parent to these two elements
+00:08:54.160 3 to four. 7 + 2 gives you 9. And going
+00:08:59.760 ahead, uh, I'm going to be giving a 12
+00:09:02.000 over here. And minus1 and 0 give me
+00:09:04.720 minus one.
+00:09:08.080 This looks good. And we can go on up the
+00:09:11.200 tree
+00:09:14.240 and assign similar values this way. But
+00:09:16.320 when we do go up the tree, what we need
+00:09:17.760 to understand is how does this node
+00:09:21.200 answer for the tree? I mean, what is the
+00:09:22.959 responsibility of this node? The
+00:09:25.360 responsibility of this node is the
+00:09:28.080 cumulative responsibility of these two
+00:09:29.600 nodes which is in turn sum from 1 to two
+00:09:34.640 plus
+00:09:37.120 the sum from
+00:09:39.360 3 to 4 right so basically the sum is
+00:09:43.040 from 1 to 4 over here and that I don't
+00:09:46.880 need to compute all four nodes I just
+00:09:48.800 need to compute these two nodes the left
+00:09:50.240 and the right and I get 2 + 9 which is
+00:09:52.160 11 and that's exactly what happens here
+00:09:54.080 if you calculate the whole thing you'll
+00:09:55.920 get 11 over here
+00:10:00.800 over here I see 12 and minus one and so
+00:10:05.120 the sum of all nodes from 5 to 6
+00:10:09.120 or rather from 5 to 8
+00:10:12.800 is 12 - 1 which is 11 and finally
+00:10:16.560 extending this logic we get the sum of
+00:10:19.360 all nodes from 1 to 8
+00:10:25.760 is 11 + 11 which is 22. And let's just
+00:10:29.519 try to see what happens. -1
+00:10:33.519 + 3 + 7 + 2. And I'll just
+00:10:39.920 bring this down.
+00:10:42.640 48 - 1. So that's 4 + 8 - 1 is 22. And
+00:10:48.720 you're seeing that the topmost node is
+00:10:51.040 actually answering for the entire tree.
+00:10:53.760 This node here.
+00:10:57.600 So all I have done is
+00:11:00.399 aggregate some information onto parents.
+00:11:02.800 Now the parents will be responsible for
+00:11:05.360 the ranges that they represent. Each of
+00:11:07.440 these parents has a particular range. So
+00:11:09.279 this node has the range 5 to 6 and this
+00:11:12.800 node has the range 7 to 8. Right? Now if
+00:11:16.640 I'm asked to find the sum of all
+00:11:18.640 elements from 1 to four, I can do that
+00:11:20.800 in one go. I can just come to this node
+00:11:23.040 and answer.
+00:11:26.880 All right. So before we do that, let's
+00:11:29.360 also try to figure out how do updates
+00:11:30.800 work here? Because updates seem simple.
+00:11:33.760 If it's a single node update, A to X
+00:11:37.200 goes to I mean uh has to change to Y.
+00:11:41.200 This is easy. How? So we go to the index
+00:11:44.399 X. I'm going to assume a of three is
+00:11:46.560 being changed to five. So three is over
+00:11:49.360 here and a of three is being changed to
+00:11:52.240 five. So I'm going to rub this off and
+00:11:55.120 add five over here.
+00:11:59.279 Okay, I'm just going to rub this off and
+00:12:02.560 add five over here. Uh I'll keep the old
+00:12:04.880 value so that it's simpler to
+00:12:06.000 understand.
+00:12:07.920 Now that this has been updated, the
+00:12:09.600 change has to be propagated up its
+00:12:11.360 parent up to its parent because its
+00:12:14.079 parent is responsible for the entire
+00:12:15.600 range which means as the range as an
+00:12:18.480 element in the range has changed the
+00:12:20.240 parent has to change its value.
+00:12:23.680 So from 9 it becomes 5 + 2 which is 7.
+00:12:28.399 From 11 this is its parent which needs a
+00:12:30.880 propagation again. From 11 it becomes 2
+00:12:33.519 + 7 which is 9.
+00:12:37.040 And finally the parent at the root has
+00:12:40.959 to update itself and that becomes 9 + 11
+00:12:44.000 which is 20. So you see a minus2
+00:12:46.480 happened over here. Effectively five was
+00:12:49.680 uh replacing seven. So two two was lost
+00:12:53.200 from the entire sum of the array and
+00:12:54.720 also from each of the sub trees that we
+00:12:56.959 have here. So that's how a update is
+00:12:59.680 propagated.
+00:13:02.720 All right. Is this efficient? Let's
+00:13:05.760 first figure out if our updates are
+00:13:07.279 efficient enough because it doesn't make
+00:13:08.480 sense if our updates are going to be
+00:13:10.000 order n right because uh then we have
+00:13:12.160 kind of defeated the purpose of making
+00:13:14.079 this entire segment tree.
+00:13:16.959 The update hits all the parents all the
+00:13:20.079 ancestors of the node being updated.
+00:13:25.839 The number of ancestors that a node has
+00:13:28.000 is log n. And how do I get to this
+00:13:31.120 number? Well, the total number of nodes
+00:13:33.279 in this, let's figure out the total
+00:13:34.720 number of nodes in this. The last layer
+00:13:37.200 has nodes.
+00:13:40.959 The second last layer has I mean every
+00:13:43.839 two nodes in the last layer is making
+00:13:45.360 one node. So the second last layer has n
+00:13:47.200 by2 nodes.
+00:13:50.000 The third last layer has n by four
+00:13:51.600 nodes.
+00:13:53.839 The fourth last layer has n by eight
+00:13:55.200 nodes and so on and so forth till we
+00:13:56.639 have just one node remaining.
+00:13:59.680 All right. So effectively what we'll
+00:14:01.120 have is
+00:14:03.279 how much time does it take for n to
+00:14:05.839 convert to one? That's the number of
+00:14:07.839 parents that we have, right? Because
+00:14:10.000 over here we had one parent. Over here
+00:14:11.680 we had another parent. Over here we had
+00:14:13.279 another parent and so on and so forth.
+00:14:17.600 So the time required for n to get to one
+00:14:20.560 when being divided by two consecutively
+00:14:22.320 is going to be log n to the base 2. And
+00:14:25.600 you can see this because this n raised
+00:14:27.360 to power I mean divided by 2^ x is equal
+00:14:30.160 to 1. If you do the math over here it
+00:14:32.560 comes out to be x is equal to log of n
+00:14:35.920 to the base 2.
+00:14:37.920 Okay. So the updates are pretty fast.
+00:14:39.680 That's what we have proven. We have a
+00:14:41.360 way to update our tree and the updates
+00:14:43.360 are fast. So we are good here. The main
+00:14:46.079 problem is range queries.
+00:14:49.199 All right. I'll just check your
+00:15:00.639 Okay, my reading speed is really good.
+00:15:02.480 So, I just went through everything
+00:15:05.760 for the range two to three, there is no
+00:15:07.120 parent value. We'll get to that. We'll
+00:15:08.480 get to the point when we have a range
+00:15:10.639 query which is not perfect. I mean,
+00:15:12.880 basically the range queries, you know,
+00:15:14.720 the the author of this question is not
+00:15:16.560 going to be nice and say 3 to four.
+00:15:18.160 they're going to give something weird
+00:15:19.839 like 2 to six or 2 to 5. This is the
+00:15:23.199 point when your segment data structure
+00:15:25.040 has to perform, right? So, let's get to
+00:15:26.639 that
+00:15:30.399 now. Um, okay. Do we really care about
+00:15:33.040 the values? Yeah, I'll just
+00:15:35.680 I'll just use a new
+00:15:38.880 page. And this gives me -1.
+00:15:47.920 So it's -1 372
+00:15:50.959 48 - 1 0. So all right, let's see how
+00:15:55.279 good my memory is. Or even better is
+00:15:57.279 yeah, I have them all here in the cheat
+00:15:58.880 sheet.
+00:16:00.720 - 1 3 7
+00:16:04.160 2
+00:16:06.639 4 8 - 1
+00:16:09.920 4 8 and minus one. So 0 is also here but
+00:16:14.959 uh we'll get to we'll get to the reason
+00:16:17.360 why 0 is not so important over here
+00:16:19.199 because 0 is not adding any value. Of
+00:16:20.959 course it can be updated so yeah that
+00:16:22.560 might change. So let's keep that.
+00:16:25.680 Now our segment tree was being formed
+00:16:27.759 this way. I'll just reconstruct it. So
+00:16:29.759 that it's simple to understand how it is
+00:16:32.160 formed. Each of the parent contains
+00:16:35.440 answers for the entire range. So that it
+00:16:38.720 basically answers for. So this is minus
+00:16:40.800 1 and three that is
+00:16:43.040 2 9 12 and minus one.
+00:16:48.880 They're 11
+00:16:51.040 and this is 11. Again of course we had
+00:16:53.920 updated one of the nodes but it doesn't
+00:16:56.079 really matter. Uh the range query works
+00:16:58.320 even for updated nodes of course.
+00:17:03.120 Now
+00:17:04.959 what is the time required to construct
+00:17:06.640 this tree? Yeah the time required to
+00:17:09.280 construct this tree. The first level the
+00:17:12.160 lowest level has nodes. So that is nodes
+00:17:14.319 that we need to touch. The second level
+00:17:17.119 has one computation left node plus right
+00:17:19.520 node.
+00:17:22.000 And so that is order one. And the number
+00:17:24.959 of nodes you have is whatever number of
+00:17:27.839 nodes you had here divided by two
+00:17:29.200 because every parent represents two
+00:17:31.440 children. So you have n by two nodes
+00:17:33.360 here, nx4 here
+00:17:36.400 and n by 8 dot dot dot all the way up to
+00:17:39.280 one node. So we saw that the time
+00:17:41.360 required to get to the parent is login
+00:17:42.960 n.
+00:17:44.720 But how many nodes do we have in total?
+00:17:48.480 Well, you have n + nx2 + nx 4 + n by 8
+00:17:53.760 plus so on and so forth up to 1. This is
+00:17:56.480 a geometric progression. All I need to
+00:17:58.400 do is take n common and I have basically
+00:18:01.120 if I put one over here top then I have
+00:18:04.160 uh
+00:18:05.919 oh sorry I I don't need to take n
+00:18:08.080 common. Uh this is going all the way up
+00:18:10.000 to one right. So
+00:18:13.840 this is I'll take n common and I'll get
+00:18:19.679 1 + 1x 2 + 1x 4 + 1 by 8 at most up till
+00:18:26.480 infinity. Of course this is much smaller
+00:18:28.720 than infinity. So the number we are
+00:18:30.080 going to get here is going to be smaller
+00:18:31.440 than the approximation we make here.
+00:18:34.559 Okay. Okay. And this is a geometric
+00:18:35.840 series uh which comes out to be the
+00:18:39.600 answer for this entire sum can be
+00:18:41.679 approximated to two. So 2 into n
+00:18:46.799 is the total time you require for
+00:18:48.240 constructing the tree.
+00:18:50.480 So order 2n is basically order n. So
+00:18:54.000 construction is also quite fast. Cool.
+00:18:56.720 So we have constructions fast and
+00:18:58.000 updates fast. We need range queries to
+00:19:00.000 be fast.
+00:19:05.120 Okay, let's see if I can get as much red
+00:19:07.039 ink out of the way so that the plate is
+00:19:10.240 clean. Perfect.
+00:19:14.160 Now for the main guy, the range queries.
+00:19:18.799 Let's take the range
+00:19:21.760 from
+00:19:23.360 1 2 3 4 5 6 7 and 8. We take the range
+00:19:29.280 two to five. This is the range query.
+00:19:32.720 Now you could think of starting from the
+00:19:34.240 bottom but that defeats the purpose
+00:19:35.440 because you have to hit every node. So
+00:19:36.960 instead the important thing over here is
+00:19:40.000 to go from the root and to touch only
+00:19:42.640 those nodes which might be responsible
+00:19:45.520 for the range 2 to 5. So I'm going to
+00:19:47.679 pass in the range 2 to 5.
+00:19:52.480 Now this segment tree at the root is
+00:19:54.559 going to tell me that hey this node
+00:19:56.960 answers for
+00:19:59.440 nodes from 1 to 8. If you're within my
+00:20:02.080 range you can go around. If you have an
+00:20:03.440 intersection with my range basically you
+00:20:04.960 should go to the left and right because
+00:20:06.400 I'm not sure what the answer will be.
+00:20:08.799 However if I entirely lie within the
+00:20:11.039 range that you represent I'm going to
+00:20:13.039 answer immediately.
+00:20:15.039 Right? And that makes sense because when
+00:20:17.679 you look at it, every node is capable of
+00:20:22.480 answering queries for the entire range
+00:20:25.039 that it represents but not for ranges
+00:20:26.880 which might be outside. So if you have a
+00:20:28.799 intersection which is not entirely uh
+00:20:31.039 the range that this represents 1 to 8
+00:20:32.880 then you need to go to the left and
+00:20:34.000 right. So let's just go there left and
+00:20:36.640 right. The left represents range from 1
+00:20:39.520 to 4
+00:20:41.679 and uh 2 to 5 has an intersection with 1
+00:20:44.240 to 4. So
+00:20:46.559 it's an intersection. It's not
+00:20:48.000 completely within 2 to I mean 1 to 4 is
+00:20:50.640 not completely within 2 to 5. So you go
+00:20:53.120 to the left
+00:20:55.600 and you go to the right.
+00:21:00.799 Over here you have the range 1 to 2.
+00:21:04.320 At 1 to2 2 to 5 is intersecting the
+00:21:07.679 range. It's still not completely within
+00:21:09.280 the range.
+00:21:11.280 All right.
+00:21:15.919 I think I kind of messed up over here.
+00:21:23.814 [laughter]
+00:21:25.919 Okay.
+00:21:27.760 Well, we we'll just redraw the whole
+00:21:30.240 thing, but I just need to draw the
+00:21:33.039 nodes, right? Uh and we'll
+00:21:36.000 we'll get to the values in a second, but
+00:21:38.000 the important part part is the logic. So
+00:21:39.679 I'll draw the nodes first
+00:21:42.480 and then we can answer. Okay. So we were
+00:21:45.360 at this point I had said 2 to 5 is the
+00:21:47.600 range that I'm quering
+00:21:50.960 and uh the tree itself had the range 1
+00:21:56.080 to 8. We said that this is not entirely
+00:21:58.320 encapsulated. So we go over here to the
+00:22:01.039 left which is 1 to 4. 2 to 5 has an
+00:22:04.000 intersection which needs
+00:22:08.400 range queries to both its children. 1
+00:22:11.200 to2 has an intersection again range
+00:22:13.760 queries to both of its children gives me
+00:22:16.400 1
+00:22:18.000 and 2 to 2 as ranges. Now 1 one is the
+00:22:21.520 first thing at 1:1 I know that one and
+00:22:26.480 one is entirely outside the range 2 to
+00:22:28.880 5.
+00:22:30.400 So is there any way that
+00:22:33.840 the queried range 2 to 5 is going to be
+00:22:37.200 dealing with this answer over here with
+00:22:39.200 this sub tree over here
+00:22:43.360 and the answer is no.
+00:22:46.159 So if it is no what I need to return is
+00:22:48.480 a null value from this point right I
+00:22:52.400 can't return the answer over here which
+00:22:54.240 is which was I think minus one.
+00:22:57.760 So if I return minus one over here and
+00:22:59.600 the seven over here then that would be
+00:23:01.679 wrong. So I'm going to return a null
+00:23:03.039 value and the null value in my case
+00:23:05.039 because it's a sum query from X to Y.
+00:23:07.679 What I need to do is I need to find a
+00:23:09.600 value such that sum of X comma this
+00:23:12.720 value I'm going to call it I which is
+00:23:14.400 identity is going to be X. Now what
+00:23:17.440 happens when you do X + I = X? You
+00:23:20.720 basically understand that I is equal to
+00:23:22.559 zero.
+00:23:24.240 So in our case the null value is going
+00:23:26.240 to be zero. However, if you were asked
+00:23:28.640 to multiply the left and right sub
+00:23:30.640 trees, that would be mult
+00:23:35.360 XY or X I is equal to
+00:23:42.400 X which means
+00:23:45.919 X into I is equal to X in which case X
+00:23:49.600 would be one. Okay, so this is what a
+00:23:51.440 null value means. Basically, you can you
+00:23:53.280 can return that and it does not affect
+00:23:54.799 the answer. it does not affect the
+00:23:56.159 answer that you're looking for the sum.
+00:23:57.760 So I'm going to be returning a zero over
+00:23:59.280 here.
+00:24:01.520 All right. So it comes over here zero
+00:24:03.679 again. It goes to the right child
+00:24:04.799 because that had been queried 2 to2. 2
+00:24:06.799 to2 entirely falls within the range 2 to
+00:24:09.440 5. And so this parent goes no longer
+00:24:13.760 down the sub tree. There is no space to
+00:24:15.440 go down the sub tree anyways. So it just
+00:24:17.120 returns the value that it has which is
+00:24:19.039 seven. So seven is returned over here.
+00:24:21.760 This parent now condenses these two
+00:24:23.360 values 0 and seven to give seven as the
+00:24:26.960 answer which will be sent up. Okay, of
+00:24:29.520 course it's containing something else.
+00:24:30.960 It's containing I don't really know what
+00:24:33.039 but if this is the case then seven will
+00:24:35.919 go up. Uh now when you come to the right
+00:24:40.159 2 to 5 is the range you're quering
+00:24:44.080 3 to 4 is the range that it completely
+00:24:46.480 encapsulates.
+00:24:51.919 2 to 5 completely encapsulates the range
+00:24:55.520 three to we should answer directly from
+00:24:58.480 this node itself. We should not go down
+00:25:00.559 this sub tree. Yeah.
+00:25:04.159 Because this node has the answer for
+00:25:06.880 both the elements within its range and
+00:25:09.279 your range is completely encapsulated by
+00:25:11.679 the range which uh has been queried
+00:25:13.440 right now. So let's assume that the
+00:25:16.080 answer here is six.
+00:25:20.720 return six. Then the parent then sees
+00:25:24.000 two answers 7 + 6 which is
+00:25:27.760 returned. 7 + 6 is 13.
+00:25:31.120 You come to the right and you know
+00:25:34.400 actually the segment is entirely messed
+00:25:36.960 up because I haven't actually written
+00:25:39.120 down values. So I'll just put in some
+00:25:40.960 fictional values four minus one 3 and 7.
+00:25:45.360 Yeah, this is giving me five. This is or
+00:25:47.760 rather it's giving me three.
+00:25:50.559 This is giving me 10. This is giving me
+00:25:53.200 13. Um
+00:25:57.039 -1 and 7. - 1 and 7 should give me six
+00:26:00.000 here. 6 + 6 is 12 and 13 + 12 is 25.
+00:26:04.400 Yeah, this is the new segment tree and
+00:26:07.200 we are quering for values. So as we know
+00:26:09.919 13 was returned from the left sub tree
+00:26:13.600 using these values.
+00:26:24.080 I just ask you guys, does it make sense?
+00:26:40.000 Okay,
+00:26:44.320 that's assumption. Uh okay. So anyway at
+00:26:46.480 lazy propagation we'll probably get this
+00:26:48.720 sorted.
+00:26:50.240 Now at 13
+00:26:52.960 I have the answer from the left child.
+00:26:54.559 So the function will go to the right
+00:26:55.840 child. It's a recursive function. So I
+00:26:57.600 go to the right child. I see that the
+00:26:59.200 range is
+00:27:01.279 5 to 8.
+00:27:03.840 Go to the left child. Go to the right
+00:27:05.120 child. Uh the reason for this is because
+00:27:07.120 5 to8 is not entirely encapsulated by
+00:27:10.159 two to five. So I go to the right. And
+00:27:13.039 before that I'll actually go to the
+00:27:14.320 left. So 5 to 6 5 to 6 is not entirely
+00:27:17.679 cap encapsulated but it does have some
+00:27:20.000 intersection. So go to the left go to
+00:27:22.320 the right 5 to 5 is entirely
+00:27:25.279 encapsulated by this range
+00:27:28.400 to five. Um and so it'll return the
+00:27:31.919 answer four.
+00:27:34.320 While over here 6 to 6 is entirely
+00:27:37.440 outside the range 2 to 5 and therefore
+00:27:39.200 it returns the answer zero.
+00:27:42.240 So effectively this parent gets 4 + 0
+00:27:45.360 which returns four at the right child. I
+00:27:48.240 see that I have the range 6 to 7
+00:27:52.960 to 8 which is entirely outside the
+00:27:54.960 range. Uh and this returns the identity
+00:27:58.000 which is zero.
+00:28:00.080 At the parent I see 4 + 0 which is
+00:28:03.200 returned four.
+00:28:05.440 And the final answer is 13 + 4 which is
+00:28:08.399 17.
+00:28:10.000 Now let's see if 2 to 5 gives us 17.
+00:28:13.840 This is the this is the range. 7 + 3 is
+00:28:17.039 10 makes this makes it 13 and this makes
+00:28:21.279 it 17. So that's the correct answer.
+00:28:26.399 Okay. So a lot of you must be knowing
+00:28:29.039 about segmentries and range queries. Um
+00:28:32.559 maybe you guys don't know about updates
+00:28:35.440 yet lazy propagation and that's an
+00:28:37.520 interesting thing. But before we get to
+00:28:39.440 that
+00:28:41.360 just to explain the untitled four
+00:28:45.279 like what is the time complexity of
+00:28:46.640 this? The time complexity of this is
+00:28:49.600 login.
+00:28:51.760 Now a lot of people know this but they
+00:28:53.200 don't really understand how this came
+00:28:55.039 about like how is it login? Uh the
+00:28:57.760 reason for this is at when you're given
+00:29:00.880 a range right that range is effectively
+00:29:04.000 a number
+00:29:05.760 the size of that range is going to be a
+00:29:07.279 binary number.
+00:29:10.080 In that binary number you're going to
+00:29:12.159 have powers of two either set to one or
+00:29:15.120 set to zero.
+00:29:16.960 So the total number of nodes that you'll
+00:29:18.640 hit
+00:29:20.559 is going to be log of n because you have
+00:29:24.159 broken the ranges into sizes or powers
+00:29:27.120 of two. Yeah, this is the actual like if
+00:29:29.760 you if you go deep into this then you'll
+00:29:31.520 find out the proof right here. But I'll
+00:29:33.440 give you an even simpler proof.
+00:29:37.039 Just have a look at how the range
+00:29:38.720 behaves. I mean how the segmentry
+00:29:40.720 behaves for different ranges. If you go
+00:29:42.640 for really small ranges. Yeah, really
+00:29:44.960 small meaning a range of a single
+00:29:47.440 element range. In this case, when you're
+00:29:50.240 going to the left and to the right, most
+00:29:52.480 of the right nodes when you're going to
+00:29:54.880 the right are going to fail. Basically,
+00:29:56.799 return you the identity function. And
+00:29:58.080 so, you'll have saved a lot of
+00:29:59.279 computations on the right sub trees
+00:30:05.760 element. In that case, the leftmost sub
+00:30:07.039 trees will
+00:30:09.200 start returning you the identity zeros.
+00:30:11.919 Okay. So, a lot of computations are
+00:30:13.200 saved there.
+00:30:15.679 And effectively you'll be quering just
+00:30:18.000 one node. So that would be login.
+00:30:21.520 You're quering few nodes. On the other
+00:30:23.919 hand, if you increase the range, yeah,
+00:30:26.240 you keep increasing the range from here.
+00:30:28.559 Go to the right, go to the left. What
+00:30:31.120 effectively happens is as you increase
+00:30:33.120 the range, you start hitting parents
+00:30:34.960 more instead of hitting the individual
+00:30:37.039 children.
+00:30:38.720 And if you if you increase it like all
+00:30:40.480 the way uh to the left and rightmost
+00:30:43.440 nodes that you can in the segment tree
+00:30:44.960 then you are just going to answer at the
+00:30:46.240 root node itself. So the number of nodes
+00:30:48.559 you're going to hit is reduced even when
+00:30:50.799 you're increasing the size of the range.
+00:30:55.440 And effectively the maximum number of
+00:30:56.880 nodes you're going to hit are again
+00:30:58.240 login. So login is a good bound that you
+00:31:01.600 have for any kind of range that you have
+00:31:03.679 in the segment tree.
+00:31:06.880 Yeah. So that's an intuitive
+00:31:08.720 explanation. Uh however you can find the
+00:31:11.039 answer in binary numbers because each of
+00:31:13.679 the parents represents a range and the
+00:31:16.080 size of that range is dependent on the
+00:31:17.919 level of that tree effectively making
+00:31:20.880 this binary number of the range uh the
+00:31:24.000 number of computations that you need to
+00:31:25.360 do.
+00:31:36.640 Okay.
+00:31:42.880 Is everything fine? I mean, is everyone
+00:31:44.960 understanding what's going on here?
+00:31:49.279 Okay. Finally, let's get to the
+00:31:51.120 difficult point which is the range
+00:31:52.320 update
+00:31:54.000 and then we can make a few
+00:31:55.360 announcements.
+00:32:02.399 How do I uh talk about the range update?
+00:32:04.480 So now I'll just go slow and explain
+00:32:07.840 how the segment tree has a range update.
+00:32:11.600 Okay. Interestingly if
+00:32:15.679 if I write down the values -1 7 3 4 8 2
+00:32:21.760 and that's it. That's my array. Okay. So
+00:32:23.679 this is my effective array.
+00:32:27.679 If this is the case what I do I mean my
+00:32:29.519 segment tree is expecting a perfect
+00:32:31.519 power of two. Right?
+00:32:33.919 In this case, I can add zeros.
+00:32:37.120 So basically, I'm going to be adding
+00:32:39.039 identities to the last few elements. If
+00:32:41.279 you add multiplication like we
+00:32:42.559 discussed, it's going to be one.
+00:32:45.519 And when I add identities, I'm not
+00:32:47.279 effectively changing the value of the
+00:32:49.519 parent nodes.
+00:32:53.760 Okay. So it's going to be identity over
+00:32:55.360 here. With 8 and two, it's going to be
+00:32:57.120 10. 10 and one. Uh 10 and identity is
+00:32:59.600 going to remain 10. So that's the
+00:33:01.440 special thing.
+00:33:04.159 I mean that's a special case rather
+00:33:06.799 three and four give me seven this gives
+00:33:08.480 me six they both combine to give me 13
+00:33:12.720 and finally uh 10 and 13 combined to
+00:33:15.519 give me 23
+00:33:18.000 okay
+00:33:20.320 now for a harder question u which is
+00:33:22.480 range updates
+00:33:30.240 from x to y so I'll take the assump
+00:33:32.320 assumption this node to this node again
+00:33:35.760 two to five
+00:33:40.320 add one to them add the number one to
+00:33:44.399 all of these nodes I I think I'll take a
+00:33:47.360 better range yeah two to six
+00:33:52.720 add the number one to them or in fact
+00:33:54.960 you can add any number so I'll just add
+00:33:57.200 the number x to
+00:34:02.399 in the range 2 to six. So this is my
+00:34:05.200 effective range and each of these
+00:34:07.120 numbers need to be added with x and x in
+00:34:10.159 my case is three.
+00:34:12.560 So 10 needs to become sorry 7 needs to
+00:34:14.879 become 10. This needs to become six.
+00:34:17.520 This is seven. This is 11 and this is
+00:34:21.359 five. If you do this in the brute force
+00:34:23.280 way, of course the order complexity
+00:34:24.960 comes out to be order n for the update
+00:34:26.639 which is not feasible. So let's try to
+00:34:29.918 do this in the smart way in the
+00:34:31.359 segmentry way.
+00:34:33.918 We come to the root node for the range
+00:34:36.000 update 2 to 6. The same logic is applied
+00:34:40.719 2 to six. What does that mean? It means
+00:34:43.520 that I have in my range 1 to 8 some
+00:34:48.960 nodes being updated. How many nodes in
+00:34:52.320 my range? 2 to 6
+00:34:56.560 and 1 to 8 is my range and 2 to 6 is the
+00:34:58.960 original range. What is the
+00:35:00.079 intersection?
+00:35:01.920 The intersection is
+00:35:04.640 1 2 3 4 5 nodes. Yeah, basically 6 - 2 -
+00:35:10.480 1. This comes out to be five or rather 6
+00:35:14.000 - 2 + 1. So five nodes here. So five
+00:35:17.040 nodes have been added the value three.
+00:35:19.839 What has effectively happened is my sum
+00:35:22.880 has been added with 5 into 3. Correct?
+00:35:26.480 So this is 15. So 23
+00:35:30.960 + 15 is my effective value. So I'm going
+00:35:33.280 to be updating my value. I'm going to be
+00:35:35.599 storing this 15 additional
+00:35:38.240 in my node. Okay. So my answer is 23 +
+00:35:43.440 15. If anyone queries me, I won't just
+00:35:45.520 return 23. I'll return 23 + 15 which is
+00:35:47.680 going to be 38.
+00:35:50.160 Okay, that's the effective value.
+00:35:53.119 Now, just like in a range, you know,
+00:35:55.119 update rather range query, I'm going to
+00:35:57.359 be going to both my children because I'm
+00:35:59.119 not sure of the range encapsulated by 2
+00:36:02.079 to six in my original range 1 to 8. So
+00:36:05.520 here I have
+00:36:07.920 1 to 4 and here I have
+00:36:12.320 5 to 8.
+00:36:15.200 Okay, original range is 2 to 6 1 to 4
+00:36:19.040 there is an intersection. What is the
+00:36:20.720 size of the intersection?
+00:36:23.920 You can see that in 1 to 4
+00:36:28.720 and 2 to 6
+00:36:32.880 I have nodes 2, three and four falling
+00:36:37.119 in this range. That's three nodes. But
+00:36:39.839 what you can do effectively is update
+00:36:43.119 the range like instead of passing two to
+00:36:45.839 six when you're going to the right child
+00:36:48.400 pass the rightmost
+00:36:51.040 of either the query or the
+00:36:54.240 or the range that you are handling.
+00:36:56.480 Right? So you will have instead of two
+00:36:58.079 to six being passed you will have two to
+00:37:01.839 four being passed here. Yeah. And this
+00:37:04.480 way you can easily figure out what is
+00:37:06.240 the intersection of the range.
+00:37:08.560 Okay, so 2 to 4 is passed in 1 to 4 is
+00:37:13.040 the original range. How many nodes do we
+00:37:14.800 have intersecting? Three nodes quite
+00:37:16.560 obviously. So
+00:37:19.760 protein will have an update of three
+00:37:22.800 nodes
+00:37:25.359 having added the value three which is 9.
+00:37:29.359 Okay, so effectively 13 is going to be
+00:37:32.240 13 + 9 which is 22.
+00:37:36.720 Okay. And we'll see how this works out.
+00:37:39.359 Again, 13 does not know the exact I mean
+00:37:42.560 does not entirely have its range
+00:37:44.880 encapsulated by the original one. So we
+00:37:46.400 go down and over here we come
+00:37:51.119 to 1 to two.
+00:37:53.359 1 to two. How many nodes does 1 to two
+00:37:55.119 have in its range?
+00:38:00.480 Well, two to six. So it's kind of
+00:38:02.800 obvious. Uh there's just one node. So
+00:38:04.720 it's going to update its
+00:38:07.119 itself with a plus three. So that is the
+00:38:09.520 lazy propagation bit.
+00:38:11.920 Okay. And we come to the left node. We
+00:38:14.640 see nothing needs to be added because
+00:38:17.200 this is 1 to one entirely outside the
+00:38:18.960 original range 2 to six. And so we do
+00:38:21.839 nothing over here. And we return zero. I
+00:38:24.160 mean we don't need to return zero
+00:38:25.359 because this is a update. So we do
+00:38:27.119 nothing. Just return the function.
+00:38:30.480 On the right hand side
+00:38:32.880 there is nothing more to go. I mean
+00:38:34.079 there's no other leaf nodes. This is the
+00:38:36.079 leaf node. So we just update this value
+00:38:40.240 from 7 to 10.
+00:38:45.119 Okay.
+00:38:47.680 Now let's come to the right. Yeah.
+00:38:49.599 Because the function returns returns
+00:38:51.839 goes over here returns and then it goes
+00:38:54.720 to the right.
+00:38:56.800 This node has the value effectively 22,
+00:38:59.440 right? Because 9 is over here.
+00:39:04.240 And at this point, what's going to
+00:39:06.240 happen is
+00:39:09.280 3 to 4 is entirely encapsulated by the
+00:39:11.680 range 2 to 6. So it's not going to
+00:39:15.359 propagate
+00:39:17.520 this update down. It's just going to
+00:39:19.520 keep that update here. It's going to say
+00:39:22.960 keep the update and tell me what is the
+00:39:25.760 what is the change. It's the change is
+00:39:28.640 two nodes. So that is going to be
+00:39:33.839 2 into 3 which is six. So six is going
+00:39:36.800 to be kept over here.
+00:39:40.160 Okay, is that making sense?
+00:39:52.240 All right, I think it is.
+00:39:55.920 And in fact the thing about lazy
+00:39:57.920 propagation is that you can update
+00:40:00.079 values. You can update all values uh as
+00:40:03.920 long as
+00:40:06.960 as long as you know you have an
+00:40:08.320 intersection. So every time there's
+00:40:09.359 intersection effectively what you do is
+00:40:10.560 you just send this value upstairs. This
+00:40:13.200 value also goes upstairs. So uh you
+00:40:16.000 don't need to do this on the spot like
+00:40:17.520 the nine that I added over here. It can
+00:40:19.359 be done through upward propagation
+00:40:21.280 again. But you know this is one way it's
+00:40:25.200 an easier way to think of when you're
+00:40:26.720 going down you just keep updating every
+00:40:28.320 node.
+00:40:30.320 Now coming to this node because we have
+00:40:32.079 returned the function and it comes to
+00:40:33.359 the right uh 5 to 8 2 to 6 is what we
+00:40:38.240 need. So two nodes over here this value
+00:40:40.960 becomes 16.
+00:40:44.640 We come to the left over here. We have
+00:40:47.200 two more nodes and you should not
+00:40:49.599 propagate downwards because this node
+00:40:51.119 ental is encapsulated by the range that
+00:40:53.760 we have. So it's going to be storing 10
+00:40:56.480 and the value six. Similar to this seven
+00:41:00.000 and the value six over here six and the
+00:41:03.839 value three
+00:41:05.839 rather you can just store 9 over here.
+00:41:08.880 Yeah.
+00:41:12.640 and store 22 over here
+00:41:15.839 and this function has still not
+00:41:17.599 returned. So we are going down.
+00:41:19.920 So uh we come over here this is 10 and
+00:41:22.720 six lazy propagation 6
+00:41:27.359 and finally when we return this value
+00:41:29.359 changes
+00:41:31.119 to 38 because we have 16 + 22 which is
+00:41:35.040 38. Yeah, we could have done it on the
+00:41:36.880 spot, but you can also do it through
+00:41:39.359 returning the function
+00:41:46.319 guys. Is this bit clear?
+00:41:54.720 Okay. And that is basically lazy
+00:41:56.480 propagation
+00:42:00.400 kind of antilimax, isn't it?
+00:42:07.359 Why is this special though? Why how is
+00:42:09.200 this actually helping us? Well, the
+00:42:12.000 range update took us login time just
+00:42:13.839 like the range query took us.
+00:42:17.440 But what is even more special about this
+00:42:19.280 is that what if your next ask to query
+00:42:22.319 the range
+00:42:24.079 five to five. Yeah, in that case this
+00:42:26.960 node has not been updated. And if you
+00:42:28.720 use the simple update logic, you're
+00:42:31.440 going to come over here and answer eight
+00:42:33.520 while actually the answer should be 8 +
+00:42:35.599 3, right? Which is 11. So how you going
+00:42:38.720 to take care of that? The only thing is
+00:42:40.400 when you're doing the range query, you
+00:42:41.599 go down, you go down and at any time
+00:42:43.359 when you see an additional value here,
+00:42:46.000 right? Uh and you see that this node
+00:42:47.920 needs to be needs to be queried on both
+00:42:50.400 sides, you split this value. You split
+00:42:52.960 this value onto both nodes. You go to
+00:42:55.280 the left, you go to the right and you
+00:42:56.560 add plus six.
+00:43:00.160 I mean uh the the value has to be three
+00:43:02.480 actually. That's that's the whole point.
+00:43:04.560 Three has to be added to all values
+00:43:06.000 within the sub in the children. So three
+00:43:09.119 has to be added over here. Three has to
+00:43:10.640 be added over here. This becomes 11 and
+00:43:13.440 this becomes five. Yeah. So the original
+00:43:16.560 thing that I was talking about adding
+00:43:19.599 you know different values is not
+00:43:21.599 correct. you should be adding the value
+00:43:24.000 x to this node. That signifies that all
+00:43:27.680 nodes within it have been added by the
+00:43:29.839 value three. So that's what's happened
+00:43:31.839 here. Similarly, if the range query is
+00:43:34.800 this range,
+00:43:37.200 when you come down over here, it's fine.
+00:43:39.839 The answer is 10. This is correct.
+00:43:41.680 However, over here, the answer should be
+00:43:43.280 six. 3 + 3 should be six. So when you
+00:43:47.280 come to this point
+00:43:49.520 u seven
+00:43:52.319 and three so
+00:43:55.520 you know when you're splitting over here
+00:43:57.119 that you need to add three to both its
+00:43:58.640 children. So 3 + 3 will become six and
+00:44:01.760 over here 4 + 3 is going to become
+00:44:03.680 seven.
+00:44:05.200 So now your
+00:44:07.440 range is being propagated down lazily
+00:44:09.760 and that's the reason why it is lazy
+00:44:11.040 propagation.

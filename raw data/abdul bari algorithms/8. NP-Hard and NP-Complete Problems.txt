@@ -1,0 +1,1429 @@
+# 8. NP-Hard and NP-Complete Problems
+
+# https://www.youtube.com/watch/e2cF8a5aAhE
+
+
+
+00:00:00.060 the topic is np-hard and np-complete
+
+00:00:02.970 this is the most important topic and
+
+00:00:05.520 also this is the most confusing topic
+
+00:00:07.550 but I guarantee that I will make these
+
+00:00:10.530 concepts very much clearer for you and
+
+00:00:13.969 one more thing don't watch this video if
+
+00:00:16.890 you are in hurry watch it when you are
+
+00:00:19.080 really prepared to watch this one when
+
+00:00:21.119 you are ready to watch this one ok let
+
+00:00:24.449 us start what this problem is see
+
+00:00:26.960 actually this topic is a research topic
+
+00:00:29.849 and this is related to research so what
+
+00:00:33.390 is there for doing research here first
+
+00:00:35.850 let us know about that see all the
+
+00:00:39.180 algorithms that we know or already we
+
+00:00:41.730 have learned I have written them here
+
+00:00:45.500 these are the algorithms which takes
+
+00:00:47.969 polynomial time and these are the
+
+00:00:50.190 algorithms which takes exponential time
+
+00:00:52.940 the problems for which we know the
+
+00:00:55.559 algorithms which take polynomial time
+
+00:00:57.809 like searching algorithm
+
+00:01:00.270 the problem is searching and the
+
+00:01:02.250 algorithms are linear search binary
+
+00:01:04.890 search this takes n time and this is
+
+00:01:06.930 login time and this n square for sorting
+
+00:01:09.689 and merge sort is faster than that that
+
+00:01:11.970 is n log n likewise 0 knapsack problem
+
+00:01:15.750 which takes 2 power n time and traveling
+
+00:01:18.780 salesperson to Warren all these are
+
+00:01:21.030 exponential they may be taking any into
+
+00:01:23.280 2 power N or some is n power n some are
+
+00:01:25.770 but I just wrote them as 2 power n in
+
+00:01:28.829 common to show that door
+
+00:01:30.479 those are exponential now here we have
+
+00:01:34.229 categorized the algorithms into two one
+
+00:01:37.860 is polynomial time taking algorithms and
+
+00:01:41.270 exponential time taking algorithms what
+
+00:01:45.479 is the scope for doing research here let
+
+00:01:48.240 us see see for searching we have a
+
+00:01:50.790 linear search algorithm which takes
+
+00:01:52.710 order of n time and faster than that is
+
+00:01:55.079 a binary search which takes log n time
+
+00:01:56.969 we are in search of algorithm which is
+
+00:02:00.420 much faster than this one that is order
+
+00:02:03.240 of 1 time we want some searching
+
+00:02:04.799 algorithm we take for a fun time
+
+00:02:06.509 similarly the fastest sorting algorithm
+
+00:02:09.149 takes order of n log N
+
+00:02:10.669 and one of the sorting is Mirsad we want
+
+00:02:13.670 faster sorting algorithm that should
+
+00:02:15.770 take order of end time faster than this
+
+00:02:18.200 one similarly for these exponential time
+
+00:02:21.800 algorithms we want polynomial time
+
+00:02:24.830 algorithms all these problems which are
+
+00:02:28.100 taking exponential time we want faster
+
+00:02:30.200 and easy method to solve them in just
+
+00:02:32.660 polynomial time because to power N or n
+
+00:02:35.239 power n or v power and anything is much
+
+00:02:38.269 bigger than polynomial time even any
+
+00:02:42.470 power 10 is smaller than 2 power n for
+
+00:02:45.920 some large values of n even n power
+
+00:02:48.470 hundred is also smaller than 2 power n
+
+00:02:51.290 for some very large values of n so these
+
+00:02:55.340 are very time-consuming algorithm so we
+
+00:02:57.920 want polynomial time algorithm for them
+
+00:03:00.250 this is the requirement and even for
+
+00:03:03.019 this also we want faster algorithms this
+
+00:03:05.630 is the requirement now this is a
+
+00:03:07.190 research area the person from computer
+
+00:03:09.170 sciences or from mathematics can solve
+
+00:03:11.690 these problems so people have been doing
+
+00:03:14.120 research on this one but there is no
+
+00:03:17.359 solutions found so far yet for solving
+
+00:03:20.480 these problems in polynomial time then
+
+00:03:23.690 when the research work is going
+
+00:03:25.549 fruitless right we want something such
+
+00:03:29.480 that whatever the work be done should be
+
+00:03:31.910 useful so there are guidelines or see we
+
+00:03:35.660 can say framework made for doing
+
+00:03:38.840 research on these type of problems that
+
+00:03:41.030 is exponential type of problem and that
+
+00:03:44.090 framework is and be hardened and be
+
+00:03:46.970 complete or guidelines that is a part of
+
+00:03:49.790 framework is NP hardness be complete so
+
+00:03:52.880 let us see what is the basic idea behind
+
+00:03:55.220 that so there are two points that I am
+
+00:03:57.560 going to tell you based on this the
+
+00:03:59.120 entire topic is based on these two
+
+00:04:01.010 points only I'll discuss them in very
+
+00:04:03.560 much detail but just I am Telling You
+
+00:04:05.209 those two points right see first point
+
+00:04:08.290 when you are unable to solve these
+
+00:04:10.459 problems when you are unable to get a
+
+00:04:12.170 solution that is polynomial time
+
+00:04:13.549 algorithm for them then at least you do
+
+00:04:16.459 the work such that you try to show the
+
+00:04:19.159 similarities between them so that if one
+
+00:04:22.400 problem is so
+
+00:04:23.600 all other problems should also be solved
+
+00:04:25.550 we will not be doing research work
+
+00:04:27.920 individually on each and every problem
+
+00:04:30.080 like I am just trying to solve a
+
+00:04:31.520 knapsack problem and you are working on
+
+00:04:33.470 graph coloring we will not do it
+
+00:04:35.450 individually let us combine them
+
+00:04:37.520 collectively and put some effort such
+
+00:04:39.560 that if one problem is solved all the
+
+00:04:42.050 problems should be solved so for that we
+
+00:04:44.540 have to show the relationship between
+
+00:04:45.950 them association between them to show
+
+00:04:49.250 that the properties they are having are
+
+00:04:50.930 similar so that if one is solved the
+
+00:04:52.970 other can also solve this is the first
+
+00:04:54.890 objective that try to relate the problem
+
+00:04:57.080 either solve it or at least related this
+
+00:04:59.930 is first one second thing is when you
+
+00:05:02.660 are unable to write algorithms for them
+
+00:05:05.990 that is a deterministic
+
+00:05:07.700 why don't you write non deterministic
+
+00:05:09.800 algorithms for them when you are unable
+
+00:05:12.740 to write polynomial time deterministic
+
+00:05:15.410 algorithm why don't you write polynomial
+
+00:05:18.170 time non deterministic algorithms so
+
+00:05:20.720 what are these let us see so these are
+
+00:05:23.540 the two points I have shown you now I
+
+00:05:25.340 will start with non deterministic
+
+00:05:26.660 algorithms then I'll go to the
+
+00:05:28.580 relationship between them once you
+
+00:05:30.380 understand these two things everything
+
+00:05:32.390 is clear let us check let us talk about
+
+00:05:35.450 non deterministic see the algorithms
+
+00:05:37.670 that we write usually are deterministic
+
+00:05:39.950 so what does it mean each and every
+
+00:05:42.200 statement how it works we know it
+
+00:05:44.930 clearly we write the statements we are
+
+00:05:48.020 sure how they work so we know the
+
+00:05:50.060 working of the algorithm so that is a
+
+00:05:51.560 deterministic so we can write
+
+00:05:54.370 non-deterministic algorithm also yes
+
+00:05:57.280 that means we don't know how they are
+
+00:05:59.570 working so how we can write algorithm
+
+00:06:01.640 which we don't know see if I am trying
+
+00:06:04.310 to write a zero of knapsack problem that
+
+00:06:07.640 is polynomial time algorithm I found a
+
+00:06:09.830 trying to write then I may be knowing
+
+00:06:12.350 most of the statements but some of the
+
+00:06:14.360 statements that I may not be figuring
+
+00:06:16.430 out how to make them polynomial so leave
+
+00:06:19.490 them blanks leave them blanks and say
+
+00:06:21.650 this is non deterministic so when I come
+
+00:06:24.290 to know that how it has to be filled I
+
+00:06:26.420 will fill up that statements so in a non
+
+00:06:28.880 deterministic algorithm also
+
+00:06:30.720 the statement may be deterministic but
+
+00:06:32.940 some of the statements are not
+
+00:06:34.200 deterministic so in this way what we can
+
+00:06:36.990 do is by writing non-deterministic
+
+00:06:38.400 algorithm we can preserve our research
+
+00:06:40.980 work so that in future somebody else is
+
+00:06:43.470 working on this same problem he can make
+
+00:06:46.470 that non-deterministic part as
+
+00:06:48.360 deterministic this is the idea so
+
+00:06:51.270 suppose I have spent n2a years to solve
+
+00:06:53.670 this one of the type of problem but I
+
+00:06:56.040 wanna save unable to solve then what all
+
+00:06:58.080 the work that I have done should be
+
+00:06:59.550 preserved in some form so that is the
+
+00:07:01.800 idea behind writing non-deterministic
+
+00:07:03.390 algorithm so how do you write
+
+00:07:05.370 non-deterministic algorithm so here is
+
+00:07:07.590 an example for non-deterministic search
+
+00:07:09.840 algorithm now I will show you what our
+
+00:07:11.940 non-deterministic statements in this one
+
+00:07:13.950 this choice is non-deterministic success
+
+00:07:17.100 and failure these are the known
+
+00:07:19.200 statements that we use for writing non
+
+00:07:21.750 deterministic algorithms so these
+
+00:07:23.580 statements are non-deterministic and we
+
+00:07:25.830 assume that all these statement takes
+
+00:07:27.960 just one unit of time we assume that
+
+00:07:31.290 these are not taking order of one time
+
+00:07:34.250 now let me explain with algorithm this
+
+00:07:37.500 is for searching a key from an an array
+
+00:07:40.800 of size and now let us check see if I
+
+00:07:45.360 just simply look at this algorithm
+
+00:07:47.160 without going into details simply see
+
+00:07:49.290 the statements it seems that the entire
+
+00:07:51.450 algorithm takes order off one time yes
+
+00:07:54.270 this is the constant time algorithm for
+
+00:07:56.640 searching see the fastest search method
+
+00:07:59.820 we know is binary search which takes log
+
+00:08:02.010 in but this algorithm is taking order of
+
+00:08:04.260 one so really it is faster we need this
+
+00:08:07.229 one but this is non-deterministic let us
+
+00:08:09.750 see how this is working I will explain
+
+00:08:12.229 from an array we have to search for key
+
+00:08:15.240 so the first statement is what choice J
+
+00:08:19.050 so choice is called and it has given
+
+00:08:21.990 index J and what we do it is giving us
+
+00:08:25.560 the index of that key element it is
+
+00:08:27.990 saying that that key element is so and
+
+00:08:29.640 so position J and we are checking is
+
+00:08:32.159 that key element is present at J if so
+
+00:08:34.559 then search is successful will write
+
+00:08:36.450 down put am such a successful if the key
+
+00:08:38.940 element is not there at that placements
+
+00:08:41.099 the key element
+
+00:08:41.820 not present in an array when such a
+
+00:08:43.799 search is unsuccessful so we say failed
+
+00:08:47.150 when solution is not there when scheme
+
+00:08:49.860 is not found it's not that it's unable
+
+00:08:52.410 to form it is able to find but the key
+
+00:08:55.350 is not present in an area so so simple
+
+00:08:58.590 now the question is how this choice came
+
+00:09:01.440 to known that the key element is present
+
+00:09:03.270 at g8 index that's what it is
+
+00:09:06.060 non-deterministic once we come to know
+
+00:09:08.610 that we can find out the position of a
+
+00:09:11.550 key element in constant time then we'll
+
+00:09:14.220 fill up this line this is like a blank
+
+00:09:16.800 statement for us now once you fill up
+
+00:09:19.140 this we have an algorithm which is
+
+00:09:20.820 taking order of one time this is how the
+
+00:09:22.890 algorithm non-deterministic algorithm
+
+00:09:24.510 should look like see how this choice is
+
+00:09:28.050 working suppose I have an array of
+
+00:09:30.120 elements if I say keys 9 and search then
+
+00:09:37.020 choice will give me directly index 4 how
+
+00:09:39.840 I don't know without shaking anything
+
+00:09:42.360 without applying any search logic
+
+00:09:44.190 directly it says at index fours in
+
+00:09:46.590 constant time and how it can know that
+
+00:09:49.380 in constant time today we don't know
+
+00:09:51.210 maybe tomorrow we can find out a method
+
+00:09:53.400 to directly get that answer that is the
+
+00:09:56.430 idea behind writing non-deterministic
+
+00:09:58.020 algorithm today tomorrow they may become
+
+00:10:00.720 deterministic by some other researcher I
+
+00:10:03.120 am unable to do it maybe other person
+
+00:10:05.070 will be able to do my work is preserved
+
+00:10:07.970 this is the idea behind it see one more
+
+00:10:11.310 thing I will say that how this choice is
+
+00:10:13.710 for King we don't know when we don't
+
+00:10:16.170 know how the things are working we call
+
+00:10:18.960 it as magic so this is magical now for
+
+00:10:21.450 us once we know how it is working it
+
+00:10:24.330 becomes a technique right it becomes a
+
+00:10:27.780 logic so same way today it's a magic for
+
+00:10:30.420 us so we have written like a magical
+
+00:10:32.400 algorithm tomorrow it will be procedural
+
+00:10:35.310 or it will be having its own logic so
+
+00:10:38.010 once we know that it becomes our
+
+00:10:39.930 deterministic and it will be taking
+
+00:10:41.880 constant time so like this we can write
+
+00:10:45.300 down non-deterministic algorithm for
+
+00:10:47.280 these polynomial time exponential time
+
+00:10:49.350 taking algorithms that is we will write
+
+00:10:51.420 on polynomial time algorithms this is
+
+00:10:54.510 polynomial time
+
+00:10:55.450 not right exponential again it's waste
+
+00:10:57.220 we will be writing non-deterministic
+
+00:10:59.530 which is taking polynomial time for
+
+00:11:02.890 these type of problems which are right
+
+00:11:04.570 now taking exponential time so with this
+
+00:11:07.240 we define two classes here let us see
+
+00:11:10.920 verifying P P is a set of those
+
+00:11:16.890 deterministic algorithms which are
+
+00:11:18.940 taking polynomial time example linear
+
+00:11:22.480 search binary search bubble sort merge
+
+00:11:25.360 sort
+
+00:11:26.050 single source shortest path minimum cost
+
+00:11:28.780 spanning tree optimal merge pattern
+
+00:11:31.930 Huffman coding all these takes
+
+00:11:34.480 polynomial time so all those algorithms
+
+00:11:37.390 which takes polynomial time and the
+
+00:11:39.970 algorithms are deterministic we call
+
+00:11:42.220 them as P and we have one more class of
+
+00:11:45.340 algorithm that is NP these algorithms
+
+00:11:49.090 are non-deterministic but they take
+
+00:11:51.880 polynomial time for whom we will try to
+
+00:11:54.580 write we actually we try to write for
+
+00:11:56.380 these type of problems these are
+
+00:11:58.240 exponential we convert them into
+
+00:12:00.340 polynomial but we don't know how it is
+
+00:12:02.650 possible so we leave the statements non
+
+00:12:05.050 deterministic so algorithm becomes non
+
+00:12:06.940 deterministic so non deterministic
+
+00:12:09.070 polynomial time taking algorithms so
+
+00:12:12.370 deterministic polynomial time taking
+
+00:12:14.140 algorithm and non deterministic
+
+00:12:15.490 polynomial time taking algorithms so P n
+
+00:12:18.610 NP this is famous diagram this is n P
+
+00:12:22.750 and this is P P is shown as subset of NP
+
+00:12:28.590 what does it mean the deterministic
+
+00:12:31.600 algorithms that we know today where the
+
+00:12:35.290 part of non-deterministic algorithm let
+
+00:12:38.170 us say merge sort for example we have
+
+00:12:40.450 found it recently in the past we were
+
+00:12:42.820 not knowing it so it was
+
+00:12:44.410 non-deterministic for us we were not
+
+00:12:46.000 knowing that there is a possible
+
+00:12:47.980 algorithm which takes in log n time we
+
+00:12:51.130 were working in bubble sort maybe so
+
+00:12:53.230 that was taking n square time but
+
+00:12:54.790 recently we found out that more sort
+
+00:12:56.530 which is faster it's taking in log n
+
+00:12:58.060 time so that algorithm was
+
+00:13:01.330 non-deterministic and became
+
+00:13:02.830 deterministic now so this is the idea
+
+00:13:05.830 here
+
+00:13:06.660 so whatever the research work we do and
+
+00:13:08.399 we come up with some new algorithm we
+
+00:13:10.259 say that when we came to know the
+
+00:13:12.449 algorithm that became deterministic so
+
+00:13:14.819 it means it was already there and that
+
+00:13:16.860 was non-deterministic for us right this
+
+00:13:19.769 is the idea set behind this one that is
+
+00:13:22.139 P and NP so today what all we know which
+
+00:13:25.920 are deterministic where yesterday they
+
+00:13:28.319 were non-deterministic and today
+
+00:13:30.389 whichever is non-deterministic tomorrow
+
+00:13:32.459 that will become deterministic so we say
+
+00:13:35.069 that deterministic is a subset of
+
+00:13:36.600 non-deterministic and there is one more
+
+00:13:40.079 cooks theorem here that try to prove
+
+00:13:42.449 that p is a subset of NB or p equal to
+
+00:13:45.149 NP that I will come to it so for the
+
+00:13:47.399 guidelines of research work or the
+
+00:13:49.769 framework for research work I said that
+
+00:13:52.379 there are two things that are important
+
+00:13:54.060 so first thing I have completed that is
+
+00:13:55.949 writing non-deterministic polynomial
+
+00:13:58.439 time algorithms how to write and what is
+
+00:14:01.350 the meaning I have explained that one
+
+00:14:03.000 part I have finished now the second part
+
+00:14:05.189 I said that if you are unable to solve
+
+00:14:07.829 at least show the relationship between
+
+00:14:09.660 them such that if one problem is solved
+
+00:14:12.449 it should be easy for solving other
+
+00:14:14.069 problems also in polynomial time we will
+
+00:14:16.949 not work on each and every problem
+
+00:14:18.420 individually so how to relate them
+
+00:14:21.149 together that is the next thing we will
+
+00:14:23.579 learn so for relating them together we
+
+00:14:26.730 need some problem as a base problem so
+
+00:14:29.939 which problem we take it as a base
+
+00:14:31.529 problem the brains problem is
+
+00:14:34.319 satisfiability problem what is this this
+
+00:14:38.550 is CNF formula that is propositional
+
+00:14:45.480 calculus formula using boolean variables
+
+00:14:49.230 let us say x1 x2 x3 I have three boolean
+
+00:14:53.459 variables like x ir DS then there is a
+
+00:14:57.269 formula that is CNF formula is their
+
+00:14:59.490 example formula am taking that is x1 or
+
+00:15:02.160 x2 bar or x3 and x1 bar or x2 or x3 bar
+
+00:15:12.649 let us take this as an example formula
+
+00:15:15.600 this is CLS propositional calculus
+
+00:15:18.830 formula and it is having clauses let us
+
+00:15:21.560 say C 1 and C 2 these are the clauses
+
+00:15:23.720 and clauses are formed using disjunction
+
+00:15:25.880 and they are joined with congestion so
+
+00:15:28.550 this is CNF formula now what is this
+
+00:15:31.280 satisfiability problem the
+
+00:15:33.170 satisfiability problem is to find out
+
+00:15:35.990 for what values of x i this formula is
+
+00:15:39.740 true so what are the possible values of
+
+00:15:42.890 x I see x1 x2 x3 as these are boolean so
+
+00:15:47.870 they can be 0 or 1 so they can all be 0
+
+00:15:50.720 or this can be 1 or this can be 1 or
+
+00:15:53.480 these two are 1 0 0 1 0 1 1 1 0 1 1 1 so
+
+00:16:00.400 there are 8 possibilities I should try
+
+00:16:03.980 all these 8 possibilities and place them
+
+00:16:06.980 here and check for which of these values
+
+00:16:09.140 this is true and I should find out all
+
+00:16:11.600 possible values for which it is true so
+
+00:16:14.990 how much time it will take for solving
+
+00:16:16.670 this one so how many values I should try
+
+00:16:18.590 8 8 is what 2 power 3 so 4 n variables
+
+00:16:24.140 it will be 2 power and so this is also
+
+00:16:27.950 exponential time taking problem this is
+
+00:16:30.770 2 power n that is exponential time so
+
+00:16:34.160 this is similar to this they are also
+
+00:16:37.130 taking 2 power n or exponential so this
+
+00:16:39.920 is also taking exponential time so this
+
+00:16:42.320 belongs to the same category now these
+
+00:16:44.840 values even I can show them in the form
+
+00:16:47.000 of a state space tree I will prepare a
+
+00:16:49.400 state space tree for this a solution for
+
+00:16:51.710 this problem I can say that X 1 is 1 or
+
+00:16:55.130 X 1 is 0 or X 2 is 1 or X 2 is 0 or X 2
+
+00:17:02.120 is 1 or X 2 is 0 there are 3 variables
+
+00:17:05.270 so X 3 it can be 1 or 0 1 or 0 1 or 0 1
+
+00:17:15.380 or 0
+
+00:17:17.859 now the paths from root to the leaf of
+
+00:17:21.470 these tree gives a solution like 1 0 1
+
+00:17:26.720 this one if I take this this is 0 1 1
+
+00:17:31.100 so this is showing all eight possible
+
+00:17:33.970 values of x1 X I X 1 2 X 3 so this is
+
+00:17:40.789 represented in the form of a state space
+
+00:17:43.010 tree so this problem can also be
+
+00:17:45.970 represented in the form of a state space
+
+00:17:48.860 tree now what we have to do we have to
+
+00:17:51.650 show that these are similar to this one
+
+00:17:54.380 such that if satisfied satisfiability
+
+00:17:57.650 solved in polynomial time all can be
+
+00:18:00.320 solved in polynomial time or any one of
+
+00:18:03.260 them is solved then all of them can be
+
+00:18:05.030 solved in polynomial time so this is the
+
+00:18:07.490 idea we have to relate these problems so
+
+00:18:09.980 that we don't have to solve them
+
+00:18:11.120 individually if one is solved all are
+
+00:18:13.010 solved now how to prove that there are
+
+00:18:15.140 different methods for showing that but
+
+00:18:17.210 to make it simple and understand I will
+
+00:18:19.789 show you here only by taking zero-one
+
+00:18:22.130 knapsack problem by using this tree let
+
+00:18:25.010 me take an example of zero a knapsack
+
+00:18:26.960 problem here I have an example of zero a
+
+00:18:29.330 knapsack problem there are three objects
+
+00:18:31.370 given for each object there is some
+
+00:18:33.230 profit and there is some weight and the
+
+00:18:34.760 capacity of the bag is eight we have to
+
+00:18:37.309 fill up the bag such that the profit is
+
+00:18:39.320 maximized and we should not exceed the
+
+00:18:41.570 capacity of the back then to give the
+
+00:18:43.760 solution for the zero of a knapsack
+
+00:18:45.110 problem I can write down solution in the
+
+00:18:47.600 form of X I that is first value or
+
+00:18:50.090 second and third value can be either 0
+
+00:18:52.370 or 1 or 0 or 1 or 0 1 means all these
+
+00:18:56.690 values x1 x2 and x3 can be either 0 0 0
+
+00:19:01.250 or 0 0 1 or 0 1 0 so how many
+
+00:19:04.100 possibilities are there
+
+00:19:05.330 to power tree so it means for n objects
+
+00:19:08.780 it will be 2 more n so the solutions
+
+00:19:11.690 that are required for this one are
+
+00:19:13.309 similar to satisfiability problem how we
+
+00:19:17.210 solve satisfiability same way we have to
+
+00:19:19.669 try for zero-one knapsack daley have to
+
+00:19:22.100 see formula is true or not here we have
+
+00:19:24.710 to see whether the profit is maximized
+
+00:19:27.409 or not so it means this problem can also
+
+00:19:29.960 be solved using state space tree orderly
+
+00:19:32.330 you can check some video for 0 and
+
+00:19:34.159 knapsack problem I have drawn a state
+
+00:19:36.320 space tree so I will show one thing now
+
+00:19:40.490 I have removed both the problem there is
+
+00:19:42.919 no satisfiability for
+
+00:19:44.210 there is no suitable knapsack problem
+
+00:19:45.980 here now can you tell me this tree
+
+00:19:48.080 belongs to whom this tree is showing the
+
+00:19:51.290 solutions for satisfiability or zero one
+
+00:19:54.530 this is for booth so this is how I am
+
+00:19:57.680 relating them right there are defects
+
+00:19:59.390 there is a different method for relating
+
+00:20:01.100 okay that we will learn in the next
+
+00:20:02.510 video you can watch it but here I am
+
+00:20:04.790 relating like this so you can clearly
+
+00:20:06.290 see that if you can solve this one this
+
+00:20:09.680 state space tree in polynomial time then
+
+00:20:11.900 means you can get the solution for this
+
+00:20:13.910 one also in polynomial and this one also
+
+00:20:16.040 in polynomial so that's how we show the
+
+00:20:19.040 relationship between these problems by
+
+00:20:21.080 taking this as a base problem now I will
+
+00:20:24.020 add this one also there in the list
+
+00:20:27.520 satisfiability I also I have included in
+
+00:20:29.960 this exponential time algorithms now we
+
+00:20:32.810 coined one down that is np-hard what is
+
+00:20:37.340 this I'll explain but let us call them
+
+00:20:40.790 simply as hard problem all these are
+
+00:20:43.430 hard problems but first of all let me
+
+00:20:46.100 call it as hard but satisfiability as we
+
+00:20:49.490 have taken it as a base problem so I
+
+00:20:51.200 will say that is np-hard
+
+00:20:52.930 what does npl explain afterwards let us
+
+00:20:55.970 simply call it this is np-hard and this
+
+00:20:59.330 all I am saying hard problems they are
+
+00:21:01.400 taking exponential time they are not
+
+00:21:03.440 np-hard then I was saying that we have
+
+00:21:06.230 to show that these are related to
+
+00:21:07.760 satisfiability only so that is that is
+
+00:21:09.920 all all can be solved now how to show
+
+00:21:12.200 the relationship is the procedure is
+
+00:21:14.600 reduction so what this reduction is we
+
+00:21:21.590 take let us say example satisfiability
+
+00:21:24.830 problem and we take one of the problem
+
+00:21:27.440 for example zero-one knapsack problem
+
+00:21:30.730 and we say that satisfiability reduces
+
+00:21:34.640 to zero a knapsack problem what does it
+
+00:21:37.700 mean what we saw we show that we take
+
+00:21:41.300 some instance of satisfiability that is
+
+00:21:44.900 one formula we take and that formula
+
+00:21:47.630 from that formula will convert into a
+
+00:21:49.870 zero-one knapsack problem we take an
+
+00:21:53.900 example of satisfiability problem and
+
+00:21:56.580 convert that problem into zero and have
+
+00:21:58.440 sat on them and we say that if this 0 a
+
+00:22:02.100 knapsack problem can be solved in
+
+00:22:03.900 polynomial time and that same algorithm
+
+00:22:06.960 can be used for solving this also in
+
+00:22:09.720 polynomial time so that's how it means
+
+00:22:13.890 if this is solved that can be solved if
+
+00:22:15.720 that is solved this can be solved if
+
+00:22:17.490 some algorithm is solving this one in
+
+00:22:19.560 polynomial time then same algorithm can
+
+00:22:22.140 solve this one also in polynomial time
+
+00:22:24.180 now who is solved first that is a
+
+00:22:25.800 different thing but this how we show
+
+00:22:28.050 that they are related to one another
+
+00:22:29.700 anyone you solve all the other one will
+
+00:22:32.700 also be automatically solved so how we
+
+00:22:34.350 show the relationship we take an example
+
+00:22:36.440 formula and that formula will convert
+
+00:22:39.120 into zero on that sub problem and this
+
+00:22:41.160 conversion for conversion we will not
+
+00:22:43.530 take much time we take polynomial time
+
+00:22:45.360 only we take polynomial time we don't
+
+00:22:48.420 take exponential conversion itself is
+
+00:22:50.220 taking exponential time then it's of no
+
+00:22:52.200 use so conversion will be done in
+
+00:22:54.300 polynomial time this is one important
+
+00:22:56.850 thing next I said that this is np-hard
+
+00:23:02.630 let us call it as and be hard
+
+00:23:06.440 satisfiable it is np-hard
+
+00:23:08.430 this is np-hard right if satisfiability
+
+00:23:14.670 is ready using two zero one knapsack
+
+00:23:16.860 problem then this also becomes np-hard
+
+00:23:20.900 now this problem comes into the class of
+
+00:23:24.570 np-hard this means that if you solve any
+
+00:23:27.030 one the other one automatically gets
+
+00:23:29.010 solved so means we have proved the
+
+00:23:31.200 relationship between them so if you are
+
+00:23:34.760 showing that satisfiability radius to
+
+00:23:37.530 some problem L then if it is proved then
+
+00:23:41.910 this also becomes np-hard this also
+
+00:23:45.150 becomes np-hard and one more thing this
+
+00:23:48.450 reduction has a transitive property if
+
+00:23:51.500 satisfiability is reducing to l1 then l1
+
+00:23:55.950 is also in Bihar and if l1 is reducing
+
+00:23:58.800 to l2 then l2 also becomes np-hard means
+
+00:24:02.730 if I have shown 0 1 is reduced by a
+
+00:24:06.210 satisfiability then I can show graph
+
+00:24:08.550 coloring reduce
+
+00:24:09.670 zero-one are some of the subsets reduced
+
+00:24:11.920 by graph coloring or Hamiltonian is
+
+00:24:14.020 reduced by graph coloring I can show it
+
+00:24:16.150 like this so you don't have to bring all
+
+00:24:18.670 of them on to satisfiability only you
+
+00:24:21.250 can show others one any one of the
+
+00:24:23.260 problem related to that right either
+
+00:24:25.930 satisfiability or zero one so this is
+
+00:24:30.250 np-hard
+
+00:24:31.180 if satisfiability reduces to any problem
+
+00:24:34.300 that that problem also becomes np-hard
+
+00:24:36.690 now one more important thing
+
+00:24:39.540 satisfiability if it is reducing to some
+
+00:24:42.220 problem then that problem is also
+
+00:24:44.650 becoming and be hard so this is one
+
+00:24:48.010 thing that is showing relationship and
+
+00:24:49.630 one more thing we were doing that we
+
+00:24:51.490 were writing non deterministic
+
+00:24:52.600 algorithms so do we have a non
+
+00:24:55.720 deterministic algorithm for any of this
+
+00:24:58.540 problem yes one of the problem that is
+
+00:25:00.790 we know it is proved it is there that is
+
+00:25:03.720 satisfiability problem for this we have
+
+00:25:06.670 a non deterministic polynomial time
+
+00:25:08.560 algorithm its existing it's existing so
+
+00:25:13.830 satisfiability is np-hard as well as
+
+00:25:16.960 this is NP complete this np-complete if
+
+00:25:25.240 any problem is having non-deterministic
+
+00:25:27.100 time algorithm then that problem also
+
+00:25:29.530 becomes np-complete
+
+00:25:31.510 so satisfiability is a known np-complete
+
+00:25:34.320 problem so for any of these problems if
+
+00:25:38.560 this problem is reduced by a
+
+00:25:40.930 satisfiability so this is np-hard this
+
+00:25:44.830 is np-hard and if you write a
+
+00:25:47.350 non-deterministic polynomial time for Al
+
+00:25:49.510 Gore algorithm for this one then this
+
+00:25:51.760 also becomes np-complete np-complete so
+
+00:25:58.960 for doing research walk on any problem
+
+00:26:02.350 of your problem then you have to do two
+
+00:26:05.020 things one you have to show that this is
+
+00:26:07.510 a directly or indirectly related to
+
+00:26:09.520 satisfiability and you should write a
+
+00:26:13.270 non deterministic algorithm for your
+
+00:26:15.190 problem if you complete the first part
+
+00:26:18.460 that is shown that it is reducible
+
+00:26:20.290 satisfiability then your problem
+
+00:26:22.960 became a part of np-hard class and if
+
+00:26:26.679 you have also written a
+
+00:26:27.669 non-deterministic algorithm then your
+
+00:26:30.100 problem has reached in a class called
+
+00:26:32.860 and be complete means you have completed
+
+00:26:35.710 the research work basic required
+
+00:26:38.770 research work if you are able to
+
+00:26:41.080 directly solve that problem okay solve
+
+00:26:43.330 it's rather good well and good if not at
+
+00:26:45.970 least you should do this then your
+
+00:26:47.559 research work is completed now I will
+
+00:26:50.049 draw one more Valon diagram this is set
+
+00:26:53.860 off np-hard problems who is there in
+
+00:26:58.809 this one satisfiability then if you
+
+00:27:03.580 prove any of these problem that is
+
+00:27:05.529 reduced by sub satisfiability let us say
+
+00:27:07.990 0 1 it also becomes a and B hard if you
+
+00:27:12.789 prove graph coloring then that is also
+
+00:27:16.179 and be hard if you are proving that they
+
+00:27:19.210 are directly or indirectly reduce by
+
+00:27:21.520 satisfiability they will become np-hard
+
+00:27:23.500 they are coming into np-hard this is one
+
+00:27:26.169 part we have to do as a part of research
+
+00:27:28.539 then the second part we should also
+
+00:27:30.970 write non-deterministic algorithm and b
+
+00:27:34.919 NP
+
+00:27:38.039 does not other thing writing
+
+00:27:39.909 non-deterministic algorithm do you have
+
+00:27:42.399 a non deterministic algorithm for
+
+00:27:44.140 satisfiability yes so this is an np-hard
+
+00:27:46.659 only but this is in this intersection
+
+00:27:49.059 area so this also np-hard as well as
+
+00:27:51.850 this is having non-deterministic
+
+00:27:53.080 polynomial time algorithm so what is
+
+00:27:55.270 this area called as this is np-complete
+
+00:28:03.029 this will be complete intersection of
+
+00:28:07.000 np-hard and non deterministic algorithms
+
+00:28:10.169 that's all the major part we have
+
+00:28:12.700 completed then one more thing we have
+
+00:28:14.950 drawn already that is P 1 also there
+
+00:28:18.220 this was our another discussion we did
+
+00:28:20.350 that P is of the things that we are
+
+00:28:22.750 deterministic today and anything is that
+
+00:28:24.460 is non-deterministic and tomorrow we may
+
+00:28:27.520 be knowing those non-deterministic so
+
+00:28:29.470 also that will be coming inside P and we
+
+00:28:32.440 believe that this P will be keep on
+
+00:28:35.210 expanding right this will be keep on
+
+00:28:37.070 growing the P will become bigger and
+
+00:28:39.470 bigger so that non-deterministic will be
+
+00:28:41.960 becoming deterministic right something
+
+00:28:45.529 like this our circle of knowledge will
+
+00:28:49.190 be going on growing that's how we
+
+00:28:51.289 believe now how much it is we don't know
+
+00:28:53.450 so it will be going on growing and we
+
+00:28:56.270 believe that at some stage it will go
+
+00:28:58.370 and become equal to and be once
+
+00:29:01.490 everything that is not known we will be
+
+00:29:03.350 knowing it right that is the idea one
+
+00:29:06.980 major problem remaining the thought that
+
+00:29:10.640 we have that today we are writing
+
+00:29:12.409 non-deterministic believing that
+
+00:29:14.299 tomorrow that will become deterministic
+
+00:29:16.240 is it perfect do you think it's really
+
+00:29:20.179 going to work if it fails we never find
+
+00:29:23.390 out that then all our research work is
+
+00:29:25.309 waste so for that we need to prove that
+
+00:29:28.840 really tomorrow we may be knowing
+
+00:29:31.940 non-deterministic algorithm and they
+
+00:29:33.740 will be converted into polynomial time
+
+00:29:35.960 deterministic algorithms right so we
+
+00:29:39.110 have to at least prove that yes what we
+
+00:29:41.000 are doing is right so for that if we are
+
+00:29:46.370 able to prove that P is equals to and B
+
+00:29:50.020 we are able to prove that P is equal to
+
+00:29:52.610 NP then it is proved that whatever the
+
+00:29:58.010 non-deterministic we are writing
+
+00:29:59.210 tomorrow that may become deterministic
+
+00:30:01.820 so for that we say that p is a subset of
+
+00:30:05.419 NP we don't know how much this is so
+
+00:30:07.520 that's why we write equal also then we
+
+00:30:10.309 have to prove P is equals to NP whether
+
+00:30:13.159 P is equal to NP or not see if you are
+
+00:30:15.919 proving P is equal to NP means it's
+
+00:30:18.049 existing but you don't know right it is
+
+00:30:21.710 existing you don't have to dis you don't
+
+00:30:23.630 have to do research and find out or
+
+00:30:25.549 invent it its existing discover it
+
+00:30:28.960 so when you say P is equals to NP so
+
+00:30:31.850 what is non-deterministic for you its
+
+00:30:33.710 existing just you discover it that is
+
+00:30:36.260 the meaning so if you are able to prove
+
+00:30:38.210 just then what all the work that we are
+
+00:30:40.490 doing research for that's going to be
+
+00:30:42.799 successful that is the idea and this
+
+00:30:45.590 so cook has tried to prove that so there
+
+00:30:49.460 is a famous theorem on this one gooks
+
+00:30:51.200 theorem he has tried to prove that he
+
+00:30:53.809 proved this one that if satisfiability
+
+00:30:56.600 is lying in p so it means we're the
+
+00:30:59.360 species we don't know even P can be in
+
+00:31:01.549 the intersection part of this one right
+
+00:31:03.440 so he said that satisfiability is in P
+
+00:31:07.309 if and only if P is equal to NP
+
+00:31:09.669 satisfiability will come into P if and
+
+00:31:12.140 only if P is equals to n P means
+
+00:31:14.350 satisfiability will become deterministic
+
+00:31:16.669 if P is equals to n P he said that this
+
+00:31:20.720 poor can be proved as correct if you
+
+00:31:23.929 prove that satisfiability is in P he did
+
+00:31:27.020 not prove it he said that somebody
+
+00:31:28.549 proves this one then our work is correct
+
+00:31:31.610 our work is perfect so this is all the
+
+00:31:34.970 discussion behind and be harder than P
+
+00:31:38.809 complete problems so that's all about
+
+00:31:42.020 this one soil maybe I may be making one
+
+00:31:44.000 more video for solving some NP hard
+
+00:31:46.789 graft problems right so leave a comment
+
+00:31:49.700 for this video let me know how much you
+
+00:31:51.740 have understood

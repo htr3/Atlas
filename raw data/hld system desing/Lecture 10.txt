@@ -1,0 +1,2210 @@
+# tactiq.io free youtube transcript
+# Load Balancers: Algorithms and Design
+# https://www.youtube.com/watch/YM_dEeXmnuY
+
+00:00:04.040 Hey folks, how's everything going?
+00:00:07.640 Good evening and welcome to this live
+00:00:09.600 stream.
+00:00:13.720 Okay, just before we start there's a
+00:00:15.280 there's an amazing question but we we'll
+00:00:16.640 start with that also.
+00:00:18.440 I'll just change the zoom level. Okay,
+00:00:20.600 yes.
+00:00:21.480 Welcome to the live stream. Arun Goel is
+00:00:23.560 with us as
+00:00:25.440 has been the case for the past
+00:00:28.080 I think a couple of months now, Arun.
+00:00:30.400 Yeah. Yeah, couple of months I think.
+00:00:34.040 Yeah. Superb and that means that we are
+00:00:36.120 here for a
+00:00:37.280 live low-level design round. This time
+00:00:39.720 I'll be trying to code something
+00:00:41.800 and you can see the
+00:00:43.840 the title in the in the video itself.
+00:00:46.680 You know, we are trying to code a
+00:00:48.160 low-level design of a load balancer. So,
+00:00:50.800 let's see how that goes.
+00:00:53.040 Welcome, Arun. How's everything going?
+00:00:55.800 Things are good with me.
+00:00:57.480 I'll be trying my level best to put you
+00:00:59.320 on spot and
+00:01:02.320 all the best.
+00:01:03.680 Let's see how it goes today.
+00:01:05.880 Yeah, let's see.
+00:01:07.480 There's one question here, Arun, which
+00:01:09.520 is SKTSK.
+00:01:12.360 This is an interesting name. I
+00:01:15.680 So, I went through your website for the
+00:01:17.120 course. Is it complete one-stop solution
+00:01:19.120 for me to gain
+00:01:20.560 knowledge on system design? Will I be
+00:01:21.960 able to know all the system design
+00:01:23.560 concepts?
+00:01:25.240 So, if you're talking about the
+00:01:28.120 system design simplified course,
+00:01:30.520 then
+00:01:33.680 Okay, let let me set the expectations.
+00:01:36.440 Uh
+00:01:37.760 If you're an SD1 or SD2, you will
+00:01:39.880 probably Yeah, SD2 uh
+00:01:42.640 up to SD2, you will know everything that
+00:01:44.800 you need to know for an interview.
+00:01:47.160 Uh if you're an SD3, there are certain
+00:01:49.680 things
+00:01:51.240 that you need to know outside the course
+00:01:53.400 also.
+00:01:54.440 Okay, which is
+00:01:56.720 Let's say you need to know about some
+00:01:58.720 popular design papers.
+00:02:01.360 Uh
+00:02:02.320 For example, you should know about how
+00:02:05.640 uh MapReduce the architecture works.
+00:02:09.119 So, there's a very famous Google paper
+00:02:10.520 on this.
+00:02:11.640 Okay, uh how does the internals of
+00:02:14.000 Cassandra or Amazon work?
+00:02:16.840 Uh
+00:02:17.680 the internals of Kafka.
+00:02:21.160 The reason I'm telling you this is
+00:02:22.480 because these patterns, these tools
+00:02:25.680 uh are
+00:02:27.280 very, very commonly used. And even if
+00:02:29.520 they're not
+00:02:31.160 commonly used,
+00:02:32.760 thinking behind these tools uh is very
+00:02:35.920 useful to apply in other places.
+00:02:39.920 So, reading these papers helps you.
+00:02:42.280 There's also an expectation if you're
+00:02:44.360 applying for SD3 or above that you have
+00:02:47.360 some experience
+00:02:49.560 designing systems.
+00:02:51.080 So, what did you do
+00:02:53.320 when you were asked to do like you were
+00:02:55.240 asked to let's say build a image
+00:02:57.040 uploader. Okay, in your life maybe once
+00:02:59.400 you have built an image uploader
+00:03:00.560 yourself. You haven't actually used any
+00:03:02.400 open source library or anything. You
+00:03:03.720 built it yourself. So, then what are the
+00:03:05.920 things you considered? Uh it's not
+00:03:08.200 necessarily scale. Did you test it
+00:03:09.640 properly? Was it extensible code? If it
+00:03:11.800 was not, then how did you you know, uh
+00:03:14.880 later on did you make it extensible? Did
+00:03:16.400 you not make it? Why? So, those kind of
+00:03:19.000 questions will be expected of you.
+00:03:23.480 And up till SD2 everything is covered.
+00:03:25.840 Uh SD3
+00:03:27.640 and above,
+00:03:28.760 not everything is covered. It's useful
+00:03:30.120 for revision, let's say.
+00:03:32.760 For SD3 it is useful actually to go
+00:03:35.160 through it and also go through
+00:03:36.519 additional material. It's It's not
+00:03:39.160 all there, but yeah.
+00:03:41.239 Uh above that if you're a staff engineer
+00:03:43.080 or a principal engineer, it's good for
+00:03:44.360 revision, I should say. Before an
+00:03:45.680 interview like you go through Leadcode,
+00:03:47.720 uh you also want to go through this.
+00:03:52.480 Are there any plans bring content system
+00:03:54.600 design course in future? Sai Prasad.
+00:03:58.520 Uh
+00:03:59.280 yes, we'll get to you soon. Yes.
+00:04:01.800 Yes.
+00:04:02.880 Yeah.
+00:04:04.480 Hi sir, I currently work at Cognizant,
+00:04:06.120 but I want to
+00:04:07.400 switch as SD1 in company, so I wanted to
+00:04:09.240 know what they'll expect me to know
+00:04:11.720 from DSA.
+00:04:15.440 Apart from DSA, okay.
+00:04:17.519 Uh you're currently working somewhere,
+00:04:19.560 uh you want to switch. Many companies
+00:04:21.839 just take DSA, no? Arun, what do you
+00:04:23.320 think?
+00:04:24.760 So, generally first round is
+00:04:25.880 problem-solving round, generally.
+00:04:28.320 Okay, after that uh in since he has
+00:04:30.760 experience also, so everyone is going to
+00:04:32.760 ask him low-level design, high-level
+00:04:34.600 design, for sure.
+00:04:36.480 And maybe little bit uh experience
+00:04:38.440 questions as well.
+00:04:40.680 So
+00:04:41.160 Is there a behavioral interview also,
+00:04:42.240 no? That hiring
+00:04:43.480 that HR yes, HR round that is also
+00:04:46.360 there. So,
+00:04:48.040 first of all, DSA, of course, like since
+00:04:50.000 he's asking apart from DSA, then go for
+00:04:52.040 LLD and HLD.
+00:04:54.440 Uh like I know Amazon, they'll
+00:04:56.320 definitely ask. Google only asks DSA
+00:04:58.720 questions, there'll be four or five
+00:05:00.160 rounds just for DSA. Apart from that,
+00:05:02.560 every other company goes for LLD or HLD
+00:05:05.120 questions. And LLD is also good for
+00:05:07.000 problem-solving. So, I think they should
+00:05:08.800 also learn LLD.
+00:05:10.840 Like not learn, basically solve few
+00:05:12.720 questions, so that they get a good hold
+00:05:14.800 of how to approach the questions when
+00:05:17.120 they are given in an interview.
+00:05:20.160 Okay. Okay. Yes. Good.
+00:05:23.360 LLD we have a course out, guys, but we
+00:05:25.200 still haven't been able to make it
+00:05:27.520 public because we got some good
+00:05:29.320 feedback. I don't know, some of you
+00:05:31.160 maybe right now we we called you also
+00:05:33.240 recently.
+00:05:34.400 And
+00:05:35.400 we got some really good feedback, we are
+00:05:36.880 working on it to make sure that this
+00:05:38.840 course is like really really really
+00:05:40.480 good. So, okay. And I think last week we
+00:05:44.160 had promised that we will
+00:05:45.880 get this out in one or two weeks. So,
+00:05:47.920 it's not going to be one week, it will
+00:05:49.080 be two weeks, which is basically one
+00:05:51.440 week from now.
+00:05:52.760 Yeah.
+00:05:53.640 So, amazing. Okay.
+00:05:55.200 How can I make use of these concepts
+00:05:56.960 being a SD1 front-end? Okay.
+00:05:59.560 Low-level design, I don't know if it
+00:06:02.200 will
+00:06:03.920 it's relevant to front-end engineering.
+00:06:06.160 Uh
+00:06:07.120 Feeling excited to see you live. Thank
+00:06:08.400 you.
+00:06:09.880 Do you have a DSA algo course?
+00:06:11.880 No, not yet.
+00:06:13.240 Not yet.
+00:06:15.040 Yeah.
+00:06:16.120 I'm with 4 years experience was
+00:06:17.360 employed. So, guys, we'll take questions
+00:06:19.080 till 7:15. Uh
+00:06:21.640 stay tuned. We'll start just after that.
+00:06:23.960 Uh I'm with 4 years experience. I was
+00:06:26.080 employee number four with systems which
+00:06:27.840 currently do over 1 million cube
+00:06:31.240 Yes, have been ordered to switch to SD3
+00:06:32.840 or SSC, but the years of experience they
+00:06:34.840 offer SD2, which is no fun. How do I
+00:06:37.240 convince
+00:06:38.520 uh recruiters?
+00:06:40.360 Uh God, man, that's Yeah, that's a tough
+00:06:42.919 one. Aditya Ram You can go for startups
+00:06:45.480 only. I don't think any MNC would give
+00:06:48.960 this post. But startups are first come.
+00:06:52.600 Like you're you're employee number four,
+00:06:54.000 you've built this kind of a system. Uh
+00:06:56.160 startups will understand.
+00:06:57.760 The problem with large companies is they
+00:07:01.240 uh they have many things to consider.
+00:07:03.400 Parity is one thing.
+00:07:05.520 You know, the rest of the people will be
+00:07:06.560 like, &quot;Who's this guy? He's He got uh an
+00:07:09.760 SD
+00:07:10.960 three role? That too from outside.&quot;
+00:07:13.640 Yeah. I am working with you for
+00:07:16.120 That's a 4 years. You didn't give me
+00:07:17.880 SD3. You are giving this person from
+00:07:19.680 outside SD3. How is that possible? Even
+00:07:21.440 though your competency might be higher,
+00:07:23.280 they'll still
+00:07:24.560 find it difficult.
+00:07:26.080 Yeah.
+00:07:27.480 Does LLD concept change with language
+00:07:29.120 like when working with OOP or functional
+00:07:30.919 language?
+00:07:31.880 The
+00:07:32.880 Some of the concepts are the same, some
+00:07:34.360 of the concepts are different, frankly.
+00:07:36.680 Python may what you do is slightly
+00:07:40.160 different from what you do in Java. and
+00:07:42.400 Golang has certain concurrency design
+00:07:44.120 patterns which are not the same for
+00:07:46.280 Java.
+00:07:47.680 But the things that we talk about in the
+00:07:50.440 YouTube videos and especially in the
+00:07:51.960 course are all language agnostic.
+00:07:54.880 Meaning we don't say in Java there's a
+00:07:57.320 static method therefore we should do it
+00:07:59.000 this way.
+00:08:01.040 All of them are about okay, this is the
+00:08:04.080 problem, this design pattern should be
+00:08:05.840 applied. That's why we go through a UML
+00:08:07.600 diagram first before even coming to the
+00:08:09.160 language. Finally we just map that to a
+00:08:11.680 language.
+00:08:12.919 So even if you code in Python you should
+00:08:14.720 be able to understand it.
+00:08:16.200 But you know what? Go through these
+00:08:18.160 YouTube videos. If you feel they're
+00:08:19.800 good, then you'll definitely be
+00:08:21.400 impressed by the course.
+00:08:26.000 I'm a fresher and currently working as
+00:08:27.800 back-end developer. Uh
+00:08:31.680 current DSA.
+00:08:33.479 Any suggestions on moving to full stack?
+00:08:35.880 Or shall I stick with back-end and
+00:08:37.679 prepare to make a switch?
+00:08:41.760 It is quite easy right now I feel
+00:08:44.480 to be a full stack engineer. He just can
+00:08:46.680 start working on or maybe um you know
+00:08:50.160 learn one language. Let's say work start
+00:08:52.000 working on React. Okay. Build a build a
+00:08:54.680 small to-do app. And if it would be a
+00:08:57.640 great start. Then he can go on learn
+00:08:59.760 Redux. And this would make him give him
+00:09:02.680 a you know head start.
+00:09:05.240 So Okay.
+00:09:06.960 And this he already has experience in
+00:09:09.040 back-end so I feel and there's one more
+00:09:11.920 suggestion which I can give which I
+00:09:13.240 followed in my old days. Since I was
+00:09:15.360 working as a front-end engineer
+00:09:16.720 initially. So what I said was that
+00:09:18.839 there's a project which is coming up.
+00:09:20.600 I'm already doing front-end part of it.
+00:09:22.640 You start giving me little bit back-end
+00:09:24.640 part of it also.
+00:09:26.320 So you can do the same. I if it's a good
+00:09:28.480 organization if it's an MNC I don't
+00:09:30.320 think they'll
+00:09:31.480 there'll be any issue giving you
+00:09:33.720 front-end part solving the front-end
+00:09:35.400 part. They'll they'll in fact give you a
+00:09:37.680 onboarding plan as well.
+00:09:39.640 So That's very very nice. Yeah. Yeah.
+00:09:42.600 That's a very very nice idea. I
+00:09:45.280 very thoughtful of you because if you
+00:09:47.960 ask them that hey
+00:09:49.600 Mhm. Please please go ahead. No no, I'm
+00:09:52.040 I'm just thinking like Arun if you go to
+00:09:54.160 any manager and ask them that hey I want
+00:09:55.960 to work on the back end then they're
+00:09:57.400 always scared. But if you tell them that
+00:09:59.480 you know I'm already working on the
+00:10:00.520 front end of this, I have context on the
+00:10:02.680 back end also.
+00:10:04.120 Just
+00:10:05.040 help me, you know.
+00:10:06.360 Especially if it's a small feature
+00:10:08.280 they'll be more than happy. Non-critical
+00:10:10.400 small feature
+00:10:11.680 nothing like it to actually start
+00:10:13.200 moving. Yes. And there's a website
+00:10:15.680 front-end masters. All the front-end
+00:10:17.960 related course good courses are there.
+00:10:20.040 So go for it. Take a subscription. All
+00:10:22.240 the front-end related course you'll be
+00:10:23.560 able to find.
+00:10:24.760 Any front-end language, any front-end
+00:10:26.720 platform, any library, you'll find it
+00:10:29.120 there.
+00:10:30.960 front-endmasters.com
+00:10:32.000 I've heard of this a lot.
+00:10:33.600 Yeah, I've heard from like Lakshya Jain
+00:10:36.040 had told me about this when I was
+00:10:37.400 thinking of starting my own
+00:10:39.040 website. Like people were like just
+00:10:40.800 learn front end. So front-end masters
+00:10:42.680 I've heard good things about it. Yeah.
+00:10:45.200 Okay.
+00:10:46.440 I'm working with Sahil is asking I'm
+00:10:48.640 working with SQL but I want to switch to
+00:10:50.960 DevOps.
+00:10:52.320 He is in a different company. What would
+00:10:54.160 be the approach?
+00:10:56.320 He's working with SQL meaning you're
+00:10:57.800 working on the database side of things
+00:10:59.760 but wanting to switch to DevOps.
+00:11:06.400 If so in the start it's very easy. Yeah,
+00:11:08.880 Arun.
+00:11:10.080 Mhm.
+00:11:10.960 See what I think about it is that if
+00:11:13.240 you're already working on database and
+00:11:14.960 you want to switch a company in some
+00:11:16.839 other role. I
+00:11:19.240 This is quite difficult actually because
+00:11:21.240 you you'll be having no experience to
+00:11:23.000 show. If you have then it's really good.
+00:11:25.800 But since you're working on database I
+00:11:27.640 don't think you would have experience.
+00:11:28.839 If you have a small projects which
+00:11:30.160 you've already made then put it in your
+00:11:32.000 resume, and go for it. Apply for those
+00:11:34.240 those roles.
+00:11:35.800 And you'll be offered an interview. But
+00:11:38.720 if not, then what you can do is within
+00:11:41.160 the same organization, you can approach
+00:11:43.160 the other team. This is generally what
+00:11:45.480 I've seen people doing in a MNC, that
+00:11:47.720 okay, if they start working if they want
+00:11:49.880 to work on DevOps, go for it. Talk to
+00:11:52.200 any of the team's manager if they can
+00:11:54.280 give you small amount of work which you
+00:11:56.120 can start doing, and then you'll have an
+00:11:57.720 experience in DevOps also.
+00:12:00.080 So, and then which you can show showcase
+00:12:02.160 in some other company maybe.
+00:12:05.280 Okay, great. So, last question before we
+00:12:08.720 move to the
+00:12:10.360 you know, the
+00:12:11.960 the the low-level design of a load
+00:12:13.720 balancer, what kind of low-level design
+00:12:15.960 and high-level design questions are
+00:12:17.760 probably asked as a SD1?
+00:12:21.160 I think you can just go through the
+00:12:23.520 InterviewReady course. You'll get a very
+00:12:25.440 good idea of what kind of questions are
+00:12:26.840 usually asked as SD1 or SD2. Even as a
+00:12:31.160 SD3, the question the depth at which
+00:12:33.040 they expect your answers are different.
+00:12:35.120 Yes.
+00:12:36.880 The requirements could be different
+00:12:38.280 actually. So, for example, if they can
+00:12:40.520 pick up social media also. For example,
+00:12:42.600 they can give you any social media,
+00:12:43.839 let's take Facebook for example. Uh what
+00:12:46.520 they can expect from a SD1 is just build
+00:12:49.000 user profile, feed wall, timeline. Let's
+00:12:52.320 say only these three features. But on
+00:12:54.000 the contrary, if there is SD2 who is
+00:12:55.800 giving
+00:12:56.680 you can add many more features that you
+00:12:58.080 can like, you can comment on a post.
+00:13:01.280 Two more functionalities added, and the
+00:13:03.560 system is complex now. Now, later on
+00:13:05.800 let's say SD3 has come in, and they want
+00:13:08.320 to ask the same question. So, they can
+00:13:09.720 go ahead and add the chatting feature
+00:13:11.280 also. Now, this is very complex. Maybe
+00:13:13.720 they can add some marketplace because
+00:13:16.000 Facebook is doing these days, right? So,
+00:13:17.880 they can add it as well.
+00:13:19.920 So,
+00:13:21.200 system could be all
+00:13:23.040 complex first first step in the middle.
+00:13:26.280 Yeah, something as basic as you know
+00:13:28.720 like I I I was hearing Aadhaar for
+00:13:32.040 example. The system is
+00:13:35.360 not very complex. It's a very simple
+00:13:37.360 system. Let's say the functionality is
+00:13:39.000 very very simple.
+00:13:41.000 Just make profiles.
+00:13:42.760 That's it.
+00:13:43.840 Make profiles. But now comes to make it
+00:13:46.720 complex
+00:13:47.920 security.
+00:13:49.160 Biometric data has to be stored.
+00:13:51.320 Okay, uh
+00:13:53.280 the API has to be consumed by many
+00:13:55.440 different types of clients.
+00:13:57.160 Mhm. Now, what happens when
+00:13:59.800 there is a let's say a bank what which
+00:14:01.480 wants to be onboarded?
+00:14:03.080 What if there's a bulk load? Yeah.
+00:14:05.920 KYC has to be done. What if there's a
+00:14:07.800 bulk KYC that needs to be done? Uh
+00:14:11.720 what if you have to make sure that
+00:14:13.080 nobody in the back end can So, there was
+00:14:15.440 a use case like you want to find out all
+00:14:17.320 the girls in the particular area, pin
+00:14:18.840 code.
+00:14:20.200 Fire a query, right? Let's say there's a
+00:14:21.600 guy in the back end who's sitting down
+00:14:23.160 and firing an SQL query.
+00:14:25.040 So, you have to avoid that. How do you
+00:14:26.880 avoid that?
+00:14:28.000 Uh
+00:14:28.640 so, I'm just
+00:14:31.360 making the system more or
+00:14:32.760 Uh and it's possible to do with pretty
+00:14:34.240 much any system.
+00:14:36.160 So, okay, very very interesting.
+00:14:39.040 Let's start with the low-level design of
+00:14:43.839 a load balancer.
+00:14:45.400 Okay, Arun, uh so how do we go about
+00:14:48.200 doing this?
+00:14:49.440 Okay.
+00:14:50.680 So, first of all, everyone knows about
+00:14:52.680 load balancer, right?
+00:14:54.200 Now,
+00:14:55.680 the function of load balancer is that a
+00:14:58.320 number of queries would come, let's say
+00:14:59.800 n queries are coming, and you have to
+00:15:02.040 map them to different servers, right?
+00:15:05.040 Now,
+00:15:07.120 you can map in any number of ways,
+00:15:08.760 right? For example, you map the first
+00:15:10.680 query to server one, then second query
+00:15:12.440 to server two, third query to server
+00:15:14.160 three. So, this is called round robin
+00:15:16.120 fashion.
+00:15:17.680 You can also What you can also do is
+00:15:20.600 till the time first server is
+00:15:21.800 overloaded. For example, first server
+00:15:23.440 can handle five requests easily. So, you
+00:15:25.760 keep on mapping the first five requests
+00:15:27.880 to server one. Later on,
+00:15:30.480 if the server one is overloaded with
+00:15:32.400 request, then you go to server two.
+00:15:35.440 Then when server two is also overloaded,
+00:15:37.320 so there are different algorithms for
+00:15:39.200 load balancing.
+00:15:40.680 Right? Which have different
+00:15:42.200 significance.
+00:15:44.200 So,
+00:15:44.640 Okay. Yes. What we want to do is what we
+00:15:47.160 want to do is
+00:15:49.080 basically, these are different
+00:15:50.400 algorithms only, right? Weighted Robins
+00:15:52.840 search, least connection method, all of
+00:15:56.120 these are different algorithms. So, what
+00:15:58.680 we want is we want to build a system
+00:16:00.600 where
+00:16:02.360 system or or user would tell which
+00:16:05.480 algorithm he wants for his load
+00:16:07.360 balancer, and
+00:16:09.400 we would give him that load balancer, or
+00:16:12.160 our system would give him that load
+00:16:13.520 balancer.
+00:16:15.880 Or the load balancer would be working
+00:16:17.320 with that algorithm.
+00:16:22.600 Okay.
+00:16:24.880 So, basically I'm asking you to make a
+00:16:26.440 factory.
+00:16:27.880 Okay. Where No, no, I'm I'm uh
+00:16:32.040 I will go uh
+00:16:35.000 I think I got lost for a second there.
+00:16:37.000 Okay.
+00:16:37.320 What
+00:16:38.160 you are asking is create a load balancer
+00:16:40.600 which can
+00:16:42.600 which has a customizable algorithm or or
+00:16:45.080 has a set of algorithms,
+00:16:47.200 any one of which can be picked. So, you
+00:16:48.880 will tell me the algorithm, and I will
+00:16:51.280 you know, the load balancer will behave
+00:16:52.440 in that way. Or you will say, &quot;This is
+00:16:55.480 my algorithm.&quot;
+00:16:57.839 Maybe I'm making my life too difficult,
+00:16:59.480 but you can say, &quot;This is my algorithm,
+00:17:01.640 and balance the load based on this.&quot;
+00:17:04.880 Let's not pick this. Yeah, that will be
+00:17:07.480 too tough, no?
+00:17:08.680 Yeah, that will be too tough.
+00:17:10.520 Okay. Okay.
+00:17:12.240 We can have, let's say, we can have five
+00:17:14.560 or six algorithms. For this interview,
+00:17:16.839 we can take one or two.
+00:17:19.160 People would understand.
+00:17:20.599 Okay? Okay. We'll feed We'll So, client
+00:17:23.599 would come
+00:17:24.800 in the factory, it would say that,
+00:17:26.520 &quot;Okay, I want load balancer with this
+00:17:28.760 algorithm. For example, around robin or
+00:17:31.480 least connection method, least response
+00:17:33.720 time.&quot;
+00:17:34.800 And then you'll have to
+00:17:36.360 give him that load balancer.
+00:17:39.560 Okay.
+00:17:41.640 Uh algorithms
+00:17:43.920 can be changed
+00:17:45.880 by client?
+00:17:49.640 You mean in each
+00:17:53.720 Can we uh change midway?
+00:17:57.000 Like 10 minutes into
+00:17:59.160 Like yeah, you you got a load balancer.
+00:18:00.960 Now, suddenly you say, uh &quot;Listen, this
+00:18:03.120 request has to be weighted robin because
+00:18:05.320 it's going to service profile. And this
+00:18:07.560 request has to be
+00:18:09.440 uh
+00:18:11.480 least connection
+00:18:13.240 because it's going for some other
+00:18:15.520 Okay. In that case,
+00:18:17.160 You can create different load balancers
+00:18:18.400 for different services. Yeah. Yes. That
+00:18:20.080 will make it instead of this. Yes. Okay.
+00:18:22.360 Yes. Okay.
+00:18:23.560 So, let me try to do that class
+00:18:26.280 load balancer.
+00:18:27.800 Now, what I'm going to do is I'm going
+00:18:29.240 to
+00:18:32.760 take the
+00:18:33.840 essence of a load balancer
+00:18:36.000 and I'm going to try to
+00:18:38.320 capture that using a function
+00:18:40.280 which can be customized.
+00:18:42.120 Okay, so
+00:18:44.680 I'll just write What What does a load
+00:18:46.440 balancer do?
+00:18:47.680 Typically, if you
+00:18:49.320 What happens in a load balancer?
+00:18:51.360 Let's strip away everything and just say
+00:18:53.440 what does it actually do.
+00:18:55.160 Uh
+00:18:56.200 Does it manipulate any data? No.
+00:18:58.840 It routes
+00:19:00.360 requests.
+00:19:01.720 It suggests where should I send this
+00:19:03.520 request to.
+00:19:04.600 Okay, so if you give me a request
+00:19:07.400 as an input,
+00:19:10.720 uh
+00:19:11.960 then I should be able to give you a node
+00:19:14.720 as an output.
+00:19:17.600 I think this this is the basic idea of a
+00:19:19.120 load balancer.
+00:19:22.240 Uh some sort of a place that you need to
+00:19:24.520 go to. Okay, so that is routing. So, now
+00:19:26.520 I will just say uh
+00:19:29.000 public
+00:19:30.680 I need to give you a node, right?
+00:19:33.920 This node can be anything. It can be You
+00:19:36.320 can You can basically, let's imagine
+00:19:38.960 instead of node, number.
+00:19:42.040 Number 1 2 3 4 5, server one, server
+00:19:44.680 two, server three, four, five.
+00:19:47.400 Okay, some sort of a destination.
+00:19:49.400 Uh
+00:19:50.800 and
+00:19:52.880 this is basically
+00:19:54.480 uh
+00:20:04.840 And you're giving me a request, so
+00:20:06.480 request.
+00:20:12.120 Okay.
+00:20:13.080 Now I need to define request.
+00:20:16.360 Request has a ID
+00:20:18.680 uh and some parameters.
+00:20:21.280 Okay, so
+00:20:25.480 Does it need to have an ID? I can assume
+00:20:27.240 it has an ID always. Okay.
+00:20:31.520 Okay, uh and now it has a map of
+00:20:33.360 parameters, so
+00:20:37.240 let's just say
+00:20:38.840 it will be a map of string, which is the
+00:20:40.760 type of the name of the parameter.
+00:20:43.120 So, if there is JSON key value pairs, so
+00:20:45.440 these are the key value pairs.
+00:20:47.440 So, string to string.
+00:20:49.160 Uh
+00:20:50.000 But all of this is metadata, right?
+00:20:54.080 How does this help?
+00:20:56.800 What I'm trying to do now is I'm trying
+00:20:58.960 to say
+00:21:00.360 if there's a request
+00:21:01.880 and you know what kind of parameter I
+00:21:03.280 should route it on you tell me and I'll
+00:21:05.440 route it.
+00:21:07.560 Okay. So, if you tell me that But that
+00:21:09.200 is not mentioned in the question
+00:21:10.760 actually.
+00:21:13.280 Yeah.
+00:21:14.800 We just want to give give it give any
+00:21:17.480 request the appropriate server.
+00:21:21.040 Okay. Okay. I'll What I'll do is
+00:21:23.480 okay.
+00:21:25.040 You want general algorithms also to be
+00:21:27.560 plug and play. I'll I'll just go ahead
+00:21:29.600 with this for a little while and I think
+00:21:31.920 it will work that way also. My
+00:21:33.800 algorithms then will be uh
+00:21:36.120 uh
+00:21:37.000 a type of this will be using this
+00:21:39.360 to work. Okay. Okay.
+00:21:41.640 Okay. And a destination
+00:21:47.640 some sort of IP address, let's say.
+00:21:54.320 Maybe something else also. You can
+00:21:55.480 actually have a
+00:21:57.200 website also where you're balancing the
+00:21:58.920 load.
+00:21:59.200 Great.
+00:22:00.360 This is good.
+00:22:01.720 And
+00:22:03.080 I want the load balancer to
+00:22:05.160 tell me how this is going to happen. So,
+00:22:07.080 this is an abstract method.
+00:22:12.480 This is an abstract class.
+00:22:23.720 Okay. So, what this means is uh
+00:22:28.280 My load balancer cannot be created.
+00:22:31.480 You always have to say that I want this
+00:22:33.160 type of load balancer.
+00:22:35.920 So, class You mentioned that least
+00:22:37.840 connection is one. So, least
+00:22:40.600 connection
+00:22:44.000 So,
+00:22:45.400 this
+00:22:50.760 Okay. Now, uh what's going to happen is
+00:22:53.560 uh
+00:22:54.520 I I need to have a set of nodes also or
+00:22:57.040 a set of destinations.
+00:22:59.520 So,
+00:22:59.960 Yes.
+00:23:01.480 Okay.
+00:23:02.520 Um
+00:23:03.600 This means that to be a map of
+00:23:08.160 destinations.
+00:23:13.040 Set of destinations for a type of
+00:23:15.200 request.
+00:23:16.280 So,
+00:23:17.840 request
+00:23:21.120 Right?
+00:23:22.120 So, request can have a request type. So,
+00:23:23.800 it's a it's a group request or it's a
+00:23:26.880 uh any kind of request will have a type.
+00:23:29.320 Uh yeah.
+00:23:30.680 It can It can also have a name, let's
+00:23:32.400 say.
+00:23:33.480 So,
+00:23:34.200 I can assume that this name is distinct.
+00:23:37.360 Okay. I'll just make it type so that
+00:23:39.720 life is easier.
+00:23:42.360 So,
+00:23:43.160 this is string or request type.
+00:23:52.600 What What are we trying to do right now?
+00:23:54.880 Like
+00:23:57.120 What I'm trying to do is I'm trying to
+00:23:58.840 say that
+00:24:00.800 for a particular type of request, there
+00:24:02.840 are a set of destinations which have
+00:24:05.160 subscribed to this request. For example,
+00:24:07.360 if you say group request or get group
+00:24:10.720 request, uh the group
+00:24:14.040 service will say, &quot;I can take this
+00:24:15.640 request. And here are the number of
+00:24:17.560 nodes that I have.&quot;
+00:24:19.440 Right.
+00:24:20.760 So,
+00:24:22.120 that that is that is
+00:24:23.720 uh one thing. If there's a profile
+00:24:24.800 request, the profile service will say,
+00:24:26.000 &quot;Listen, I have six nodes.&quot;
+00:24:27.720 Mhm. And uh you have to route it to one
+00:24:29.720 of these
+00:24:30.960 Right.
+00:24:32.480 I can make it even better. I can say
+00:24:34.440 that uh this is this is a service.
+00:24:37.480 So, a map of request type to service.
+00:24:40.240 Uh so, And then service can have
+00:24:42.320 destinations.
+00:24:44.520 Yeah.
+00:24:45.600 And the service will Yes, absolutely.
+00:24:49.120 So, I'm making it generic.
+00:24:51.240 It will
+00:24:53.080 It will look a little scary, I think,
+00:24:54.400 initially, but as things move forward, I
+00:24:56.560 think it will become very easy. Mhm.
+00:24:59.640 Why are we not making service a
+00:25:01.240 different class?
+00:25:03.880 So, yes. Let us I'm I'm just that
+00:25:07.120 service is a class.
+00:25:10.680 Oh, okay. You mean to say service is a
+00:25:13.040 set of destinations inside it. Okay,
+00:25:14.400 yes. I I got it. Okay, yes. Then we'll
+00:25:16.480 not have line number 15 or load balancer
+00:25:18.960 will not have to store it.
+00:25:20.560 Yes, that's a
+00:25:22.240 But, the problem with this is
+00:25:25.840 the load balancer has to ask the service
+00:25:27.640 every time to tell what are the
+00:25:30.760 properties of a node.
+00:25:34.520 In case I need to know, you know, how
+00:25:36.560 many connections are on a particular
+00:25:37.920 node, I need to go and ask.
+00:25:40.080 Right. Okay.
+00:25:41.720 Okay. I can I can keep it here also, but
+00:25:44.080 then the service will have that
+00:25:45.960 information. So, a node will have
+00:25:47.280 information on the service.
+00:25:48.720 I think you're but it's a good idea to
+00:25:50.920 keep the
+00:25:52.480 map of or a set of
+00:25:55.480 destination here.
+00:26:05.000 And the destination uh
+00:26:07.000 will have certain properties apart from
+00:26:08.840 IP address maybe
+00:26:10.560 uh int
+00:26:11.760 weight.
+00:26:13.200 So, the number of requests
+00:26:15.040 currently serving. Yes. Yes. Uh
+00:26:17.800 it's okay.
+00:26:23.640 So, I I just made weight something like
+00:26:25.920 if you take a large instance on AWS.
+00:26:28.960 That is heavy and this is Yes.
+00:26:31.320 Like so, okay.
+00:26:33.800 Okay, this is great. You know, request
+00:26:36.000 type. There should be What do you think?
+00:26:38.080 There should be functions to add more
+00:26:40.680 requests in a destination and delete
+00:26:44.040 request or weights in a destination.
+00:26:47.480 Yes.
+00:26:48.680 Yes, there should be
+00:26:50.680 a way to
+00:26:51.920 register
+00:26:53.280 a request type to a service.
+00:26:55.520 And there should be a way to add
+00:26:57.680 destinations to services.
+00:27:00.720 Uh in a service, can we change anything?
+00:27:02.600 No, this this class is immutable.
+00:27:04.680 So
+00:27:12.280 This is good. I mean, it is immutable.
+00:27:14.680 This like you mentioned, I'll just make
+00:27:16.160 a class for this public.
+00:27:19.920 Uh
+00:27:21.160 void
+00:27:22.880 Yeah.
+00:27:25.400 Okay.
+00:27:28.040 Okay.
+00:27:29.120 Yeah.
+00:27:31.760 Okay. Uh destinations
+00:27:38.200 Yes. Now, we can add destinations.
+00:27:40.360 Don't you think we we should
+00:27:42.560 we should have functions
+00:27:44.440 basically when a request is being added
+00:27:46.280 to a destination.
+00:27:47.840 So, we need to change the state of the
+00:27:49.320 destination, but there are no
+00:27:51.320 functions to change the
+00:27:53.360 state of the destination.
+00:27:55.320 Yes. Yes. So, in a service
+00:27:58.320 I mean, when the load balancer actually
+00:27:59.520 does it, it's going to go and change the
+00:28:02.120 uh state of that node.
+00:28:04.320 Yes. So, and the node is destination.
+00:28:07.800 So, a destination is a
+00:28:09.720 is a node or a Yeah, right. Okay.
+00:28:12.720 So, it might even be a container, but uh
+00:28:16.120 So, the number of requests there is uh
+00:28:19.840 Or it will have a threshold also, don't
+00:28:21.960 you think?
+00:28:23.440 Yes.
+00:28:25.760 So, it could be weight. No, yeah. A
+00:28:27.960 threshold, yes. That's that's right.
+00:28:36.400 Uh maybe weight then is not making much
+00:28:38.960 sense. The threshold could be in terms
+00:28:41.040 of weight also. For example,
+00:28:43.200 uh so, threshold could be let's say uh
+00:28:48.240 Threshold, if you balancing load
+00:28:51.400 Okay. Okay.
+00:28:52.800 100 units limit
+00:28:54.440 I don't know. I'm not getting the unit
+00:28:56.280 of how what should be the unit.
+00:28:58.120 100 requests per second. And you have
+00:29:00.920 requests in queue.
+00:29:02.160 Right.
+00:29:04.200 For example, the first is playing
+00:29:06.520 I may not need weight here.
+00:29:08.360 I think I'll just go with threshold.
+00:29:10.280 Yeah, number of requests.
+00:29:12.840 Increment number
+00:29:16.080 requests.
+00:29:18.680 Okay, I And the destination make a call
+00:29:20.520 this function in itself. This is a
+00:29:22.000 private method which says uh
+00:29:25.720 complete request.
+00:29:27.560 Yeah. Which will check if
+00:29:30.480 threshold is met or not.
+00:29:33.240 Yeah, and the request being served will
+00:29:35.200 get decremented.
+00:29:36.640 And the request being served will get
+00:29:38.040 incremented. Uh and before we increment
+00:29:40.760 number of requests, like uh rather I
+00:29:42.480 should say uh
+00:29:44.400 set
+00:29:45.320 request
+00:29:47.800 should return
+00:29:50.360 boolean.
+00:29:52.360 Uh and if I say
+00:29:59.920 uh
+00:30:06.920 threshold
+00:30:09.080 is
+00:30:10.480 less than equal to
+00:30:11.880 Uh this might be multi-threaded. But in
+00:30:14.160 a single node, I'm assuming there's only
+00:30:15.800 one thread which is reading requests one
+00:30:17.720 by one. So
+00:30:20.000 uh
+00:30:20.840 threshold is less than
+00:30:22.280 requests being served, then do this.
+00:30:25.960 Else
+00:30:27.200 return false.
+00:30:36.640 Okay.
+00:30:37.520 This is
+00:30:39.320 This is uh going to accept requests. Uh
+00:30:42.400 We mentioned that service map is some
+00:30:44.200 place where we can add services. So
+00:30:47.240 This This one more thing which you are
+00:30:48.800 missing.
+00:30:50.480 Yes.
+00:30:51.560 Very basic.
+00:30:52.800 Okay.
+00:30:53.760 So suppose
+00:30:55.640 Yeah.
+00:30:56.480 When the request has been served
+00:30:59.360 Okay.
+00:31:00.840 So of course the server would be freed
+00:31:03.040 from serving that request, right?
+00:31:07.120 Yes. Or the destination. So we need to
+00:31:09.760 decrement as well.
+00:31:13.120 Here, complete request.
+00:31:15.440 So once it is served Okay. Okay.
+00:31:18.480 Okay.
+00:31:19.480 Done it.
+00:31:20.480 No. So the good thing about that will be
+00:31:23.840 if you are dropping a request you can
+00:31:25.040 drop it.
+00:31:26.080 Uh
+00:31:27.600 And yeah, this this is the destination.
+00:31:31.000 The destination if I see the state it is
+00:31:32.520 holding threshold is a final threshold.
+00:31:35.680 Mhm.
+00:31:36.560 This is immutable.
+00:31:38.040 IP address is immutable.
+00:31:39.760 The request being served is mutable and
+00:31:41.320 it's being handled here.
+00:31:43.120 If I see request type, there are
+00:31:44.800 different types of requests.
+00:31:46.840 Request all of this is mutable, which is
+00:31:48.520 good.
+00:31:49.400 Here the destinations are mutable. I can
+00:31:52.160 only add destinations. I can also
+00:31:53.480 actually remove a destination.
+00:31:55.960 Yeah.
+00:31:57.080 So
+00:31:58.040 I'll do that.
+00:32:00.080 A node gets unregistered.
+00:32:03.840 Uh
+00:32:04.560 Okay. This connection is a type, but add
+00:32:07.920 service basically service map
+00:32:10.160 dot
+00:32:11.440 put
+00:32:13.120 Over here there is a service which is
+00:32:17.880 registering itself
+00:32:21.160 for a request type.
+00:32:26.560 Services have name actually.
+00:32:34.080 Okay.
+00:32:35.400 And uh
+00:32:39.720 No, no, this is this is inverted. Sorry.
+00:32:45.400 I accept this type of request. No, this
+00:32:47.560 type of request is accepted by multiple.
+00:32:49.080 No, that's not possible. But one service
+00:32:51.120 can accept multiple types of requests.
+00:32:52.640 Okay, so.
+00:32:56.360 Don't you think this should be opposite
+00:32:58.160 in line number 15? Key and the value
+00:33:00.200 should be different.
+00:33:01.520 Key and value should be
+00:33:03.160 vice versa.
+00:33:04.720 So, one service, let's say the group
+00:33:06.200 service, accepts create group, update
+00:33:08.520 group,
+00:33:09.680 uh get group admin. Uh so, multiple
+00:33:12.040 types of requests are being accepted by
+00:33:13.520 a single service.
+00:33:15.200 So, request would bring a request
+00:33:17.680 Request would bring a request type.
+00:33:21.240 Uh so, on the basis of that, you'll give
+00:33:23.400 them a server.
+00:33:25.400 So, request type should be key.
+00:33:27.840 Yeah, yeah, I could keep the set over
+00:33:29.920 here, but uh you're right. Uh that that
+00:33:32.520 makes more sense. This is easier.
+00:33:35.320 Same factor this
+00:33:39.360 This is the right way.
+00:33:41.160 Then again, this is the right way. Okay.
+00:33:43.760 Yeah, this is far better.
+00:33:45.840 Just looking at the request type, I
+00:33:47.040 immediately know which service is
+00:33:49.120 handling this.
+00:33:50.880 Okay.
+00:33:52.240 I can register myself.
+00:33:54.520 Let's assume you can't unregister um for
+00:33:57.320 now.
+00:33:57.720 Yes. Yeah.
+00:33:58.640 You You can balance load, though. So,
+00:34:00.680 this part is taken care of. Least
+00:34:02.600 connection load balancer. What else
+00:34:04.120 happens? If I'm a load balancer, I need
+00:34:05.800 to know which destinations can I route
+00:34:07.640 something to, what type of requests are
+00:34:09.120 coming in.
+00:34:10.239 And now I need to know how do I route
+00:34:12.000 this. Okay. So, balance load. This is
+00:34:16.239 remaining.
+00:34:18.239 Uh
+00:34:18.960 balance load. Return null node. Uh if
+00:34:22.239 given a request, if there is a least
+00:34:23.800 connection one, then I need to first
+00:34:29.719 go to
+00:34:31.520 my service map.
+00:34:33.879 Hit.
+00:34:36.239 So.
+00:34:39.918 I need to get something here. What
+00:34:41.719 what's the name? The service which
+00:34:44.239 handles this request.
+00:34:45.879 In this service
+00:34:47.480 I need to get the destinations.
+00:34:50.320 Uh.
+00:34:52.120 So.
+00:34:55.679 Now I need to do some smart thinking,
+00:34:58.160 right? Uh amongst all the destinations
+00:35:02.040 for
+00:35:10.840 Uh.
+00:35:14.200 What do I need to do?
+00:35:15.560 Every destination I need to see which
+00:35:17.080 one has the lowest. Oh, I can I can be a
+00:35:19.520 little smarter about this.
+00:35:21.640 So.
+00:35:22.920 Destinations.stream.
+00:35:25.840 Get me the one with the minimum number
+00:35:27.240 of connections.
+00:35:29.040 Mhm. So I'm keeping a very simple
+00:35:31.120 algorithm. I'm not looking at the weight
+00:35:33.280 uh or the threshold. I'm just saying get
+00:35:36.040 me the minimum number of connections. So
+00:35:37.680 okay. Now um
+00:35:40.640 Uh
+00:35:41.240 mean
+00:35:43.680 Yeah. Um and for every
+00:35:47.040 destination
+00:35:50.640 every destination
+00:35:54.480 Well, there's a there's a way to do this
+00:35:55.800 actually.
+00:36:02.000 Comparing
+00:36:04.800 hit
+00:36:05.760 Yes.
+00:36:07.760 So.
+00:36:11.880 Request being served.
+00:36:13.440 Yeah.
+00:36:15.080 So uh so load balancer could be of
+00:36:16.960 different types also if you you know it,
+00:36:19.200 right? Load balancer could be within the
+00:36:21.120 service also.
+00:36:22.520 Load balancer could be within the client
+00:36:24.200 also.
+00:36:25.680 That's true.
+00:36:26.840 Right. So
+00:36:29.200 uh what do you think if
+00:36:31.480 Yeah. Having said that, we are assuming
+00:36:33.000 that this is on on the server only.
+00:36:36.080 Okay.
+00:36:37.440 So, okay.
+00:36:38.600 otherwise, that'll be a different
+00:36:39.840 product only, right? You can't
+00:36:41.560 have that uh and even if you're having
+00:36:42.960 it in the client, let's say this code is
+00:36:44.720 running on the client.
+00:36:46.200 Mhm.
+00:36:46.320 It seems then weak enough that you can
+00:36:47.560 put in a destination. Mhm.
+00:36:50.080 It is rather tied to a service. Okay, if
+00:36:52.520 you have it on the client also,
+00:36:54.400 you know which service is going to
+00:36:55.960 accept this, you know, uh
+00:36:58.240 you need that data of how many uh
+00:37:00.560 requests is this service
+00:37:03.600 or this destination actually having?
+00:37:06.240 Or maybe what you can do here is, what I
+00:37:08.800 think is,
+00:37:09.960 Yeah.
+00:37:10.840 you're balancing the load right here,
+00:37:12.480 okay?
+00:37:13.440 Mhm. Yeah. Where you are accessing
+00:37:15.360 destinations.
+00:37:17.320 Right?
+00:37:18.400 Okay.
+00:37:19.520 Our service has a list of destinations.
+00:37:23.200 Yeah.
+00:37:23.400 So, why don't you give this
+00:37:24.360 responsibility to service to give you
+00:37:27.080 the
+00:37:28.080 correct destination, and then you can
+00:37:30.080 just return it.
+00:37:32.440 I don't want to do that because
+00:37:34.720 the least connection load balancer has a
+00:37:36.560 particular type of logic inside it,
+00:37:38.680 which the service should not be aware
+00:37:40.040 of.
+00:37:40.920 Like uh if I tell it, &quot;Give me the one
+00:37:42.840 with minimum connections.&quot;
+00:37:44.680 the service
+00:37:46.840 uh the service has nothing to do with
+00:37:48.160 it. As a service, as an object, as an
+00:37:50.320 abstract concept, uh this is kind of
+00:37:52.560 weird that I'm asking it to give me
+00:37:55.480 a destination with the minimum number of
+00:37:57.520 uh connections.
+00:37:59.200 So, that logic is kept here.
+00:38:02.080 Okay.
+00:38:02.600 balancer itself, yeah. Okay.
+00:38:06.280 Then uh then what happens is whatever I
+00:38:08.160 need to do with this special logic, I I
+00:38:10.880 I handle myself. So,
+00:38:12.680 uh return destination.
+00:38:14.920 This
+00:38:16.520 Or else through is just going to say,
+00:38:17.800 &quot;Okay, there is you know, there is no
+00:38:19.480 destination that you have right now.&quot;
+00:38:21.680 Mhm. Okay. This is This won't happen,
+00:38:23.840 hopefully,
+00:38:25.040 unless everything is unlisted.
+00:38:27.360 Okay, everything is unlisted. Okay.
+00:38:32.400 So, this is for least connection load
+00:38:34.120 balancer.
+00:38:36.160 That uh is all I'll need to do.
+00:38:39.080 Uh let me also
+00:38:41.200 try to do this for
+00:38:43.120 another type of load balancer, uh which
+00:38:44.560 is round robin. Yeah. So, class
+00:38:59.920 Okay. Now, this is a single line. Uh I
+00:39:02.080 have to just say
+00:39:05.360 I have to Basically, I have to just copy
+00:39:07.000 this part out.
+00:39:08.520 So, I can get
+00:39:08.840 And you have to keep
+00:39:10.240 Yeah.
+00:39:11.160 You have to keep the which request did
+00:39:13.720 you routed to the last time?
+00:39:16.480 Yeah.
+00:39:17.640 Actually, because this is always common,
+00:39:21.920 this part is always common. I can take
+00:39:23.680 this, put it in the abstract class.
+00:39:26.400 Yes.
+00:39:28.600 I would
+00:39:29.560 uh get
+00:39:31.080 service
+00:39:34.600 destinations for the request.
+00:39:41.000 Uh
+00:39:43.560 First, let me add the code here, then
+00:39:45.160 I'll know.
+00:39:46.120 Okay, there's a request.
+00:39:52.480 And I'm returning this
+00:39:55.520 set of destination.
+00:40:03.640 Okay.
+00:40:04.560 The destinations, now this is easy
+00:40:06.400 because
+00:40:07.680 all we need to do is get destinations
+00:40:09.960 for this request.
+00:40:12.720 Oh, what happened?
+00:40:14.960 Has private access in load balancer. So,
+00:40:17.000 what I can't use it here? Oh, because
+00:40:20.080 Okay.
+00:40:21.200 inherited
+00:40:22.640 methods after it. Same package.
+00:40:24.720 So, this is a Java specific thing, guys.
+00:40:26.200 Sorry for this that
+00:40:28.040 you have to go through this.
+00:40:29.560 But, this
+00:40:31.680 can't be private. It will be
+00:40:34.520 I think protected is what they call it.
+00:40:36.160 Yeah. But, it doesn't matter. You don't
+00:40:37.480 need to worry about that. It's access
+00:40:39.400 thing specific to Java, again.
+00:40:42.000 Skip.
+00:40:44.320 Okay.
+00:40:45.720 Uh
+00:40:46.960 Now, again here load balancer, all I
+00:40:49.080 have to do is get destinations. dot
+00:40:52.840 Get any destination. So, I stream them.
+00:40:55.840 I get any.
+00:40:59.520 And then I
+00:41:01.360 return that.
+00:41:03.320 That's it. This is a round robin.
+00:41:05.560 It's going to Actually, I don't know if
+00:41:07.520 it is round robin or random. Yeah.
+00:41:09.760 Yes. Sorry. Sorry, it's not
+00:41:12.400 No, but we can say it's round robin as
+00:41:14.080 well, no? Because the probability of
+00:41:17.000 giving each server
+00:41:19.320 is 1 by n here.
+00:41:21.240 So, anyways, we are going round robin
+00:41:23.320 fashion.
+00:41:25.120 Actually, I don't know. It depends on
+00:41:26.800 the implementation of find any. So, if
+00:41:28.600 it always gets the first one, then I'm
+00:41:30.200 screwed.
+00:41:31.280 Yes, then you are. But, if it does, so
+00:41:35.280 right now we can imagine that
+00:41:37.120 or you can keep a
+00:41:38.560 keep the server counter in which uh the
+00:41:40.760 last server which you
+00:41:42.320 routed the request to. It would be
+00:41:43.520 simple then.
+00:41:44.800 Yeah. Yeah. Yeah. So,
+00:41:47.640 basically then I have to keep a
+00:41:49.640 if I really want it to be super sure
+00:41:51.840 that it is going to be round robin, I'm
+00:41:53.800 going to say
+00:41:55.680 you know, these are the destinations
+00:41:56.840 that
+00:41:57.880 we have for this request type. So, once
+00:42:01.280 you give me a request
+00:42:04.080 type,
+00:42:06.800 uh the destination that I kept last time
+00:42:08.960 was this. So, you have to give me the
+00:42:10.640 next one. My god, that's
+00:42:16.360 I have to make a list out of it first.
+00:42:19.080 No, just keep the count of the last or
+00:42:21.080 just keep the
+00:42:22.680 So, basically suppose balance load. This
+00:42:24.880 time you're returning destination number
+00:42:26.600 five.
+00:42:27.680 Yeah. So, just update
+00:42:29.560 just keep a variable.
+00:42:32.120 That okay, this time I'm returning five.
+00:42:34.280 Yes, but how do I know that destination
+00:42:35.960 number six is next? Like the the link
+00:42:39.120 over there in a set.
+00:42:41.200 In a set, it won't be possible to do it.
+00:42:44.160 It's not possible to iterate.
+00:42:46.400 For which you can
+00:42:47.800 keep them in a list. In a list, yes. Not
+00:42:50.840 a list.
+00:42:55.080 Okay, what do I what do I do here? I'll
+00:42:57.120 just Import it.
+00:42:59.400 Okay.
+00:43:00.560 So, now we have
+00:43:05.520 request.
+00:43:07.040 I have a map now.
+00:43:08.480 I I think I might be
+00:43:11.080 complicating this a bit, but having said
+00:43:12.840 that, yeah.
+00:43:16.440 Now, what I need to do is uh
+00:43:19.560 This is
+00:43:24.120 if
+00:43:25.360 destinations for request
+00:43:28.280 uh does not contain this request type,
+00:43:33.000 then put it
+00:43:36.640 in this map.
+00:43:42.800 And this is basically a technical thing.
+00:43:45.000 We could give you randomized, but we
+00:43:47.480 don't want to. So, we want to ensure
+00:43:49.560 that there is exactly one request going
+00:43:52.200 around in the circle.
+00:43:53.960 In the round robin, yeah. So, that's the
+00:43:55.480 reason why we are doing this uh for
+00:43:57.200 destinations
+00:44:01.000 for this request type.
+00:44:03.120 Okay.
+00:44:05.360 There's something which I want to ask
+00:44:07.360 right now. of course.
+00:44:08.880 Am I solving my own question or am I
+00:44:10.800 solving the question which is asked?
+00:44:12.880 No, no.
+00:44:13.840 You're doing it the right way.
+00:44:15.400 Okay. Uh
+00:44:16.440 it's different from
+00:44:18.280 what we're solving right now.
+00:44:20.080 Yeah. Can you tell me what are the
+00:44:21.280 disadvantages of using the round robin
+00:44:23.160 algorithm
+00:44:24.400 in a load balancer?
+00:44:27.000 Uh
+00:44:28.920 one thing would be that
+00:44:31.760 I would need to maintain some state in
+00:44:34.000 the load balancer.
+00:44:35.400 Uh the complexity of if a service
+00:44:39.400 unregisters or registers itself Mhm. is
+00:44:42.680 is high because let's say there are
+00:44:45.920 three servers
+00:44:47.160 and each of them have 10 requests which
+00:44:48.440 are being served. A fourth one comes in.
+00:44:50.560 Now, instead of giving the next 10
+00:44:51.920 requests to the fourth one, which will
+00:44:53.640 evenly balance the load, I'm going to be
+00:44:56.520 uh
+00:44:57.400 going around in a
+00:44:59.120 fashion in a circular fashion.
+00:45:01.400 It's also a not a single point of
+00:45:03.800 failure, but if request number four, I
+00:45:06.040 send it to a server,
+00:45:07.760 uh
+00:45:09.840 and I don't get a response, then I'll
+00:45:11.360 try request uh
+00:45:12.520 then I should try server number five.
+00:45:14.640 Or I can just fail the request actually.
+00:45:16.320 Is that a Is that a problem? No, it's
+00:45:17.880 not. That happens with every
+00:45:20.840 every request that I route.
+00:45:23.040 I can only problem that I see is the
+00:45:25.240 state management.
+00:45:27.560 But state you'll have to manage in other
+00:45:29.880 uh
+00:45:30.920 algorithms also.
+00:45:32.720 So, how is it a problem then if you have
+00:45:34.640 to do it in every algorithm?
+00:45:37.560 Well, it does not Other algorithms like
+00:45:39.640 least connection, at least they they
+00:45:41.360 make sense that you know, I'm sending it
+00:45:43.080 to the uh
+00:45:45.960 server with the lowest load. So, I'm
+00:45:48.040 balancing load
+00:45:49.520 uh or looking at threshold. Here, what
+00:45:51.800 I'm doing is I'm
+00:45:53.560 balancing I'm not looking at the
+00:45:55.600 capacity of the server. I'm just doing a
+00:45:58.160 round robin.
+00:45:59.680 Yeah. I'm not looking at which server
+00:46:01.440 has finished request faster.
+00:46:04.080 Or
+00:46:05.280 which server is more powerful, yeah.
+00:46:07.520 So, the main
+00:46:08.840 uh
+00:46:09.680 disadvantage, if you say, of round robin
+00:46:12.360 is that we don't know which if this
+00:46:15.520 request has been routed to this server,
+00:46:17.680 is the server free or not?
+00:46:20.360 Suppose this server is already
+00:46:21.720 overloaded.
+00:46:23.360 But what our algorithm says is that we
+00:46:25.640 have to route it to this server.
+00:46:27.560 If this is already overloaded, we
+00:46:29.320 shouldn't. But this is the disadvantage
+00:46:31.280 or drawback of this algorithm, that it
+00:46:33.080 will and this request would be failed.
+00:46:37.280 Yeah.
+00:46:38.640 That's why came
+00:46:40.320 weighted robin round robin algorithm.
+00:46:44.200 Yes. Yeah, there's a weighted round
+00:46:46.040 robin algorithm, yes. Yes.
+00:46:48.080 And can you tell me why
+00:46:50.400 don't we use weighted round robin
+00:46:52.080 algorithm?
+00:46:53.560 What is the disadvantage of that or
+00:46:55.440 drawback of that?
+00:47:02.280 I'm not sure. I've coded this
+00:47:04.800 Mhm. myself, but I I can't remember the
+00:47:07.200 weighted round robin
+00:47:08.880 algorithm exactly.
+00:47:10.880 I think it says that uh
+00:47:18.120 Okay.
+00:47:19.080 So, I'll tell you I don't remember,
+00:47:20.840 yeah. I don't remember the algorithm
+00:47:22.280 also, weighted round robin.
+00:47:24.080 No worries, no worries.
+00:47:25.680 So, the thing is that this algorithm is
+00:47:27.800 not smart.
+00:47:29.280 So, for example, I know that server one
+00:47:31.880 can handle this request in much faster
+00:47:33.800 way.
+00:47:35.240 But what happens in again, weighted
+00:47:37.760 round robin or round robin? That if it
+00:47:39.960 is server three's turn, then this
+00:47:41.880 request would be routed to server three.
+00:47:44.920 What
+00:47:46.120 a system's responsibility is to serve
+00:47:49.240 the request in the most fastest way.
+00:47:51.880 That's when came least response time
+00:47:54.320 algorithms and there are other others
+00:47:56.800 also.
+00:47:57.800 But of course, now if you have least
+00:48:00.160 response time, that means the load
+00:48:01.960 balancer that means the load balancer
+00:48:04.240 will have to keep a map. Okay, this
+00:48:07.760 server would be balanced would be able
+00:48:10.400 to serve this request in this much time.
+00:48:12.520 So this would make
+00:48:14.160 server heavier or load balancer heavier.
+00:48:17.840 Mhm. Okay. Why I wanted to ask this
+00:48:19.720 question was
+00:48:21.480 that each and every algorithm has their
+00:48:24.160 drawbacks, pros and cons.
+00:48:27.360 And
+00:48:28.280 each and every system would use
+00:48:31.120 different different algorithms. That is
+00:48:33.520 why we are solving this problem here
+00:48:35.720 where
+00:48:37.080 anybody would give you an algorithm and
+00:48:38.920 you would be using that load balancer.
+00:48:41.280 Just to explain the audience out there
+00:48:43.960 that
+00:48:45.640 we always have relevance like there's no
+00:48:48.400 point having so many algorithms. Of
+00:48:50.280 course, they're going to have relevance.
+00:48:51.800 Each and every algorithm is having
+00:48:54.640 different advantages and disadvantages.
+00:48:56.760 So depending on the system
+00:48:59.840 you'll decide on which algorithm will
+00:49:01.280 you use.
+00:49:03.000 Yeah.
+00:49:04.240 Absolutely. There might be some cases
+00:49:06.400 where
+00:49:07.320 just a random algorithm is good enough.
+00:49:09.560 There might be some cases where you want
+00:49:11.400 to route according to
+00:49:14.000 the request ID.
+00:49:15.640 You want to like route according to
+00:49:17.920 that.
+00:49:18.920 And
+00:49:19.960 in some cases
+00:49:21.280 like you said least
+00:49:22.760 response time is a good idea. But then
+00:49:25.680 you know, what if
+00:49:27.480 the least response time is there because
+00:49:29.120 that server was
+00:49:31.120 free now suddenly some something has
+00:49:33.200 happened.
+00:49:33.280 Overloaded.
+00:49:34.360 Yeah, suddenly now suppose
+00:49:36.600 create profile on
+00:49:37.920 It's not a bad algorithm. Like okay,
+00:49:39.480 you're sending least response time. The
+00:49:40.840 good thing about it is you're checking
+00:49:42.400 all the time. The moment its response
+00:49:43.800 time is beaten by somebody else, you
+00:49:46.160 start routing requests over there.
+00:49:49.120 But then you have to maintain that
+00:49:50.440 state.
+00:49:51.880 Not that hard not that hard, but yeah.
+00:49:54.520 Suppose there are many servers.
+00:49:57.400 Right?
+00:49:58.400 In that case, this will make the load
+00:50:00.040 balancer heavier because there are so
+00:50:02.120 many incoming requests, and you're every
+00:50:04.280 time checking the state and then
+00:50:07.240 serving or sending the request to the
+00:50:08.880 server, which is taking
+00:50:10.800 a time. Right? Yeah. So, the response
+00:50:13.680 time would actually go down.
+00:50:16.840 Now, some
+00:50:17.480 Right now.
+00:50:18.880 Another smart thing about Yeah.
+00:50:22.040 One one thing that
+00:50:25.040 I know, sorry. The load balancer another
+00:50:26.800 thing that happens often, especially
+00:50:29.040 with the database load balancer, is
+00:50:32.080 you take the request if it's a get
+00:50:33.960 request, if it's a select thing, and you
+00:50:36.120 route it to two
+00:50:37.640 nodes.
+00:50:39.120 And whichever one gives you a response
+00:50:40.440 faster, you just take that and send it
+00:50:41.640 back. So, that is a different type of
+00:50:44.040 load balancing. So, yeah, depends
+00:50:46.200 totally on the
+00:50:48.040 use case.
+00:50:49.120 Right.
+00:50:50.960 Okay, now I understand why we are having
+00:50:52.840 all these algorithms
+00:50:54.720 with a plug-and-play attitude for a load
+00:50:56.240 balancer. Okay, that's great.
+00:50:59.360 Um
+00:51:00.320 If destinations for the request are
+00:51:01.960 there, then just
+00:51:03.320 are not there, then put uh this
+00:51:06.120 equal to null.
+00:51:10.400 Contains I think.
+00:51:15.840 Does not contain.
+00:51:17.640 If it contains, then then do this.
+00:51:19.800 Uh and then
+00:51:24.640 I'm surprised that this is Okay, this
+00:51:27.200 destinations has to be converted to a
+00:51:28.760 list.
+00:51:32.840 Okay, I'll do that.
+00:51:34.680 Uh and if it is
+00:51:37.360 already been converted to a list, now I
+00:51:39.520 I also need another
+00:51:41.360 parameter here.
+00:51:51.880 So this will tell me the index of the
+00:51:53.240 last destination.
+00:51:56.920 Should be integer.
+00:52:01.560 Not a great way to do this. Ideally I
+00:52:03.600 would convert this into an object list
+00:52:05.160 of destinations with an integer.
+00:52:07.120 Uh so if you really want Just queue or
+00:52:10.040 just keep a queue.
+00:52:12.000 That queue
+00:52:12.480 From the front
+00:52:13.880 You need not to have you need not to do
+00:52:15.800 all these calculations. Just keep a
+00:52:17.320 queue. From the front remove the server.
+00:52:20.440 Yeah, and add it to the back.
+00:52:22.480 Add it to the back.
+00:52:24.360 Yeah, this is that much better, yeah.
+00:52:25.920 Just simplifying the data structure
+00:52:27.360 makes life much much easier. Yes.
+00:52:30.160 Got it.
+00:52:32.000 Yeah, yeah.
+00:52:33.160 Okay, so
+00:52:35.320 destinations for request dot
+00:52:37.840 get
+00:52:39.360 request dot request ID
+00:52:42.560 Now I don't need to stream it. I need to
+00:52:44.440 poll this.
+00:52:50.200 Okay, uh
+00:52:52.240 this is here.
+00:52:54.920 This is what we have pulled and then
+00:52:56.480 also
+00:53:01.000 I have to add it here.
+00:53:06.120 So it goes on the back of the queue
+00:53:08.000 and then this is the
+00:53:10.680 I'll just
+00:53:11.600 name it something.
+00:53:13.840 Yeah. destination I'll call it the
+00:53:15.080 destination.
+00:53:16.480 And this has to be converted to a queue.
+00:53:18.680 So
+00:53:20.600 there's a there must be a simple way to
+00:53:22.560 do this. I'll just
+00:53:24.160 hack my way through it.
+00:53:25.480 Yeah. We can leave it for now.
+00:53:27.720 Yeah.
+00:53:30.800 Sorry for the naming, but
+00:53:32.600 Okay.
+00:53:35.480 Convert to queue.
+00:53:41.120 Yeah.
+00:53:41.840 For now I'll just leave this. There be a
+00:53:44.000 library method to do this.
+00:53:45.880 Balance load, okay. So, two types of
+00:53:47.960 load balances already created with
+00:53:50.200 minimal effort, so to speak, because
+00:53:52.320 only balance load is the function which
+00:53:53.960 is changing. Everything else is the
+00:53:55.160 same.
+00:53:56.400 Tomorrow, if someone comes like Arun,
+00:53:58.200 you mentioned give me the
+00:54:00.840 load balance based on the response
+00:54:02.400 times, I have to just add state over
+00:54:04.360 here to this destination.
+00:54:06.200 Yes. Uh and
+00:54:08.480 the state will be basically response
+00:54:09.960 time, and then I will instead of taking
+00:54:12.240 the one with minimum number of requests
+00:54:13.600 being served right now, I'll take the
+00:54:14.760 one with minimum response time.
+00:54:17.840 Being updated constantly.
+00:54:21.360 When the request completes, I'll change
+00:54:22.720 the current response time.
+00:54:24.600 Yes.
+00:54:25.840 Okay.
+00:54:26.760 So, I think that takes care of
+00:54:29.200 uh Everything.
+00:54:31.680 load balance it, yeah.
+00:54:34.400 You can type pass in the type of
+00:54:35.600 request.
+00:54:37.040 We will And if you register the service
+00:54:38.880 to that,
+00:54:39.840 uh as long as destinations are there for
+00:54:41.320 a service,
+00:54:42.560 we will
+00:54:44.120 find the best destination according to
+00:54:46.080 the algorithm that you have chosen. So,
+00:54:48.320 yeah, uh
+00:54:50.200 Finally, I'll just do this. I will say
+00:54:53.720 class
+00:54:54.800 load
+00:54:56.520 balancer
+00:54:59.600 factory. Factory.
+00:55:02.720 You don't need to create the load
+00:55:04.240 balancer. We'll create it for you.
+00:55:06.080 Just give us
+00:55:08.120 uh Let's say
+00:55:09.840 you're getting a string, okay.
+00:55:12.240 Okay.
+00:55:13.840 String saying least connection, so you
+00:55:16.320 return the least connection load
+00:55:17.560 balancer. Saying round robin, so return
+00:55:20.160 the round robin.
+00:55:22.320 Okay. So, you're passing me a string
+00:55:25.080 of uh
+00:55:27.200 type.
+00:55:29.520 And so, uh
+00:55:31.360 switch case this.
+00:55:33.920 Do you think this would be void?
+00:55:37.240 No, it will No, it will a load balancer.
+00:55:39.360 Yes. Yes.
+00:55:41.760 Uh now
+00:55:43.560 like
+00:55:48.200 Yes.
+00:55:49.880 Uh
+00:55:50.440 you said round robin.
+00:55:52.640 Yeah.
+00:55:53.840 So, I'll I'll just assume that this is
+00:55:56.680 Yeah. Uh
+00:56:00.280 hash.
+00:56:02.040 Uh that that makes it return.
+00:56:06.120 new
+00:56:07.400 round robin
+00:56:09.680 load balancer.
+00:56:11.800 Yes.
+00:56:13.480 Otherwise
+00:56:16.080 Then we should have a break here, is it?
+00:56:18.560 Uh is it return? Okay.
+00:56:20.520 We don't need a break. We have already
+00:56:22.360 added return.
+00:56:24.440 Yeah.
+00:56:27.400 Okay. Uh what else? Uh there could also
+00:56:29.560 be
+00:56:35.360 disconnection.
+00:56:44.120 Let's make it Okay, this is not a good
+00:56:45.640 idea. Uh
+00:56:46.840 there's also a way to just say default
+00:56:48.600 it release connection, but
+00:56:51.640 that will be a bad idea.
+00:56:58.440 Our default is better, okay. Yes. Okay.
+00:57:03.560 Okay, this takes What is this? Only a
+00:57:05.160 switch.
+00:57:07.360 Replaced with enhanced switch.
+00:57:10.000 Oh.
+00:57:11.880 Oh, great.
+00:57:14.680 That is too much ID stuff.
+00:57:18.120 Too few labels.
+00:57:19.880 That
+00:57:20.760 I think Yeah. Uh
+00:57:22.560 that's why you should not use ID too
+00:57:23.720 much also. Okay, yeah, this takes care
+00:57:25.640 of uh the load balancer
+00:57:27.760 that
+00:57:28.480 we need.
+00:57:32.120 Okay.
+00:57:33.240 Uh
+00:57:33.800 Arun, do you Do you think this is
+00:57:34.720 sufficient? Uh should we go ahead with
+00:57:36.080 questions or
+00:57:37.440 Yes, I feel this is sufficient.
+00:57:40.280 And then we should take up more
+00:57:41.400 questions.
+00:57:42.920 Awesome.
+00:57:43.840 Okay. Vinit has a lot of
+00:57:46.600 comments.
+00:57:47.240 Yeah.
+00:57:49.880 Load balancer must be singleton pattern
+00:57:53.920 with load balancing strategies in
+00:57:55.680 strategy pattern.
+00:57:57.680 That is
+00:57:59.240 true. If you have
+00:58:01.280 one load balancer,
+00:58:03.880 then it should be a singleton.
+00:58:06.840 We are going for multiple load balancers
+00:58:08.360 depending on your use case.
+00:58:10.640 No, actually
+00:58:12.160 Yeah. What we are doing is
+00:58:14.240 You're also storing state, right? Yeah.
+00:58:16.120 Yes. So, we are returning a system We
+00:58:17.960 are making a system
+00:58:19.440 which would give you a load balancer
+00:58:20.880 according to your choice.
+00:58:24.240 So, if there's only one load balancer,
+00:58:27.160 then of course we can we should we'll
+00:58:28.920 have to go with the singleton pattern.
+00:58:32.480 Yeah.
+00:58:34.560 Yeah.
+00:58:36.440 Right.
+00:58:38.040 So, in fact that in our case that is not
+00:58:39.760 true. If you had it just one load
+00:58:41.320 balancer that you wanted, then yes.
+00:58:42.880 Also, yeah.
+00:58:44.840 So, also another thing should have a
+00:58:47.080 heartbeat to check that things are
+00:58:49.640 working. That is absolutely true.
+00:58:51.480 Yeah. Which a service can do.
+00:58:53.760 Which a service can do or maybe
+00:58:55.080 destination can be there.
+00:58:57.880 So, before returning any of the before
+00:59:01.040 returning any of the servers, we can
+00:59:03.160 just check
+00:59:04.520 that okay,
+00:59:05.640 this is active or not.
+00:59:07.880 Yes. Yes, so
+00:59:09.680 maybe there's a thing which runs every 5
+00:59:11.760 seconds here, which checks whether
+00:59:14.680 go through all the destinations one by
+00:59:16.000 one
+00:59:17.240 and do that. Okay, great. That's a good
+00:59:19.320 point.
+00:59:21.160 Some service can take longer than
+00:59:22.360 others, so round robin will not
+00:59:23.520 distribute work evenly.
+00:59:24.680 Yes. Yeah. I think This is the answer to
+00:59:28.440 the question which I asked.
+00:59:30.120 Absolutely, least connected ordered by
+00:59:31.760 last
+00:59:32.720 connected.
+00:59:35.760 Is it?
+00:59:39.400 Least connected.
+00:59:42.480 Okay, actually I should say accept
+00:59:43.760 request also, no?
+00:59:45.320 I haven't done that, but yeah.
+00:59:47.720 It's fine.
+00:59:49.440 Whenever we balance the load, I should
+00:59:50.720 have just said this destination.
+01:00:01.360 Let's hear and let's
+01:00:03.080 hear also.
+01:00:04.960 Well,
+01:00:06.080 I guess you can also say that the
+01:00:07.640 destination itself can do this. It's the
+01:00:09.720 destination's responsibility to handle
+01:00:11.360 that. Okay.
+01:00:13.280 Uh, waited. Is the service map available
+01:00:16.880 to all different kind of load balancer?
+01:00:19.800 It's not static. But it's available to
+01:00:22.200 all different kind of load balancer
+01:00:23.320 because they are all extending this.
+01:00:26.040 Mhm.
+01:00:28.040 Okay.
+01:00:32.720 Weighted will be useful when machines
+01:00:34.120 are of different sizes.
+01:00:35.560 I just remembered,
+01:00:37.480 uh, there is a low-level design repo
+01:00:40.120 that I have created on GitHub
+01:00:42.720 which has this taken care of.
+01:00:46.240 Let me share it here, low-level design.
+01:00:50.280 Load balancer service orchestrator in
+01:00:52.720 that.
+01:00:54.360 Source, you mean?
+01:00:57.080 Load balancer.
+01:00:59.480 Algorithms, weighted round robin. Yeah,
+01:01:02.600 I have this.
+01:01:03.880 I did this long back.
+01:01:06.160 I'll just share it in the chat.
+01:01:09.960 Yes.
+01:01:10.960 Weighted round robin,
+01:01:12.800 Arun, you had mentioned I totally forgot
+01:01:14.600 what it does, but yes, now I remember.
+01:01:17.280 Looking at the capacity of the server,
+01:01:19.800 it does round robin. Like two times it
+01:01:22.160 will send
+01:01:23.240 then once here then three times here if
+01:01:24.800 it is 3x.
+01:01:26.040 Yes.
+01:01:27.080 Use min heap.
+01:01:28.880 Min heap had the right idea using min
+01:01:30.600 heap or something use heap.
+01:01:32.560 But then heap would also have their
+01:01:34.200 logic actually.
+01:01:36.280 Which would take time.
+01:01:38.080 So right.
+01:01:39.520 It is the same.
+01:01:42.040 I see.
+01:01:44.320 Actually min heap will give us
+01:01:47.080 the answer in order one and an update is
+01:01:49.400 log in. So he's actually
+01:01:51.640 Yeah, I I am doing it with order n.
+01:01:54.640 So my my reads are pretty slow. My
+01:01:57.440 rights are fast but then that's
+01:02:00.160 It's a good idea I think.
+01:02:02.160 You can use a tree map here if that's
+01:02:04.440 the case. Min heap also we can use.
+01:02:08.000 I mean he has done a lot of heat coding.
+01:02:10.120 Mhm.
+01:02:12.280 But thank you so much. These are really
+01:02:13.760 good comments.
+01:02:15.120 Q for round robin, min heap for least
+01:02:17.400 response time and least connections is
+01:02:18.560 amazing.
+01:02:20.400 With
+01:02:21.400 brilliant. I think this is really really
+01:02:22.760 good.
+01:02:23.800 How are we managing some session across
+01:02:25.520 the servers? Please clarify.
+01:02:28.440 Same session across the servers.
+01:02:31.960 You can have a single source of truth
+01:02:34.240 like a database or a global cache.
+01:02:38.720 How are you handling sticky sessions?
+01:02:40.960 It's very easy.
+01:02:42.720 When you do balance load
+01:02:44.400 get destinations for this request
+01:02:47.720 and then you basically
+01:02:51.120 among the destinations you
+01:02:53.480 you use it as a list let's say.
+01:02:56.040 So you will get them in a particular
+01:02:57.280 order 0 1 2 3 4.
+01:02:59.240 And then you hash
+01:03:01.040 your current request
+01:03:02.920 mod it with the number of destinations
+01:03:04.760 you have and give it to the destination.
+01:03:07.880 I can instead of saying it because it's
+01:03:09.880 a very common use case.
+01:03:13.840 routed
+01:03:17.360 load balancer this is
+01:03:19.720 the
+01:03:20.440 destinations
+01:03:23.520 converted to a list.
+01:03:38.000 Okay, now this
+01:03:44.040 Now I have a list of this. Now uh
+01:03:48.280 All I have to do is collect
+01:03:50.160 dot size.
+01:03:54.320 I have to take the request
+01:03:56.440 hash it
+01:03:58.360 divided by
+01:04:01.400 hash code gives us what?
+01:04:03.360 Think no, yeah. So this will give me the
+01:04:07.800 index dot get.
+01:04:18.240 Pretty simple.
+01:04:25.680 Uh
+01:04:26.480 yeah, it's this. Okay.
+01:04:28.560 That's all. And you are now routed
+01:04:31.800 load balancer. Depending on the request
+01:04:34.680 ID
+01:04:37.280 or request dot hash code gives you
+01:04:38.200 request dot ID you can do.
+01:04:43.440 You can hash.
+01:04:45.160 You want to change it? You want to make
+01:04:46.360 it group type? Uh just go to the balance
+01:04:48.640 and pick it up.
+01:04:50.360 So anything can be done.
+01:04:53.640 Sticky sessions enabled.
+01:04:56.280 Beneath in that case the server is down,
+01:04:57.720 how is the session is updated? Okay.
+01:05:03.280 Ajit Pratap Singh is saying
+01:05:05.320 uh it violates open closed principle.
+01:05:09.040 Open for extension, closed for
+01:05:10.520 modification. Modification.
+01:05:13.360 Why?
+01:05:15.200 I think
+01:05:15.640 How is it violating?
+01:05:18.600 In the above I feel somewhere.
+01:05:22.480 He's talking about switch case can be
+01:05:24.560 avoided here.
+01:05:26.200 Mhm. But is if that is this is not
+01:05:29.040 violating the open close principle.
+01:05:31.040 Mhm. This is not.
+01:05:32.920 This is open for extension here.
+01:05:41.800 I mean yeah I guess the switch case if
+01:05:43.840 you want to make it ultra cool then
+01:05:45.360 yeah.
+01:05:46.920 Depending on the type you can have a map
+01:05:49.000 of
+01:05:50.360 this type of load balancer then you have
+01:05:51.800 this.
+01:05:53.240 Okay. Okay, yeah that's that's true.
+01:05:55.840 Good catch.
+01:05:59.520 System design that pool I've just shared
+01:06:01.080 the link guys. Uh
+01:06:03.080 low level design
+01:06:05.640 Damn, we are missing on sales here.
+01:06:08.840 If you
+01:06:11.040 If you want the notification the fastest
+01:06:13.640 and in the best deal
+01:06:15.360 I would strongly suggest go to Interview
+01:06:17.120 Ready and just register yourselves.
+01:06:19.080 Just login, register. We'll send you an
+01:06:22.080 email soon.
+01:06:24.840 It's going to give you the best deal.
+01:06:26.840 Okay, when we make the public
+01:06:28.000 announcement it will be
+01:06:29.880 it will be
+01:06:31.920 not with the best deal maybe. So just go
+01:06:34.000 there, register yourselves. You'll get
+01:06:35.720 the notification as soon as possible
+01:06:37.560 when we have it up on fraud.
+01:06:40.560 That's the best bit.
+01:06:41.840 Okay.
+01:06:45.400 Online Shiksha is very happy with what
+01:06:47.160 we have. Okay.
+01:06:49.120 Arun, anything that we should do before
+01:06:50.720 we
+01:06:52.120 walk into the sunset?
+01:06:54.440 Mhm.
+01:06:55.840 No, I think this is great.
+01:06:58.320 I think the questions were also great.
+01:07:00.280 We need to work great.
+01:07:02.080 Suggestions were great.
+01:07:04.680 Yeah, thank you. Thank you for the
+01:07:06.040 suggestions.
+01:07:07.480 If we if we look at it, just final note,
+01:07:09.440 guys. If we look at it, right now it is
+01:07:12.160 8:09.
+01:07:13.960 And we were able to wind up, I think, at
+01:07:15.720 7:50.
+01:07:17.480 Right? So, all in all, this is a perfect
+01:07:19.280 interview experience.
+01:07:22.720 Uh Gaurav was not ready at all,
+01:07:24.480 honestly.
+01:07:26.280 He hadn't prepared like he just took the
+01:07:28.320 topic and I just gave him.
+01:07:31.000 And in the middle, I was just trying to
+01:07:33.040 make things difficult for him. So, I
+01:07:34.800 think great work.
+01:07:36.720 Thank you. Yeah, that's it.
+01:07:40.320 And of course, there could be many
+01:07:41.480 modifications could be done, by the way,
+01:07:43.680 guys. There could be many modifications
+01:07:45.400 that could be done. This is an interview
+01:07:47.280 experience, okay?
+01:07:50.480 Interviewer will want to test a few
+01:07:52.520 things. Of course, Gaurav cannot give
+01:07:54.360 you the perfect solution.
+01:07:56.080 By the way, we have tried to give you
+01:07:57.320 perfect solution on the course, but here
+01:08:00.120 in an interview, nobody can come up with
+01:08:01.600 a perfect solution at once. What we can
+01:08:03.920 do is by practice or by looking at
+01:08:06.320 systems or by reading them or by trying
+01:08:09.160 to code it ourselves,
+01:08:11.240 maybe we can,
+01:08:12.760 you know, think early
+01:08:15.080 and come up with a better solution.
+01:08:19.600 So, this is a perfect interview
+01:08:20.759 experience which I want to say. Okay,
+01:08:22.759 there could be any number of mistakes
+01:08:24.439 into it or maybe we can optimize it in a
+01:08:27.000 much better way, but in an interview,
+01:08:29.720 this is how it goes.
+01:08:33.600 Yeah. Yeah, I think uh like uh Vineet I
+01:08:36.640 think mentioned about that, you know,
+01:08:38.120 you can use a heap uh and
+01:08:41.160 some there are always some awesome
+01:08:42.720 optimizations you can do.
+01:08:44.439 Uh
+01:08:48.439 Okay, uh
+01:08:49.600 there's uh Adarsh who's asking, &quot;I have
+01:08:51.240 been one of the earliest subscribers
+01:08:52.680 early boot up interview ready. My only
+01:08:54.680 ask since long has been to have a LLD
+01:08:56.600 repo for Python equivalents. Hope we get
+01:08:58.759 it soon.&quot;
+01:09:00.080 Okay. I and Arun are not experts in
+01:09:03.920 Python and then
+01:09:05.759 we can probably write the code in
+01:09:08.720 Python, but I don't know how much it
+01:09:09.880 will help you because we will not
+01:09:12.240 be explaining the the code, right?
+01:09:15.240 Frankly speaking, the language is it is
+01:09:17.359 language agnostic. Now, Arun, what do
+01:09:18.640 you think?
+01:09:18.880 Yeah, yes. So, so the first two parts of
+01:09:22.319 the chapter, so each and every chapter
+01:09:23.880 is divided into three parts. Use case
+01:09:25.560 diagram, class diagram, and then the
+01:09:27.560 code.
+01:09:28.520 Use case diagram is language agnostic.
+01:09:30.920 Class diagram, which is built using the
+01:09:32.759 use case diagram, is again language
+01:09:34.240 agnostic. Then when you're writing the
+01:09:36.439 code,
+01:09:38.160 I think
+01:09:39.319 what I feel is that people should be
+01:09:40.920 able to write them using the class
+01:09:42.680 diagram because that is what we are
+01:09:43.839 doing. There are very little
+01:09:45.640 modifications which you're doing while
+01:09:47.520 writing the code
+01:09:49.000 which could vary from the class diagram,
+01:09:51.120 very little. But so I feel this is
+01:09:53.960 language agnostic.
+01:09:56.120 Can I just show the
+01:09:57.800 course, no?
+01:09:58.800 Arun, is it okay if I show
+01:10:01.600 them the course?
+01:10:02.640 Yeah, yeah, why not? Let's go ahead.
+01:10:05.240 Okay.
+01:10:06.440 Let's go to account.
+01:10:08.800 Let's go to course.
+01:10:11.840 Go to social media app.
+01:10:14.840 Let's go to code, right?
+01:10:16.760 Okay, you can see that this is
+01:10:18.320 reasonably highly rated.
+01:10:20.680 And Arun has taken this, which is
+01:10:23.240 amazing.
+01:10:24.680 Now, look at this stuff. Even before we
+01:10:26.680 go to social media app, right? You can
+01:10:29.360 start from the
+01:10:31.240 You can start from the beginning.
+01:10:32.400 Yeah, let's Let's show them.
+01:10:34.280 Yeah.
+01:10:36.400 So, use case diagram.
+01:10:40.160 I think
+01:10:41.240 Can you please remove this comment? I
+01:10:42.520 don't think people would be able to see
+01:10:43.880 fully. Oh, yes, of course. I just
+01:10:45.200 Comments. Yeah, I guess. Uh
+01:10:49.360 You see, every initially the
+01:10:51.120 requirements is are explained well.
+01:10:53.360 Then we start talking about
+01:10:55.360 what are the things that a registered
+01:10:57.400 user should be able to do?
+01:10:59.320 And in some cases where we think that
+01:11:01.160 drawing it out makes more sense,
+01:11:03.720 the explanation is that way.
+01:11:05.320 So, first we note down what are the
+01:11:06.880 requirements of the user. This has
+01:11:09.120 nothing to do with language, like you
+01:11:10.640 can see.
+01:11:12.480 It's clearly something to do with like
+01:11:14.280 you would do this in any company, even
+01:11:16.760 in a startup. What do we need to do?
+01:11:20.200 Okay?
+01:11:21.600 Uh
+01:11:22.160 that is called a use case diagram. What
+01:11:23.720 are the use cases? Who are the actors of
+01:11:26.200 this system? So, Arun has explained this
+01:11:28.040 really well, and you can see it being
+01:11:30.120 backed by ratings. These are not ratings
+01:11:31.560 which are
+01:11:32.520 pumped by me. These are actual frank
+01:11:35.280 ratings, okay? Uh
+01:11:38.160 Then that same use case diagram has been
+01:11:40.240 put over here so that you can just
+01:11:41.280 download it like later on when you're
+01:11:42.520 revising just before the interview.
+01:11:44.520 Uh
+01:11:46.680 Now you have a class diagram. Each of
+01:11:48.720 these
+01:11:50.120 uh
+01:11:51.240 is
+01:11:56.680 is So, there's an explanation of what
+01:11:58.440 the class diagram does.
+01:12:05.160 You can see what I'm doing here.
+01:12:07.240 And this is built using the use case
+01:12:08.840 diagram, guys. This is built using the
+01:12:10.960 use case diagram.
+01:12:14.000 Right. Right. And you have every state
+01:12:17.240 and behavior being mentioned here.
+01:12:19.480 Yes. Class diagram part one, class
+01:12:21.280 diagram part two.
+01:12:22.840 Uh
+01:12:28.400 And we are also talking about the
+01:12:29.640 relation, guys. Just Just pause here,
+01:12:31.840 right here. We are also talking about
+01:12:33.800 the relations between different
+01:12:35.320 different classes or entities, if you
+01:12:37.800 can see.
+01:12:39.720 Yeah. Yeah. In fact, you see this over
+01:12:42.120 here, we found that the reading is not
+01:12:43.880 very high. So, we immediately started
+01:12:45.520 connecting with you. I Before we started
+01:12:47.240 this
+01:12:47.920 uh you know
+01:12:49.360 session, I already told you that maybe
+01:12:50.840 we have connected with some of you
+01:12:51.920 already because there are certain places
+01:12:54.360 where we found that the you didn't like
+01:12:56.240 it much. You can see here that there are
+01:12:57.880 13 ratings and it has roughly three
+01:13:00.120 stars
+01:13:01.680 on average. So, this needs improvement
+01:13:03.680 and we are connecting.
+01:13:05.320 So, okay. And we are improving.
+01:13:07.960 Yeah, and we are improving. Like we we
+01:13:09.360 kind of know what is required. A lot of
+01:13:11.600 you said that, you know, why don't you
+01:13:13.160 explain
+01:13:14.800 the design pattern before that?
+01:13:16.800 And the basics just go for fundamentals
+01:13:18.560 first. So, we are working on that. We'll
+01:13:20.160 have a fundamental section here.
+01:13:23.800 So, okay. Uh
+01:13:25.520 Timeline and tweet.
+01:13:27.560 Again, this is
+01:13:29.200 Now, what's happened is he's still Arun
+01:13:30.960 is still going ahead with the classes.
+01:13:32.840 He's not jumping to the code. Like,
+01:13:34.440 &quot;Wow, okay. I'm done.&quot; No.
+01:13:37.560 Here also, he's given an explanation of
+01:13:39.280 what classes are needed.
+01:13:42.120 What kind of behaviors they'll have you
+01:13:44.160 tweet, at tweet,
+01:13:45.880 so on.
+01:13:47.200 Uh
+01:13:47.800 tweet class, comments, and What
+01:13:49.600 parameters they are taking, we are also
+01:13:51.360 talking about that. What would be the
+01:13:52.600 return type? We are also talking about
+01:13:54.520 that.
+01:13:55.640 Right. Right.
+01:13:57.080 Every single thing explained the the
+01:13:58.920 cardinality in these sets also is
+01:14:00.560 explained. One is to one, one is to one.
+01:14:03.480 And then finally, when we are
+01:14:04.520 comfortable, then we go to code.
+01:14:06.680 The fact is
+01:14:09.440 these are being explained.
+01:14:11.080 That's the reason why it takes time.
+01:14:13.120 But if you go in the interview having
+01:14:15.000 gone through these videos, right now
+01:14:16.960 there are four more are being added. But
+01:14:18.560 if you go through all this,
+01:14:20.720 you will be ready. You don't need to
+01:14:22.400 explain to the interviewer as much as we
+01:14:24.080 need to explain
+01:14:25.520 because you know, obviously, there's a
+01:14:27.560 teaching angle here.
+01:14:32.400 Right. And
+01:14:33.600 if you want a kind of a reference as to
+01:14:36.360 there are four here right now.
+01:14:38.560 I'll just show you the system design
+01:14:41.600 course, the simplified course, that one.
+01:14:43.800 Fundamentals are first explained.
+01:14:45.920 Okay. Then high-level design, then
+01:14:47.360 low-level design. You can see that
+01:14:48.480 initially this course also had only four
+01:14:50.320 videos, four chapters. Now it has 15.
+01:14:53.280 Today by the way I added one more. I
+01:14:54.440 haven't set the
+01:14:57.000 Okay, I'll announce it here only. Google
+01:14:58.200 Docs.
+01:14:59.760 Google Docs is a new chapter. You can
+01:15:01.240 see it's totally new. Zero ratings.
+01:15:04.840 Gmail service you can see there's 23
+01:15:07.240 ratings, okay.
+01:15:08.480 Yeah.
+01:15:11.120 24 ratings, yeah. So, that's how it is.
+01:15:14.400 All and free resources I think will be
+01:15:16.120 having the maximum number of ratings,
+01:15:17.040 142 ratings.
+01:15:20.240 Stuff which is free, of course, because
+01:15:22.360 No, it's It's being consumed by
+01:15:24.000 everyone.
+01:15:25.800 Yeah, this is ad-free and everything.
+01:15:27.000 So, probably you want to go and check
+01:15:28.200 this out.
+01:15:29.760 Good stuff. So, if you feel like
+01:15:32.440 you know, purchasing the course right
+01:15:33.560 now it's not out there for public, the
+01:15:35.760 low level design. Please sign up and
+01:15:38.040 we'll connect with you. If you feel like
+01:15:39.600 purchasing the
+01:15:41.000 the system design simplified course,
+01:15:42.320 again this is
+01:15:43.400 super worth it.
+01:15:44.680 Uh
+01:15:45.320 you can go to your account and you can
+01:15:47.320 access these courses. And the only guy
+01:15:49.480 with this course, it's going to come out
+01:15:51.080 soon. So,
+01:15:53.080 Arun, I think you also have it.
+01:15:55.200 Yeah, I also have it. Yeah,
+01:15:58.040 of course.
+01:15:59.240 Okay.
+01:16:00.760 Okay, guys, I'll just stop sharing
+01:16:03.000 screen. Any questions that we should
+01:16:04.600 take before we
+01:16:06.200 we end?
+01:16:07.280 I think there's one question that Adarsh
+01:16:09.240 has put.
+01:16:10.360 Can you take it?
+01:16:11.760 Ask him.
+01:16:13.080 Okay.
+01:16:15.520 My question was specifically for the
+01:16:16.800 machine coding and event bus and machine
+01:16:18.440 coding a cache on the system design
+01:16:19.760 course. This will help us understand the
+01:16:20.880 ideal structure and for those code
+01:16:22.840 bases. Okay.
+01:16:24.800 Yeah,
+01:16:26.240 that is there here, no, in the system
+01:16:27.880 design simplified.
+01:16:29.400 Yes, it has already been covered. So,
+01:16:32.040 guys
+01:16:33.360 Yeah, that is about that uses Java
+01:16:35.360 again.
+01:16:36.480 Uh okay, you're right. That does not use
+01:16:39.160 UML diagrams.
+01:16:40.760 All this.
+01:16:43.840 That's for SD3 and above. So, they will
+01:16:46.000 expect you to know the language that
+01:16:47.360 you're coding with quite well.
+01:16:49.840 Uh yeah.
+01:16:51.240 It is many of them are language
+01:16:52.360 agnostic, the principles.
+01:16:54.320 threading
+01:16:55.360 concurrency, low latency
+01:16:59.640 But
+01:17:00.800 yeah, if you're going at that level of
+01:17:02.920 machine coding
+01:17:04.480 then uh if you're using Python, then the
+01:17:06.880 expectation is you'll know the internals
+01:17:08.920 of Python and you'll use it well.
+01:17:11.080 If you're using Node.js
+01:17:13.280 there's an expectation that you know
+01:17:15.000 what you're doing.
+01:17:17.400 Even in front end, you'll see when
+01:17:19.120 you're doing a machine coding round,
+01:17:21.000 it's not just that you're coding uh at a
+01:17:23.160 high level. You're coding at a pretty
+01:17:24.560 deep level.
+01:17:27.840 So, I'm using Java because I understand
+01:17:29.560 Java.
+01:17:30.960 But uh Python
+01:17:33.440 I don't think I don't know how many
+01:17:35.240 people use Python for machine coding.
+01:17:37.400 The ones who do are quite comfortable
+01:17:38.880 with it.
+01:17:44.880 If you come up with a Python code,
+01:17:46.720 Adarsh
+01:17:47.680 uh
+01:17:48.800 please let us know. And if you want to
+01:17:50.240 like post it anywhere for free or if you
+01:17:53.440 want to, you know, add it to Interview
+01:17:55.000 Ready, but that will be behind a
+01:17:56.400 paywall. So, if you want to post it for
+01:17:57.880 free on the YouTube channel, I'll be
+01:17:59.680 more than happy to promote you.
+01:18:01.560 Or anybody who wants to, you know, code
+01:18:03.480 it on Python. But it's a it's a thing
+01:18:05.040 that I'm not capable of doing. I don't
+01:18:06.720 want to send you in the wrong direction
+01:18:07.840 saying, &quot;Yeah, machine coding for SD3
+01:18:09.960 Python, yeah, sure, here it is.&quot;
+01:18:11.960 That won't be fair.
+01:18:14.000 Yeah.
+01:18:19.800 SD course for old members, we can't
+01:18:21.920 merge them.
+01:18:23.680 But we have given you a very special
+01:18:24.880 discount.
+01:18:25.960 Yeah. We have given you a 75% discount,
+01:18:28.680 right?
+01:18:30.000 Yeah.
+01:18:33.520 It's worth it, dude. Uh it's my opinion.
+01:18:36.440 You should go for it.
+01:18:37.960 That is for uh
+01:18:39.800 that's a machine coding and quite in
+01:18:41.480 depth. It is also worth it that LED
+01:18:44.480 content and this is also worth it.
+01:18:47.720 Okay,
+01:18:48.920 feel free to connect with us separately
+01:18:50.640 also if you feel like.
+01:18:53.040 But yeah, it's a pretty good deal. It's
+01:18:54.720 2K for you.
+01:18:56.840 So
+01:18:58.280 It's going up now. Create a video on how
+01:19:00.400 to build our own server that handles
+01:19:01.680 multiple TCP connection, okay.
+01:19:05.240 Others, all right. Great.
+01:19:07.480 All right, guys. Thank you so much. I
+01:19:09.000 better get back.
+01:19:10.720 But thank you for making this possible.
+01:19:13.400 I'll I'll do the time stamp so that you
+01:19:14.800 know which part are we actually coding
+01:19:16.680 in.
+01:19:17.600 If you feel like getting interview
+01:19:18.680 ready,
+01:19:19.600 come to interview ready
+01:19:21.200 and
+01:19:22.200 register so that we can send you the
+01:19:25.360 notification when the courses are out.
+01:19:27.880 Yeah, we are we are super excited about
+01:19:29.400 it.
+01:19:30.680 To put things in perspective, we sold
+01:19:33.920 nearly 500
+01:19:35.760 you know
+01:19:38.440 500 courses. Not not 500 courses. What
+01:19:41.120 is the exact number for this?
+01:19:42.840 We have sold this course to 500 people.
+01:19:45.080 500 people, yeah. In in a few days.
+01:19:48.600 Yes.
+01:19:49.080 In by Sunday or by Monday we had So, we
+01:19:51.480 released it on Wednesday. First half an
+01:19:53.360 hour there were 100 sales immediately.
+01:19:55.480 So, that's
+01:19:57.160 That's
+01:19:58.280 amazing. We are so happy with the
+01:19:59.840 response. Thank you so much.
+01:20:01.720 And then the
+01:20:04.760 It didn't drop down. Like it was
+01:20:06.280 continuous continuous. We haven't
+01:20:08.720 promoted it anywhere. We just gave it to
+01:20:10.560 people who already purchased the
+01:20:11.680 interview ready course. And it's an
+01:20:13.680 amazing response. Thank you so much. We
+01:20:15.480 are working on the improvements.
+01:20:17.880 Feedback. Yes.
+01:20:20.640 Okay, guys. We'll catch up later. See
+01:20:23.200 you then. Take care. Bye-bye.

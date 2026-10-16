@@ -1,0 +1,219 @@
+# tactiq.io free youtube transcript
+# Apache Spark: Deep Dive into internal architecture
+# https://www.youtube.com/watch/I-PwfcNurWo
+
+00:00:00.880 Hi everyone, this is GKCS.
+00:00:02.400 In this video we talk about Apache Spark.
+00:00:05.880 So this is a paper from 2010
+00:00:08.920 and this is from Berkeley.
+00:00:11.600 Apache spark is probably the world'smost popular data analysis system.
+00:00:15.400 It's used by software engineers, data
+00:00:17.120 engineers, data analysts, data scientists,machine learning engineers.
+00:00:21.120 You know, I have personally
+00:00:21.920 also used it while I was working in a dataanalysis system.
+00:00:25.760 And the reason for its popularityis because it is such a generic system.
+00:00:30.680 Before Apache Spark,there were many systems
+00:00:32.680 which are specialized in the tasksthat they used to do for data analysis.
+00:00:36.520 One of the systems we have already lookedat is Dremel, which is really popular
+00:00:40.520 for count queries or aggregationstatistical queries.
+00:00:44.160 There was also a paper writtenby Google called MapReduce.
+00:00:47.520 It has changed the way
+00:00:48.840 in which you could use commodityhardware to come up with data analytics.
+00:00:53.040 MapReduce was very good at batch jobs.
+00:00:55.600 Then there are stream methods.
+00:00:57.600 Then there was Google,
+00:00:58.960 which used to perform PageRankalgorithms for Google at very large scale.
+00:01:02.680 When you're running a graph algorithm,you want to run it in batch.
+00:01:05.640 Some of the principles of MapReduceare put into practice.
+00:01:08.280 But all of these are all specializedfor their own use case.
+00:01:13.400 What spark does is take them all together
+00:01:15.640 and put it undera single umbrella internally.
+00:01:19.720 It lets you do
+00:01:20.560 graph algorithmsusing something called graphics.
+00:01:23.800 It lets you run machinelearning algorithms, also using something
+00:01:26.920 called Mllib.
+00:01:29.040 You have a SQL libraryfor aggregate queries
+00:01:33.000 and it allows MapReduce.
+00:01:37.720 So everything packaged in one.
+00:01:39.640 The benefit ofthis is if you're a data engineer.
+00:01:41.720 Now you don't have to learnfor different technologies.
+00:01:43.920 Everything is covered by Apache Spark.
+00:01:46.720 You can write your programs
+00:01:48.480 in the programing language of spark,which is basically Scala,
+00:01:51.960 and that program will executein any one of these systems.
+00:01:56.160 So this is the major benefit.
+00:01:57.680 It is extremely general purpose
+00:02:02.040 when it comes to data analytics.
+00:02:06.600 The second thing about spark
+00:02:08.160 is that it is extremely scalable,but it's also extremely performant.
+00:02:13.160 This is much faster than MapReduce.
+00:02:15.240 It's in some casesa thousand times faster than MapReduce.
+00:02:18.240 We will see why.
+00:02:21.040 This.
+00:02:22.200 And finally it is pluggable
+00:02:24.360 with various technologies.
+00:02:27.360 So if you want to run sparkwith Kubernetes that is possible.
+00:02:31.120 If your nodes are going to be all managedby Kubernetes that is possible.
+00:02:34.320 You can use miso.
+00:02:35.280 So you can use any other cluster manager.
+00:02:37.240 And spark will not care right.
+00:02:39.880 Spark just needs a way to run a cluster.
+00:02:42.240 It doesn't know how the cluster isbeing run or what is the internal
+00:02:45.240 workings of the cluster.
+00:02:51.920 Now, the first thing we should look atwhen it comes
+00:02:53.880 to these three requirements iswhy is it so performant?
+00:02:57.960 It gives you a thousand speedupin some cases,
+00:03:01.320 and on averageit gives you a 40 speedup over MapReduce.
+00:03:05.400 So how is this happening?
+00:03:07.120 The basic idea is pretty simple.
+00:03:08.440 Let's say you have a MapReduce job.
+00:03:10.600 This is how a typical MapReducejob looks like.
+00:03:12.640 You have some datathat is being pushed into the system.
+00:03:15.360 So maybe you are trying to do a selectstar for all employees from a department.
+00:03:19.720 So you have differentemployees sharded into C1, C2, C3.
+00:03:23.520 These are going to be mappingthe employee object to just the name.
+00:03:27.520 So E dot name. Okay.This is the first step.
+00:03:30.920 Now you might say thatlet me sort this data set.
+00:03:35.040 So you're going to sort partsof this data set.
+00:03:37.400 And then you are going to aggregate itall together.
+00:03:39.600 So this would be able to do so operation
+00:03:41.800 where you would have the sorted namesof all employees in a department.
+00:03:46.560 MapReduce
+00:03:47.680 is not very efficientwhen it comes to these kind of operations.
+00:03:50.640 The main reason for this isbecause the assumption and that time was
+00:03:54.200 this is going to be cheap commodityhardware.
+00:03:56.240 It can crash at any point in time.
+00:03:58.200 We can restart the entire process.
+00:04:01.240 This would be a very slow process.
+00:04:03.160 So you had the choice of either having ano fault tolerance, very slow process,
+00:04:08.640 which is restarting a lot of times versusyou actually store
+00:04:11.880 the intermediate results in betweenand using those results during failure.
+00:04:17.079 That takes a lot of disk space.
+00:04:26.040 Spark looks at this problem and says,
+00:04:28.560 what if I just store these resultsin memory
+00:04:32.600 stats input instead of storing thingsin persistent storage?
+00:04:36.120 Why don't I move it into memory?
+00:04:37.800 Now, if this mapper job fails,I can go and query the memory here,
+00:04:43.520 the output over here, and re send itto a new mapper which will spin up.
+00:04:48.920 This will be much, much faster.
+00:04:50.920 Instead of pulling itfrom persistent storage instead of
+00:04:53.800 using disk space,I'm going to be using memory,
+00:04:57.760 which may look more expensive,but it is so much faster.
+00:05:01.440 Not only does it make the failurerecovery faster,
+00:05:04.000 it makes the overall computation faster.
+00:05:06.440 So you no longer need to haveintermediate results after every map job.
+00:05:11.200 You can put them all togetherin a single computer.
+00:05:14.560 Run those functions together.
+00:05:16.480 It's no longer a full process of convertE to E dot name.
+00:05:20.400 You know, this would be a slowstep in the MapReduce job.
+00:05:24.120 Now you can convert E to E dot nameright here in the first computer itself.
+00:05:27.840 As long as you can perform
+00:05:28.800 that operation memory,do it in memory and go to the next step.
+00:05:32.640 You see that the number of stepshave been effectively reduced.
+00:05:35.520 Of course, you are performingthe same number of operations,
+00:05:37.800 but each operation earlieryou still have one stage.
+00:05:40.280 Now it has everything put togetherand everything is performed in memory.
+00:05:44.960 That gives you a huge speedup.
+00:05:47.160 It gives you a 40 x speedup on average.
+00:05:49.560 But for iterative algorithmslike PageRank,
+00:05:52.800 like some machine learning algorithmswhere this back propagation,
+00:05:56.160 this is just a lot more fast,it goes all the way to 1000 times fast,
+00:06:01.760 in case there is not enough
+00:06:03.120 memory to pull in the datainto a single computer.
+00:06:07.200 Then Apache Spark will overflow itinto disk, so it's worst case behavior
+00:06:12.360 is MapReduce, and its best case behavioris like running it in local memory.
+00:06:17.600 It's much, much faster.
+00:06:19.040 Recent versions of Apache Sparkactually are cache aware using cache over
+00:06:22.800 algorithms.
+00:06:23.520 So those think about the L1L2 cache, the L3 cache.
+00:06:26.640 Before that,things are just kept in memory.
+00:06:29.160 With the improvements of cache overalgorithms, it's become even faster.
+00:06:38.600 Now imagineyou are the professor at Berkeley.
+00:06:40.720 This is 2010.
+00:06:42.360 You don't have much money, but you havequite a bit of influence and respect.
+00:06:45.720 So you come up with this projectand you say that I am trying to solve
+00:06:49.360 the current problemof having four different systems
+00:06:51.720 for four different usecases by creating Apache Spark.
+00:06:54.880 How do I make a general purposeand how do I make it pluggable
+00:06:57.920 with various existing technologiesso that it becomes popular quickly?
+00:07:01.720 People do not have to migratewith difficulty.
+00:07:04.240 So one of the things you want to dothen is to make sure
+00:07:07.600 that the spark system is small.
+00:07:11.280 It should only focus on one thingand that is computation.
+00:07:19.800 If youtreat Apache Spark as a pure computation
+00:07:22.920 platform,the cluster management can be pluggable.
+00:07:27.120 The data sources can be pluggable.
+00:07:29.160 The network can be pluggable.
+00:07:30.880 Everything can be pluggableexcept for computation.
+00:07:34.200 So as long as you give me some computepower and memory I can run Apache Spark.
+00:07:38.480 And I can give you results over data.
+00:07:41.160 And the best way to definethis would be a program,
+00:07:45.480 a series of instructionswhich have to be executed.
+00:07:47.960 The benefit of this isyou could write a script in Scala.
+00:07:51.480 You could say dot map.
+00:07:53.840 And what would happen is this arrow
+00:07:56.920 would basically bejust a single line of code.
+00:07:59.760 The benefit of this is, like we said,if there is any fault in one of
+00:08:03.040 the computers,
+00:08:03.920 then you can look at the log of operationsthat it has gone through,
+00:08:07.000 the partitions that it has consumedwhen mapping and producing,
+00:08:10.760 and then recreate this stateusing this log of operations.
+00:08:16.440 These are called RDB,which is resilient distributed data sets.
+00:08:24.240 Whenever there is
+00:08:24.760 a computation to be performed on this,let's say data dot reduce, spark
+00:08:28.520 first tries to see if this data existsin any of the cluster computers memory.
+00:08:33.799 If it is, then assign
+00:08:35.320 that compute to the operationbecause that's going to do it the fastest.
+00:08:39.000 If not, thentry to find one of the preferred locations
+00:08:42.679 based on data locality.
+00:08:44.320 So for example, when you're sorting a dataset, maybe you want to put
+00:08:47.320 the objects are close to each otherin the same partition.
+00:08:50.640 That would be data locality.
+00:08:52.800 The final point to note iswho is managing this cluster.
+00:08:55.800 We mentioned Kubernetes or Miso.
+00:08:58.000 Yes. Either one of those can be used.
+00:09:00.520 Miso is an extremely simplecluster manager.
+00:09:03.840 All it has is a leaderand a bunch of followers.
+00:09:07.080 So when it has a set of computerswhich are performing operations,
+00:09:11.120 if Miso says that
+00:09:12.320 I have enough compute capacity right now,I do not need to spin up a new instance.
+00:09:16.680 Then a job which comes to Apache Spark
+00:09:20.160 is going to be assignedto one of the computers.
+00:09:23.000 If there isn't
+00:09:23.880 enough compute capacity,then it's going to spin up a new instance.
+00:09:27.680 So the leader miso instance
+00:09:30.640 spins up new follower instances,makes them perform computations,
+00:09:34.640 and when they are done,it releases those instances.
+00:09:37.480 So the entire clustermanagement is managed by me.
+00:09:40.080 So it is very similar to Kubernetesbut it's a bit more generic.
+00:09:45.840 And that's it at a high level.
+00:09:47.400 Apache spark is an aggregationof multiple specialized libraries.
+00:09:52.240 It runs over a cluster managed by.
+00:09:55.080 And the best thing about itis that it keeps things in memory.
+00:09:58.000 The strategy is to keepyour intermediate results in memory
+00:10:01.920 for faster queries and fault recovery.
+00:10:05.280 If you have any doubts or suggestionson Apache Spark,
+00:10:07.360 you can let me know in the comments below.
+00:10:08.960 If you want to see more videos on systemdesign, integrated is the place.
+00:10:12.240 I'll see you next time. Bye bye.
+00:10:15.560 Also, some interesting news.
+00:10:18.000 The System Design course at InterviewReady with over 300 video
+00:10:21.120 lessons, has been split into two.
+00:10:24.520 System Design Simplified,which covers high level design
+00:10:27.360 including the fundamentals, example,interview questions and research papers,
+00:10:32.520 and a low level system design coursewhich cover
+00:10:34.920 solid principles, designpatterns and machine coding.
+00:10:38.120 Our hope is that this will help youcomplete the courses better and faster.
+00:10:42.120 So if you're focused on learninghigh level
+00:10:43.560 design, system Designsimplified is what you can go for.
+00:10:46.800 If you're looking for a low level design,that's now a separate course.
+00:10:50.240 If you've already purchased the systemdesign course,
+00:10:52.560 this split is not going to affect you.
+00:10:54.520 You will have lifetime accessto both courses.
+00:10:56.720 Thank you so much for your support.
+00:10:58.920 Both the courses are completein themselves.
+00:11:01.000 You do not have to finish oneto go to the next one.
+00:11:04.000 There is no prerequisite, no ordering.
+00:11:05.760 You can work on both in parallel. 
+00:11:08.720 Thank you so much for listening.
+00:11:10.120 I'll see you next time. Cheers.

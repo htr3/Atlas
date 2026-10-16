@@ -1,0 +1,1755 @@
+# 10.1 AVL Tree - Insertion and Rotations
+
+# https://www.youtube.com/watch/jDM6_TnYIqE
+
+
+
+00:00:00.350 topic is AVL trees and these are the
+
+00:00:03.149 things I am going to discuss in this one
+
+00:00:04.770 that is what is binary search tree
+
+00:00:06.890 drawbacks of binary search tree how
+
+00:00:09.179 binary search tree can be improved what
+
+00:00:12.059 is an AVL tree how the rotations are
+
+00:00:14.490 performed in AVL tree and how to
+
+00:00:16.619 generate a VLT or create an AVL tree
+
+00:00:19.230 from given set of keys let us start with
+
+00:00:22.740 the binary search tree this is a binary
+
+00:00:25.109 search tree here the keys are arranged
+
+00:00:29.580 such that for any node all the elements
+
+00:00:32.790 on the left hand side are smaller than
+
+00:00:34.469 that node the elements on the right hand
+
+00:00:36.540 side are greater than that node means
+
+00:00:39.180 for any node the elements in the left
+
+00:00:41.040 subtree are smaller than that key
+
+00:00:43.110 element and in the elements in the right
+
+00:00:45.270 subtree will be greater than that
+
+00:00:47.399 element so 30 is greater in 2010 is less
+
+00:00:49.710 than 220 so in this way the elements are
+
+00:00:52.410 arranged reason it is useful for
+
+00:00:55.050 searching how suppose I want to search
+
+00:00:58.079 for a key element say 30 then I will
+
+00:01:02.609 start my search from room and check with
+
+00:01:04.890 the root element is it 30 no 30 is
+
+00:01:08.220 smaller than that key element so go on
+
+00:01:10.530 the left hand side now is it the 30 no
+
+00:01:14.159 this is not 30 30 is greater than this
+
+00:01:16.799 key element so go on the right hand side
+
+00:01:19.080 now right hand side yes this is the key
+
+00:01:21.659 element found so total three comparisons
+
+00:01:24.930 we got the element let us take one more
+
+00:01:27.780 if I am searching for the key element 60
+
+00:01:31.110 then is it 60 no 60 is greater than this
+
+00:01:35.700 one so go on the right hand side is it
+
+00:01:37.680 60 no 60 is greater than 50 so go on the
+
+00:01:40.619 right hand side yes I got the element so
+
+00:01:43.170 only in three comparison I got this
+
+00:01:44.850 element let us take one more key suppose
+
+00:01:48.119 I want to search for a key element 32
+
+00:01:52.670 let us search for it start from here
+
+00:01:56.189 this is not 32 32 is less than this one
+
+00:01:58.890 so go on the left hand side this is not
+
+00:02:00.420 32 so 32 is greater than this one so go
+
+00:02:03.810 on the right hand side this is not 32 32
+
+00:02:07.079 is greater than this one
+
+00:02:08.800 to try to go on the right-hand side but
+
+00:02:10.570 there is nothing so now search fails so
+
+00:02:13.990 for this we cannot find the element so
+
+00:02:16.660 the point here is that when you are
+
+00:02:18.100 searching for a key element
+
+00:02:19.350 possibilities either it can be found or
+
+00:02:21.880 it will not be found so search may be
+
+00:02:25.090 successful also search may be
+
+00:02:26.440 unsuccessful also but when the search
+
+00:02:28.540 for unsuccessful how many comparisons I
+
+00:02:30.790 made one two three so total three
+
+00:02:34.270 comparisons so maximum number of
+
+00:02:36.640 comparisons required for searching any
+
+00:02:38.820 element in a tree depends on the height
+
+00:02:42.480 so the time taken for searching in a
+
+00:02:45.040 binary search tree depends on the height
+
+00:02:47.140 usually we mention height starting from
+
+00:02:50.170 zero onwards but I will take from 1
+
+00:02:52.810 onwards 1 2 3 so let us say height of
+
+00:02:56.590 this binary search tree is a 3 so the
+
+00:02:59.620 time taken is dependent on the height
+
+00:03:01.930 for binary search tree so this is one of
+
+00:03:05.410 the property of a binary search tree
+
+00:03:06.970 that is useful for searching purpose the
+
+00:03:09.310 elements are organized smaller on left
+
+00:03:11.830 side greater on right side and the time
+
+00:03:13.780 taken for searching is depending on the
+
+00:03:16.090 height now the question is what is the
+
+00:03:19.030 height of a binary tree like binary
+
+00:03:21.160 search tree is nothing but a binary tree
+
+00:03:22.570 only what is the height of a binary tree
+
+00:03:24.790 height of a binary tree can be minimum
+
+00:03:28.020 login and maximum and so it depends for
+
+00:03:34.660 same set of keys we can form different
+
+00:03:36.700 binary search trees it may extend its
+
+00:03:39.790 height upto n also or it may reduce its
+
+00:03:42.820 height to logon also so it means the
+
+00:03:45.459 minimum time taken for searching in a
+
+00:03:47.920 binary search tree may be log n maximum
+
+00:03:51.640 time may be n so let us observe the next
+
+00:03:56.050 thing what is the problem with binary
+
+00:03:57.700 search tree let us see you how to create
+
+00:04:00.340 a binary search tree I have set of keys
+
+00:04:02.770 here and the same keys I have taken here
+
+00:04:05.410 also in the different order something I
+
+00:04:07.390 want to show you by creating a binary
+
+00:04:09.070 search tree let us first create a binary
+
+00:04:11.350 search tree for these keys what is the
+
+00:04:14.920 method of creating a binary search tree
+
+00:04:16.570 so we have to insert one element at a
+
+00:04:19.180 time so first key
+
+00:04:20.529 and that is 30 so there is nothing I
+
+00:04:22.780 have taken 30 here now inserting 40 40
+
+00:04:26.740 is greater than root that is 30 so
+
+00:04:29.200 insert 40 on the right hand side then 10
+
+00:04:32.770 is a smaller than root that is less than
+
+00:04:35.110 30 so insert it on left hand side then
+
+00:04:38.830 50 check from root for every element we
+
+00:04:41.830 should check from rule 50 is greater
+
+00:04:43.720 than 30 and it is greater than 40 so
+
+00:04:46.630 insert it here then d20 smaller than 30
+
+00:04:51.280 come this side left side and 20 is
+
+00:04:53.830 greater than 10 so insert it on the
+
+00:04:56.440 right hand side the next is 5 5 is
+
+00:04:59.470 smaller than 30 come to left side it is
+
+00:05:02.050 less than 10 smaller than 10 also so
+
+00:05:05.410 insert it on the left hand side 35 is
+
+00:05:09.250 greater than 30 go to right side less
+
+00:05:11.560 than 40 so insert it on the left hand
+
+00:05:14.320 side
+
+00:05:14.919 she supposing if I am inserting again 50
+
+00:05:17.590 then starts from here 50 is greater than
+
+00:05:20.979 30 50 is greater than 40 50 it's already
+
+00:05:24.850 50 50 is already present here so don't
+
+00:05:27.700 insert it so he don't insert duplicates
+
+00:05:29.890 in a binary search tree now this is the
+
+00:05:32.830 binary search tree I got based on these
+
+00:05:35.290 key elements what's the height of a
+
+00:05:37.419 binary search tree this is minimum
+
+00:05:39.310 height that is log n what will be the
+
+00:05:41.860 time taken for searching any key element
+
+00:05:43.930 and this one it will be log and that
+
+00:05:45.760 depends on the height of a binary search
+
+00:05:47.560 tree so height is log n so for the set
+
+00:05:51.190 of keys when I have created a binary
+
+00:05:53.350 search tree I got this height now same
+
+00:05:56.200 keys I have taken them here also see 50
+
+00:05:59.560 is there 40 is there 35 all the keys are
+
+00:06:02.890 as it is so but the order is different
+
+00:06:04.919 now let me create a binary search tree
+
+00:06:07.270 for that start from the first key
+
+00:06:09.669 element 50 next is 40 40 is less than 50
+
+00:06:13.660 so it will come as a left hand side then
+
+00:06:16.060 35 is less than 50 and also less than 40
+
+00:06:18.880 so it comes from left hand side 30 less
+
+00:06:22.090 than this less than this as well as less
+
+00:06:24.100 than
+
+00:06:24.370 this so it will come on this side then
+
+00:06:26.620 20 is smaller than smaller than smaller
+
+00:06:29.110 than it comes this side and then come on
+
+00:06:31.750 this side and five comes on this side so
+
+00:06:35.470 this is the height height is what n
+
+00:06:40.260 height of a binary search tree is n see
+
+00:06:43.990 the keys are given such that the binary
+
+00:06:47.500 search tree when I am creating it is
+
+00:06:49.479 becoming height and so this is the
+
+00:06:53.470 problem with binary search team the
+
+00:06:55.930 method of creationists we insert one
+
+00:06:58.000 element at a time the method I have
+
+00:06:59.889 shown you but what will be the final
+
+00:07:02.710 height that is a not inert over control
+
+00:07:05.380 the height may be login also the height
+
+00:07:09.039 may be order of and also it depends how
+
+00:07:13.030 the key elements are inserted if the
+
+00:07:16.660 height is log and then the time taken
+
+00:07:18.490 for searching is login and if the height
+
+00:07:20.860 is n then the time taken for searching
+
+00:07:23.260 is n and it is similar to linear search
+
+00:07:26.380 then if I have to search in this binary
+
+00:07:29.380 search tree that is similar to linear
+
+00:07:31.570 search like see if I want to search for
+
+00:07:33.580 five then I should start from here
+
+00:07:36.370 five is smaller than this and smaller
+
+00:07:38.139 than this and small and so finally how
+
+00:07:40.000 many comparisons I have to make all
+
+00:07:41.550 seven comparisons so this is the problem
+
+00:07:45.430 with binary search tree that height is
+
+00:07:48.639 not under control it all depends on how
+
+00:07:51.820 keys are inserted so this is the
+
+00:07:54.340 drawback of binary search tree next can
+
+00:07:57.580 we improve binary search tree is there
+
+00:08:00.070 any chance let us look at this I have
+
+00:08:03.070 three keys here let us create our binary
+
+00:08:05.740 search tree using those keys see these
+
+00:08:09.430 keys if I insert them and created by the
+
+00:08:11.710 research tree then the tree that I will
+
+00:08:13.539 get is 30 then 20 is smaller than that
+
+00:08:16.510 20 comes from this side and 10 is
+
+00:08:18.699 smaller than that it comes from this
+
+00:08:20.740 side so what is the order in which I
+
+00:08:23.229 have inserted I have first inserted 13
+
+00:08:27.070 and 20 and then time can I insert the
+
+00:08:31.180 same keys in a different order yes there
+
+00:08:34.299 are many orders possible for the same
+
+00:08:36.520 of key so if I am getting the keys like
+
+00:08:38.770 this then this is the tree what I am
+
+00:08:40.539 getting is the order is different let us
+
+00:08:43.659 say it is 30 then 10 and 20 then how a
+
+00:08:47.589 tree looks like so 30 10 is a smaller
+
+00:08:50.380 than this so it comes to this side 20
+
+00:08:52.660 smaller than 30 but greater than 10 so
+
+00:08:54.610 it comes on this side so this is the
+
+00:08:57.730 shape of a tree I am getting and can we
+
+00:09:00.399 take a different order yes
+
+00:09:01.870 I'll try a different order that is 10 30
+
+00:09:06.070 and 20 so this is 10 and 30 is greater
+
+00:09:10.330 so he's come this side and 20 is greater
+
+00:09:13.000 than 10 but less than 30 so it comes
+
+00:09:15.100 this side the another shape I am getting
+
+00:09:19.470 if I take 10 20 and 30 then this is 10
+
+00:09:25.839 20 is greater and 30 is greater than
+
+00:09:29.410 that so for different orders I am
+
+00:09:32.740 getting different shapes so for 3 keys
+
+00:09:34.839 how many orders are possible 3 factorial
+
+00:09:37.899 orders are possible that is 6 orders are
+
+00:09:40.330 possible so for already have taken so I
+
+00:09:43.089 will take 2 more 2 more or possible that
+
+00:09:45.850 a 6 are possible so 2 more I will take
+
+00:09:48.220 that is 10 D 10 and 30 or 20 30 and then
+
+00:09:55.779 10 let us create 20 it comes here 10 is
+
+00:10:00.070 a smaller than this
+
+00:10:01.270 so 10 comes this side 30 is greater than
+
+00:10:03.610 this so it comes this side and for the
+
+00:10:06.070 next order also 21st that 30 comes from
+
+00:10:08.680 the right side 10 comes on the left-hand
+
+00:10:10.300 side so I am getting a tree like this so
+
+00:10:15.250 it means that for the same set of keys
+
+00:10:17.860 if I insert them in different order
+
+00:10:21.190 I am getting different shape of binary
+
+00:10:24.310 search trees if you look at these trees
+
+00:10:28.450 the height of these trees is 1 2 3 all
+
+00:10:33.040 these trees are having high 2 3 4 just
+
+00:10:35.860 three keys height is 3 so these are with
+
+00:10:38.620 a maximum height but this tree is of
+
+00:10:42.550 height 2 so this is of minimum height so
+
+00:10:47.230 this means that if you have some set of
+
+00:10:49.350 you can form a very long binary search
+
+00:10:53.370 tree also or a short hide binary search
+
+00:10:56.490 tree also so what we prefer is a minimum
+
+00:10:59.790 height by binary search tree so that the
+
+00:11:02.520 search time can be reduced this is the
+
+00:11:06.180 objective
+
+00:11:07.250 so the drawback of binary search tree is
+
+00:11:10.110 that for same keys we can get different
+
+00:11:12.510 shaped binary trees that can be of
+
+00:11:14.340 maximum height or even off minimum
+
+00:11:16.380 height what we prefer is we want minimum
+
+00:11:19.440 height binary search tree so now let us
+
+00:11:22.350 see whether by the research tree can be
+
+00:11:25.230 improved or not see for the same set of
+
+00:11:30.210 keys if I am getting in these orders I
+
+00:11:32.760 am getting this shade binary search
+
+00:11:35.880 trees but I want this one is there any
+
+00:11:39.960 way to convert this so there is no way
+
+00:11:43.980 just we say that just remove it and take
+
+00:11:46.200 this one if you're getting any other
+
+00:11:48.300 shape just take this one but there
+
+00:11:50.520 should be some method which we should
+
+00:11:52.230 define some procedure for converting
+
+00:11:54.120 that one into this one so for that we
+
+00:11:56.940 define rotations we say that we rotate
+
+00:11:59.790 this tree around this node that is will
+
+00:12:02.310 pull this 30 on this side so 20 will
+
+00:12:04.680 move up and then we'll move at this
+
+00:12:06.630 place
+
+00:12:07.140 so we say we will perform rotation
+
+00:12:09.030 around this node and we will change the
+
+00:12:11.790 shape of this node like this and
+
+00:12:13.680 similarly we will rotate this a tree
+
+00:12:16.830 around this node and we will change the
+
+00:12:19.560 shape so 10 will come down 20 will come
+
+00:12:21.720 this side and 30 will come this side
+
+00:12:23.280 it's just like you imagine that is a
+
+00:12:25.320 male fixed here and around that does the
+
+00:12:28.350 thread and you're pulling a thread so if
+
+00:12:30.300 you pull that thread here 10 will come
+
+00:12:32.430 this side 20 will move up and 30 will
+
+00:12:34.410 move up so he say that we will perform
+
+00:12:36.900 rotations and convert this larger height
+
+00:12:40.800 binary search trees into smaller hide
+
+00:12:43.200 binary search tree so this is how we can
+
+00:12:46.920 improve and this gives the idea of AVL
+
+00:12:49.980 tree then how about this how do you
+
+00:12:52.140 perform rotation so in one step we
+
+00:12:54.600 cannot do first we'll rotate around this
+
+00:12:57.150 10 so 10 will come
+
+00:12:59.190 siren 20 will come up then we'll rotate
+
+00:13:01.440 around this 30 so 30 this side and 20
+
+00:13:05.490 will move up and 10 will remain on the
+
+00:13:07.230 left-hand side so we get this shape and
+
+00:13:09.180 here also around 30 will rotate in this
+
+00:13:12.060 direction then around the stem will
+
+00:13:14.550 rotate in this direction so we will have
+
+00:13:16.980 four different type of rotations which
+
+00:13:19.890 we can convert binary search tree into a
+
+00:13:22.350 balanced binary search tree so that is
+
+00:13:25.050 the idea of AVL tree so in any shape we
+
+00:13:29.430 want this shape now you may ask one
+
+00:13:31.710 thing that just we have three nodes here
+
+00:13:34.170 what if we have many nodes in a binary
+
+00:13:38.010 search tree house rotations are done so
+
+00:13:40.530 remember rotations are done only on
+
+00:13:43.260 three nodes always whatever the size of
+
+00:13:46.470 a binary search tree may be we look for
+
+00:13:48.570 only three nodes and we try to arrange
+
+00:13:50.580 them or adjust them by performing
+
+00:13:52.650 rotation to get a tree like this and the
+
+00:13:55.020 entire tree will get balanced entire
+
+00:13:57.750 tree will be of minimum height only so
+
+00:13:59.970 this is based on three nodes only now
+
+00:14:03.150 I'm going to explain what is AVL tree
+
+00:14:05.520 then I will show the rotation then I
+
+00:14:07.590 will show how to create a AVL tree now
+
+00:14:10.440 AVL tree AVL tree is a height balanced
+
+00:14:14.940 binary search tree so for balancing the
+
+00:14:18.150 height of a binary search tree we define
+
+00:14:20.460 one factor or one property that is
+
+00:14:22.620 balanced factor we calculate balance
+
+00:14:25.980 factor for each node what is balanced
+
+00:14:28.680 factor height of left subtree - height
+
+00:14:31.200 of right subtree and ensure it can be
+
+00:14:33.480 written as balance of balance factorize
+
+00:14:35.490 height of left subtree - height of right
+
+00:14:37.290 subtree and it should be either minus
+
+00:14:40.110 one or zero or one not greater than one
+
+00:14:46.260 not less than minus one if any node is
+
+00:14:50.250 having balanced factor out of these
+
+00:14:52.050 three only then the node is balanced
+
+00:14:54.050 otherwise the node is imbalance if any
+
+00:14:57.270 node is imbalance we should do something
+
+00:14:59.550 for balancing it that is we should
+
+00:15:01.410 perform rotations for balancing that one
+
+00:15:04.250 how do you calculate the balance factors
+
+00:15:06.750 let us see one more formula I have
+
+00:15:08.700 written here that is absolute of balance
+
+00:15:11.290 factor should be less than or equal to
+
+00:15:14.259 one means minus or plus if you take it
+
+00:15:17.019 as positive only then it should be
+
+00:15:18.940 either zero or one positive one so we'll
+
+00:15:21.880 use this one now I mean here I have some
+
+00:15:24.880 binary trees there are no keys just I
+
+00:15:27.100 have taken empty nodes unlabeled nodes
+
+00:15:29.130 now let us see what are the balance
+
+00:15:31.449 factor of this one so how to calculate
+
+00:15:32.800 height of left subtree - height of right
+
+00:15:35.110 subtree for this node what is the height
+
+00:15:37.899 of left subtree so you take the longest
+
+00:15:40.300 distance in the left side one two and
+
+00:15:43.389 the longest this one on the right side 1
+
+00:15:45.880 2 so this is 2 - 2 this is 0 same way
+
+00:15:51.009 for this node the longest distance on
+
+00:15:53.079 left side is 1 and right side there is
+
+00:15:56.050 nothing so 0 1 minus 0 is 1 and for this
+
+00:16:00.370 one left side it is 1 right side it is 0
+
+00:16:03.670 so this is also 1 and there is nothing
+
+00:16:05.800 on left hand right so it will be 0 only
+
+00:16:09.329 so for all the nodes we got the balance
+
+00:16:12.190 factors as 0 1 1 0 0 these are within
+
+00:16:16.600 this set only so this tree is balanced
+
+00:16:19.600 because every node is balanced now let
+
+00:16:22.300 us look at this for this node 1 2 3
+
+00:16:26.490 height is I'm counting edges ok the
+
+00:16:29.620 longest party should take don't count
+
+00:16:32.079 the nodes we are not counting the nodes
+
+00:16:33.790 we are finding the height so 1 2 3 - 1
+
+00:16:40.300 so this is 2 this is imbalance the node
+
+00:16:43.899 is imbalance let us look at others also
+
+00:16:46.630 this is 0 left side right side is 1 2 2
+
+00:16:50.829 so this is minus 2 so there's also
+
+00:16:53.050 imbalance this will be 1 - 0 it is 1
+
+00:16:56.260 this is 0 only and this is 0 only let us
+
+00:16:59.410 calculate for this also left side is 1
+
+00:17:02.740 right side is 1 2 3 so I am taking
+
+00:17:06.459 height right so this is 3 and this is
+
+00:17:09.640 minus 2 it is imbalance see I'm not
+
+00:17:12.640 counting nodes 1 2 3 4 not for height so
+
+00:17:16.329 take the longest distance now for this
+
+00:17:18.250 is the balance factor will be 0 leaf
+
+00:17:19.809 nodes will have
+
+00:17:20.800 factor 0 this is 0 minus 1 minus 1 this
+
+00:17:23.859 is 1 minus 2 1 minus 2 is minus 1 that's
+
+00:17:28.300 all these two trees are imbalanced they
+
+00:17:31.960 are having some nodes which are not hide
+
+00:17:34.600 balance but DISA tree is perfectly
+
+00:17:37.090 balanced now I learn about rotation if
+
+00:17:40.720 any node is imbalance based on a balance
+
+00:17:43.090 factor then rotations are performed for
+
+00:17:45.730 balancing that node so let us learn what
+
+00:17:48.070 are the rotations now we go for the
+
+00:17:51.430 first rotation the name of the rotation
+
+00:17:53.860 I'll right afterwards let us look at
+
+00:17:55.870 this I have a binary search tree the
+
+00:17:58.390 initial binary search tree just there
+
+00:18:00.130 are two nodes 30 and 20 let us check
+
+00:18:03.700 whether it is balanced or not the
+
+00:18:05.680 balance factor is 1 and 0 so this is 1
+
+00:18:08.080 and this is 0 so this is balanced
+
+00:18:12.310 now industry if I insert and then they
+
+00:18:19.120 tend should be inserted 10 is a smaller
+
+00:18:20.950 than 30 it goes on the left side and
+
+00:18:22.510 it's less than 20 is goes on the left
+
+00:18:24.370 side and there is no 10 here so I can
+
+00:18:26.860 insert it 30 20 and 10 that is inserted
+
+00:18:34.210 on this side now calling the balance
+
+00:18:37.120 factor this is 0 and this is 1 and this
+
+00:18:40.420 is 1 2 and that side 0 only so this is
+
+00:18:43.330 true so this node became imbalance that
+
+00:18:46.750 node became imbalance now I have to
+
+00:18:50.350 perform rotation for balance that one
+
+00:18:52.440 but let us see why it became imbalance
+
+00:18:55.570 and this became imbalance because I have
+
+00:18:57.850 inserted on the left of left so this is
+
+00:19:02.220 left of left imbalance let us call it as
+
+00:19:08.500 left of left imbalance now I will
+
+00:19:11.560 perform rotation after rotation what
+
+00:19:15.970 type of rotation I should perform see
+
+00:19:18.220 for this node the balance factor is a 2
+
+00:19:20.440 so it is heavy on the left hand side if
+
+00:19:24.340 it's balance factor is minus 2 then it
+
+00:19:26.590 means it's heavy on the right hand side
+
+00:19:29.100 okay I don't have to check which side it
+
+00:19:31.630 is heavy
+
+00:19:32.360 but one important thing is this note
+
+00:19:34.789 became imbalanced because we have
+
+00:19:36.710 inserted on left of left so perform this
+
+00:19:39.890 rotation on this one over the snore so
+
+00:19:43.909 over this node will perform this type of
+
+00:19:46.429 rotation so how it looks like then we
+
+00:19:48.230 will move up 20 moves up and 30 will
+
+00:19:51.350 move to the right side and 10 will take
+
+00:19:55.760 the place of 2010 now this is perfectly
+
+00:20:00.320 balanced this is balanced so because
+
+00:20:05.870 this was ll imbalance I have performed
+
+00:20:08.809 this rotation so let us call this
+
+00:20:10.639 rotation also as and then the rotation
+
+00:20:13.730 that is left left rotation so this is
+
+00:20:17.210 the first rotation this is initially 30
+
+00:20:23.269 and 10 balance factors are this is 0 and
+
+00:20:26.360 this is 1 now I will insert 20 in this
+
+00:20:35.090 one so 20 is less than 30 it goes on
+
+00:20:39.260 left side but greater than 10 so comes
+
+00:20:41.269 on right side so 30 here 10 on the
+
+00:20:44.779 left-hand side I'm painting on the
+
+00:20:47.720 right-hand side of 10 now let us
+
+00:20:51.110 calculate balance factors this is 0 and
+
+00:20:54.320 this is minus 1 and this is 2 again this
+
+00:21:00.320 node is imbalance why it became
+
+00:21:02.750 imbalance because I have inserted on the
+
+00:21:04.429 left and then right so this is l/r
+
+00:21:09.220 imbalance and not in balance then you
+
+00:21:14.269 remember I said that whatever the binary
+
+00:21:16.880 search to you get with 3 nodes we will
+
+00:21:18.919 take a balance tree we want that one so
+
+00:21:21.500 on this we have to perform rotation so
+
+00:21:23.750 the rotations these are 2 step rotations
+
+00:21:26.149 so I will write down here
+
+00:21:27.500 30 10 and 20 so first we'll perform
+
+00:21:33.049 rotation on this one so how it looks
+
+00:21:35.510 like 30 then 20 comes here and 10 comes
+
+00:21:40.760 here so you have perform rotation over
+
+00:21:43.309 10
+
+00:21:44.320 on this side by fixing a name here so
+
+00:21:47.799 who will move up 20 will move up that
+
+00:21:50.529 will not be affected so 10 is pull this
+
+00:21:52.659 side so 10 20 will move up it looks like
+
+00:21:55.389 this now perform this rotation if you
+
+00:21:57.970 perform this addition again the result
+
+00:22:00.250 is 20 will be in the root and 10 will be
+
+00:22:02.620 on the left hand side 30 on the right
+
+00:22:04.960 hand side in this way now this is the
+
+00:22:11.019 fixed point over which the rotation is
+
+00:22:13.299 done so 30 is move that side 20 moves up
+
+00:22:16.269 and 10 more so that's it so this is
+
+00:22:19.960 two-step rotation this is not 2
+
+00:22:23.139 rotations this is double rotation we
+
+00:22:26.320 count that this also as a single one
+
+00:22:28.899 rotation only but this is having two
+
+00:22:31.269 steps inside so we call it as a double
+
+00:22:33.460 rotation now what is the name of this
+
+00:22:36.340 rotation the imbalance was left right
+
+00:22:39.279 type so let us call this rotation also
+
+00:22:41.889 and our rotation so so far we have seen
+
+00:22:45.789 two rotations that was ll rotation
+
+00:22:48.250 it was single step then LR rotation it
+
+00:22:51.639 is a double steps two steps are there
+
+00:22:54.039 now similarly we have two more rotations
+
+00:22:56.710 I will quickly cover them this is
+
+00:22:59.710 initial tree the balance factors are 0 &
+
+00:23:02.649 1 now insert 30 in this one 30 is
+
+00:23:05.889 greater than 10 and greater than 20 so
+
+00:23:07.539 30 comes from the right side of 20 then
+
+00:23:10.960 the balance factors are 0 and this is
+
+00:23:13.389 minus 1 and this is minus 2 so this
+
+00:23:16.090 became imbalance so which type of
+
+00:23:17.590 imbalance because you have inserted on
+
+00:23:19.389 the right of right so this is our our
+
+00:23:22.830 imbalance when are our imbalances there
+
+00:23:27.370 we will perform this type of rotation by
+
+00:23:29.259 fixing this mode will pay 20 here so 210
+
+00:23:33.159 here 20 will move up and 30 will move up
+
+00:23:35.289 right so it looks like this again
+
+00:23:37.809 and the balance factors will be 0 0 0
+
+00:23:39.909 what was the type of imbalance our our
+
+00:23:42.610 let us call this rotation also as our
+
+00:23:45.669 our rotation so this is the third
+
+00:23:48.610 rotation again this is a single rotation
+
+00:23:50.940 now next rotation initially the tree is
+
+00:23:55.149 10
+
+00:23:56.760 30 balance factors are 0 and -1 insert
+
+00:24:01.320 20 in this one 20 will come as right
+
+00:24:04.470 side of 10 but left side of 30 balance
+
+00:24:08.340 factors are 0 & 1 and this is minus 2 so
+
+00:24:11.790 this note became imbalance hard became
+
+00:24:14.160 imbalance the insertion is done on right
+
+00:24:16.830 left so let us call this as our L
+
+00:24:20.450 imbalance now for this also two steps
+
+00:24:25.740 are required that is double rotation is
+
+00:24:28.410 required so that tree ten and thirty
+
+00:24:32.030 twenty first it is rotated around this
+
+00:24:35.400 one then ten comes here and twenty and
+
+00:24:40.169 thirty comes here then parcel rotation
+
+00:24:43.230 over this one over this mode over this
+
+00:24:47.669 node then the tray looks like this the
+
+00:24:51.330 balance is imbalances are L so the
+
+00:24:53.970 rotation is also RL rotation so that's
+
+00:24:59.370 all these are for rotations and now I
+
+00:25:02.549 will show you how to create a AVL tree
+
+00:25:06.419 by inserting keys one by one so we have
+
+00:25:09.840 seen total four rotations out of which
+
+00:25:12.270 and l and r r are similar these are
+
+00:25:17.970 single rotations and l r and r l are
+
+00:25:22.520 similar these are double rotations now i
+
+00:25:27.360 am going to show you special cases in
+
+00:25:29.370 these rotations suppose our binary
+
+00:25:33.299 search tree is like this these are the
+
+00:25:38.309 nodes ABC and it is having some left
+
+00:25:42.120 shot right child that is right child of
+
+00:25:44.130 a and there is B is also having some
+
+00:25:46.200 right child and C is having left child
+
+00:25:48.990 and right child so it means it's a very
+
+00:25:52.740 big tree don't know how many nodes are
+
+00:25:55.410 there below this one so we have just
+
+00:25:58.410 taken it as a right subtree of a so any
+
+00:26:01.950 number of nodes below that one but
+
+00:26:04.169 suppose this known became imbalance this
+
+00:26:07.590 node became imbalance
+
+00:26:09.520 because of insertion on the left of left
+
+00:26:12.950 the site the site so ll rotation how to
+
+00:26:17.419 perform this one we have to perform
+
+00:26:22.909 rotation around this mode ll rotation
+
+00:26:26.480 means imagine that assume that insertion
+
+00:26:28.850 is done on left of left of this a and a
+
+00:26:31.760 became imbalance so let us look at how
+
+00:26:34.159 rotation is done over that node and the
+
+00:26:36.919 rotation so don't look anything just
+
+00:26:40.279 look at ABC and draw this one so this is
+
+00:26:43.429 B and C and a as I said the rotations
+
+00:26:48.260 are done always within three nodes now
+
+00:26:51.710 what about others see left shine right
+
+00:26:54.080 cheering they will be as it is see left
+
+00:26:56.270 child and sees right child will be as it
+
+00:26:59.149 is then a night shared will also be in
+
+00:27:02.240 its own place then what is missing there
+
+00:27:06.380 B's right child so this is right subtree
+
+00:27:09.919 of B so it should be on the right-hand
+
+00:27:11.809 side of B only then where it should come
+
+00:27:14.179 that is the space remaining here is the
+
+00:27:16.760 space remaining so B's right child will
+
+00:27:19.370 come here B's right child will come here
+
+00:27:23.590 alright so this is you can take it like
+
+00:27:26.210 a formula or an example in a big size
+
+00:27:29.240 strain with lot of nodes beneath this
+
+00:27:31.460 one just we are looking at these three
+
+00:27:33.559 nodes out of which this node has became
+
+00:27:35.710 imbalance so this how we perform
+
+00:27:38.210 rotation I have shown you ll rotation it
+
+00:27:41.870 will be similar for our our rotation
+
+00:27:43.909 also it will be from that side this
+
+00:27:47.179 means that see if I remove everything
+
+00:27:49.669 and just take this one just take this
+
+00:27:53.539 one so imagine there is some nail fixed
+
+00:27:56.480 here and this is the thread and to a
+
+00:27:58.820 thread something is attached so there is
+
+00:28:00.980 a male and there is something attached
+
+00:28:02.840 to a thread and when you pull a thread
+
+00:28:04.880 on this side around that nail it looks
+
+00:28:07.549 like this then what about this thing
+
+00:28:10.340 that is attached it will go that side
+
+00:28:12.350 and look like this one so same thing has
+
+00:28:14.659 happened ABC and B was having write
+
+00:28:17.990 child when you pull this on this side a
+
+00:28:21.080 on this side so a
+
+00:28:22.470 there and what happens to be art it will
+
+00:28:25.139 come as a left of a removing all this if
+
+00:28:28.289 you just see this the effect is similar
+
+00:28:30.769 or if you keep a are so AR is as it is
+
+00:28:35.100 check it is just like there's a thread
+
+00:28:37.980 and a nail and you are pulling a thread
+
+00:28:39.990 on that side something is attached to a
+
+00:28:41.850 thread so after pulling that side this
+
+00:28:43.950 this thing right if it goes there the
+
+00:28:47.100 stick like thing which goes there so it
+
+00:28:49.559 looks like legs look like this this is
+
+00:28:51.330 the shape so the same shape we are
+
+00:28:53.100 getting here so that's all about ll I
+
+00:28:57.450 have shown you same thing you're gonna
+
+00:28:59.190 play on our our now let us look at lr
+
+00:29:02.940 rotation this is a binary search tree I
+
+00:29:06.120 have not taken a big size tree let us
+
+00:29:08.220 first look at just three nodes
+
+00:29:09.929 suppose this node became imbalance
+
+00:29:12.149 because of insertion on left right so we
+
+00:29:15.600 will perform an our rotation because it
+
+00:29:18.389 is a la imbalance so already have shown
+
+00:29:20.279 you how this rotation is perform first
+
+00:29:22.590 step like this then second step like
+
+00:29:24.779 this but finally what will be the result
+
+00:29:27.090 if first step is performed a B on this
+
+00:29:30.840 side
+
+00:29:31.529 see on this side and B comes here then
+
+00:29:36.629 again when this rotation is performed C
+
+00:29:39.179 goes here and B remains here and a will
+
+00:29:42.840 be on the right side it looks like this
+
+00:29:44.789 by taking two steps I'll remove this by
+
+00:29:48.360 taking two steps it looks like this now
+
+00:29:50.639 can we show it in a single step how we
+
+00:29:53.009 can show it in a single step just see
+
+00:29:55.169 this we can say that when you have to
+
+00:29:58.950 perform LR rotation out of three nodes
+
+00:30:01.799 the last node just you bring it into
+
+00:30:04.559 root C left side is B only that a you
+
+00:30:09.000 take it on right side that's all we say
+
+00:30:12.450 that we can directly always rotation is
+
+00:30:15.899 within three nodes only out of these
+
+00:30:17.970 three nodes last node you breaking into
+
+00:30:19.980 root and the root you send it on the
+
+00:30:22.529 right side because it is LR rotation in
+
+00:30:26.179 RL rotation you can bring root on the
+
+00:30:28.919 left side so LR and RL will be same so I
+
+00:30:33.119 have shown you how we can direct
+
+00:30:35.310 perform in our rotation without looking
+
+00:30:37.650 at these two steps directly we can bring
+
+00:30:40.080 this note up here and send a on that
+
+00:30:42.360 side now let us look at how it is done
+
+00:30:44.880 on a bigger sized tree if I have a tree
+
+00:30:47.820 like this a B and C on this side so a is
+
+00:30:52.920 already having its right side B is
+
+00:30:54.810 having its left side and C is having
+
+00:30:57.540 left child and C is having Rachel also
+
+00:30:59.970 and this became imbalance and imbalances
+
+00:31:03.030 alar imbalance l/r imbalance and I have
+
+00:31:06.210 to perform a la rotation now they are
+
+00:31:09.150 already having some children with them
+
+00:31:10.770 their sub trees are there then how
+
+00:31:12.270 rotation is done out of three nodes as
+
+00:31:15.150 we know that this ship moves up so C
+
+00:31:18.390 will move up B remains as it is a will
+
+00:31:21.960 come on the right side now what about
+
+00:31:24.780 the left child of B it will be as it is
+
+00:31:27.090 what about the right child of a it will
+
+00:31:30.000 be as it is now who are remaining left
+
+00:31:34.440 subtree of C a right subtree of C left
+
+00:31:38.100 of a C will go in the left sub left side
+
+00:31:40.380 only so C is here now so its left child
+
+00:31:43.380 will be on the left side only but it
+
+00:31:45.600 will become a right child of B and the
+
+00:31:48.900 right subtree will remain on the right
+
+00:31:50.490 side only but it will become a left
+
+00:31:52.620 child of a this is the method you can
+
+00:31:56.940 take it like a formula now I have shown
+
+00:32:00.360 you that when you have to perform an r
+
+00:32:02.850 and r rotation we can perform in a
+
+00:32:05.880 single step directly so that single step
+
+00:32:08.490 i have send it up
+
+00:32:09.630 so beyond this side only you have moved
+
+00:32:12.480 to the right side then the rest of the
+
+00:32:14.640 children are arranged so this is like a
+
+00:32:18.540 formula formula like you can take it and
+
+00:32:21.270 always follow this method and the last
+
+00:32:24.060 thing is I will take some keys and show
+
+00:32:26.580 you how our AVL tree is generated let us
+
+00:32:30.270 create a AVL tree of these nodes I will
+
+00:32:34.020 insert them one by one we will calculate
+
+00:32:35.820 balance factors if any node is becoming
+
+00:32:38.100 imbalance we will look at it which type
+
+00:32:40.470 of insertion is done why it became
+
+00:32:43.140 imbalance then perform corresponding
+
+00:32:45.480 rotations so let us take
+
+00:32:48.130 first key 40 is inserted this is a
+
+00:32:51.940 single node and it is balanced then
+
+00:32:54.610 insert 2020 we come on the left hand
+
+00:32:56.770 side and balance factors are this is 0
+
+00:33:01.660 and this is 1 everything is balanced
+
+00:33:03.960 next is 10 insert 10 on this side now
+
+00:33:09.580 tell you add balance factor this is zero
+
+00:33:11.530 and this became 1 and this became 2
+
+00:33:14.110 so height of left subtree is 1 2 so 2
+
+00:33:17.080 right subtree is nothing is there so 2
+
+00:33:19.150 minus 0 this is how it is becoming - so
+
+00:33:22.300 that became imbalance where the
+
+00:33:24.730 insertion is done on the left of left so
+
+00:33:28.210 ll rotation will perform ll rotation
+
+00:33:31.630 around this node so 20 here 10 this side
+
+00:33:36.300 40 here and the balance factors are all
+
+00:33:39.610 zeros now it is balanced I'll remove
+
+00:33:44.350 this and use that one now insert next 25
+
+00:33:48.360 25 is greater than 20 but less than 40
+
+00:33:52.060 so it will come this side let us update
+
+00:33:54.790 balance factor 0 this is 1 and this is 1
+
+00:33:59.680 and 2 so 1 minus 2 it is minus 1 perfect
+
+00:34:06.090 next 30 30 comes on right side of 20
+
+00:34:11.770 left side of 40 but right side of 25 so
+
+00:34:16.210 30 comes here update balance factors
+
+00:34:19.030 balance factors are 0 and this is minus
+
+00:34:21.850 1 and this is 2 and this is minus 2 this
+
+00:34:26.230 is 1 minus 1 2 3 so this is minus 2 oh 2
+
+00:34:30.850 moves became imbalance this is all same
+
+00:34:33.250 balance is also imbalance now we are
+
+00:34:35.649 learning one more thing if multiple
+
+00:34:37.510 nodes are becoming imbalance which one
+
+00:34:39.340 we should perform rotation where you
+
+00:34:41.530 have inserted here from there you go
+
+00:34:44.830 towards ancestor the first ancestor
+
+00:34:47.409 which became imbalance perform rotation
+
+00:34:50.590 over that so this is the first time
+
+00:34:53.440 so perform rotation over that one
+
+00:34:55.230 automatically that will also become
+
+00:34:57.130 balanced so according to this imbalance
+
+00:35:00.670 node insertion is done with side left
+
+00:35:03.880 right so this is a large rotation so
+
+00:35:07.000 we'll perform an hour rotation and our
+
+00:35:09.910 rotation means what instead of showing
+
+00:35:13.180 two steps we can simply take this 30 up
+
+00:35:15.880 and 40 this side so this becomes 20 on
+
+00:35:19.240 this side then here and here comes 30 25
+
+00:35:25.540 remains here and 40 this one that's all
+
+00:35:30.970 l rotation is done the update balance
+
+00:35:34.480 factors 0 0 and this is 1 1 this is also
+
+00:35:39.040 0 this is 0 this is 1 & 2 so this is
+
+00:35:42.880 minus 1 everything is balanced I'll
+
+00:35:46.630 remove that one
+
+00:35:47.680 now next node 22 where 22 will come
+
+00:35:50.650 right side of 20 left side of 30 and
+
+00:35:54.810 left of 25 so it will come here
+
+00:35:58.330 22 there is update balance factors this
+
+00:36:01.660 remains 0 only this is 0 this is 1 and
+
+00:36:05.410 this is 1 2 and this is 1 so this is 2
+
+00:36:09.250 minus 1 this is 1 only what about this
+
+00:36:12.280 this is 1 and minus 1 2 3 longest
+
+00:36:17.080 distance is 3 here so 3 is minus 2 so
+
+00:36:20.560 this became imbalance all our balanced
+
+00:36:23.380 only you see 0 0 0 1 1 and that became
+
+00:36:29.110 minus 2 so this node became imbalance
+
+00:36:31.450 now one thing to observe according to
+
+00:36:34.240 this where insertion is done right left
+
+00:36:39.070 left ah
+
+00:36:41.820 and no just take two steps are means
+
+00:36:51.430 consider only these 3 means no we
+
+00:36:56.170 inserted this one now whatever it may be
+
+00:36:58.510 wherever you insert who became imbalance
+
+00:37:01.510 this became imbalance then only
+
+00:37:04.420 two steps or three goals from that
+
+00:37:07.210 imbalance node so just three nodes you
+
+00:37:09.790 see right see even if I have not
+
+00:37:13.360 insulated 22 if I would have inserted 26
+
+00:37:16.570 it would have came here then also
+
+00:37:19.110 insertion is on right left we say it
+
+00:37:22.810 will be right left right so will not
+
+00:37:25.000 take all steps just two steps from a
+
+00:37:28.780 imbalance node whoever we can imbalance
+
+00:37:31.300 from there just two steps so if you just
+
+00:37:33.640 take two steps perform a large rotation
+
+00:37:36.490 so as per in the rotation this 25 can be
+
+00:37:39.040 sent up 25 sent up and on this side
+
+00:37:42.400 comes 20 so what about 10 10 will be
+
+00:37:45.010 remain as a left child of 20 and this
+
+00:37:47.470 side 30 will be as it is and this is 40
+
+00:37:51.540 what about this 22 who was left child of
+
+00:37:54.520 25 it is still we are in a less subtree
+
+00:37:57.880 of 25 so it will come this side 22 will
+
+00:38:00.760 come this side that's how the rotation
+
+00:38:02.950 is performed like this we have performed
+
+00:38:04.870 our L rotation already I have shown you
+
+00:38:08.020 how our L is performed now last key is
+
+00:38:10.570 remaining that is 50 let us insert this
+
+00:38:13.180 50 comes this side that is right side of
+
+00:38:15.520 40 now if you check balance factor these
+
+00:38:18.190 are all 0 0 0 and this is 1 2 & 1 2 3 so
+
+00:38:22.690 this will be minus 1 and this will be 1
+
+00:38:25.000 2 so this is minus 2 and this is minus 1
+
+00:38:28.720 & 0 so this node became imbalanced
+
+00:38:31.120 perform rotation along this one so which
+
+00:38:33.910 type of imbalance are our imbalance of
+
+00:38:36.460 perform rotation so 25 and 20 10 and 22
+
+00:38:41.320 they all remain as it is and this will
+
+00:38:44.200 be 40 and 30 50 now it's perfectly
+
+00:38:50.890 balanced binary search tree we got that
+
+00:38:53.140 is AVL tree Haida balanced ablt or my
+
+00:38:56.650 name is first in accord so this is the
+
+00:38:59.410 method of creating AVL tree now one
+
+00:39:01.720 thing to remember that don't allow any
+
+00:39:04.270 node to exceed the balance factor from
+
+00:39:07.570 minus 2 or 2 you should never get minus
+
+00:39:10.330 3 or 3 if it is becoming imbalance then
+
+00:39:14.290 under
+
+00:39:15.060 rotation don't wait that first I will
+
+00:39:18.090 insert all the notes then afterwards I
+
+00:39:20.460 will perform all the patient's no this
+
+00:39:22.140 is not possible whenever any node is
+
+00:39:24.930 becoming imbalance just after insertion
+
+00:39:26.820 if any node is become imbalance then
+
+00:39:29.100 just perform rotation and balance the
+
+00:39:32.100 tree now I take you I will show you one
+
+00:39:34.980 more last situation then Howrah distant
+
+00:39:38.100 let us look at one last thing a baby
+
+00:39:40.620 tree I have taken here let us see
+
+00:39:43.050 whether it is balanced or not balance
+
+00:39:45.510 factor for leaves will be zeros only
+
+00:39:47.700 these are all zeros then this node 1 1
+
+00:39:51.510 so this is 0 this is 1 2 1 2 3 so this
+
+00:39:56.550 is -1 balance only what about this 1 1 2
+
+00:39:59.730 1 2 so this is 0 and this is also 0 this
+
+00:40:03.270 is minus 1 so all those are perfect so
+
+00:40:06.900 they are all balanced so the tree is
+
+00:40:08.640 balanced now I will insert a new node
+
+00:40:11.280 that is 42 so 42 is greater than 40 less
+
+00:40:16.200 than 50 less than 45 but greater than 41
+
+00:40:19.320 so 42 comes here let us see what happens
+
+00:40:22.020 I'll update the balance factor this
+
+00:40:24.300 becomes 0 this becomes minus 1 this
+
+00:40:27.510 becomes 1 2 and this is 1 so this
+
+00:40:30.780 becomes 1 and this is 1 1 2 3 and this
+
+00:40:34.830 is 2 so this also becomes 1 and what
+
+00:40:37.440 about this this is 1 2 so this is 2
+
+00:40:40.230 minus 1 2 3 4 4 and this is minus to
+
+00:40:47.190 this node became imbalance
+
+00:40:50.310 now which rotation I should perform
+
+00:40:53.420 where I have inserted right left left
+
+00:40:58.230 right right left left right don't take
+
+00:41:04.140 all steps just take first two step left
+
+00:41:07.260 right remove this one I have to perform
+
+00:41:10.830 addition by using just three nodes so
+
+00:41:16.560 what happens 45 degrees or 40 moves here
+
+00:41:19.290 what about all other nodes already have
+
+00:41:22.200 shown you the formula how they are
+
+00:41:24.030 adjusted so just you can follow that and
+
+00:41:26.820 complete
+
+00:41:27.720 rotation so that's all the height of a
+
+00:41:32.030 AVL tree is always balanced so it's a
+
+00:41:36.660 balanced height balanced binary search
+
+00:41:38.880 straight so binary search tree only but
+
+00:41:41.070 it will maintain the height and it will
+
+00:41:43.140 try to maintain always log and height it
+
+00:41:45.900 will not exceed 2 n unlike binary search
+
+00:41:48.570 tree so at most the height of a AVL tree
+
+00:41:53.160 is measured as 1 point 4 4 into log n so
+
+00:41:58.410 at most it may be 1 point 4 4 into log n
+
+00:42:01.560 but it cannot be always exactly log and
+
+00:42:04.020 it may be little then little bigger also
+
+00:42:06.420 but it will be multiples of log in only
+
+00:42:09.090 so asymptotically we say the time taken
+
+00:42:11.760 for searching in a AVL tree is log n
+
+00:42:15.960 that's all about AVL tree just like AVL
+
+00:42:19.800 tree there is one more height balanced
+
+00:42:22.410 binary search tree that is a red-black
+
+00:42:26.010 tree the idea of red black tree is also
+
+00:42:32.190 same as AVL tree but AVL tree is more
+
+00:42:35.940 strict and there may be many rotations
+
+00:42:38.670 perform in AVL tree while creating AVL
+
+00:42:41.700 tree we may be performing lot of
+
+00:42:43.140 rotations to avoid bad rotations more
+
+00:42:46.290 frequent rotations red black trees used
+
+00:42:49.710 red black tree is not having that much
+
+00:42:52.470 strict rules as compared to AVL tree but
+
+00:42:56.849 red black tree is also as efficient as
+
+00:42:59.460 AVL tree so these are to hide balanced
+
+00:43:02.490 binary search trees so we have discussed
+
+00:43:04.920 about AVL tree and that's all about this

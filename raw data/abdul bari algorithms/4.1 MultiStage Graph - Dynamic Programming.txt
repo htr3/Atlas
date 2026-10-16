@@ -1,0 +1,777 @@
+# 4.1 MultiStage Graph - Dynamic Programming
+
+# https://www.youtube.com/watch/9iE9Mj4m8jk
+
+
+
+00:00:00.949 the problem is multistage graph this
+
+00:00:04.319 problem can be solved by applying
+
+00:00:06.180 dynamic programming strategy in this
+
+00:00:09.780 video I will explain you what is the
+
+00:00:12.269 graph problem second thing how dynamic
+
+00:00:15.660 programming is applicable third thing I
+
+00:00:18.750 will solve it using forward method let
+
+00:00:24.180 us start let us talk about the graph a
+
+00:00:27.150 multi-stage graph is a directed weighted
+
+00:00:31.500 graph and the vertices are divided into
+
+00:00:34.140 stages such that the word adjusts our
+
+00:00:38.489 connecting vertices from one stage to
+
+00:00:40.649 mix stage only first stage in the last
+
+00:00:43.860 stage will have just single vertex to
+
+00:00:45.750 represent the starting point that is
+
+00:00:47.250 source or ending point or sink of a
+
+00:00:49.739 graph this is usually useful for
+
+00:00:54.110 representing resource allocation so here
+
+00:00:57.030 there are various part from source to
+
+00:00:58.949 sink I have to select the path which is
+
+00:01:01.410 giving me minimum cost this is the
+
+00:01:03.930 objective of the problem so it's a
+
+00:01:06.119 minimization problem that is
+
+00:01:07.710 optimization problem the problem can be
+
+00:01:09.810 solved using dynamic programming let us
+
+00:01:12.720 understand whether the dynamic
+
+00:01:14.040 programming can be applied on this phone
+
+00:01:15.810 or not so dynamic programming works one
+
+00:01:18.030 principle of optimality principle of
+
+00:01:19.830 optimality says that a problem must be
+
+00:01:21.600 solved in sequence of decisions let us
+
+00:01:24.479 see can we solve this by taking sequence
+
+00:01:26.280 of decision if I start from here from
+
+00:01:29.159 first stage that is a stage 2 here okay
+
+00:01:31.530 in this stage I have to select one of
+
+00:01:33.689 the vertex if I select five then I
+
+00:01:37.470 should make sure that what I am
+
+00:01:38.759 selecting is optimal is going to give me
+
+00:01:40.979 optimal result okay once I selected this
+
+00:01:43.590 now again I have two options here from
+
+00:01:45.420 five I can go to eight and seven out of
+
+00:01:47.579 this again I have to decide and select
+
+00:01:49.770 any one again next I have to decide and
+
+00:01:52.290 select any one so every stage I can take
+
+00:01:54.810 a decision so yes here the principle of
+
+00:01:57.479 optimality holds now applying dynamic
+
+00:02:01.200 programming procedure that stimulation
+
+00:02:02.969 method to get data or fill in the table
+
+00:02:05.939 for each what is I am going to find the
+
+00:02:08.429 cause and for finding the cost I will
+
+00:02:10.649 start from here
+
+00:02:11.760 because if you see from here the edges
+
+00:02:14.640 are going that side so if I want to
+
+00:02:17.069 confine the cost of this one then I
+
+00:02:18.959 should consider all that just reaching
+
+00:02:21.269 till sink if I find the cost of three
+
+00:02:24.720 then I should consider all the paths
+
+00:02:26.519 going till sink if I consider ten then
+
+00:02:29.730 the cost of path reaching there now if I
+
+00:02:33.269 say sink then the cost is zero obviously
+
+00:02:35.549 so for the last vertex the cost is zero
+
+00:02:38.819 and the vertex is still only for the
+
+00:02:43.890 last vertex how I got the cost as zero I
+
+00:02:46.379 will right now - cost of fifty stage
+
+00:02:50.310 what x2 n so I will write here stage
+
+00:02:53.879 number and here the vertex number and
+
+00:02:58.109 the cost is zero this is how I will use
+
+00:03:02.099 the formula cost of five comma two
+
+00:03:05.010 elements 50 stage and the vertex number
+
+00:03:07.410 12 and the cost of zero me let us find
+
+00:03:09.810 out the cost of all these vertices in
+
+00:03:11.849 this fourth stage so first cost of one
+
+00:03:16.859 stage for vertex nine so what is the
+
+00:03:20.069 cost of reaching until sink it is for
+
+00:03:23.419 this edge for just a single edge path it
+
+00:03:26.760 is so it is four and the cost of fourth
+
+00:03:31.079 stage and vertex its true cost of fourth
+
+00:03:36.900 stage eleventh vertex this is five but
+
+00:03:42.840 it says four to five right so from
+
+00:03:46.109 Reverse five to four so this is 5 this
+
+00:03:49.950 is 2 and this is 4 now by taking these
+
+00:03:54.660 vertices 9 10 and 11 where I am reaching
+
+00:03:57.540 I am reaching one two and the vertex
+
+00:03:59.400 only so this is 2 L and 2 L and to
+
+00:04:03.590 explain you what does it mean by D here
+
+00:04:06.150 ok very soon
+
+00:04:07.620 now let us take third stage so I have
+
+00:04:10.230 the vertices 6 7 & 8
+
+00:04:13.379 I will find out the cost of these three
+
+00:04:15.989 so first six cost of third stage sixth
+
+00:04:21.988 word X
+
+00:04:24.090 now from here if I see there are two
+
+00:04:26.820 edges coming out so this is six to nine
+
+00:04:30.389 as well as six to ten so which one I
+
+00:04:33.360 should select I should select the
+
+00:04:35.250 minimum cost so let us consider both
+
+00:04:37.740 then select the minimum so I have to
+
+00:04:40.410 select minimum of what cost of an edge
+
+00:04:45.120 six comma nine plus cost of fourth stage
+
+00:04:51.270 ninth vertex and also cost of an edge
+
+00:04:56.190 six comma 10 plus cost of fourth stage
+
+00:05:01.440 tenth vertex I have to take the minimum
+
+00:05:05.130 of these tools so what is that six plus
+
+00:05:08.010 cost of nine five plus cost of ten so
+
+00:05:11.490 six is what this six to nine is an edge
+
+00:05:13.980 I am writing it like this right sees
+
+00:05:16.310 cost of an edge
+
+00:05:18.030 costas cost of in vertex this is C is
+
+00:05:20.940 weight of an inch okay I am writing it
+
+00:05:22.919 as weight of an edge six plus nine so
+
+00:05:26.040 what is this equal to minimum of C six
+
+00:05:30.419 to nine is how much 6 plus cost of 4
+
+00:05:33.600 comma 9 is here 4 comma C of 6 comma 10
+
+00:05:39.180 is how much 5 come Plus cost of 4 comma
+
+00:05:45.630 10 10 s this one so all of this which
+
+00:05:51.539 one is smaller this one is a smaller the
+
+00:05:54.810 vertex 10 has given me smaller value 10
+
+00:05:58.350 has given me smaller value what is that
+
+00:06:00.960 7 so 6 is 7 and visual X has given me
+
+00:06:06.660 minimum cost vertex 10 so the one which
+
+00:06:09.750 is giving minimum result we have to
+
+00:06:11.460 write on that one here cost of 7 vertex
+
+00:06:14.039 that is stage 3 here cost of 3 comma 7
+
+00:06:17.070 from 7 vertex if you see there are two
+
+00:06:19.860 edges going out so to know the cost of
+
+00:06:22.110 seven I should know the cost of 9 and 10
+
+00:06:25.289 plus the cost of this edge so 4 plus
+
+00:06:28.950 cost of 9 3 plus cost of 10 all of those
+
+00:06:32.099 whichever is minimum I should take
+
+00:06:34.060 so I'll try it like this cost of an edge
+
+00:06:37.000 from 7 to 9 plus cost of a vertex 9 in
+
+00:06:42.520 fourth stage , cost of an edge from 7 to
+
+00:06:48.850 10 plus cost of a vertex 10 in stage 4
+
+00:06:54.360 out of these two I should take minimum
+
+00:06:58.740 now if I take minimum out of these cost
+
+00:07:03.130 of 7 to 9 edge 70 minus 4 plus cost of
+
+00:07:08.260 9th vertex s there from the table so you
+
+00:07:10.660 can see how the values from the table
+
+00:07:12.610 are useful so this is 9 already you
+
+00:07:15.700 found out no it is useful it was useful
+
+00:07:18.250 for 6 also know for 7 also this value of
+
+00:07:20.860 9 is useful so this what overlapping
+
+00:07:22.780 subproblems are there in dynamic
+
+00:07:25.390 programming so 4 comma C of 7 to 10 7 to
+
+00:07:31.570 10 is 3 plus cost of 10 cost of 10 is so
+
+00:07:35.980 much to do out of these two this is
+
+00:07:39.280 minimum that is 5 so cost of a vertex 7
+
+00:07:43.060 is 5 this we are getting due to which
+
+00:07:46.240 vertex 10 so in the D I should write
+
+00:07:49.990 down 10 so India should write on the
+
+00:07:52.270 vertex which has given me the shortest
+
+00:07:54.190 path the minimum cost
+
+00:07:56.340 next is cost of 8 so there are two edges
+
+00:07:59.500 going out from 8 to 10 and 11 so cost of
+
+00:08:03.700 an edge from 8 to 10 and the cost of
+
+00:08:07.660 vertex 10 in full stage , this more
+
+00:08:12.670 space I write here C of 8 to 11 plus
+
+00:08:16.690 sort of a vertex lovin in stage 4 I have
+
+00:08:21.130 to take minimum of these so this is
+
+00:08:22.810 minimum
+
+00:08:23.380 I know these values so I will replace
+
+00:08:25.240 them cost of 8 to 10 5 plus cost of an
+
+00:08:32.080 edge 10 what extend sorry
+
+00:08:34.690 2 comma cost of an edge 8 to 11 6 plus
+
+00:08:41.440 cost of a vertex 11
+
+00:08:43.990 is five minimum as seven who has given
+
+00:08:50.350 the seven what extent has given this
+
+00:08:52.600 seven so here that is seven and the
+
+00:08:56.290 vertex that has given that result is a
+
+00:08:58.150 ten only now let us find the cost of all
+
+00:09:03.730 those vertices which are in stage two
+
+00:09:06.060 cost of vertex 2 in stage 2 see there
+
+00:09:10.210 are 3 edges going off from here one four
+
+00:09:12.640 six one four seven and one four eight so
+
+00:09:15.970 this is minimum of cost of an edge from
+
+00:09:18.580 two to six plus cost of vertex six in
+
+00:09:23.230 stage 3 , cause of an edge from two to
+
+00:09:27.400 seven plus cost of a vertex 7 in stage 3
+
+00:09:33.340 , cost of an edge from two to eight plus
+
+00:09:37.900 cost of a vertex eight in stage three
+
+00:09:41.740 first we are writing stage okay so I
+
+00:09:44.560 have elaborated the cost function here
+
+00:09:47.500 it sells out of these I have to take the
+
+00:09:49.300 minimum see this one is how much cost of
+
+00:09:51.460 an edge 2 2 6 2 2 6 is 4 plus cost of 6
+
+00:09:56.350 in 7 comma cost of an edge 2 comma 7 is
+
+00:10:01.330 how much 2 plus cost of this 7s v comma
+
+00:10:07.690 C of this one is 1 plus cost of a vertex
+
+00:10:12.880 8 is 7 out of these three which one is a
+
+00:10:17.020 smaller this is 7 and this is 8 and this
+
+00:10:22.240 is 11 so 7 is a smaller so this one has
+
+00:10:25.930 given us minimum result so the answer of
+
+00:10:28.750 this cost of what X 2 this 7 and who has
+
+00:10:32.890 given us minimum result the vertex 7 has
+
+00:10:35.680 given us minimum result so this is 7
+
+00:10:40.710 cost of second stage fourth vertex as
+
+00:10:45.510 minimum off from 4 there is only one
+
+00:10:50.140 edge so cost of 4 comma 8 plus cost of
+
+00:10:54.760 vertex 8
+
+00:10:56.630 Stage three out of this there is only
+
+00:10:59.270 one value so this is 11 plus cost of 811
+
+00:11:04.850 plus cost of 8 is 7 so this is 18 who
+
+00:11:10.520 gave the answers that 8 has given done
+
+00:11:12.500 so this vertex has given the answer so
+
+00:11:14.780 this is 18 and this is 8 cost of second
+
+00:11:21.020 stage 54 Texas minimum off from 5 there
+
+00:11:25.250 are two edges one is going to sever and
+
+00:11:27.140 one is going to 8 so C of 5 comma 7 plus
+
+00:11:31.910 cost of 7th vertex in stage 3 plus comma
+
+00:11:40.210 cost of fairness from 5 to 8 plus cost
+
+00:11:44.480 of vertex 8 in stage 3 sort of this
+
+00:11:49.790 minimum of C of 5 comma 7 is 11 plus
+
+00:11:56.270 cost of 7 is 5 comma this one is 8 plus
+
+00:12:04.000 cost of 8 is 7 so this is 16 and this is
+
+00:12:09.860 15 15 is a smaller and who has given
+
+00:12:12.890 this result 8 so this is 15 and this is
+
+00:12:16.520 8 now lose the table is filled here only
+
+00:12:23.090 1 values remaining now we are at the
+
+00:12:25.400 stage to find the minimum cost for this
+
+00:12:28.310 that is starting vertex so that will
+
+00:12:30.110 give us the minimum cost from here to
+
+00:12:31.910 there source to sink cost of 1 comma 1
+
+00:12:37.310 from vertex 1 in stage 1 that first
+
+00:12:40.910 stage there in vertex there are 4 1 2 2
+
+00:12:44.750 & 3 & 4 & 5 so I should consider all and
+
+00:12:47.960 take the minimum do we have the cost of
+
+00:12:50.240 what X 2 3 4 5 years all these they are
+
+00:12:52.370 filled here so that is easy for solving
+
+00:12:54.770 now to find this cost C this is cost of
+
+00:12:58.070 an edge from 1 to 2 plus cost of 2 2 2
+
+00:13:03.430 comma cost of an edge from 1 2 3 plus
+
+00:13:08.450 of toward vertex in stage 2 is what is
+
+00:13:12.800 minimum let us find out see the values
+
+00:13:15.290 are 9 7 3 2 right so this is 9 plus cost
+
+00:13:20.150 of two common to this 7 comma cost of 1
+
+00:13:24.440 comma 3 so much 7 plus cost of what X 3
+
+00:13:28.700 is 9 comma cost of this vertex 1 comma 4
+
+00:13:33.890 H is how much 3 plus cost of 4 is 18
+
+00:13:39.310 comma cost of 1 comma 5 is a 2 plus cost
+
+00:13:44.210 of 5 is 15 out of this which one is a
+
+00:13:49.940 smaller this is 16 this is also 16 this
+
+00:13:53.870 is 21 and this is 17 so I got two
+
+00:13:57.140 answers that are same so the answer is
+
+00:14:00.290 16 only but that is going why I what
+
+00:14:03.170 first also vertex 2 and ii was vertex 3
+
+00:14:06.290 both are giving same result so i write 2
+
+00:14:09.050 or 3 here I can take only 1 also
+
+00:14:13.940 but I am writing both to see how the
+
+00:14:16.640 difference will be it's like first
+
+00:14:18.680 filling their smaller values then
+
+00:14:20.900 getting the answer for the larger value
+
+00:14:22.610 so he started from the backwards side
+
+00:14:24.920 that is from the backside of our
+
+00:14:26.270 multistage care of last stage onwards he
+
+00:14:28.370 started but still this is called as
+
+00:14:30.680 forward method how we will see that next
+
+00:14:33.880 let us frame the formula now I did not
+
+00:14:37.070 show you the formula but now but the
+
+00:14:39.050 procedure already have shown you let me
+
+00:14:41.030 frame the formula we were finding it
+
+00:14:43.160 like this cost of I stage giant vortex
+
+00:14:48.770 this Iser
+
+00:14:49.940 stage number right and this J is a
+
+00:14:54.550 vertex number so this was minimum all I
+
+00:15:00.040 was taking minimum of what this was cost
+
+00:15:04.400 of an edge from vertex J to some vertex
+
+00:15:07.940 l plus cost of cost of that next vertex
+
+00:15:13.700 L if I say J and L J is supposed to then
+
+00:15:18.710 L suppose
+
+00:15:19.920 so she cost off 2 to 6 then the cost of
+
+00:15:23.700 6 thirds stays 6 worth X so we were
+
+00:15:26.160 writing the stage number here I plus 1
+
+00:15:29.400 and L this for the formula we were
+
+00:15:33.060 finding whatever the edges are available
+
+00:15:35.310 for two there are three edges so we
+
+00:15:36.810 wrote the same thing three times you can
+
+00:15:39.690 see that for finding cause cost off
+
+00:15:42.360 second stage third vertex was minimum
+
+00:15:45.030 off one of the valuable right on third
+
+00:15:48.180 vertex to sixth word x plus cost of
+
+00:15:51.200 third stage sixth vertex if I say this
+
+00:15:55.170 is stage number two and vertex this is J
+
+00:15:59.910 then minimum of cost of an edge J to
+
+00:16:03.930 some and some vertex L then cost of that
+
+00:16:08.940 L and that L 6 is definitely in the next
+
+00:16:12.630 stage so this is I plus 1 if I is a 2
+
+00:16:16.170 then this is 2 plus 1 so this is I plus
+
+00:16:18.660 1 this is all we were using the formula
+
+00:16:22.230 for finding these cost and multistage
+
+00:16:26.160 graphs so this is the formula former
+
+00:16:28.680 stage graph and we say that I and J and
+
+00:16:34.860 L belongs to set of engines and and L
+
+00:16:40.920 belongs to next stage so this is the
+
+00:16:46.770 formula that you can find in the
+
+00:16:48.630 textbooks not actual dynamic programming
+
+00:16:51.480 starts right already we have the formula
+
+00:16:53.520 hand filled up the table based on the
+
+00:16:55.290 dynamic programming or the dynamic
+
+00:16:56.730 programming approach to get the result
+
+00:16:58.350 actually the method of dynamic
+
+00:17:00.450 programming is to solve a problem by
+
+00:17:02.160 taking sequence Ossetians we have not
+
+00:17:04.199 taken in a decision so far but now we
+
+00:17:06.449 are going to take the sequence of
+
+00:17:07.829 decision based on the data available so
+
+00:17:11.819 already I was writing the D value
+
+00:17:14.130 whichever the vertex was giving us
+
+00:17:15.900 minimum result
+
+00:17:16.839 writing the devalue they're using that
+
+00:17:19.059 we take a decision what decisions we
+
+00:17:20.859 take from here where we should go to
+
+00:17:23.230 which vertex then from there where we
+
+00:17:24.849 should go then from there we'll so
+
+00:17:26.799 decisions are taken only have this
+
+00:17:28.480 complete data with you so already we
+
+00:17:30.519 have the data now we are going to solve
+
+00:17:32.830 it by taking sequence of decision and we
+
+00:17:35.529 will start from vertex 1 onwards towards
+
+00:17:38.590 sync so this is forward the decisions
+
+00:17:41.980 will be taking in forward direction so
+
+00:17:43.539 the base board decisions this is forward
+
+00:17:45.370 method let me do that first of all
+
+00:17:48.190 distance of D D D value ROI or you have
+
+00:17:52.690 four one two three four all I have
+
+00:17:55.090 so first I will write stage number this
+
+00:17:57.369 is a stage number right and then I will
+
+00:17:59.860 write on vertex this is vertex D of 1
+
+00:18:05.049 comma 1 so actually be a concern about
+
+00:18:06.850 this I am writing it like a formula okay
+
+00:18:09.279 so this is stage number and this is
+
+00:18:11.049 vertex number so we will consider this
+
+00:18:13.360 vertex number what is the answer to so
+
+00:18:16.149 let us take 2 now in the second stage
+
+00:18:19.720 already we have taken 2 D of 2 comma 2
+
+00:18:23.529 since of the first stage we selected
+
+00:18:25.869 first vertex in second stage second
+
+00:18:27.730 vertex - what is - now from there where
+
+00:18:30.399 we should go
+
+00:18:31.029 so - who has given the minimum result 4
+
+00:18:33.399 to 7 so this is 7 in D we have 7 now we
+
+00:18:38.529 are on the seventh vertex on 7 more days
+
+00:18:42.789 in stage 3 now being on stage 3 where we
+
+00:18:46.749 should go next from 9 or 10 which one so
+
+00:18:49.629 7 has given as 10 so 10 now we are on
+
+00:18:53.740 the word extend in stage 4 then from 4
+
+00:18:57.580 to stage 10 - vertex where we should go
+
+00:18:59.919 next so table will tell us everything so
+
+00:19:02.830 we should go on 12 so that's it
+
+00:19:05.019 well so when part is what we started
+
+00:19:07.809 from vertex 1 to 2 then 7 then 10 and 12
+
+00:19:11.409 so this 1 to 2 2 to 7 7 to 10 10 to 12
+
+00:19:19.740 this is the shortest path from source to
+
+00:19:23.320 sink that this D values has given
+
+00:19:26.730 the result so now we have taken sequence
+
+00:19:29.580 of decisions let me show you once more
+
+00:19:32.970 for three I said that for both two and
+
+00:19:36.360 three we got down for a sixteen so let
+
+00:19:38.190 us three what does it give I start from
+
+00:19:40.410 vertex one that stage 1 so 1 1 gives us
+
+00:19:43.800 what tree then I am going to stage 2 on
+
+00:19:48.030 vertex 3 then third vertex what is the
+
+00:19:52.140 one which has given minimum result 6 so
+
+00:19:54.540 this says goes to 6 then in the third
+
+00:19:57.450 stage among vertex 6 known so ok I'll do
+
+00:20:01.020 it here also I have gone to 3 then 3 has
+
+00:20:04.320 sent me to 6 now being on third stage
+
+00:20:07.800 sixth word X where I should go next so 6
+
+00:20:10.620 what's the answer
+
+00:20:12.000 10 so go to 10 so it says that I should
+
+00:20:15.840 be moved to this one so this is the
+
+00:20:17.310 decision I have taken then 10 is in 4th
+
+00:20:21.630 stage so from 10th vertex where I should
+
+00:20:23.790 go
+
+00:20:24.150 10th vertex we already have seen this
+
+00:20:26.850 answer that is 12 to us so from 10 I
+
+00:20:30.480 should go to 12
+
+00:20:31.470 so this is another root you see this is
+
+00:20:34.110 another vote which is eaten as the
+
+00:20:38.280 minimum result so this is 1 right so why
+
+00:20:42.870 are to 7 10 then 1 3 6 and 10 n - 1 so I
+
+00:20:48.930 have 2 parts of same cost so the optimal
+
+00:20:53.220 result is only 1 but in by chance we are
+
+00:20:56.550 having 2 parts which are giving us the
+
+00:20:58.560 same result that's all about multistage
+
+00:21:00.900 graph problem and I have explained you
+
+00:21:04.290 how dynamic programming is followed here

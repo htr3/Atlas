@@ -1,0 +1,403 @@
+# No title found
+
+# https://www.youtube.com/watch/MhT7XmxhaCE
+
+
+
+00:00:00.000 hi already I have two videos on
+
+00:00:02.850 recurrence relation there I have shown
+
+00:00:04.770 the steps in detail now here I will do
+
+00:00:08.550 it little quickly right so all you also
+
+00:00:11.340 get the idea how we can do it quickly
+
+00:00:13.219 right I'll just skip some steps that's
+
+00:00:16.199 it right not direct answer let us state
+
+00:00:19.850 this is an algorithm or a function we
+
+00:00:23.789 have to find out how much time it is
+
+00:00:25.260 taking so we know that this will take T
+
+00:00:27.960 and the time now there is a loop if you
+
+00:00:33.480 observe this is I starting from 1 and I
+
+00:00:36.360 assign I into 2 so this is x 2 every
+
+00:00:39.570 time so by looking at the loop you
+
+00:00:42.090 should know what is the time taken by
+
+00:00:45.270 this statement already we have seen this
+
+00:00:47.940 in examples of time complexities one
+
+00:00:52.230 video is there you can watch that one I
+
+00:00:53.789 have shown how to find directly know
+
+00:00:55.260 what is the time taken by this one so we
+
+00:00:57.510 know that this statement will execute
+
+00:00:59.579 for log n time now I will not consider
+
+00:01:04.890 this one and this one if I consider also
+
+00:01:07.049 again I have to take the degree of
+
+00:01:09.600 expression and the degree will be log in
+
+00:01:11.700 only this will be log n plus 1 this is 1
+
+00:01:14.909 so 2 log n plus 2 again I have to write
+
+00:01:17.400 log in only so let us just concentrate
+
+00:01:19.830 on only this is statement this will is
+
+00:01:23.369 the main thing that is printing the
+
+00:01:25.020 algorithm is doing nothing just printing
+
+00:01:26.880 the value so the job of printing we are
+
+00:01:29.310 constructing that one its login then how
+
+00:01:32.040 much this one and this is T n so this is
+
+00:01:36.329 T n minus 1
+
+00:01:43.630 what is total for this one so this is e
+
+00:01:46.119 n is equals to T n minus 1 plus log n TN
+
+00:01:55.720 minus 1 plus log in that TN is equals to
+
+00:01:57.820 so and so the stayin is sum of these two
+
+00:02:01.710 now what is the recurrence relation TN
+
+00:02:05.890 is equals to 1 if n is 0 this is common
+
+00:02:10.810 you have seen in previous algorithms
+
+00:02:12.550 also I will not explain them then this
+
+00:02:16.209 is T and minus 1 plus log n for N
+
+00:02:21.340 greater than 0 now I will solve this one
+
+00:02:27.190 using tree method so if I take Tian Tian
+
+00:02:31.720 what it is doing its taking log and time
+
+00:02:35.170 and it is calling itself for TN minus 1
+
+00:02:39.090 then what this will do this will take
+
+00:02:41.560 log n minus 1 time and call itself for n
+
+00:02:45.910 minus 2 then this will be log n minus 2
+
+00:02:50.500 and call itself for n minus 3 goes on so
+
+00:02:55.450 at one point it will be what t2 said and
+
+00:03:00.040 it will look log 2 times and it will
+
+00:03:04.209 call itself for 1 and this will be log 1
+
+00:03:07.209 and this will call itself for T 0 so
+
+00:03:12.359 this will stop at 0 when n becomes 0
+
+00:03:16.450 they will stop there now what is the
+
+00:03:19.000 time taken in each step log in here this
+
+00:03:21.639 is log n time in this call log n minus 1
+
+00:03:24.489 time in this call like this so this
+
+00:03:26.769 total is I will take few terms only log
+
+00:03:30.400 n plus log n minus 1 plus goes on to log
+
+00:03:41.680 2 plus log 1 this is the summation of
+
+00:03:47.980 the time taken in each call what is this
+
+00:03:52.239 equal to
+
+00:03:53.440 this is log n into n minus 1 into goes
+
+00:03:59.950 on to 2 into 1 I'll write this in square
+
+00:04:04.900 brackets so what is this n into n minus
+
+00:04:12.040 1 into so on - 2 into 1 so it is just
+
+00:04:14.680 like 1 into 2 into 3 into 2 n so this is
+
+00:04:17.980 nothing but log n factorial so here I
+
+00:04:23.020 write log n factorial log in factorial
+
+00:04:29.020 already we know this there is no tight
+
+00:04:32.440 bond for this one but there's an upper
+
+00:04:35.110 bound for log n factorial for n
+
+00:04:38.680 factorial upper bound is n power n so
+
+00:04:41.590 for log n factorial log of n power n
+
+00:04:44.460 that will be equal to Big O of n log n
+
+00:04:50.940 so that's it this is the time we got so
+
+00:04:55.120 the time taken by this algorithm is n
+
+00:04:57.240 log in and log n right so this is with
+
+00:05:05.800 the tree method I have shown you so you
+
+00:05:07.630 got the time complexity as n log n now
+
+00:05:10.060 by using induction method I will solve
+
+00:05:12.460 this recurrence relation I will remove
+
+00:05:14.590 this and I will solve that one directly
+
+00:05:16.900 let us solve this recurrence relation by
+
+00:05:19.630 induction or substitution method so I
+
+00:05:22.300 write this recurrence relation P n is
+
+00:05:26.440 equals to T n minus 1 plus log n then
+
+00:05:34.750 directly I'll write down this will be
+
+00:05:37.210 what TN is equals to in place of this
+
+00:05:40.600 what it will be T and minus 2 plus log
+
+00:05:45.130 of n minus 1 plus this log in as it is
+
+00:05:51.660 this was the first equation now if I
+
+00:05:55.900 simplify this one open the brackets T n
+
+00:05:59.050 minus 2 plus
+
+00:06:01.360 love of n minus 1 plus log in then this
+
+00:06:11.199 is the second one I got that I will
+
+00:06:15.099 substitutes 1 so this will be T n is
+
+00:06:17.680 equals to in bracket TN minus 2 will be
+
+00:06:21.219 TN minus 3 plus log and minus 2 plus
+
+00:06:29.669 these terms as it is log n minus 1 plus
+
+00:06:34.599 log n this is in brackets I'll open this
+
+00:06:39.400 one so T n is T n minus 3 plus log of n
+
+00:06:48.360 minus 2 log of n minus 1 plus log this
+
+00:06:59.379 is the third one if I continue for K
+
+00:07:05.409 times then what will happen
+
+00:07:10.419 see this was end and n minus 1 then n
+
+00:07:13.300 minus 2 so it will be going on reusing
+
+00:07:15.190 up to 1 so directly ever I don't so here
+
+00:07:19.539 I continue so TN will be equal to T and
+
+00:07:24.639 minus K plus log 1 plus log 2 plus goes
+
+00:07:33.250 on to log n minus 1 plus log now we know
+
+00:07:44.199 that n minus K is equals to 0 therefore
+
+00:07:48.250 n is equals to K now if I substitute
+
+00:07:51.039 there TN is equals to this becomes D 0
+
+00:07:55.000 and all these terms if I add I am
+
+00:07:57.759 getting same terms so this is log n
+
+00:08:01.240 factorial now I'm not sure how to get
+
+00:08:04.870 that already we have seen this in the
+
+00:08:07.050 previous method this is 1 plus log
+
+00:08:14.380 and fat oh really what is time taken in
+
+00:08:18.280 this one this is Big O of n log n that's
+
+00:08:25.030 it we got the same answer that is Big O
+
+00:08:28.060 of n log and that is log n factorial now
+
+00:08:32.140 if you have already seen first in the
+
+00:08:34.270 second video for recurrence relation
+
+00:08:36.700 with decreasing functions this is the
+
+00:08:38.919 third video if you have already seen
+
+00:08:40.990 those two then you can understand this
+
+00:08:42.820 now I'm going to show you how we can
+
+00:08:44.950 directly get dancer for a recurrence
+
+00:08:47.170 relation of decreasing functions see I
+
+00:08:50.260 will take the examples of first two
+
+00:08:51.970 videos then also this one then let us
+
+00:08:55.270 see see there I just write a simple
+
+00:08:58.150 expression t n-1 t and minus 1 plus 1
+
+00:09:03.370 and the time taken in this one was and
+
+00:09:07.680 just say order of not be go theta
+
+00:09:10.600 anything to sort ruffman's just the
+
+00:09:12.670 degree i am writing this answer was n
+
+00:09:15.760 and the second video we have seen this T
+
+00:09:20.170 and minus 1 plus n so this was n square
+
+00:09:24.280 and at the third video this one in this
+
+00:09:27.550 video just now we have seen this TN
+
+00:09:30.520 minus 1 plus log N and this is n log n
+
+00:09:36.510 so what do you understand from this one
+
+00:09:38.890 so when this is T of n minus 1 means n
+
+00:09:41.800 is a decreasing and this is decreasing
+
+00:09:43.330 every time so if it is 1 multiplied by n
+
+00:09:45.730 what is n multiplied by an n Square log
+
+00:09:48.040 and multiplied by N and log in so it
+
+00:09:51.880 means we can make out that if recurrence
+
+00:09:54.970 relation is TN minus 1 plus n square
+
+00:09:58.840 then it will be definitely into n so
+
+00:10:03.760 this is n cube yes this is true right so
+
+00:10:10.510 whatever the term you are having here
+
+00:10:12.220 just multiplied by n because this is
+
+00:10:16.630 going to repeat for n times so that's
+
+00:10:18.400 why this whole thing can do and if
+
+00:10:24.149 from the first one I'm just making some
+
+00:10:27.040 change T and minus 2 plus 1 instead of n
+
+00:10:32.410 minus 1 plus 1 it is minus 2 plus 1 so
+
+00:10:35.889 the exact answer you will be getting as
+
+00:10:37.839 n by 2 because it is taking to two steps
+
+00:10:41.290 every time instead of 1 1 step 1 1 value
+
+00:10:43.750 decremented to to Valdosta chromatic so
+
+00:10:46.180 it will be n by 2 that is again order of
+
+00:10:49.600 n only means that even if you have TN is
+
+00:10:55.630 equals to T and minus hundred plus and
+
+00:11:00.959 then what will be the answer as this is
+
+00:11:04.029 n just multiplied by n first order of n
+
+00:11:07.510 square this is n minus not 1 n minus 1
+
+00:11:14.529 it's n minus entered whatever it may be
+
+00:11:16.420 so it is taking hundred step every time
+
+00:11:18.880 plus hundred so imagine n value as in 10
+
+00:11:22.570 thousands or millions a bigger very very
+
+00:11:25.149 big value of for small values you can
+
+00:11:27.160 say that no no it will not take that
+
+00:11:28.390 much time big values of n so we say that
+
+00:11:31.390 whatever the value of n may be from some
+
+00:11:34.360 value to infinity will go so yes this is
+
+00:11:36.970 true so whatever you subtract that you
+
+00:11:39.910 get the same answer but if you have a
+
+00:11:43.420 recurrence relation like this 2 will do
+
+00:11:46.990 T of n minus 1 plus 1 if there is some
+
+00:11:50.680 coefficient here then it's not directly
+
+00:11:54.160 1 into n so we'll see what will happen
+
+00:11:58.360 in this one right see there were no
+
+00:12:00.670 coefficients here there were no
+
+00:12:02.320 coefficients only these values were
+
+00:12:04.120 changing 1 n log n n Square and cube and
+
+00:12:07.569 log n anything so whatever you have here
+
+00:12:09.970 just multiply it by and write but now if
+
+00:12:15.790 there is a coefficient then what should
+
+00:12:17.740 be done so you will see this in next
+
+00:12:20.680 video next to this one right

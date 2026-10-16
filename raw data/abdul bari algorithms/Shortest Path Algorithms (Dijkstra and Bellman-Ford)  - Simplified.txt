@@ -1,0 +1,7 @@
+# Shortest Path Algorithms (Dijkstra and Bellman-Ford)  - Simplified
+
+# https://www.youtube.com/watch/2raV0H9KqY8
+
+
+
+00:24:55.600 1 + 3 - 6 = -2

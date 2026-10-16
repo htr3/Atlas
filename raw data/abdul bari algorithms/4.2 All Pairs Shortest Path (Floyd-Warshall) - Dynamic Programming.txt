@@ -1,0 +1,549 @@
+# 4.2 All Pairs Shortest Path (Floyd-Warshall) - Dynamic Programming
+
+# https://www.youtube.com/watch/oNI0rf2P9gE
+
+
+
+00:00:00.060 the problem is all pair shortest paths
+
+00:00:01.709 in this video we will look at a problem
+
+00:00:04.019 and we will solve it using dynamic
+
+00:00:06.540 programming approach then I will show
+
+00:00:08.970 you what is the formula how we get the
+
+00:00:11.010 formula for dynamic programming and also
+
+00:00:13.469 I will show you a piece of code for
+
+00:00:15.900 solving a problem so let us start what
+
+00:00:18.720 the problem is the the problem is to
+
+00:00:20.640 find a shortest path between every pair
+
+00:00:22.320 of vertices let us say the starting
+
+00:00:24.930 vertex is 1 then I should find out our
+
+00:00:26.699 path from 1 to 2 1 2 3 and 1 2 4 then
+
+00:00:32.369 again selecting 2 as a starting vertex I
+
+00:00:34.950 should find a shortest path to vertex 1
+
+00:00:36.809 & 3 & 4 similarly from 3 I should find a
+
+00:00:41.280 shortest path from 1 2 & 4 from 4 to 1 &
+
+00:00:46.140 2 & 3 so this looks similar to single
+
+00:00:51.059 source shortest path that is Dijkstra
+
+00:00:52.949 algorithm but Dijkstra's algorithm will
+
+00:00:55.170 find out a shortest path from one of the
+
+00:00:57.059 source vertex and this vertex order of n
+
+00:01:00.420 square time if I run Dijkstra algorithm
+
+00:01:05.220 on all the vertices one by one that is
+
+00:01:08.880 all n vertices then I can get the result
+
+00:01:11.400 yes I can use the extra algorithm for
+
+00:01:14.610 solving this problem for all n vertices
+
+00:01:16.770 one by one and for each vertex it will
+
+00:01:19.290 take n square time and and the time will
+
+00:01:21.420 be order of n cube so this problem can
+
+00:01:25.290 be solved using reading method also but
+
+00:01:27.840 let us now see how we can apply dynamic
+
+00:01:30.810 programming for solving this problem now
+
+00:01:33.000 how the problem can be solved using
+
+00:01:34.229 dynamic programming dynamic programming
+
+00:01:36.060 says that the problem should be solved
+
+00:01:37.799 by taking sequence of decision in each
+
+00:01:40.560 stage we will take a decision so what
+
+00:01:43.200 decision I have to take let us see see
+
+00:01:45.450 if I have to find a shortest path
+
+00:01:47.070 between vertex 1 to 2 so there will be a
+
+00:01:51.240 direct edge path from 1 to 2 also like
+
+00:01:53.460 here you can see or maybe there is a
+
+00:01:55.950 shorter path going via vertex 3 or it
+
+00:02:00.509 may be going where a vertex 4 so in this
+
+00:02:04.439 way I have to check or decide whether a
+
+00:02:07.890 shorter part is going by or some other
+
+00:02:10.440 word
+
+00:02:11.349 so I'll start selecting the middle
+
+00:02:14.920 vertex as vertex one so I'll find out
+
+00:02:18.010 first whether there is a shorter path
+
+00:02:19.870 between all the pair of vertices going
+
+00:02:21.940 by a vertex 1 then Y a vertex 2 and so
+
+00:02:25.720 on so this is how we can take decision
+
+00:02:29.049 or sequence of decisions so how this can
+
+00:02:32.739 be done this can be done by just
+
+00:02:34.540 preparing mattis's explaining this a
+
+00:02:36.459 distance matrix see here from 1 to 1 or
+
+00:02:39.129 2 2 to 4 4 to 4 there is no exit that's
+
+00:02:42.099 why all these are zeros means there is
+
+00:02:43.989 no X possible that loops are not
+
+00:02:46.390 possible then there is an edge going
+
+00:02:48.730 from 1 to 2 so 1 to 2 the cost of an
+
+00:02:51.819 edge is 3 and similarly there is an edge
+
+00:02:54.640 going from 2 to 3 so the cost of an edge
+
+00:02:57.400 is 2 so 3 2 2 3 the cost of an edge is 2
+
+00:03:01.180 if there is no edge from 3 to 2 there is
+
+00:03:04.450 no edge you see so 3 - 2 is kept as
+
+00:03:06.849 infinity in case of absence of any edge
+
+00:03:09.700 we will take it as infinity otherwise
+
+00:03:12.040 for self loop we will show them as 0 now
+
+00:03:15.250 how we will solve this is we will solve
+
+00:03:17.319 it by preparing matrixes so let us see
+
+00:03:20.200 how madison's can be prepared let us
+
+00:03:22.690 prepare a matrix for 1 a 1 see this was
+
+00:03:25.480 a 0 original matrix now here I am going
+
+00:03:28.540 to consider the intermediate vertex has
+
+00:03:30.549 vertex 1 so is there any better shorter
+
+00:03:33.370 path going where vertex 1 so when I say
+
+00:03:36.370 vertex 1 then all the paths that belongs
+
+00:03:39.549 to vertex 1 will remain unchanged so I
+
+00:03:42.010 should not calculate them directly it
+
+00:03:44.079 can take them here so those values are 0
+
+00:03:47.230 3 infinity and 7 and these are 8 5 & 2
+
+00:03:52.060 so first row and first column already I
+
+00:03:54.280 have taken as it is then what about the
+
+00:03:56.410 diagonals there are no cells loops or
+
+00:03:58.269 and fill those diagonals also no
+
+00:04:02.739 remaining values I have to find out what
+
+00:04:04.870 are those first let us check this one
+
+00:04:06.699 that is 2 2 3 so how do you get this
+
+00:04:09.069 value how to check whether there is a
+
+00:04:11.109 shorter part of our vertex 1 or not so 2
+
+00:04:13.870 2 3 I will take a 0 of 2 2 3 so what is
+
+00:04:18.519 there in this matrix 2 2 3 so 2 2 3 is a
+
+00:04:21.849 2
+
+00:04:22.630 and a zero of not in between I should
+
+00:04:27.010 include vertex 1 so 2 to 1 and 1 to 3
+
+00:04:32.980 from those matters from that matrix 2 to
+
+00:04:39.160 1 and 1 to 3 2 2 1 is how much 8 1 2 3
+
+00:04:42.820 is infinity so this is 8 plus infinity
+
+00:04:46.420 this is infinity only this is less so
+
+00:04:49.180 there is no better path where vertex 1
+
+00:04:51.130 so let it be to only now I have to find
+
+00:04:54.550 out next 1 that is 2 2 4 so a 0 of 2 to
+
+00:04:58.840 4 what is the value there to 2 for 2 to
+
+00:05:02.110 4 is infinity this is infinity now I
+
+00:05:05.770 should include vertex 1 in between as an
+
+00:05:08.050 intermediate vertex so a 0 of 2 to 1
+
+00:05:10.350 plus a 0 of 1 to 4 so from that matrix
+
+00:05:18.040 find out 2 to 1 and 1 to 4 to 2 1 is how
+
+00:05:21.730 much 8 then 1 2 4 is 7 15 so this is 8
+
+00:05:26.320 plus 7 this is 15 so this one is a
+
+00:05:29.770 smaller than infinity so update this
+
+00:05:32.110 part to 15 so this means that from 2 to
+
+00:05:36.370 4 2 to 4 there is no direct edge path
+
+00:05:40.720 but 2 to 1 then 1 to 4 and that is 8
+
+00:05:45.130 plus 7 15 there is a part going where
+
+00:05:48.160 vertex 1 that's what we got dancing here
+
+00:05:51.010 now I have to fill up these values right
+
+00:05:53.860 so that is 3 to 2 so I will find out a 0
+
+00:05:56.920 of 3 2 in between I should add 1 3 1 1 2
+
+00:06:08.520 so 3 to 2 is how much trying to 2 is
+
+00:06:14.980 infinity 3 1 5 plus 1 2 is a 3 so you
+
+00:06:27.340 can check there here infinite is greater
+
+00:06:29.860 so this value is smaller that is 8 so we
+
+00:06:32.800 got a smaller value 8
+
+00:06:34.690 in the same way I should fill up all
+
+00:06:36.370 these values so I have prepared this
+
+00:06:38.860 matrix which is going via vertex 1 now I
+
+00:06:42.190 will prepare a matrix which is going by
+
+00:06:44.140 a vertex
+
+00:06:44.710 so I should generate this matrix from
+
+00:06:47.500 this Mattox so what I am taking a second
+
+00:06:50.620 matrix - as a intermediate vertex then
+
+00:06:53.730 second row and second column remains as
+
+00:06:56.290 it is so I will take the second row
+
+00:06:57.940 second column as it is 8 0 2 and 15
+
+00:07:01.770 second column is 3 0 8 8 3 0 8 8 and the
+
+00:07:08.470 diagonals remains 0 only now I have to
+
+00:07:12.910 find out few values here what are those
+
+00:07:15.580 first one is 1 2 3 let me find out from
+
+00:07:18.670 this matrix a 1 of 1 comma 3 a 1 of 1
+
+00:07:23.800 comma 3 here 1 comma 3 is what infinity
+
+00:07:26.550 then in between I should include vertex
+
+00:07:29.920 2 so a1 off in between 1 2 3 so 1 2 2
+
+00:07:34.860 plus a 1 of 2 2 3 check this 1 1 to 2 is
+
+00:07:41.650 to 3 and 2 to 3 is 2 so this is 3 plus 2
+
+00:07:48.490 that is 5 and this is smaller update
+
+00:07:51.669 this now this was infinity now we got a
+
+00:07:53.800 pathway our textu in between 1 & 3 1 2 3
+
+00:07:57.900 there is a path going to 2 then 3 so 3 +
+
+00:08:02.050 2 5
+
+00:08:02.770 we got a path here so that's it now I
+
+00:08:05.980 should give this value 1 to 4 so a1 of 1
+
+00:08:09.400 comma 4 is how much here 7 then in
+
+00:08:13.660 between I should introduce what x2 so 1
+
+00:08:16.810 2 plus a 1 of 2 2 4 so 1 to 2 is how
+
+00:08:22.450 much 3 plus 2 to 4 is how much 15 so
+
+00:08:28.060 this 18 but this 7 which is already
+
+00:08:30.580 there which is better so take this 7 now
+
+00:08:34.870 in the same way I should fill up all
+
+00:08:36.909 these values already I have prepared
+
+00:08:39.039 this what extra as a intermediate vertex
+
+00:08:41.409 now I have to find out what X 3 has
+
+00:08:44.260 intermediate
+
+00:08:45.230 and generate the maddox when I say three
+
+00:08:47.900 as an intermediate vertex then the third
+
+00:08:50.300 row and third column remains a city so
+
+00:08:53.870 this is five eight zero one and this is
+
+00:08:58.250 five two zero seven and the diagonals
+
+00:09:02.300 are 0 a 2 of 1 comma 2 and in between I
+
+00:09:11.510 should take intermediate vertex as 3
+
+00:09:13.550 then a 2 of 3 comma 2 so 1 2 2 is there
+
+00:09:20.300 so in between 3 is there and 3 1 2 3 and
+
+00:09:23.000 3 2 - sort of this which one is smaller
+
+00:09:25.220 1 2 2 1 2 2 is how much 3 there and 1 2
+
+00:09:28.790 3 is how much 1 2 3 is 5 plus 3 2 2 3 2
+
+00:09:34.190 2 is 8 5 plus 8 13 this 3 itself is
+
+00:09:38.570 smaller so take 3 only in the same way I
+
+00:09:43.370 can find out all these values by taking
+
+00:09:45.740 three years intermediate vertex now hope
+
+00:09:47.780 you have understood how I am getting the
+
+00:09:49.520 values so I will prepare all the
+
+00:09:51.380 mattresses so here are the four
+
+00:09:54.920 mattresses the finally the fourth vertex
+
+00:09:57.520 when I considered I got a shortest path
+
+00:10:00.320 between all pair of vertices so we have
+
+00:10:03.050 taken sequence of decision in each stage
+
+00:10:05.780 we were getting a matrix here the table
+
+00:10:07.940 is like a matrix here and finally these
+
+00:10:11.420 are the shortest paths between every
+
+00:10:13.370 pair of vertices what was the formula I
+
+00:10:15.590 was using I will prepare the formula
+
+00:10:17.840 getting the value of any matrix let us
+
+00:10:20.600 say 4 is the intermediate vertex or 2 is
+
+00:10:22.970 the intermediate vertex so when I was
+
+00:10:24.500 selecting one of the vertex of the
+
+00:10:26.000 intermediate vertex then how I was
+
+00:10:27.500 getting the values here I was getting
+
+00:10:29.690 from the previous matrix for 4 I was
+
+00:10:32.180 getting from three for three I got from
+
+00:10:33.890 two so how the formula can be framed so
+
+00:10:37.070 now I will show you the formula for
+
+00:10:38.960 getting a of I comma J of any
+
+00:10:42.820 intermediate vertex any value from any
+
+00:10:46.190 intermediate vertex I was taking minimum
+
+00:10:48.500 of a of I comma J from which matrix
+
+00:10:53.210 previous Mattox that is K minus 1 if I
+
+00:10:56.060 am generating care to
+
+00:10:57.480 than I was taking rally from K minus-1
+
+00:10:59.870 either this or a of K minus one I to K
+
+00:11:05.790 what XK intermediate vertex SK plus a of
+
+00:11:10.830 K minus 1 then k 2 J so here you can see
+
+00:11:14.910 that case introduced in between and
+
+00:11:17.460 addition is done so either this one is a
+
+00:11:20.340 smaller or this one is smaller out of
+
+00:11:22.890 this whichever one is a smaller I was
+
+00:11:24.990 getting that one and I was following the
+
+00:11:27.330 same formula for generating all the
+
+00:11:29.790 mattresses I have shown only few terms
+
+00:11:32.220 that is sufficient for understanding the
+
+00:11:34.110 approach and how the formula is use see
+
+00:11:37.770 I have first shown you the working then
+
+00:11:39.990 I have generated the formula right and
+
+00:11:43.230 so following the formula I have deduced
+
+00:11:46.260 the formula that's it now let me show
+
+00:11:51.060 you how the code looks like if I am
+
+00:11:53.400 writing the code now let us look at the
+
+00:11:56.010 code every time I was generating the
+
+00:11:58.530 matrix so how many such mattis's I have
+
+00:12:00.630 generated for such mattresses I have
+
+00:12:02.370 generated right now for generating a
+
+00:12:05.190 matrix what I am supposed to do
+
+00:12:07.200 I should generate each and every term so
+
+00:12:09.870 total how many terms are there see the
+
+00:12:12.180 number of vertices are 4 so let us say n
+
+00:12:14.820 vertices so the number of elements are n
+
+00:12:16.920 cross n this is a square matrix now
+
+00:12:19.590 forgetting all the elements of a square
+
+00:12:21.390 matrix I should have to follow so I'll
+
+00:12:23.670 take two for loops for I assigns one I
+
+00:12:28.740 less than or equal to n I plus plus and
+
+00:12:33.920 for J assigned 1 J is less than equal to
+
+00:12:39.030 n J plus plus and I should get the terms
+
+00:12:44.430 of a of I comma J as minimum of a of I
+
+00:12:52.560 comma J that is existing matrix as it is
+
+00:12:55.620 going to be a single instance of 2d
+
+00:12:59.340 array in the single instance only I will
+
+00:13:01.380 be updating the values so that's why
+
+00:13:02.910 this is same thing then a of I 2k plus a
+
+00:13:09.540 of k2j out of this I should select any
+
+00:13:13.589 one of them whichever is minimum so what
+
+00:13:17.130 is K here K will be changing the
+
+00:13:19.889 intermediate mitosis so this whole thing
+
+00:13:21.750 will generate just one matrix and I have
+
+00:13:24.779 to generate all the mattis's so for K
+
+00:13:27.839 assign one K is less than equal to and k
+
+00:13:32.220 plus plus now first time K will be one
+
+00:13:35.790 so the intermediate vertex will be one
+
+00:13:37.949 all the time then K is a two so the
+
+00:13:40.620 intermediate vertex will be two all the
+
+00:13:42.540 time so K will take this value so when K
+
+00:13:45.269 is one the pneumatics is generated then
+
+00:13:47.459 k is a tude in the second Matrix is
+
+00:13:49.860 generated so this is for generating a
+
+00:13:51.600 matrix that's it this is the code for
+
+00:13:57.170 all pairs shortest path problem then if
+
+00:14:00.660 you look at this code this is having
+
+00:14:02.130 three nested for-loops so the time will
+
+00:14:04.920 be order of n cube so that's theta of n
+
+00:14:09.060 cube that's all about this problem

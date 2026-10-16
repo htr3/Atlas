@@ -1,0 +1,764 @@
+# tactiq.io free youtube transcript
+# System Design Interview: TikTok architecture with @sudocode
+# https://www.youtube.com/watch/07BVxmVFDGY
+
+00:00:00.140 Hey guys, this is GKCS Today.
+00:00:02.001 We have a very special guestwith us that is Yogita Sharma.
+00:00:06.010 Yogita is a software engineer at Careem,
+00:00:08.340 and also has an awesome systemdesign channel on YouTube.
+00:00:12.860 So if you haven't seen it, do check itout. It's in the link called SudoCode,
+00:00:17.260 and it's got an entireseries on system design.
+00:00:20.360 Simplified Yoga has very graciouslyjoined us today to take a mock interview
+00:00:25.281 on system design.
+00:00:35.190 So, yoga, are you excited?
+00:00:37.070 Yes.
+00:00:37.390 I'm very nervous for the system designinterview because this is a live mock
+00:00:42.331 system design interview.And in this interview,
+00:00:44.470 we are going to see how real life systemdesign interviews happen and how do
+00:00:48.970 engineers solve the real lifesystem design interview questions.
+00:00:52.890 So, Yogita, this is thequestion, huh? You need to design
+00:00:57.930 a system similar to TikTok orsimilar to Instagram reels.
+00:01:03.160 Basically you have short videos whichare being posted by people all around the
+00:01:07.691 world on their newsfeed.
+00:01:10.110 The important thing is how areyou going to take these videos?
+00:01:14.090 A how are you going tostore them? That is B,
+00:01:17.750 and how are you going to distribute them?
+00:01:19.171 That is C because thisis a 45 minute interview.
+00:01:22.030 I'm taking it like apretty advanced thing.
+00:01:34.830 So I would say that these are some ofthe functional requirements that we have,
+00:01:39.110 and I will just keep themhere for us to refer.
+00:01:43.390 And what are you looking at for thenon-functional requirements of the system?
+00:01:46.691 Like, are you looking at highavailability or low latency?
+00:01:50.590 So usually, yeah, I mean, wedon't consistency is useful,
+00:01:54.990 but it's not something thatwe care about too much.
+00:01:58.390 If there is a delay in a video beingshown in one country, it's okay.
+00:02:03.030 The other thing is that we do wantour system to be fault tolerant.
+00:02:06.630 It shouldn't be, like, if Indiahas a issue in one of its servers,
+00:02:11.120 then we don't get to see any videos.
+00:02:13.510 It should be like an anti data centerhas to go down before we start getting
+00:02:16.970 worried. But even then,ideally, I mean, it should not,
+00:02:19.500 it should not stop ourbusiness. Right, right.
+00:02:23.120 Okay.
+00:02:23.780 And obviously I think you would wantthe system to be available as well,
+00:02:28.910 because you said itshould be fault tolerant.
+00:02:30.920 Like people should beable to see the videos,
+00:02:32.840 like the survey should not be down.
+00:02:34.550 Yeah. Consistency, like Isaid, is not a key thing here.
+00:02:38.441 Availability is very important.You need fault tolerance,
+00:02:41.161 and you need another thingwhich is performance in thesense that when a person
+00:02:44.721 uploads a video,
+00:02:45.870 they don't want to wait for a verylong time before it actually gets
+00:02:50.750 published. That is number one. Andnumber two would be like, okay, fine.
+00:02:54.940 As soon as you can send itto users, we should send it.
+00:02:59.510 Okay. Okay. So I would say there,there should be low latency between
+00:03:05.330 upload. Yeah.
+00:03:06.830 Yeah.
+00:03:07.169 And availability to theuser upload and user
+00:03:11.711 visibility, right? Mm-Hmm. .
+00:03:13.810 And also there should be low latencywhen the video is being streamed or like
+00:03:17.871 people are watching it.
+00:03:19.290 Yes. Yes. So like, eventhis video, I'm sure guys,
+00:03:22.911 you're watching this on YouTube,
+00:03:24.290 it may not be that the moment we postit on YouTube, you got a notification.
+00:03:27.930 So just like that yoga that I don't mindif the notification reaches them even
+00:03:31.820 half an hour late mm-hmm., okay.
+00:03:33.991 Maybe you are doing it in the background,but a notification. I, I mean the,
+00:03:39.310 it should be fast. When I'muploading things on YouTube, I, I,
+00:03:42.250 I just want my video to be uploaded,and I want to feel like, okay,
+00:03:45.531 when I press the publishbutton, I, my job is done.
+00:03:47.910 Now viewers will keep coming.
+00:03:50.291 Yeah. Yeah. Got it. So basicallyupload should be low latency.
+00:03:53.790 The difference between upload and uservisibility can be few minutes. Yes.
+00:03:58.230 If I understand that right. Okay. Okay.
+00:04:01.670 How many users are we looking at.
+00:04:05.900 Approximately? If you'retalking about Instagram?
+00:04:09.210 Yeah, like, I mean, like an ballparkfigure for daily active users.
+00:04:13.230 Daily active users might be 10 million.
+00:04:18.000 10 Million. So these, these are 10million users. We have two serve.
+00:04:21.279 So these 10 million users are actuallyviewers. I'll call them viewers.
+00:04:28.070 Is that okay?
+00:04:29.040 Yeah, you can call them.
+00:04:30.430 10 million will be like so 1 billion ismy assumption of number of people who
+00:04:35.331 are downloading Instagram,which is a huge number.
+00:04:38.690 I don't think that is accurate. Butlet's go ahead with that assumption.
+00:04:42.540 Let's say that one in 100 peopleactually watch Instagram every day.
+00:04:47.110 So that'll be 10 million. And yeah,maybe you can say that most of the users
+00:04:54.089 don't watch Instagrammuch while some users go
+00:04:59.041 through Instagram a lot. So maybeyou have like 10% of the users,
+00:05:03.041 which is 1 million users whoare active very often. Mm-Hmm.
+00:05:06.080  mm-hmm. .
+00:05:06.960 Right? Right. So let's saythat we have 10 million users.
+00:05:10.700 And what would you say wouldbe the ratio of creators,
+00:05:13.630 like people who are uploadingvideos versus people whoare consuming the videos?
+00:05:18.350 It's, it, I mean, we are usingthese apps on daily basis.
+00:05:21.620 So we know that up the ratio of creatorsis low in comparison to consumers,
+00:05:26.460 but still, like if 10 million users aredaily active users are the consumers,
+00:05:30.910 what would you say is theratio of creators? Like,
+00:05:33.020 do you want it to be one istwo 10 or even like one is 200.
+00:05:36.740 Lesser. Maybe everyvideo gets at least yeah,
+00:05:40.450 maybe the number ofcreators is just one lack,
+00:05:44.150 which is 100,000. Yes.
+00:05:46.520 So let's say a hundredK. Yeah. Okay. Okay.
+00:05:51.730 So now I want to like note down certain
+00:05:57.279 like these are our requirements. Now,I want to get to them one by one,
+00:06:01.140 but before that, I would liketo write some conclusions. Okay?
+00:06:06.339 so we have a,
+00:06:08.830 like the right to read ratio is
+00:06:14.740 a hundred k divided by10 million, which is 10.
+00:06:19.320 It is roughly coming outto be one by a hundred.
+00:06:21.720 So from this we can conclude thatour rights are comparatively less
+00:06:26.621 than reads. We havemore reads than writes.
+00:06:29.650 This can be one of the points that Iwould like to consider when we are talking
+00:06:32.780 about data storage.
+00:06:34.400 Now coming to the upload videosthe functional requirements itself,
+00:06:39.221 right? So I would like to get tothem one by one for upload videos.
+00:06:43.750 Let's say first you knowwhat I will try to do?
+00:06:46.740 I will try to design a monolithfirst, okay. And then from there on,
+00:06:50.101 I'll try to break it.
+00:06:52.010 Okay.
+00:06:52.450 Okay. So let's say that there is a service
+00:06:57.200 let's call it TikTok two. Okay?
+00:07:02.370 And this service actuallyexposes is actually
+00:07:07.339 upload a p i.
+00:07:10.560 Okay?
+00:07:12.750 Upload a p is going totake some user data,
+00:07:18.100 okay? Like user ID anduser login, et cetera.
+00:07:20.741 Some metadata about the videoand the actual video file.
+00:07:25.920 And one clarifying question I have hereis that we would only allow videos of
+00:07:30.980 link the 60 seconds, right? Or do wewant to allow larger videos as well?
+00:07:36.600 So what we want to do ideally isallow videos only have seven seconds.
+00:07:41.730 Yeah. In case there is a specialuse case, then we look at it later,
+00:07:45.520 but more than seven seconds does notmake sense. Yeah. At the moment. Yeah.
+00:07:49.170 Okay. Okay. Makes sense. Makes sense.So this will be the upload a p i, right?
+00:07:53.290 This will this is going to take thevideos and then af once the user
+00:07:58.360 or the creator uploads the videos,
+00:07:59.960 what's going to happen is we aregoing to have some kind of storage for
+00:08:04.940 videos. So I will justwrite video storage here.
+00:08:10.180 Now coming to the choice ofstorage, so there are two kind of,
+00:08:14.560 actually there are, thereis three kind of data,
+00:08:17.081 three different kind ofdata that we have to store.
+00:08:20.100 One is user data. So I will, again,since I'm going to use different dbs,
+00:08:24.600 I will just try to separate it out, out.
+00:08:28.841 So I have to store userdata, video metadata.
+00:08:35.100 Okay? So these are the three,
+00:08:37.351 kind of three different kindof data that we have to store.
+00:08:39.850 So I'll come back to storinguser data and video metadata.
+00:08:43.090 But first priority I am going togive to store video data. Now,
+00:08:46.830 we know that video data hasto be stored in in a storage
+00:08:51.660 from where reads are easily accessible,okay? Reads are easily possible.
+00:08:56.070 And also there is going to be a lot ofload on this video data because one video
+00:09:00.860 would be consumed by millions of people,
+00:09:03.630 or at least hundreds or thousandsof people on an average, right?
+00:09:07.990 So since I have worked on systemslike this before my choice would be to
+00:09:12.990 use something of kindAmazon S three in order to
+00:09:17.710 store this kind, in order to storethese kind of files, like video files.
+00:09:21.679 And for video metadata,
+00:09:23.420 I would go with a key value storageor maybe a columnar storage,
+00:09:28.010 like Mongo or maybe like any,any other key value storage,
+00:09:32.740 I can use Redis also, but I,
+00:09:34.140 I don't see Redis would be usefulhere be because it's better if we
+00:09:38.941 have only key value storage. In caseof metadata, we would have many things.
+00:09:42.760 We would have thumbnail file, and wewould have other, other data about video,
+00:09:47.370 like the, the user when it wascreated, the length, et cetera.
+00:09:51.360 So I would use maybe a, a NoSQL databasehere, like MongoDB. And for user data,
+00:09:56.580 I would go with MySQL, becausethis is tried and tested.
+00:10:00.640 We need to store user data and we need to
+00:10:04.809 fetch we need to fetch user data.
+00:10:06.740 And user data would also be I think wouldbe used if we build a recommendation
+00:10:10.680 system for different users.
+00:10:11.900 So there are going to be multipleservices inside the system,
+00:10:14.881 which are going to access the user,which we'll come to later. Now,
+00:10:18.081 coming back to our service,what the service is going to do,
+00:10:21.559 this service is going to store the videofile into the S three and the video
+00:10:26.480 metadata into the store andthe user data into this store.
+00:10:29.990 This looks fairly simple whenwe do not have any scale, right?
+00:10:34.700 But since you said that there are goingto be a hundred K creators and they will
+00:10:38.441 be uploading files obviously if, ifone creator uploads one file in a day,
+00:10:43.550 then also there will be ahundred thousand files every day.
+00:10:47.059 And if on an averageone crater uploads five,
+00:10:49.710 then it'll be 500,000 files every day.
+00:10:52.500 And since we want this tobe really fast and really
+00:10:58.201 accessible, like as you said,
+00:10:59.441 that the latency for upload ofvideo should not be very high.
+00:11:03.420 So I would maybe put putthis a p i via a queue.
+00:11:10.330 Okay? So all the requests whichare coming, they will be queued.
+00:11:14.880 The queuing is only done in order to justtake all the requests from the users,
+00:11:19.661 because obviously we cannot ratelimit users here. We cannot say, okay,
+00:11:23.141 you can upload only one file at a time,
+00:11:25.120 or you can upload only 10 files at a time.
+00:11:26.679 It is up to the creator howmuch files they're uploading.
+00:11:29.301 So we will queue all the request andthen send them for processing one by one.
+00:11:33.010 What the user is going to getin response of this upload.
+00:11:35.740 A p i will be just a acknowledgement,
+00:11:38.461 like some something like Ithink the code used is 2 0 2,
+00:11:42.341 that your request isaccepted for the resource,
+00:11:44.760 and then we are goingto create the resource.
+00:11:47.010 This is very simple view of howan upload service can look like.
+00:11:52.010 Okay. that, okay, actually, that'sa, that's a good point. Okay.
+00:11:56.420 so I want to actually dig a littledeeper around the choices you have made.
+00:11:59.801 Okay. What could be possible trade offs,
+00:12:01.601 and why are we actually going aheadwith it? So you have SS three here.
+00:12:06.050 Could you tell me why you chose SSthree? Is it, I mean, why? Okay. Okay.
+00:12:10.740 So I have chosen S three here becausefirst it is a service provided
+00:12:15.580 by a w s. So it is quite reliablein terms of storing large files. In,
+00:12:20.220 in our case, it isgoing to be video files.
+00:12:22.460 And second serving data fromS three or sharing data,
+00:12:26.721 like people reading fromSS three buckets. The,
+00:12:29.601 the other services reading fromS three buckets, again, again,
+00:12:32.179 can be reliable because we are relyingon AWS's infrastructure in order to
+00:12:36.641 access the files. So one,
+00:12:38.140 we would save the time and implementationof having our own store and then
+00:12:43.120 building it in a reliable way becausea W SS has a service which is already
+00:12:47.121 doing that. However, if the companywants to build something in-house,
+00:12:50.881 which has properties like SS three,where, which is highly reliable,
+00:12:53.921 which can store data, we can do thatas well. And second reason what,
+00:12:57.900 why I wanted to do this isbecause I was about to come to it,
+00:13:01.390 that since we have a lot of reads,we have to serve a lot of viewers.
+00:13:06.620 Why accessing these files? We caneasily tie up S three to A C D N,
+00:13:11.540 and we can we can have different s threebuckets in different regions so that
+00:13:16.100 the latency of the videos, which are,
+00:13:17.680 which are getting served todifferent viewers can be low.
+00:13:20.420 So let's say we have the same videofile is going to be replicated again
+00:13:25.380 is going to be replicatedin multiple regions.
+00:13:27.770 Let's say you are watching a video fromMumbai versus someone else watching the
+00:13:31.401 same video in us. For you,
+00:13:33.780 the S three file that you would be ableto access via C D N will be in a center
+00:13:38.179 or a region closer to you.
+00:13:39.400 Let's say it'll be somewherenear Mumbai in India itself.
+00:13:42.809 While for someone else, if we aregoing to go through CDN approach,
+00:13:46.420 it is going to be closer tothem physically closer to them,
+00:13:49.121 because network latency doesplay a role. If we, let's say,
+00:13:53.001 if we save all the files in one regionin one physical hardware machine,
+00:13:57.761 in us, there are multipledownsides to it. One,
+00:14:00.660 it becomes the single point of failure.We do not have any replication.
+00:14:04.260 If that goes down, the whole systemgoes down. Second the latency is huge.
+00:14:09.720 Somebody accessing the same videofrom us might experience low latency,
+00:14:13.361 but someone accessing from it fromIndia might experience a lot of latency
+00:14:17.041 because of the actual physical distance.
+00:14:18.660 So using a combination of S three plusc d CDN to serve files like images and
+00:14:23.481 videos is actually a goodapproach to have low latency,
+00:14:26.561 as well as to have to distributethe service, basically. So if the,
+00:14:30.180 if the S three bucket or somethinggoes wrong in the A WS region in us,
+00:14:33.690 it'll not impact the users anywhereelse. It'll only impact users in us.
+00:14:38.580 So those are the reasons that I wouldlike to go with this S three and c d n
+00:14:42.160 approach for serving the videos.
+00:14:43.510 Okay. So that's, that's great. Youhave you have given availability
+00:14:49.140 and, and performancealso all low latency as,
+00:14:51.960 as one of the reasons why you're chosenS three because you can hook it up with
+00:14:54.881 a C D N. Okay. I,
+00:14:57.040 I really like the pointsthat you explained in C D N,
+00:14:59.961 but once you have mentionedC D N, I think, yeah,
+00:15:02.540 that's that actually takes care of a lotof the factors that are available with
+00:15:06.880 more c D N solutions. Okay? Okay. Now,
+00:15:12.070 okay, so, and, and S three internallyseems to us like a bit of a file storage,
+00:15:16.130 right?
+00:15:17.480 Yeah. Yeah.
+00:15:19.040 Okay. And basically, we don'thave mutability in these files,
+00:15:21.990 but we are okay with it becausevideos are not going to be mutable.
+00:15:24.990 To be edited. Yeah. We, we just have toserve the videos once video is uploaded.
+00:15:28.910 And that's why, I mean, the serviceslike TikTok or YouTube or Netflix, they,
+00:15:32.811 they wouldn't allow you to edit the video.Once it's uploaded, it's, it's gone,
+00:15:36.131 right? So you, you don't, you, however,
+00:15:39.750 if there is a use case to editthe video to, to change something,
+00:15:43.120 then maybe this approachwould have to be modified,
+00:15:45.470 or we would have to look at a filestorage where we can actually change the
+00:15:48.451 files.
+00:15:49.430 Got it. Okay. Perfect. So now the otherthing is you chose MySQL for user data.
+00:15:53.840 That is, I think that is fine. Youare giving asset properties there.
+00:15:57.870 You want you want somesort of relational data,
+00:16:01.070 so possibly storing it in MySQL, whichis a relational database, makes sense.
+00:16:06.510 So that you might have profiles, you mighthave country, which is another table,
+00:16:10.470 and based on that, you actually createuser data. And if you want to anomalous,
+00:16:14.771 you can anomal. Okay. Now about videometadata, why do you want to use another,
+00:16:20.370 a key value store here?
+00:16:22.011 So is it a microservice that isgoing to be implementing this? If so,
+00:16:25.251 then why do you want it as a key valuestore? Why do you not want it as MySQL?
+00:16:29.990 So video metadata first of allis not going to be very organized
+00:16:34.851 or relational as user datais going to be. Okay? Okay.
+00:16:38.371 It'll just be any video metadata willbe just be attached to the video and the
+00:16:43.251 user itself. And also metadataproperties can change over time.
+00:16:47.270 You might want to getrid of some properties.
+00:16:49.030 You might want to add some properties.Let's say one video is deleted. So the,
+00:16:52.360 when was the video deleted?When was the video uploaded?
+00:16:55.120 What was the duration of that video?What is the thumbnail of the video?
+00:16:57.980 Maybe you want to changethe thumbnail of the video,
+00:16:59.950 or maybe you want to changethe description of the video.
+00:17:02.350 All those things can be stored in a keyvalue store because it'll be flexible
+00:17:05.618 later on in order to change theschema of the, the whole metadata,
+00:17:10.108 the video metadata that we are storing.That is one reason because the,
+00:17:12.990 we can have flexible schema. And second,
+00:17:15.170 I want to use s key value storebecause obviously there is going the,
+00:17:19.630 the MySQL is also going tobe fast for access. But,
+00:17:22.550 but key value stored is going to beeven faster for access because it just,
+00:17:26.531 with one key, we would be ableto access this metadata faster.
+00:17:29.830 And I am assuming, so let's say webuild a recommendation engine, right?
+00:17:33.470 And recommendation engine wantsto fetch the video link only,
+00:17:37.030 not the whole video, which wewill be storing in video metadata.
+00:17:39.990 So recommendation engine is goingto access the video metadata.
+00:17:44.140 Maybe we want to list allthe videos for a user. The,
+00:17:47.290 we want to keep user history, likewhat video, video videos this user has,
+00:17:50.271 has watched that for that. Also, we aregoing to access video metadata store.
+00:17:54.540 So there can be multiple serviceswhich have to access video metadata,
+00:17:57.820 and it'll be easier if we keepit in a key value store. Again,
+00:18:01.500 two horizontally scale it. Got.
+00:18:03.680 It, got it. Okay. So that's, that's good.
+00:18:06.281 So basically your schema is flexible.
+00:18:11.260 Okay. I, I understand that point.
+00:18:12.970 And also you're saying that the numberof reads are tremendous compared to
+00:18:16.270 writes possibly because of,and you don't have joints,
+00:18:18.810 so you're going for a key value storebecause you can scale also easily.
+00:18:24.100 Okay. Okay. So okay.
+00:18:25.711 So now we have a goodunderstanding of why each of these
+00:18:31.260 storage solutions have beenused. Okay. Now, another thing,
+00:18:36.270 when you went to TikTok two, i, Ithink this is the ingest engine.
+00:18:41.801 Yeah, yeah. So I started it as a monolith,
+00:18:44.201 but since now we are discussing S three.
+00:18:45.940 So actually there are goingto be two different services.
+00:18:48.580 One is going to be an ingest service,
+00:18:50.420 or we can call it onboardingservice or upload service,
+00:18:53.490 which is going to take care ofonly uploading the videos. Okay.
+00:18:57.060 And other service like the, the,
+00:19:00.380 we can call it video servingservice, or video streaming service,
+00:19:03.081 which is going to take care of whenevera user logs in wants to see the video,
+00:19:06.790 that service is actually going tofind out where the user is residing,
+00:19:09.910 located in, what are thepreferences of the user,
+00:19:12.340 and then going to fetchvideos from S three.
+00:19:14.020 So there is let me justdraw that service as well.
+00:19:22.380 Now coming back to the videositself so this is the question.
+00:19:27.250 Would we want to store differentformats of the video? Like,
+00:19:31.980 or you would want to just store theformat of the video that the user has
+00:19:35.040 uploaded, or you want toconvert it into various formats?
+00:19:38.910 Okay. So I do want to convert itinto various formats and resolutions,
+00:19:43.681 because some formats may notbe possible on a Mac phone
+00:19:48.641 on an iPhone rather. And some formatswill be possible on a Windows phone,
+00:19:52.601 windows phone, nobody uses but Android.Okay. the other thing is resolutions.
+00:19:57.420 So some phones are high endand some phones may not beable to support that kind
+00:20:02.080 of resolution. So yes, I'm lookingfor multiple formats and resolutions.
+00:20:06.680 Yeah. So, so that way Iso I am thinking that for,
+00:20:10.660 we need different formats, weneed different resolutions.
+00:20:13.460 And also I think so that way, let'ssay somebody has uploaded one video,
+00:20:17.180 and let's say we support 200kinds of devices and four formats.
+00:20:20.740 So that means we have 800 files for onevideo. And let's say on top of that,
+00:20:25.161 we support three formats. So we haveapproximately 2,400 files for one video.
+00:20:31.480 I just want to give an idea like how muchstorage we are going to have just for
+00:20:34.761 one video.
+00:20:35.540 So this is coming up quite oftenwhat's happening is that we are,
+00:20:39.660 we are starting to have feelingslike, is this scalable enough?
+00:20:43.859 Is our architecture scalable enough?So let's take it step by step.
+00:20:47.090 Let's pick up the pointwhere we are actually scared.
+00:20:49.900 At the moment you're worriedabout storage, right? Right. Okay.
+00:20:53.540 So I'll give you some numbers.
+00:20:54.930 Let's see if we can scale thisarchitecture accordingly. Right?
+00:20:58.700 So we have one lack uploaders and also
+00:21:03.760 sporadic uploaders. Likesometimes people like I,
+00:21:07.280 I am supposed to be a influencer,
+00:21:08.859 but let's say there's a person whodoesn't upload many videos and they also
+00:21:13.201 upload on Sunday. So in total,two like videos per day.
+00:21:17.840 Two like videos per day. Okay? So let'ssay there's two, 200 K videos, 200.
+00:21:21.400 K videos, and each video is about one mb
+00:21:26.940 10 seconds. Yeah.
+00:21:28.300 200 K, right? Right. It'll be one mb.
+00:21:32.480 So we have a storage of 200 gb.
+00:21:37.380 Yeah. This, this is Ithink yeah, 200 gb. Okay.
+00:21:41.510 Let's say we have a very efficient youknow, video passing algorithm. Yeah,
+00:21:45.840 200 gb. Okay?
+00:21:47.530 But, but this will be true only ifyou're storing one the same video file.
+00:21:51.951 However, if you're going tostore, say, multiple formats,
+00:21:55.500 so suppose we support four formats,then we have to store four files,
+00:22:00.570 which makes this a storage four times.Or maybe if we, we can roughly say,
+00:22:04.521 say two times, because some files willbe smaller than the other files. So that,
+00:22:09.390 that way it makes it around 600 gb.
+00:22:12.350 Yes.
+00:22:13.140 Right? And now for resolution as well,
+00:22:17.040 like if you are going to savein different resolutions,
+00:22:20.880 even that will increasethe number of files.
+00:22:23.630 So in different formats, okay,let's put it at two x approximately.
+00:22:28.970 I would possibly put it at maybethree x, but two x is totally fine.
+00:22:32.359 Yeah, yeah. No, no, I, I was also thinkingthat if it should be three, so yeah,
+00:22:36.410 I calculated three in my head, so 600 db.
+00:22:39.070 Oh yeah, of course, it's come out fine.
+00:22:40.731 Then the other thing is ifyou take different formats,
+00:22:43.610 like each video progressivelykeeps re reducing
+00:22:48.430 by half in size as you reducethe resolution. So in general,
+00:22:52.510 two x of that is fine. So Iwould say 1.2 TB is what we are.
+00:22:56.570 1.2 Tb. Yeah. So we haveto store 1.2 tb per day.
+00:23:00.230 Per day. Okay. Yeah. Okay. so 1.2 tb
+00:23:06.430 in terms of time, okay, in terms ofstorage, this seems fine. It's like, yeah,
+00:23:10.590 it seems fine. In terms of time of upload,
+00:23:13.610 that is something different that wehave to look into in terms of how much,
+00:23:19.050 how much time will it take to transferthis data from monthly to another,
+00:23:22.600 which is, I think again, fine.
+00:23:23.940 It's basically dependent onthe bandwidth and the network.
+00:23:26.490 1.2 TB per day is not goingto be a real issue for a
+00:23:31.351 large scale distributed system,which has dedicated bandwidth.
+00:23:34.480 Right? Right. And it also dependson, on the a w s cost and plans.
+00:23:38.210 So this might be costly ifwe have bigger machines.
+00:23:43.260 Yes, it might be costly if you are, areusing a w s TikTok may be using a W Ss,
+00:23:47.841 or it might have its owndedicated infrastructure, right?
+00:23:50.830 Just just to take care of the cost.
+00:23:53.230 Yeah. Yeah. If your scale is very high,
+00:23:56.190 then it starts making sense to investin not just software engineering,
+00:24:00.281 but also in, you can go for hardware,you can buy own data center.
+00:24:04.300 Our assumption in this case isif you're making that much data,
+00:24:08.001 then you're making thatmuch money also. Yeah.
+00:24:10.560 , right?
+00:24:12.869 Okay. Okay. Now, I, I would like tosee how is this ingest engine working?
+00:24:17.150 This is something which looksa little exciting. Yeah.
+00:24:21.600 So I think how this has to work isas soon as a video comes in, so I,
+00:24:26.460 I already said that ithas to go through a queue.
+00:24:30.520 So let's say that assoon as a video comes in,
+00:24:33.080 it has to maybe go through a workflow ora pipeline where multiple things would
+00:24:38.021 be happening.
+00:24:38.840 So let's say you want to verifyor categorize that video into
+00:24:43.620 particular category, or you wantto first put a validation check.
+00:24:46.101 If it is longer than 60seconds, then just rejected.
+00:24:48.650 That would be be the first step.
+00:24:50.470 Maybe second step would be checkingthe if the video is appropriate,
+00:24:54.170 like some kind of filters on that video.
+00:24:56.160 And third step would be to convertingthat video into multiple formats.
+00:25:00.520 So from there, I would say that as a,
+00:25:02.780 a parallel a parallel distributedapproach would come into the picture.
+00:25:07.330 Like one file has to be convertedinto four different formats.
+00:25:10.400 So it'll be done in parallel bydividing the file into different chunks.
+00:25:14.080 Oh, that's good. That'sgood. So basically,
+00:25:16.380 you are paralyzing because you wantto make this highly performant. Okay?
+00:25:20.090 Like, we cannot wait to the fileto be converted into one format.
+00:25:23.290 Then after that is finished, then wewill convert it into second format. No.
+00:25:26.181 Instead of that, we can take the currentfile, divide it into different chunks,
+00:25:30.040 and create a pipeline. So first to first,
+00:25:32.560 the first step of the pipeline would beto divide the file into various chunks.
+00:25:36.341 Then the second step of the pipelinewould be to convert those chunks into four
+00:25:40.301 different formats. So there will befour parallel processes from there.
+00:25:43.200 So four parallel processeswill be converting the fileinto different formats.
+00:25:47.581 And then let's say the next step of thepipeline is to convert those chunks into
+00:25:51.421 different resolutions.So from there onwards,
+00:25:53.461 different like those differentconverted formats will be different will
+00:25:58.461 be modified into different solutions.And at the end of the pipeline,
+00:26:01.800 all these chunks will be combinedagain, and we will end up,
+00:26:04.741 like what is started with one file,
+00:26:06.900 we will end up with maybe eight or16 copies of that file for storage.
+00:26:11.280 And the next step would be toupload these to s3 and also
+00:26:16.119 upload this to S3 in a way lookingat the location of the user.
+00:26:20.560 So let's say if the, ifthe user has no, no, sorry.
+00:26:24.540 No. So I, I'd just liketo like if you can so if,
+00:26:28.359 if I am getting the pointcorrectly and if I draw that out,
+00:26:31.920 so what's happening is every one ofthese videos is being split into chunks.
+00:26:36.320 Chunks, yeah.
+00:26:37.290 Okay. So if you have a, let'ssay one ten second video. Yeah.
+00:26:41.880 You want to split it into further chunks,
+00:26:43.561 or do you want to take the whole chunk?
+00:26:46.660 No. So let's say that the, our chunksize is, let's say 10 seconds. Okay.
+00:26:50.740 In that case, that video will be onechunk, but if the video is 30 seconds,
+00:26:54.590 then this file will bedivided into three chunks.
+00:26:56.790 Okay. Okay. So you splitting it intochunks might be useful in our case,
+00:27:01.161 if it is 10 seconds long, or if it'sshort, then we can just directly.
+00:27:04.510 Exactly, exactly. If it's, ifit's just a ten second video, it,
+00:27:07.780 we wouldn't have any parallel processing.
+00:27:09.561 It'll just go through all thestages of pipeline directly,
+00:27:12.500 and it'll be converted intodifferent formats and resolutions.
+00:27:15.190 Awesome. Awesome. So that's, that'swhat we can do. And then you are,
+00:27:18.900 you're saying that there's multipleformats and multiple resolutions.
+00:27:22.380 So if I have a, a 10 80 p phone,
+00:27:26.240 there is one for seven 20 p, one ofthese rows, one of these rows is four 80.
+00:27:30.700 And then, okay, the columns are likedifferent. So there is one for Windows,
+00:27:34.859 one for Mac, I, I don't know the exactformats that we have inside this.
+00:27:39.380 You can possibly breakthem into multiple formats.
+00:27:41.281 Usually these guys havetheir own propriety formats,like Netflix has its own,
+00:27:44.660 I'm not sure if TikTok has its own.
+00:27:46.920 Tomorrow. If you want tosupport one more format,
+00:27:48.660 we just have to add onemore step in the pipeline,
+00:27:50.619 so that would make the system scalable.
+00:27:52.750 Perfect. That's actually a very goodpoint. Yeah. So you just need to add one,
+00:27:55.780 one more format here andone more resolution here.
+00:28:00.220 So if somebody invents a new phone,
+00:28:02.380 you're not worried because you are takingeach of these tasks individually and
+00:28:06.921 pushing them into, likeyou said, a worker. Yeah.
+00:28:11.980 Okay. So multiple machines areworking on this at the same time.
+00:28:18.420 Okay. Okay. So this guy picks up thistask, this guy picks up this task,
+00:28:21.850 and so on. Okay. Okay. I, I getthis, this part of the architecture,
+00:28:26.020 this is a common and very usefulpattern that you have used
+00:28:30.970 for video processing.
+00:28:31.991 So I'm understanding thatyou are reasonably wellversed with video processing.
+00:28:37.220 Yeah. Even, even, evenif we don't have videos,
+00:28:39.800 let's say we have large textfiles, okay? And those are of size.
+00:28:44.871 Let's say the, we have text files of 10mb, right? And we have to upload them,
+00:28:48.100 even those files, we have to cut itinto different batches and then store,
+00:28:51.271 and then do some processingon them. Even doing,
+00:28:54.231 like uploading them in one shot andthen keeping the user waiting for it
+00:28:58.551 uploading that is not a goodpractice to follow, right? So anyway,
+00:29:02.551 we have to do this background processing.
+00:29:04.530 So that's great. So in general, yoga,
+00:29:06.460 what I'm understanding here is thatwhenever you need to do heavy processing,
+00:29:09.271 which is something that wecan have with some latency,
+00:29:12.850 you go for an architecturewhich ingests pushes into a,
+00:29:17.700 into a queue of tasks. Theseare effectively events,
+00:29:21.610 and then these events are being subscribedto by these workers effectively,
+00:29:25.111 again who these events are actuallybeing mapped onto to different, they're,
+00:29:30.071 they're actually being expanded intoa format across resolution matrix,
+00:29:34.170 and each of these individual tasksare then being sent to workers who are
+00:29:37.550 subscribers. Okay. Thatmakes a lot of sense.
+00:29:41.340 So heavy lifting sort of tasks. I, I,
+00:29:43.840 now I'm convinced that you caneasily scale this architecture for
+00:29:49.580 for video processing. Okay. So that partis done. Video storage, you explained.
+00:29:54.340 And I would just like to pointout that we doing this way we
+00:29:59.480 first performance of upload is likewe have low s l a because we are doing
+00:30:04.280 parallel processing,
+00:30:05.180 so the time would be reduced because ofthe chunking and parallel processing.
+00:30:09.220 And second, it's eventual consistency.
+00:30:11.201 So it's not like that assoon as the video uploads,
+00:30:13.521 it has to be available to all the usersor viewers. It can take some time,
+00:30:18.270 like a minute or less than a minute toget uploaded because we have all this in
+00:30:22.561 background processing. So it's,it's not real time actually.
+00:30:25.561 And obviously after this,it'll take time for,
+00:30:27.820 for diff to go into different s threebuckets and replication and replication
+00:30:31.561 across different machines and regions.
+00:30:33.180 So I just want to point out thatthere comes into the picture,
+00:30:36.320 the eventual consistency property thatI have written in the non-function
+00:30:39.721 requirements earlier.
+00:30:40.970 Right? Right. So,
+00:30:41.980 but one of the things that is happeningalso when you're uploading a TikTok
+00:30:45.321 video is that it's a short video.
+00:30:49.200 So the amount of time required fordoing all of this may be short. Yeah.
+00:30:53.000 One interesting thing that would'vehappened if you are uploading a YouTube
+00:30:55.861 video is that you would've split it inthe chunks. That was a very good idea.
+00:30:59.720 Now, how are you going to actuallytransport this video to the users?
+00:31:04.850 So let's say now here whenwe are here in this part,
+00:31:07.631 when the video is ready after chunking,
+00:31:09.530 now next part is to upload thevideo to our storage, right?
+00:31:13.130 So uploading the video to storagewould have multiple parts.
+00:31:16.800 First we would have replication of videos,
+00:31:19.260 like we will not have singlecopy of the video. Second,
+00:31:22.210 we have to upload multiplefiles of the videos, right?
+00:31:24.850 So one video will have different filesaccording to the device and resolution
+00:31:29.730 and format that we have just discussed.
+00:31:32.180 Also we have to uploadaccording to the region, right?
+00:31:36.850 So let's say the one file wouldbe available in all the regions.
+00:31:41.360 It'll be replicatedacross all the regions.
+00:31:43.471 Let's say we have four regions dependingon the demographics of the users.
+00:31:47.890 So first of all, one filewill go into all four regions,
+00:31:51.490 and we have to save 16or 32 files like this,
+00:31:55.031 depending on our formatsand resolutions. And also,
+00:31:57.311 we might have to replicatethese files. Now,
+00:31:59.151 why I'm talking about S threeand c D n and replication here,
+00:32:01.911 because our system, as we mentionedearlier, that it has to be fault tolerant.
+00:32:05.570 So if the one file is notaccessible in one region,
+00:32:10.260 that doesn't mean that it is notaccessible in another region.
+00:32:13.050 So S three plus C D N is goingto take care of that. Secondly,
+00:32:16.890 if one of the region machinegoes down since we have replicas,
+00:32:21.231 the request will be redirectedto another node so that we have
+00:32:26.770 we still have the file stored in anotherif one node goes down. So that will,
+00:32:31.110 again, help us in achievinghigh availability as wellas fault tolerance. Now,
+00:32:36.110 coming back to how we are goingactually serve the video there,
+00:32:39.110 there has to be a service,which I have written here,
+00:32:41.441 like video serving service. Now, seewhat the service has to do. First,
+00:32:44.900 it has to locate where the user is andthen re redirect that request to the
+00:32:49.641 nearest availability zone. Second,
+00:32:51.500 it also has to take into considerationthe network bandwidth of the user, the,
+00:32:55.660 the device of the user, the formatthat user can be supported with.
+00:32:59.220 And on top of that, some recommendation,
+00:33:01.321 but let's say we are only talkingabout particular video now.
+00:33:04.020 So this video serving service have totake all of that into consideration before
+00:33:08.760 downloading a video from any ofthis. Any of the storages or,
+00:33:13.381 or via c d m. Also there is goingto be caching at c d N level.
+00:33:17.840 So it's not like if one user has seenthe video, once again, it'll come again.
+00:33:21.741 It'll be like preloaded into the cache.
+00:33:24.430 It'll already be availableinto the C D N cache.
+00:33:27.200 So that's how we are going to give lowlatency while distributing the video.
+00:33:31.240 But someone who is designing theservers or whenever, like I myself,
+00:33:35.060 when I have to develop this service,
+00:33:36.390 these are the points I'm going to keepin mind that how I'm going to optimize
+00:33:40.950 requesting the best quality videoand give the best user experience.
+00:33:46.220 This is a strange beast. C D N issomething that we will be building,
+00:33:50.690 or is it a already provided solution,
+00:33:53.890 or do you want somesort of hybrid solution?
+00:33:55.780 Yeah, so it depends. Like, for example,the famous c D N that I know is Akamai,
+00:34:00.410 and for Netflix,
+00:34:02.190 I think there is something knownas Open Connect which is used like,
+00:34:06.310 I think it's, it's theirown c D N. So it depends,
+00:34:09.351 like if the company or, or thewhoever is Desi building the system,
+00:34:13.889 if they have enough resourcesand money to pay to and
+00:34:18.591 outsource c D N, it is fine. But again,
+00:34:21.370 if we outsource this to someone else'sc d n, we, they, there will be SLAs,
+00:34:25.190 like let's say we want99.99% availability,
+00:34:28.690 but they are providing only 99.98,and we are spending a lot of money,
+00:34:33.420 then that is a big decision to make,whether we want to build our own,
+00:34:36.449 and also we have to see the time,
+00:34:38.090 how much time it'll take forus to build our own solution.
+00:34:40.810 But let's say if we area company like Netflix,
+00:34:43.090 it is worth investing time and effort andresources into building our own C D N,
+00:34:47.791 so that we can make it flexibleaccording to our requirements
+00:34:52.650 and also the control and the reliability,everything is in our control.
+00:34:57.480 So that would be a decision tomake while choosing A C D N.
+00:35:01.850 Yeah, no, let's take interviewready, for example, right?
+00:35:03.870 Let's say it has videos that itwants to that it wants to share.
+00:35:09.420 I can't afford a C DN cluster to be built.
+00:35:11.520 So CD N actually is all around theworld. There is India, there is us,
+00:35:14.981 there is China, there is hundredsof CDNs around the world.
+00:35:19.300 And these solutions are not easy.
+00:35:20.940 You can't go around to differentcountries and you know,
+00:35:23.370 they have different re regulations,
+00:35:25.051 and then you need I'll call themto also broadcast your content
+00:35:29.750 across this. So you need some sort ofprotocol to actually do that. But yeah, I,
+00:35:33.650 I, I totally agree with you.
+00:35:34.690 C d is basically like you go around theglobe and then you have have multiple
+00:35:37.521 spots where your video's being storedso that things are faster nearby,
+00:35:41.240 users can use this. Okay, soI, I, I think I'll go with the,
+00:35:45.750 with the solution that you have,which is, let's go and take a combine,
+00:35:49.200 is help or some, some otherC D N solution help. So yoga,
+00:35:53.280 there's two things that I wantto know apart from this, yeah.
+00:35:56.240 Because now I'm convinced that oursystem is scalable end to end, okay.
+00:36:00.860 And we also have some good engineeringpractices that we have used.
+00:36:03.921 We have made it as fault tolerantas possible by replication.
+00:36:08.020 We have also used relevant databasesto store relevant type of data. Okay.
+00:36:12.460 We have a worker pipeline, ev,everything seems fine. Okay.
+00:36:15.961 We have a C D N also, however,the the, how will you,
+00:36:21.120 what,
+00:36:21.121 like what kind of protocol will you useto actually send this video down to the
+00:36:25.561 devices?
+00:36:27.969 And what kind of protocol will youactually use to ingest this video from the
+00:36:32.690 device to the ingest engine?
+00:36:36.500 Like what endpoint will yougive here? Yeah, for the upload,
+00:36:41.590 will you use ftp you about? Yeah. Will,will you use H T P? Will you use F T P?
+00:36:46.500 Will you use what kind of.
+00:36:49.300 Okay. This yeah, this is a good question.
+00:36:53.350 I think if I have to use S GT P, I would use S G TP ss,
+00:36:57.690 but there can be upsides of usingfile transfer protocol as well,
+00:37:04.230 which, okay I have not used before,
+00:37:07.680 but I can look up and see the differencebetween S G T P S and FTP and then make
+00:37:12.620 a call.
+00:37:13.920 Okay, in an interview. .
+00:37:15.960  in the interview, I would, Iwould, since I have used TTPs before,
+00:37:21.239 I would like to go with that.
+00:37:23.790 Okay. Okay. So yeah.Yeah, because this is a,
+00:37:28.790 this is a file like this,
+00:37:32.430 this file is not being recorded live.
+00:37:35.120 We are going for S T P S I,I think it should be fine.
+00:37:38.610 What we are doing effectively is justsending a large chunk of data so we can a
+00:37:42.540 large break it into chunks also. Yeah.And send it across to the ingest engine.
+00:37:46.440 So it's like basically requestswhich have been fragmented and
+00:37:51.010 packets are being sent one by one. Soyou are, are you going to send this over?
+00:37:54.969 Okay. If you're using S T P S, then,I mean, you're basically using P C P,
+00:37:58.680 so you have reliable transport andyou have it ordered also. Yeah.
+00:38:01.581 So things should be fine. Yeah. Okay.
+00:38:03.670 Let's say a user here visitsmy profile and says that gimme
+00:38:08.760 all the recent TikTok videos of goup.
+00:38:12.960 So how will the, therequest flow end to end?
+00:38:16.890 Like how will you getthis video to this user.
+00:38:22.940 To so like okay, okay, so, right, so,
+00:38:25.701 so the per some user is trying to viewyour profile and wants to access all the
+00:38:30.621 videos, right? Yes, yes. Yeah. Okay. So,
+00:38:34.400 so that request will come tothe video serving service,
+00:38:36.980 but that will not directlygo to all the videos. First,
+00:38:40.370 it'll check for which user you are. The,
+00:38:44.121 the viewer is requestingthe videos for that user.
+00:38:47.060 The request is gonna go to the userdatabase as well as video metadata
+00:38:52.040 database, and the mappingwhere we will have, okay,
+00:38:54.980 for this user's like this key valuestudent is going to have the user id.
+00:38:58.760 We'll query on that. Yeah,
+00:39:00.580 all the video titles and thumbnailswill be visible to the user on the first
+00:39:05.460 go. So the list will be returned,
+00:39:07.410 which will have the videotitle and video metadata for,
+00:39:11.540 for you like for for one creator,that will be written to the user.
+00:39:16.020 And then once user clicks on that video,
+00:39:18.469 then the whole flow will again gothrough c D N it. And in this case,
+00:39:22.219 no processing, no pre-processingor anything is required.
+00:39:24.961 Just the video ID will be enoughto play that video from C D N.
+00:39:28.140 So whenever we see somethingon YouTube or TikTok,
+00:39:31.800 I don't think that all the videosare already downloaded on the,
+00:39:35.420 on the user's device, or they startstreaming on the user's device only.
+00:39:38.601 Once you click on it,the streaming starts.
+00:39:41.830 Basically you are sending alist of videos back to the user,
+00:39:45.140 and the user can then, yeah,pull out this data. Okay.
+00:39:49.350 From the c d you aresending a bunch of links,
+00:39:51.801 which it is downloading fromthe C D N. Okay? Okay. Hmm.
+00:39:55.820 And we are not focusing too much on thecaching of these videos or the caching
+00:40:00.561 of the metadata, Ithink is rather obvious.
+00:40:03.161 What's happening is that you are takingall the relevant videos right now,
+00:40:06.580 hot videos, and then you storeit as like, for this user,
+00:40:11.110 what are the next.
+00:40:16.370 What we can also do is like we can havelet's say if we have a service that
+00:40:20.181 takes care of the hot videos or thevideos which are trending, right?
+00:40:23.320 So the metadata for those videos andhighly shared videos can be stored in
+00:40:28.101 caching. So we don't even have toquery the actual key value store.
+00:40:31.141 We can just directly pick it from cache.
+00:40:33.480 Okay. Okay.
+00:40:34.011 And we are assuming that the C D N ishandling this like the caching of videos.
+00:40:40.110 So so C D N can, yeah, CDN canhandle the caching of actual video.
+00:40:46.290 Right? Yeah. It'll it's a servicethat they're providing us. We have,
+00:40:51.440 yeah, if we had been buildingit ourselves, then wewould need to take care of,
+00:40:54.950 oh my God,
+00:40:55.469 how am I going to tell this c d n thatthis video's getting really popular?
+00:41:00.070 You can probably even I I'm not sure if
+00:41:04.210 Akamai or any known solutionsprovide APIs where you can
+00:41:09.070 ask it to kick things out ofcache and put things in cache. I,
+00:41:11.910 I'm not sure if that's going tobe the case, but yeah, in general,
+00:41:15.330 I think this is fine. We, we have giventhat responsibility to them. Alright.
+00:41:20.770 , do you have any questionsfor me before ? Hr, you ?
+00:41:27.550 Yes, definitely. Definitely.I mean, in a real interview,
+00:41:30.730 I might not ask for feedback until Ihear the final verdict, but in this case,
+00:41:35.010 since we are trying tohave a mock interview,
+00:41:36.840 I would like to have some feedback.
+00:41:39.489 Right? Right. No, that'stotally true. How about,
+00:41:42.980 so basically when we look at this design,
+00:41:46.260 things seem like we have picked uppatterns which are often used like good
+00:41:51.440 engineering practices, and we haveimplemented them in the right places.
+00:41:55.300 You spoke about availability, thatwas good. You spoke about the,
+00:42:00.100 the pipeline that you're using.
+00:42:01.401 Basically what you have done is youhave decoupled ingestion rate from
+00:42:05.290 processing rate. So when youuse a pipeline like that,
+00:42:09.140 you give the workers enough timeto process videos at their own
+00:42:13.989 pace. Like you don't need to processvideos immediately, so to speak. I,
+00:42:18.040 I know I said low latencythere, but in the worst case,
+00:42:20.681 if you're getting flooded with videos,
+00:42:21.770 let's say it's Christmas orNew Year's or the Valley,
+00:42:24.880 everyone's sending you videos.You want some sort of decoupling,
+00:42:28.420 you want the in, you want thequeue to get larger if required,
+00:42:33.390 but you don't want thesystems to collapse. Okay.
+00:42:36.411 That was really nice you usedthat. Engineering principle.
+00:42:38.800 Another thing that you haveused is high availability,
+00:42:41.340 which means multiple zones,replication, you use the C D N,
+00:42:44.131 which makes a lot of sense because youneed to distribute this data all around
+00:42:48.691 the globe. So these aregreat engineering practices,
+00:42:51.490 and I think you use themfabulously throughout the video.
+00:42:55.390 One place I would've likedto see you get to quickly
+00:42:59.880 would've been cost estimation,because in quite a few places,
+00:43:03.640 I was seen that you were a littlehesitant to say whether this is, you know,
+00:43:08.230 this is good enough or not. Or there,
+00:43:10.761 there were some assumptions that we weremaking in between that maybe this is
+00:43:13.761 good, maybe this is not so good.
+00:43:16.100 Had we done the cost estimationvery early in the video, like, okay,
+00:43:19.340 we need to store these many videos.
+00:43:20.989 This is the amount of processingtime might have might have, you know,
+00:43:25.710 made it a more smooth flow. Finally, I,
+00:43:29.940 I don't know if this is true,
+00:43:31.040 but I felt like you were a little hesitantgetting into the network protocols
+00:43:35.701 that we are going to be usingfor video upload and download. So
+00:43:42.160 that, that could be someplacewhere, as an interviewer,
+00:43:44.790 I'm going to probably dig deeperbecause I'll see hesitancy,
+00:43:47.870 so I want to put you in the spot.But in a real I mean in, in,
+00:43:52.870 in this interview, it's towardsthe end of the interview.
+00:43:56.811 So I'm at 45 minutes andthat's why I don't get time.
+00:43:58.771 That is really good from your side becauseyou're explain the whole architecture
+00:44:03.130 and then I'm like, okay, fine.Yeah, this, this is good enough.
+00:44:05.670 But if you had gone for that in the start,
+00:44:07.960 then I would've probablydigged a lot deeper and,
+00:44:10.110 and it would've still been totallyfine, but it, it would've been slightly,
+00:44:15.230 the first impression isa bit more important.
+00:44:16.870 So that's someplace that you canprobably look into a little more.
+00:44:21.630 Right? Right. So yeah,
+00:44:23.620 I mean I got sort of lucky that wecame to the discussion of the network
+00:44:28.100 protocols part towards the endbecause truly, like as I said I mean,
+00:44:32.820 it would not be nice tonot have this knowledge,
+00:44:35.780 but it is better that I say that I havenot worked on it rather than try to
+00:44:39.281 guesstimate something. Right?
+00:44:40.780 So since I have only worked withtps and I haven't had I have,
+00:44:45.239 I don't have like practical hands-onknowledge of different protocols.
+00:44:48.620 So that's why you must have seenthe hesitancy to talk about it.
+00:44:52.660 But what I can do as a candidate is Ican take this feedback and go back and
+00:44:57.290 study about this and learn about thisand be ready for the next interview.
+00:45:00.870 Yeah, absolutely. That's,that's perfect. In an interview,
+00:45:04.020 the intent is not to get the right system,
+00:45:07.070 it's to put you in a spot or to actuallycheck how much knowledge do you have in
+00:45:11.481 different sectors. So I thinkthis is great. This is awesome.
+00:45:27.520 If you want to get moreready for the interviews,
+00:45:29.240 then head over to InterviewReady!

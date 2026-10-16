@@ -1,0 +1,194 @@
+# tactiq.io free youtube transcript
+# What is the Publisher Subscriber Model?
+# https://www.youtube.com/watch/FMhbR_kQeHw
+
+00:00:00.270 Hi everyone. We are talkingabout event driven services now,
+00:00:03.610 and as you can see we have a microservicearchitecture, so SS one S zero, S two,
+00:00:08.789 SS three, and S four arethe services we have.
+00:00:10.970 We have a client connected to SS one.
+00:00:13.010 It sends a request after SS one hasprocessed this request and made some
+00:00:17.071 changes. If required,
+00:00:18.530 it needs to send twomessages to S zero and S two.
+00:00:23.130 The important thing to notice here isthat the order of these two messages
+00:00:27.960 don't matter. S two can get the messagefirst, or SS zero can get it first.
+00:00:32.420 Similarly, SS three and S fourneed to get messages from SS two.
+00:00:36.471 After it's done,
+00:00:37.191 it's processing and the order of thesetwo messages don't matter either.
+00:00:42.850 If you're using a requestresponse architecture,
+00:00:45.970 you'll be sending a request toSS two and a request to S zero.
+00:00:49.970 The smart thing to do is to send theserequests asynchronously and wait for the
+00:00:53.310 responses. Once they havesent a successful response.
+00:00:56.690 You just do the same thing with S two.The main drawback with this architecture,
+00:01:00.721 if you're using request and responses,
+00:01:02.420 is that S two might be waiting forboth of these services to complete.
+00:01:05.269 Even if it is asynchronous,
+00:01:06.740 it might wait for SS threeand S four's response to come.
+00:01:10.230 Once it gets a response,
+00:01:11.841 it's gonna send it to S oneand then send it to the client.
+00:01:14.350 Imagine if SS four fails,
+00:01:16.900 if S four fails and SS two is goingto be waiting for it after a timeout,
+00:01:20.281 it's going to send a time out to SS one,
+00:01:21.970 which in turn is going tosend a timeout to this client.
+00:01:24.780 And it took a long timefor this request to fail,
+00:01:28.780 not just that SS one actuallyprocessed it correctly.
+00:01:31.740 So this data now might be stale, right?
+00:01:35.420 So when the request is sent, again,
+00:01:37.800 S one is going to make achange in the database again,
+00:01:40.700 and then S two is goingto get the same request.
+00:01:43.660 It might make a change in its database.
+00:01:45.970 There are two places where theremight be multiple changes for the same
+00:01:50.561 request.
+00:01:52.510 The better way to handle this is somethingcalled a publisher subscriber model.
+00:01:58.410 With the publisher subscriber model,
+00:02:00.250 what we can do is we can remove thiskind of dependency on the request and
+00:02:05.300 response and make itpass a message, right?
+00:02:08.860 Messages are fire and forget.
+00:02:11.080 So if I send a message here toa message broker like Kafka,
+00:02:15.690 like RabbitMQ, and depend on it tocorrectly send the message to S two.
+00:02:20.680 So it's probably going to persist somemessages and abstract out a lot of
+00:02:23.621 things. Now SS one canactually send a success
+00:02:29.850 to the cell phone, rightto the client Kafka,
+00:02:33.860 the message broker is going to be waitingtill S two is back up and then send
+00:02:38.321 the message. Similarly,
+00:02:40.630 instead of S two sending themessage to both its clients,
+00:02:44.710 it's gonna pass it to amessage broker in between.
+00:02:49.020 And this message broker is gonna take upthe responsibility once it's completed
+00:02:53.020 to send these two messagesto S three and S four.
+00:02:57.139 One thing I forgot here is that themessage broker is going to be sending this
+00:03:00.961 message also. So this requestresponse is taken out of SS one.
+00:03:05.620 There are some advantages anddisadvantages with this architecture.
+00:03:09.220 Let's start with the advantages.
+00:03:11.389 The first one is that this is going todecouple a lot of the responsibilities
+00:03:14.890 that you had. So SS one is no longerdependent on S two and S zero. Instead,
+00:03:19.710 it just publishes to the messagebroker and then it's relieved.
+00:03:23.550 So its responsibilities are over.
+00:03:25.190 It sends a message to the client sayingthat I'm successful. Client says, okay,
+00:03:31.370 till both the messages aresent to SS zero and SS S two,
+00:03:35.800 this message broker is going tobe persisting those messages.
+00:03:38.380 Let's say SS two is down andonce it comes back up that time,
+00:03:41.731 the message broker is going to replaythose messages to SS two so that it can
+00:03:44.891 then send it to SS three and Sfour using this message broker.
+00:03:48.830 The best thing about this is that itmakes those system easier to understand.
+00:03:52.240 Instead of having multiplepoints of failure,
+00:03:54.480 it's got a single point of failure,which is far more easy to deal with.
+00:03:59.350 One good thing about that again,
+00:04:00.550 is that if you are having a singlepoint where you're sending messages,
+00:04:05.430 you just need to have one interface.So SS one, this is a developer thing.
+00:04:09.431 If SS one is going to be sendinga message to the message broker,
+00:04:11.970 it sends a generic messagewith a lot of data,
+00:04:15.050 the message broker then sends genericmessages to SS two and S zero,
+00:04:18.560 which in turn consume that informationand then according to their requirement,
+00:04:23.420 take data. So that's a, that'sa good thing for the developers.
+00:04:27.751 They don't need to worry about what isthe interface interactions that they have
+00:04:31.870 with these two messages.
+00:04:34.100 This also provides you some sortof transaction guarantees, right?
+00:04:37.490 So if you're sending a message to SS oneand it's able to persist to the message
+00:04:41.231 broker,
+00:04:42.020 that means that the message will somehowreach SS three at some point of time in
+00:04:46.951 the future because this messagebroker is not going to lose messages.
+00:04:50.391 It has some persistence in it, it's goingto ensure that S two gets the message.
+00:04:53.940 Similarly, this message broker isnot going to lose its messages.
+00:04:58.210 So S three and S four areinsured to get the messages.
+00:05:01.089 So if you send this request once andyou get a success, it means that this,
+00:05:05.580 this process will terminate atsome point of time in the future.
+00:05:09.210 So that's a lose transactionguarantee of at least once.
+00:05:14.150 And it's also more scalablebecause if you have
+00:05:19.089 a new service S six, which isinterested in S one's messages,
+00:05:23.589 all you need to do is register thisservice SS six with the message broker,
+00:05:27.910 and then it sends the messagesbeing produced by S one to SS six
+00:05:32.800 also, right? SS one didnot need to know the,
+00:05:36.390 the subscribers for its messages.
+00:05:39.110 So there's a lot of things which arestandard publisher subscriber advantages,
+00:05:42.931 which we have just found over here
+00:05:46.570 talking about thedisadvantages of this service.
+00:05:49.390 Let's get to a financial systemwhich requires a lot of consistency.
+00:05:53.670 Let's say you have an invoice generatorand you have a fund transfer service.
+00:05:57.561 And S one is a gateway. Sothe gateway does nothing.
+00:06:00.380 It just processes the message andthen sends it to S two and S one.
+00:06:05.000 I mean SS zero and S two. So you geta request from the client saying that,
+00:06:09.521 please transfer my fundsfrom account A to account B,
+00:06:13.900 and the amount that I wantto transfer is nine 50.
+00:06:19.240 The initial depo amountin account A is 1000.
+00:06:23.839 So the bank is going to charge 50rupees for this transaction as a
+00:06:28.581 commission. So after this transaction,
+00:06:31.380 A should have zero rupees in itsaccount and B should have nine 50 in it.
+00:06:35.360 That's the expectation. But let'ssay the gateway gets the message,
+00:06:38.780 forwards it to SS two and SS zero S zerosays remove 50 rupees from the account
+00:06:43.261 because that's my commission, and sendsan email to the client saying that,
+00:06:46.920 you know what, you have nine50 rupees in your account.
+00:06:49.339 Or rather it just sends an email sayingthat this is the transaction amount that
+00:06:52.680 you asked for.
+00:06:54.200 So 50 repeat deductionthat makes 1000 minus
+00:06:59.740 59 50, right? This is thecurrent amount in the,
+00:07:02.279 in the account and the fundtransfer service is down,
+00:07:06.370 which means the message broker is notable to send those messages to SS two.
+00:07:10.190 Nothing has happened yet.It's still at nine 50.
+00:07:15.700 The client then sends anotherrequest saying that, you know what,
+00:07:19.000 transfer 800 rupees.So 800 rupees means a,
+00:07:24.160 a commission of 50 rupees. So in total,
+00:07:25.681 eight 50 rupees needsto be in your account.
+00:07:29.390 The message comes to SS onesends it to SS two and S zero.
+00:07:32.850 SS zero picks up the message, seesthat the account currently has nine 50.
+00:07:36.430 You need eight 50 for thistransaction to be successful.
+00:07:40.750 And so no problem deducting 50rupees from the total that you have
+00:07:45.691 right now, which is nine 50, minus 50,
+00:07:48.580 which is 900 is your current balance.
+00:07:52.110 And the fund transfer gottwo requests of nine 50 and
+00:07:56.540 800. When the fund transfer runs,
+00:08:01.520 what's going to happen is that it gota request from nine 50 transaction
+00:08:06.410 that is going to fail. Okay?
+00:08:10.120 That's going to fail because thecurrent funds you have is 900,
+00:08:14.420 9 50 is beyond that. Thefirst transaction fails.
+00:08:17.680 The second transactionof 800 succeeds leaving
+00:08:22.250 900 minus 800, 100 rupeesin the account, Okay?
+00:08:27.730 With 100 rupees in the account,
+00:08:30.040 the initial expectation wasthere's gonna be zero rupees left.
+00:08:34.100 That should have happened. The secondtransaction should have failed. Instead,
+00:08:36.791 you have 100 remaining,
+00:08:38.370 you have 800 transferred and a hundredrupees as commissioned to the bank.
+00:08:42.929 So there's a lot ofconfusion because of having a
+00:08:47.831 transaction across services, right?
+00:08:50.730 All this could have been avoided had younot had a transaction across services.
+00:08:56.059 And there are ways that you can avoidthis which we'll be discussing in the next
+00:09:00.910 session on consistency,
+00:09:03.059 but this is a major drawbackof this kind of architecture.
+00:09:05.680 You can't use it for mission criticalsystems where either there's a success or
+00:09:10.640 a failure, like there'sno atomicity in this.
+00:09:14.970 The other drawback about this is thatit doesn't guarantee anything about item
+00:09:18.500 potency. So you send the messagefrom here, you give it to S two,
+00:09:23.030 S two makes a changein its internal state,
+00:09:25.610 and if S two is doing somethingwhich is not item potent,
+00:09:28.511 let's say withdrawing 50 rupees from a,
+00:09:29.951 from an account SS twois going to do that.
+00:09:33.090 And when publishing over hereto this broker, it might fail.
+00:09:37.290 So it sends a failure response overhere. After the message is replayed,
+00:09:41.591 it might debit 50 more rupees fromhere and then send the message again.
+00:09:45.170 So you're seeing a similar kind of issuewhere 50 rupees are removed multiple
+00:09:49.711 times
+00:09:51.500 because this message that the messagebroker is sending is not ID important.
+00:09:54.980 It's asking you to debit50 rupees. Instead.
+00:09:57.570 It should be also sendinga request ID along with it.
+00:10:01.450 So if the same request ID comes alongand you're made a database change
+00:10:05.351 according to that requestid, you can ignore it, right?
+00:10:07.730 But this is something thatthe developers need to do.
+00:10:10.010 So that is application logic,
+00:10:11.970 and this architecture in generalis not helping you do that
+00:10:17.040 at this point. We understand howpublisher subscriber models work,
+00:10:20.320 and that's the basis forevent driven services.
+00:10:23.360 So because of publisher subscriber models,
+00:10:26.120 you can architect alot of complex systems,
+00:10:30.280 but be aware of itsadvantages and disadvantages.
+00:10:33.240 It can't be used in the finance service,but it can definitely be used for,
+00:10:36.541 let's say, gaming services where youhave a lot of analytics being done,
+00:10:40.200 or you are going to be sendingevents which have occurred.
+00:10:43.160 So you're going to be publishing events,
+00:10:45.800 and then you havesubscribers for those events.
+00:10:49.840 One of the major organizations whichuses this architecture is Twitter.
+00:10:53.520 So for that business requirement ofposting a tweet and many people actually
+00:10:57.741 consuming that tweet, the publishersubscriber model is perfect, right?
+00:11:01.261 You have events publishedand subscribers for that.
+00:11:04.781 And this is the basis forevent-driven services.
+00:11:08.410 I'll be taking event driven services inthe next video because this is pretty
+00:11:11.261 lengthy.
+00:11:11.621 Anyway if you have any discussionyou want to do on this architecture,
+00:11:16.480 we can have them in the commentsbelow. I'll see you next time then.

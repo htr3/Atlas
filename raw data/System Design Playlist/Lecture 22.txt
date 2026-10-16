@@ -1,0 +1,373 @@
+# tactiq.io free youtube transcript
+# Designing a location database: QuadTrees and Hilbert Curves
+# https://www.youtube.com/watch/OcUKFIjhKu0
+
+00:00:11.300 Today, we are talking aboutlocation based databases.
+00:00:14.180 And this is a very interesting topic tome because there's a lot of applications
+00:00:18.651 in the real world: Like Google maps,like Swiggy, like taxi sharing services,
+00:00:23.930 which use location based databases.
+00:00:28.520 One of the early attempts at searchinglocations quickly is to assign codes for
+00:00:32.961 every location. In India,you call it pin codes.
+00:00:37.010 It's I think inspired by theconcept of zip codes in the US.
+00:00:42.680 Using this zip code,
+00:00:44.211 you can assign every location in yourcountry to a particular post office.
+00:00:50.060 This system is useful, butit has a set of problems.
+00:00:53.810 I'll take a real life example. I hadordered food from a food delivery app,
+00:00:58.520 which had the restaurantin the pincode 400051.
+00:01:03.350 And I happened to bein the location 400050.
+00:01:06.980 Now there was a train line separating us.
+00:01:11.000 Although the pincodeseems really close by,
+00:01:13.580 the crossing had to betaken two kilometers away.
+00:01:16.640 What ended up happening is that thedelivery executive had to travel a lot and
+00:01:20.451 deliver food to me late.
+00:01:22.460 So we want our system to be able tomeasure the distance between any two given
+00:01:25.611 points. That's the very first requirement.
+00:01:30.170 To do this, you needsome sort of uniformity.
+00:01:32.361 You need some sort of consistency inthe way that you represent these places.
+00:01:37.040 Uniformity in the way that you areassigning numbers to every location.
+00:01:41.900 This will come through uniform assignment.
+00:01:45.620 Another requirement is that I want tobe able to break this region arbitrarily
+00:01:49.940 into smaller and smaller regions.
+00:01:52.520 That would be a scalable system.
+00:01:55.620 Scalable in the sense thatthe granularity is scalable.
+00:01:58.580 I want to be able to measuredistance for that I need this sort of
+00:02:01.731 representation. That satisfiesthese two requirements.
+00:02:05.310 What's the other common use case thatwe have for location based databases.
+00:02:09.080 I'm standing over here, tell me allthe users who are within 10 kilometers.
+00:02:13.490 You want to find out all the peopleclose to you. So that means proximity.
+00:02:19.340 These are the only two requirements thatwe have as of now in our location based
+00:02:23.780 database.
+00:02:25.010 It can get a lot more complicated if westart actually adding in polygons and
+00:02:28.551 intersections, but this is a goodplace to start. Let's think about it.
+00:02:39.230 You can think aboutcoordinates. That makes sense.
+00:02:42.110 Like you have the world map laidout as a 2-D map in front of you,
+00:02:46.430 and you want to find thecoordinate of any point.
+00:02:49.400 You have that as thelatitude and longitude.
+00:02:53.120 And now if you want to measure thedistance, that was a very first, like,
+00:02:56.270 sub requirement we had.
+00:02:56.961 You need to be able to measuredistances between two points.
+00:02:59.590 You take the lat-long,
+00:03:00.790 lat-long and then you find the Euclideandistance with the simple Euclidean
+00:03:04.841 formula.
+00:03:09.210 The other two sub requirements that wehave are also satisfied because this
+00:03:12.991 granularity is scalable.
+00:03:14.040 You can add more decimal points to thelatitude and longitude and go all the way
+00:03:17.521 down to nanometers, technically.Just using this representation.
+00:03:22.170 The problem is the second requirement,which is proximity. How do you tell,
+00:03:26.640 given a point, which arethe other nearby points?
+00:03:30.960 This is not easy to answer.
+00:03:32.640 Because if you're going to go throughall the points in your database,
+00:03:36.420 potentially all the pointsthat you have in the world,
+00:03:38.550 which are in your database,
+00:03:40.110 and you're going to be checking eachof them for the Euclidean distance,
+00:03:44.100 that is going to be a very longoperation. It's too expensive.
+00:03:48.990 To store a point in the database,
+00:03:50.131 we first need to think abouthow do we represent this point.
+00:03:53.410 Take a normal number, let's say 5.685.
+00:03:54.511 685 is three decimal places.
+00:03:59.370 And if you want the fourth decimal place,
+00:04:00.931 you need to allocate more memory forthis number. Of course, in the computer,
+00:04:04.501 you know, you have fixed amount ofmemory, let's say 32 bits or 64 bits.
+00:04:07.560 But what's happening is that everydata type that you're going to use has
+00:04:11.011 limited accuracy.
+00:04:12.690 So what this data is actuallyrepresenting is a range of numbers,
+00:04:17.100 not the exact number. If you take10/3 and try to store it on a 32 bit,
+00:04:21.660 let's say double value or a float value,
+00:04:23.310 what's going to happen is there'sgoing to be some inaccuracy.
+00:04:25.411 So there's a small error range thatyou have where your actual number lies.
+00:04:31.080 You can think of this as a wayto find a small range of numbers.
+00:04:34.650 Whenever you define a binarynumber on the number line,
+00:04:37.711 you're doing a binary searchusing the bits of this number.
+00:04:40.680 Whenever you're getting azero, except for the MSB,
+00:04:43.651 you're heading to the lefthand side.
+00:04:45.060 Whenever you're getting a one you'reheading to the right hand side.
+00:04:47.820 And finally you'd be leftwith a very small range.
+00:04:49.800 Depending on the totalnumber of bits you have,
+00:04:51.331 your error range willbe smaller and smaller.
+00:04:55.260 We can use this to represent pointsalso. So if you're going to use 64 bits,
+00:05:00.000 you can actually half it and use 32 bitsfor the X axis and 32 bits for the Y
+00:05:04.351 axis. And they're going tohave some error in them.
+00:05:06.960 So effectively that error area that youhave is where your location needs to
+00:05:11.791 lie. If you have the wholeworld over here in the map,
+00:05:17.100 and I'm just going to giveyou two bits instead of 32,
+00:05:19.411 I'm giving you two bits over here.Basically you can take values from 0 to 3.
+00:05:24.690 Effectively the x-axis hasbeen partitioned into fourpieces. That is 1, 2, 3,
+00:05:29.521 and 4 of equal size. You can see thateach of these partitions is huge.
+00:05:34.110 They can actually contain entirecontinents in this. And similarly, Y axis,
+00:05:38.221 if I give it
+00:05:40.440 each massive region can berepresented using these two numbers,
+00:05:46.470 but you're seeing that theaccuracy is really low.
+00:05:48.121 Each region is pretty big in the world.If I increase the number of bits,
+00:05:53.040 what I'm doing is I'm makingit more and more precise.
+00:05:55.590 So this is a good wayto represent because,
+00:05:57.710 if I'm not too sure aboutthe region I'm searching for,
+00:06:00.800 I can narrow it down by just usingthe first three or four bits.
+00:06:04.250 If I want to talk aboutthe region in India,
+00:06:06.950 maybe with 6 bits I can represent whereIndia exists in the X axis. And again,
+00:06:11.600 in the Y axis, I can do that.
+00:06:13.280 And then I can get all the users in thisentire region by just specifying six
+00:06:18.200 bits. Our representation is now fine,
+00:06:22.341 but let's try to think about how do wesearch for numbers in the 2-D plane.
+00:06:26.600 In 1-D binary search,
+00:06:27.650 we were using every bit of the number todecide whether we are going to the left
+00:06:31.191 or the right.
+00:06:32.390 Now we have two numbers and eachdecision has to be based on both the
+00:06:37.341 numbers.
+00:06:38.210 So what we're going to do is we aregoing to look at the first bit in the X
+00:06:41.571 axis. So 10 has its very firstbit, which is going to be zero.
+00:06:44.871 So that is on the positiveside. First bit of the Y-axis,
+00:06:49.550 3 again has zero. So it's on the upsideinstead of the downside in the Y axis.
+00:06:55.130 Similarly, you have 32 bitsfor X and 32 bits for Y.
+00:07:00.140 Every time you take onebit from the X and Y axis,
+00:07:02.930 it's going to give you oneof the four possibilities,
+00:07:04.701 which is basically heading to one ofthe quadrants, whether it is upper left,
+00:07:07.971 upper right, lower, left, or lowerright. In terms of proximity,
+00:07:12.650 if I have two points andthey are quite similar,
+00:07:15.260 like their first 13 MSBs arethe same. What can I say?
+00:07:21.650 Those numbers are close by. You canimagine that if I have these numbers.
+00:07:25.640 Then these 2 numbersare close to each other.
+00:07:28.670 And the reason I can say that is becausethe prefix of these numbers is pretty
+00:07:33.591 close.
+00:07:34.670 Every two bits are defining some regionin the quad that we are looking at,
+00:07:38.990 and therefore it will be close.
+00:07:40.550 So proximity using thisrepresentation also seems good.
+00:07:44.840 One caveat here is that, whatif there's a point right here,
+00:07:49.371 and there's a point right here?
+00:07:51.290 Basically these two are very close toeach other. So the proximity is high,
+00:07:54.950 but you lie in this quadrantand this lies over here.
+00:07:59.270 Let's say 10 and this has the number 01.
+00:08:02.330 There's a big mismatch inthe very first quadrant.
+00:08:06.230 But actually the proximity is really high.Using this representation of numbers,
+00:08:10.610 let's build a data structure which willhelp us search for locations on a 2-D
+00:08:14.181 plane. Now let's talk about thisdata structure called the quad tree.
+00:08:19.790 The QuadTree is quite simple to understandif you know about a binary search
+00:08:23.541 tree. It's very similar to that.Except that it works on 2 dimensions.
+00:08:27.170 And as we spoke,
+00:08:28.460 2 dimensions require you to have 4branches to distinctly identify 1 node.
+00:08:33.500 So initially you have the whole worldbeing represented over here at the root.
+00:08:37.370 This node is going to be containing1/4th of the entire region.
+00:08:41.240 So that is a sub region.
+00:08:44.660 Also important to know isthat this tree is recursive.
+00:08:47.780 The 20 points over here mightbe distributed in the top right
+00:08:53.060 having five points, the topleft having three points,
+00:08:57.900 the bottom left having just onepoint and the rest of the 11 points
+00:09:02.820 on the bottom right.
+00:09:04.590 So what you're seeing is that we haveeffectively broken down the entire world
+00:09:08.400 into regions. And how fardo we need to go? Well,
+00:09:11.640 as far as our application requires,so if you require it to be cities,
+00:09:15.450 then maybe the entire city of Mumbai,all the users in Mumbai is fine.
+00:09:19.230 You can have it in the quad tree.
+00:09:20.940 You will actually break itdown to one kilometer radius.
+00:09:25.230 Radius is strange to say in a square,
+00:09:27.960 but if the square is of sideone kilometer in the quad tree,
+00:09:31.470 then this is good enough for you.And that will be your leaf node.
+00:09:34.530 Another thing you can do, whichis far more sensible honestly,
+00:09:37.110 is that you split this quadtree only when required.
+00:09:40.920 The number of users in this sub treehas to exceed a particular threshold.
+00:09:45.660 If that is 10, here, then thiswill be split into smaller pieces.
+00:09:49.230 Of course you are seeing that thereis a worst case scenario, which is:
+00:09:53.160 there's a lot of skew. Let's saythe population of Mumbai is really,
+00:09:55.831 really huge. And a city in Icelandis going to have very few users.
+00:10:00.090 You will have this quad tree reallyskewed and going really deep in one branch
+00:10:04.410 while the other branches are really light.
+00:10:07.920 So there are certain limitations forusing a quad tree or an R-tree when you're
+00:10:12.210 using location-based databases.And the main reason for this,
+00:10:16.020 that I can see is thatwhen you take a 2-D plane,
+00:10:19.440 you don't have algorithms which arereally efficient at finding out which
+00:10:24.391 points lie in this range. So a rangequery in a 2-D plane is a problem.
+00:10:32.910 But the strange thing isthat we understand rangequeries really well in a 1-D
+00:10:36.960 plane. Look at intervaltrees or segment trees.
+00:10:41.580 On a 1-D line, they give ustremendously good time complexities,
+00:10:44.821 especially the search time complexity.
+00:10:49.560 That is just log(N) over here.
+00:10:53.760 If somehow we could take this 2-Dplane and convert it into a 1-D
+00:10:58.741 line, then we had a solved problem. Wecan solve our problems very quickly.
+00:11:04.380 But how do we do that? How do we take a2-D plane and convert it into 1-D line?
+00:11:08.670 And this is where the idea probablycomes from computer graphics.
+00:11:12.211 I'm not too sure about this,but have a look at Fractals.
+00:11:17.520 The interesting thing about fractalsis that they have fractional
+00:11:22.110 dimensions. Very interesting, like 2.3 D.
+00:11:26.280 So it's not 2-D, it's not 3-D. It's 2.3D.
+00:11:29.461 And have a look at3Blue1Brown's video on fractals.
+00:11:33.871 It's very interesting. It's sortof, you are not, you're not 2D.
+00:11:38.010 You have sort of an extra dimension,
+00:11:40.710 but you're very constrained whenyou're moving in that extra dimension.
+00:11:43.890 So you're not at 3D becauseyou're so constrained that you're,
+00:11:47.700 you're lesser than 3d, butyou're definitely not 2-D either.
+00:11:51.690 So our purpose is toconvert this 2-D plane
+00:11:56.890 into a 1-D line using somethingwhich is inspired by fractals.
+00:12:01.360 And that is basically you,you have this space, right?
+00:12:05.741 You have this 2-D plane.We talked about quadrants.
+00:12:08.500 This quadrant has to befilled in with this line.
+00:12:12.160 So you can fill the line this way. Sothis is creating this, 'U' kind of shape,
+00:12:16.030 right? You can also fillthe line in different ways.
+00:12:20.921 You can fill it in this way. Thiscreates a 'Z' kind of a shape,
+00:12:24.130 and you can fill the line in thisway. It can fill an 'N' kind of ship.
+00:12:29.020 So I'm touching each point justonce. Each quadrant, just once.
+00:12:37.330 So taking this step by step, you have atwo2-D plane, which is shown over here.
+00:12:42.790 And what you want to do is you want tobe able to do range queries on top of
+00:12:46.481 this.
+00:12:47.980 But we said that we can't do range queriesefficiently on a 2-D data structure.
+00:12:53.080 So instead if we could takea line, a straight line.
+00:12:58.420 The good thing about the straight lineis that we can do range queries on this
+00:13:01.661 straight line efficiently.
+00:13:04.210 A 1-D line gives usefficient range queries.
+00:13:08.710 Now,
+00:13:10.060 if we can squeeze thisline into the 2-D space.
+00:13:15.730 What we are attempting todo is find points in close
+00:13:20.651 proximity by querying the 1-D line.
+00:13:25.180 If you don't know what segment treeshave a look at that in the description
+00:13:28.091 below, it's a pretty gooddata structure to know about.
+00:13:31.240 You can also read upon interval trees.They're also pretty interesting.
+00:13:35.830 But the important thing is I'm able toanswer queries like this efficiently on a
+00:13:39.011 1-D plane.
+00:13:40.000 And so I can answer forproximity on the 1-D line,
+00:13:44.470 not on a 2-D plane, ona 1-D line efficiently.
+00:13:48.910 I need to somehow take thisline and preserve the proximity
+00:13:53.261 information in the 2-D plane also. Okay.
+00:13:57.101 I need to squeeze this here and somehowpreserve the proximity information.
+00:14:01.810 That is the idea.
+00:14:04.330 What are the ways in which I cansqueeze this line on that 2-D plane?
+00:14:09.940 We have four slots and four numbers.If we don't care about ordering,
+00:14:13.361 then we can fix 1 number to 1 slot.
+00:14:15.880 So I'm just going to takezero over here and fix it.
+00:14:19.180 That's the first digit always. Now 1,
+00:14:21.881 I don't care about whether itgoes to my right or it goes down.
+00:14:25.360 It's just mirror images. Soone will always go the right.
+00:14:31.360 After one comes here,you have two options.
+00:14:34.540 Either you pick the diagonal and thenhere, so that would be two, three.
+00:14:38.740 Or 0-1, and you didn't takethe diagonal, you went down.
+00:14:42.850 So 2 and 3. Is there anyother representation? Yes.
+00:14:47.680 After 0,
+00:14:49.000 you can have 2 over here andyou can't have 1 over here.
+00:14:53.480 So it has to be 3. So let'sjust draw these three out.
+00:14:57.440 First one is zero one, two, three.
+00:15:01.970 So this is called a Z curve. Thishas some practical applications.
+00:15:05.031 We are not going to be using it,but it's a pretty interesting curve.
+00:15:07.520 You can have a look in thedescription. Zero one, two,
+00:15:12.200 three. This is the star of theshow. It's called the Hilbert curve.
+00:15:16.220 And this is what we willbe using in this video.
+00:15:21.440 Okay. And the final one, I thinkis a complete clown. Which is
+00:15:26.780 zero, one goes over here,
+00:15:30.980 two goes over here and threegoes over here. So this is,
+00:15:35.330 I don't know what it's called, but it'slike an alpha shape. So alpha curve.
+00:15:41.380 This is a bad idea.
+00:15:42.671 Because I don't think youcan fit this well in a 2-D
+00:15:47.411 plane and still haveproximity information.
+00:15:50.380 You draw a really longcurve to fit this 2-D space.
+00:15:55.180 And the longer curve you draw,
+00:15:56.650 usually the worse proximityinformation loss you have.
+00:15:59.830 Over here you have minimumloss of information.
+00:16:02.170 So the Hilbert curve seemsto make the most sense.
+00:16:04.600 And that's what we'llbe going forward with.
+00:16:07.390 Now that we have decided the arrangementof our line segment what's going to
+00:16:10.961 happen is we are going to be taking ourline segment and breaking it into four
+00:16:13.601 pieces. The first one,which is this segment,
+00:16:17.680 zero is going to be overhere in this quadrant.
+00:16:19.990 The second one is going to be over here,
+00:16:22.060 the thrid one here and the fourthone here. So three maps to three.
+00:16:26.290 These are four sections on the linesegment being squeezed into these parts.
+00:16:30.910 We said that we should.
+00:16:31.640 Be having some sort ofscalable granularity.
+00:16:33.521 Meaning that we can zoom in to thezone that we are searching for.
+00:16:38.110 So how is this actually helping?Because it just has four sections.
+00:16:42.130 What if I want more sections?The thing is recursive. Yeah.
+00:16:47.140 So you take zero.
+00:16:49.420 The 0th quadrant and you can breakthis into sub parts of zero one, two,
+00:16:52.751 three again.
+00:16:54.730 So what this will do is it will takethis line segment and break it into four
+00:16:58.721 parts. This is segment zero,segment one, segment two,
+00:17:03.340 and segment three withinthe overall segment of zero.
+00:17:08.260 And of course you can go onbreaking them into smaller segments.
+00:17:13.359 So it's an infinite thing.
+00:17:14.651 It's a recursive process by which you cango to any arbitrary depth because your
+00:17:19.151 line segment is continuous and you'refilling this curve using this line
+00:17:23.711 segment. The trickybit of course, is that,
+00:17:26.261 how do you make this a continuousline? If you have a look at this,
+00:17:30.880 this is what you're getting. Like the,the first quadrant has a U in itself.
+00:17:34.510 And then you have something like this.So this is not continuous, right?
+00:17:37.811 Because there's a disjoint part over here.
+00:17:40.780 You need some way to squeezethe line in a way that it keeps
+00:17:45.521 heading straight forward.
+00:17:47.020 The hilbert curve has.
+00:17:50.100 A very interesting property in which itcan fill the entire space infinitely.
+00:17:55.380 So at the first level you have the zeroone, two, three forming a 'U' ship.
+00:17:59.940 And at the second level,
+00:18:01.060 what you're going to do is break everyquadrant into four more quadrants.
+00:18:04.740 That's the recursive bit.And this figuration is fixed.
+00:18:09.110 So when you're breaking down thisHilbert curve into smaller and smaller
+00:18:12.260 quadrants,
+00:18:13.040 what happens is both right quadrantswill have the 'U' shape facing leftwards.
+00:18:17.240 Initially you had one singlebig U-shape facing left.
+00:18:20.840 Now you have two smaller ones facingleft on the right quadrants and the upper
+00:18:25.311 left one has the 'U' inthe right position. I mean,
+00:18:28.101 that's how we write it in English.
+00:18:29.690 And the bottom left one hasit in the inverted position.
+00:18:34.880 You're seeing these U shapesin different rotations,
+00:18:37.760 but the quadrants are still beingconnected by the level one shape.
+00:18:41.750 So you can see that these extreme pointsof each 'U' shape are being connected.
+00:18:45.381 Using the blue lines.That is the first level.
+00:18:47.990 And the red line isactually the second level.
+00:18:50.330 This recursive shape is far more elaborateand also covers more space than the
+00:18:54.680 level one shape. Taking it to level 3.
+00:18:58.580 You remember that the first quadranthas the U shape in the correct way,
+00:19:01.550 the English way.
+00:19:02.660 Now these two use will be copiedfor its own right side quadrants.
+00:19:06.290 As you can see, like wemade to 'U's over there.
+00:19:09.620 Then we draw the two opposing 'U'sfor the upper quadrants. Similarly,
+00:19:14.301 we can draw for every quadrantin this level 3 diagram.
+00:19:17.930 Now the green ones are done.So level three is done.
+00:19:20.180 The red connectors are for level two andthe blue connectors are for level one.
+00:19:26.690 It is far more elaborate. It'scovering a lot more space.
+00:19:29.870 And therefore it's very likely thatyour point actually exists here,
+00:19:33.590 but it doesn't need to exist at level 3.
+00:19:35.391 It can exist at any level because thiscan go all the way down to infinity.
+00:19:39.320 That's the special thingabout a Hilbert curve.
+00:19:40.970 It's completely covering this spacebecause it's an infinite line.
+00:19:46.190 Look at position 29. It'stouching the green line.
+00:19:49.190 If I want to find the points havinggood proximity with 29, I do a ±6.
+00:19:53.980 6 is arbitrary number. You can useany random threshold, but with ±6,
+00:19:58.251 I get 23 to 34. And you cansee that this forms a range.
+00:20:03.200 This is a region which is contiguous.
+00:20:05.240 I can tell the points whichare in close proximity to 29.
+00:20:08.390 Also the deeper levels you get tothe more accurate this will be.
+00:20:12.530 So if you have a customer,let's say at position 29,
+00:20:14.871 and you need to find alldelivery agents nearby,
+00:20:17.300 all you need to do is do a ±threshold,
+00:20:19.850 and you should have peoplein close proximity. However,
+00:20:23.271 there are some edge cases here.Also take the number 18 and 29.
+00:20:27.950 This has a difference of 11,
+00:20:29.750 but you can see that they're extremelyclose to each other in this plane.
+00:20:33.350 Like I said, if you takeit to a deeper level,
+00:20:35.421 if you go deeper and deeperinto the Hilbert curve,
+00:20:37.100 then you should find thesepoints, rarer and rarer.
+00:20:39.860 But it could happen that you have athreshold, which is, let's say 10,
+00:20:44.630 and these two points are considered notclose by, although they are. Conversely,
+00:20:49.301 you have 40, which isalso at a distance of 11,
+00:20:51.610 which is very far and iscurrently out of the threshold.
+00:20:55.420 But if you try to compensateby taking the threshold as 11,
+00:20:59.111 so that 18 is close by, you're alsogoing to be taking points like 40,
+00:21:03.130 which are very far. So setting thethreshold is a problem here. However,
+00:21:07.930 in most practical scenarios, you'relooking for proximity in a general sense.
+00:21:11.711 You're not looking for exactness.So this seems to work fine.
+00:21:16.750 All points in the 2-D plane aregoing to be having the Hilbert curve,
+00:21:20.410 passing through them becauseyou can go to infinite depth.
+00:21:24.220 This is going to be completely fillingthe space using this recursive procedure.
+00:21:29.860 So any point has a representation,
+00:21:31.750 has a mapping on yourstraight line over here.
+00:21:37.270 And so if you have this pointand you have this point,
+00:21:40.120 let's say mapping over here,
+00:21:42.430 you can find the approximateproximity of these two
+00:21:48.370 points. The idea of using a 1-D lineto fill in a 2-D plane is amazing.
+00:21:53.080 With this you are able tomake efficient range queries.
+00:21:57.700 A lot of apps become possible.Food delivery apps become possible.
+00:22:00.850 Taxi hailing services become possible.
+00:22:02.950 If you're looking for applicationsfor location based databases,
+00:22:05.261 I have a video coming up on my course.
+00:22:07.210 It's probably going to beon a food delivery app,
+00:22:09.400 or it's going to be on a dating app. Like,
+00:22:10.990 find out nearby peoplein this given range.
+00:22:14.050 If you have any doubtsor suggestions on this,
+00:22:15.701 you can leave them in the comments below.
+00:22:17.200 And if you want notifications forfuture videos, hit the subscribe button.
+00:22:20.170 I'll see you next time!

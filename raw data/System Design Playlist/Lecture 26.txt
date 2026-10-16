@@ -1,0 +1,153 @@
+# tactiq.io free youtube transcript
+# System Design Walkthrough at InterviewReady - Designed for SDE 1 to SDE 3 Interview Preparation
+# https://www.youtube.com/watch/CC-AxHIgBSM
+
+00:00:00.160 this is a walkthrough of the system
+00:00:01.280 design course at interview ready if you
+00:00:03.120 haven't checked out the course or you
+00:00:04.640 have checked it out but you haven't
+00:00:05.759 completed it this walkthrough will be
+00:00:07.440 useful to you
+00:00:09.920 first you'll need to log in
+00:00:14.639 if you're not from india you don't need
+00:00:15.759 to fill in the zip code
+00:00:17.760 you can also sign up with google or
+00:00:19.439 github
+00:00:21.760 after signing in we get the option of a
+00:00:23.760 free preview now i would highly
+00:00:25.680 recommend you to watch the preview
+00:00:27.279 before you buy the course but in case
+00:00:29.279 you're super confident yes you can buy
+00:00:30.960 it directly and you can apply a coupon
+00:00:32.960 code also if you have one
+00:00:35.120 let's go for the free preview
+00:00:38.000 you can see that this course is broken
+00:00:39.680 into four sections
+00:00:41.200 the first one is fundamentals second one
+00:00:43.360 is high level design the third one is
+00:00:45.039 low level design and you also have
+00:00:46.960 additional free resources
+00:00:48.640 now if you have never done system design
+00:00:50.160 before or if you want to brush up on
+00:00:51.680 your fundamentals i would highly
+00:00:53.039 recommend you go here
+00:00:55.199 all of the videos here are free and they
+00:00:57.120 give you a good idea of what will be
+00:00:58.719 coming up in the course
+00:01:01.840 each of these videos has an about
+00:01:03.680 section which tells you useful
+00:01:05.920 information about the video
+00:01:08.080 there's a resources section in case
+00:01:09.680 there's any videos we want to send you
+00:01:11.439 to
+00:01:12.479 there's a note section where you can
+00:01:14.000 take down specific notes that you find
+00:01:16.080 are useful for this video for example i
+00:01:18.320 might note down that this
+00:01:19.920 is an interesting
+00:01:22.240 introduction
+00:01:24.240 okay so you can take down notes which
+00:01:25.680 you might find useful for your upcoming
+00:01:28.479 interviews or for upskilling in general
+00:01:31.200 and finally you also have the discussion
+00:01:32.640 section which is quite useful
+00:01:35.600 once you're comfortable you can head to
+00:01:37.119 the advanced section which is the paid
+00:01:38.640 course so for this you might unlock the
+00:01:41.119 course after buying it so let's click on
+00:01:43.439 buy now you have the option of choosing
+00:01:45.600 in inr or usd if you go for the
+00:01:47.920 international payment that will be in
+00:01:49.040 usd if you are going for the indian
+00:01:50.320 payment that is an inr
+00:01:52.320 after your purchase you should be able
+00:01:53.840 to see that you're enrolled in the
+00:01:55.040 course if not don't worry you can always
+00:01:57.520 contact us
+00:01:58.799 your gst invoice is also available here
+00:02:02.479 now let's go to the course
+00:02:04.880 you can see that your course progress is
+00:02:06.320 measured here i would strongly recommend
+00:02:08.080 you to complete the course if you
+00:02:09.360 possibly can we in fact have a
+00:02:11.120 certificate as an additional incentive
+00:02:12.720 for 100 completion
+00:02:15.200 you can rate this video in case you
+00:02:16.800 don't like it please let us know by
+00:02:18.239 giving us a one star
+00:02:19.920 and if you loved it please give us a
+00:02:21.280 five star and anything in between is
+00:02:22.959 also fine
+00:02:24.480 most of the videos have architecture
+00:02:26.080 diagrams to supplement the video lessons
+00:02:28.959 there's also quiz sections which help
+00:02:30.640 you test yourself and find whether you
+00:02:32.879 understood the concept at a deep level
+00:02:35.280 we have faqs
+00:02:36.959 and api contracts for relevant chapters
+00:02:39.920 we also sometimes have capacity
+00:02:41.680 estimation for relevant chapters
+00:02:44.080 now let's head to the section of high
+00:02:45.360 level design
+00:02:46.879 high level design involves taking a
+00:02:48.800 large scale distributed system like
+00:02:50.560 gmail and figuring out how its
+00:02:52.879 components behave
+00:02:54.800 for example the gmail system should have
+00:02:57.599 a gateway which will be taking requests
+00:02:59.760 from
+00:03:00.480 clients and then
+00:03:02.800 sending it to our internal services like
+00:03:05.040 an authentication service
+00:03:07.120 in contrast you also have low level
+00:03:09.040 design
+00:03:10.319 our first low-level design chapter is on
+00:03:12.239 split-wise
+00:03:14.879 low-level design is about taking a
+00:03:16.720 particular component
+00:03:18.560 of
+00:03:19.440 a large scale distributed system like
+00:03:21.360 split wise and finding out what are the
+00:03:23.760 objects and classes that this design
+00:03:26.159 requires
+00:03:27.680 this means that you are closer to
+00:03:29.120 designing the code and the test cases
+00:03:31.120 that this system needs
+00:03:33.360 my recommendation would be to go through
+00:03:34.959 the fundamentals first then go for high
+00:03:36.959 level design and then go for low level
+00:03:38.640 design
+00:03:40.239 the reason i say that is because if you
+00:03:42.480 have a look at the additional free
+00:03:43.519 resources section
+00:03:45.519 this should be enough to clear an sd1
+00:03:48.319 interview
+00:03:49.920 for sd2s i would recommend going through
+00:03:52.319 the entire course
+00:03:54.080 and for sd3s again i would do the same
+00:03:56.480 so this course is primarily for sd2 to
+00:03:58.720 sd3 interview level
+00:04:01.120 now for senior folks in the engineering
+00:04:03.519 product or program management side of
+00:04:05.120 things
+00:04:06.159 i don't think you'll be seeing something
+00:04:07.680 very new in the course you can use this
+00:04:10.319 as a useful revision material
+00:04:13.599 finally if you have any more doubts you
+00:04:15.519 can always contact us
+00:04:17.279 through the chat bot
+00:04:18.639 the chat bot is designed to answer your
+00:04:20.639 simple queries in an automated way to
+00:04:22.400 save time and if there are any complex
+00:04:24.240 queries or anything specific that you
+00:04:25.919 want we will be responding to you in 24
+00:04:28.240 hours
+00:04:30.400 if you are more comfortable talking to
+00:04:31.919 us on email you can always do that at
+00:04:33.919 contact interview ready dot io
+00:04:36.560 also we have a contact us form so that
+00:04:38.639 you can easily fill out your message and
+00:04:40.240 just send some bit a screenshot will be
+00:04:42.880 really appreciated if you are looking to
+00:04:44.400 resolve a bug
+00:04:46.320 all right we are all set all the best

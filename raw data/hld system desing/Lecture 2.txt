@@ -1,0 +1,2022 @@
+# tactiq.io free youtube transcript
+# Low-Level System Design of a Cache - Mock Interview
+# https://www.youtube.com/watch/tzbX4ix2RjI
+
+00:00:03.679 okay we are live
+00:00:05.120 hey everyone
+00:00:06.400 uh might check paramount is what
+00:00:08.320 siddhanth is saying yes that's true
+00:00:10.400 so can you hear us
+00:00:15.120 are we sounding fine is everything okay
+00:00:20.480 anyone on the chat who can hear us
+00:00:24.960 adam can you hear us
+00:00:27.840 yes i can hear you
+00:00:30.240 okay
+00:00:31.760 mayank is saying looking to learn
+00:00:33.040 something new that's great
+00:00:35.840 online shikshak is saying hi arun and
+00:00:38.160 gaurav hello mr shikshak
+00:00:41.280 surya is saying yes
+00:00:43.040 they can hear clearly
+00:00:44.960 okay uh quite a few
+00:00:46.640 are saying yes this is we are audible uh
+00:00:49.680 hello
+00:00:51.120 okay so firstly before we start off guys
+00:00:53.440 some ground rules and the agenda of this
+00:00:56.239 meet uh first
+00:01:00.160 if you have any questions uh please put
+00:01:02.320 them on the slider link that i'll just
+00:01:04.319 share with you now
+00:01:06.000 okay uh the
+00:01:08.320 the reason being that because this is
+00:01:09.680 being cast on multiple platforms and
+00:01:12.960 we don't want to miss out on any of your
+00:01:14.560 questions i'll post this on the chat
+00:01:16.960 the slider link and it should come to
+00:01:18.799 you in case you're not
+00:01:20.799 getting it in your chat because linkedin
+00:01:22.479 has some issues and twitter also has
+00:01:23.920 some issues on
+00:01:25.280 posting comments
+00:01:26.720 so i'll
+00:01:28.400 you know you can come to youtube
+00:01:30.320 that's also
+00:01:31.520 that's one way to be
+00:01:34.000 you know to participate
+00:01:35.840 so let me just
+00:01:39.040 share this link
+00:01:43.360 and for the first five minutes we'll
+00:01:44.640 take questions it's also in the
+00:01:45.759 description in case you're not sure
+00:01:47.920 where it is
+00:01:52.799 this is the link is this sessions uh
+00:01:55.360 session for experienced professionals
+00:01:57.040 only
+00:01:59.040 what do you think
+00:02:00.640 no i don't think that the session is
+00:02:03.119 just for professionals uh i would highly
+00:02:05.360 recommend grads also to hear it uh the
+00:02:08.720 reason being everyone goes for problem
+00:02:11.440 solving and
+00:02:12.959 cache if you look at it it is also a
+00:02:14.959 problem
+00:02:15.840 what does it do
+00:02:18.400 people insert something into the cache
+00:02:21.200 see checks out some values from the
+00:02:22.800 cache removes something from the cache
+00:02:24.720 which is already old so if you take it
+00:02:26.800 as a problem you can see some problem of
+00:02:29.760 this sort on
+00:02:30.879 chef and any other platforms also so i
+00:02:33.680 would highly recommend people to watch
+00:02:35.120 it
+00:02:37.120 okay okay so this is for uh college
+00:02:40.000 students also okay great yeah uh alok is
+00:02:42.480 saying hi hello um vivek is also saying
+00:02:45.120 hello
+00:02:46.000 uh aniket
+00:02:47.920 hello
+00:02:49.280 how's
+00:02:50.319 how are you doing here is this session
+00:02:52.000 for yes uh
+00:02:54.480 farm if i have that pronounced right hi
+00:02:58.000 um okay the agenda like arun has already
+00:03:00.879 mentioned is to see the lower design of
+00:03:03.120 a cache and to see how
+00:03:05.440 you can maybe
+00:03:06.800 you can code a cache okay is this
+00:03:09.120 practical does it really happen there
+00:03:10.640 are so many libraries for cash
+00:03:13.360 in my personal experience yes
+00:03:16.480 many times you don't you don't even want
+00:03:19.200 to read the doc of some thing as simple
+00:03:22.400 as memcached also you don't want to go
+00:03:24.319 through that you just want to create a
+00:03:26.319 in-memory map
+00:03:27.840 which is a cache and then it suddenly
+00:03:29.599 becomes a little more complex and a
+00:03:30.879 little more complex until you get to the
+00:03:33.200 library uh versus still you actually
+00:03:35.599 have a hash map in between you have a
+00:03:37.200 cache design
+00:03:38.400 nowadays that's what it is so this
+00:03:41.120 design will hopefully you know give you
+00:03:42.879 some insights on
+00:03:44.480 how you can avoid redesigning the cache
+00:03:46.400 again and again
+00:03:47.599 and what's probably going on inside the
+00:03:50.400 things like memcached or redis
+00:03:53.040 okay um like i said guys if you have any
+00:03:55.360 questions please post them on slido i'll
+00:03:56.959 just start sharing my screen now
+00:03:59.120 and
+00:04:01.920 we'll see uh
+00:04:06.000 whatever doubts we have we take them
+00:04:07.439 here
+00:04:14.400 okay
+00:04:16.000 15 votes already so what is the best
+00:04:18.000 caching strategy
+00:04:20.000 least recently used
+00:04:22.000 is 53
+00:04:23.199 least frequently used is 40 percent
+00:04:27.040 v4 and lifo no nobody believes in fifo
+00:04:30.560 everyone is like three zero percent
+00:04:32.720 okay yeah
+00:04:34.320 uh
+00:04:38.000 okay
+00:04:39.120 to say hi gaurav
+00:04:40.800 hi um i had retex csc final project
+00:04:44.000 presentation today are we going to
+00:04:45.280 discuss libraries like ehcash
+00:04:47.360 uh kawaii is asking us are we going to
+00:04:49.520 do this
+00:04:53.040 so we are going to build our own cache
+00:04:55.520 we are not going to discuss any i don't
+00:04:57.520 think we will have time to discuss any
+00:04:59.600 particular cash maybe a little bit info
+00:05:01.680 if you could give because we have a
+00:05:03.040 great course on hld
+00:05:05.840 yeah yeah i mean
+00:05:07.759 we actually have a
+00:05:14.000 an interview ready if you look at
+00:05:15.600 caching caching is a fundamental concept
+00:05:17.919 of computer science so
+00:05:21.280 yeah i
+00:05:23.520 i think we have
+00:05:27.680 what was that
+00:05:30.960 the broken link
+00:05:33.600 that is odd
+00:05:36.160 okay uh let's go to eventual consistency
+00:05:40.960 um
+00:05:42.560 no this is we are looking at a cache
+00:05:44.080 right caching fundamentals here we have
+00:05:46.000 this stuff here
+00:05:47.360 if you want to see how memcache runs
+00:05:49.759 maybe
+00:05:51.600 having a look at this chapter will help
+00:05:53.360 replacement policies
+00:05:55.360 okay
+00:05:57.280 so what's the best caching strategy
+00:05:58.960 let's see q a anyone with any question
+00:06:01.600 no not yet
+00:06:04.960 okay okay i think we are ready
+00:06:08.720 a linkedin user is saying say hi to me
+00:06:10.639 without a name so unfortunately i can't
+00:06:12.560 say who you are
+00:06:15.440 are we going to discuss the concurrency
+00:06:17.759 and consensus quorum for eventual
+00:06:19.440 consistency okay this will be the last
+00:06:21.280 question we take before we start
+00:06:27.600 um what do you think
+00:06:29.360 are we going to discuss the concurrency
+00:06:30.960 and consensus quorum for eventual
+00:06:32.639 consistency
+00:06:36.160 i don't think so low level design guys
+00:06:38.160 just to clarify is
+00:06:40.080 uh think of it as a real interview
+00:06:43.039 okay don't think of it as a mini project
+00:06:45.840 you can't do a mini project in one hour
+00:06:47.919 so are you going to discuss concurrency
+00:06:50.800 yes you can discuss it are you going to
+00:06:53.360 discuss
+00:06:55.280 a quorum protocol for
+00:06:57.199 eventual consistency or some sort of
+00:06:58.880 consensus protocol
+00:07:01.120 you can discuss it
+00:07:03.039 important thing to note in a low level
+00:07:04.479 design interviews you are probably going
+00:07:06.800 to build something which kind of works
+00:07:10.479 okay the important thing is your thought
+00:07:12.080 process your problem solving and your
+00:07:13.520 discussions
+00:07:14.720 so that is
+00:07:16.960 that is how we can think of it uh if you
+00:07:19.039 are i guess senior software engineer
+00:07:20.720 yeah this makes sense
+00:07:22.160 uh
+00:07:23.199 that's why this isn't fundamentals
+00:07:25.280 uh in to be ready and you have something
+00:07:27.199 like machine coding so machine coding or
+00:07:29.280 cashier you want to know about
+00:07:30.639 concurrency there is
+00:07:32.319 asynchronous processing
+00:07:34.240 reading your own rights these are
+00:07:35.280 engineering guarantees
+00:07:37.520 this is a highly consistent cache that
+00:07:39.919 has been designed here
+00:07:41.599 but if you want to see the theory of
+00:07:43.440 eventually consistent cache
+00:07:45.440 you can have a look at right policies
+00:07:49.199 okay this is again
+00:07:50.479 a cache
+00:07:51.840 and we are going to be designing a local
+00:07:54.000 cache today
+00:07:56.319 which can
+00:08:01.199 so we can go ahead and design a cache
+00:08:04.000 with
+00:08:04.879 whatever policy a person wants to have
+00:08:08.080 so he might want lru he might want lfu
+00:08:10.879 he might want so he'll just have to tell
+00:08:13.120 the policy and he'll get the cash
+00:08:15.680 ready
+00:08:17.840 perfect
+00:08:18.879 perfect
+00:08:20.080 okay so that's that's perfect so let's
+00:08:22.560 uh try doing that then we have given a
+00:08:24.639 lot of promises let's see whether we
+00:08:25.919 actually fulfill it
+00:08:27.599 yeah
+00:08:30.479 okay
+00:08:32.080 so
+00:08:32.880 starting now
+00:08:34.719 um
+00:08:40.399 i'll just draw the
+00:08:41.839 requirement uh if that's okay
+00:08:45.040 and then we can start coding
+00:08:47.279 uh or do you want to draw it on your uh
+00:08:51.279 so actually uh
+00:08:52.959 not much of drawing is needed in cash
+00:08:54.800 because i think people are very much
+00:08:56.080 familiar with cash so maybe a discussion
+00:08:58.720 would help
+00:09:00.160 okay okay so i'll just note down the
+00:09:01.839 requirements then i won't need any
+00:09:04.080 this is interesting because usually we
+00:09:05.680 have a
+00:09:07.600 a use case diagram like we have who is
+00:09:10.000 going to end up using this cache and
+00:09:11.760 then we have what are the actions this
+00:09:13.279 person is performing but in this case
+00:09:15.360 what you are stating is
+00:09:17.040 this is an engineering requirement so
+00:09:20.080 it's not design make my trip it's design
+00:09:21.680 a cache and so what we have then is
+00:09:23.839 something like uh
+00:09:26.880 so we can take it in this way
+00:09:29.200 you have to write or make your own cache
+00:09:31.680 that's it so what's a cache
+00:09:34.399 right
+00:09:35.440 what what can we do with the cache so if
+00:09:37.360 you see a cache in a cache you can store
+00:09:40.000 stuff right
+00:09:41.360 store okay yes right
+00:09:43.760 and uh if something is already stored
+00:09:46.560 you can get the value of it for example
+00:09:49.040 if i've stored name as the key and the
+00:09:51.680 value as a run so if you pass in name
+00:09:54.240 you should be able to get our own
+00:09:56.160 right
+00:09:57.040 okay
+00:09:58.080 and then there is one more thing you
+00:09:59.360 should be able to remove
+00:10:01.279 values from cash
+00:10:03.200 okay so suppose
+00:10:04.560 uh values are pretty old so
+00:10:07.120 which is that is eviction policy if we
+00:10:09.200 talk about
+00:10:11.360 what do we mean by eventual policy so
+00:10:13.839 suppose uh
+00:10:15.120 the capacity of cash is five things so
+00:10:18.079 you've already added five things now
+00:10:20.560 now when you want to add sixth thing
+00:10:23.040 of course my cache cannot do not have
+00:10:24.959 the capacity to store it which means
+00:10:27.200 i'll have to remove any value
+00:10:30.000 and then i'll be able to add that
+00:10:32.480 so which value should i remove
+00:10:34.399 which value should i remove out of all
+00:10:36.079 five
+00:10:36.880 okay
+00:10:38.000 now that is eviction policy
+00:10:40.160 now there like you have asked the
+00:10:42.000 question earlier where people have voted
+00:10:43.600 which policy is the best suited policy
+00:10:46.320 least recently used least frequently
+00:10:48.880 used first in first out
+00:10:52.000 it depends on the use case how the
+00:10:54.320 person wants so we'll try
+00:10:56.399 and write code of
+00:10:58.720 let's write code for lru and then we can
+00:11:00.959 generalize it we'll see how
+00:11:03.839 people will tell just the
+00:11:05.600 uh which eviction policy do they want to
+00:11:08.320 have
+00:11:09.040 and then
+00:11:10.000 they'll get the cash
+00:11:11.920 okay okay so in fact i wrote delete over
+00:11:14.720 here thinking that we need to delete
+00:11:16.240 stuff but actually you're not deleting
+00:11:17.920 from the cache is it you're only setting
+00:11:19.519 values
+00:11:20.399 no no removing is also there
+00:11:22.720 okay removing is also that should we say
+00:11:24.240 something like you know you want to set
+00:11:26.079 null for that is as good as deletion
+00:11:28.079 that might simplify the api
+00:11:31.440 no we'll remove it
+00:11:33.040 we'll remove it okay so let's say the
+00:11:34.959 capacity is five five units and i've
+00:11:37.839 already filled with five units now i
+00:11:39.920 want
+00:11:40.720 uh something to be stored so i'll have
+00:11:42.240 to remove it then only i'll be able to
+00:11:44.079 store it now i mean to say as a user of
+00:11:46.240 this cache maybe as an engineer do i get
+00:11:48.560 an api to delete keys or do i get an api
+00:11:52.000 only to get or set keys
+00:11:53.839 yeah i think the user will only get the
+00:11:55.839 apf to get and set why would user want
+00:11:58.399 to delete
+00:11:59.360 the cache
+00:12:00.640 okay you can if you want to delete then
+00:12:02.560 set the
+00:12:03.920 key as
+00:12:05.360 none okay so now we are
+00:12:08.880 we are in an interesting position we are
+00:12:10.240 saying that there are only two apis get
+00:12:12.959 and set and that you mentioned name
+00:12:15.680 instead of that key okay
+00:12:17.680 so get
+00:12:19.120 key
+00:12:20.240 and
+00:12:33.920 so for simplicity we can have key and
+00:12:36.399 value both as strings a first key could
+00:12:38.560 be something else also and value could
+00:12:40.079 be something else also integers could be
+00:12:42.399 there so for simplicity uh yeah i guess
+00:12:45.680 you're using a string okay great
+00:12:47.839 and value is any object
+00:12:51.200 it could be any object let's for now
+00:12:53.040 simplicity again let's keep it a string
+00:12:54.800 but we can have it as an object also
+00:12:57.120 integer also image link also whatever i
+00:13:00.320 mean you are what you're saying is you
+00:13:01.760 uh take object and convert it to json
+00:13:03.519 here
+00:13:04.399 yeah i mean that's that's what you want
+00:13:07.519 and you take a
+00:13:09.040 you know any value you have and maybe
+00:13:10.480 you take a hash of it and convert it to
+00:13:12.240 string
+00:13:13.120 yes so then this is a generic cache this
+00:13:15.360 is as generic as they come
+00:13:17.120 you are storing data and the
+00:13:19.839 interesting thing here
+00:13:21.600 i guess is not getting set it is your
+00:13:24.320 eviction policy
+00:13:25.920 yeah eviction policy and storage policy
+00:13:28.399 also how we are storing it
+00:13:30.560 okay okay so
+00:13:32.639 so what data structure do you want and
+00:13:34.639 what algorithms do you want to use okay
+00:13:36.480 yes yes so uh what i'm seeing here is
+00:13:39.120 because it's a
+00:13:40.639 okay so this is interesting
+00:13:43.279 so you you now have a totally
+00:13:44.800 engineering kind of thing where you have
+00:13:46.720 an algorithm and you have this is your
+00:13:49.760 data
+00:13:51.760 structure
+00:13:54.399 so if anyone asks you is dsa really
+00:13:56.560 important now you can show them this
+00:13:57.839 video yes yes because it is practical
+00:14:00.959 and it does come in a
+00:14:02.880 in the real world okay
+00:14:05.040 it can come as a normal coding question
+00:14:06.959 also and it can come as a proper low
+00:14:09.279 level design question also in low level
+00:14:10.959 realms low level design problems
+00:14:13.199 okay that brings us to an interesting
+00:14:14.880 question arjun rao is saying do
+00:14:16.160 expectations vary by rules individual
+00:14:18.639 contributor versus manager versus
+00:14:20.000 breckto
+00:14:22.000 yeah
+00:14:22.880 i think it does
+00:14:24.320 so so i mean an individual contributor
+00:14:27.199 especially in the younger age and we are
+00:14:29.279 not talking about staff engineer over
+00:14:30.480 here i guess uh will be expected to look
+00:14:32.959 more into
+00:14:34.399 the
+00:14:36.000 i mean a director being asked to cash
+00:14:37.920 low level design of a cash
+00:14:39.399 is a manager
+00:14:51.839 would be sd1 sg2 senior software
+00:14:54.240 engineers p6
+00:14:56.000 principal engineers
+00:14:57.680 this could be uh the perfect rules i
+00:15:00.800 don't think manager has asked about cash
+00:15:02.399 or maybe director would be asked about
+00:15:03.760 cash
+00:15:04.800 no i you know i don't think so maybe
+00:15:06.399 they can be asked what technology are
+00:15:07.839 you going to use in which case you have
+00:15:09.440 like many
+00:15:10.800 but
+00:15:12.800 yeah i guess like you have folks who are
+00:15:15.120 at staff or principal
+00:15:17.279 um
+00:15:19.920 i don't even know the spelling of
+00:15:21.279 principle like is it pal principle
+00:15:23.760 software or is it on principle they're a
+00:15:26.160 software engineer
+00:15:28.079 it's hard to say i guess it should be
+00:15:29.760 principal software international pa like
+00:15:31.519 in a school
+00:15:33.360 but yeah right architect actually
+00:15:36.079 architecture yes architectures are
+00:15:37.600 pretty
+00:15:39.360 in an architect but okay so i guess till
+00:15:42.240 this point you are basically asked more
+00:15:44.160 on the coding side of things and how
+00:15:45.760 you're going to
+00:15:46.800 the low level design
+00:15:48.720 on this side also you have low level
+00:15:50.240 design yes but you have stuff like an
+00:15:52.720 additional thing which is concurrent
+00:15:55.440 c and
+00:15:56.480 um
+00:15:58.560 other non-functional requirements like
+00:16:00.399 how do you reduce latency how do you
+00:16:02.399 make sure that this cash is not bloated
+00:16:04.880 uh you know do you consider it to be a
+00:16:06.959 global cache
+00:16:08.240 in which case what if one of them one of
+00:16:10.000 the nodes goes down
+00:16:11.440 uh
+00:16:12.320 at staff level i think you are also
+00:16:14.000 going to be asked stuff like
+00:16:15.920 cost
+00:16:17.279 uh what are the possible solutions over
+00:16:19.279 here
+00:16:21.040 you know existing solutions which one
+00:16:22.480 are you going to choose that the
+00:16:24.800 trade-offs trade-offs actually come here
+00:16:26.800 also but the internals of it
+00:16:30.320 tell me memcache what does it use um you
+00:16:33.440 know those kind of things are good to
+00:16:35.360 have as a staff engineer principal i
+00:16:37.519 have no idea what they ask
+00:16:40.480 i don't i don't think principles or
+00:16:42.000 fringes are even like uh i i don't know
+00:16:44.399 if it's just an interview like they are
+00:16:46.480 they're probably they go through the
+00:16:47.680 resume and say that okay this guy has
+00:16:49.680 done something amazing now let's start
+00:16:51.199 taking interviews so
+00:16:52.639 yeah i i don't know whether you can go
+00:16:54.560 deeper into tech in one hour
+00:16:56.560 but i guess you can but we are we are
+00:16:58.480 not the right people to follow for that
+00:16:59.759 kind of stuff please if you're here
+00:17:02.480 please watch this video if you are here
+00:17:04.160 i guess you are here to revise your
+00:17:05.599 concepts or something
+00:17:08.240 okay
+00:17:09.039 um
+00:17:10.160 yes so great okay so the requirements
+00:17:12.400 are actually really clear
+00:17:13.839 what data structure and algorithm are
+00:17:15.359 you going to use for a cache so that it
+00:17:17.760 is
+00:17:18.400 easily pluggable for different
+00:17:19.760 algorithms
+00:17:22.640 or
+00:17:23.839 to change the question what data
+00:17:25.119 structure and code design are you going
+00:17:27.280 to have for the cache so that it is
+00:17:28.880 easily pluggable to different algorithms
+00:17:32.480 so uh so i'm i think i'm going to use
+00:17:35.039 doubly linked list and a hash mark
+00:17:37.840 oh wow okay a doubly list and a hash map
+00:17:40.080 okay
+00:17:40.880 yeah okay so a double english
+00:17:44.240 so because lru was highly voted uh so
+00:17:47.200 doubly english would help me keep record
+00:17:49.280 of uh
+00:17:50.640 which one is uh
+00:17:52.480 like which which key has been accessed
+00:17:54.799 last then second last and third last so
+00:17:56.880 it is going to help me keep the record
+00:17:59.440 and a hash map i'll use just to store
+00:18:02.080 key and value because order of one is
+00:18:04.960 the time complexity for searching for
+00:18:06.720 putting and for
+00:18:08.559 removal in a hash mark so that's why
+00:18:12.960 so
+00:18:13.760 i mean you have a head over here
+00:18:16.000 yeah
+00:18:17.520 and you have a tail over here
+00:18:19.600 yes pointing to nothing
+00:18:31.919 okay so i mean i
+00:18:34.000 i guess i'm asking okay if you have a
+00:18:36.000 doubly linked list
+00:18:37.600 um
+00:18:39.039 fifo is easy to do
+00:18:43.280 actually
+00:18:44.559 yes
+00:18:45.600 also easy to do yeah but uh we'll see
+00:18:48.960 now this is a good question uh problem
+00:18:50.960 solving question how are you going to
+00:18:53.039 use double linked list to
+00:18:55.600 you know implement lru pattern
+00:18:58.320 and
+00:18:59.120 okay i'll implement it
+00:19:00.799 yes i'll implement it
+00:19:03.200 okay okay i'll just write this down
+00:19:05.280 least recently used is the pattern you
+00:19:07.679 want also you want fast
+00:19:10.720 retrievals
+00:19:12.240 yes search
+00:19:13.840 okay yes
+00:19:15.280 a cache is that only
+00:19:17.360 right right
+00:19:18.880 so what what are the things you want to
+00:19:20.960 do here i'll just write these down
+00:19:22.640 search time you just have two apis right
+00:19:25.039 get in set so yes uh search time and uh
+00:19:30.160 so actually setting time set time
+00:19:33.679 and finally
+00:19:35.280 which also is a thing yeah yes eviction
+00:19:38.000 is also a thing which is so what
+00:19:40.000 can you tell me uh what we are uh you
+00:19:42.640 know
+00:19:43.440 what are the order complexities of each
+00:19:44.960 of these operations so that based on
+00:19:46.320 that
+00:19:48.480 um
+00:19:49.360 so searching
+00:19:50.799 takes order of one
+00:19:52.640 order one okay
+00:19:55.440 setting takes order of one
+00:19:58.160 setting takes order one okay yes
+00:20:01.360 and i guess i will also take order of
+00:20:03.440 one
+00:20:06.000 okay
+00:20:06.880 and this is for all algorithms like lifo
+00:20:10.400 fifo
+00:20:11.600 no
+00:20:13.679 uh we can we can implement it
+00:20:17.120 okay that's a big claim
+00:20:19.360 we can
+00:20:21.280 uh but we'll implement it for lru first
+00:20:24.400 but we can have a discussion about lifo
+00:20:26.640 how will lifo be implemented how will
+00:20:28.480 fifo be implemented later on is it uh do
+00:20:30.880 you okay later on you want to take this
+00:20:32.799 uh do you want to so because i will i
+00:20:35.919 will ask you that how is this going to
+00:20:37.280 happen i'm not going to uh you know ask
+00:20:39.440 you to write the code for it
+00:20:41.200 you know making it super extensible but
+00:20:43.200 what i'm
+00:20:44.559 in theory how is this going to happen
+00:20:46.080 like
+00:20:47.840 the last
+00:20:49.200 one in
+00:20:50.480 should be the first one out
+00:20:52.400 that is the idea
+00:20:54.159 this is not hard um
+00:20:57.039 like because uh
+00:20:58.720 if at any time we need a eviction this
+00:21:00.480 is order one okay so lefo lifo makes
+00:21:03.280 sense order one will make sense setting
+00:21:05.600 if you need to set a value
+00:21:08.320 yeah yeah you have a hash map which
+00:21:10.159 tells you where to start okay order one
+00:21:12.799 and search is again
+00:21:14.799 ordered one
+00:21:16.400 so one second now how is the hash map
+00:21:18.799 and the doubly linked list going to be
+00:21:20.559 managed uh we'll look into that later
+00:21:23.120 i'm assuming some magic is happening
+00:21:26.080 fifo is extremely simple similar order
+00:21:29.200 one setting is order one because you are
+00:21:31.280 using a hash map
+00:21:32.880 l are you least recently used
+00:21:35.600 used
+00:21:38.240 so
+00:21:39.520 how we can do this is
+00:21:41.360 uh we can keep a map of link
+00:21:44.559 nodes also
+00:21:45.919 so if suppose uh one two three four five
+00:21:49.600 five keys of course five values
+00:21:52.240 let's keep it in this order only one was
+00:21:53.919 called
+00:21:54.720 uh first then two was spoiled and third
+00:21:57.280 so least
+00:21:58.400 recently used is five right now
+00:22:01.280 okay yeah now suppose
+00:22:03.200 you want to know the value of
+00:22:05.520 three
+00:22:06.480 okay so now three should become least
+00:22:08.799 recently used ideally oh okay okay right
+00:22:12.240 you just trap
+00:22:14.080 i mean what's happening here is you make
+00:22:16.320 the head
+00:22:17.679 uh
+00:22:18.480 suddenly if you use three then you you
+00:22:20.240 say hey uh head point two three
+00:22:23.200 maybe remove three from here remove
+00:22:25.200 three from here because now four would
+00:22:27.280 be second
+00:22:28.559 two would be third and first would be
+00:22:30.799 fourth and three should we come at the
+00:22:32.480 last like okay so so i i deleted all of
+00:22:35.919 its uh you know people who point to it
+00:22:38.080 and
+00:22:38.960 where it points so this is going to be
+00:22:40.159 order one because i just see the next
+00:22:42.159 node and uh its previous pointer is
+00:22:44.640 removed
+00:22:46.000 the the previous node and its next
+00:22:47.440 pointer is removed
+00:22:48.720 and finally
+00:22:49.840 this these two pointers are removed it
+00:22:51.440 is now pointing to itself or you know to
+00:22:52.960 null for all we care
+00:22:54.400 uh now
+00:22:55.840 you made a head so wherever head was
+00:22:58.320 pointing to earlier you make it point
+00:23:00.640 there
+00:23:01.600 that's it so maybe next maybe you can
+00:23:03.600 attach it to the tail head could be the
+00:23:05.440 one whose
+00:23:08.640 recent last used
+00:23:10.799 and we can keep three at the tail so
+00:23:12.960 which is the
+00:23:14.159 frequent most frequently used or maybe
+00:23:16.400 the vice versa whatever suits you
+00:23:18.720 uh yeah yeah
+00:23:20.840 now the good thing about this is three
+00:23:23.600 is now going to point to one and one is
+00:23:25.280 going to point to three instead of its
+00:23:27.360 next pointing here
+00:23:28.880 it's next is going to point over here to
+00:23:30.720 three
+00:23:31.840 okay so that's next
+00:23:34.240 actually this three is uh yeah three is
+00:23:36.640 next yeah uh one one next no one
+00:23:39.360 previous is going no this no this is
+00:23:41.520 certainly uh
+00:23:42.960 uh
+00:23:43.760 cylinder circle doubly linked list i'm
+00:23:46.320 not talking about it so no no
+00:23:49.440 it's actually not a circulating list
+00:23:50.720 it's just that the diagram is looking
+00:23:52.159 weird but otherwise what's happening is
+00:23:54.159 three has been now
+00:23:56.000 it will become easy to see this ahead is
+00:23:58.960 pointing at three
+00:24:00.480 threes
+00:24:01.520 next is one
+00:24:03.120 three's previous is null
+00:24:05.600 yes
+00:24:07.280 so it is the head of the list one is now
+00:24:09.600 pointing uh
+00:24:10.880 once previous is pointing to three
+00:24:13.520 two continues pointing two's previous
+00:24:15.279 points to
+00:24:17.600 one uh and now
+00:24:19.520 three is next
+00:24:21.279 has to be pointed to by threes previous
+00:24:23.600 is next so this is not
+00:24:25.520 there's a lot of arrows being drawn over
+00:24:27.360 here of course but in code it's going to
+00:24:29.440 look extremely simple and if you know
+00:24:31.520 how to deal with linked lists which you
+00:24:32.799 showed as a engineer
+00:24:34.320 this should this should be easy to think
+00:24:36.720 through
+00:24:37.679 okay so
+00:24:39.120 i see a question people are saying it's
+00:24:41.039 a bit confusing maybe arun can drop
+00:24:43.679 as you're okay okay yeah okay no i'm uh
+00:24:46.159 i'm gonna just
+00:24:48.240 jump to it then uh
+00:24:50.960 set is also order one uh
+00:24:53.760 quite easy because you have a hash map
+00:24:55.760 and search is hashmap least frequently
+00:24:58.000 used
+00:24:58.840 uh okay i don't i'll
+00:25:01.760 i will have a moment of faith uh and you
+00:25:04.640 just jump to the code uh i think yes
+00:25:07.679 so trust me on this when we code
+00:25:10.240 we'll be in a really good position
+00:25:13.039 okay so i'll
+00:25:15.039 to uh
+00:25:16.799 you know i'll just uh
+00:25:18.480 stop sharing my screen
+00:25:20.640 and then yeah let's see if the code
+00:25:22.880 tells us better than the diagram yes
+00:25:37.039 okay
+00:25:38.559 are you able to see a empty
+00:25:40.880 intelligence
+00:25:49.279 okay i'll be sharing these images later
+00:25:55.279 with all of us who are watching
+00:25:57.039 but i it's interesting to see whether
+00:25:58.960 this works on
+00:26:00.400 i don't know can we zoom in a little bit
+00:26:02.000 uh yeah
+00:26:04.640 this is a presentation mode i think
+00:26:06.720 so that we can see it
+00:26:09.120 saying it's confusing
+00:26:10.720 uh surya kumar is saying it's confusing
+00:26:13.360 now
+00:26:14.320 praveen kumar saying it's bit complex
+00:26:17.039 uh
+00:26:17.919 he's saying also could you repeat that
+00:26:20.000 kawaii is saying it's a bit confusing so
+00:26:23.039 i've done a good job i have sold the
+00:26:25.679 algorithm to you really well uh now i
+00:26:28.080 think it's arduino is going to show you
+00:26:30.640 in code how this works so
+00:26:32.640 so so where can we go into the i think
+00:26:35.120 in view it will be in view i think
+00:26:37.440 okay
+00:26:38.480 yeah to appearance here
+00:26:41.120 it's the second option
+00:26:43.600 yeah we have presentation
+00:26:47.200 awesome so now it's visible
+00:26:52.000 good i
+00:26:53.279 i think everyone can see okay so uh
+00:26:56.960 whatever we talked about what will a
+00:26:58.880 cache have a cache will have a different
+00:27:00.880 type of storage and the cache will have
+00:27:02.799 an eviction policy that's it right
+00:27:05.600 yes so
+00:27:07.120 so there will be two data members
+00:27:15.440 just do oh wow okay
+00:27:18.400 oh your eviction policy as a type as a
+00:27:21.279 class okay
+00:27:22.320 yeah and we'll have to make a election
+00:27:24.080 policy
+00:27:25.600 okay okay yes uh like we discussed
+00:27:28.159 eviction policy could be lru lfu
+00:27:31.039 uh p4 le4 right
+00:27:33.520 okay so now your algorithm is like as
+00:27:35.760 long as your algorithm does a certain
+00:27:37.200 number of things you are okay with it
+00:27:40.960 so and second thing would be storage
+00:27:43.679 right so just to remove these two red
+00:27:46.320 things
+00:27:47.520 let's
+00:27:48.799 make about class storage
+00:27:52.880 and
+00:27:53.840 class
+00:27:55.120 direction
+00:27:58.159 policy
+00:28:00.799 okay intense intense really so now
+00:28:03.520 you're saying that the storage is any
+00:28:05.039 data structure
+00:28:06.480 yeah so maybe people could ask do not
+00:28:09.039 use a hash map i want to just use an
+00:28:11.440 array
+00:28:13.200 so that will also
+00:28:15.440 check that will make it generic okay
+00:28:17.679 okay
+00:28:18.799 okay so of course these both need a
+00:28:21.679 constructor so
+00:28:25.679 public
+00:28:27.679 cash
+00:28:29.200 so what will be
+00:28:31.360 it
+00:28:32.159 will of course get eviction policy and
+00:28:34.240 the storage
+00:28:35.600 okay
+00:28:50.640 such a nice generic cache
+00:28:53.679 it's really
+00:28:54.799 interesting
+00:28:55.919 i think
+00:28:57.919 you know we can see
+00:28:59.520 where the reds going
+00:29:01.840 great now
+00:29:03.200 what does a cache do
+00:29:04.880 we can put values in it and we can
+00:29:07.679 retrieve values from uh from it right
+00:29:10.399 yes
+00:29:22.240 yes so let's keep it string
+00:29:24.799 key and a value let's keep value also as
+00:29:28.640 string but of course we can modify it
+00:29:30.559 later on
+00:29:31.919 let's see we have to write a value over
+00:29:33.840 there
+00:29:36.559 of course we'll do something over here
+00:29:38.399 but let's make the functions first the
+00:29:40.720 two things
+00:29:42.720 okay you're exposing the api okay yeah
+00:29:45.200 yeah the next thing what it does is
+00:29:49.440 okay you want to return a value if
+00:29:50.799 someone says get
+00:29:52.080 so yes string value okay
+00:29:54.880 and so what would be the return type if
+00:29:56.720 i'm giving key so the value return type
+00:29:59.039 would be the string of course where we
+00:30:01.120 will
+00:30:02.240 have to
+00:30:03.760 return the value right okay this is
+00:30:06.399 showing a red mark because i haven't
+00:30:07.760 returned anything of course
+00:30:11.919 okay so uh
+00:30:14.159 if you see storage will have to store
+00:30:16.960 something
+00:30:17.919 right
+00:30:19.279 and
+00:30:20.000 action policy will have to evict
+00:30:22.000 something so let's go and write storage
+00:30:24.720 first because only then we'll be able to
+00:30:26.799 put it in
+00:30:28.399 right
+00:30:30.320 hello
+00:30:31.360 yeah i'm just i'm just like i'm oh okay
+00:30:33.600 wow okay
+00:30:34.840 okay so
+00:30:37.039 uh
+00:30:37.840 let's
+00:30:39.360 what did we decide we'll keep
+00:30:41.679 so what a storage could have so of
+00:30:43.679 course you will decide that okay we'll
+00:30:45.120 decide this much capacity for a storage
+00:30:48.080 and of course how you gonna store it
+00:30:49.840 that doesn't matter that is an internal
+00:30:51.440 fact so let's uh make use of a hash map
+00:30:55.200 okay
+00:30:57.600 okay
+00:31:07.679 and okay this is showing a red mark
+00:31:09.600 because we need to import because we
+00:31:11.600 have not imported it so our storage is
+00:31:14.159 uh has a map inside it okay
+00:31:16.640 so tomorrow if the storage changes then
+00:31:18.320 we'll have we'll just have to change the
+00:31:19.760 storage class okay
+00:31:26.640 i was kind of worried that you are going
+00:31:28.240 to
+00:31:28.960 you know uh
+00:31:32.399 like storage will also be an interface
+00:31:34.720 which
+00:31:36.000 gives you a jump to head
+00:31:38.320 or
+00:31:39.279 you know put put element on head and
+00:31:42.799 stuff like that
+00:31:45.760 which is also possible i think folks
+00:31:47.760 which is also actually watching this
+00:31:49.120 that is possible yes
+00:31:50.799 but i i guess
+00:31:52.080 to keep things simple right now you're
+00:31:53.360 just showing one implementation of
+00:31:54.640 storage if you really want to make it
+00:31:56.559 super extensible you might find common
+00:31:58.720 behaviors from multiple implementations
+00:32:01.519 and then give it this way okay
+00:32:03.679 so you have a capacity
+00:32:05.440 yeah of course store uh storage will
+00:32:07.360 have a cache will always have a capacity
+00:32:09.440 right
+00:32:10.240 got it okay so now uh what will you do
+00:32:13.120 in a storage
+00:32:14.640 you are putting stuff into storage
+00:32:16.960 cash internally has a storage right so a
+00:32:19.360 cash is putting stuff into the storage a
+00:32:21.519 cash is retrieving values from the
+00:32:23.519 storage and telling the value and of
+00:32:25.360 course it is removing by making use of
+00:32:27.360 the eviction policy
+00:32:29.200 right
+00:32:30.640 so three functions
+00:32:36.640 what will we get for add we'll get a key
+00:32:40.159 and a value
+00:32:44.559 it just happened
+00:32:47.440 yeah
+00:32:51.200 i mean isn't your cash here only in
+00:32:53.039 storage
+00:32:55.440 so actually the cache is having two
+00:32:57.360 things now cache class is having two
+00:32:58.960 things so i'm separating it out so why
+00:33:01.200 am i doing it i'm following the single
+00:33:03.679 responsibility principle actually
+00:33:06.080 okay
+00:33:07.120 and second principle which i'm following
+00:33:08.960 is open and close principle so what does
+00:33:11.279 this mean
+00:33:12.240 open and close principle means that it
+00:33:14.399 is open for extension
+00:33:16.880 but closed for a modification
+00:33:20.640 right so if you see that's why i made it
+00:33:22.640 final
+00:33:23.679 now you can extend it you can use
+00:33:25.360 storage class but you cannot modify it
+00:33:28.640 okay okay so that's why i've made three
+00:33:30.399 different classes storage and eviction
+00:33:32.240 policy and that's the mean uh so in
+00:33:35.440 while writing code we try to follow
+00:33:38.000 these things single responsibility
+00:33:39.840 principle and open and close principle
+00:33:42.960 okay okay
+00:33:44.240 okay interesting
+00:33:46.159 yeah
+00:33:46.960 so solid principle so yeah yes great
+00:34:04.480 okay okay yeah that is true the
+00:34:07.120 third one is
+00:34:14.879 yeah you're getting
+00:34:17.520 so your remove is like a
+00:34:23.359 or maybe removal directly directly
+00:34:25.520 removed but your cash will have to
+00:34:27.520 decide by using the eviction policy
+00:34:29.440 which one to remove okay okay that's a
+00:34:31.280 good one
+00:34:33.119 so let's go and implement the eviction
+00:34:35.119 policy now
+00:34:36.639 okay of course we'll write functions
+00:34:38.399 over here or maybe we can straight away
+00:34:40.159 go and write
+00:34:41.599 okay first let's write it happen praveen
+00:34:44.000 kumar is asking can you please explain
+00:34:45.679 the open and closed principle here
+00:34:48.239 i'll probably now
+00:34:49.679 take this so
+00:34:51.119 there's a open
+00:34:53.199 if you're writing a class you're writing
+00:34:54.800 some software basically it is open for
+00:34:57.839 extension meaning that
+00:34:59.760 you know an animal can bite an animal
+00:35:02.240 can move an animal can run
+00:35:04.480 and tomorrow you might say an animal can
+00:35:06.480 fly
+00:35:08.240 okay so
+00:35:09.680 it's it's easy to extend um
+00:35:13.200 closed for modification in fact let me
+00:35:15.359 take a better example because i don't
+00:35:16.720 think i'm doing justice to this
+00:35:18.880 uh
+00:35:21.760 if you
+00:35:22.880 let let me take a logical approach to
+00:35:24.640 this let's say you write some software
+00:35:26.560 and someone comes and changes its
+00:35:28.000 behavior totally
+00:35:29.520 this is not good you are not thinking of
+00:35:31.200 your software as a platform
+00:35:33.040 you are thinking of your software as a
+00:35:34.400 full
+00:35:35.200 uh block which has to be changed
+00:35:37.760 okay so what you want to do is you want
+00:35:39.280 to take some core behaviors
+00:35:41.520 put them in one class and tomorrow if
+00:35:43.680 another behavior has to be added on top
+00:35:45.119 of it it becomes a layer
+00:35:47.119 so it is open for extension
+00:35:49.599 but closed for modification
+00:35:51.839 you cannot change the existing software
+00:35:54.240 you add newer newer layers around the
+00:35:56.160 software if it is being modified that
+00:35:57.599 means the software did not do what it
+00:35:58.880 was intending to do if you say uh
+00:36:02.240 like uh
+00:36:03.440 this this software compresses a file and
+00:36:06.160 then it needs to be modified
+00:36:08.240 right just so that you do some
+00:36:10.000 compression that's wrong
+00:36:13.040 so i hope that makes sense
+00:36:18.079 i don't
+00:36:19.440 i mean i i don't know if i could justify
+00:36:21.040 that no you did you did so it's the same
+00:36:23.839 thing uh let's take example of this
+00:36:26.240 cache only you want to use cache
+00:36:28.720 but why would you want to modify it
+00:36:31.680 so it is open for extension people can
+00:36:34.079 use a library
+00:36:36.480 they cannot modify it they can build a
+00:36:38.480 wrapper over it but they can't modify
+00:36:40.640 that library
+00:36:41.839 yeah yeah i think the best way to think
+00:36:43.280 of it is you can add wrappers on top of
+00:36:44.960 it you can add layers on top of it like
+00:36:46.400 in linux you can pipe commands
+00:36:48.480 that would be you're extending the
+00:36:50.240 feature but you're not changing the
+00:36:52.240 feature itself you are not going to
+00:36:54.000 change cat
+00:36:55.280 echo those kind of things okay
+00:36:58.640 um interesting
+00:37:00.560 there's quite a few comments coming in i
+00:37:01.920 think we'll take them a little later
+00:37:03.760 um let's go ahead
+00:37:06.160 i would request everyone to hold on
+00:37:08.880 i'm going to make this crystal clear to
+00:37:10.880 everyone please keep your questions with
+00:37:13.760 you i'll
+00:37:15.200 answer each and every question just
+00:37:16.960 please hold on for 10 more minutes okay
+00:37:19.200 we'll be done in 10 more minutes
+00:37:21.119 or you'll be
+00:37:22.560 you'll be
+00:37:23.680 you'll be getting your answers for sure
+00:37:25.839 so let's go ahead and implement it it is
+00:37:27.920 just a map so for all of those who do
+00:37:30.400 competitive programming i need to add it
+00:37:32.800 okay so if my capacity is already full
+00:37:35.440 of course can i add no so i think let's
+00:37:38.560 right so if storage
+00:37:43.280 size
+00:37:46.400 is
+00:37:47.920 equals equal such a capacity
+00:37:50.960 so in that case we can return a simple
+00:37:53.119 example oh simple message
+00:37:55.359 system dot out
+00:37:58.160 dot println
+00:38:02.839 actually if the capacity is hit
+00:38:06.880 isn't at the time something should
+00:38:08.640 happen
+00:38:10.800 of course
+00:38:11.680 that time something should happen but
+00:38:13.280 for now
+00:38:14.800 let's return this for now
+00:38:17.280 okay okay
+00:38:18.560 okay and
+00:38:20.079 if not let's just add storage
+00:38:23.200 dot
+00:38:24.240 put
+00:38:26.079 e comma value
+00:38:27.599 okay
+00:38:29.200 different thing is
+00:38:31.520 okay so i get what you want to do with
+00:38:33.200 that line 37
+00:38:34.880 yeah
+00:38:35.760 so if my storage doesn't contain this
+00:38:38.160 key why would i want to remove like you
+00:38:39.920 can't remove it so if storage
+00:38:44.240 contains key
+00:38:47.040 if it doesn't contains key then in that
+00:38:49.119 case i just simply have to return
+00:38:52.640 but otherwise i just have to return
+00:38:56.320 storage dot
+00:38:58.480 remove
+00:39:11.680 so i need to get the key from here so if
+00:39:14.560 storage contains that key of course we
+00:39:16.960 can have that check also but let's say
+00:39:21.119 dot get
+00:39:28.880 okay
+00:39:29.680 this works right
+00:39:31.200 yeah
+00:39:32.079 so storage is built now
+00:39:34.000 now let's go ahead and build eviction
+00:39:35.520 policy
+00:39:36.480 okay
+00:39:37.440 so uh what did we decide and we'll be
+00:39:39.920 using a doubly linked list for you know
+00:39:42.320 managing eviction policy
+00:39:44.320 so
+00:39:45.200 uh just imagine that doubly linked list
+00:39:46.960 is already there
+00:39:49.520 okay
+00:39:50.400 let's
+00:39:51.280 keep the class is going to be part of
+00:39:53.680 storage
+00:39:55.280 uh so uh i'm just keeping doubly lit
+00:39:58.480 list for my election policy why would i
+00:40:01.280 want to keep doubling this as a part of
+00:40:03.200 storage storage is helping me out in
+00:40:05.280 just retrieving in adding and removing
+00:40:08.480 right
+00:40:09.520 eviction policy and to me so these are
+00:40:12.240 two different elements see i've
+00:40:13.920 differentiated i have segregated the
+00:40:15.599 functionalities so storage i've kept
+00:40:18.000 everything regarding storage and storage
+00:40:19.599 file i've kept everything regarding
+00:40:21.440 eviction in the eviction policy and both
+00:40:23.839 of them i'm using in the cash
+00:40:25.920 so putting
+00:40:27.200 so if i've already if i want to put
+00:40:28.960 something and i can't put so i will have
+00:40:31.760 to evict something so
+00:40:33.920 that function is present in eviction
+00:40:35.760 policy that's why i said single
+00:40:38.400 responsibility principle is this only
+00:40:41.119 if everything regarding to eviction
+00:40:43.280 isn't the eviction policy class
+00:40:45.280 everything regarding storage is in the
+00:40:46.880 storage
+00:40:47.920 okay yeah that that is pretty smart i
+00:40:49.839 mean if this works i i i should say it
+00:40:52.320 but yes this is really smart
+00:40:55.040 okay a doubly linked list here okay so
+00:40:57.119 just imagine that double limitless is
+00:40:58.560 already there of course we do not have
+00:41:00.400 time to implement it
+00:41:02.000 let me see if a collection already
+00:41:03.359 offers this now
+00:41:04.800 javascript
+00:41:16.960 so now
+00:41:19.119 a constructor
+00:41:23.119 so um yeah in fact i don't if you want
+00:41:26.720 link list is a doubly linked list
+00:41:30.240 uh here in
+00:41:32.839 java looks like
+00:41:35.839 not much is required actually so let's
+00:41:37.680 go ahead and use it only people can book
+00:41:40.079 it okay sure sure
+00:41:46.560 and the other one is
+00:41:57.040 of course we'll have we'll have to
+00:42:00.240 import it
+00:42:02.960 so when you say doubly english node
+00:42:05.839 do you mean um
+00:42:07.760 what do you mean the index
+00:42:09.520 in the w or the
+00:42:11.200 key so a doubly linked list is a
+00:42:12.880 complete
+00:42:14.000 one node second node third node fourth
+00:42:15.839 node right yeah
+00:42:17.520 so both the nodes are connected both the
+00:42:19.119 nodes are connected both the nodes are
+00:42:20.480 connected so one node okay one node
+00:42:24.240 yes
+00:42:24.960 so that's how i it will help me so
+00:42:27.520 mapper would help me
+00:42:29.200 evicting um so let's say i want to
+00:42:31.839 remove three so okay imagine like this
+00:42:33.839 one two three four okay there's a
+00:42:36.640 connection between one two and three
+00:42:39.040 okay let's imagine three notes only one
+00:42:41.440 two and three
+00:42:42.880 okay one is the head
+00:42:44.720 two is in the middle three is at the
+00:42:46.400 tail
+00:42:47.280 now
+00:42:48.400 imagine three is the last recently used
+00:42:51.839 two was used before this and one was use
+00:42:54.560 the first okay
+00:42:56.640 so what would be the least recently used
+00:42:58.240 here three is the least recent years now
+00:43:00.160 suppose you access two
+00:43:02.400 somebody accesses two
+00:43:04.079 so of course two is now the least
+00:43:05.839 recently used so how would you modify
+00:43:08.000 two so two should come here now so what
+00:43:11.040 would be the linked list now one three
+00:43:13.040 and two it should look like one three
+00:43:14.400 and two right
+00:43:15.920 yeah so how will we make it look like
+00:43:17.520 one three and two so i'll have to remove
+00:43:19.520 two from the middle
+00:43:21.359 or whichever place it is and bring it at
+00:43:24.160 the last
+00:43:25.040 so how how so if you will traverse the
+00:43:27.359 complete linked list that would be order
+00:43:28.880 of n time complexity
+00:43:30.800 right but i want to do it in order of
+00:43:32.800 one
+00:43:33.599 so if i have this node's address or if i
+00:43:35.920 know this node which is in my mapper
+00:43:39.280 right because
+00:43:41.040 value is 2
+00:43:42.720 look at it key is 2
+00:43:44.560 and the value is the node
+00:43:46.240 so now i get the address to this node
+00:43:48.960 i know the previous node i know the next
+00:43:50.960 node because it is doubly linked list
+00:43:53.040 i'll make the connection with one and
+00:43:54.960 three two gets out and i'll append two
+00:43:57.680 at the table
+00:43:59.040 got it but i think as you write code
+00:44:00.800 things will become like ultra clear
+00:44:03.119 do you want to
+00:44:04.480 uh you know uh
+00:44:06.960 maybe just create a class dll and dna
+00:44:09.760 dll and doubly link list node and w in
+00:44:12.000 this i think we might actually end up
+00:44:14.079 implementing also because it's so easy
+00:44:23.920 we might actually have a single class
+00:44:25.280 also by the end of it because you know
+00:44:27.119 every
+00:44:28.480 sister
+00:44:29.920 okay so
+00:44:32.960 okay
+00:44:34.839 now so what was this when i a key was
+00:44:38.160 accessed right so when a key is accessed
+00:44:41.520 the link list changes
+00:44:43.440 right
+00:44:44.240 so there should be a function right
+00:44:48.240 p
+00:44:49.200 accessed
+00:44:50.960 okay
+00:44:55.119 yeah
+00:44:56.480 and what will it return
+00:44:58.560 nothing it should return nothing right
+00:45:00.960 okay
+00:45:01.760 so what do i have to do i'll have to
+00:45:03.359 remove this middle node and i have to
+00:45:05.599 put it at the end
+00:45:07.520 so okay
+00:45:09.200 okay
+00:45:10.000 so
+00:45:11.200 let's say dln of course let's suppose it
+00:45:13.599 is having a function detach
+00:45:15.680 node
+00:45:30.880 here
+00:45:45.040 list how are you going to break the
+00:45:46.560 connect aren't you going to make the
+00:45:48.160 connection of
+00:45:49.599 the node
+00:45:51.440 yes of course and so suppose these three
+00:45:54.319 blocks are there
+00:45:55.599 one two and three okay
+00:45:58.079 one and two are connected two and three
+00:45:59.599 are connected so i know the address to
+00:46:01.680 the previous because two's previous
+00:46:04.560 points to this
+00:46:05.920 and two's next point to this
+00:46:09.040 so what do i have to do
+00:46:10.880 it's
+00:46:11.839 next should point to two's next
+00:46:14.880 all right
+00:46:16.240 and
+00:46:17.119 three is previous should point to two's
+00:46:19.520 previous now
+00:46:21.040 yes so do you need the whole list don't
+00:46:23.359 you need just one node mapper dot get
+00:46:26.000 that key will give you the node now with
+00:46:28.319 that node you can detach it totally oh
+00:46:30.240 yeah oh yeah we can do that yeah so
+00:46:32.640 maybe you just want to keep a detached
+00:46:34.319 node
+00:46:36.319 okay yeah we can have uh just attach
+00:46:38.640 node also so now you've detached that
+00:46:40.400 node
+00:46:41.280 yes
+00:46:43.599 yes and maybe add node
+00:46:46.400 at
+00:46:47.440 end this could be another function in
+00:46:49.680 the
+00:46:50.640 here or maybe we can have it another
+00:46:52.560 function at the end okay
+00:46:54.560 and
+00:46:55.440 we just need to pass again this this
+00:46:58.240 node why do we need to create a new node
+00:47:00.319 this node is already present i i just
+00:47:02.319 need to put it
+00:47:03.680 you you attach it at the end okay end
+00:47:06.160 right because that is the least recently
+00:47:08.720 used now
+00:47:10.480 okay okay got it and
+00:47:12.270 [Music]
+00:47:13.680 got it and just return it okay
+00:47:17.040 second thing
+00:47:18.400 this was key access where we were
+00:47:20.560 breaking and of course we made changes
+00:47:22.800 second is the election policy the
+00:47:24.960 event key function okay okay okay
+00:47:28.800 let's keep it
+00:47:30.240 or maybe
+00:47:31.359 so the first one runs on the get
+00:47:33.599 and the second one runs on a set also
+00:47:35.920 actually
+00:47:38.050 [Music]
+00:47:51.119 you're just
+00:47:52.640 you haven't used it okay it makes sense
+00:48:01.040 you you don't really notice anything
+00:48:02.480 right yeah yeah i don't need to pass
+00:48:04.640 anything right okay
+00:48:06.480 so what do i have to do
+00:48:08.240 so let's say
+00:48:09.599 so of course which one was the last used
+00:48:12.480 the head is the last used right
+00:48:15.040 right right right yeah so
+00:48:18.400 move head by one right
+00:48:20.400 yeah
+00:48:21.520 so
+00:48:22.400 uh let's say dll class has my head it
+00:48:25.680 will have head and it will have tail
+00:48:27.040 also right it will keep on note of it so
+00:48:29.599 dll grot let's say
+00:48:32.839 move head
+00:48:35.440 okay maybe it will have that function it
+00:48:37.440 will be done in order of one time only
+00:48:39.200 right
+00:48:40.079 yeah you just made a headquarters
+00:48:42.319 that's it yes head equals head connects
+00:48:44.160 right
+00:48:45.760 right so this is now least frequently at
+00:48:47.599 least recently used already okay yes
+00:48:50.000 so this is we are done with the eviction
+00:48:51.680 policy we are done with the storage what
+00:48:54.240 two functions are left
+00:48:55.839 putting
+00:48:57.040 and getting so how are we gonna use this
+00:49:00.240 policy and storage let's see here
+00:49:03.760 okay
+00:49:05.359 so when i need to put it
+00:49:09.599 this dot storage
+00:49:11.920 dot
+00:49:12.720 add
+00:49:13.599 because storage is having that function
+00:49:15.680 add right here that's why
+00:49:18.960 e comma value
+00:49:20.880 okay
+00:49:21.760 and
+00:49:22.559 since i've just put it
+00:49:24.559 okay since i just put it so i want to
+00:49:26.880 mark this key as access right
+00:49:29.680 because this is the least recently used
+00:49:31.839 right here
+00:49:32.880 so this dot
+00:49:34.160 election policy dot
+00:49:36.559 accessed
+00:49:38.480 and it should be
+00:49:41.760 make sense
+00:49:55.680 yes
+00:49:56.559 and
+00:49:57.280 how will we get
+00:49:59.200 string value
+00:50:01.040 equals this
+00:50:02.720 dot
+00:50:03.839 storage
+00:50:05.200 dot
+00:50:06.480 because storage has a function get right
+00:50:09.359 here
+00:50:10.319 yeah
+00:50:11.680 and we'll have to pass
+00:50:14.240 we get we got the key now second thing
+00:50:16.559 what do i have to do now since i've just
+00:50:18.640 accessed this key so i will uh
+00:50:22.400 copy line number 17 basically yes
+00:50:26.240 yeah so eviction policy key access
+00:50:33.359 okay
+00:50:34.240 and i just need to return return value
+00:50:37.040 okay well
+00:50:44.480 wow okay yeah it's really really really
+00:50:47.599 simple
+00:50:48.640 it's super simple
+00:50:50.480 okay
+00:50:51.520 i'll answer your each and every question
+00:50:53.520 but just want to add a few statements
+00:50:55.839 right here
+00:50:56.880 what do i have so
+00:50:58.640 every time it's not necessary to follow
+00:51:01.760 you know every time
+00:51:03.440 interviewer will not ask you a specific
+00:51:05.920 design pattern of course we'll use a
+00:51:07.280 factory design pattern here and i'll
+00:51:09.040 explain you how we will go ahead which
+00:51:11.760 i'll make a question much more complex
+00:51:13.520 now but for now these two are one of the
+00:51:17.359 most important principles which we have
+00:51:19.119 to follow one is single responsibility
+00:51:21.599 principle which means
+00:51:23.920 storage
+00:51:25.040 is a single responsibility
+00:51:27.200 second eviction policy is a single
+00:51:29.040 responsibility dll doubly linked list if
+00:51:32.079 you want to implement your own
+00:51:33.359 everything related to doubly linked list
+00:51:34.960 should be present in this class nothing
+00:51:36.720 should be there related to this node
+00:51:39.280 and node should have everything related
+00:51:41.280 to node and second thing which we had a
+00:51:43.440 conversation before also open and close
+00:51:45.760 principle open for extension and closed
+00:51:49.040 for modification
+00:51:51.119 third thing which is very important
+00:51:53.119 should be classes are immutable here
+00:51:55.599 so if you see right here
+00:51:58.640 i've made it already final
+00:52:00.960 so you can't
+00:52:03.280 you know mutate the stuff you can just
+00:52:05.280 use it if you want to make something of
+00:52:07.599 your own you can use it you can build a
+00:52:09.280 wrapper over it and use accordingly but
+00:52:12.640 this class would remain as it is
+00:52:16.240 so these three principles have been used
+00:52:18.800 for now
+00:52:20.640 yeah no i'm not very sure about
+00:52:23.040 if they're immutable then uh
+00:52:26.800 yeah actually yeah they're immutable
+00:52:28.240 okay the data members are beautiful okay
+00:52:30.240 so the reference is immutable uh in
+00:52:32.559 eviction policy can you go to eviction
+00:52:34.000 policy
+00:52:35.200 yes
+00:52:36.480 eviction policy is basically
+00:52:38.559 uh
+00:52:39.680 an algorithm so okay
+00:52:41.920 uh that is let's say immutable you can
+00:52:44.079 make them final final nothing's going to
+00:52:45.599 happen
+00:52:47.040 uh yes
+00:52:48.240 actually maybe yeah you know the head
+00:52:49.839 will point to something else they are
+00:52:52.559 the some of the references are mutable
+00:52:54.240 here i think but that is fine if you
+00:52:56.480 need any kind of movement then you need
+00:52:59.119 some sort of
+00:53:00.960 you can
+00:53:03.920 so in that case we'll have to get uh the
+00:53:06.640 mapper here but
+00:53:09.280 why do we do not want a mapper from the
+00:53:11.520 user because this is eviction polish i
+00:53:13.760 don't people this is already private
+00:53:16.000 right yeah so people do not people from
+00:53:18.319 outside can't access only the cash
+00:53:21.040 class can access it
+00:53:22.720 and that is already final right here
+00:53:24.480 sorry oh okay okay okay so okay i get
+00:53:27.040 you now okay so whatever happens
+00:53:29.760 there's nothing exposed there's no
+00:53:31.599 public variables yes okay yes okay in
+00:53:34.559 that sense yes uh
+00:53:36.480 the ones making changes will be people
+00:53:38.079 in the class okay yes
+00:53:42.400 got it okay great uh in fact now
+00:53:45.119 uh
+00:53:46.480 and we can imagine also that detached
+00:53:48.240 node is not rocket science this is in
+00:53:49.760 first year or second year of computer
+00:53:51.200 science you have uh
+00:53:54.000 yeah yeah you just want to get rid of
+00:53:56.400 references to the notes and the
+00:53:58.559 references from those notes to you
+00:54:00.319 that's all yes that it attaches and
+00:54:02.400 attach is like
+00:54:04.160 again first your computer science you
+00:54:05.520 just point to that note okay wonderful i
+00:54:07.839 think this uh
+00:54:09.760 this is all the process
+00:54:11.280 yeah this is basic linked list which
+00:54:13.040 every student turns when they start
+00:54:14.960 learning data structures
+00:54:17.040 great um
+00:54:19.440 okay this actually uh so
+00:54:22.000 now all that we need to do cache we
+00:54:23.920 don't need to change
+00:54:26.240 storage we don't need to change because
+00:54:27.839 your storage is a map
+00:54:29.599 yes it just gets inside
+00:54:31.760 and why do people want to know if i if
+00:54:33.839 i'm using a map or map in a storage or
+00:54:36.079 an area in a storage yeah i just want to
+00:54:38.079 use cash
+00:54:39.680 right so depending on your storage your
+00:54:42.400 time complexity might change but yes
+00:54:44.880 exactly like you don't that is not your
+00:54:46.960 problem uh you have made it extensible
+00:54:48.800 that you can use not just a map you can
+00:54:50.640 use a tree also tomorrow yes yes okay
+00:54:53.920 like like java actually does use
+00:54:56.559 a tree i think
+00:54:58.000 underneath if you
+00:55:00.319 if you have a map which has too many
+00:55:02.400 nodes of all one bucket okay great
+00:55:05.680 what else do we
+00:55:07.119 what else do we have
+00:55:09.839 maybe we can move to the questions now
+00:55:11.839 because i'm done implementing yeah yeah
+00:55:13.520 this is super fast okay this was like i
+00:55:16.160 think in 20 minutes you finished off the
+00:55:18.240 cache implementation of ukraine
+00:55:20.240 uh this is a much cleaner and precise
+00:55:22.480 solution vishesh
+00:55:24.800 is saying that this is this is really
+00:55:27.599 good
+00:55:28.319 um
+00:55:29.680 probably applied somewhere i i don't
+00:55:31.200 want to highlight that yeah
+00:55:32.800 i can you explain on whiteboard linked
+00:55:35.119 list
+00:55:36.240 part is confusing okay we will get to
+00:55:38.800 that uh
+00:55:40.640 okay uh
+00:55:42.000 okay can you send me let me open my
+00:55:45.040 whiteboard
+00:55:46.319 or if you can share the link of a
+00:55:48.160 whiteboard any
+00:55:49.440 yeah i'll start i'll try to share my
+00:55:51.599 screen and uh
+00:55:53.599 what i'll do is i let me give me another
+00:55:55.680 chance
+00:55:56.720 okay
+00:55:57.599 what i'll try to do is i'll try to
+00:55:58.960 explain this in an easy way using your
+00:56:01.359 code right what you said is
+00:56:04.400 first
+00:56:06.000 detach node
+00:56:08.480 okay so let us assume that three was
+00:56:10.160 accessed
+00:56:12.960 okay now what should happen i think uh
+00:56:15.599 is clear you said detach node so i'll
+00:56:18.319 try to detach this node i'll first put
+00:56:20.400 three here
+00:56:23.280 i'll i'll first take these nodes
+00:56:26.079 one okay can we do one thing can we do
+00:56:28.079 one thing
+00:56:29.119 yeah let's do it in a flow okay or
+00:56:31.760 whichever flow i tell uh just try to
+00:56:33.920 mimic that okay uh can we erase
+00:56:35.760 everything right now can we raise
+00:56:37.440 everything right now yes i can get a new
+00:56:39.680 uh
+00:56:41.760 new sheet yeah
+00:56:46.240 okay okay uh
+00:56:48.240 make one map
+00:56:50.480 just just a rectangle okay would work
+00:56:54.160 yeah
+00:56:55.280 we can make a partition in the set yeah
+00:56:58.000 okay
+00:57:01.119 okay
+00:57:02.160 let's meet three nodes now one two and
+00:57:04.160 three
+00:57:05.760 one two and three
+00:57:07.680 and of course those will have references
+00:57:09.440 and we can make a linked list also one
+00:57:11.040 two and three
+00:57:13.040 okay okay so there's a link list of one
+00:57:15.280 two and three
+00:57:16.480 and uh it's in this order
+00:57:18.640 yes one two and three
+00:57:21.760 and since it is doubly so of course
+00:57:23.359 previous connections are also
+00:57:34.640 now to everyone okay three is the one
+00:57:37.359 that is least recently used for now okay
+00:57:39.920 now three is the one that is recently
+00:57:41.839 used you had a access over here yes so
+00:57:45.200 now
+00:57:46.319 now what happens
+00:57:48.079 now everyone uh i am
+00:57:50.960 asking my cash the value for 2
+00:57:54.640 so 2 is the one that is least recently
+00:57:56.880 used now okay so what should be the
+00:57:59.040 order in which i'm not
+00:58:01.200 i'm just asking what should be the order
+00:58:02.880 in which the linked list should be
+00:58:04.720 looking for now so it should be 1 3 and
+00:58:06.880 2 right
+00:58:09.599 one three and two it should look like
+00:58:10.960 this
+00:58:12.559 it should look like this one
+00:58:14.400 three and two
+00:58:15.920 yes because okay okay so you're yeah in
+00:58:18.880 the tail you're keeping the uh
+00:58:21.440 uh recently used so first three came in
+00:58:24.000 so you were very happy three was this
+00:58:25.920 order was right then two came
+00:58:27.839 so two has to go ahead of three so now
+00:58:30.160 you have one three and two okay yes we
+00:58:32.079 will see how we move to
+00:58:34.000 we'll see how we'll move to but this is
+00:58:36.000 how it should look like the final should
+00:58:37.680 be the below one which gaurav has made
+00:58:40.000 okay initial is top one
+00:58:42.160 after we access to the final english
+00:58:44.480 should be like this
+00:58:47.040 okay now
+00:58:49.599 since my map have map knows
+00:58:52.559 where which node has two
+00:58:55.359 so accessing map is order of one
+00:58:58.400 okay right so i zero one is the value
+00:59:00.720 one zero
+00:59:02.400 two one zero three these are like
+00:59:03.920 physical addresses references okay and
+00:59:06.000 i'll just give one zero one one zero two
+00:59:07.760 one zero three okay yes just to show
+00:59:09.760 that this is like order one you just go
+00:59:11.440 to that yes okay
+00:59:12.640 okay so i access my map and using the
+00:59:15.200 map i straight away get okay two is
+00:59:16.960 right here so go on two let's go on now
+00:59:19.440 okay 102 means here yeah i came here in
+00:59:21.920 one shot order one now
+00:59:23.760 now
+00:59:24.640 if you see in a linked list now we have
+00:59:26.480 to convert it to below
+00:59:28.160 now uh so
+00:59:30.400 if you make the connections
+00:59:32.240 below once so one should be once next
+00:59:34.880 pointer should be three
+00:59:37.040 three's previous pointer should be one
+00:59:39.119 three's next pointer should be two
+00:59:41.440 okay and two's previous pointer should
+00:59:43.359 be three
+00:59:44.839 yeah got it so
+00:59:46.880 so
+00:59:47.839 if we look at above whose previous
+00:59:50.240 pointer is one
+00:59:51.520 right
+00:59:53.440 whose previous pointer is one yes this
+00:59:55.119 one
+00:59:56.400 yes so can we write uh somewhere so that
+00:59:58.640 people are not confused two's previous
+01:00:00.880 pointer is one
+01:00:02.880 and
+01:00:03.680 i'm just making them blue
+01:00:05.520 yes yes that works and and two's next
+01:00:09.200 pointer is three
+01:00:11.040 whose next point is three
+01:00:13.040 so can we connect one and three now
+01:00:16.480 can we connect one and three now okay
+01:00:18.400 how can we do that
+01:00:20.000 so once next pointer will connect to
+01:00:22.000 three and three is previous will connect
+01:00:23.680 to two oh two three previous will
+01:00:25.280 connect to one
+01:00:26.960 okay so what uh two's
+01:00:29.839 previous
+01:00:31.040 you said i know dot previous
+01:00:34.000 is equal to one
+01:00:35.760 right here two dot next is dot net
+01:00:39.599 need two dot next
+01:00:58.240 yes yes so
+01:01:00.400 then now you're saying 2 dot previous
+01:01:03.760 dot next
+01:01:05.359 is equal to a true dot next
+01:01:07.599 yes
+01:01:08.559 is this correct yes
+01:01:10.880 and then you're saying now the
+01:01:12.480 connections are changed this is
+01:01:14.079 basically plus guys this is basically
+01:01:16.559 code f
+01:01:18.720 is equal to now this this also we can
+01:01:20.319 say is two dot previous
+01:01:22.960 yes okay so and uh because we know that
+01:01:26.240 this is a temporary variable and it's
+01:01:27.920 going to
+01:01:28.799 get affected
+01:01:30.400 uh
+01:01:32.079 no no this is this is enough yes not
+01:01:34.480 this is enough this is right
+01:01:36.400 yeah this is
+01:02:00.260 [Music]
+01:02:05.359 so tail dot next
+01:02:07.440 equal to two
+01:02:09.680 and two dot previous equal to tail
+01:02:12.400 and then i will make the controls okay
+01:02:14.960 yeah
+01:02:16.079 so we can keep a tail pointer order of
+01:02:17.920 one space complexity is also order of 1
+01:02:20.319 just a variable
+01:02:22.319 tail dot next
+01:02:24.160 yes
+01:02:25.280 is equal to
+01:02:26.880 2
+01:02:27.760 and
+01:02:29.119 2 dot previous
+01:02:31.839 equal to
+01:02:32.839 10. and we can update the tail now tail
+01:02:36.160 equals to two
+01:02:37.920 so this pointer two dot uh tail dot next
+01:02:41.440 points to two okay very good so i'll
+01:02:44.319 draw that
+01:02:46.940 [Music]
+01:02:51.200 yeah but this is the next pointer
+01:02:53.839 i know it is confusing but in memory
+01:02:55.440 this is exactly what is happening guys
+01:02:57.760 and logically you can see what's going
+01:02:59.520 on over here
+01:03:01.040 in memory the next point is pointing to
+01:03:02.720 two
+01:03:03.760 and finally
+01:03:05.040 two dot previous which is this thing
+01:03:10.079 is now pointing to
+01:03:12.240 uh
+01:03:14.480 so actually
+01:03:16.559 i know it might look confusing you can
+01:03:18.319 watch this at home also as long as you
+01:03:20.240 want but i don't want to basically list
+01:03:22.880 basically
+01:03:23.839 remove it from a removal from a link
+01:03:26.000 list inserting in a linked list
+01:03:28.559 yeah in fact now it's very clear because
+01:03:31.119 if i want to go to next next next next
+01:03:32.799 what happens head points to 1
+01:03:35.200 green
+01:03:36.319 once green
+01:03:37.520 points to 3
+01:03:39.280 3 is green points to 2
+01:03:41.599 and 2 is green has been removed actually
+01:03:45.599 it now points to null
+01:03:48.720 yeah
+01:03:50.880 so two's next should point to null at
+01:03:53.280 last yeah two's next is pointing to null
+01:03:56.000 two's previous should point to uh three
+01:03:59.119 three yes english yes so that's why we
+01:04:01.359 had tail in three now
+01:04:03.359 yeah
+01:04:04.400 yes you can see is pointing to tail yeah
+01:04:06.799 yes it's clear and then finally tail has
+01:04:08.799 to point to two
+01:04:10.160 yeah
+01:04:11.119 and tail equal to two
+01:04:13.760 okay yes so that takes care of this we
+01:04:16.400 get we get the below linked list now
+01:04:20.720 so it's clear green first one
+01:04:23.359 then the next one
+01:04:24.799 this line
+01:04:26.559 is three so this one was correct then it
+01:04:28.720 went to three correct three pointing to
+01:04:30.559 two that is correct which points to null
+01:04:32.160 that is correct
+01:04:34.240 if you want to go previous previous
+01:04:36.000 whose previous is three that is correct
+01:04:38.240 this one
+01:04:39.440 uh three previous is
+01:04:41.839 you can see this
+01:04:43.119 one
+01:04:44.000 that is also correct
+01:04:45.760 and so double check marks everywhere and
+01:04:47.839 this is the list
+01:04:50.640 okay this is pretty easy to understand
+01:04:52.559 and in fact take your time uh you can
+01:04:54.559 watch this section
+01:04:56.079 10 000 times no one's going to you know
+01:04:58.240 tell you that oh you're you're not
+01:04:59.760 getting it soon enough there are no
+01:05:02.000 prizes for
+01:05:03.599 being first there are only prizes for
+01:05:04.880 understanding so i can see people
+01:05:06.960 writing uh they got the same question in
+01:05:09.760 uber
+01:05:11.119 yeah i guess uber is asking a lot of
+01:05:13.280 caching questions is it
+01:05:15.520 maybe you are picking stuff that was
+01:05:17.200 asking over only
+01:05:19.280 okay
+01:05:25.520 actually we named it amazon something
+01:05:27.039 right yeah
+01:05:28.720 yeah so it's got nothing to do with that
+01:05:30.720 but it's interesting okay
+01:05:33.359 sorry jeet is saying when you hit
+01:05:34.720 capacity storage you are not removing
+01:05:36.160 the nodes from dll at that time how are
+01:05:38.720 you managing your execution policy stay
+01:05:41.119 in limits
+01:05:42.319 uh yeah the
+01:05:43.839 yeah
+01:05:45.200 he's right uh we can we should have we
+01:05:47.200 should have removed yeah yeah just
+01:05:48.799 basically in your code what you're going
+01:05:50.160 to do then is you're going to save it
+01:05:52.160 yeah right okay yeah that's that's okay
+01:05:54.160 that's a single line up there
+01:05:55.839 uh thanks aaron it was
+01:05:57.599 good clean precise yeah
+01:06:00.079 okay thank you
+01:06:01.920 can you implement dll or dlln this is a
+01:06:04.799 doubly linked list
+01:06:06.640 and we can
+01:06:07.760 yeah try uh doing this at home actually
+01:06:09.520 it's a it's a good assignment just try
+01:06:11.200 it see if it compiles see if it runs
+01:06:13.280 write some test cases
+01:06:15.039 it's good it's not going to happen in an
+01:06:16.480 interview i think but uh
+01:06:19.280 do give it a shot it will work the algo
+01:06:21.200 is strong
+01:06:22.880 um
+01:06:24.480 one of the crisp implementation thanks
+01:06:26.400 aaron okay surya kumar is
+01:06:29.920 happy great that's praveen kumar is also
+01:06:32.480 quite happy about this
+01:06:34.240 and cash is just a fancy map origin now
+01:06:37.200 actually yes
+01:06:38.640 most caches are
+01:06:40.400 but there's a lot of
+01:06:42.160 you know hardware optimizations also and
+01:06:44.319 many other things that go into a cache
+01:06:45.920 so it's not just
+01:06:48.079 a map
+01:06:50.720 in some cases it it looks at how memory
+01:06:53.200 is managed by an operating system and
+01:06:54.640 then behaves in that way like i don't
+01:06:56.480 made an algorithm like that there's a
+01:06:58.319 really complex algorithm sometimes
+01:07:01.680 okay
+01:07:03.920 praveen was actually going through the
+01:07:05.920 example with us
+01:07:10.880 okay
+01:07:12.000 do a led on jira project management
+01:07:15.440 interesting
+01:07:17.839 of course atlassian's tools you guys
+01:07:19.520 have yeah guys if you don't know uh arun
+01:07:22.160 is uh sd
+01:07:23.680 two and at large he's yeah he's working
+01:07:26.480 as a software engineer at atlanta
+01:07:28.799 i don't know if there will be a conflict
+01:07:30.000 of interest but the fact is really
+01:07:32.240 really honestly speaking
+01:07:34.400 you know
+01:07:36.079 whatever we do in this
+01:07:38.319 uh you know live session
+01:07:40.319 is nowhere near the amount of complexity
+01:07:42.799 and engineering that is required to make
+01:07:44.720 something work in the real world this is
+01:07:46.480 a good concept an introduction and good
+01:07:48.240 for your you know uh you know if you're
+01:07:50.319 in a team discussion or something like
+01:07:51.520 that if you're in a design discussion
+01:07:52.720 for your career understanding these
+01:07:54.559 concepts is important at a high level
+01:07:57.039 obviously if you spend three months on a
+01:07:58.799 particular project you're going to come
+01:07:59.920 up with far better ideas with
+01:08:02.319 product stats also on how people are
+01:08:04.000 using it so
+01:08:05.119 take it with a pinch of salt this is
+01:08:07.440 this is great
+01:08:08.880 as a concept
+01:08:10.480 and it can always be like the serious uh
+01:08:13.599 production level code don't expect of it
+01:08:15.280 coming in a youtube video
+01:08:17.279 if if we ever sell it to you that way
+01:08:18.719 that this is how the production level
+01:08:19.920 code works that means we are lying okay
+01:08:29.920 okay uh great explanation folks
+01:08:32.799 okay uh guys this is really good thank
+01:08:34.479 you so much what i'll do now is i'll try
+01:08:37.040 to see if there are any questions on
+01:08:39.279 slido
+01:08:40.880 okay and then we can can you implement
+01:08:42.960 dll and dnn this is something that we uh
+01:08:45.279 talked about i'll just i'll just go
+01:08:47.198 through them in sorted order of
+01:08:51.040 today come on quotes
+01:08:51.839 saw in the last video of inventory apart
+01:08:53.920 from class diagram use case diagram plus
+01:08:55.759 basic
+01:08:56.880 class design is it mandatory to write
+01:08:58.640 full code for the same other what do you
+01:09:00.319 think
+01:09:01.279 no so by
+01:09:03.120 full code i mean interviewer just
+01:09:05.198 expects you to write the signature
+01:09:07.839 no implementation just define it no
+01:09:10.479 implementation is required because they
+01:09:12.399 have tested how you implement functions
+01:09:14.640 in your coding rounds they have they
+01:09:16.640 know that you can write code what they
+01:09:18.479 want to know is how you break your code
+01:09:21.279 like like we discussed uh in today's
+01:09:23.279 session single responsibility principle
+01:09:25.600 how you try to use that
+01:09:27.600 right so no implementation if he wants
+01:09:30.080 to see implementation he'll ask you but
+01:09:32.080 i don't think he'll ask got it all right
+01:09:34.719 so
+01:09:35.600 the logic awesome yeah
+01:09:37.679 redis versus memcache
+01:09:40.238 uh hmd question
+01:09:42.319 yeah
+01:09:43.920 i guess you should definitely have a
+01:09:45.359 look at this this is
+01:09:47.120 a really really good place to go and i'm
+01:09:49.279 not selling the course for selling the
+01:09:51.520 course i genuinely mean this is actually
+01:09:53.120 a really good
+01:09:54.400 uh resource because
+01:09:57.120 uh
+01:09:58.239 it kind of depends on your requirement
+01:10:00.719 okay most popular if you ask me yeah
+01:10:03.120 that is if you want a very basic cache
+01:10:05.280 like
+01:10:06.080 just a very simple wrapper over what you
+01:10:07.920 need to do like a like a map only when
+01:10:10.480 cache
+01:10:11.360 uh
+01:10:12.640 but if you want a local cache yeah mem
+01:10:14.239 cache if you want a global cash redis
+01:10:18.320 yeah if if you can invest this is
+01:10:20.560 definitely worth it for you
+01:10:23.920 what is the use of doubly linked list as
+01:10:26.239 we are just modifying it where are we
+01:10:28.239 using it
+01:10:31.040 reading it
+01:10:32.880 so we're using it in the eviction policy
+01:10:35.280 just to keep track on which was the
+01:10:37.360 least recently used
+01:10:39.280 just to keep that track of ordering just
+01:10:41.440 to keep the track of ordering we are
+01:10:42.880 using it
+01:10:44.960 the algorithm yeah perfect yes
+01:10:47.679 is this cash design applicable for
+01:10:49.440 in-memory cash or we are building it
+01:10:51.520 with a point of view of
+01:10:54.719 and cash application
+01:10:57.440 i guess it can be used for both right
+01:10:58.880 it's not really yeah and in memory cash
+01:11:01.120 and a global cash flow difference is not
+01:11:02.960 huge guys it's not like a cash is very
+01:11:05.199 intelligent
+01:11:06.719 uh unless you have a cash which talks to
+01:11:09.280 other cashes
+01:11:10.719 in memory cache and a local cache are
+01:11:12.719 extremely similar you shard on your keys
+01:11:15.440 if you want caches to talk to each other
+01:11:18.560 possible you just need a broadcast
+01:11:20.560 protocol
+01:11:21.920 just need to talk to all the caches
+01:11:25.199 yeah but that you can build on top of
+01:11:27.760 this also this is like each cache node
+01:11:30.320 can have this local
+01:11:31.679 intelligence okay
+01:11:34.719 is coding expected an lld round
+01:11:36.800 interview yeah i mean i think of all the
+01:11:38.880 things i guess this is very easy to
+01:11:41.120 answer
+01:11:43.440 uh okay final question in addiction
+01:11:46.239 let's say
+01:11:48.080 data is last node in double linked list
+01:11:51.040 what would be time complexity
+01:11:55.600 election data is last known it's order
+01:11:57.440 of one we have tail we have
+01:12:00.080 hey
+01:12:01.199 yeah i guess the
+01:12:02.480 question is do you have a tail pointer
+01:12:05.199 yeah it was asked around one hour ago so
+01:12:06.880 it's it's a good question but yeah the
+01:12:09.199 tail thing it becomes order one again
+01:12:11.440 so if you want to remove from the middle
+01:12:13.280 of the list it becomes a problem
+01:12:14.480 otherwise it's
+01:12:15.840 it's easy
+01:12:17.440 so okay interesting
+01:12:20.560 replacement policies you can use
+01:12:21.760 anything over here okay quite good
+01:12:24.640 okay okay
+01:12:26.159 uh
+01:12:28.000 where should i watch this interview
+01:12:29.679 later it'll be there on youtube you can
+01:12:32.320 watch it um
+01:12:34.000 you should
+01:12:35.280 you can watch it as long as you like
+01:12:37.520 there are some sections which are a
+01:12:38.640 little complex do watch it for a longer
+01:12:40.800 time
+01:12:41.600 um
+01:12:42.640 yeah
+01:12:45.360 jessie my saying great explanation folks
+01:12:47.600 thank you thank you um praveen is saying
+01:12:51.040 yes how we organize the code i guess in
+01:12:55.199 that is a separate thing we can take and
+01:12:57.360 especially for a cache over here we will
+01:12:59.440 have some
+01:13:01.600 algorithm
+01:13:02.840 package we'll have storage package and
+01:13:06.000 we'll have
+01:13:07.040 the models
+01:13:08.400 and of course and then we can follow
+01:13:10.560 this in interface delegation principle
+01:13:13.040 also over here where we can have
+01:13:14.880 packages for all the different things
+01:13:16.320 and we can have interfaces made and then
+01:13:18.159 we can go ahead and implement
+01:13:20.320 functions in the interface
+01:13:22.000 so
+01:13:23.920 why i didn't do it because it's an
+01:13:26.159 interview
+01:13:27.280 in an interview of course it will take
+01:13:29.199 time so what you can do is you can just
+01:13:31.199 talk about it to the interviewers that
+01:13:34.159 we can have intervention uh uh
+01:13:36.960 what do we say
+01:13:38.480 interface delegation principle
+01:13:40.800 uh but of course it will take time and
+01:13:43.760 interview is not really looking for that
+01:13:46.480 got it got it so it's
+01:13:48.560 that is interesting to see again
+01:13:50.640 okay
+01:13:51.679 so this is great folks uh this is
+01:13:53.679 perfect
+01:13:54.640 another low level design question taken
+01:13:57.280 um
+01:13:58.960 let me actually incentivize you to
+01:14:01.440 just check this out let me sign out
+01:14:03.840 oh there's zoom class also
+01:14:06.640 but that's only for folks who are
+01:14:08.320 already there we are having it on fourth
+01:14:09.920 of
+01:14:10.880 when is the next
+01:14:13.040 one it's on monday 19th
+01:14:16.000 so
+01:14:16.880 i don't you you can come there i mean
+01:14:18.640 you are uh
+01:14:20.159 you are an enrolled user of course um
+01:14:23.440 small announcement guys you can use
+01:14:25.040 monsoon special to get a discount on the
+01:14:27.520 coupon on the course uh 15 off
+01:14:31.360 you can click here to unlock
+01:14:33.520 at present we are not accepting upi
+01:14:35.280 payments not because we don't want to
+01:14:36.960 but because we are having some technical
+01:14:38.640 issues so if you have a card or if you
+01:14:41.280 have any other payment method that's
+01:14:43.440 good i just wanted to announce this
+01:14:45.199 because a lot of our users are having
+01:14:46.880 issues around 50 of
+01:14:49.199 our
+01:14:50.159 indian users are using upi so
+01:14:53.840 yeah but if you have some other way of
+01:14:55.440 playing monsoon special is a pretty good
+01:14:56.800 coupon code that you can use
+01:14:59.280 okay awesome thank you everyone for
+01:15:01.600 coming thanks arun for making this
+01:15:02.880 possible
+01:15:03.840 let's catch up later see you then bye
+01:15:06.080 bye
+01:15:08.000 bye everyone

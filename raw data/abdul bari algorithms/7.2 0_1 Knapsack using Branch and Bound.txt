@@ -1,0 +1,481 @@
+# 7.2 0/1 Knapsack using Branch and Bound
+
+# https://www.youtube.com/watch/yV1d-b_NeK8
+
+
+
+00:00:00.000 reduce your knapsack problem here some
+
+00:00:02.760 objects are given for each object there
+
+00:00:04.950 is some profit and some weights are also
+
+00:00:06.720 there and there is a bag of capacity 15m
+
+00:00:10.170 and the objective is the problem is to
+
+00:00:13.290 fill the bags with those objects such
+
+00:00:15.210 that the total weights of the objects
+
+00:00:17.400 included in the bank should be less than
+
+00:00:19.949 or equal to the capacity that is 15 and
+
+00:00:23.519 one more important thing is if you are
+
+00:00:25.320 taking any object then you must take the
+
+00:00:27.210 complete object or don't take it at all
+
+00:00:29.609 see here the weight of this object is 4
+
+00:00:31.650 kg or 6 kg so you cannot take 2 kg or
+
+00:00:34.500 well in case your defect I must take the
+
+00:00:37.320 complete object or don't take the object
+
+00:00:39.450 at all so the problem is the total
+
+00:00:41.610 profit gain should be maximized so it is
+
+00:00:44.910 a maximization problem this problem can
+
+00:00:47.760 be solved using greedy method also
+
+00:00:49.140 dynamic programming and even using
+
+00:00:51.329 backtracking but here in
+
+00:00:53.640 branch-and-bound we can solve only those
+
+00:00:55.559 problems which are minimization here the
+
+00:00:57.960 answer we want in maximization so we can
+
+00:01:00.840 convert the signs of these profits
+
+00:01:03.210 instead of positive we'll make it as a
+
+00:01:05.519 negative weight negative profit and we
+
+00:01:08.159 can solve this form so maximization
+
+00:01:11.430 problem can be converted into
+
+00:01:12.570 minimization and solve and then again
+
+00:01:14.490 the result can we can convert it back
+
+00:01:15.869 into positive so let us see how to solve
+
+00:01:18.689 this using branch-and-bound
+
+00:01:20.520 so I'll generate a state space tree and
+
+00:01:23.100 here I'll be using a LC branch-and-bound
+
+00:01:27.530 LC branch and moments always I will be
+
+00:01:30.390 exploring that node whose cost is
+
+00:01:32.130 minimum for solving it using branch and
+
+00:01:34.320 bound for each node in a state space
+
+00:01:36.479 tree we have to find out upper bound and
+
+00:01:39.390 the cost so he defined it as sum of all
+
+00:01:42.119 the profits but I takes values from 1 2
+
+00:01:45.450 and the total weight should be less than
+
+00:01:47.159 or equal to capacity of the back same
+
+00:01:49.320 way cost also will do the same thing
+
+00:01:50.880 we'll take the sum of all the profits
+
+00:01:52.770 but the difference in these two is that
+
+00:01:55.259 here we will take it without fraction
+
+00:01:57.180 here we will take with the fraction
+
+00:02:02.930 though the problem does not allow us to
+
+00:02:05.310 take fraction but only for the
+
+00:02:07.020 computation for solving the problem V
+
+00:02:09.979 take the fractions fractions will not be
+
+00:02:13.069 included in the solution or does
+
+00:02:14.750 generate a state space T but I should
+
+00:02:16.700 consider one more thing what type of
+
+00:02:18.470 solution I want do I want the subset of
+
+00:02:21.409 these objects or I want all those
+
+00:02:25.730 objects have just shown included or not
+
+00:02:27.920 England for example if the solution do I
+
+00:02:30.500 want like this first object included or
+
+00:02:33.290 third object included like this or do we
+
+00:02:36.049 want the solution like this that is
+
+00:02:37.940 first object included second nodding
+
+00:02:39.709 lead at third included fourth nodding
+
+00:02:41.360 unity if I represent the solution as a
+
+00:02:43.519 subset of those objects that will be
+
+00:02:45.920 like this or else I can show zeros and
+
+00:02:48.620 one for all the objects so this will be
+
+00:02:50.930 a variable sized solution as the fixed
+
+00:02:52.700 side solution so I'll go with the fixed
+
+00:02:56.510 size solution that is zeros and ones I
+
+00:02:59.840 will be taking right so I will be
+
+00:03:01.940 generating the state space tree for this
+
+00:03:03.709 type of solution first of all I take
+
+00:03:06.230 something called a Perl which is
+
+00:03:08.209 infinity
+
+00:03:09.079 now the first node calculate cost and
+
+00:03:12.200 upper bound for this one let me show you
+
+00:03:14.419 how to calculate the cost for
+
+00:03:16.489 calculating cost first objects profit
+
+00:03:19.669 and its weight then the second objects
+
+00:03:22.160 profit and its weight the next objects
+
+00:03:25.760 profit and its weight so if I take this
+
+00:03:28.579 weight total it is coming up to twelve
+
+00:03:30.440 now can i induce the fourth object also
+
+00:03:32.930 it will exceed the capacity of the back
+
+00:03:35.180 so don't include that one then how much
+
+00:03:37.639 it can include 15 minus capacity is 15
+
+00:03:41.150 minus 2 is 3 so I can include three more
+
+00:03:43.819 kgs so let us say 18 by 9 into 3 so this
+
+00:03:49.160 will be 2 and 6 so how much it is 10 30
+
+00:03:52.010 32 and 638 so the cost is - 38 as I said
+
+00:03:59.989 that we have converted this maximization
+
+00:04:02.060 problem for minimization so we will take
+
+00:04:04.160 the weights and upper bounds and the
+
+00:04:06.980 cost as negative now what is upper bound
+
+00:04:09.829 so I should take the same way but don't
+
+00:04:12.829 include fractions
+
+00:04:14.030 see the cost was what fraction and the
+
+00:04:15.919 upper bound is the top fraction so if I
+
+00:04:18.289 take the same thing 10 20 30 - so this
+
+00:04:21.140 is mine
+
+00:04:21.839 thirty-two and I got one upper bound
+
+00:04:24.210 that is smaller than infinity so let us
+
+00:04:26.520 change this to minus 32 this is the
+
+00:04:31.470 first node now let us continue with
+
+00:04:34.050 other nodes next I will consider that I
+
+00:04:37.410 am including first object in the
+
+00:04:39.900 solution if I am including in the first
+
+00:04:43.199 object in the solution then nothing will
+
+00:04:45.240 change I will get the same cost and same
+
+00:04:47.430 upper bound same cost and same upper
+
+00:04:52.320 bound next thing I will consider that
+
+00:04:55.500 first object is not included in the bag
+
+00:04:58.740 if the first object is not included in
+
+00:05:01.290 the back then what will be the cost
+
+00:05:03.290 first objects profit and weight second
+
+00:05:06.240 objects a profit and way two-thirds
+
+00:05:08.100 objects profit and weight and fourth
+
+00:05:12.479 object see this I am NOT including so I
+
+00:05:15.300 should take only these so this is how
+
+00:05:17.340 much your 10 still how much is remaining
+
+00:05:19.350 5 kgs are remaining so 18 by 9 into 5 so
+
+00:05:24.510 this will be 10 20 and 32 so this will
+
+00:05:27.720 be Costas - 32 for every node I should
+
+00:05:32.580 also check one more thing that whether
+
+00:05:34.380 its cost is greater than apart no it's
+
+00:05:37.260 not great at it is equal so leave it
+
+00:05:39.120 otherwise if it is greater kill that
+
+00:05:41.460 node now what is the upper bound so
+
+00:05:43.710 without this fraction if I take this is
+
+00:05:45.900 10 20 22 so minus 22 is it less than
+
+00:05:49.620 that no if you are getting any lesser
+
+00:05:51.990 small upper bound then we should update
+
+00:05:53.910 that one I have explored first Noord now
+
+00:05:57.150 which node I should explore the one with
+
+00:05:59.400 the least cost so I will be following
+
+00:06:00.930 least cause Branson berm so this is
+
+00:06:03.870 minus thirty eight this is minus thirty
+
+00:06:05.580 two I should take this one and continue
+
+00:06:07.260 second object included in the back so
+
+00:06:11.130 what is the cost it remains same see
+
+00:06:12.990 both objects are included so upper bound
+
+00:06:15.599 and the cost remains same only next
+
+00:06:20.630 second object not included in the back
+
+00:06:23.669 so if the second object is not included
+
+00:06:26.010 in the back let me calculate
+
+00:06:28.010 an upper-bound Costas 10 to +10 4 plus
+
+00:06:33.970 12 6 this object is not included so this
+
+00:06:38.690 is how much 8 still how much remaining
+
+00:06:41.570 18 by 2 7 kgs I will take so this is 2
+
+00:06:45.620 this is 14 26 and 36 so the cost is
+
+00:06:50.090 minus 36 but without fractions if I take
+
+00:06:53.480 this is 22 upper bound this minus 22 is
+
+00:06:58.130 it greater than that - 36 is it greater
+
+00:07:01.070 than that No
+
+00:07:02.120 so don't kill the node right it remains
+
+00:07:04.730 alive I have explored second vertex now
+
+00:07:08.750 which vertex I should explore next
+
+00:07:10.460 ye - 36 - 32 so out of this I should
+
+00:07:14.810 explore this one if I am following FIFO
+
+00:07:17.630 branch-and-bound and I should explore
+
+00:07:19.160 this one so if you explore that also the
+
+00:07:21.830 number of nodes will be more the work
+
+00:07:23.540 will be little extra least cost method
+
+00:07:26.120 gives you a faster result let us explore
+
+00:07:30.680 this node so below this the third object
+
+00:07:33.410 is included third object is included the
+
+00:07:36.170 cost remains same only right nothing is
+
+00:07:38.600 discarded so then if the third object is
+
+00:07:42.680 not included the third object is not
+
+00:07:45.260 included then what will be the cost let
+
+00:07:47.900 us find the cost and upper bound for
+
+00:07:49.550 this one cost is first object and the
+
+00:07:52.460 second object third object we are not
+
+00:08:00.230 including third object so this is how
+
+00:08:02.360 much total weight is how much 6 now last
+
+00:08:05.360 object is 9 can I include that one also
+
+00:08:07.580 yes I can include its 9 so completely it
+
+00:08:11.180 is failed now 9 plus 4 plus 2 it is 15
+
+00:08:14.780 it is exactly filling in so what is the
+
+00:08:17.060 cost cost is 10 20 30 8 so it is minus
+
+00:08:20.570 38 and what is the upper one 10 20 18 so
+
+00:08:24.860 that is minus 38 so there are no
+
+00:08:26.930 fractions here so we got cost and upper
+
+00:08:29.030 bound same only now one thing you
+
+00:08:31.130 observe that we got a smaller upper
+
+00:08:33.950 bound so update that one so it becomes
+
+00:08:36.320 mine
+
+00:08:36.750 38 this is - 38 now once we got a
+
+00:08:40.979 smaller upper bound look at other nodes
+
+00:08:43.440 so this is at a life this is a live and
+
+00:08:46.710 this is a life but what is the cost of
+
+00:08:48.810 this one that is - 38 it is greater than
+
+00:08:51.750 that one so kill this node this is also
+
+00:08:54.810 greater than that one so kill the node
+
+00:08:56.520 no need to explore if you explore also
+
+00:08:58.860 you'll be wasting your time you will not
+
+00:09:00.660 get the answer now which node I should
+
+00:09:03.780 pick up for exploration I have both the
+
+00:09:05.580 nodes let us check this first object
+
+00:09:08.310 included second object included third
+
+00:09:10.500 object included can I include fourth
+
+00:09:12.420 also known that will exceed the capacity
+
+00:09:14.810 see up to here it is 12 plus 9 it will
+
+00:09:18.840 be 21 exceeding the capacity so I cannot
+
+00:09:21.990 go further so it will be infeasible let
+
+00:09:24.510 us expand this one fourth object
+
+00:09:26.810 included in a bag so if I say fourth
+
+00:09:29.850 object included in the bag the cost will
+
+00:09:31.710 be same thing only minus 30 and the
+
+00:09:34.350 upper bound also - 38 and fourth object
+
+00:09:37.920 not included in the bag so this is
+
+00:09:40.500 fourth object not included in the bag
+
+00:09:42.330 and the cost will be how much without
+
+00:09:47.250 fourth object right so if you follow
+
+00:09:49.470 this tree first included second included
+
+00:09:52.890 third not included fourth nodding later
+
+00:09:54.930 means only two objects that is 10 and 10
+
+00:09:58.440 so 10 plus 10 is 20 minus 2 in so this
+
+00:10:01.650 is greater than that one so kill the
+
+00:10:04.260 node see almost all the nodes are killed
+
+00:10:06.810 which is remaining this is alive so the
+
+00:10:09.990 last node that we got remaining is the
+
+00:10:12.120 answer mode so what is the answer first
+
+00:10:14.580 object link relates sickeningly red turn
+
+00:10:16.620 on included for the included so let us
+
+00:10:19.080 take solution first object included
+
+00:10:22.280 second included turn ardingly red food
+
+00:10:25.170 included so what are their profits 10
+
+00:10:27.570 plus 10 plus 0 plus 18 so this is 38 so
+
+00:10:33.300 this is the maximum profit what we got
+
+00:10:35.700 and their weights are 2 plus 4 plus 0
+
+00:10:39.150 plus 9 this is 15 so this is the
+
+00:10:42.180 solution and we have solved this using
+
+00:10:44.940 lease caused branch-and-bound met her

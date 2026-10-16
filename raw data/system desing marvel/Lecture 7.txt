@@ -1,0 +1,488 @@
+# tactiq.io free youtube transcript
+# TAO: Facebook’s Distributed Data Store for the Social Graph
+# https://www.youtube.com/watch/Dg07kVN4U28
+
+00:00:00.240 Hi everyone!.
+00:00:00.840 In this videowe are talking about another white paper.
+00:00:03.080 It's Facebook's graph store.
+00:00:09.040 And the name for this is T.A.O
+00:00:12.320 which stands for the associations
+00:00:15.640 and Objects.
+00:00:18.440 As you can expect, associations
+00:00:20.240 means edgesand objects means nodes in a graph.
+00:00:25.240 So a node
+00:00:28.160 may be connected to another node.
+00:00:32.080 And this would be an association.
+00:00:36.560 In Facebook's case this is a social graph.
+00:00:39.480 So this could be a person.
+00:00:42.040 But if he checks into a hotelthat could be an association.
+00:00:45.280 So checking into a hotel is an action.
+00:00:48.840 And then this would be in hotel.
+00:00:53.040 In general these associations map events
+00:00:56.720 and objects map repeatable actions.
+00:01:00.120 A good example of this is comments.
+00:01:02.520 If you add a new comment,the source will be the same,
+00:01:05.840 but the destinationwill be a separate comment.
+00:01:08.440 So in this way,
+00:01:09.480 you're able to map objects into nodes
+00:01:12.600 and you're able to map actionsor any kind of relations to edges.
+00:01:17.760 Facebook has a very, very large graph,a very large social graph.
+00:01:21.400 It comes in petabytes of data.
+00:01:26.280 Another challenge for Facebook is
+00:01:28.080 you have 1 billion queries.
+00:01:33.720 Per second
+00:01:35.520 on the social graph.
+00:01:37.000 This is a paper from 2013.
+00:01:39.480 So this is all pre pandemic preeverything.
+00:01:43.320 So I'm sure this numberwould have been x by now.
+00:01:46.720 Right.
+00:01:46.840 So we can assume that maybe10 billion queries per second is possible.
+00:01:50.440 But the paper talks about technology
+00:01:51.920 which helps them reach 1 billion queriesper second.
+00:01:55.680 One interesting fact aboutthis is about 99.8% of
+00:02:01.080 these queries are read queries.
+00:02:04.520 If you have seen the white paper videothat we took for memcached that also has
+00:02:09.400 similar patterns, read queries on much,much more frequent than write queries.
+00:02:13.800 So some optimizationscan be picked up from here.
+00:02:16.160 As you will see,the association objects does it.
+00:02:19.840 Now imagine you are in
+00:02:20.680 2013 and you are working at Facebookas a principal engineer.
+00:02:24.280 A lot of the engineersare complaining about.
+00:02:26.520 I try to store the graphin my local memory, but I can't do it.
+00:02:31.000 I've started looking at databaseswhich perform well.
+00:02:34.320 When it comes to graph queries.
+00:02:35.760 One of them is new for J.
+00:02:41.160 But the challenge here is thatyou need a billion queries per second.
+00:02:44.400 Doing this ondisk is going to be quite slow.
+00:02:47.480 So one thing that you can dois try to keep
+00:02:51.600 this data, this graph data in-memory.
+00:02:54.720 Okay.
+00:02:55.080 So instead of new for J you'relooking for an in-memory graph database.
+00:02:58.960 It doesn't really exist at the scalethat you are looking at.
+00:03:01.360 Petabytes of data.
+00:03:02.640 There's nothing that.
+00:03:03.600 So you have to build something.
+00:03:05.400 Now you can build things from scratchas a principal engineer.
+00:03:08.280 It's probably going to sound cooler,but if you're looking to drive impact,
+00:03:12.840 then you want to usethe existing infra of a company,
+00:03:17.320 if you can, to meet all requirements.
+00:03:19.840 And at this point in 2013,Facebook is a master of MySQL.
+00:03:24.800 They're very,very comfortable with this database.
+00:03:27.120 And they have also builtan extremely efficient cache.
+00:03:30.600 Memcached.
+00:03:31.840 Memcached is an open source project,but Facebook has made significant
+00:03:34.680 contributions to it, and they are expertswith this piece of technology.
+00:03:39.360 So if you are looking for a graph storeor in-memory graph store,
+00:03:43.240 if you could write a wrapperon top of memcached.
+00:03:45.880 If you can use this as a store,then you might just pull this off.
+00:03:49.480 That is the idea that the engineersat Facebook decided in 2013
+00:03:53.120 we are going to use memcached.
+00:03:55.040 We are going to have it backed by MySQL,but we are going to write wrapper
+00:03:59.120 APIs on top of memcached, which will makethe cache behave like a graph store.
+00:04:10.200 So let us just note this down.
+00:04:11.640 The first thing we want to dois we want low latency.
+00:04:15.440 And the way we are going to solve thisproblem is by keeping things in memory.
+00:04:21.000 We also want to graph store.
+00:04:24.320 The way we are going to dothis is by having API wrappers
+00:04:28.040 over memcached.
+00:04:31.440 It must be easy to use
+00:04:34.080 as a principal engineer.
+00:04:35.160 Always look to build technologywhich is easy to adopt.
+00:04:38.640 Easy to use, easy to understand.You do not have to know
+00:04:41.240 the internal workings of a systemif you have to use it.
+00:04:44.880 Unless you do this, people are really notgoing to use your system.
+00:04:48.200 In fact, this is one of the motivationsfor creating the graph store.
+00:04:51.680 Facebook engineers would needto understand how memcached worked.
+00:04:55.480 Memcache has its own onces.
+00:04:57.040 It works in a particular way.
+00:04:58.960 The engineers would need to understand
+00:05:00.480 how memcache worksand then file graph queries on top of it.
+00:05:04.720 A lot of common optimizationsthat all of these engineers made
+00:05:08.400 were moved into a single graph storeby the senior engineers at Facebook.
+00:05:12.960 That's the major motivation.
+00:05:14.520 Most technology, most engineering products
+00:05:18.040 are made for ease of useinstead of high efficiency.
+00:05:21.560 Okay.
+00:05:21.800 Efficiency can be made, butease of use really needs design principle.
+00:05:27.840 Okay, so this is a core requirement.
+00:05:29.880 You are also looking at a high
+00:05:32.360 hit rate okay.
+00:05:34.480 You want to observe accesspatterns in your system
+00:05:40.360 and then have your technology mimic
+00:05:43.120 or solve for these access patterns.
+00:05:45.480 There is no perfect cache.
+00:05:47.120 There is only caches which are designedto solve a particular problem.
+00:05:51.320 Let's first pick this up.
+00:05:56.040 The API is you have to expose
+00:05:58.920 should make this field like a graph.
+00:06:09.160 They are creating,
+00:06:10.960 reading,updating or deleting and association.
+00:06:15.560 This means when Gaurav
+00:06:18.000 sends a friend request
+00:06:20.520 to promote Varma,
+00:06:22.760 I should be able to use an APIwhich says and association.
+00:06:26.680 Gaurav.
+00:06:27.800 That is the source.
+00:06:29.760 Pramod.
+00:06:31.440 That is the destination.
+00:06:33.480 And then the type of the associationis friend request.
+00:06:38.040 Okay.
+00:06:38.520 This should be a simple API for me.
+00:06:40.640 I can also sayget me all the friends of Gaurav.
+00:06:43.640 So the source is Gaurav.
+00:06:46.560 The type of association here is friends.
+00:06:51.480 And if I want all the friends of Gaurav,then that is fine.
+00:06:54.000 I just need to send this.
+00:06:55.360 But if I want the top 100 friends,I've got it.
+00:06:58.440 Usually in a web page.
+00:06:59.920 When you see your friends list,you want to see the top hundred most
+00:07:03.680 active friends on Facebookor the people you talk to the most.
+00:07:06.640 So over there you can give a limit.
+00:07:08.760 You can also mention time ranges, meaning
+00:07:11.400 in the last 15 daysget me my top 100 friends.
+00:07:15.720 So maybe the most recently addedfriends will come over here.
+00:07:19.360 That's now -15 days.
+00:07:21.960 This is the start time.
+00:07:23.880 And now is the end time.
+00:07:26.960 You can also paginate the requests.
+00:07:29.040 Just imagine you are watching your friendlist the top 100.
+00:07:32.480 Then you press on next.
+00:07:33.720 So it is going to be a separate API call.
+00:07:35.600 You could also get the count of friendsthat Gaurav has.
+00:07:38.960 So if I want to knowhow many friends I have,
+00:07:41.960 I don't want to go and fetchthe entire friend list and then count.
+00:07:45.040 I just want to keep that count somewhere.
+00:07:46.880 Okay, so these metricslike how many friends do I have
+00:07:49.760 or how many places have I visited?
+00:07:51.960 They are useful not just for analytics,but also for displaying to users.
+00:07:55.720 In this case, you just needto send the source and the type.
+00:07:59.720 So the number of friendsGaurav has type will be friends sources.
+00:08:03.760 We got that.
+00:08:04.800 This can also give you the numberof people who are checked in total.
+00:08:07.800 So you have a hotel in LasVegas that is now the source,
+00:08:12.360 and thereis various people who have checked in.
+00:08:15.840 If you find this query of count,you're going to get the value of three.
+00:08:20.560 How is this exactly happening?
+00:08:21.720 I mean, how can you have source of LasVegas hotel isn't it person to Las Vegas?
+00:08:27.360 So Facebook does a clever thing here.
+00:08:29.640 It has bidirectional relations.
+00:08:32.120 So every person can see how many hotelsthey have checked into.
+00:08:36.200 At the same time,the destination has a inverse relation.
+00:08:40.440 So instead of checkingis going to be checked in.
+00:08:43.960 Apart from this, there are no other APIsthat targets gives.
+00:08:48.840 Okay. It's a very minimal API site.
+00:08:51.480 In fact, this can only give you paginatedresponses.
+00:08:54.480 Is it the best approach?
+00:08:56.600 You have to remember that there's abillion queries being made on this graph.
+00:09:00.280 Score a billion read queries.
+00:09:02.440 If you try to add a lot of functionalityto this production intensive
+00:09:07.360 graph store, it's possiblethat its performance
+00:09:09.920 is going to deteriorateand eventually people will stop using it.
+00:09:13.080 Adoption rates will be lowwhen adoption rates go down.
+00:09:16.160 Engineers spend timebuilding their own pieces of technology.
+00:09:20.040 You don't want to do that.
+00:09:21.200 You want to keep things highly performant,which is limited feature set
+00:09:27.280 or basically limited API set.
+00:09:36.680 Now let'ssee how the graph store at Facebook
+00:09:39.360 is actually made scalable and performantusing its architecture.
+00:09:44.360 Okay, so first thing isthat the graph store is backed by MySQL.
+00:09:48.160 We talked about this earlier.
+00:09:49.680 You can't have a single MySQL servermanaging the entire graph store.
+00:09:54.000 Like we said,bytes of data is a lot of data.
+00:09:56.640 And this is distributed across the world.
+00:09:58.640 So you need multiple MySQL nodesrunning all types to scale out.
+00:10:04.440 And the second thing isyou have multiple core caches running.
+00:10:07.480 So it's a distributed store. Again.
+00:10:09.600 When a person queries for an object,
+00:10:11.960 they are going to.
+00:10:15.000 Go to the server.
+00:10:16.160 The application server at Facebook.
+00:10:19.520 The app server is going to be runninga client, a small piece of software.
+00:10:23.560 We spoke aboutthis in the memcached video.
+00:10:26.760 The client is going
+00:10:27.760 to make the API call for this object,and the object
+00:10:31.760 is mapped to a shard, a shard.
+00:10:35.640 So you have multiple serversmanaging different key ranges.
+00:10:39.400 Let's say keyone 2000 is what you have in total.
+00:10:43.400 So one two, 333 is going to be storedhere.
+00:10:46.680 All keysbetween 123 33 will either belong here
+00:10:51.360 or will result in a cache missand will require a database call
+00:10:55.800 from 334 to 666.
+00:10:58.680 You have the keys hereand from 667 to 1000.
+00:11:03.360 You have all keys mapped here,
+00:11:05.160 so it is not necessarythat you are going to have 333 keys here.
+00:11:07.880 This is the key space.
+00:11:09.320 In reality,maybe your side is not that big.
+00:11:11.480 So you can only store 100 keys.
+00:11:13.560 So the 100 most popular keys in this rangeare going to be stored in each shard.
+00:11:18.600 Now you're looking for this object.
+00:11:20.280 If you go and query this shard right,you have the mapping of each object
+00:11:25.600 to shard.
+00:11:26.640 If you do not find the keyyou go and query MySQL.
+00:11:31.040 So this would happen in a cache.
+00:11:33.600 Miss.
+00:11:35.920 Also, if you are writing,if you are writing a value
+00:11:39.240 so you want to add an edge.
+00:11:41.080 Gaurav is now friends with Remote Burma.
+00:11:45.200 Then you get a write operationsent to MySQL.
+00:11:49.960 This keeps the architecture simple.
+00:11:51.240 If things are not found
+00:11:52.240 or if things have to be updated,just go and hit the database.
+00:11:55.400 Everything else will work out by itself.
+00:11:57.080 You are, after all, using memcached.
+00:11:59.200 So memcached has its own waysto take care of consistency.
+00:12:02.520 Now how does this client knowwhere this object resides?
+00:12:07.320 The shard to object mapping.
+00:12:08.880 How does the client know about it?
+00:12:11.920 You hash the
+00:12:14.000 object ID.
+00:12:17.520 To get a value.
+00:12:19.000 Let's say one two, three.
+00:12:20.440 And this value then is searchedin the ranges of the shards.
+00:12:24.480 So 123 lies in this range.
+00:12:26.520 That is reasonwhy you are sending it here.
+00:12:28.320 If you hash this object, maybe you geta value of 400 that lies in this range.
+00:12:33.920 And when you hash this edgeor do you have an edge?
+00:12:37.080 Let's see.
+00:12:38.760 You get a value of 900.
+00:12:41.920 Okay.
+00:12:42.600 Hashing objects is pretty straightforward.
+00:12:44.280 You just have to hash the ideaof the object.
+00:12:47.160 But hashing edges is a little tricky.
+00:12:49.680 Remember that your API say that I can get
+00:12:52.320 you all edges from a particular source.
+00:12:56.120 So why do you want to keep all the edgesfrom a particular source?
+00:13:00.200 You want to keep all them together.
+00:13:02.280 If you want to findhow many friends God has, then
+00:13:05.400 you want to keep all of the edgesfor God's friends in one place,
+00:13:09.600 along with the God of Node also.
+00:13:12.360 Okay, this is because of the accesspattern, the APIs that you're exposing.
+00:13:15.720 Usually you give a source.
+00:13:17.360 You give the type.
+00:13:19.120 With that, you can goand search everything for that source.
+00:13:24.240 So ideally you want to keep the hash
+00:13:28.680 of the source ID.
+00:13:32.280 Used for routing the edge object
+00:13:35.360 to a shard.
+00:13:44.160 Let us clearly understand this concept.
+00:13:46.520 If you have an edge from a source personone, two, three
+00:13:50.320 to a destination, post 345where the type is like so.
+00:13:54.480 Person one two, three has like a post 345.
+00:13:57.840 Then which shard does this edge belong to?
+00:14:01.040 Well, if you have three shards
+00:14:02.400 and they have the ranges zero two, 200,
+00:14:06.240 202, 400 and greater than 400 goes here.
+00:14:11.400 Then the source says that this edgeshould belong to one, two, three.
+00:14:16.400 Okay.
+00:14:16.680 Assume that the hash of one, two, threeis also the same.
+00:14:19.800 In that case,the edge will get stored over here.
+00:14:23.640 But there is also an inverse edge.
+00:14:25.760 There is an edge from post 345.
+00:14:31.600 To a destination of person 123
+00:14:35.600 of type like by.
+00:14:38.560 This helps you find all the peoplewho have liked the post.
+00:14:41.880 That's the reasonwhy we have an inverse edge.
+00:14:43.840 But how do you store this?
+00:14:45.480 The source is going to bethree four, five.
+00:14:48.440 That is going to hit some other shard.
+00:14:52.120 So for every like you are having
+00:14:54.000 multiple shots that are being hit,basically two shards are being hit.
+00:14:57.440 Now this is not a huge problemin terms of write amplification, but
+00:15:01.920 the problem is that you have two shardswhich are being hit.
+00:15:04.800 It's possible
+00:15:05.440 that this shard accepts the right,but this one doesn't for some reason.
+00:15:09.520 Either there is a clock skewor you know the shard is down.
+00:15:13.040 This shard did not accept the right.
+00:15:15.680 This would lead to data inconsistency.
+00:15:20.800 To avoid this, what Tau does is forcethe edge.
+00:15:24.240 The initial edge.
+00:15:25.520 Anyone else can be taking thisinitial edge.
+00:15:27.840 Let us say like the blueone is the first edge
+00:15:30.880 to persist to the shard first.
+00:15:33.760 So once this operation is complete,then the application
+00:15:37.040 server will say, now persist
+00:15:40.440 only after this response to one
+00:15:44.560 will you persist.
+00:15:45.360 Edge number two
+00:15:47.400 okay.
+00:15:47.800 So this is being managed by the client.
+00:15:54.000 Now the benefit of
+00:15:54.720 this is in casethe first shard fails to take this edge.
+00:15:58.480 Then you will retry.And you keep retrying.
+00:16:01.680 Only after this response the client tries
+00:16:04.560 operation number two,which is persist to this shard.
+00:16:07.800 But what happens if this shard fails?
+00:16:10.040 Okay, the first one went through,but the second one has failed.
+00:16:12.320 So you have an edge for person to post,which is the like edge,
+00:16:16.440 but you do not know.
+00:16:17.160 If you look at the post,you can tell all the people have liked it
+00:16:19.560 because this person is missing.
+00:16:22.280 That would
+00:16:22.680 lead to data inconsistency again,and this can't be avoided.
+00:16:26.560 Okay,you can have a transactional relation.
+00:16:30.240 Also here
+00:16:30.800 you can make the client run a transactionwhere it is going to revert this edge.
+00:16:35.080 But that is not only slow,it's also complex
+00:16:38.680 in a distributed system especially.
+00:16:40.320 So what memcache client does is just leavethis hanging edge
+00:16:43.400 and eventually a cron job.
+00:16:47.520 Goes and finds
+00:16:48.480 all hanging edges and completes them.
+00:16:51.880 Okay.
+00:16:52.320 So there will be a retry of this shortthree edge.
+00:16:57.440 Now there is a neat trick which tile uses.
+00:16:59.400 We had mentioned that the number of readrequests on 99.8% of total requests,
+00:17:05.040 which means for every thousand requests,
+00:17:08.960 you are going to get just two writes
+00:17:12.319 and 998 reads.
+00:17:15.560 The read
+00:17:16.000 operations that I have are very,very large
+00:17:19.839 as compared to writes.
+00:17:21.079 I should really have a lot of readreplicas.
+00:17:26.640 If you have 1000 replicas
+00:17:31.160 in total in your system,
+00:17:32.760 then every write operation
+00:17:35.880 is going to result in 1000
+00:17:37.920 replica shardsbeing affected on every write operation.
+00:17:41.520 We are going to betaking all the shards in our system,
+00:17:45.080 and we are going to be propagatingthis update.
+00:17:47.880 Let us say thisedge has been added to this shard.
+00:17:51.000 So you have a new edge.
+00:17:52.320 This event is going to be propagatedto all shards in Facebook.
+00:17:56.960 The reads on those replicas will be slowbecause you will have evicted entries
+00:18:00.640 and the writes will be extremely slow.
+00:18:02.400 The write amplificationis going to be very, very large.
+00:18:05.880 So how do you avoid this?
+00:18:07.920 What you do is you insteadsplit it into two parts.
+00:18:11.040 This entire architecture, this entiresystem is split into two parts.
+00:18:14.400 One is you have primary shards.
+00:18:19.520 And the second type
+00:18:22.240 is replica shards.
+00:18:25.040 They serve the same range.
+00:18:27.720 So 0 to 200 and 0 to 200.
+00:18:31.680 Greater than 200.
+00:18:32.640 This is the right shard.
+00:18:34.360 And you have another read shot over here.
+00:18:39.120 Whenever there is a write operation,
+00:18:40.640 you're just going to goand hit the primary shards, okay?
+00:18:43.840 And the primary shardsare going to be propagating these updates
+00:18:48.040 using some sort of a message queue.
+00:18:49.720 If you have seen the memcached reader,
+00:18:51.000 you knowI'm not talking about a message queue.
+00:18:52.560 I'm actually talking about achange data capture solution.
+00:18:56.800 In the case of MySQL.
+00:18:59.120 We mentioned that this is a build log.
+00:19:00.800 Facebook has written a wrapperon top of this and called it mixed screen.
+00:19:06.720 This actually propagatesall of the events to only primary shards.
+00:19:11.120 So this shard will not get the event.
+00:19:13.560 But this other primary shardwill get the event.
+00:19:16.800 Now on every right you do not have 1000replicas being updated.
+00:19:21.760 You do not have a writeamplification of 1000.
+00:19:24.320 You instead have a write amplification of,let's say ten.
+00:19:27.520 Okay, because only 2% of the nodes
+00:19:30.360 need to be right,nodes need to be primary nodes.
+00:19:33.960 The rest can all be read nodes.
+00:19:36.120 And in the case of Facebook they just haveone primary shard for a key.
+00:19:41.000 Okay, there are many replica shards for akey range, but there is only one primary.
+00:19:45.960 So this allows you to have
+00:19:48.760 read after write.
+00:19:51.400 Consistency.
+00:19:52.680 And the way this is done is very,very clever.
+00:19:55.400 We already talked about Maxactually propagating updates,
+00:19:58.760 but the other thing is whenever a clientactually connects to your system okay,
+00:20:03.600 you have a client here, you have a client,you then never directly connect
+00:20:07.520 to a primary shard.
+00:20:08.880 This edge that you seeis actually never going to happen.
+00:20:14.360 All right, operations
+00:20:16.800 are firstsent to the nearest read replica.
+00:20:20.160 Okay, so let's take the red lineand let us say that the first
+00:20:24.920 write operation goes to a read replica.
+00:20:26.640 The read replicathen forwards it to the primary one.
+00:20:30.040 Primary has many read replicas, but a readreplica knows where its primary is goes.
+00:20:34.440 There.
+00:20:35.360 This read replica will alwaysforward to the primary here.
+00:20:38.800 The primary is
+00:20:39.600 going to actuallypersisted in the database.
+00:20:42.680 Take the responseand give it back to the replica shard.
+00:20:45.320 So this shard is consistent.
+00:20:49.600 Okay, future reads on
+00:20:51.360 this shard will have the right reflected.
+00:20:54.400 That ensures that you have readafter write consistency.
+00:20:58.200 Now there's one thing that we shoulddiscuss in a social media system,
+00:21:01.920 it is very commonto see viral events happening.
+00:21:04.920 You can scale your shard,you can scale the entire graph store.
+00:21:09.600 But viral events means you need to protectyour shards also from too many requests.
+00:21:14.880 Okay.
+00:21:15.200 Things like rate
+00:21:15.880 limiting, back propagation, shortcircuiting is what we are looking at.
+00:21:19.880 Facebookdoes it in another interesting way.
+00:21:22.200 What it says is if you have a lot of heaton a single shard, it's possible
+00:21:27.400 that everybody is suddenly lookingfor a post from shadow.
+00:21:32.640 Come.
+00:21:33.960 Okay, so this is the source ID.
+00:21:37.880 Now Shadow can is a very famous person.
+00:21:40.240 The post will also become very famous.
+00:21:42.720 That post is going to have thousandsof edges.
+00:21:45.760 Maybe hundreds of thousands of edges,which are likes,
+00:21:49.520 comments, shards and so on.
+00:21:52.320 Okay, so this node is extremely hot
+00:21:56.000 if you store
+00:21:57.640 all of these edges,which in total maybe millions,
+00:22:01.720 millions of edges in a single shard,then that shard is going to get super hot.
+00:22:06.120 It doesn't matter what you doin terms of reads and writes, this shard
+00:22:09.600 is just abnormally hot for a while.
+00:22:12.640 To mitigate this problem slightly.
+00:22:14.280 You can read out by source
+00:22:17.440 plus type.
+00:22:20.000 So all likes onthis post are routed to one shard.
+00:22:23.600 All comments on this postthat is a different type
+00:22:26.320 of edge are routed to another shardand all shards on that post.
+00:22:30.600 So source IDplus type or outer two on the shard.
+00:22:34.680 It mitigates the problem in
+00:22:35.920 some cases,but it doesn't in many other cases.
+00:22:39.200 The number of likes on a single shardcure may still be very high,
+00:22:43.440 and in the worst case, there'sgoing to be a comment by Amitabha chan
+00:22:48.520 congratulating shard of comment something.
+00:22:50.880 The post was super hot.
+00:22:52.280 Anyway,now you have a super hot comment also
+00:22:55.120 and maybe newsmedia is now promoting this.
+00:22:57.680 So even if you shard by source plus type,it may not be enough.
+00:23:03.120 What do you do here?
+00:23:05.240 Just query the DB.
+00:23:06.840 Okay.
+00:23:07.320 You have a clientwhich is asking for this post.
+00:23:10.480 The shard is too hot.
+00:23:11.840 If the shard is failing,start quitting the database.
+00:23:17.160 And you might think, well,why don't you add more read replicas here.
+00:23:20.400 It won't help because if you add more read
+00:23:23.280 replicas, you have the same datathat is being stored in these shards.
+00:23:27.120 The problem is that you can'tstore this post or this single comment.
+00:23:31.360 The problem is you can't store thousandsor lakhs of likes in a single shard.
+00:23:36.360 Okay, the amount of data is too much.
+00:23:38.200 You can't have all of this datain a single shard.
+00:23:40.480 There's no point to try to push itinto a single shard.
+00:23:43.680 You have a LRU policy.
+00:23:45.440 If you try to host all of this data
+00:23:49.000 in this shard,all you're going to have is thrashing.
+00:23:51.560 You're going to get like for Gaurav.
+00:23:53.160 Okay, you fetch it from the database,
+00:23:54.760 somebody else comes at the same timefrom the US
+00:23:57.360 and they want to see a likefrom their frame.
+00:23:59.160 So you go and fetch that from the database
+00:24:01.360 instead of having thrashing,instead of having all of these evictions
+00:24:04.360 and very poor performance for the shard,just query the database directly.
+00:24:09.200 You are going to get it from there anyway,
+00:24:11.800 that's it for now.
+00:24:12.680 This is a very interesting paper to me.
+00:24:14.800 It's one of my favorite papersbecause I look at the system,
+00:24:18.480 which is a graph store,and it feels like a graph store.
+00:24:21.600 It moves like a graph store,but internally it is memcached.
+00:24:24.840 It's using max scale.
+00:24:26.440 It's using all of the algorithms thatmemcached uses to build a graph, store.
+00:24:31.080 So instead of trying to build somethingfrom scratch, Facebook
+00:24:34.560 built its owngraph store on existing technology.
+00:24:39.040 Thank you for watching this.
+00:24:40.080 If you liked the video,
+00:24:40.840 then I have a website called InterviewReady where I teach system design.
+00:24:44.480 So I have a full fledged systemdesign course with over 300 videos.
+00:24:47.800 You can check that out.Until next time, see you. Bye bye.

@@ -1,0 +1,246 @@
+# tactiq.io free youtube transcript
+# What are Distributed CACHES and how do they manage DATA CONSISTENCY?
+# https://www.youtube.com/watch/U3RkDLtS7uY
+
+00:00:05.130 Hi everyone.
+00:00:06.231 This video will be talking about whatcaching is and how we can use it to design
+00:00:10.191 systems. So at the end of this video,
+00:00:12.130 you should be able to tell what a cacheis and the situations where a cache can
+00:00:16.071 be used, and of course how you'llbe using it. So what is a cache?
+00:00:20.620 Imagine you have this server and youhave a database from which you pull out
+00:00:24.511 results. So whenever there'sa user request to your server,
+00:00:27.610 you actually pull outresults from the database.
+00:00:30.360 There are two scenarios whereyou might want to use a cache.
+00:00:32.810 The first use case is when you'requerying for some commonly used data.
+00:00:35.951 For example, you have your profileand that is stored in this database.
+00:00:41.570 The same user is asking for the profilemultiple times and had you saved it in
+00:00:45.631 this box, then you would've saved alot of competition. So within this box,
+00:00:49.391 maybe you can keep a cache and inmemory cache, which is in your memory,
+00:00:53.210 it stores the profile per user.So you have a key and a value.
+00:00:56.610 And so that is the first reason whyyou want a cache to save network calls.
+00:01:02.630 The second use case is when you want tobe avoiding competitions, for example,
+00:01:05.870 you want to find the average of all usersthe average age of all users that you
+00:01:10.011 have in your system. In this case,
+00:01:11.550 one of the ways that you can do this isevery time a person asks for you for the
+00:01:14.210 average age, you go to thedatabase, get all the users,
+00:01:17.080 find the average of the age,and then return that. Now,
+00:01:20.051 this is very expensive of course.
+00:01:21.270 So instead what you can do is you cando this once, find the average age,
+00:01:24.550 and then store it in the cache.So that's a key and a value.
+00:01:26.830 So average and then 26, 28, whateverbe the thing. It's a key value.
+00:01:31.740 Store it in cache the finance and value.
+00:01:33.810 Where you want to be using a cacheis when you want to avoid load on the
+00:01:36.569 database.
+00:01:37.030 So if you have a lot of servers andthey're all hitting the database to get
+00:01:40.400 information, it's going to beputting a lot of load. Instead,
+00:01:43.230 you can get some caches, maybe two orthree distributed system, you know,
+00:01:46.811 after all. And then you can keepthat information in the cache.
+00:01:49.811 You can hit the caches,avoid hitting the database.
+00:01:55.331 But the first two points arethe key ideas of a cache,
+00:01:57.460 which is either avoiding a networkcall or avoiding competitions.
+00:02:01.110 And both of them are designed tohelp you speed up responses to your
+00:02:06.091 clients.
+00:02:06.670 So a client makes a calland you immediately give aresponse if you have it in
+00:02:11.330 cache instead of making a query tothe database. So now that you know,
+00:02:15.211 the benefits of a cache or first instinctmight be to just store everything in
+00:02:18.811 the cache,
+00:02:19.091 like cram it up with all the informationbecause the response times are much
+00:02:22.131 faster. When you're pullingdata from the cache,
+00:02:24.590 you can't do that formultiple reasons. Firstly,
+00:02:27.110 the hardware on which a cache runs isusually much more expensive than that of
+00:02:31.290 an normal database. The reason beingthat this cache usually runs on SSDs,
+00:02:35.411 which are expensive compared to commodityhardware that a database runs on.
+00:02:39.830 The second thing is that if youstore a ton of data in the cache,
+00:02:44.280 then the search times will increase. Andas the search times keep on increasing,
+00:02:47.790 it makes less and lessersense to use the cache.
+00:02:49.651 Why don't you just go andhit the database? Yeah.
+00:02:52.270 So you'll be saving ona network call, yes,
+00:02:54.750 but ton of data on thecache is not just expensive,
+00:02:57.890 but also counterproductive.
+00:03:00.620 So our problem becomes story informationin cache such that the database has
+00:03:04.841 almost finite information while thecache needs to have the most relevant
+00:03:08.601 information according to the requestswhich are going to come in future.
+00:03:11.620 So we need to predict something. Topredict things. We need to ask ourselves.
+00:03:15.881 Just two important questions. Whendo I make an entry in the cache,
+00:03:20.121 which is when do I load data into thecache and when do I evict data outta the
+00:03:24.321 cache?
+00:03:24.860 The way in which you decide for loadingor evicting data is called a policy.
+00:03:30.380 And because this video is on caching,this is called a cache policy.
+00:03:33.940 So a cache performance almostentirely depends on your cash policy.
+00:03:37.761 There's multiple policies you can have.
+00:03:39.600 L R U is probably the mostpopular least recently used.
+00:03:43.510 What this says is that wheneveryou're pulling in entries to the cash,
+00:03:46.990 keep it on the top. Andwhenever you need to kick out,
+00:03:49.561 people kick out the bottom. Most entries,
+00:03:51.561 which means the least recentlyused entries in the cache.
+00:03:54.900 So the top entries are going to bemaybe seconds ago very few seconds ago.
+00:03:59.161 And then you keep going down the listminutes ago, hours ago, years ago.
+00:04:03.420 And then you kick out the last entrieswhen you do need to, okay? For example,
+00:04:07.940 if there's a celebrity who's made a post,
+00:04:09.361 made a comment and everyonewants to pull that comment.
+00:04:12.380 So you keep that on top of thecache. And while it is hot,
+00:04:15.841 while everyone wants to read thatcomment, it's on top of the cache.
+00:04:18.241 It's performing really well.And when it gets cooler,
+00:04:20.589 when people stop asking for that comment,
+00:04:22.940 it keeps getting pushed to the end ofthe cache and then it's kicked out.
+00:04:26.680 Alright? So that's the L L U policy.
+00:04:28.681 The L F U policy leased frequentlyused is not frequently used in the real
+00:04:33.201 world, so you can read on it. Ofcourse, there's a description below.
+00:04:36.500 And some policies have startedto perform really good.
+00:04:40.000 I mean even better than L R U. Sothey're sliding window based policies.
+00:04:44.220 One of the Google developers who madecaffeine has implemented this in their
+00:04:48.200 caches. Now imagine you havea really poor eviction policy,
+00:04:50.690 which means that hitting thecache is of no use. I mean,
+00:04:52.961 you ask the cache for some data, italways responds with I don't have it.
+00:04:56.460 And then you have to go to the database.Again, the first problem over here,
+00:05:00.081 which is with a poor eviction policy,
+00:05:02.380 is that it's actually harmful to have acache because you are making that call,
+00:05:05.990 that extra call, which iscompletely useless if youhave a poor eviction policy.
+00:05:10.540 So the second problem can occurif you have a very small cache.
+00:05:15.250 So users X and Y need their profiles,and this is a profile cache.
+00:05:19.250 So X asks for their profile,you get it from the database,
+00:05:22.130 you put X in this cache, and let'ssay it can just store one entry y,
+00:05:26.210 ask for their profile. You have a cachemiss. You go and hit the database,
+00:05:31.170 get that entry, populate it in thecache, and now X makes another call,
+00:05:35.480 which means they need X.So there's a problem here.
+00:05:38.370 So this concept is called thrashing,
+00:05:43.670 where you are constantly inputting andoutputting into the cache without ever
+00:05:48.060 using the results. So it's again,hurting you more than helping you.
+00:05:53.610 The final and most important problem,
+00:05:54.750 I'm sure you guys have already realizedis that what about consistency?
+00:05:59.540 So if a different server
+00:06:02.570 makes a call to the database for anupdate and says, update profile X.
+00:06:07.310 Yeah so there's an update ratio, but thecache doesn't have that entry updated.
+00:06:12.660 So server one pulls from the cache,
+00:06:16.670 gets the user profile for x outdatedprofile, and then serves it back.
+00:06:22.020 So maybe the user has changed thepassword and you have the old entry,
+00:06:26.820 the old password is still working.
+00:06:28.121 Maybe there's a hacker who'sactually hacked the old password.
+00:06:30.670 This becomes an issue ofdata consistency. Now,
+00:06:33.641 let's try to figure outwhere to place the cache.
+00:06:35.740 The cache can be placed close to thedatabase or can be placed close to the
+00:06:39.161 servers. There's benefits forboth and drawbacks for both.
+00:06:42.700 If you place the cache close to theservers, how close can you place it?
+00:06:46.380 You can place it in memory itself. Yeah,
+00:06:48.779 so you can put the cachein memory in the server.
+00:06:54.180 If you do this,
+00:06:55.220 what's going to happen is that the amountof memory in your server is going to
+00:06:58.481 be used up by your cash. But if,
+00:07:01.620 if the number of results that you'reworking with is really small and you need
+00:07:04.361 to save on these network calls,then you can just keep it in memory.
+00:07:07.800 A few other things over here are thatwhat if this server fails? If it fails,
+00:07:11.990 then this in-memory cache also fails,and we need to take care of that.
+00:07:15.860 The second thing is,
+00:07:17.150 what if this data over here on S one andthis data on SS two are not consistent,
+00:07:22.380 so they are not in sync? In thatcase, it depends on your application.
+00:07:26.281 If it is a user profile, it's really notthat big a deal. But if it's passwords,
+00:07:30.321 if it's financial information, ifit's something critical critical data,
+00:07:33.910 then you can't keep this.
+00:07:36.220 So benefits of actually having it closerto the server is that it's faster here
+00:07:42.140 and it's also rather simpler to implement.
+00:07:43.940 But the benefits of having itseparate are going to be seen.
+00:07:47.580 Now you can have somethinglike a global cache,
+00:07:52.580 and since we always workwith distributed systems,
+00:07:55.230 it's going to be a distributed globalcache, but I'm just drawing one over here.
+00:07:59.100 The benefit of this is that allservers are hitting this global cache.
+00:08:03.470 It's limited in size.So if there's a miss,
+00:08:05.481 it's going to be querying the database,otherwise it's going to be returning.
+00:08:10.220 What's the possible benefit? Well,
+00:08:11.841 you are avoiding queries on the databaseand increasing queries on the cache.
+00:08:15.801 But more than anything, actuallythis is a faster discrete,
+00:08:19.300 so it's going to be something like Redis.
+00:08:21.600 I think a lot of people are actuallyasked me what this is, what is Redis?
+00:08:25.420 And this is one of the common use casesof Redis. It's like assistant storage,
+00:08:30.321 which is like a cache. Yeah.So this is a cache. Basically,
+00:08:34.679 you can keep a few boxes, which arejust going to be storing memory.
+00:08:37.260 And whenever a person asks for a key,you return a value. In this case,
+00:08:40.640 what happens if S twocrashes? Nothing really,
+00:08:43.081 because everyone is going to bequerying this global cache anyway.
+00:08:45.780 And because it is distributed andit's going to be maintaining that data
+00:08:48.281 consistency, we can offloadall that information,
+00:08:51.120 all that headache to this guy overhere. Although it is slightly slower,
+00:08:55.230 it's more accurate in this choicerange of placing the cache.
+00:08:59.679 I would rather place it somewhereover here as a global cache.
+00:09:02.700 The main reason for this is there'shigher accuracy in the sense that if a
+00:09:07.040 server crashes, it doesn't takeits data to its grave. Yeah. it's,
+00:09:11.000 it's more resilient in that way.
+00:09:12.700 The second reason is that you canscale this independently. Yeah,
+00:09:15.580 you can scale the reddestcaches independently whilekeeping the services as
+00:09:19.521 containers running on these boxes.
+00:09:21.460 So there are certain boxeswhich are just running services,
+00:09:23.929 which don't have their databeing eaten up by a cache.
+00:09:27.540 So my preference would bea global cache. However,
+00:09:29.980 for simplicity and forextremely fast response times,
+00:09:33.740 you can keep it in the local memory.
+00:09:35.940 We are now onto the final importantcharacteristic of a cache,
+00:09:38.370 which decides how consistent thedata in this is. And that is,
+00:09:42.041 whether it's a write throughor a write back cache.
+00:09:47.800 A write through cache means that whenyou need to make an update to the data
+00:09:50.881 that you have, let's say you are makinga update to the profile profile X,
+00:09:54.780 you hit the cache, you see thatthere is profile X in this.
+00:09:58.260 And so there is going tobe some data inconsistency.
+00:10:00.900 If you make an updatedirectly to the database,
+00:10:03.160 remember that person X haschanged their password.
+00:10:05.700 So I'll make an updateto the entry for user X,
+00:10:10.030 make that update and thenpush it to the database.
+00:10:13.980 So that's a write through cache I wroteon the cache before going through it and
+00:10:18.801 hitting the database. Thesecond option, of course,
+00:10:21.500 is to hit the database directly.
+00:10:25.140 And once you have hit the database,make sure to make an entry in the cache.
+00:10:28.820 So either the database can tell thecache that this entry is no longer valid,
+00:10:33.380 or you hit the cache, you see thatthere's an entry for X. Just kick it out,
+00:10:37.730 evict it, delete that entry. Onceit's deleted, update the database.
+00:10:42.910 When there will be a query on thecache, it's going to come here,
+00:10:45.441 it's going to see that X does not exist.
+00:10:47.420 And so it's going to pull from thedatabase and then send it back to you.
+00:10:52.830 Okay? So this is thewrite through mechanism.
+00:10:57.440 I mean the original one where youhit the cache, make the update,
+00:11:00.161 and then send it to database. And thewrite back is where you hit the database.
+00:11:04.140 And then make sure that thecache is having a null entry.
+00:11:09.030 What is the possible problem inthe write through cache? Well,
+00:11:11.900 you do the right o here, yougo and write it on a database.
+00:11:15.380 But what if there are other servershaving this cache in memory? Yeah,
+00:11:19.420 the profile entry for X is on SS one,
+00:11:22.260 and the profile entryfor X is also on SS two.
+00:11:25.780 So this is an in-memory cache andyou are doing a write through.
+00:11:28.721 So you actually update this entry.But what about these guys? So in that,
+00:11:32.309 that case, basically your writethrough is a little silly.
+00:11:34.700 So you kind of implement this algorithm,you have to go for a ride back.
+00:11:38.110 However, there's one issue in theride back and that is performance.
+00:11:42.190 When you update the store, the real store,
+00:11:45.340 the one source of truth that you have,
+00:11:47.020 and you keep updatingthe cache based on that,
+00:11:49.179 what's going to happen is there's goingto be lots of entries in the cache,
+00:11:51.961 which are fine. I mean, yourconsistency is not so important.
+00:11:54.700 So invalidating them is going to beexpensive because whenever there's a
+00:11:57.881 request,
+00:11:58.121 you have to send a response from thedatabase and then update the cache.
+00:12:01.300 So this is like the thrashingthing that we have. Again,
+00:12:03.820 so write back is expensive.How can we do better? As usual,
+00:12:08.560 just use a hybrid sort of mechanism.
+00:12:11.320 Write through and write back are bothgiving you advantages and disadvantages.
+00:12:14.150 What you can do is whenever there'san entry that has to be updated on the
+00:12:18.960 database, don't write backimmediately write onto the cache.
+00:12:22.500 If it's not a critical entry,
+00:12:23.641 if it's something like the personhas their comment changed, edited,
+00:12:27.710 just write onto the cache. Keepserving requests through this box.
+00:12:32.380 And when I mean there might be datainconsistency, but do you really care?
+00:12:36.260 10 seconds have passed,20 seconds have passed,
+00:12:37.881 and when you have actually seen that,there is some scope for you to persist.
+00:12:41.920 Entries take entries in bulk andpersistent onto the database.
+00:12:45.700 So that's one network call and youare saving on hitting the database
+00:12:49.521 consistently. So what we can do isinstead of taking one core policy,
+00:12:54.340 we take a hybrid and then we take thebest of both worlds depending on your
+00:12:59.080 scenario. If it, this is financialdata. If this is passwords, you can't,
+00:13:01.700 you can't have a write throughcache, you need a write back cache.
+00:13:04.179 But if it's not critical data,
+00:13:05.361 then you can go for savingnetwork calls this way.
+00:13:08.340 So caching is extensivelyused in system design.
+00:13:10.692 So that's it for what cachingis and what are its use cases.
+00:13:13.633 You can use it in systemdesign extensively.
+00:13:15.513 It's actually used in real world systems.
+00:13:17.532 So if you're have any doubtsor suggestions on this,
+00:13:19.273 of course you can leave them in thecomments below. And if you like the video,
+00:13:22.222 then make sure to hit the like button.
+00:13:23.972 And if you want notificationsfor further videos like this,
+00:13:26.612 hit the subscribe button.I'll see you next time.

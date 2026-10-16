@@ -1,0 +1,1603 @@
+# 10.2  B Trees and B+ Trees. How they are useful in Databases
+
+# https://www.youtube.com/watch/aZjYr87r1b8
+
+
+
+00:00:00.030 hi the topic is Beatriz and B plus trees
+
+00:00:03.830 this is one of the important topic and
+
+00:00:06.180 is a difficult topic for the students to
+
+00:00:08.069 understand this is useful in databases
+
+00:00:12.380 what are the things that are required
+
+00:00:14.759 for understanding B trees and B plus
+
+00:00:17.400 trees thoroughly this is the list of
+
+00:00:19.949 topics if you understand all these
+
+00:00:23.550 things hence you'll know all these
+
+00:00:25.199 things then you can understand what B
+
+00:00:26.939 trees and B plus trees are mostly type
+
+00:00:29.880 people try to understand how insertion
+
+00:00:31.980 and deletion is done just they try to
+
+00:00:33.570 learn the procedure without knowing
+
+00:00:35.370 everything so this video will be little
+
+00:00:38.340 nd reason I am going to cover all these
+
+00:00:41.309 topics that are related to B and B plus
+
+00:00:44.309 trees and help you understand perfectly
+
+00:00:46.829 what B plus a and B and B plus trees are
+
+00:00:49.760 let me read out the topics discus
+
+00:00:52.469 structure how are this looks like and
+
+00:00:54.690 how the data is stored on the disk then
+
+00:00:57.030 nix when you are storing data from
+
+00:00:59.670 databases then indexing is used for
+
+00:01:02.550 faster searching then what is indexing
+
+00:01:04.949 what is multi-level indexing then we
+
+00:01:07.290 will also discuss what are M basis trees
+
+00:01:09.840 and that--as massages are converted to B
+
+00:01:12.000 trees and then B plus trees so this is a
+
+00:01:15.689 little bit lengthy but I suggest you
+
+00:01:18.420 listen everything go through it then you
+
+00:01:21.720 will never forget this topic let us
+
+00:01:24.960 start with a disk structure let us look
+
+00:01:27.600 at disc structure this structure is
+
+00:01:31.290 likely discuss like a platter
+
+00:01:33.600 on which the concentric circles are made
+
+00:01:36.060 these are logical circles
+
+00:01:37.829 this is not physical and these are
+
+00:01:41.009 circles are called as a track so let us
+
+00:01:43.079 say this is a tag 0 track 1 track 2 and
+
+00:01:45.689 track 3 then this pieces are called as
+
+00:01:50.060 sectors so this is sectors and this is
+
+00:01:52.680 also sector like this let us say this is
+
+00:01:54.750 sector 0 sector 1 sector to sector 3 & 4
+
+00:01:59.280 & 5 so discus divided into many tracks
+
+00:02:04.590 and sectors the intersection portion of
+
+00:02:07.829 track and the sector this one or this
+
+00:02:12.000 one
+
+00:02:13.020 all these intersecting positions these
+
+00:02:15.090 are called as blocks so any location on
+
+00:02:21.810 the disk can be addressed with track
+
+00:02:26.160 number and sector number so the address
+
+00:02:32.940 on a disk that is block address block
+
+00:02:36.870 address is mentioned in the form of
+
+00:02:40.110 track number and sector number so like
+
+00:02:42.420 this if I take this particular block
+
+00:02:44.310 then this is track 1 and sector 0 this
+
+00:02:48.960 block tracked to sector 1 so each block
+
+00:02:52.860 can have its address in the form of
+
+00:02:55.140 track number and sector number and
+
+00:02:57.350 typically the block size we take it as
+
+00:03:00.680 512 bytes for steady purpose we take it
+
+00:03:05.880 as 512 bytes it can be of any size it
+
+00:03:08.070 depends on the manufacturer or for disk
+
+00:03:10.460 so we assume that every block is of
+
+00:03:12.870 fight will bytes when the disk is read
+
+00:03:16.320 when we read or write to and from the
+
+00:03:18.900 disk we always read and write in terms
+
+00:03:21.540 of blocks now if I take just one block
+
+00:03:25.110 that is not 512 bytes the beginning
+
+00:03:28.260 address that is first byte is 0 and the
+
+00:03:30.690 last byte is 5:11 then each byte can
+
+00:03:35.400 have its own address that is called as
+
+00:03:37.500 offset let us say this is the tempt byte
+
+00:03:43.470 so we can refer any one byte on the disk
+
+00:03:47.820 in terms of first of all block address
+
+00:03:50.340 and inside that block we will take
+
+00:03:53.280 offset that is the address of that
+
+00:03:55.680 particular point
+
+00:03:57.080 every block we assume that the addresses
+
+00:03:59.550 starts from 0 and last addresses fight
+
+00:04:01.710 will file Evan because total fight will
+
+00:04:04.560 so any address any byte we can take it
+
+00:04:07.590 as address and that address is called as
+
+00:04:09.300 offset to reach a particular byte on a
+
+00:04:13.140 disk we should know track number sector
+
+00:04:16.380 number and the offset let us say in this
+
+00:04:20.279 particular block this particular point I
+
+00:04:22.710 want to read this is suppose this is one
+
+00:04:24.600 byte for reading that by
+
+00:04:26.280 I should know these three things then
+
+00:04:29.240 let us understand one more thing
+
+00:04:31.500 this is mounted like this on a spindle
+
+00:04:34.260 and the head post will also be there so
+
+00:04:37.470 by spinning it will change the sectors
+
+00:04:40.950 by this arm movement of a header that is
+
+00:04:44.940 the header that is reading the data from
+
+00:04:46.650 the disk or writing the data on the disk
+
+00:04:48.120 by this movement tracks are changed so
+
+00:04:51.389 we get position ahead in a particular
+
+00:04:53.910 track and in particular sector by moving
+
+00:04:56.940 this post that is head post or spinning
+
+00:05:01.110 this one so by spinning sectors are
+
+00:05:04.650 changed by moving head tracks are change
+
+00:05:07.470 this about the disk now the data on the
+
+00:05:11.100 disk is always stored in terms of clocks
+
+00:05:13.530 now one more thing let us take this as
+
+00:05:17.479 main memory usually we call it as RAM
+
+00:05:24.750 RAM is a technology and the type of
+
+00:05:27.180 memories main memory with all our
+
+00:05:29.310 programs inside main memory and the
+
+00:05:32.100 programs will access data suppose they
+
+00:05:34.620 are accessing the data from the disk
+
+00:05:36.150 then the data from the disk must be
+
+00:05:37.770 brought into the main memory and then
+
+00:05:40.260 only it can be accessed and if any
+
+00:05:42.510 results are obtained and the results are
+
+00:05:44.640 again written back onto the disk so the
+
+00:05:47.789 data cannot be directly processed upon
+
+00:05:50.430 the disk it has to be brought into the
+
+00:05:52.140 main memory and then access and this is
+
+00:05:54.120 one important point to understand and
+
+00:05:56.010 one more time I'll tell you organizing
+
+00:05:59.160 the data inside the main memory that is
+
+00:06:01.410 directly you sued by the program data
+
+00:06:03.840 inside the main memory that is directly
+
+00:06:05.700 used by the program that is data
+
+00:06:07.979 structures and organizing the data on
+
+00:06:13.650 the disk efficiently so that it can be
+
+00:06:16.830 easily utilized that is DBMS so study of
+
+00:06:22.650 the methods or the approach used for
+
+00:06:24.890 storing the data in an efficient way
+
+00:06:27.090 there on the discus all about DBMS
+
+00:06:29.810 designing organizing everything
+
+00:06:31.770 now here study on this one is data
+
+00:06:34.470 structures now let us move on to the
+
+00:06:36.750 next
+
+00:06:37.300 how data is stored on the disk now let
+
+00:06:40.150 us know how the data is organized on the
+
+00:06:42.819 disk in the form of database I have an
+
+00:06:45.610 example database table here with some
+
+00:06:48.370 columns and some rows let us say they
+
+00:06:50.740 are hundred rows and how the data is
+
+00:06:53.440 stored on the disk in the form of blocks
+
+00:06:55.300 holiday we have studied that and assume
+
+00:06:57.610 that the block size is 512 bytes now
+
+00:07:01.180 this table the structure of a table is
+
+00:07:03.310 given here there are more number of
+
+00:07:05.379 fields I am not showing them there but
+
+00:07:07.389 here I have written all so total there
+
+00:07:09.759 are five fields and these are their
+
+00:07:11.319 sizes employee IDs of size 10 bytes and
+
+00:07:15.039 this is of 50 bytes and the Department
+
+00:07:17.469 is 10 bytes so on so total it takes
+
+00:07:20.110 128 bytes now it means each row size is
+
+00:07:26.969 128 bytes this each rules 128 bytes now
+
+00:07:33.969 when we want to store that table on the
+
+00:07:36.150 database then in each block how many
+
+00:07:40.599 rows can be stored that is how many
+
+00:07:42.880 records can be stored so number of
+
+00:07:46.740 records per block so the block sizes
+
+00:07:53.490 5-12
+
+00:07:54.610 and the required size is 128 so this is
+
+00:07:58.029 4 it means we can store four rows of
+
+00:08:02.650 this table in one block it means that
+
+00:08:07.120 these four rules will go into one block
+
+00:08:11.080 and these four rules will go into next
+
+00:08:16.330 block every 4 rows are stored in one
+
+00:08:22.029 block so one block can contain just four
+
+00:08:25.029 rows as we have a hundred rows here that
+
+00:08:28.330 is 100 records here then how many blocks
+
+00:08:30.759 are required then 400 records how many
+
+00:08:37.149 blocks there are hundred records and
+
+00:08:39.279 each block can contain just four records
+
+00:08:41.919 so this is 25 so total 25 blocks
+
+00:08:46.320 required for storing this database table
+
+00:08:49.860 on a disk now when we this table is
+
+00:08:54.750 taking 25 lakhs imagine if you want to
+
+00:08:58.259 search for any particular record you
+
+00:09:00.930 have written a query select from
+
+00:09:03.029 employee table that is employ table and
+
+00:09:05.399 I want so-and-so record for employee ID
+
+00:09:08.220 5 or employee name Smith if I am
+
+00:09:11.370 searching then how much time it will
+
+00:09:13.740 take so the time depends on number of
+
+00:09:15.839 blocks you are accessing so for
+
+00:09:17.730 accessing this entire table we have to
+
+00:09:20.220 access 25 blocks so number of block
+
+00:09:23.639 access is more 25 because the record may
+
+00:09:27.509 be present anywhere we don't know where
+
+00:09:29.370 the record is present so we have to
+
+00:09:30.959 search in the table so for that at most
+
+00:09:33.240 25 blocks we have to access we can
+
+00:09:35.610 access block by block and check for that
+
+00:09:37.649 particular record which we are looking
+
+00:09:39.209 for but at most 25 blocks we have to
+
+00:09:41.819 access can we reduce this time yes now
+
+00:09:45.540 we will prepare index for this database
+
+00:09:48.240 table so index index what we will store
+
+00:09:53.459 in index we will store a key that is my
+
+00:09:56.910 ID and pointer pointer to a record so
+
+00:10:03.000 let us say employee ID 1 this is present
+
+00:10:06.209 here and employee ID - this is present
+
+00:10:09.209 here employee ID 3 this is present here
+
+00:10:12.060 so we will have a pointer actually to
+
+00:10:15.300 the table inside the disc inside the
+
+00:10:18.269 block so we'll have a pointer to a
+
+00:10:20.610 record so this we call it as a record
+
+00:10:23.040 pointer we will have a pointer to a
+
+00:10:25.560 record on the disk in the block for each
+
+00:10:29.339 record we will have an entry inside the
+
+00:10:32.279 index so this is called as a tense index
+
+00:10:36.110 next where do you store index we will
+
+00:10:40.709 store index also in the disk only let us
+
+00:10:45.180 say in this block we are storing an
+
+00:10:46.800 index this is for index this is for the
+
+00:10:49.319 database table and no record more blocks
+
+00:10:51.569 are there because it is taking 25 lakhs
+
+00:10:53.430 now index is also kept on the disk now
+
+00:10:56.579 the question is how much
+
+00:10:57.960 pays this index we'll take on the disk
+
+00:11:00.090 let us analyze see employee ID is 10
+
+00:11:05.310 bytes then what about this record
+
+00:11:07.950 pointer the pointer that we have taken
+
+00:11:10.320 here the record pointer let us assume it
+
+00:11:12.990 is taking 6 bytes so each entry size is
+
+00:11:16.800 how many bytes 16 bytes each entry is
+
+00:11:20.700 taking 16 bytes so how many entries are
+
+00:11:23.340 there here hundred entries are there now
+
+00:11:25.830 the question is how many blocks required
+
+00:11:28.350 for this one so entry sizes 16 bytes
+
+00:11:31.500 right now number of entries per block so
+
+00:11:40.110 block sizes 512 and each entry size is
+
+00:11:43.890 16 so this will be 32 so it means we can
+
+00:11:48.090 have a 32 entries in one particular
+
+00:11:51.300 clock so total how many entries are
+
+00:11:54.030 there here hundred entries so 400
+
+00:11:57.270 entries hundred by 32 so how much this
+
+00:12:03.000 is three-point-something let us say 3.2
+
+00:12:05.660 just assume it is more than 3 so it
+
+00:12:09.480 means that we require 3 plus blocks for
+
+00:12:14.130 storing this index so let us say 4
+
+00:12:17.610 blocks are required for storing this
+
+00:12:20.670 index now whenever we want to search we
+
+00:12:24.960 access index so at most how many blocks
+
+00:12:27.540 we require four blocks four blocks of
+
+00:12:30.720 index and once we got a particular key
+
+00:12:33.600 let us say suppose I am looking for this
+
+00:12:35.370 using that address I can access the
+
+00:12:38.160 record so for accessing the record I
+
+00:12:39.960 have to access one block one block so
+
+00:12:43.080 maximum four blocks of index and one
+
+00:12:45.630 block of database table so first search
+
+00:12:48.600 in the index atmos how much time four
+
+00:12:51.510 blocks then once you got the index entry
+
+00:12:53.910 then go to that particular block of
+
+00:12:56.040 database so that is what no block so
+
+00:12:57.810 total four plus one blocks are required
+
+00:13:00.600 for accessing any database record for
+
+00:13:06.330 accessing any record we have to access
+
+00:13:08.280 four plus one that is just five blocks
+
+00:13:11.850 35 blocks because we don't have to look
+
+00:13:14.280 into the entire table this is the
+
+00:13:16.170 benefit of index na next I will talk
+
+00:13:19.950 about multi level index next what if the
+
+00:13:24.540 index size is also growing how insurers
+
+00:13:28.530 have indeed known have thousand records
+
+00:13:30.890 thousand records means 250 blocks now
+
+00:13:34.740 here we require four blocks nor acquire
+
+00:13:37.410 40 blocks because there will be thousand
+
+00:13:39.450 entries just I am adding zero to it when
+
+00:13:42.210 the rows where hundred we require four
+
+00:13:44.910 blocks now thousand let us say 40 blocks
+
+00:13:48.030 are required just assume I am NOT doing
+
+00:13:51.330 all calculations then the searching in
+
+00:13:54.450 the index itself is larger so can we
+
+00:13:57.450 have a index above an index yes
+
+00:14:01.410 now how you prepare this index for every
+
+00:14:04.560 entry here if shall we have a entry in
+
+00:14:07.290 this next level index high level index
+
+00:14:09.150 know for each block block so how many
+
+00:14:12.690 entries can be possible in this block 32
+
+00:14:15.570 entries so we will have one pointer to
+
+00:14:18.510 32 entries of this particular index
+
+00:14:22.100 right so let us say the starting key is
+
+00:14:24.780 one right next key will be 33 and it
+
+00:14:27.990 will be pointing on to the next block
+
+00:14:30.170 so this is a sparse index it will not
+
+00:14:35.790 have each entry for one entry here like
+
+00:14:39.870 it will not have the same number of
+
+00:14:41.460 entries it will have one entry for one
+
+00:14:44.190 block of index now as I said there are
+
+00:14:46.950 40 now again what is the size of this
+
+00:14:49.440 one just sixteen only so how many are
+
+00:14:51.810 possible 32 are possible in one block
+
+00:14:54.450 then for this particular index how many
+
+00:14:56.850 blocks are required just one plus point
+
+00:14:59.340 something let us say two so two blocks
+
+00:15:02.280 are required so this high level index
+
+00:15:05.070 can be stored just in two blocks so
+
+00:15:08.490 database table into 50 blocks first
+
+00:15:10.860 level index 40 blocks then next high
+
+00:15:14.940 level index just two blocks so search
+
+00:15:17.520 into blocks
+
+00:15:18.540 once you get an entry access a block
+
+00:15:20.760 here then once you get an entry
+
+00:15:22.680 accessible okay
+
+00:15:23.860 so total how many blocks two blocks from
+
+00:15:26.200 this side one blocks from here one block
+
+00:15:28.540 from here so in this way by adding one
+
+00:15:31.420 more level of index we are reducing the
+
+00:15:34.000 number of block access so this is the
+
+00:15:37.930 basic idea
+
+00:15:39.660 originating for P and B plus trees I
+
+00:15:44.130 will just draw multi level index and
+
+00:15:46.990 then I will show you how it looks like
+
+00:15:49.709 let us look at multi level index once
+
+00:15:52.360 again suppose this the main index now
+
+00:16:01.120 above this we need one more index
+
+00:16:02.890 suppose this is too large then how this
+
+00:16:06.279 will be having it will be having a
+
+00:16:08.019 pointer to set of entries in an index
+
+00:16:10.269 then the pointer to set of entries in an
+
+00:16:12.760 index I am just taking randomly I am NOT
+
+00:16:15.040 drawing every counting and drawing so
+
+00:16:17.170 this is having a pointer to this suppose
+
+00:16:20.050 this is also large this is also large
+
+00:16:23.440 then you can have one more index which
+
+00:16:25.839 will have a pointer to set of entries
+
+00:16:29.110 and a pointer to set of entries this is
+
+00:16:32.709 how we can go on adding multi level
+
+00:16:35.079 index if the database table suppose here
+
+00:16:37.270 is a database table and if size is
+
+00:16:39.100 growing this index will grow and we will
+
+00:16:41.529 add one more index one more index adding
+
+00:16:44.290 multi-level indexes will reduce the
+
+00:16:46.480 number of block access so if I just turn
+
+00:16:50.380 it around and see it like this next
+
+00:17:01.660 level index then next level index
+
+00:17:12.859 if I turn it around and see this this
+
+00:17:16.290 all the multi level index looks like now
+
+00:17:18.810 what is the requirement of multi level
+
+00:17:20.490 index shall we add the index by manually
+
+00:17:24.380 shall we check that the database size is
+
+00:17:27.060 growing and then we should I add indices
+
+00:17:29.220 one by one that is high level in missus
+
+00:17:31.140 no we want the high level indices to be
+
+00:17:33.990 added automatically and deleted also
+
+00:17:36.780 automatically if this is increasing
+
+00:17:38.670 table size is increasing and this index
+
+00:17:40.410 is increasing then you add one more
+
+00:17:42.180 index if you are deleting the records
+
+00:17:44.310 then the ISIS eyes will reduce and then
+
+00:17:46.260 you remove the high level index we want
+
+00:17:49.490 self-manage high level indices that is
+
+00:17:52.530 multi level indexing so the final thing
+
+00:17:55.200 else we want self-manage multi level
+
+00:17:58.890 indexing and that's all it gives the
+
+00:18:02.040 idea of b-trees and B plus trees so now
+
+00:18:05.220 you can see that this multi level
+
+00:18:06.780 indices are looking like a tree if I
+
+00:18:09.120 just turn their side ups then it looks
+
+00:18:11.730 like this P trees and maple streets are
+
+00:18:14.340 actually originating from and they
+
+00:18:16.440 search trees so next I will discuss what
+
+00:18:18.750 are my search trees then finally we'll
+
+00:18:21.030 go to B trees and B plus trees let us
+
+00:18:23.280 talk about M based search tree C for
+
+00:18:26.850 knowing about my search tree let us
+
+00:18:29.010 recall about binary search tree which is
+
+00:18:32.490 useful for searching purpose and for
+
+00:18:36.060 searching any key value we start from
+
+00:18:39.090 the root and if the key value is smaller
+
+00:18:41.340 we go on the left hand side if the key
+
+00:18:43.620 value is larger we go on the right hand
+
+00:18:45.720 side like this is a binary search tree
+
+00:18:47.070 if I am searching for 15 then 15 is
+
+00:18:49.830 greater than this I will go this side 15
+
+00:18:51.990 is smaller than this soil go this side
+
+00:18:53.610 and it is found so we know that the
+
+00:18:56.310 smaller keys are arranged on the left
+
+00:18:58.080 side and the larger keys are arranged on
+
+00:18:59.790 right side this is what done in binary
+
+00:19:02.010 search tree in binary search tree how
+
+00:19:05.580 many keys we can have per node just one
+
+00:19:08.760 key and how many children each node can
+
+00:19:11.430 have how many children there can be two
+
+00:19:14.940 children each node can have maximum two
+
+00:19:18.150 children so that's why it is called as a
+
+00:19:20.550 binary tree binary binds two children
+
+00:19:24.770 it means can we have a tree with more
+
+00:19:27.500 than two children or more than one keys
+
+00:19:30.710 let us check 20 and 50 these are the two
+
+00:19:34.460 keys now this side I will have the keys
+
+00:19:36.530 which are smaller than 20 so that is 10
+
+00:19:39.620 and 15 and here I will have the keys
+
+00:19:41.630 that are in between these two that is 30
+
+00:19:44.330 35 and here I will have the keys that
+
+00:19:48.140 are greater than this so that is 60 and
+
+00:19:50.180 90 so yes we can have a Saoirse tree
+
+00:19:53.900 like this also there's a search tree
+
+00:19:55.700 this is the following the idea of same
+
+00:19:57.530 as binary search tree see the keys are
+
+00:20:00.440 arranged such that they are in the
+
+00:20:02.030 increasing order so if you see the keys
+
+00:20:03.770 here see first key is smaller than
+
+00:20:05.990 second key and smaller than third key if
+
+00:20:08.600 you have more keys they will be arranged
+
+00:20:10.310 like this and if I am searching for 30
+
+00:20:12.470 then I'll start from here 30 is greater
+
+00:20:15.080 than 20 30 is less than 50 so it must
+
+00:20:18.860 mean this child come here today is found
+
+00:20:20.860 so no doubt the amount of time taken for
+
+00:20:23.690 searching is little more than binary
+
+00:20:25.850 search tree but the approach of
+
+00:20:27.620 searching is same so these trees are
+
+00:20:29.690 called as same resources so what is this
+
+00:20:33.230 envy see how many keys it is having in
+
+00:20:36.230 this example it is having pinkies then
+
+00:20:38.660 how many children it is having so each
+
+00:20:41.120 node can have maximum 3 children so this
+
+00:20:44.540 is three ways search tree this is a
+
+00:20:48.440 three way search tree this is called as
+
+00:20:51.320 three velocity so in this way my search
+
+00:20:54.740 tree means what a search tree in which
+
+00:20:57.770 each node can have at most M a children
+
+00:21:02.480 and a search tree so each node can have
+
+00:21:06.170 at most M children so how many keys n
+
+00:21:09.050 minus 1 keys so M s based on the number
+
+00:21:14.270 of children that is the degree of a node
+
+00:21:16.120 so my search trees are the extension of
+
+00:21:20.450 binary search trees you can say or else
+
+00:21:22.760 you can say binary search tree is a type
+
+00:21:24.830 of my search tree with a degree 2 so you
+
+00:21:27.920 can have degree 3 also degree 5 also
+
+00:21:30.170 degree hundred also degree thousand also
+
+00:21:32.150 so it means you can have 100 keys here
+
+00:21:34.700 and each node can have hundred
+
+00:21:36.730 hundred plus one children so you can
+
+00:21:39.580 have any degree of search tree this is
+
+00:21:43.150 about MV sauce tree let us look at the
+
+00:21:46.360 load of my sauce tree like for binary
+
+00:21:49.270 search tree Harvey prepare a notice we
+
+00:21:51.610 will have data here and two children
+
+00:21:54.280 then here you need more number of
+
+00:21:56.770 children so let me draw the node for
+
+00:21:59.290 this one if the MV search tree is search
+
+00:22:03.070 tree st am writing it suppose form a
+
+00:22:06.310 search tree means each node can have
+
+00:22:09.160 four children and three keys let me draw
+
+00:22:13.750 a node structure this should be a child
+
+00:22:18.130 pointer pointer to the child and this is
+
+00:22:23.920 key one and again this is a pointer to a
+
+00:22:26.320 child and this is a key to and
+
+00:22:29.520 disappointed to a child and this is key
+
+00:22:32.650 three and disappointed to a child so for
+
+00:22:36.550 child pointer so this is four weig and
+
+00:22:38.590 when it is a four-way then there can be
+
+00:22:41.050 three keys that is my search tree and
+
+00:22:44.800 Lord can have M minus 1 keys so it is
+
+00:22:47.860 just like this this is a diagrammatic
+
+00:22:49.420 representation and if you are making a
+
+00:22:51.520 data structure then the node structure
+
+00:22:53.170 looks like this so if there are a
+
+00:22:55.530 m'children than M minus 1 key spaces are
+
+00:22:58.750 required no next can we use this search
+
+00:23:04.630 trees these no structure for preparing
+
+00:23:08.110 index let us see so I will try to use
+
+00:23:12.460 this for making index so let us check
+
+00:23:15.460 how we can do this for for a search tree
+
+00:23:18.490 where there can be 4 children
+
+00:23:21.730 so this is a child pointer okay now this
+
+00:23:25.870 is key 1 and this is next child pointer
+
+00:23:31.050 then this is key 2 then this will next
+
+00:23:35.590 child pointer then this is key 3 and for
+
+00:23:40.420 child pointer so child pointer 1 2 3 4
+
+00:23:43.450 then what is this I am adding see this
+
+00:23:46.960 after every key I have a pointer this is
+
+00:23:50.680 nothing but C if you have keys here and
+
+00:23:53.740 you are taking a my search tree benefit
+
+00:23:56.290 of my search tree other index then apart
+
+00:23:59.590 from the child pointer you should have
+
+00:24:01.180 also a pointer to a record that is a
+
+00:24:03.490 record pointer so yes we will also have
+
+00:24:06.400 a record pointer so this is a record
+
+00:24:08.950 pointer record pointer so we can utilize
+
+00:24:15.190 my search trees for indices that is
+
+00:24:19.090 multi-level indices like tree will have
+
+00:24:22.210 multiple levels so for making multi
+
+00:24:24.130 level indexes we can utilize my search
+
+00:24:27.430 tree but the node structure should be
+
+00:24:29.260 like this so just remember this known
+
+00:24:31.930 structure see keys are there and child
+
+00:24:34.990 pointer so for degree 4 so for child
+
+00:24:37.450 pointer 3 key so 3 record pointers for
+
+00:24:40.390 each record for each key there is a
+
+00:24:41.950 pointer to the record to the database
+
+00:24:44.680 record now if we simply use MV search
+
+00:24:49.330 tree what will the problem and how we
+
+00:24:52.120 can overcome the problem and we
+
+00:24:54.190 introduce B trees now we are going
+
+00:24:57.070 towards B trees now till here we have
+
+00:24:59.830 discussed about my search tree no I am
+
+00:25:02.080 taking you to be tree and in B tree we
+
+00:25:05.110 will use the same node structure just
+
+00:25:07.240 remember this again I may not be showing
+
+00:25:09.160 you this will there with no structure
+
+00:25:11.140 that is followed in B trees but first of
+
+00:25:15.040 all let us know what is the problem with
+
+00:25:17.800 MB search tree then how B trees are
+
+00:25:20.260 different from my search trees let us
+
+00:25:22.390 see how insertion is done in my search
+
+00:25:24.400 tree and what is its problem then we'll
+
+00:25:27.220 move on to B trees for that to make you
+
+00:25:31.480 realize the problem I have taken 10 way
+
+00:25:34.420 search tree 10 Ravens a degree 10 means
+
+00:25:37.720 each node can have 10 children and the
+
+00:25:39.970 nine keys and suppose I have to insert
+
+00:25:43.120 these keys let us see how I can insert
+
+00:25:45.870 first 10 there is nothing so I will
+
+00:25:48.730 create a node and insert 10 how many
+
+00:25:52.090 more keys I can have here 8 more key
+
+00:25:54.770 I can have here but for inserting 20 I
+
+00:25:57.800 will create a new mode as a child and
+
+00:26:00.080 insert 20 then inserting thirty ten that
+
+00:26:04.070 smaller 30 comes from right side so I
+
+00:26:05.900 will not insert here but I will come to
+
+00:26:07.850 this and 20 30 is greater in this oil
+
+00:26:11.000 insert 30 here so I can insert like this
+
+00:26:15.590 also but this is wrong I should first
+
+00:26:19.160 fill up this node then only I should
+
+00:26:21.140 think of creating next node but there is
+
+00:26:24.290 no control on my search tree you can
+
+00:26:27.260 insert as you like so it means if I have
+
+00:26:31.580 and the keys then what will be the
+
+00:26:34.790 height of and missus T n so this will be
+
+00:26:38.510 too much time-consuming language become
+
+00:26:40.010 similar to linear search that's the
+
+00:26:43.070 problem of return my search tree so what
+
+00:26:45.350 is the problem with my search tree the
+
+00:26:47.240 creation process is not under any
+
+00:26:49.430 control there are no guidelines for
+
+00:26:51.350 creation process you can create as you
+
+00:26:53.270 like if suppose you are creating it like
+
+00:26:55.550 this then it's a waste of time
+
+00:26:58.130 it will take a lot of time for searching
+
+00:27:01.070 then there must be some rules or
+
+00:27:04.280 guidelines for creating my search t yes
+
+00:27:07.550 those guidelines are called as B trees
+
+00:27:14.680 so B trees are nothing but in the search
+
+00:27:17.630 trees with some rules let us see what
+
+00:27:21.980 are those rules I will explain let us
+
+00:27:24.320 see what are B trees beeps trees are
+
+00:27:27.350 nothing but MB search trees with some
+
+00:27:29.690 rules so what are the rules let us see
+
+00:27:31.550 see the first thing every node you must
+
+00:27:36.170 fill at least half half what if the
+
+00:27:41.000 degree is M I mean by 2 children must be
+
+00:27:44.360 there so M by 2 seal value is taken not
+
+00:27:48.260 flow and by 2 missed if degree is it 10
+
+00:27:51.290 means 5 a children must be there for an
+
+00:27:54.800 or every node must have 5 children
+
+00:27:57.920 then only you think of creating new node
+
+00:28:00.200 that's what to control the height of MB
+
+00:28:02.810 sir
+
+00:28:03.200 this is the rule you can create a next
+
+00:28:06.049 mode only if the current node is at
+
+00:28:09.049 least half of filled with the children
+
+00:28:11.289 this is fun and by do children must be
+
+00:28:14.840 there then second thing how we can
+
+00:28:19.970 impose this condition on the route we
+
+00:28:21.649 cannot impose this condition on a route
+
+00:28:23.389 if we impose then we cannot insert even
+
+00:28:25.279 a first value also so route can have
+
+00:28:29.769 minimum two children so route means the
+
+00:28:37.070 first one so first node can have minimum
+
+00:28:40.580 two children right so it means it can
+
+00:28:42.380 have just one key also no problem but
+
+00:28:45.019 what about all other nodes they must
+
+00:28:46.970 have at least half of the children this
+
+00:28:50.539 is the conditions - conditions not trade
+
+00:28:52.639 conditions then the third rule is all
+
+00:28:54.889 leaf nodes must be at same level all
+
+00:28:57.730 leaves at same level that's it these are
+
+00:29:05.720 the three things if you are following
+
+00:29:07.070 for creation of M based search tree so
+
+00:29:10.370 actually we are creating B tree and one
+
+00:29:14.240 more important thing here is that the
+
+00:29:16.370 creation process is food point is the
+
+00:29:20.149 creation processes bottom-up creation
+
+00:29:26.929 processes bottom-up so now I will take
+
+00:29:29.690 some keys and I'll show you how a B tree
+
+00:29:32.779 is generated from bottom up so for that
+
+00:29:35.480 I will not take a 10-way search tree I
+
+00:29:37.789 will take a small degree tree and show
+
+00:29:41.149 you how a B tree is created in other
+
+00:29:44.210 words how insertion is attack we will
+
+00:29:46.309 create a bee tree of degree 4 means each
+
+00:29:49.279 node can have 4 children and 3 keys so I
+
+00:29:54.110 have taken some of the keys here then I
+
+00:29:55.880 will be inserting more and more nodes so
+
+00:29:58.190 I will add more keys afterwards let us
+
+00:30:00.799 start first
+
+00:30:02.380 there is no node at all first key I am
+
+00:30:04.909 inserting so that is 10 first key so it
+
+00:30:10.039 can have how many children do children
+
+00:30:11.690 and as per the
+
+00:30:13.690 index 1 he said that it can have one
+
+00:30:16.450 record a pointer the next 20 20 will be
+
+00:30:20.710 inserted here that is greater than 10 40
+
+00:30:24.250 is inserted here mixed is 50 there is no
+
+00:30:27.789 space for 50 already 3 keys are there
+
+00:30:30.789 degree is full so we cannot insert 50 50
+
+00:30:33.519 there is no space then what we should do
+
+00:30:35.529 split this node and create one more node
+
+00:30:38.860 so out of 10 20 40 and 50 two keys I
+
+00:30:45.370 will take this site and one key I will
+
+00:30:48.399 send this side 40 I will send it in the
+
+00:30:51.850 root then this is the left child this
+
+00:30:54.759 the right child that's it so when the
+
+00:30:58.659 node was a fill there was no free space
+
+00:31:00.940 then for inserting a key we have
+
+00:31:02.649 splitted a node and one of the key we
+
+00:31:05.679 have send it on the road out of 4
+
+00:31:07.929 including 50 out of 4 to this side 1
+
+00:31:10.750 that side 40 up this is how splitting is
+
+00:31:14.950 done while creating a b-tree and you can
+
+00:31:17.529 see that the tree is growing upwards so
+
+00:31:21.190 that's it it's created bottom-up and I
+
+00:31:23.830 was telling you that this is B trees are
+
+00:31:26.559 useful for implementing multi level
+
+00:31:28.690 indexing that if you say this is one
+
+00:31:31.210 first level index then above that this
+
+00:31:34.090 is the second level index created
+
+00:31:35.860 automatically if you add keys here
+
+00:31:38.320 automatically this was created now let
+
+00:31:40.840 us see I will add more keys here then
+
+00:31:42.879 again you can see that this is growing
+
+00:31:44.620 so let us continue I will insert few
+
+00:31:48.009 more keys let us say 60 so 60 comes here
+
+00:31:51.460 then 70 70 comes here then 80 80 there
+
+00:31:57.039 is no space here 80 should come here
+
+00:31:58.809 there is no space then split again then
+
+00:32:02.980 what I should do including 80 50 60 70
+
+00:32:07.870 and 80 so 80 should grow this side and
+
+00:32:10.509 70 should be in the root that's the
+
+00:32:14.289 child now that tail looks like this then
+
+00:32:21.040 next I will insert 30 30 30 will come
+
+00:32:26.390 here then I will insert 35 there is no
+
+00:32:30.679 space for 35 here then split so as there
+
+00:32:34.100 is no space I will split this side so
+
+00:32:36.770 out of 10 20 30 and 35 35 this should go
+
+00:32:44.570 in the root and the 10 painting this
+
+00:32:47.120 side and 35 on the side right side 35 on
+
+00:32:52.280 this side then who will go in the route
+
+00:32:54.200 30 so I will redraw it 30 40 and 70 I'll
+
+00:33:01.580 remove this yeah
+
+00:33:05.270 what's yeah this is the child Hispanic
+
+00:33:07.910 child
+
+00:33:08.390 and this is the child and this is the
+
+00:33:09.770 child this is what the tree looks like
+
+00:33:12.500 now see whenever the node is becoming
+
+00:33:15.380 filled we are splitting it and we are
+
+00:33:18.530 sending one of the key in the parent now
+
+00:33:20.630 we'll try to fill few more keys here and
+
+00:33:22.790 let us see I want to insert five so
+
+00:33:26.030 where's five income side income in the
+
+00:33:28.220 beginning so 5 10 and 20 now I want to
+
+00:33:32.570 insert 15 15 there is no space so 5 10
+
+00:33:36.679 15 and 20 there is no space for 15 then
+
+00:33:40.820 arrange them in this order then there is
+
+00:33:42.980 no space man split it so for splitting I
+
+00:33:45.500 will create one more node on this side 5
+
+00:33:48.290 and 10 this side and 20 this side now 15
+
+00:33:52.040 should go up here this should work right
+
+00:33:56.799 I shall no point here everything that
+
+00:33:59.480 vitae why I am sending third key I want
+
+00:34:02.150 to send second key okay that is your
+
+00:34:03.799 choice so you can make it either less
+
+00:34:06.650 bias or right by asked so either way you
+
+00:34:10.369 can do that no it is left by us means it
+
+00:34:12.859 is more keys or on the left side so
+
+00:34:15.080 whichever one you want you can take it
+
+00:34:17.710 so 15 goes off 20 on this side and 5 and
+
+00:34:21.649 10 decide now there is no space here
+
+00:34:24.139 also so here also you split it so out of
+
+00:34:27.980 how many keys 15
+
+00:34:30.190 thirty forty and seventy so fifteen and
+
+00:34:34.809 thirty this side seventy that side and
+
+00:34:39.899 forty in the parent so this will be on
+
+00:34:44.409 this side this will be on this side
+
+00:34:45.969 now all these links will also change
+
+00:34:48.159 because we are splitting it so this is
+
+00:34:51.309 on this side this is on this side this
+
+00:34:53.379 one and I will draw it a little far from
+
+00:34:56.260 this one seventy then 70s left and
+
+00:35:00.220 seventies right so now you can see there
+
+00:35:04.089 are three levels one two three so three
+
+00:35:07.270 levels of indices are created and this
+
+00:35:10.030 is how v3 is generated by inserting keys
+
+00:35:13.960 and the height of a b-tree is increasing
+
+00:35:17.200 and this is same as multilevel in this
+
+00:35:21.900 so this is the creation process so it's
+
+00:35:24.760 under control and all these nodes are at
+
+00:35:27.280 same level so they are looking like more
+
+00:35:29.559 like or index and this has same level
+
+00:35:31.809 this is forming index and above one is
+
+00:35:34.119 also an index so I have shown you how to
+
+00:35:36.250 insert and how to create a b-tree now
+
+00:35:39.670 let us see how it is useful for the
+
+00:35:41.589 databases just minor things are very
+
+00:35:44.410 important and key points I am showing
+
+00:35:46.450 you as we discussed just now that every
+
+00:35:49.720 node will have a pointer to the child
+
+00:35:52.569 node as well as a record pointer this 20
+
+00:35:55.720 will have a record pointer 5 will have a
+
+00:35:57.460 record pointer 10 will have a pointer 15
+
+00:36:00.309 will have a record pointer 30 you have a
+
+00:36:02.500 record pointer every key will have a
+
+00:36:04.960 record pointer also that is pointing on
+
+00:36:07.390 the database so this is useful for
+
+00:36:10.029 implementing multi level index apart
+
+00:36:13.210 from the child pointer this is a record
+
+00:36:15.640 pointer so a b-tree node can have what
+
+00:36:18.880 key child pointer that is a block
+
+00:36:22.059 pointer and this is a record pointer
+
+00:36:25.180 that's it that's it about be trace I did
+
+00:36:28.779 not show deletion it depends how much we
+
+00:36:32.740 have understood from this one just you
+
+00:36:34.720 reply me back leave you a comment and if
+
+00:36:38.020 required I will prepare deletion also
+
+00:36:40.950 okay
+
+00:36:42.160 actually I wanted to show you what is
+
+00:36:44.020 the application of B trees and B plus
+
+00:36:46.180 trees so I have started my topic right
+
+00:36:48.340 from indexing and brought you up to this
+
+00:36:50.800 point so that you can understand the
+
+00:36:53.770 relation with the databases and B trees
+
+00:36:55.890 otherwise mostly people study just
+
+00:36:58.180 support B trees and B plus trees without
+
+00:36:59.800 knowing indexing and databases so now
+
+00:37:03.130 you can relate it with the databases now
+
+00:37:06.100 the last thing what is B plus tree it's
+
+00:37:09.670 a very simple thing let me show you
+
+00:37:11.620 quickly just I will modify this what is
+
+00:37:14.560 B plus tree in the B plus tree we will
+
+00:37:17.170 not have a record pointer from every
+
+00:37:19.660 node we will not have a record pointer
+
+00:37:21.970 from every node we will have record
+
+00:37:24.190 pointers only from leaf nodes only from
+
+00:37:27.550 leaf nodes will have a record pointers
+
+00:37:29.380 then what about these keys every key
+
+00:37:32.560 will have its copy in the leaf node so
+
+00:37:36.310 means who is missing here 15 is missing
+
+00:37:38.830 here so 15 will be here also 20 so 15
+
+00:37:42.520 will have its copy here also so there
+
+00:37:44.740 will be record pointer from 15 also 20
+
+00:37:46.780 also then 30 here will have a copy of 30
+
+00:37:49.660 also and 35 know what about what about
+
+00:37:52.240 40 40 we will have a copy here also 40
+
+00:37:55.120 will be having a copy here so 40 and 50
+
+00:37:57.430 and 60 so 3 record pointer so 70 will
+
+00:38:01.630 also be present in this one so every key
+
+00:38:04.990 in the tree will definitely present in a
+
+00:38:07.600 leaf and this leaf nodes are connected
+
+00:38:10.150 like this like a link list so this
+
+00:38:14.680 becomes a dense index now this is
+
+00:38:17.290 exactly like multi-level indexing so
+
+00:38:20.050 this is B plus tree so what are the
+
+00:38:22.780 differences from B tree to B plus C let
+
+00:38:25.120 me quickly tell you that all the keys
+
+00:38:27.820 are present in the leaf nodes and in non
+
+00:38:30.250 leaf nodes there duplicates may be
+
+00:38:31.690 present every key must be present in
+
+00:38:34.570 leaf and there are no record pointer for
+
+00:38:36.610 non leaf nodes the record pointer will
+
+00:38:38.650 be from only leaf nodes so leaves knows
+
+00:38:42.400 all these nodes as they are at same
+
+00:38:44.170 level they'll form a linked list these
+
+00:38:46.420 are the points then this becomes a dense
+
+00:38:49.330 index this will becomes a dense index
+
+00:38:51.070 then this is a sparse index next level
+
+00:38:53.890 the next level is pass index
+
+00:38:55.810 so rather than be 3 B plus 3 is more
+
+00:39:00.220 like multi level index so what is Plus
+
+00:39:02.380 in this one that I have shown you so if
+
+00:39:05.110 you understand me tree understanding B
+
+00:39:07.180 plus tree is not difficult that's all
+
+00:39:10.810 with this topic there are analysis and a
+
+00:39:13.600 lot of things are there so it's a big
+
+00:39:15.520 topic the purpose of coverage of this
+
+00:39:18.700 topic was to relate it with the
+
+00:39:20.770 databases all right so I have covered
+
+00:39:24.180 more from the database site than just be
+
+00:39:28.480 T's and B plus trees so just be plus B
+
+00:39:31.510 be trees and B plus trees can also be
+
+00:39:33.550 taken as a topic and discuss leave your
+
+00:39:36.010 comments let me know if required I will
+
+00:39:38.680 prepare a separate video

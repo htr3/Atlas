@@ -1,0 +1,809 @@
+# 6.4 Hamiltonian Cycle - Backtracking
+
+# https://www.youtube.com/watch/dQr4wZCiJJ4
+
+
+
+00:00:00.000 hi the topic is Hamiltonian cycle in
+
+00:00:02.760 this video we will learn what is
+
+00:00:05.640 Hamiltonian cycle then I will show you
+
+00:00:07.799 how to solve it using backtracking using
+
+00:00:10.980 an algorithm I will explain you how
+
+00:00:12.630 backtracking is useful for solving the
+
+00:00:15.030 problem first of all let us understand
+
+00:00:17.970 what is Hamiltonian cycle see if a graph
+
+00:00:21.150 is given then we have to start from some
+
+00:00:23.910 starting vertex and visit all the
+
+00:00:26.699 vertices exactly once and return back to
+
+00:00:29.580 the starting vertex so that forms a
+
+00:00:32.549 cycle so we have to check that is there
+
+00:00:35.790 any Hamiltonian cycle possible in a
+
+00:00:38.219 graph if possible then what is a cycle
+
+00:00:40.980 and if there are multiple cycles we have
+
+00:00:42.960 to find out all those cycles so the
+
+00:00:45.329 problem is to find out if there is any
+
+00:00:47.250 Hamiltonian cycle in a graph or not
+
+00:00:49.200 so the problem looks a similar to
+
+00:00:51.570 traveling salesperson problem and
+
+00:00:53.640 traveling salesperson problem also we
+
+00:00:55.590 have to start from somewhere techs visit
+
+00:00:57.180 all the vertices and return back to the
+
+00:00:59.129 starting vertex but that is a
+
+00:01:00.930 minimization problem where we have to
+
+00:01:03.420 find out a minimum cost true but here if
+
+00:01:06.210 you take it as a tool we have to find
+
+00:01:08.010 out all possible tools now let us move
+
+00:01:10.380 few important things first of all the
+
+00:01:12.659 graph given may be directed or non
+
+00:01:15.420 directed but it must be connected if it
+
+00:01:18.750 is not connected then the cycle is not
+
+00:01:20.670 possible means if a graph is having
+
+00:01:22.409 multiple pieces multiple components then
+
+00:01:24.960 it is not possible to have a Hamiltonian
+
+00:01:27.240 cycle in the graph and one more thing is
+
+00:01:30.180 this is a np-hard problem means
+
+00:01:34.770 exponential time taking problem so there
+
+00:01:37.740 is no easy way to find if there is any
+
+00:01:40.170 Hamiltonian cycle present in the graph
+
+00:01:42.180 or not so let us manually find out if
+
+00:01:45.689 there is any Hamiltonian cycle in the
+
+00:01:47.250 graph let us take this graph first I'll
+
+00:01:49.770 start from vertex one then I will visit
+
+00:01:51.869 vertex 2 then 3 then 4 then 5 then 6
+
+00:01:55.110 then 1 then 1 2 2 3 & 4 & 5 & 6 & 1 this
+
+00:02:01.500 is one cycle even I can go from 1 to 2 2
+
+00:02:05.250 to 6 then 6 to 5 5 to 4 4 to 3 then 3 to
+
+00:02:09.508 1 so I have one more cycle 1 2 to 2
+
+00:02:12.370 two six six two five five two four and
+
+00:02:15.310 trade in one one more cycle 1 2 6 6 2 2
+
+00:02:20.799 then 2 2 5 then 5 to 4 4 to 3 then 3 to
+
+00:02:25.269 1 so 1 to 6 6 to 2 2 to 5 5 to 4 4 to 3
+
+00:02:32.049 then 3 to 1 see you can find that there
+
+00:02:36.730 are more than 1 cycles possible so the
+
+00:02:38.799 problem is we want to find out all
+
+00:02:40.659 possible Hamiltonian cycles in a graph
+
+00:02:43.659 if they are possible or not if they are
+
+00:02:45.879 possible then how many are possible we
+
+00:02:47.470 want all of them now there is one more
+
+00:02:49.420 cycle I will show you 2 to 3 3 to 4 4 to
+
+00:02:55.750 5 5 to 6 then 6 to 1 2 to 3 3 to 4 4 to
+
+00:03:03.370 5 5 to 6 6 to 1 and then 1 2 2 1 2 2 1
+
+00:03:09.370 more cycles no wrong see this is same as
+
+00:03:14.590 this cycle same as this second that was
+
+00:03:18.160 starting from 1 and is starting from 2
+
+00:03:20.230 so if you change the starting point the
+
+00:03:22.359 cycle has not changed you see the order
+
+00:03:24.549 of vertices 2 3 4 5 6 1 then 2 so 2 3 4
+
+00:03:29.260 5 6 1 then and 2 so we are getting in
+
+00:03:31.540 the same order so this is not another
+
+00:03:34.329 cycle it's the same cycle just you are
+
+00:03:36.340 taking the starting point at some other
+
+00:03:37.810 vertex so you have to also take care
+
+00:03:40.150 that you are not taking the duplicate
+
+00:03:42.129 cycles or you are not taking the same
+
+00:03:44.349 title again that's it now I have few
+
+00:03:48.069 more examples here from this also will
+
+00:03:49.959 herbs or few things and we will learn
+
+00:03:51.579 few facts about Hamiltonian cycle there
+
+00:03:54.699 is a graph given let us find out if
+
+00:03:56.290 there is any Hamiltonian cycle in this 1
+
+00:03:58.150 1 2 2 then 2 to 3 3 to 5 then 5 to 4
+
+00:04:02.919 then 4 to 1 this is one cycle one more
+
+00:04:05.859 cycle let us check 1 2 2 then 2 2 4 then
+
+00:04:10.500 4 to 5 then 5 to 3 then 3 to 1 so there
+
+00:04:15.940 are more than one cycles possible let us
+
+00:04:18.130 try in this graph 1 to 2
+
+00:04:20.430 two to three then three to seven than
+
+00:04:23.039 seven to six then I have to go on food
+
+00:04:25.320 if I go on sir I cannot come to five if
+
+00:04:28.289 I go on five I cannot go on for so
+
+00:04:31.020 Hamiltonian cycle is not existing in
+
+00:04:33.330 this graph let us take this graph one to
+
+00:04:36.389 two then three then four then three then
+
+00:04:39.570 I will go to six and then five
+
+00:04:41.940 I cannot come back on one again I have
+
+00:04:44.190 to come by are three so in such graphs
+
+00:04:47.060 Hamiltonian cycles are not possible why
+
+00:04:50.009 because this vertex is a junction for a
+
+00:04:53.430 graph or a connecting point for the
+
+00:04:55.710 graph and this is called as articulation
+
+00:04:58.199 point so if there is an articulation
+
+00:04:59.910 point in a graph then Hamiltonian cycle
+
+00:05:02.729 is not existing in the graph
+
+00:05:04.580 let us look at this one one then prove
+
+00:05:07.680 and fool then if I go on side we cannot
+
+00:05:10.199 come back and go to three so here also
+
+00:05:12.300 it's not possible because these type of
+
+00:05:14.639 what is society they are called as
+
+00:05:16.550 pendent vertices because of this pendent
+
+00:05:19.680 vertices our Hamiltonian cycle is not
+
+00:05:22.199 existing in a graph so we learn two more
+
+00:05:24.840 things that if an articulation point
+
+00:05:27.060 then Hamiltonian cycle not possible in
+
+00:05:29.280 the graph if there is a pendent vertex
+
+00:05:31.740 then also Hamilton cycle is not possible
+
+00:05:34.770 in a graph therefore I have explained
+
+00:05:36.930 about Hamiltonian cycle now I will take
+
+00:05:39.690 a algorithm and an example graph then I
+
+00:05:42.960 will show you how backtracking helps us
+
+00:05:45.240 in solving this problem let us look at
+
+00:05:48.780 the algorithm and understand how
+
+00:05:50.370 backtracking is useful for solving this
+
+00:05:52.500 one I have a graph here and this is the
+
+00:05:56.449 adjacency matrix for a graph this very
+
+00:06:00.090 bottom which is having two methods or
+
+00:06:02.970 two functions so two pieces of code are
+
+00:06:06.000 there this is the starting point and
+
+00:06:08.389 this is using this algorithm this is
+
+00:06:13.440 performing backtracking and for getting
+
+00:06:15.659 the next vertex this is helping
+
+00:06:17.699 I will not trace it right now first I
+
+00:06:20.759 will show you the working explain you
+
+00:06:22.440 the working then from the working I will
+
+00:06:25.080 just point out which line was doing the
+
+00:06:27.529 work that I have shown you so let us
+
+00:06:30.949 start this algorithm uses this adjacency
+
+00:06:34.279 matrix and it uses this array for
+
+00:06:36.819 finding the cycle so whenever all these
+
+00:06:39.649 values are filled and the cycle is found
+
+00:06:41.569 it will display the result now initially
+
+00:06:44.269 all these values are 0 let us start now
+
+00:06:49.839 let me start I'll explain you throw
+
+00:06:52.609 States pastry to understand the working
+
+00:06:55.489 of an algorithm and if you remember back
+
+00:06:57.469 tacking works just like that the first
+
+00:06:59.959 search it performed the first search on
+
+00:07:02.359 the problem let us start we don't want a
+
+00:07:06.949 duplicate cycle so we will fix the
+
+00:07:09.589 starting vertex so we make the first
+
+00:07:11.539 vertex that is starting vertex is 1 now
+
+00:07:15.139 here we may be getting different
+
+00:07:16.459 vertices so this is the starting vertex
+
+00:07:18.259 1 so let us start a state space tree now
+
+00:07:22.249 we will start from the second position
+
+00:07:24.199 onwards what should be the second vertex
+
+00:07:26.299 if you are starting from 1 then we
+
+00:07:28.219 should go you should go on 3 or 2 or 5
+
+00:07:30.289 what all the possible we will try here
+
+00:07:32.239 so this Hamiltonian algorithm will start
+
+00:07:34.909 from this vertex so what it does I will
+
+00:07:38.089 explain here I will not show their line
+
+00:07:39.829 by line I will explain here see it will
+
+00:07:42.589 try to put 1 here 1 this is same thing
+
+00:07:46.519 only this is already there so if there
+
+00:07:49.309 is any vertex that is appearing again it
+
+00:07:51.799 will avoid that then it will try to here
+
+00:07:55.579 yes 2 is not already is not present the
+
+00:07:59.059 next thing is there any edge from 1 to 2
+
+00:08:01.699 so here 1 2 - 1 2 - yes there is an edge
+
+00:08:05.389 so this is valid so take this 1 1 2 2
+
+00:08:09.789 then it will go on to the next position
+
+00:08:12.649 so here it is already 0 so first it will
+
+00:08:15.709 make it as 1 and check if it is already
+
+00:08:18.319 there yes it's already there so keep
+
+00:08:21.109 here - it's already there so change this
+
+00:08:24.769 to next value 3 is not there but there
+
+00:08:29.029 should be an edge between 2 1 3 so 2 2 3
+
+00:08:32.360 there is an edge yes
+
+00:08:34.249 it's valid so two to three there is an
+
+00:08:36.289 edge so from one we went on to the next
+
+00:08:39.049 step is what three then we'll move on to
+
+00:08:43.789 this one see once the vortex for this
+
+00:08:46.430 position is finalized it will move to
+
+00:08:48.709 the next one then here it will try to
+
+00:08:51.529 keep one already appearing to already
+
+00:08:55.129 appearing see these values I am not
+
+00:08:56.990 showing here I can even show like this
+
+00:08:58.790 one one bonding function if you remember
+
+00:09:02.600 the bonding function is used in
+
+00:09:04.850 backtracking that will kill the node see
+
+00:09:07.519 if I write one here is invalid two also
+
+00:09:10.309 invalid three also invalid then so so I
+
+00:09:14.119 am NOT writing all invalid nodes so here
+
+00:09:16.129 if we try one then two then three is
+
+00:09:20.179 already there so for check is there any
+
+00:09:24.110 edge from three to four yes it's there
+
+00:09:25.850 so include for the next here one invalid
+
+00:09:31.069 no not possible three four five shall
+
+00:09:34.160 we have fine here and check for the five
+
+00:09:36.920 is their energy yes four to five there
+
+00:09:38.870 is an edge so include five also now once
+
+00:09:42.410 you have reached this position in an
+
+00:09:44.540 array fist position in an array also
+
+00:09:47.240 verify that from 5 to 1 there is an edge
+
+00:09:50.569 or not 5 to 1 yes there is an edge so it
+
+00:09:53.629 means a cycle is found prim this result
+
+00:09:56.889 this is the first answer we got first
+
+00:10:00.589 answer we got 4 in this result see here
+
+00:10:05.149 I will show you see it was calling for
+
+00:10:09.920 the next vertex and exhaust k plus 1 mod
+
+00:10:14.540 n plus 1 what is that I will explain so
+
+00:10:17.209 k plus 1 so it was taking next value
+
+00:10:19.279 after taking the next values was
+
+00:10:20.959 checking whether it is becoming 0 no
+
+00:10:22.549 then is there any edge yes I just there
+
+00:10:25.639 check it should not be duplicate this
+
+00:10:28.009 code is for checking duplicate see I was
+
+00:10:30.049 telling that when I take
+
+00:10:31.270 suppose - is already they don't take
+
+00:10:33.490 it then try an x value x + 1 3 is
+
+00:10:37.209 already there don't take it so there is
+
+00:10:40.270 an edge in between them also and this
+
+00:10:42.610 should not be any duplicate and if you
+
+00:10:44.560 have reached the last position that is
+
+00:10:46.660 5th position in an array 5th position
+
+00:10:48.750 then also check that there is an edge
+
+00:10:51.459 back to vertex 1 that it should not be 0
+
+00:10:54.339 it should be 1 that's it so this is how
+
+00:10:58.149 it is verifying this is the part of a
+
+00:11:00.250 bonding function taking the next vertex
+
+00:11:02.380 and checking whether it is already taken
+
+00:11:05.110 is a duplicate is there any edge from
+
+00:11:07.540 previous vertex is it having an edge it
+
+00:11:10.300 to the first vortex let me explain you
+
+00:11:13.120 what other things that are checked in
+
+00:11:15.130 bonding function first thing you should
+
+00:11:17.500 not take duplicate second thing whenever
+
+00:11:20.380 you take any vertex there should be an
+
+00:11:22.450 edge from the previous vertex second
+
+00:11:24.730 thing third thing if you are on the last
+
+00:11:27.279 vertex so then there should be an edge
+
+00:11:29.080 it to the first vertex if so then it's
+
+00:11:31.570 an answer these are the things we check
+
+00:11:33.910 in the bonding function so this is what
+
+00:11:35.560 it is trying with the bonding function
+
+00:11:37.000 so we have finished still here let us
+
+00:11:40.360 continue the algorithm 5 dried the least
+
+00:11:43.720 value it will become 0 0 menses top
+
+00:11:46.990 right
+
+00:11:47.950 so stop ends go back where this one here
+
+00:11:51.370 at this place
+
+00:11:52.570 see this is the starting point 1 2 3 4 5
+
+00:11:56.140 1 2 3 4 5 instead of so what is the next
+
+00:12:00.160 value that can be taken 5 check is it
+
+00:12:03.760 already appearing no so 5 is not there
+
+00:12:07.270 so it's valid 3 to 5 there should be a
+
+00:12:09.700 wrench 3 to 5 3 to 5 is there is no
+
+00:12:13.240 match no we cannot take this so take the
+
+00:12:15.760 next value so after 5 comes what 0 so it
+
+00:12:19.570 is just like this 0 1 2 3 4 5 then
+
+00:12:24.200 zero again then 1 2 3 4 then 0 again so
+
+00:12:27.500 that is the method so mod gives the
+
+00:12:29.840 values like that all right
+
+00:12:31.670 mod n plus 1 5 plus 1 6 if you do you
+
+00:12:34.670 get the values like this so we cannot
+
+00:12:38.180 try anything here then go back it will
+
+00:12:40.610 go back to this one third here see 1 2
+
+00:12:43.580 over 1 2 over 4 the third one instead of
+
+00:12:45.950 writing 3 can we write 4 here next value
+
+00:12:49.070 so 2 2 so there should be an edge so
+
+00:12:51.740 here I will show you 2 to 4 years there
+
+00:12:53.870 is an edge so after to pick 4 then to
+
+00:12:57.770 the next one right one not valid
+
+00:13:01.190 not valid 3 valid but for 2 3 there
+
+00:13:06.410 should be energy as for 2 3 there is an
+
+00:13:08.060 edge so take 3 also the next one can I
+
+00:13:13.760 write 1 here no already there - also
+
+00:13:16.310 already there are three also already
+
+00:13:17.360 therefore also already there 5 I can
+
+00:13:19.610 write this 1 but 3 is 2 5 is there any 3
+
+00:13:22.640 to 5 and known this is not valid so take
+
+00:13:26.210 it as 0 right next value 0 0 means come
+
+00:13:29.810 back and write for here not rallied 5
+
+00:13:32.870 here yes it is valid so this was bounded
+
+00:13:36.020 this was killed so on this place instead
+
+00:13:38.570 of 3 no we can write 5 so 4 to 5 there's
+
+00:13:41.660 an edge yes there is an edge so we can
+
+00:13:43.550 write 5 here now in this place I cannot
+
+00:13:46.820 write 1 2
+
+00:13:47.480 but I can write 3 here if I write 3 here
+
+00:13:50.090 Phi 2 3 there should be an edge no Phi 2
+
+00:13:52.280 3 there is no edge so here we cannot
+
+00:13:54.680 write 4 or 5 so write 0 and here also 0
+
+00:13:57.560 come back next value of 4 5 so at this
+
+00:14:02.180 place after 2 it is 5 mix here what it
+
+00:14:05.420 can be kept here 1 2 3 can be kept then
+
+00:14:08.420 Phi 2 3 we know well that there is no
+
+00:14:10.460 edge so next so can it be kept here for
+
+00:14:13.640 2 5 it's there so for then next here 3
+
+00:14:18.020 can be possible so for 2 3 there is an
+
+00:14:20.780 edge yes then 3 2 1 is there any edge
+
+00:14:23.720 yes 3 2 1 there is an edge so what is
+
+00:14:26.420 the path we got 1 to 2 2 to 5 5 to 4 4
+
+00:14:29.840 to 3 3 to 1 so so far we got two answers
+
+00:14:32.930 that is 1 2
+
+00:14:34.940 three four five and one now here also
+
+00:14:38.710 one two five four three and then one so
+
+00:14:44.060 we got two answers if you continue you
+
+00:14:46.460 may find all possible Hamiltonian cycles
+
+00:14:49.400 in this one so I have taken an example
+
+00:14:52.010 and explain you right now I will show
+
+00:14:54.830 you the algorithm I will explain the
+
+00:14:57.560 algorithm so you'll start from what x2
+
+00:14:59.750 in vertex one first place we will write
+
+00:15:01.940 one only fixed from second place onwards
+
+00:15:04.490 we will try so what it will do it will
+
+00:15:06.590 try to find out the next value so what
+
+00:15:08.480 is the next possible value what are the
+
+00:15:10.520 condition the value that you have taken
+
+00:15:12.710 should not already existing means here
+
+00:15:16.160 you cannot take one two five and four
+
+00:15:18.860 here
+
+00:15:19.430 you cannot take those things first
+
+00:15:21.440 condition second thing whatever you have
+
+00:15:24.050 taken here then this should be an exit
+
+00:15:26.540 to the previous one this should be an
+
+00:15:28.910 edge to the previous one okay whatever
+
+00:15:30.800 you have taken K minus one this should
+
+00:15:32.870 be an edge it should not be see humans
+
+00:15:34.640 in this graph it should not be zero man
+
+00:15:36.440 this should be less and this for loop is
+
+00:15:38.420 for checking duplicate it should not
+
+00:15:40.130 already be existing two things and the
+
+00:15:42.680 last thing is if this is the last place
+
+00:15:45.350 then this should have an edge G to
+
+00:15:47.930 vertex one so if this is the last place
+
+00:15:50.870 then there should be an edge to the
+
+00:15:52.670 first one these are three things checked
+
+00:15:55.400 in the condition so this will try all
+
+00:15:57.860 possible values for a place so what are
+
+00:16:00.350 the values it started from zero actually
+
+00:16:02.390 right 0 then 1 then 2 then 3 then 4 then
+
+00:16:05.750 5 all these values it will try here
+
+00:16:08.420 similarly here also it will try and here
+
+00:16:10.700 also it will try Heroes for every
+
+00:16:12.740 position it will try and it will try
+
+00:16:14.810 recursively so it looks like depth-first
+
+00:16:17.300 search like this so this is the code for
+
+00:16:19.780 actual Hamiltonian it will check the
+
+00:16:22.280 next value if the value is not 0 and it
+
+00:16:25.520 is last place then it will print answer
+
+00:16:27.970 last place friend answer and will not go
+
+00:16:30.620 further and it will go back if it is not
+
+00:16:32.930 the last node then it will call
+
+00:16:34.280 recursively Hamiltonian for next vertex
+
+00:16:37.220 k plus 1 means once we got the answer
+
+00:16:39.470 which is not 0 will go for the next if
+
+00:16:41.720 the answer is not 0 we go for the next
+
+00:16:43.850 if answer is not 0 and yet of the last
+
+00:16:46.130 will
+
+00:16:47.060 will not go next but it'll go back
+
+00:16:49.150 that's it this is how Hamiltonian cycle
+
+00:16:52.400 algorithm works now most of you are
+
+00:16:55.190 preparing for the examination so for the
+
+00:16:57.290 examination purpose you have to explain
+
+00:16:59.240 what is Hamiltonian cycle just in one or
+
+00:17:02.060 two sentences you can finish it and you
+
+00:17:04.130 have to define the bonding function
+
+00:17:05.869 these points you define clearly that is
+
+00:17:08.270 better in words only you don't have to
+
+00:17:10.790 write on the code if they ask for code
+
+00:17:12.290 you can write it or you can write your
+
+00:17:13.940 own pseudocode you don't have to write
+
+00:17:15.530 the loop and all just write it in words
+
+00:17:17.599 for mostly for university examinations I
+
+00:17:20.420 am talking about
+
+00:17:21.109 so algorithm is important in Hamilton
+
+00:17:23.780 and cycle mostly right tracing tree is
+
+00:17:26.540 not useful here because tracing tree it
+
+00:17:28.880 can expand to a very big tree also if
+
+00:17:31.280 you try all possibilities if the number
+
+00:17:34.430 of vertices are doing then the height
+
+00:17:36.170 also grows and the number of nodes also
+
+00:17:38.360 grows so if at all if for explanation if
+
+00:17:42.080 you want you can write on this one and
+
+00:17:44.120 the last thing see I'll remove this here
+
+00:17:47.740 five places one two three four five
+
+00:17:50.780 places this was fixed out of four places
+
+00:17:52.910 what we tried to 3 4 5 2 3 5 4 2 3 2 5 4
+
+00:18:01.340 5 3 on possibilities so this is nothing
+
+00:18:04.670 but what source act Orion for factorial
+
+00:18:07.790 the algorithm is trying 4 factorial
+
+00:18:10.640 possibilities 4 factorial so for n
+
+00:18:14.510 vertices graph and minus 1 factorial
+
+00:18:19.240 write n minus 1 factorial it is roughly
+
+00:18:22.490 n factorial only and n factorial is Big
+
+00:18:25.550 O of and power n if you know this so the
+
+00:18:28.910 time complexity of this algorithm is n
+
+00:18:31.000 power and that's all about this problem

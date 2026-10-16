@@ -1,0 +1,426 @@
+# tactiq.io free youtube transcript
+# How to avoid cascading failures in a distributed system 💣💥🔥
+# https://www.youtube.com/watch/xrizarXJgC8
+
+00:00:00.030 hi everyone we are back with a new
+00:00:01.709 system design video on rate-limiting
+00:00:03.799 specifically the problem that we are
+00:00:05.400 trying to solve is that of the turn
+00:00:06.720 during hood so if you can imagine a huge
+00:00:08.970 group of bison charging towards you
+00:00:10.830 crushing everything in their path that's
+00:00:12.929 what it feels like many on the server
+00:00:14.309 side and there's a ton of requests
+00:00:15.750 coming in from users they're just going
+00:00:18.359 to crush our servers and crush your
+00:00:19.770 system completely so to avoid this
+00:00:22.680 problem what we do on the server side is
+00:00:25.260 something called rate limiting and let's
+00:00:27.269 just try to understand the scenario
+00:00:29.039 first let's say you have four servers
+00:00:31.230 and let's say you have a request range
+00:00:34.020 from 1 to 400 so every server is load
+00:00:36.930 balanced to serve a range of 100
+00:00:39.809 requests now let us assume that you have
+00:00:44.120 s1 crashing because for some reason
+00:00:47.610 maybe some internal issue s1 crashed
+00:00:51.410 resulting in s4 s3 and s2 taking
+00:00:54.899 additional load so s1 had the range from
+00:00:58.770 1 to 100 the load balance is going to be
+00:01:00.930 smart about this and assign them loads
+00:01:03.570 let's say 1 to 1 1 to 23 this is going
+00:01:07.799 to get an additional request range from
+00:01:11.280 34 to 67 and this is going to get an
+00:01:14.610 additional range from 68 to 100 ok so s1
+00:01:20.100 caching did not affect the rest of the
+00:01:23.159 servers because or rather did not affect
+00:01:25.439 the users because the rest of the
+00:01:27.180 servers are now able to serve their
+00:01:28.829 requests however there's a implicit
+00:01:32.460 assumption over here and the assumption
+00:01:35.070 is that each of these servers can handle
+00:01:36.900 the new load ok let us assume that s4
+00:01:40.259 did not have that much compute power it
+00:01:41.909 was barely surviving with request range
+00:01:44.909 of 100 and by adding to that range that
+00:01:48.360 it needs to serve now s4 is completely
+00:01:50.850 exhausted and the requests are taking
+00:01:53.130 too much time the too many timeouts s4
+00:01:55.710 crashes so s1 was already dead s4 is now
+00:02:01.439 dead and as you can expect somebody
+00:02:04.259 needs to actually answer so somebody
+00:02:06.119 needs to take these requests from this
+00:02:09.149 range so I'm going to give these
+00:02:12.850 additional ranges now 4 s 4 which is 3 0
+00:02:16.190 1 2 3 50 and also the additional range
+00:02:20.060 over here which is let's say 1 2 17 and
+00:02:24.550 now we have this serve also serving some
+00:02:28.010 range 351 - 418 - 23 you're probably
+00:02:36.560 getting an idea now these ranges are
+00:02:38.570 pretty big initially s3 was serving half
+00:02:42.020 of what it is serving right now as a
+00:02:43.520 request range and there's a good chance
+00:02:45.590 that s 3 will also crash
+00:02:49.300 so if s3 crashes it was serving 200% of
+00:02:53.630 the load that it could maybe just had
+00:02:55.280 50% additional and it crashes which
+00:02:58.760 means s2 has to serve around 400 percent
+00:03:01.100 of its original load approximately and
+00:03:04.190 there's a very good chance that s 2 will
+00:03:05.480 also crash resulting in the whole system
+00:03:08.930 crashing all of your users being upset
+00:03:10.910 and this is something that we really
+00:03:12.680 want to avoid so this problem is called
+00:03:15.830 the cascading failure problem and that's
+00:03:19.970 the first problem that we try to
+00:03:21.470 mitigate as you can see this cascading
+00:03:30.920 failure is a race against time when s1
+00:03:34.100 had crashed there's that Delta that
+00:03:36.470 small pine gap that you have for
+00:03:38.600 bringing in the new server before s4
+00:03:40.760 takes that much load and crashes so it
+00:03:43.730 is a race against time one of the things
+00:03:46.430 that you could do is have a really smart
+00:03:48.920 load balance or have some seamless sort
+00:03:51.020 of new server bring in but we should
+00:03:55.040 assume the worst and there are some
+00:03:57.620 possible let's say workarounds and one
+00:04:00.230 real solution to this problem one
+00:04:02.540 workaround of course is to just stop
+00:04:05.000 something requests for all users having
+00:04:06.740 requests IDs 1 to 100 yeah that's that's
+00:04:09.770 not really a solution but if you see
+00:04:12.260 that the other services can't take in
+00:04:14.180 more load it's better to be available to
+00:04:17.269 some users than to be available to none
+00:04:19.279 of the users and now we are out of
+00:04:22.130 workarounds so the real solution
+00:04:26.090 what we should do is take a cue and put
+00:04:31.040 our requests in this queue what's going
+00:04:35.630 to happen here is that every server can
+00:04:37.760 have a request queue and they can decide
+00:04:40.250 on answering or not answering a request
+00:04:42.740 so what I'm going to do is give each of
+00:04:46.250 these servers a particular capacity
+00:04:48.040 right compute capacity so s1 has 100
+00:04:53.900 compute capacity which for me one unit
+00:04:56.150 of compute capacity means it can handle
+00:04:57.949 one request per second so 100 requests
+00:05:00.530 per second
+00:05:01.190 300 requests per second 400 degrees per
+00:05:04.220 second 200 requests per second okay
+00:05:07.729 now let's say s1 clashes looking at the
+00:05:11.990 node s4 what we need to do is we need to
+00:05:14.720 see 300 is the maximum number of
+00:05:16.370 requests it can take so this queue is
+00:05:18.440 going to keep expanding till it hits 300
+00:05:21.910 if the 300 first request comes in what
+00:05:25.789 we are going to do is we are going to
+00:05:26.660 ignore that request we are going to just
+00:05:28.340 say no so when we return a failed
+00:05:34.430 response to the client at least this
+00:05:38.960 server is not being overloaded and also
+00:05:41.210 the client is now aware that ok this
+00:05:43.700 request fail
+00:05:44.510 maybe after five minutes I should try
+00:05:46.460 again so the user experience is going to
+00:05:48.710 be bad of course this user who made that
+00:05:50.330 request and fail is not going to be
+00:05:51.979 happy but again going by the principle
+00:05:54.740 that serving some users is better than
+00:05:56.930 serving no users we are going to start
+00:05:59.300 dumping requests one small thing to
+00:06:02.419 remember here is that the client
+00:06:03.770 shouldn't be stupid if the request fails
+00:06:06.800 and if the client is bombarding the
+00:06:08.539 server suddenly that on America's not my
+00:06:10.520 request this is going to be bad so there
+00:06:12.710 are some types of errors that you can
+00:06:14.270 send the client one is temporary and one
+00:06:17.060 is permanent right these are just types
+00:06:20.750 of errors that you can send if you say
+00:06:22.310 permanent it means that there's some
+00:06:23.660 serious mistake in the request you sent
+00:06:25.430 and there's a logical error temporary
+00:06:28.250 means that you should try in some time
+00:06:29.960 maybe there's some internal server issue
+00:06:31.669 going on maybe the database is too slow
+00:06:33.590 or maybe there's too much load so try
+00:06:35.930 after some time and the client can
+00:06:38.360 play messages accordingly but the
+00:06:40.939 general idea of course is to limit the
+00:06:42.949 number of requests you can take on the
+00:06:44.509 server side so that you can handle the
+00:06:46.310 load till the scaling bit comes in till
+00:06:49.729 you can thing in the new service all
+00:06:52.219 right so this is the first problem the
+00:06:55.610 second problem that you can face is if
+00:06:58.490 you go viral or if there's some sort of
+00:07:01.189 an event let's say Black Friday you know
+00:07:05.990 sales go up on Black Friday so might be
+00:07:08.810 an issue well when you have an event one
+00:07:12.560 of the things you can do is because you
+00:07:14.689 have prior knowledge you can scale
+00:07:16.870 beforehand you know if you have four
+00:07:19.520 servers and you assume that on Black
+00:07:21.319 Friday you're going to have 50% more
+00:07:22.639 users get 6 hours so that's the first
+00:07:26.270 solution which is pre scale however if
+00:07:32.090 you are not very sure about the number
+00:07:33.620 of servers you'll need during the during
+00:07:36.830 the event one thing that you could do is
+00:07:39.020 auto scale and please don't quote this
+00:07:42.979 video if you spend too much money auto
+00:07:44.539 scaling but yeah I mean auto scaling is
+00:07:48.110 something that is provided as a solution
+00:07:49.969 by cloud services you know if you if you
+00:07:53.539 host your service on the cloud you can
+00:07:55.009 probably ask them taught to scale your
+00:07:57.400 service and you know what is scaling is
+00:08:00.830 not a very bad idea usually because the
+00:08:02.810 increased number of traffic is probably
+00:08:06.319 meaning that you're going to make more
+00:08:07.580 money out of that traffic so yeah that's
+00:08:10.639 one solution how about if you go viral
+00:08:14.800 but if you go viral you can just fall
+00:08:17.569 back to the old solution of rate
+00:08:19.490 limiting so if you do rate limiting you
+00:08:28.009 will be stopping the maximum number of
+00:08:29.599 uses that you can actually serve and
+00:08:31.610 yeah
+00:08:32.599 and of course auto scaling and free
+00:08:34.339 scaling is a good idea but going viral
+00:08:36.320 is something that you can't predict so
+00:08:38.419 pre scaling is not really a solution
+00:08:39.649 these two other solutions the third
+00:08:42.679 problem is a real server-side problem
+00:08:44.240 and that is job scheduling
+00:08:48.829 so often is not rewrite cron jobs which
+00:08:52.699 run on some point in time I mean we we
+00:08:55.519 decide when it's going to run but
+00:08:57.379 imagine a cron job which is supposed to
+00:08:59.089 send email notifications to all users
+00:09:01.009 wishing them a happy new year on the 1st
+00:09:03.529 of January what could happen if you do
+00:09:06.170 this in a naive way is that you send all
+00:09:08.329 of the emails together when the clock
+00:09:11.779 hits first of January which means that
+00:09:13.999 if you have a million users you're going
+00:09:15.739 to send one million email notifications
+00:09:17.529 and that's of course like a huge herd of
+00:09:20.749 bison coming towards you so the way you
+00:09:22.970 avoid this is to break the job into
+00:09:26.209 smaller pieces let's say 1 million users
+00:09:29.360 so you have 1 million news IDs the first
+00:09:32.449 thousand users are broken I mean the
+00:09:35.660 users are broken into chunks the first
+00:09:37.759 thousand users are going to get the
+00:09:38.929 email in the first minute the second
+00:09:40.999 thousand users are going to get in the
+00:09:42.170 second minute
+00:09:42.799 and so on and so forth 1 million by
+00:09:44.540 1,000 is going to take 1000 minutes and
+00:09:48.819 with this what's happening is that you
+00:09:51.259 have divided the work that you hide on
+00:09:53.299 the server into smaller chunks which it
+00:09:55.610 can consume you know one minute 1000 is
+00:09:58.249 something which is not a tremendous load
+00:09:59.689 so it's going to survive and your users
+00:10:02.329 don't really care I mean if they don't
+00:10:04.279 get the email notification
+00:10:05.869 auto-generated email notification at the
+00:10:07.759 first minute of new year they don't
+00:10:09.949 really care so yeah it's something that
+00:10:12.170 you can do of course if they do care
+00:10:13.850 then you have to bring it down you have
+00:10:15.649 to bring this range down from 1,000
+00:10:17.059 minutes to whatever you like but you see
+00:10:19.850 that you can decide all right so batch
+00:10:22.610 processing is something that you should
+00:10:23.660 definitely do the fourth problem is as
+00:10:27.220 interesting as the other problems
+00:10:28.939 actually it's when someone popular post
+00:10:32.419 something or if a post goes like if a
+00:10:37.369 post becomes really popular if a lot of
+00:10:38.749 people liking it sharing it subscribing
+00:10:41.660 to it like you guys should but popular
+00:10:45.379 post let's say a user like PewDiePie
+00:10:49.579 post something on YouTube then you need
+00:10:51.679 to send it to all of their followers if
+00:10:53.269 you do it a knive way the same issue of
+00:10:55.939 you know job scheduling will come in
+00:10:58.249 there's too many users and a very small
+00:11:00.990 Delta so what you could do is batch
+00:11:03.480 processing over there you know send
+00:11:04.980 users in chunks of 1,000 but something
+00:11:08.370 that YouTube does really smartly is
+00:11:10.140 adding jitter in which case if you have
+00:11:15.720 a lot of followers what's going to
+00:11:17.550 happen is the notifications are going to
+00:11:19.380 go to them in the in a batch processing
+00:11:21.210 way but if they start hitting the page
+00:11:23.790 let's say the video page then there is
+00:11:26.970 some content the video content which is
+00:11:29.490 core to YouTube but there is a lot of
+00:11:32.340 data which actually doesn't matter if
+00:11:34.500 you think of it that's the number of
+00:11:36.960 views the number of likes number of
+00:11:41.670 comments and so on and so forth now if
+00:11:43.620 you have a very popular user like
+00:11:45.150 PewDiePie actually posting a video the
+00:11:48.180 number of views are going to be changing
+00:11:49.980 dramatically so what you could do is to
+00:11:53.190 faithfully display that or you could do
+00:11:56.160 it in the smart way so let's say in the
+00:11:57.780 first hour we get 1,000 views then in
+00:12:03.420 the second hour if there's a lot of
+00:12:06.270 users who are asking the number of views
+00:12:07.680 in this video I'm going to be smart and
+00:12:10.740 I'm just going to say 1,000 in 21.5 is
+00:12:14.370 the total number of views now so that's
+00:12:16.500 1,500 yeah but maybe the total number of
+00:12:20.640 views in reality was 1700 so there's a
+00:12:23.820 mismatch between reality and what is
+00:12:25.560 being displayed but we don't care
+00:12:28.560 because this is metadata this is
+00:12:31.440 something which is not code to the video
+00:12:32.850 so we are going to display some number
+00:12:34.800 which may or may not be true it's an
+00:12:37.170 approximation and do the users really
+00:12:39.540 care not really they want a general idea
+00:12:41.490 of what's going on and of course this
+00:12:44.190 seems like a really big difference but
+00:12:46.200 YouTube can be smart about this they can
+00:12:48.120 figure out how the views change over
+00:12:51.600 time and if it's this is the first hour
+00:12:54.810 and this is the second hour instead of
+00:12:56.880 finding out the total number of views in
+00:12:58.530 this video they can just run through
+00:13:01.320 this graph and figure out where it
+00:13:02.880 should lie okay
+00:13:05.870 YouTube must be much much smarter than
+00:13:07.340 this but I am just giving the general
+00:13:08.870 area of approximation instead of showing
+00:13:11.720 people the truth approximate and save a
+00:13:15.620 lot of load on your service
+00:13:17.240 potentially this could save a lot of
+00:13:18.680 database queries that you are making to
+00:13:20.150 get the metadata of a post right okay so
+00:13:25.190 that's the fourth smart solution and
+00:13:26.810 that is now the fifth smart solution
+00:13:29.630 which is approximate statistics
+00:13:32.740 apart from these solutions of course
+00:13:34.580 there's some good practices in the
+00:13:37.520 server side to avoid a thundering hood
+00:13:39.140 the first one is the most common one
+00:13:41.660 which is caching so if you're getting a
+00:13:46.790 lot of common requests then the response
+00:13:48.980 is going to be the same and you can just
+00:13:51.020 cash those requests and I mean basically
+00:13:54.380 cache the responses for those requests
+00:13:56.240 so those are key value pairs and this is
+00:14:01.520 going to save a lot of queries that
+00:14:03.350 you'll be making on the database in turn
+00:14:05.480 that will be improving the performance
+00:14:07.100 of your system and also you can handle
+00:14:09.290 more load then another thing that you
+00:14:11.360 can do is of course gradual deployments
+00:14:14.710 most of the issues that people get in
+00:14:18.650 the server side is when they're
+00:14:19.670 deploying the service so there's a lot
+00:14:21.980 of stories about you know site
+00:14:24.080 reliability engineers who are fighting
+00:14:26.000 deployments and the developers want to
+00:14:28.130 deploy more because they want to get
+00:14:29.630 more features out and the reliability
+00:14:32.150 engineers want to stop the province as
+00:14:33.860 much as they can because that makes the
+00:14:35.240 system more stable so it's it's an
+00:14:37.700 interesting tug-of-war and what you want
+00:14:40.190 to do essentially is deploy so gradual
+00:14:43.040 deployments in this what happens is you
+00:14:45.260 don't deploy let's say if you have a
+00:14:47.720 total of 100 so as you don't deploy them
+00:14:49.310 together you deploy the first thing you
+00:14:51.920 have a look at what's going on and then
+00:14:54.260 you deploy the next 10 and so on and so
+00:14:56.120 forth this won't be possible in certain
+00:14:59.720 scenarios when there's a breaking change
+00:15:01.820 so to speak but we are getting into too
+00:15:03.980 much detail and gradual deployment is a
+00:15:06.800 good idea
+00:15:07.430 deploy 10 10 10 10 together unless there
+00:15:10.190 is absolutely no choice that you haven't
+00:15:12.529 you have to deploy in parallel and the
+00:15:14.180 final point that I'm going to make of
+00:15:15.410 course is going to be controversial it's
+00:15:18.250 with
+00:15:19.480 star and that's called coupling so to
+00:15:24.760 improve performance sometimes what you
+00:15:26.350 need to do is you need to store data
+00:15:27.820 which is very similar to caching but let
+00:15:32.019 us assume that you have a service which
+00:15:34.870 for every request that gets asks an
+00:15:37.029 authentication service to authenticate
+00:15:39.790 the user first to authenticate this
+00:15:41.320 request and then serves the request
+00:15:44.610 let's say that this network call is too
+00:15:47.139 much for you
+00:15:47.800 maybe it's an external service what you
+00:15:50.350 could do is you could cache the users
+00:15:53.820 username and token or password or
+00:15:57.579 whatever you like and now what you can
+00:16:00.699 do is you can see that if the username
+00:16:02.589 password worked once in the past one
+00:16:05.079 hour then maybe the password hasn't
+00:16:07.389 changed and we are going to assume that
+00:16:09.130 this user is authenticated to make that
+00:16:10.870 like you know to call this service and
+00:16:13.060 we are going to go ahead instead of
+00:16:14.769 talking to authentication service and
+00:16:16.750 verifying whether it's true or not it's
+00:16:19.690 good in a way that it's not you know
+00:16:22.660 querying the authentication service all
+00:16:24.370 the time so reducing the load
+00:16:25.360 authentication service improving
+00:16:27.819 performance improving user experience
+00:16:31.889 except that if this is a financial
+00:16:34.120 system and the password has changed and
+00:16:36.760 if there's a person who's hacked into
+00:16:39.069 their account and then using this
+00:16:40.690 password then you're big trouble aren't
+00:16:42.100 you
+00:16:42.339 so if this is a double-edged sword in
+00:16:45.670 fact it seems like a really bad idea in
+00:16:47.980 most cases so you should only couple
+00:16:50.019 systems which is actually keeping data
+00:16:52.319 in the cache sensitive data or or
+00:16:56.079 important data in the cache that should
+00:16:57.730 be avoided however if you have some data
+00:17:01.750 like you know the profile picture or
+00:17:03.279 something you can keep that for one hour
+00:17:05.439 or two hours that's why there's a star
+00:17:07.630 over here you want to take this
+00:17:10.000 case-by-case and understand that keeping
+00:17:12.520 some data for an external service in
+00:17:15.609 your own service whether that's a good
+00:17:17.410 idea or not and that will improve
+00:17:19.839 performance and in turn that will help
+00:17:22.809 you handle more requests so the problem
+00:17:25.630 of the Thundering Herd will be slightly
+00:17:27.520 mitigated but really this is
+00:17:30.450 like performance improvement and
+00:17:31.620 probably we should put another star over
+00:17:34.139 here just to be sure that's it for this
+00:17:36.720 discussion on the thundering herd
+00:17:38.580 we often have discussions on system
+00:17:40.169 design so if you want notifications for
+00:17:41.820 that you can subscribe and of course if
+00:17:43.860 you have any doubts or comments on this
+00:17:45.710 discussion then you can leave them in
+00:17:47.549 the comments below I'll see you next
+00:17:49.169 time
+00:17:54.440 stuff like the views the number of views
+00:17:57.799 but the number of legs number of
+00:18:00.470 comments these things are not critical
+00:18:03.380 to a video

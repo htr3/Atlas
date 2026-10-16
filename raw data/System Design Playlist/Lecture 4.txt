@@ -1,0 +1,150 @@
+# tactiq.io free youtube transcript
+# What is CONSISTENT HASHING and Where is it used?
+# https://www.youtube.com/watch/zaRkONvyGr8
+
+00:00:02.050 So the problem is notactually load balancing.
+00:00:05.050 The problem is adding and removingservers like we saw that completely
+00:00:09.911 changes the local data that we have ineach server, right? And to avoid that,
+00:00:15.330 we are going to be using this conceptwhere we are still going to be hashing
+00:00:20.850 all the requests accordingto their IDs, right?
+00:00:25.110 So request ID is still there.We still hash request IDs.
+00:00:30.130 So what's different? Well,what I'm drawing is a ring.
+00:00:34.920 And now I want you to imaginethat instead of an array,
+00:00:38.750 which can map this hashfunction value from zero to
+00:00:43.760 M minus one, this is a ringwhich contains the positions
+00:00:48.270 0, 1, 2, 3, so on and so forth,
+00:00:53.100 up to M minus one, right?
+00:00:55.780 It goes all the way around and M minusone six to zero. So it's a ring of hash
+00:01:01.870 fine. So of course this thing canbe mapped into a point over here.
+00:01:07.270 Let's say that point is over here.
+00:01:14.590 So this request is pointed over here.We are going to have multiple requests.
+00:01:22.450 So these are what the requests are.
+00:01:32.000 Now what we can do is wecan take the servers and we
+00:01:37.140 actually need to send theserequests to those servers.
+00:01:40.510 So the servers themselveshave IDs which are from
+00:01:43.840 0 1, 2, 3, 4. Right? Firstwe had just four servers.
+00:01:48.870 So These are the server IDs.
+00:01:54.570 What I can do is hash theseserver IDs also using the same
+00:01:59.461 hash function, right?
+00:02:04.000 Or a different hash function.It doesn't really matter.
+00:02:05.590 What I want to do is then take theremainder with the search space,
+00:02:10.121 which is M. So
+00:02:13.560 I take the remainder with M
+00:02:18.290 and as an example, if I hash zero
+00:02:24.410 mod M is 30,
+00:02:26.990 then let's say H of zero is 49.
+00:02:31.419 MOD 30 gives you 19.
+00:02:34.220 So server one will be hash deposition 19.
+00:02:38.540 So let's say that isover here, right? SS one.
+00:02:43.850 Similarly, let's saySS two is hashed. Here
+00:02:49.760 we have SS three here
+00:02:54.430 and SS four here.
+00:03:00.870 Now whenever a requestcomes into this ring that we
+00:03:05.851 have, what we do is we go clockwise.
+00:03:09.750 We go clockwise andfind the nearest server.
+00:03:15.330 This server is going to be serving thisrequest. That's it. Simple algorithm.
+00:03:20.090 This one is gonna be sold by SS two.This one is going be served by SS three,
+00:03:24.400 or rather this one is gonna be sold byS four. This by S two. This by SS three,
+00:03:30.010 this by S one.
+00:03:34.690 In fact it, it goes over hereto S one. Okay? So S one has
+00:03:41.430 Load of two requests.This has load of one,
+00:03:45.760 load of one and a load of one, right?
+00:03:49.390 So why is this thearchitecture we're choosing?
+00:03:52.860 Because the hashes are uniformly random.
+00:03:56.050 You can expect the distancebetween them to be also uniform,
+00:04:00.770 in which case, because the distanceis uniform, the load is uniform,
+00:04:04.370 the requests are uniform of course. Sothey're being mapped to the right places.
+00:04:08.650 So the load factor turnsout to be on average,
+00:04:13.550 expected one by, and
+00:04:18.760 that's the smart bit. But you alreadyhad that earlier. That's not the problem.
+00:04:24.440 The special thing isnow if I lose a server,
+00:04:28.710 let's say SS one or let, let'sfirst add a server, in fact.
+00:04:32.880 So I have a fifth server, right?
+00:04:38.360 Which is mapped onto this point.
+00:04:43.370 Where should I add it over here? Yeah,
+00:04:47.300 this is SS four.
+00:04:51.020 Then any requests which come in here
+00:04:57.870 are going to be served by S four.
+00:05:00.589 So initially these two requestswould be served by S three,
+00:05:04.181 which would have a loadfactor of let's say three.
+00:05:08.720 But because of SS four,
+00:05:10.070 these two requests find thenearest clockwise server,
+00:05:14.630 which gives S four. The load factorof two and SS three comes down to one.
+00:05:20.560 Now what you're seeing is that thechange in each of these servers loads
+00:05:25.720 is going to be much less sothan what was there previously.
+00:05:29.700 SS one is not affected, S four isnot affected. SS two is not affected.
+00:05:34.570 Only S three is affected. Okay?
+00:05:38.240 Now let us say S one goes down
+00:05:41.760 for some reason there was a crash.This, this thing lost its power cord.
+00:05:47.060 So we lose this. And good news,
+00:05:52.940 all of these requests are nowgoing to be served by SS four
+00:05:57.820 and S four is a happy guy. Not really.
+00:06:03.270 The problem with this architecture is that
+00:06:07.130 although theoretically the loadshould be one by end practically,
+00:06:11.990 you can have skewed distributionsover here. And why is that?
+00:06:16.070 Because you know, you do not have enoughservers. If you had a lot of servers,
+00:06:20.500 the chance of thishappening was really low.
+00:06:22.060 You would have a lot of red pointsand it would be evenly distributed.
+00:06:25.580 But you just have four now and that'swhy you have about half of the load on a
+00:06:30.241 single server, which is terrible.
+00:06:35.220 So we know how to addservers and you know,
+00:06:40.181 map requests to them. We know how toremove servers and add requests to them.
+00:06:43.320 We also know that theoreticallyit's going to be the minimum change,
+00:06:48.720 But practically, how do we make this work?
+00:06:52.160 And this is the place where systemdesign actually engineers actually solve
+00:06:56.261 problems, right? Take your time,try to think of a solution,
+00:07:03.400 okay?
+00:07:05.270 What you can do is you canstart making virtual servers.
+00:07:10.080 When I say virtual servers it doesn'tmean that you have virtual boxes or you
+00:07:14.531 start buying more serversbecause those are expensive.
+00:07:18.880 What you can do instead isuse multiple hash functions.
+00:07:23.800 This is etch,
+00:07:25.190 why not make it edge one for allof these guys and then have another
+00:07:30.111 hash function ET two
+00:07:32.970 through which you pass the serverIDs and get different numbers.
+00:07:38.280 So if you have K hash functions
+00:07:45.430 from which you pass each,each of the server IDs,
+00:07:47.910 then each server will have K points.
+00:07:50.340 So let's say S three maps totwo other points. One is this,
+00:07:55.200 S three, one is this,
+00:07:59.930 S three is right here.
+00:08:04.420 SS four is mapped to this point and
+00:08:10.110 to this point, and what you're effectivelyseeing is if K is equal to three,
+00:08:14.330 then you'll have, instead of justfour points, you have 12 points.
+00:08:18.120 And the likelihood of one servergetting a lot of the load is much,
+00:08:22.381 much lesser If you choose the K valueappropriately. For example, let's say
+00:08:28.900 log in or log M,
+00:08:33.090 you can almost entirelyremove the chance of a skewed
+00:08:38.030 load on one of the servers, right? So
+00:08:44.058 Now if, if a server is removed,
+00:08:45.820 you need to remove key points from itand clockwise assign to the nearest
+00:08:50.521 servers. But in this case,
+00:08:51.881 you can see that the chance of the load
+00:08:56.721 being skewed is really, really low andit is efficient. So if you had a pie,
+00:09:03.350 now it's more likely that you are goingto just take some load from this server,
+00:09:08.059 some load from this server,some load from this server,
+00:09:09.911 and some load from this server, right?
+00:09:13.280 The reason for that is because thereare multiple points where they exist.
+00:09:17.980 Multiple places are going to get removedif you remove one server and those
+00:09:22.141 places will hit multiple regions.
+00:09:24.320 So their loads will increaseuniformly expected uniformly.
+00:09:29.440 Similarly, if you add a server,again, the same thing's gonna happen.
+00:09:32.230 You are going to haveexpected minimum change in
+00:09:37.559 the numbers that they serve.
+00:09:41.030 So if you're wondering where this canbe used, it's used in many, many places.
+00:09:46.330 Lower balancing is a concept which isused in distributed systems extensively,
+00:09:50.179 right? You have thisbeing used by web caches.
+00:09:53.429 You have this being used by databases.
+00:09:55.810 Consistent hashing is something thatgives you flexibility and gives you load
+00:10:00.810 balancing in a very, veryclear and efficient way.
+00:10:06.210 Alright? So you should definitely knowabout this and you can have a look in the
+00:10:10.771 description below for relevant links.
+00:10:13.800 I'll be sharing the code for thisin the description below again,
+00:10:17.150 and if you have any doubts, then youcan leave them in the comments below.
+00:10:19.990 If you have any suggestionsfor competitive programmingor system design videos,
+00:10:24.880 you can leave them in the comments below.I'll be happy to have a look at them.
+00:10:27.809 Best of luck.
+00:10:29.920 And this is what we want to avoid.You know, why we wanna avoid this?
+00:10:33.450 Because when people are makingrequests to different servers,
+00:10:37.730 what you don't want to happen is thatif one request depends on the response
+00:10:42.141 from this server, you don't want go.

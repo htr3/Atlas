@@ -1,0 +1,230 @@
+# tactiq.io free youtube transcript
+# Map, Filter and Reduce in Python | Python Tutorial - Day #53
+# https://www.youtube.com/watch/OErhjT4f5Cs
+
+00:00:00.001 The concepts of map filter andreduce are very important in python.
+00:00:03.540 You'll have to use map,filter and reduce many times.
+00:00:05.954 When you are doingadvance list manipulation.
+00:00:08.618 If you know how to usemap, filter and reduce.
+00:00:11.587 Then it will help you to becomea great Python programmer.
+00:00:14.321 Let's go to the computer screen.
+00:00:15.321 And let's get started.
+00:00:16.344 [ MUSIC 🎶]
+00:00:25.617 It is very importantto know that map,filter
+00:00:28.623 And reduce are notonly there in Python.
+00:00:31.384 Map,filter and reduce can'tonly be used with lists.
+00:00:34.938 But you’ll think what aremap filter and reduce?
+00:00:36.923 First explain that.
+00:00:38.133 We are going todiscuss that in this video.
+00:00:40.071 First, I'll tell you what map is.
+00:00:42.844 Let's say I have a function cubewhich takes X and it returns X  * X * X.
+00:00:52.696 I'll print the cube of 2 anddefinitely it will give the output as 8.
+00:00:58.040 I also know that theanswer is going to be 8.
+00:01:02.157 For example, let's say I have a list L andinside it the list items are 1,2,4,6,4,3.
+00:01:10.954 As you can see this is the list.
+00:01:13.219 Now, I want the output to containthe cube of all these numbers in the list.
+00:01:17.454 How can you do that?
+00:01:18.908 You can do it with the help of a for loop.
+00:01:22.617 Then you’ll write “for item in l:”.
+00:01:26.859 After that you will writenewl.append(cube(item)).
+00:01:37.415 As you can see thereis so much work in this.
+00:01:39.509 Because first we have to createnewL and then make an empty list.
+00:01:43.783 After that append itwith the help of for loop.
+00:01:45.798 Is there any shortway of doing that.
+00:01:47.298 Today I am going to tell you that.
+00:01:49.072 First, let's see this method.
+00:01:50.777 So, I did the iteration andthen made an empty list called newl.
+00:01:55.017 Then I said that every item in list L.
+00:01:58.439 For every item in list L inserta new item in the list newL.
+00:02:05.157 Insert a new item in the list newL.
+00:02:08.017 Which is going to be the cube of this item.
+00:02:13.368 So this is done which is great.
+00:02:16.157 Now, we are going to seea shortcut way of doing this.
+00:02:20.541 I'll show you what could Ihave done instead of doing this.
+00:02:25.002 Then you'll know what is map.
+00:02:27.487 I'll write map(cube, l).
+00:02:31.017 Now, you’ll think I am kidding.
+00:02:33.108 Will it return the same thing or not?
+00:02:35.884 It is going to return the samething but it will be a map object.
+00:02:40.204 You can convert this mapobject into a list very easily.
+00:02:45.157 Finally, you’ll get a list whichis going to be similar to this list.
+00:02:48.893 Isn't it interesting?
+00:02:49.948 You guys tell me.
+00:02:50.987 Now you’ll think, whyis python troubling us?
+00:02:53.126 Why is it giving us a mapobject and not a list in written?
+00:02:56.869 You can change it accordingto your desired data type.
+00:03:02.032 Map object is returnedbecause of efficiency purpose.
+00:03:05.579 This is map.
+00:03:06.775 Firstly, give map the name of the function.
+00:03:11.306 Then give the name of the list onwhich you want to apply that function.
+00:03:22.009 It can be a Lambda function but Iam not going to confuse you for now.
+00:03:26.126 Just try to digestthis much for now.
+00:03:28.617 Comment down thatyou have understood map.
+00:03:31.548 Please drop a comment ifyou have understood map.
+00:03:34.979 Because I’ll feel good byreading your comments.
+00:03:37.455 If you comment then I'll know that youhave understood the concept of map.
+00:03:42.432 Now, let's move forwardand discuss about filter.
+00:03:45.876 What is filter?
+00:03:47.841 Filter is what a filter is.
+00:03:51.502 Now you’ll think what I am saying.
+00:03:54.338 There is water filter at yourhome which filters the water.
+00:03:58.139 Filter means that somethings goes insideand only a few things are filtered out.
+00:04:02.212 Dirty water goes inside, the dirt remainsinside and the clean water comes outside.
+00:04:05.776 In the same way,this list will be filtered.
+00:04:09.698 Only the elements whichwill qualify will remain.
+00:04:13.236 How we'll get to knowwhich elements will qualify?
+00:04:16.423 I'll write MAP in capital over here.
+00:04:21.399 We are going to discussabout map, filter and reduce.
+00:04:23.744 Then I'll write FILTER in capital.
+00:04:29.190 I am going to use the samelist which is named as “L”.
+00:04:33.698 I am filtering the elements from list L.
+00:04:35.830 I'll write newnewL becauseI’ve already created newL.
+00:04:40.564 I want a function thatfilters the elements.
+00:04:47.837 I name that function as filter_function.
+00:04:50.529 It is not a built-in functionso I'll have to create it.
+00:04:55.423 Then I'll write return A > 4.
+00:04:59.760 It takes A and returns A > 4.
+00:05:02.948 It will return true if A is greater than 4.
+00:05:06.533 Otherwise it will return false.
+00:05:08.345 I hope you're understanding that if I givefilter function a value greater than 4.
+00:05:12.744 Then it will return true
+00:05:13.869 And if I give it a value less thanor equal to 4 then it will return false.
+00:05:19.541 I hope you are understanding this.
+00:05:24.228 So I have given filter_function to newnewLwhich is going to return true or false.
+00:05:29.636 Based on the given value.
+00:05:31.876 The second parameter will be list L.
+00:05:33.393 That's about it.
+00:05:34.778 Now, I'll print newnewL.
+00:05:36.587 Then only those elements will beprinted which are greater than 4.
+00:05:45.673 Now, you’ll think why thisis also giving filter object.
+00:05:49.281 You can easilyconvert it into a list.
+00:05:52.854 Python is doing almost everything for you.
+00:05:54.916 You can at least convert it into a list.
+00:05:56.932 As you can see only the number 6is remaining from this group of list.
+00:06:02.315 Which is greater than 4.
+00:06:04.020 Filter gave us this.
+00:06:05.645 If I change it to 3 then what will happen?
+00:06:08.002 Or if I change it to 2then what will happen?
+00:06:11.376 The elements which aregreater than 2 will be printed.
+00:06:14.518 Not equal to 2 but greater than 2.
+00:06:16.846 The elements will be 4, 6, 4 and 3.
+00:06:19.846 The concept of filter is very simple.
+00:06:22.018 We'll discuss about reduce in sometime tillthen let's have a recap of map and filter.
+00:06:29.009 After that I also have to showyou how to plug in Lambda function.
+00:06:32.291 In Python, the map, filter, andreduce functions are built-in functions.
+00:06:35.986 That allows you to apply afunction to a sequence of elements.
+00:06:39.596 And return a new sequence.
+00:06:41.940 It takes a sequence of elements as input.
+00:06:44.698 And gives you a newsequence of elements as output.
+00:06:47.565 These functions are knownas higher order functions.
+00:06:49.682 As they take other functions as arguments.
+00:06:51.463 I already told you in the last video.
+00:06:53.213 That a function can takeanother function as an argument.
+00:06:56.923 As you can see cube is a function but I’vepassed it as an argument to this function.
+00:07:02.462 When we pass a function to another functionthen it is called higher order function.
+00:07:06.151 Map and filter are higher order functions.
+00:07:09.971 Reduce is also higher order function.
+00:07:11.916 We’ll discuss about reduce in some time.
+00:07:14.104 Reduce also takes afunction as an argument.
+00:07:16.518 For now we’ll get back to this.
+00:07:18.346 Give map a function andan iterable to make it work.
+00:07:21.699 Give a list.
+00:07:22.724 It should be an iterable.
+00:07:24.275 The function argument is a functionthat is applied to each element.
+00:07:26.988 That's about it.
+00:07:28.050 This is the syntax.
+00:07:29.831 I hope you understood this.
+00:07:31.909 Was there any need tomake the cube function?
+00:07:34.823 The truth is no.
+00:07:36.127 It was not needed.
+00:07:37.737 Instead of passing a cube function Icould have passed a Lambda function.
+00:07:41.847 The Lambda functionwill take X and return x*x*x.
+00:07:47.322 The program will work thesame even if I wrote it like this.
+00:07:52.628 I'll remove print(cube(2)) from here.
+00:07:56.191 As you can see it will give thesame output as it was giving before.
+00:07:59.253 Now also it is cubing all the elements.
+00:08:01.402 Earlier also it was doing the same.
+00:08:04.221 It is great.
+00:08:06.128 It was fun.
+00:08:08.697 We discussed about Mapnow let's talk about filter.
+00:08:12.112 You can also passLambda function in filter.
+00:08:14.168 Filter takes a function and an iterable.
+00:08:18.189 The values for which this functionreturns true will be there in your output.
+00:08:24.714 The values for which this function returnsfalse will not be there in your output.
+00:08:28.089 It is that simple.
+00:08:29.932 I am passing a function asthe first argument to the filter.
+00:08:34.628 This function will eitherreturn true or false.
+00:08:38.229 For the values present in this list.
+00:08:41.027 The values in list Lare 1, 2, 4, 6, 4 and 3.
+00:08:45.839 For every value, the filter_functionwill either return true or false.
+00:08:53.502 The values for which thefilter_function will return true.
+00:08:57.449 Will be included in the new list "newnewL".
+00:08:59.425 And the values for which it will returnfalse will not be included in the new list.
+00:09:03.776 It is that simple.
+00:09:08.315 I'll not confuse you more.
+00:09:12.346 Predicate argument is a function.
+00:09:15.448 That returns a Boolean value and is appliedto each element in the iterable argument.
+00:09:19.925 The iterable argument can be alist, tuple or any other iterable object.
+00:09:24.355 The easiest iterable objectis list so first learn that.
+00:09:29.018 I hope that you’ve understood this.
+00:09:32.073 Let's talk about reduce function.
+00:09:33.972 It is also a higher order function.
+00:09:37.730 This also takes function as an argument.
+00:09:40.362 But here we have to import it.
+00:09:42.636 I'll comment out map and filter for now.
+00:09:47.339 You'll get all the codewhich I have written here.
+00:09:50.316 Let's discuss about reduce.
+00:09:52.141 So the first thing is thatwe have to import reduce.
+00:09:54.294 You have to understand this.
+00:09:55.543 If I execute the program without importingreduce then it will give an error.
+00:10:00.574 So this is the first thing you should know.
+00:10:03.143 After this there is a list of numbers.
+00:10:05.230 We are reducing thesenumbers using reduce function.
+00:10:10.550 This means that it willtake the first two values.
+00:10:14.924 1 and 2.
+00:10:16.416 The numbers 1 and 2will pass from this function.
+00:10:18.511 This function is simplyadding up two numbers.
+00:10:20.668 There is a Lambda functionwhich is adding up to numbers.
+00:10:25.089 If you are not understanding this and yournew to the concept of Lambda functions.
+00:10:28.394 You can write here my sum andmake a function called “mysum”.
+00:10:33.088 You can make def mysum(x,y)and it will return sum of X and Y.
+00:10:42.034 I have simply done this.
+00:10:44.002 It takes x, y and it will return X + Y.
+00:10:47.386 Now, let's see how it works.
+00:10:51.853 At the start, these twovalues will be reduced.
+00:10:55.153 1 and 2 will be reduced and it will give 3.
+00:10:57.308 I'll make a copy of thisso that you'll understand.
+00:11:00.440 If I apply mysum functionto these two numbers.
+00:11:03.393 Which I have given reducefunction as first argument.
+00:11:07.424 Then the output will be 3.
+00:11:10.213 We don't have to add up.
+00:11:11.917 We just have to apply this function.
+00:11:13.425 I am doing it just because X +Yis written inside this function.
+00:11:16.082 Value of x is 1, y is 2 andthe value of x + y will be 3.
+00:11:20.183 I'll repeat the same thing for these two.
+00:11:22.003 The next time 3 and 3 will give 6.
+00:11:25.332 After this 6 and 4 will not give 11.
+00:11:29.183 Please pay attention.
+00:11:32.260 6 and 4 will give 10.
+00:11:35.816 If I sum up 10 and 5then it will give me 15.
+00:11:42.246 That is going to be my final output.
+00:11:44.995 I hope y'all understood this.
+00:11:46.953 So the reduce function works in this way.
+00:11:49.711 I hope you understood the reduce function.
+00:11:51.824 You’ve already understood map and filter.
+00:11:53.605 There is an example over hereand I hope you’ll understand it.
+00:11:57.043 If you haven't accessed theplay-list yet please access it.
+00:12:01.753 You’ll get to see all thevideos from day 1 in this play-list.
+00:12:06.402 I have one request for you guys.
+00:12:09.003 If you haven't given a reviewyet please give a review like this.
+00:12:11.636 In the comment section of first video.
+00:12:14.209 Thank you so much tech town erafor reviewing this video.
+00:12:21.097 You can rate the courseby giving stars like this.
+00:12:24.496 The comment section will look great.
+00:12:26.222 I want you all to give honestreviews about this course.
+00:12:29.996 The reviews will benefitany new person to decide.
+00:12:33.347 Whether to start with this course or not.
+00:12:36.714 That's it for this video.
+00:12:37.964 Thank you so much guysfor watching this video.
+00:12:40.050 And I will see you next time.
+00:12:42.339 [ MUSIC 🎶]

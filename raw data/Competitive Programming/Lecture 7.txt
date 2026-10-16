@@ -1,0 +1,441 @@
+# tactiq.io free youtube transcript
+# Persistent Segment Trees - SPOJ - MKTHNUM
+# https://www.youtube.com/watch/TH9n_HVkjQM
+
+00:00:00.320 hi guys it's gkcs we'll be talking about
+00:00:02.840 persistent segment trees now and in case
+00:00:04.960 you don't know about segment trees you
+00:00:06.440 can check the link in the
+00:00:08.200 description so persistent data
+00:00:10.759 structures are those data structures
+00:00:12.679 which can be queried for different times
+00:00:15.839 now let's say you are uh you are a
+00:00:20.119 person on Facebook and you have friends
+00:00:22.920 at time equal to Z which count to three
+00:00:26.119 but at time equal to 1 you have two
+00:00:27.720 additional friends so now the friend
+00:00:29.599 count is five but you lose a friend in
+00:00:32.079 the next second so at tal to 2 you have
+00:00:34.719 just four friends so it was a little
+00:00:36.760 complicated scenario maybe but the
+00:00:38.360 important thing is that you are changing
+00:00:41.320 the number of friends that you have you
+00:00:42.559 so your answer is changing uh at
+00:00:45.160 different times but you might want to
+00:00:48.199 ask at t equal to Z what was the number
+00:00:50.000 of friends I had and if you are just
+00:00:52.559 storing the newest information then
+00:00:54.079 you'll just have four as your answer but
+00:00:55.879 the answer should have been
+00:00:57.280 three so to answer these kind of queries
+00:00:59.719 we need some sort of persistence meaning
+00:01:02.199 that the data has to be persisted for
+00:01:04.400 the previous States
+00:01:05.680 also so no modifications should be
+00:01:08.720 allowed for um on the old data to add
+00:01:12.720 new data that's the general idea of
+00:01:14.799 persistence and persistent segment trees
+00:01:17.240 are just making those segment trees
+00:01:18.680 behave like
+00:01:20.000 that
+00:01:21.560 so let's take an example of a list
+00:01:25.320 first you have a list
+00:01:30.040 1 2 - one
+00:01:33.439 6 and these are the indices if someone
+00:01:36.799 tells you to update minus1 you don't
+00:01:39.840 don't just go and update this to you
+00:01:42.040 know let's say -1 a of 2 has been set to
+00:01:46.560 six now so instead of making this six
+00:01:49.799 what you will
+00:01:51.600 do is add a pointer to this
+00:01:56.360 node with six in it so at tal to 1
+00:02:00.600 this is the new state and at tal
+00:02:03.439 0 this was the state I think it was
+00:02:06.560 minus one
+00:02:08.160 yeah so now you have the old information
+00:02:10.520 and the new information if someone asks
+00:02:12.360 you at tal to 1 what is uh at index 3 so
+00:02:15.599 you'll come here you'll see there is no
+00:02:16.879 change and you'll see six you you can go
+00:02:19.599 back and till the point that you
+00:02:21.480 actually have a valid value so this is a
+00:02:23.640 very simple example of persistence
+00:02:25.920 just breaking ground here
+00:02:30.800 and now let's pick up the segment
+00:02:39.239 Tre so as we know a segment Tre is a
+00:02:41.440 complete binary tree in which range
+00:02:44.480 queries from left to right can be
+00:02:46.560 answered in log n
+00:02:49.440 time usually there are just two kinds of
+00:02:52.040 queries that you have one is
+00:02:54.400 update and the second one is query so
+00:02:57.640 both of these are on mes left and right
+00:03:00.440 uh the save space we won't mention
+00:03:05.560 it let's assume that these two nodes
+00:03:08.159 have to be updated 0 to
+00:03:11.159 1 need to be
+00:03:13.400 updated so our standard procedure of
+00:03:16.239 updating a segment tree we come to the
+00:03:18.280 root we check if the range Falls within
+00:03:20.920 this range if it does then squarey both
+00:03:22.959 nodes so both these nodes are
+00:03:25.959 quered this node says it entirely Falls
+00:03:28.760 within my range so it's going to
+00:03:31.319 return this note says it doesn't fall
+00:03:33.400 within my range at all it returns
+00:03:35.840 nothing and so there's an update
+00:03:37.920 required here there's no update required
+00:03:40.000 here and there's an update required here
+00:03:43.200 notice that we are of course assuming
+00:03:44.560 there is lazy propagation so these two
+00:03:46.000 nodes are not updated
+00:03:49.439 yet in the standard segment Tre of
+00:03:51.680 course these nodes will be updated but
+00:03:53.560 in a persistent segment Tre what happens
+00:03:58.239 is at T = to
+00:04:00.920 0 the blue color is how the segment Tre
+00:04:04.000 is at tal 1 we draw it with
+00:04:07.079 red right so at t equal to 1 we have
+00:04:10.920 these two nodes to
+00:04:12.599 update and we have let's say we have a
+00:04:16.519 an array of root nodes so at different
+00:04:19.279 times what is the root node that you
+00:04:21.600 need to go to so the first
+00:04:24.080 node needs to be updated we create a new
+00:04:26.600 node with the updated value
+00:04:30.039 this node also needs an update so we
+00:04:32.320 create that node with the updated
+00:04:35.000 value this node doesn't need to be
+00:04:37.360 updated in fact no other node needs to
+00:04:40.600 be so for tal to 1 we'll come
+00:04:45.080 here it's left child should have been
+00:04:48.720 this but it's been updated so it will be
+00:04:50.240 this now so it's left child points
+00:04:55.320 here just reinforcing that left child
+00:04:58.039 thing
+00:04:59.919 it's right
+00:05:01.639 child doesn't need a new node so we can
+00:05:04.400 just make it point to the old
+00:05:07.720 node there's an update here no updates
+00:05:10.120 here it points to the old node now the
+00:05:11.919 old node does not need to have any
+00:05:13.240 further checks because it's the old node
+00:05:14.759 so it has the same left and right
+00:05:16.400 pointers this one needs to look at its
+00:05:18.720 left and right pointers its left pointer
+00:05:22.440 did not change so we just make it point
+00:05:24.240 to the old left
+00:05:25.759 pointer right pointer did not change we
+00:05:28.000 make it point to the old right
+00:05:30.560 and so you see that this segment tree is
+00:05:33.560 the new segment tree that you
+00:05:35.759 need but if you need queries for time
+00:05:38.360 equal to zero you fall back to the old
+00:05:40.840 blue colored segment
+00:05:42.639 tree what happened here is that you just
+00:05:45.280 needed login nodes to be updated because
+00:05:48.919 the segment tree has just login nodes
+00:05:50.800 which need to be updated for a range
+00:05:52.160 query uh you can guarantee that this
+00:05:54.759 these operations will happen in
+00:06:00.039 login
+00:06:01.840 time so the update will happen in
+00:06:05.599 login creating the additional nodes will
+00:06:07.880 happen again in
+00:06:09.400 login so that is login time for query if
+00:06:13.199 we add these two then it's still order
+00:06:17.360 login and so you're still safe with the
+00:06:19.440 segment Tre uh for a query well
+00:06:23.120 depending on what time it is uh you'll
+00:06:25.759 go to the particular route now the route
+00:06:27.560 may not change so you can again make you
+00:06:30.080 know this could have been pointing to
+00:06:31.840 this had the root not changed so based
+00:06:34.919 on that you will
+00:06:39.440 uh you'll query you'll find out the root
+00:06:42.639 and then in the standard segmentary
+00:06:44.120 procedure go left and right if
+00:06:47.919 required right so now we know about
+00:06:50.319 persistent segment trees let's solve a
+00:06:52.360 problem on
+00:06:53.960 spge right so we are going to be solving
+00:06:56.080 a problem on segment trees persistent
+00:06:58.199 segment trees uh using a SP problem
+00:07:00.720 called MK num it says that you have this
+00:07:06.039 array of size
+00:07:10.000 n and what you need to do is you need to
+00:07:12.440 answer Q
+00:07:14.280 queries where there's a given range from
+00:07:16.479 I to J and you need to find the K
+00:07:19.599 smallest number in that range so
+00:07:23.680 essentially they're saying that sort the
+00:07:25.039 array and then find the K smallest
+00:07:26.520 number but U it doesn't really matter
+00:07:28.919 finding out the get smallest number in a
+00:07:30.879 given range is uh an O operation so
+00:07:35.560 because you have q
+00:07:36.919 queries that will be in the Brute Force
+00:07:39.039 approach a Q and operation too
+00:07:44.159 slow now the first thing we noticed is
+00:07:47.280 that if we have a segment tree then we
+00:07:49.639 can answer a single query of this in
+00:07:52.800 just log and
+00:07:57.520 time I just get some space here to prove
+00:08:02.680 that
+00:08:06.599 right let's say we have this array of -2
+00:08:10.800 6 3 12 1 18 or minus 18
+00:08:18.919 yeah so these are the indexes of the
+00:08:23.759 elements now if we have a segment Tre I
+00:08:26.440 just said that we can answer this query
+00:08:27.840 in login time how
+00:08:30.680 firstly we cannot use these values in
+00:08:33.279 our segment Tre so what we need to do
+00:08:37.760 first is map these
+00:08:41.000 values let's sort it so we'll get
+00:08:45.240 -8 - 2
+00:08:49.040 1 3 6 and
+00:08:53.800 12 and for each value here in the new
+00:08:57.640 array
+00:09:02.519 we use its index as the maap value so
+00:09:05.800 that is 0 1 2 3 4 5 these are the values
+00:09:10.760 that you map it
+00:09:13.040 to you you realize in the second by this
+00:09:15.640 is the case we going to be using the
+00:09:17.760 frequencies of our maap
+00:09:19.519 values in these nodes that is 1 one one
+00:09:23.040 one 1 one 0 0 6 and seven are not not
+00:09:27.079 mapped to anything
+00:09:30.279 uh zero is is 18's value it occurs once
+00:09:35.320 and one occurs once and so on and so
+00:09:37.240 forth the parents will store the sum of
+00:09:41.000 its children so that's 2 here 0 + 0 is 0
+00:09:44.959 2 + z
+00:09:46.680 is 2 now that we have a segment tree we
+00:09:50.200 need a strategy to Traverse the the tree
+00:09:53.440 so let's have a query
+00:09:55.720 like 05 and the third element in that
+00:10:00.079 range so the entire range with the thir
+00:10:02.160 element
+00:10:03.079 required so we'll come to the
+00:10:05.920 root and uh we'll understand if this
+00:10:10.480 root is the right element to look at so
+00:10:12.760 how do we do that whatever is the value
+00:10:15.959 k +
+00:10:17.880 1 should be less than the element you're
+00:10:20.320 looking at
+00:10:23.760 6 K is right now 2 so is 2 + 1 less than
+00:10:26.920 6 yes it is so this this node has to be
+00:10:30.600 evaluated we go on the left we go on the
+00:10:32.760 right first always to the left we
+00:10:34.839 haven't gone on the right
+00:10:38.720 yet 4 is what you're looking at is 2 + 1
+00:10:42.440 less than 4 yes so it has to be
+00:10:45.920 evaluated we go on the left two is the
+00:10:48.519 element you're looking at is 2 + 1 less
+00:10:51.200 than 2
+00:10:53.240 no what does that mean well first of all
+00:10:57.440 K has to be uh subtracted by two because
+00:11:00.959 you have two elements here who are less
+00:11:03.639 than the person that you're looking for
+00:11:05.639 so if the third ranked person is
+00:11:07.519 obviously behind two people these two
+00:11:09.880 are those people you need to skip them
+00:11:12.680 and so you return from here K is changed
+00:11:17.600 to zero now because it become zero uh 2
+00:11:21.920 - 2 became zero and we come here with k
+00:11:25.360 equal
+00:11:27.519 to0 here we check if is 0 + 1 less than
+00:11:31.480 2 this is the note that we're looking at
+00:11:34.120 is 0 + 1 less than 2 no it isn't we need
+00:11:37.720 to evaluate it we go on the left first
+00:11:40.720 is 0 + 1 less than 1 no it
+00:11:44.399 isn't in fact it's not even greater than
+00:11:50.240 one so it is exactly equal to this node
+00:11:53.720 so this is the node that we looking at
+00:11:55.680 two is the answer for that node
+00:12:00.440 um so the answer for this query was
+00:12:04.360 two which in turn maps to
+00:12:07.279 one right there entire chain now it
+00:12:10.680 might look silly this entire operation
+00:12:12.240 was useless we could have just come here
+00:12:14.079 and been like okay 012 and that would
+00:12:16.160 have been your answer but not exactly
+00:12:19.000 what if you had a value of zero
+00:12:22.639 here your entire segment Tre would
+00:12:25.040 change this would become one this would
+00:12:27.279 become three this would become become
+00:12:29.959 five and then the calculations would
+00:12:32.240 change because you would have two yes
+00:12:34.240 you would come on the left and then the
+00:12:37.000 last element of this which would be this
+00:12:39.399 element would have been
+00:12:42.720 returned so that's how uh you know the
+00:12:45.600 segment Tre keeps everything flexible
+00:12:47.360 and is able to answer in just log end
+00:12:50.399 time what is the element at rank X for a
+00:12:53.880 given
+00:12:54.920 range all
+00:12:56.920 right so now that we know that for a
+00:12:59.440 given segment tree and a given range we
+00:13:01.360 can answer in lend
+00:13:02.959 time let's try and reduce the number of
+00:13:05.079 segment trees we need to make firstly if
+00:13:08.680 you have a sorted
+00:13:11.760 array of n
+00:13:16.040 elements and you try to insert a new
+00:13:19.519 element into it it goes in at position
+00:13:24.600 P okay sorted array it went in the
+00:13:27.160 position P if you add more more elements
+00:13:29.680 to this array then this Index P can only
+00:13:33.720 increase why well if all the elements
+00:13:36.600 that you added were larger then P will
+00:13:38.600 remain the same it will go in that the
+00:13:40.040 same position if the any of the elements
+00:13:42.760 were smaller then P will shift to the
+00:13:45.600 right but by how much it will shift to
+00:13:48.760 the right by the number of elements
+00:13:50.240 which are smaller than the element that
+00:13:52.920 you are trying to
+00:13:54.880 insert it's very important to notice
+00:13:57.079 that uh so if we
+00:14:01.440 have let's say position this gives you
+00:14:05.079 the value of p
+00:14:08.279 position of a element
+00:14:14.240 E from 0 to n
+00:14:19.160 elements from 0 to n
+00:14:23.720 elements is always less than equal
+00:14:26.440 to the position of the same element e
+00:14:30.120 from 0
+00:14:32.199 to oh God handwriting anyway from 0 to n
+00:14:37.600 plus X
+00:14:41.720 elements if you added elements to this x
+00:14:44.040 elements to this the position should be
+00:14:46.600 greater than equal to what you had
+00:14:47.959 earlier that's a claim in fact there's a
+00:14:51.040 stronger
+00:14:52.240 claim like we
+00:14:54.120 said the difference in these positions
+00:14:56.320 is equal to the number of elements which
+00:14:58.040 was smaller
+00:15:00.160 uh than than a of
+00:15:02.680 e so in fact we
+00:15:06.800 have so let's just uh minus position of
+00:15:11.800 this entire value of
+00:15:14.360 e 0 to
+00:15:21.240 n this evaluates
+00:15:26.639 to position of a of
+00:15:31.639 e amongst these X elements so that
+00:15:35.360 is n to n +
+00:15:41.160 x and if you just rename these variables
+00:15:45.079 that will be n is
+00:15:48.880 I I + x can be considered as J J is
+00:15:52.399 always greater than
+00:15:54.360 ISO and here a of K
+00:16:01.120 so this is what we are looking
+00:16:02.720 for we wanted the position uh of the K
+00:16:06.519 element we want the value of the K
+00:16:08.480 element at
+00:16:11.600 I right so this can be done fast why
+00:16:15.600 because instead of having uh segment
+00:16:18.600 trees for every I and J you just need
+00:16:20.319 segment trees for every 0 to
+00:16:24.079 I uh index so I ranges from 1 to n - 1 0
+00:16:31.680 2 these are the ranges that you need to
+00:16:33.759 make segment trees for so that's equal
+00:16:36.680 to n segment trees 0 to 1 one segmentary
+00:16:40.240 0 to 2 one segmentary up to
+00:16:43.720 n unfortunately this also takes too much
+00:16:46.199 time that we n Square operations too
+00:16:49.839 slow so we finally come to persistent
+00:16:53.000 segment
+00:16:54.399 trees we take let's say we take the
+00:16:56.839 first four elements and then make the
+00:16:58.319 segment so so uh min-2 maps to
+00:17:03.640 1 six maps to 4 that's here three maps
+00:17:09.079 to three that's good 12 maps
+00:17:13.439 to five so that is over here and you
+00:17:18.240 have zeros here everywhere else your
+00:17:22.359 segment Tre
+00:17:23.839 has these values in each of its parent
+00:17:29.520 like we expected four elements at the
+00:17:33.039 top let us say you're taking the next
+00:17:35.400 element now so that is this element one
+00:17:39.840 one maps to
+00:17:42.000 two so we can't update this value we
+00:17:45.559 need to create a new node for
+00:17:48.080 this one maps to two which has a
+00:17:51.640 frequency of one now its parent in turn
+00:17:55.200 changes to two with left child of this
+00:17:58.480 and right right child pointing
+00:18:00.720 here this parent again gets updated to
+00:18:03.480 three because it's left child and right
+00:18:05.520 child are pointing here 1 + 2 is
+00:18:08.600 3 and finally the root itself is
+00:18:12.159 modified because it has a right child
+00:18:14.600 here 2 + 3 which is
+00:18:17.640 5 all
+00:18:20.039 right now let's have a look at this we
+00:18:23.000 want the second element in this tree for
+00:18:26.360 two time intervals the first one is from
+00:18:29.000 0 to 3 find me the second element index
+00:18:33.799 one and the second one is from 0 to 4
+00:18:39.280 find me the first the
+00:18:42.120 second largest second smallest element
+00:18:46.240 here let's go for the first one 1 1 + 1
+00:18:50.039 is less than 4 we go on the left 1 + 1
+00:18:52.600 is exactly equal to two we come here
+00:18:55.120 this is your answer for the first query
+00:18:57.880 three is the answer
+00:19:00.400 for the second
+00:19:02.360 query 1 + 1 is less than less than
+00:19:05.760 5 1 + 1 is less than 5 1 + 1 is still
+00:19:09.480 less than 3 so we go over here and 1 + 1
+00:19:13.480 is of course greater than 1 so we go
+00:19:17.240 back to the root update that value 1 + 1
+00:19:20.960 is less than 1 so the Valu is updated by
+00:19:24.400 one so this
+00:19:25.480 becomes K becomes zero we are looking
+00:19:29.080 over here
+00:19:30.960 two that
+00:19:33.200 is uh 0 is 0 + 1 is less than 2 so we go
+00:19:37.760 down to the
+00:19:38.720 left 0 + 1 is exactly equal to
+00:19:43.960 1 so we go to the rightmost child this
+00:19:47.440 itself is a child it doesn't have
+00:19:48.640 rightmost child so this node has to be
+00:19:51.400 returned index
+00:19:53.240 2 and you'll see that that is actually
+00:19:55.520 the second element
+00:19:57.440 here so so what we have done is actually
+00:20:01.720 solved the problem MK num which is
+00:20:04.159 highly discussed uh and it's a very
+00:20:06.440 interesting problem also not just
+00:20:08.360 because persistent segment trees are
+00:20:10.320 taught by it you can also learn other
+00:20:12.400 techniques using this problem but we
+00:20:14.600 have solved it
+00:20:16.960 in login per query
+00:20:19.640 time and to actually create these
+00:20:21.880 segment trees you would need o end
+00:20:25.600 time for each update
+00:20:31.120 you would need log n time itself so
+00:20:34.480 because you'll have n updates you will
+00:20:35.880 be going through the array 1 by one that
+00:20:37.760 will be n log n so overall you
+00:20:43.159 have log n
+00:20:45.720 common n + Q total time plus n is
+00:20:50.559 asically not so
+00:20:53.640 important so this is the uh final query
+00:20:56.679 time that you
+00:20:57.600 need and so persistent segment trees are
+00:21:00.880 rarely used to be very honest but it's
+00:21:03.080 problems like these which really bring
+00:21:05.480 the data structure to its height if you
+00:21:07.679 have any suggestions or doubts please
+00:21:08.880 leave them in the comments below uh also
+00:21:11.760 if you have any suggestions for
+00:21:12.960 different data structures please leave
+00:21:14.600 them in the comments below again I'll be
+00:21:16.440 sharing all relevant description and
+00:21:19.000 links in the description below so thank
+00:21:21.559 you and I'll see you next week

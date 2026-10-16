@@ -1,0 +1,294 @@
+# tactiq.io free youtube transcript
+# Apache Kafka in 15 minutes
+# https://www.youtube.com/watch/hNDjd9I_VGA
+
+00:00:01.800 Hi everyone, this is GKCS!
+00:00:03.480 In this videowe will be talking about Apache Kafka.
+00:00:06.800 So this is a system from LinkedInfrom 2011.
+00:00:12.720 Kafka is a very popular system.
+00:00:14.520 It's used by many organizations partlybecause it's open source,
+00:00:18.400 but mostlybecause it is extremely scalable.
+00:00:21.840 So what is Kafka really do?
+00:00:23.720 Most people look at it as a message queue.
+00:00:26.080 If you have a set of publishers
+00:00:29.040 who want to send messages to subscribers,that's where you want to have Kafka.
+00:00:34.400 Let's assume that you are Instagram.
+00:00:36.400 You want to take a messagewhich is published by Brad Pitt,
+00:00:39.440 and you want to now send these messagesto all the followers of Brad Pitt.
+00:00:42.840 That is a very difficult taskbecause you are going to broadcast
+00:00:45.320 those messagesto potentially millions of people.
+00:00:48.200 How do you scale that system?
+00:00:49.560 How do you make sure that everythingis working fine? It's reliable.
+00:00:52.560 Well, Kafka is the solution.
+00:00:53.880 It is an open source solution.
+00:00:55.000 It's been there for a long timeand it's been battle tested.
+00:00:59.160 The other
+00:00:59.640 major use case for Kafka is eventstreaming.
+00:01:02.760 Kafka can take multiple streams of eventsfrom sources
+00:01:06.280 and transport themto different destinations.
+00:01:09.720 So this is especially usefulfor event based systems.
+00:01:12.600 Imagine that I have a profile on Facebookand first I add a profile picture.
+00:01:18.080 Then I add my first name.
+00:01:19.320 Then I add my addressand finally I add my email address.
+00:01:22.920 Now these are all separate events.
+00:01:25.080 If I take this event logand replay it in a new data store,
+00:01:29.760 the initial data store and the final datastore are going to look the same.
+00:01:34.440 So I do not need to make copiesof databases anymore.
+00:01:38.120 I can just replay all the eventsusing Kafka
+00:01:41.280 and the entiredata store will be recreated.
+00:01:44.280 I can guarantee that the state hereand the state here will be the same.
+00:01:52.840 Kafkais comprised of three major components.
+00:01:55.400 One is the producers.
+00:01:57.160 These are the peoplewho generate messages.
+00:01:59.120 Here you can think of applications whichare trying to send messages to Kafka.
+00:02:02.480 They will have Kafka clients.
+00:02:03.600 Here you are publishing messagesto a topic.
+00:02:07.200 And because this queue can be very large,because this topic can be very large,
+00:02:10.800 you can have it in multiple partitions.
+00:02:14.000 So you have these producerssending messages
+00:02:16.880 to various partitionsfor a particular topic.
+00:02:20.560 That message can be retained for a periodof two weeks or more, depending on
+00:02:25.440 how much data you want to storeand how much capacity you have.
+00:02:28.680 Now, why do we need all this complexity?
+00:02:30.480 Why can't we just get rid of these brokers
+00:02:32.560 and have the producers sendingthe messages directly to consumers?
+00:02:36.360 That would be easier, right?
+00:02:38.240 It would be easier,but it would not be as scalable.
+00:02:41.560 The reason for that is producersare constantly producing messages,
+00:02:45.720 so they want to write to a place quicklyand continue with their application logic.
+00:02:50.640 So there is some isolation of concerns.
+00:02:53.440 There is an async component to this,and a lot of the code
+00:02:57.480 for persistence and retrieswould be duplicated across applications.
+00:03:02.200 So whenever you see that some of the workwhich is being done,
+00:03:05.240 a lot can be extracted outto a single system.
+00:03:08.320 In our case Kafka, then you can saveengineering time and company money.
+00:03:12.480 That's the intent behindthis entire architecture.
+00:03:15.520 Now the guarantee that Kafka gives youis whenever you are sending a message,
+00:03:19.320 it's going to land in one partition,and all of the messages
+00:03:23.200 for a topic in a partitionare going to be ordered.
+00:03:26.920 But if M5 is insteadsent to some other partition,
+00:03:31.640 this message may be processed with mone being consumed second.
+00:03:36.040 So they may be out of orderprocessing across partitions.
+00:03:39.240 But within the partition you are sure thatthe ordering is guaranteed.
+00:03:43.320 Now you might be wonderingwhere do topics and partitions lie?
+00:03:46.080 They are all inside a Kafka messagebroker.
+00:03:48.680 This is basically a Kafka server.
+00:03:51.280 One single server, one physical servermay have thousands of partitions.
+00:03:55.440 Consumers can consume these messagesfrom the Kafka server.
+00:04:00.240 So this is a pull architecture.
+00:04:02.200 You could have pushed messagesfrom the brokers,
+00:04:04.520 but Kafka has decidedon the pull architecture because the
+00:04:07.640 responsibility of pulling messagesis then given to the consumers.
+00:04:11.360 This makes the Kafka servers themselves
+00:04:14.040 simpler to manage.
+00:04:17.040 So these formthe basic components of Kafka.
+00:04:20.680 Producers produce messages using clients.
+00:04:24.360 Kafka servers or brokerstemporarily store these messages
+00:04:28.320 to be distributed to the consumers
+00:04:30.640 who pull messages using message offsets,which is basically the index
+00:04:34.560 of the last messagethat they have pulled from the queue.
+00:04:37.400 Now, as your system
+00:04:38.360 scales, each of these componentshave to scale horizontally,
+00:04:42.240 meaning you have multiple producers,multiple brokers,
+00:04:46.200 and multiple consumers.
+00:04:48.760 Now, such a large scale, disparate systemrequires tremendous amounts of bandwidth.
+00:04:52.880 If you are going to send 7trillion messages per day,
+00:04:56.120 which is LinkedIn's daily requirement,even if 0.1% of your servers feel
+00:05:00.800 that is 7 billion failures,you cannot manage this manually.
+00:05:04.440 It has to be automated. Recovery.
+00:05:06.960 So what Kafka does is keepreplicas of every partition.
+00:05:11.640 Let's saythat is topic D one with partition p one.
+00:05:15.120 You will have two replicasof this partition P1 in two other servers.
+00:05:20.400 Now if one of these partitions goes down,
+00:05:22.560 the consumers can continueconsuming messages from the replicas.
+00:05:27.160 There is one problem though.
+00:05:28.920 Let us say a Kafka client writes messagenumber 4 to 1 of these partition replicas,
+00:05:34.080 and for some reason, the next message offive does not go through.
+00:05:38.240 So the producer says, that's fine,I will try a different replica
+00:05:41.560 to write to.
+00:05:42.360 It sends message number five,which is accepted by the other replica.
+00:05:46.240 And now if a consumer is pulling messagesfrom one of these partitions,
+00:05:50.040 it gets one, two, three and four.
+00:05:52.760 Let's say this Kafka server goes down now,
+00:05:55.680 and the consumer is forcedto pull messages from the other replica.
+00:05:59.200 It will mention the offset of four,but this server has no idea where four is.
+00:06:04.200 It only has one, two, threeand five directly.
+00:06:07.360 So here you will have a problem.
+00:06:09.320 The data in the Kafka serverand in the consumer are inconsistent.
+00:06:13.720 To avoid this problem.
+00:06:15.560 Kafka has a single primary replicawhich takes all right
+00:06:18.800 operations and multiple read replicaswhich just help perform reads.
+00:06:24.840 So if a client is pulling messagesfrom a read replica,
+00:06:27.960 it is sure that there is only one place
+00:06:29.640 where the write operations are happeningand there is no data inconsistency.
+00:06:33.960 Every read replica pulls messagesfrom the primary to stay in sync.
+00:06:39.160 Now, in case the primary replica fails,that would result in
+00:06:42.560 all right operation stopping,which would be a single point of failure.
+00:06:45.960 So what we do now is take one of the readreplicas and promote it to the primary.
+00:06:50.920 The way this is done is using ApacheZookeeper, which uses the Paxos algorithm.
+00:06:55.840 You have a leaderelected between the replicas,
+00:06:58.600 and the only replicas which actuallyparticipate in this election
+00:07:02.280 are the replicas, which are in syncwith the original primary.
+00:07:05.880 So the way they do this is replicas.
+00:07:08.000 Say, if I got a message in the last 10sfrom the primary, I can be the leader.
+00:07:12.840 If not, then I am probably out of sync
+00:07:15.840 and I choose tonot be part of this election.
+00:07:18.840 Now, the good thing
+00:07:19.480 about this is Kafkaalso has a high watermark, meaning
+00:07:23.760 a consumerwill only consume those messages
+00:07:26.160 which have been replicatedacross all replicas.
+00:07:29.920 So even if message number threeis available in the primary,
+00:07:33.720 but it is not availablein any one of the replicas,
+00:07:36.480 it's not going to be shownto the consumers.
+00:07:39.240 They will wait on three to be replicatedbefore they can pull it.
+00:07:43.680 In this way, you ensure data consistency.
+00:07:47.160 Another issue at this scale
+00:07:48.600 is the amount of bandwidththat this distributed system needs.
+00:07:52.320 7 trillion messages sent individuallyare going to be too expensive.
+00:07:57.200 So what you want to dois batch the messages.
+00:08:00.000 Let's say of maximum size 50 kbpsand then send them together
+00:08:03.800 to increase throughput.
+00:08:05.720 The samething is also done on the consumer side.
+00:08:07.960 Instead of consuming messages one by one,the consumer can say give me
+00:08:11.640 the next 50 KB of messages.
+00:08:13.520 The maximum messagesthat can be stuffed in
+00:08:15.160 this space are batch togetherand sent to the consumer.
+00:08:19.440 You see the benefit of such architecture.
+00:08:21.240 The brokers.
+00:08:22.120 The Kafka servers do not have to managethe rate at which they consume messages,
+00:08:26.200 nor do they have to manage the rateat which they send messages.
+00:08:29.080 It's being decidedby producers and consumers.
+00:08:32.039 So the Kafka broker can just manageoffsets.
+00:08:35.000 While all application logic and retriesare managed by producers and consumers.
+00:08:40.720 Speaking of retries,there is this guarantee
+00:08:43.360 called at least oneto guarantee in message delivery,
+00:08:47.240 which means a consumer is going to getthis message at least once.
+00:08:51.800 Take the example of you
+00:08:53.000 registering on a websiteand you expecting a verification email.
+00:08:56.920 You would expect that at least one email
+00:08:59.760 for password verification will reach youin case the first attempt fails.
+00:09:04.080 The second one will be retried
+00:09:05.560 and in case that fails,the third one will be retried.
+00:09:08.200 Now, Kafka normally gives this guaranteeto its consumers.
+00:09:11.680 So as a consumer, let's sayyou consume the first message, processed
+00:09:15.160 it successfully,
+00:09:16.200 and send the acknowledgment to Kafkasaying that please increment my offset.
+00:09:20.040 The next message that you pullmay be processed
+00:09:23.000 unsuccessfully,may have resulted in a server crash,
+00:09:26.080 and after restart,you can go back to Kafka and say, please
+00:09:30.080 give me my next message and the serverwill basically retry that same message.
+00:09:35.560 Notice that here we are storing the offsetin the Kafka broker itself.
+00:09:38.880 This is possible.
+00:09:39.760 You can store it here or in zookeeper,which makes them fault tolerant.
+00:09:44.760 So this would give you the guaranteeof at least once delivery.
+00:09:48.040 You could inverse your behavioralso as a consumer.
+00:09:50.200 You can see the moment you get a message,
+00:09:52.240 you send an acknowledgmentwith the increment of the offset.
+00:09:55.720 And now whether you process the messagesuccessfully or not doesn't really matter.
+00:09:59.120 So this may be a low priority message,
+00:10:01.200 like sending a notification to a userin case it works.
+00:10:03.840 It's good.
+00:10:04.240 In case it doesn't,it really shouldn't block us.
+00:10:06.080 Let's go ahead.
+00:10:08.040 Finally is something called exactly
+00:10:09.760 once delivery, which makes thewhole process really complex.
+00:10:13.960 The idea here is that only one consumer
+00:10:16.760 should be ableto pull a message from one partition.
+00:10:20.520 You have multiple replicasfor a partition.
+00:10:22.920 If a consumer pulls one messagefrom any one of these replicas
+00:10:26.400 or the primary, then that messageshould not be sent to any other consumer.
+00:10:31.920 How do you do this?
+00:10:33.800 Kafka brings two concepts for this.
+00:10:35.760 One is the ability to have a transaction.
+00:10:39.000 So a distributed two phasecommit is what you're looking at here.
+00:10:42.640 It's going to be quite expensive.
+00:10:44.800 But if you want exactly one deliverythen all the Kafka servers
+00:10:48.840 having these partition replicas will needto be in sync using transactions.
+00:10:53.600 And the second thing,which is often used in
+00:10:55.080 Kafka and is a little more efficient,is the concept of a consumer group.
+00:11:00.000 Let's say you have some famous
+00:11:01.240 LinkedIn celebritylike Suniel Shetty posting a message.
+00:11:05.240 This message goes to brokerone to the topic of famous influencer.
+00:11:09.600 The next message is postedby Varun Dhawan.
+00:11:11.760 It goes to the same broker, one
+00:11:14.800 to the same topic of famous influencer.
+00:11:18.040 Now imagine you have two consumersone and two.
+00:11:20.760 If this both start pullingfrom the same partition of this broker,
+00:11:24.040 they are going to consume this viralmessage and distribute it multiple times
+00:11:27.720 to all of their LinkedIn followers, whichmay be hundreds of thousands of people.
+00:11:32.040 You want to avoid this.
+00:11:34.160 What you do is assign each
+00:11:36.680 consumer to one topic partition.
+00:11:39.800 So consumer 1st May be assignedthis partition of broker one.
+00:11:44.080 It's going to consumethe first message of the new setting.
+00:11:46.920 Only after that is finishedprocessing will it dare to go to 1000.
+00:11:51.280 And consumertwo will not touch this partition.
+00:11:53.880 It may be assigned a different broker
+00:11:56.680 where God of sinis going to be sending these messages.
+00:12:00.800 It's important to note, though,that the same broker
+00:12:03.360 can have multiple partitionsof the same topic.
+00:12:05.760 So Gaurav may be part of brokertwo partition one,
+00:12:09.080 but he may also be part of broker two.
+00:12:11.880 The same topic, but a different partition
+00:12:14.480 being consumed by a different consumer.
+00:12:17.440 Okay,so the guarantee that the consumers have,
+00:12:20.040 if they are part of a consumer groupis that they are going to be exclusively
+00:12:24.000 pulling from a distinct set of partitions.
+00:12:27.480 So they are not going to be
+00:12:28.320 stepping on each other's toes,but it has nothing to do with the brokers.
+00:12:32.240 The partitions may be distributedin any way around the brokers
+00:12:35.440 and the brokers themselves can scale upand scale down with no problem.
+00:12:40.400 Now let's see some of the
+00:12:41.280 optimizations in Kafka.
+00:12:48.200 One very interestingand famous optimization
+00:12:50.280 that Apache Kafka givesis called a zero copy.
+00:12:56.960 And this makes sending messagesin Kafka extremely fast.
+00:13:01.040 How exactly?
+00:13:02.200 Well, let's say you are sending messagenumber one to the consumer.
+00:13:05.640 Typically what happens is
+00:13:07.280 this message is going to be pulledinto some sort of a cache,
+00:13:11.720 an application cache.
+00:13:15.160 In your server.
+00:13:16.320 So the server which is running the Kafkabroker is going to pull this message
+00:13:20.160 into cache.
+00:13:20.880 It's also going to pull this messageinto cache.
+00:13:22.880 And so on.
+00:13:24.400 Now when you get
+00:13:26.440 a request to pull message
+00:13:28.920 in one,you're going to see the message in this
+00:13:31.800 cache Mone you're going to write it to a socket.
+00:13:38.440 And this IO socket
+00:13:39.600 is going to be the placewhere the message is pulled from.
+00:13:43.040 Instead, if you could take the messagefrom the file system itself
+00:13:47.360 and push it to the socket,you would save this redirection.
+00:13:52.440 Okay.
+00:13:52.960 Not only would you use less memory,but it would be lesser IO calls
+00:13:57.720 using this optimization that Linux offers.
+00:14:00.120 Kafka is able to send messagesalmost twice as fast.
+00:14:07.000 And it avoids a big problem
+00:14:08.840 in Java garbage collection.
+00:14:12.040 A typical Java garbage
+00:14:13.120 collector is very poorat collecting objects from a linked list.
+00:14:16.600 The reason for this is somethingcalled a young and old generation.
+00:14:20.400 It is called nepotism.
+00:14:21.320 You can check out the linkin the description for more details.
+00:14:24.000 But the basic idea is garbage collectionin Java incorrectly promotes
+00:14:28.520 old objects into a safe zone,
+00:14:32.320 and even though they're consumed
+00:14:33.640 even though they are dead,this safe zone object is not collected.
+00:14:37.560 And eventually you have a bunch of deadobjects in the safe zone
+00:14:40.440 eating up your memoryand increasing garbage collection times.
+00:14:44.560 So you avoid this problemcompletely by moving away
+00:14:46.920 from the applicationcache to a direct socket call.
+00:14:50.920 So that's it for Apache Kafka.
+00:14:52.320 It's a very popular distribute system.
+00:14:54.080 It really empowers applications to sendmessages from one place to another.
+00:14:58.560 It seems like a simple use case,but at the scale that it operates,
+00:15:01.920 it becomes a really big engineeringchallenge.
+00:15:04.200 And written in 2011by a principal engineer
+00:15:07.560 at LinkedIn, many of the conceptswere extremely unique.
+00:15:10.600 They have now become a standardin the entire industry.
+00:15:13.680 Thank you for watching this video.
+00:15:14.880 If you have any doubts or suggestions,you can let me know in the comments below.
+00:15:17.800 If you want to see more videos on systemdesign, please check out and if you ready,
+00:15:21.240 I'll see you next time. Bye bye!

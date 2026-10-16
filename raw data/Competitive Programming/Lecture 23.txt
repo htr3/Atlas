@@ -1,0 +1,429 @@
+# tactiq.io free youtube transcript
+# Heavy light decomposition: The hardest competitive programming algorithm
+# https://www.youtube.com/watch/1PvT2d9lgqY
+
+00:00:00.000 every node that I have should be part of
+00:00:02.850 a segment tree this is going to be a
+00:00:04.470 segment tree this is going to be a
+00:00:05.640 secondary segment tree here this video
+00:00:19.949 is primarily possible because of
+00:00:21.150 Amandeep who's a software engineer at
+00:00:22.859 uber he's been instrumental in
+00:00:24.630 explaining everything when it comes to
+00:00:26.279 the algorithm when it comes to the
+00:00:27.390 implementation if you're looking for
+00:00:28.949 code for the implementation I have the
+00:00:30.630 link in the description below again
+00:00:31.890 written by Amandeep also thanks to under
+00:00:33.750 the pinna kunti who has written a blog
+00:00:35.399 on this I think around five years ago
+00:00:37.140 it's a complicated topic so I'll try to
+00:00:38.820 break it down into simpler parts first
+00:00:41.040 we'll talk about the problem statement
+00:00:42.149 which will give us a use case for
+00:00:43.379 heavy-light decomposition at the end of
+00:00:45.570 the video we will actually solve a
+00:00:46.739 problem from spa which is based on
+00:00:48.239 heavy-light decomposition we are given a
+00:00:50.190 tree which is rooted at Z and we need to
+00:00:52.320 answer two types of queries efficiently
+00:00:54.030 the first one is to find the sum of all
+00:00:56.670 nodes between two given nodes and the
+00:00:59.699 second type of query is to update a
+00:01:01.770 given node and these are the constraints
+00:01:04.920 of the problem the brute force approach
+00:01:08.460 to solve this problem requires a couple
+00:01:09.840 of depth-first search you first go to
+00:01:11.670 node a using a DFS and from a you start
+00:01:14.760 searching for B when you get to be you
+00:01:17.490 found the sum of all nodes in that path
+00:01:20.780 this is going to take you order n or
+00:01:23.700 query for sums and in the worst case if
+00:01:27.270 there Q queries this can be order Q n
+00:01:29.460 which is a huge amount of time and will
+00:01:31.650 not pass the time limit a much better
+00:01:33.750 approach is to find the lowest common
+00:01:35.430 ancestor of a and B now if you do this
+00:01:38.130 on every query that's a problem that's
+00:01:39.840 going to take a lot of time which will
+00:01:41.579 be a depth-first search so instead if
+00:01:43.740 you can pre-compute certain values which
+00:01:46.170 is ancestors of a and B using the
+00:01:47.909 technique of finally lifting you can
+00:01:50.399 find the LCA of a and B in log n time
+00:01:53.040 once you have the LCA you move from a
+00:01:55.890 towards said and be towards said take
+00:01:58.320 the sum of all nodes and you have the
+00:02:00.479 answer what's the time requirement here
+00:02:02.610 to find the LCA takes log in time and to
+00:02:06.000 move from A to Z can take order n time
+00:02:08.750 similarly for B Q queries it's still
+00:02:11.520 order a queuing
+00:02:12.940 we look at how we can improve this the
+00:02:15.280 other thing to keep in mind is that any
+00:02:16.900 node can have its value changed using
+00:02:18.820 the second type of query so the node
+00:02:21.040 with value R can suddenly have a value
+00:02:23.140 of n and that completely changes the
+00:02:25.690 answers that we could have pre computed
+00:02:27.340 previously so what we are looking for is
+00:02:30.010 a data structure which can handle both
+00:02:31.600 queries and updates on ranges what if we
+00:02:36.400 had this chain this these three nodes as
+00:02:40.840 one segment tree being represented by
+00:02:42.640 one segment which can allow updates and
+00:02:44.880 range queries in them similarly a
+00:02:47.830 segment tree which represents said P J R
+00:02:50.860 and B I'm going to treat this path as an
+00:02:55.240 array I can now make a segment tree out
+00:02:57.640 of this every node that I have should be
+00:03:01.330 part of a segment tree this is going to
+00:03:03.280 be a segment tree this is going to be a
+00:03:04.540 second tree segment tree here if you had
+00:03:06.010 more nodes here then this would also be
+00:03:07.540 AB segment tree have a chill drive
+00:03:08.980 account we are taking this tree we are
+00:03:10.810 broken it into pieces which will allow
+00:03:12.430 us to perform range operations on a tree
+00:03:15.400 efficiently for now let us assume that
+00:03:18.010 we have already broken this tree into
+00:03:19.390 chains that is the heavily I
+00:03:21.130 decomposition of this tree is already
+00:03:22.270 completed and we are more concerned
+00:03:24.520 about answering queries on this tree
+00:03:27.060 given two nodes a and B how do you jump
+00:03:32.230 from one segment to another we talked
+00:03:35.140 about finding the lowest common ancestor
+00:03:37.090 the lowest common ancestor between a and
+00:03:38.980 B is the root so this is the LCA
+00:03:43.860 from a I need to get there see how well
+00:03:48.210 I could go from a to its parent and then
+00:03:50.370 to its parent and then to its parent but
+00:03:51.840 this is very slow it wouldn't actually
+00:03:53.430 make sense to break into trees then the
+00:03:56.400 reason we have this chain given to us we
+00:03:58.920 have this segment given to us is because
+00:04:00.840 it's backed by a segment tree so finding
+00:04:03.120 the range of all nodes from a to this
+00:04:06.270 point X is a very fast login operation
+00:04:10.250 login time you can find some of all
+00:04:12.750 nodes from a to X then all you need to
+00:04:15.990 do is move from X to its parent and how
+00:04:19.079 can I be very sure when I'm moving from
+00:04:21.120 X to its parent that I am NOT actually
+00:04:22.470 losing track of B well because I am
+00:04:24.300 always whenever I'm heading up I am
+00:04:26.100 heading towards my LCA there is no
+00:04:28.560 chance when I've broken it into segments
+00:04:30.900 that I'm not heading towards my LCA I
+00:04:32.880 mean I'm not breaking the chains like
+00:04:34.500 this this is illegal for me I have
+00:04:37.920 linear chains which head downwards they
+00:04:40.260 never head both ways
+00:04:41.730 now think about B B is just one node so
+00:04:44.490 first it finds the sum of all nodes from
+00:04:47.100 B to B yeah because it's the start then
+00:04:50.940 it heads to its parent from its parent I
+00:04:55.230 need to go upwards how much upwards all
+00:04:58.260 the way because I know that this chain
+00:05:00.330 is not belonging to the same chain as
+00:05:01.980 the LCA so I go up let's call this node
+00:05:05.730 X the sum of all nodes from X to X now I
+00:05:10.380 head to the parent and at the parent I
+00:05:13.470 see that this node has the same chain as
+00:05:15.570 the LCA I am going to use the segment
+00:05:17.970 tree to answer this query which is the
+00:05:20.850 sum of all nodes from this node let's
+00:05:23.460 say Z
+00:05:25.110 this gives me an answer and jumping to a
+00:05:27.780 parent is an order one operation getting
+00:05:30.150 the segment tree queries is login
+00:05:33.139 similarly over here similarly over here
+00:05:35.069 if you have a look at all of these
+00:05:36.780 operations what we are effectively
+00:05:38.159 trying to do is move to the same chain
+00:05:40.259 as the else here once you're on the same
+00:05:42.389 chain as they CA the segment tree for
+00:05:44.340 the LCF chain can answer your query
+00:05:46.289 efficiently if you get if you get to
+00:05:48.690 this point you're on the same chain as
+00:05:50.610 the else here you need one query which
+00:05:52.560 is going to answer the range query over
+00:05:54.030 here if you get at this point the
+00:05:55.770 segment we will take care of it so your
+00:05:57.240 main goal is to get to the chain where
+00:05:59.250 they else here belongs
+00:06:00.240 how does a get there at every point what
+00:06:02.729 a needs to do is head to its first node
+00:06:05.430 its topmost node in the segment or as
+00:06:06.960 quickly as possible that's the main
+00:06:10.139 logic let's do some time complexity
+00:06:12.030 analysis the update operation doesn't
+00:06:14.520 change the structure of the tree just
+00:06:15.539 the value so the ancestors don't change
+00:06:17.969 but because of the change in value you
+00:06:19.979 need to go to the segment tree that this
+00:06:21.930 node belongs to the chain that this node
+00:06:24.240 belongs to and update all the values in
+00:06:26.759 that tree which is going to be a login
+00:06:28.620 operation and for querying we are moving
+00:06:31.380 from a given node to its start node
+00:06:33.150 jumping up the chin and then again
+00:06:35.520 moving to its start node of that chin
+00:06:37.289 and then jumping up the chain so on and
+00:06:38.849 so forth till we hit the chain of the
+00:06:40.529 LCN node so every query from a given
+00:06:43.110 node to the start of its chain is going
+00:06:45.150 to be login time and every movement of
+00:06:47.729 the chain is going to be order one but
+00:06:49.169 we are doing this multiple times so the
+00:06:51.210 total time complexity is login into the
+00:06:54.599 number of chains we have the jump which
+00:06:56.819 is the maximum number of chains we can
+00:06:58.680 have in a given path if we can reduce
+00:07:01.110 this factor then we'll have efficient
+00:07:04.229 query what we are now going to do is
+00:07:06.300 build this tree in a way that CP is
+00:07:08.550 reduced as much as possible let's see
+00:07:10.740 how what we need for this is some simple
+00:07:13.680 depth-first search to be done on the
+00:07:16.440 tree first so firstly what are we going
+00:07:19.020 to do we are going to be finding all the
+00:07:21.300 subtree sizes in this tree that first
+00:07:24.270 search you come here you come here you
+00:07:25.770 go here there's a leaf node the subtree
+00:07:28.409 size is 1 similarly you come back here
+00:07:31.409 you go here and first come over here
+00:07:33.960 subtree size is 1 you update this to
+00:07:35.909 have 1 plus 1 plus 1 which is 3 over
+00:07:38.490 here you
+00:07:38.999 three plus one plus one which is five
+00:07:43.960 we can apply our greedy strategy you
+00:07:45.729 start off with just one chain just one
+00:07:47.860 segment which is the root node you're
+00:07:50.199 either moving to the left or to the
+00:07:51.610 right which one do you choose
+00:07:54.770 logically you choose the one with the
+00:07:56.389 maximum number of nodes as its subtree
+00:07:58.789 so you head over here from this point
+00:08:01.669 you get just one subtree which is 5 from
+00:08:05.840 this point again you choose the largest
+00:08:07.430 subtree which is 3 and finally you come
+00:08:09.889 to any one of these but I'll just choose
+00:08:11.690 this one to get this entire chain this
+00:08:15.500 has to form a separate chain now because
+00:08:17.930 it can't be part of this chain as you
+00:08:19.669 know you can only head to the left or
+00:08:20.870 right you can't go to both directions so
+00:08:23.569 5 &amp; 4 are compulsorily together but over
+00:08:29.030 here you can choose any one of these 3
+00:08:30.349 choose the leftmost one and you have
+00:08:32.330 this separate chain over here and over
+00:08:33.770 here you can see that these are chains
+00:08:35.120 in themselves giving us the heavy-light
+00:08:37.159 decomposition for this tree so from the
+00:08:40.909 original tree every node now has a heavy
+00:08:42.708 path which is taking the maximum amount
+00:08:44.420 of load because of this heavy path what
+00:08:47.240 we are trying to do is attach as many
+00:08:49.250 nodes as we can to a single segment tree
+00:08:51.230 the reason for that is that a segment or
+00:08:53.390 gives us very fast query times login
+00:08:55.190 time you don't want to be jumping the
+00:08:57.410 paths much you want to attach as many
+00:08:59.480 nodes as you can to a single segment
+00:09:00.890 tree so that you can run along that as
+00:09:02.870 quickly as possible in most cases let's
+00:09:05.690 see exactly how that helps us we are
+00:09:07.880 mainly interested in the time complexity
+00:09:09.079 which is login into the number of chains
+00:09:11.270 we have in the path from A to B the
+00:09:14.120 number of chains is defined this way you
+00:09:16.640 come to the root if you choose a heavy
+00:09:20.270 edge you're actually continuing down the
+00:09:22.520 chain so you haven't changed anything if
+00:09:24.770 you go to a light edge you changed your
+00:09:27.350 chain so you have to do login more
+00:09:29.660 operations for that particular chain but
+00:09:32.660 how many times does that happen well the
+00:09:34.790 first time you had your search space
+00:09:36.620 being the size in total number of nodes
+00:09:39.890 I mean at the root you you're looking at
+00:09:41.720 everybody
+00:09:43.370 you can move to just one node so you
+00:09:45.770 move to a light node you lost your
+00:09:47.300 heaviest and all other nodes which are
+00:09:48.680 light which means that you lost n minus
+00:09:54.700 nodes in your path in the worst case the
+00:09:58.340 node that you move to the chain that you
+00:09:59.960 move to did not lose many nodes this is
+00:10:02.360 the worst case n is positive minus nodes
+00:10:06.680 path in this negative so you want to
+00:10:08.960 effectively maximize the number of nodes
+00:10:12.440 in your path of course if this makes
+00:10:15.830 sense because you go to a place which
+00:10:17.420 has a lot of nodes that is the worst
+00:10:19.160 case the number of nodes you have in
+00:10:21.200 your path is less than the number of
+00:10:23.029 nodes that the heavy edge had in its
+00:10:24.920 path even if I make this equal to this
+00:10:27.470 node this node size that still gives me
+00:10:31.900 total number of nodes in path is less
+00:10:35.690 than or equal to the sum of nodes you
+00:10:39.020 had in this subtree which is n by 2 if
+00:10:41.300 you get a little half the number of
+00:10:42.800 nodes you have it's going to take you
+00:10:44.600 login time to hit just one node which
+00:10:48.320 gives us the total number of chains you
+00:10:51.410 have in your path can be at most log n
+00:10:55.130 and therefore the total time complexity
+00:10:57.500 that you have is order time required in
+00:11:00.800 a segment tree into the total number
+00:11:02.390 change you can have which is log n the
+00:11:06.320 whole square or query tree construction
+00:11:09.980 requires us to do multiple depth-first
+00:11:11.750 search 1 for finding out the nodes in
+00:11:14.839 every sub tree and the other one to
+00:11:16.190 break them into chains and then also of
+00:11:18.170 course constructing the segment trees
+00:11:19.400 that turns out to be order n plus the
+00:11:22.460 binary lifting so that is n log n so in
+00:11:27.920 order n log n time you can decompose
+00:11:31.610 this graph using halide decomposition
+00:11:34.100 now let's have a look at some code most
+00:11:36.709 of the main method is about
+00:11:37.550 initialization the important method here
+00:11:39.920 is H LD but let me just go over DFS so
+00:11:42.020 that it's slightly clearer in DFS we are
+00:11:44.990 setting the parent values of the to
+00:11:47.300 raise to power I parent for every node
+00:11:49.459 this is finding LC is using binary
+00:11:51.410 lifting and if you're not sure about
+00:11:52.580 this have a look in the description
+00:11:53.510 below the important method of course is
+00:11:56.550 hld let's go there what we have is a
+00:12:00.090 vortex and a parent and we need to find
+00:12:03.890 the heavy-light decomposition of this
+00:12:06.750 vertex that's only method is a little
+00:12:09.060 tricky to understand so we will try to
+00:12:10.830 understand step by step the first thing
+00:12:12.780 to know is that it's very similar to a
+00:12:14.400 depth-first search every time you visit
+00:12:16.710 a node you're going to be visiting its
+00:12:18.360 adjacent nodes in the DFS manner
+00:12:20.810 secondly for every node that we visit we
+00:12:23.760 are trying to update some parameters
+00:12:25.470 relevant to that node if you think about
+00:12:28.410 it for every node we need to find the
+00:12:30.690 chain that it belongs to which will
+00:12:32.880 define this segment tree number that
+00:12:34.350 belongs to we need to know the position
+00:12:36.690 of that node in the corresponding
+00:12:39.420 segment tree and one interesting thing
+00:12:41.520 that we do here is not create n number
+00:12:44.580 of segment trees we don't create a
+00:12:45.990 segment tree for every new chain instead
+00:12:48.150 we use the segment tree that we have
+00:12:49.980 built previously and we just note down
+00:12:51.870 the position of this vertex in that
+00:12:55.380 given segment tree that allows us to
+00:12:57.570 answer all the queries using a single
+00:12:59.310 segment tree instead of the number of
+00:13:01.200 segment trees being equal to the number
+00:13:02.520 of chains that we have in the hld
+00:13:04.530 decomposition after this we find out the
+00:13:06.720 heaviest edge that we have so you see
+00:13:08.880 that we are ignoring the parent so this
+00:13:10.380 will give us the heaviest subtree for
+00:13:13.140 this node if you have a child then this
+00:13:15.060 variable will be set you come here and
+00:13:17.820 you run the hld on the heavy child with
+00:13:20.850 the vertex as its parent important thing
+00:13:23.490 to notice here is that the chain ID has
+00:13:25.140 not been updated so the chain ID that
+00:13:27.750 you are sending to the heavy child is
+00:13:29.070 the same as the one you had right now
+00:13:31.730 another thing to notice is that in the
+00:13:34.200 array which we are going to be using to
+00:13:36.120 construct the segment tree we are
+00:13:38.670 actually passing in edge weights instead
+00:13:40.860 of the vertex value because each query
+00:13:45.000 or update that we are firing is going to
+00:13:46.890 be updating the edge weight we just need
+00:13:48.930 to store this value here instead of this
+00:13:51.150 the child vertex value the base array
+00:13:54.630 being used for the segment tree is using
+00:13:56.820 a new position so we just incremented
+00:13:58.590 position here it's using the next
+00:13:59.940 position for this heavy edge finally
+00:14:01.950 become two all the light edges because
+00:14:03.810 we already used up the heavy child and
+00:14:05.190 we don't want to touch the parent so for
+00:14:07.530 every light edge we are going to be
+00:14:09.510 updating
+00:14:10.160 Chane ID we are going to be stating that
+00:14:13.009 the chain head of this chain ID is the
+00:14:15.230 current vortex update the base re and do
+00:14:17.990 a heavily I decomposition on the new
+00:14:19.490 vertex you can go over this quote a
+00:14:21.170 couple of times it's actually quite
+00:14:22.430 simple once you understand that it's a
+00:14:23.990 depth first search happening on every
+00:14:25.699 node where the heavy edges and light
+00:14:28.160 edges are being treated differently the
+00:14:30.350 final method we look at is called query
+00:14:31.970 up it's used to answer queries on this
+00:14:34.339 tree the update is actually extremely
+00:14:37.040 similar to how a segment or e update
+00:14:38.480 happens so we will skip that you have
+00:14:40.730 the nodes U and V what we do is we find
+00:14:43.850 the LCA of the two nodes U and V and now
+00:14:45.889 we want to answer queries from u to the
+00:14:48.769 LCL and V to the ends here here the two
+00:14:51.949 loads are mentioned as from in to so
+00:14:54.019 this is the LCL and this is the node
+00:14:56.000 that we are querying from so the current
+00:14:58.040 node is set to from over here and we are
+00:15:00.290 going to be setting our initial answer
+00:15:01.790 is 0 because this is going to be the sum
+00:15:04.040 of the nodes from a to LCA as you can
+00:15:07.730 see that as long as the chain is not
+00:15:09.439 equal to the chain that we have right
+00:15:11.360 now so the current chain which means
+00:15:12.800 which is starting from the base node is
+00:15:14.839 not equal to the chain of the LCA we are
+00:15:17.389 going to repeat this what we have is the
+00:15:20.180 current chain head over here being used
+00:15:24.019 to query the segment tree from the
+00:15:26.630 current position to the current chain
+00:15:29.300 head now what is this going to do this
+00:15:31.040 is going to make you run up to the start
+00:15:32.990 of the segment tree that we had alright
+00:15:35.420 that's the line over here and the second
+00:15:37.970 line is just setting the current node as
+00:15:39.709 the parent of the current chain head
+00:15:41.959 this is 0 means the 0th node so that is
+00:15:45.860 basically two ways to power 0 which is 1
+00:15:48.110 alright so you can actually ignore this
+00:15:50.180 and just have a look at this bit which
+00:15:52.220 is the current chain heads parent with
+00:15:56.360 these two lines what you are doing is
+00:15:57.889 running to the start of the segment tree
+00:16:00.350 in login time and jump into the next
+00:16:02.990 chain in order one time you're going to
+00:16:05.839 do this till your chain matches the LCA
+00:16:08.509 chain and finally when that happens when
+00:16:11.449 your chain matches the else a chain you
+00:16:12.889 can just do a single segment tree query
+00:16:15.309 from your current position to the
+00:16:18.410 position you are looking for and add
+00:16:20.240 that to the answer
+00:16:21.500 after which you can have done that
+00:16:24.230 completes the code for heavy-light
+00:16:25.280 decomposition if you have any doubts the
+00:16:26.990 suggestions on this you can leave them
+00:16:28.220 in the comments below if you like the
+00:16:29.750 video then make sure you hit the like
+00:16:30.890 button and if you want notifications for
+00:16:32.750 further videos like this hit the
+00:16:34.250 subscribe button I'll see you next time

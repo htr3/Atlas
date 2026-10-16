@@ -1,0 +1,745 @@
+# tactiq.io free youtube transcript
+# What are Tries? - Coding
+# https://www.youtube.com/watch/p4kfbNJzftQ
+
+00:00:00.659 so what I'm going to be doing is
+00:00:02.159 implementing this try data structure
+00:00:03.659 from scratch and for that I need a
+00:00:07.740 main method so that is right here public
+00:00:10.679 standpoint mean now
+00:00:13.320 the first thing is I need a set of
+00:00:14.940 strings so I could keep that in a list
+00:00:19.260 a list of strings
+00:00:21.300 and I'll just call that a set oh
+00:00:25.260 strings that's equal to
+00:00:27.779 a new array index bounds really
+00:00:31.199 so intelligent these days that
+00:00:32.880 intelligence
+00:00:34.260 okay didn't know that
+00:00:36.300 it's a list so
+00:00:39.360 this set of strings will have
+00:00:43.500 what p q r s
+00:00:49.200 yes that's one of the strings it will
+00:00:50.700 have then it'll also have few other
+00:00:53.100 strings so in total there are five and
+00:00:54.960 then there's pprt as the second string
+00:00:57.480 so that's nice too no so what about psst
+00:01:01.199 yeah we need to put that in
+00:01:04.739 next one is a little weird I think yeah
+00:01:06.360 qqrs and then pqrs comes up again so
+00:01:09.900 these are the set of strings that we
+00:01:11.100 have and what we need to do now is
+00:01:13.260 perform operation so
+00:01:15.900 fine we'll have a class
+00:01:18.420 called a try
+00:01:21.659 okay and this is going to have a start
+00:01:24.420 node that's all it's going to have so
+00:01:25.860 it's going to have a node
+00:01:28.799 okay something that you can't change is
+00:01:31.200 the start node
+00:01:33.060 and what is a node well it hasn't been
+00:01:35.880 defined yet so let's do that class node
+00:01:39.000 is actually
+00:01:42.000 I think I'll name this better
+00:01:43.680 I'll name it
+00:01:46.820 node as
+00:01:48.720 trying on
+00:01:51.540 do you know if that helps but
+00:01:55.140 fine
+00:01:57.659 so a try node is what we have that's
+00:02:00.119 that's the root effect of the try and
+00:02:04.200 each try node is going to have some
+00:02:05.820 information so one of the things that we
+00:02:07.380 want to do is keep the count of the
+00:02:09.360 number of strings that we have so that
+00:02:11.819 would be
+00:02:12.840 int
+00:02:16.140 terminating
+00:02:17.640 so this will keep the count of the
+00:02:19.319 strings which are terminated at this
+00:02:20.520 position and another thing that we want
+00:02:22.680 to do is have a set of pointers so like
+00:02:25.680 we said we need to have
+00:02:28.319 maybe one character pointing to multiple
+00:02:30.540 characters which could be installed so
+00:02:32.340 we are going to have a set of characters
+00:02:33.360 set of pointers actually so a set of
+00:02:36.180 triangles is what we have now because we
+00:02:39.599 are constrained in this problem to just
+00:02:41.040 26 characters uh we have a set of 26
+00:02:44.340 triangles
+00:02:45.480 okay and I'll be storing that in an
+00:02:48.000 array yeah
+00:02:49.560 so
+00:02:50.700 I just need an array
+00:02:53.400 try notes
+00:02:55.260 and get that yes I can try notes yes
+00:02:58.500 absolutely and then
+00:03:01.560 what's the length of that well that is
+00:03:03.660 26.
+00:03:07.500 no I don't need to commit yet
+00:03:09.900 fine and what is my try going to have
+00:03:11.760 it's going to have a start pointer
+00:03:13.140 that's that's everything right
+00:03:15.300 yeah
+00:03:17.340 so all that I mean
+00:03:25.319 in fact we can just get rid of this we
+00:03:27.360 can say that
+00:03:28.860 I mean a try when you're creating a try
+00:03:30.900 it should be able to create the node the
+00:03:32.580 root by itself so
+00:03:35.280 this is just going to be a new
+00:03:38.940 a new triangle yeah
+00:03:41.340 that's all
+00:03:43.019 so the route is initialized everything
+00:03:45.780 is ready except we need the insertions
+00:03:49.260 the deletions the updates updates
+00:03:51.420 keeping it aside for now but uh
+00:03:53.940 insertions deletions and what else
+00:03:56.220 squaring should be pretty accurate
+00:03:58.860 so
+00:04:00.239 what I'm going to do is I'm going to
+00:04:01.799 keep a function here called next
+00:04:05.760 right that will be telling you
+00:04:10.860 what is the next try node that you need
+00:04:12.959 to go to in case you are searching for a
+00:04:16.199 character
+00:04:17.699 C
+00:04:20.040 from this node
+00:04:21.660 okay that's that's what it says
+00:04:24.300 so if that happens then what I do is I
+00:04:26.940 return
+00:04:29.160 try notes
+00:04:30.960 the pointer that you want
+00:04:33.540 minus a this is just to make sure that
+00:04:36.360 uh it doesn't exceed 26 okay
+00:04:40.440 fine so we have one function which let's
+00:04:42.720 see what is the next node that you need
+00:04:43.860 to go to
+00:04:45.120 what is
+00:04:46.800 we need a public functions because
+00:04:48.300 people are going to actually call this
+00:04:49.620 called
+00:04:51.960 count let's say so that's going to give
+00:04:54.120 you the count int
+00:04:57.000 what is a query
+00:04:59.759 so you need to query this time for a
+00:05:02.520 particular
+00:05:03.960 string s
+00:05:06.960 and what's going to happen is that
+00:05:09.240 you'll go to the
+00:05:11.220 to the point where
+00:05:13.680 string s that's
+00:05:16.440 that's odd so
+00:05:18.240 should query be here no it should be in
+00:05:19.919 the try
+00:05:22.020 not to try notes because querying is on
+00:05:25.259 the price
+00:05:27.960 so fine we have a string s what's going
+00:05:31.139 to happen is
+00:05:32.699 first we'll pick up the first character
+00:05:35.460 in this tribe that is
+00:05:39.900 we go into root so root
+00:05:43.820 now the root is entirely empty so it
+00:05:46.740 does not represent any character what we
+00:05:48.539 need to do is go to the first character
+00:05:51.000 so root Dot
+00:05:53.280 next
+00:05:56.220 let's make this public here
+00:05:58.020 root dot next
+00:06:00.960 for s dot carat 0.
+00:06:05.220 this has given you the trying out that
+00:06:06.960 you need to go to First usually p in our
+00:06:09.300 case but yeah this is going to give you
+00:06:11.699 that try not
+00:06:12.840 so
+00:06:14.340 I'll just call this first
+00:06:16.979 okay and from here what you're going to
+00:06:18.780 do is you're going to go on traversing
+00:06:20.820 the trial
+00:06:22.080 till you are actually out of notes to
+00:06:25.440 travel out of characters to go through
+00:06:27.300 so
+00:06:29.100 you just need a for Loop here
+00:06:32.280 right
+00:06:33.419 fourth
+00:06:35.639 in fact we can we can actually
+00:06:40.680 use this and I don't need a first
+00:06:42.539 pointer as much
+00:06:44.460 so this is what I have
+00:06:47.699 and follow is what I mean
+00:06:52.740 let's start length
+00:06:57.060 so this is giving me the character at
+00:06:58.979 this position
+00:07:00.360 initially that will be
+00:07:02.460 the first try node
+00:07:04.500 so
+00:07:05.880 what I mean with this uh
+00:07:08.280 I I think the first try note
+00:07:11.819 and from there
+00:07:13.740 I need to go to the next track so from
+00:07:17.160 there not from the root but from there
+00:07:18.600 so I need some sort of a next here
+00:07:21.720 right
+00:07:24.599 it's called this current
+00:07:26.340 and if current is going to go to the
+00:07:27.900 next or the current so initially current
+00:07:30.780 needs to be initialized outside
+00:07:33.840 that's going to be the
+00:07:35.940 very first character
+00:07:38.759 that's the root is pointing to so next
+00:07:42.599 let's start carat
+00:07:44.580 zero the very first character from the
+00:07:47.699 root will give you your current particle
+00:07:51.180 your current is going to be updated all
+00:07:54.240 the time by going to the next pointer
+00:07:56.520 and so on and so forth now if at any
+00:07:59.460 point you see that
+00:08:05.940 current is none
+00:08:07.680 then you know that this string does not
+00:08:09.300 exist and what you return is zero
+00:08:13.380 okay otherwise if you have run out of
+00:08:15.900 string and you still have a current then
+00:08:18.240 you return
+00:08:22.139 whatever the count of current is
+00:08:28.800 I mean basically the number of strings
+00:08:30.599 which are terminating at that point okay
+00:08:32.580 this is the query the query will tell
+00:08:34.799 you if there is no such thing it will
+00:08:36.479 give you zero otherwise it will give you
+00:08:39.120 number strings are terminating at that
+00:08:40.919 point so I'll just make sure that this
+00:08:43.740 is right okay
+00:08:45.660 or we will write test case and figure
+00:08:47.339 out so
+00:08:49.260 that's query
+00:08:51.839 whatever insert insert is going to be
+00:08:53.640 pretty similar so we have
+00:08:56.820 insert a string s
+00:09:00.240 and what I need here
+00:09:02.820 is
+00:09:04.260 the very first
+00:09:08.399 try not that I'm going to now one case
+00:09:11.040 that I haven't handled is what if
+00:09:13.080 that character doesn't exist in the
+00:09:14.640 Triad
+00:09:15.779 yeah this is going to then throw an
+00:09:17.459 exception because
+00:09:19.140 current is going to be null so I'll try
+00:09:21.120 to go to current dot next so what what I
+00:09:23.459 should really do is
+00:09:25.320 put that over here
+00:09:27.300 okay if current is null then there's no
+00:09:29.279 such string and you just return zero if
+00:09:31.019 it is not null then we go to the next
+00:09:33.120 part that we can okay this code seems
+00:09:35.820 more right
+00:09:37.980 so fine
+00:09:42.300 here I am trying to insert s
+00:09:44.820 so
+00:09:46.440 if
+00:09:49.560 if the current is null
+00:09:54.420 then I need to insert a load so that
+00:09:57.779 would mean
+00:10:07.200 root dot next
+00:10:09.060 at this point so this is this is
+00:10:12.060 actually
+00:10:15.420 the try notes that has that pointer that
+00:10:18.120 array of pointers this should be
+00:10:20.580 pointing to
+00:10:21.839 a node
+00:10:25.200 and that try node
+00:10:30.660 is is fine till now I mean the low earth
+00:10:33.480 the known strings dominating from that
+00:10:36.120 so this is fine so if it is null then we
+00:10:39.000 create the node
+00:10:40.740 what else if
+00:10:44.820 right so if it is null then we create
+00:10:46.920 the node so we do this for every I
+00:10:50.640 in the string
+00:10:56.399 right so this is fine
+00:11:04.079 so
+00:11:05.820 let's let's understand what you're done
+00:11:08.040 we have taken the current pointer
+00:11:10.680 and we have made it point
+00:11:15.300 to the place that we wanted to the first
+00:11:17.640 character in the Stream
+00:11:18.959 so this
+00:11:20.700 should happen here
+00:11:22.260 okay and at any point if current
+00:11:25.440 is null
+00:11:27.660 and you should insert a string over
+00:11:29.100 there so that would be
+00:11:35.820 sorry try node basically
+00:11:38.040 current
+00:11:44.399 this is making a little less sense so
+00:11:47.040 I'll just I'll just make this the root
+00:11:48.480 right and at the root
+00:11:52.860 if the pointer where you want to go to
+00:11:56.640 is not existing this is I again
+00:12:01.140 then you create the pointer that's
+00:12:03.540 that's what's Happening Here
+00:12:05.700 okay so at the root if that node doesn't
+00:12:09.720 exist I create it nice
+00:12:12.959 makes sense now makes a lot of sense now
+00:12:15.060 so I I don't need to go from zero
+00:12:17.940 actually I mean from one actually I can
+00:12:20.100 just go from zero now
+00:12:22.380 what else
+00:12:24.360 this is also not required because
+00:12:28.740 because current will set itself up
+00:12:31.740 five foot zero here that's also fine so
+00:12:34.740 the code is a little cleaner now
+00:12:36.839 and what's happened is I have been able
+00:12:40.019 to insert and query
+00:12:42.600 till this point
+00:12:44.639 what else can we do with this try data
+00:12:46.860 structure
+00:12:48.440 so another thing is
+00:12:52.560 current dot
+00:12:54.959 you know the new node
+00:12:57.060 that has to be set here current has to
+00:12:58.920 be updated so current is going to be
+00:13:04.740 current or next
+00:13:07.500 fine
+00:13:09.000 and what else
+00:13:10.740 well when you have reached all the nodes
+00:13:14.399 and you're done basically you have
+00:13:17.040 finished your job then what you do is
+00:13:19.440 you just
+00:13:21.000 increment the triangles
+00:13:27.000 terminating at this point
+00:13:29.760 okay
+00:13:31.320 queries and insertions done
+00:13:35.220 deletions are a little complicated so I
+00:13:37.680 think I'll just fast forward this in
+00:13:39.540 case I don't then I'm very lucky
+00:13:41.940 because I don't think I'll get this uh
+00:13:45.120 done very fast so
+00:13:47.100 but let's try so if
+00:13:49.560 what I really need to do is I need to
+00:13:51.120 query
+00:13:52.320 okay so the exact same code of the query
+00:13:54.240 will be taken
+00:13:55.740 here
+00:13:57.060 and uh
+00:13:58.740 I don't need to return anything but the
+00:14:00.959 thing is this has to be decremented
+00:14:04.019 that's that's really what's happening
+00:14:05.760 current
+00:14:07.560 if it is null then this this string does
+00:14:10.920 not exist and what I should do is throw
+00:14:13.200 an exception
+00:14:22.380 okay because this string doesn't exist
+00:14:24.600 what are you talking about deleting
+00:14:27.360 or change it's a delete function uh the
+00:14:29.940 number of strings which are terminating
+00:14:31.079 at this point are decremented by one
+00:14:32.579 when you delete something and that
+00:14:34.980 defines the delete things
+00:14:36.600 yeah that's pretty much it none of the
+00:14:39.720 other code has changed thankfully so
+00:14:42.300 the other thing that we need is an
+00:14:43.740 update function uh where a person
+00:14:46.079 specifies
+00:14:47.639 a string
+00:14:49.079 which was earlier there so
+00:14:51.120 we call this
+00:14:52.620 obsolete
+00:14:55.260 and we'll call the string that they want
+00:14:58.079 us to insert as the updated string right
+00:15:01.740 so for the end user the person using
+00:15:03.720 this try from outside it's going to
+00:15:05.279 appear as if the try changed it
+00:15:08.100 magically took my string and updated to
+00:15:11.160 whatever I wanted it to
+00:15:12.600 but what we are actually going to do is
+00:15:14.160 we are going to first delete
+00:15:15.600 the obsolete string
+00:15:18.420 and then we are going to be inserting
+00:15:21.899 the Brigade string
+00:15:24.420 and I think I'll
+00:15:26.339 try to avoid showing off any vocabulary
+00:15:28.320 by calling it The Old stream and this
+00:15:30.000 will be the
+00:15:31.740 new string okay so the update function
+00:15:35.279 is very simple it just uses the insert
+00:15:37.380 and delete functions
+00:15:39.480 now what is there anything else oh yeah
+00:15:42.240 the delete function so I talked about
+00:15:44.100 actually taking the nodes which are
+00:15:46.860 which are account 0 and finding out if
+00:15:49.019 they don't have any children or anything
+00:15:50.040 you could do that but you know thinking
+00:15:52.860 about it a little more the space
+00:15:54.959 complexity
+00:15:56.160 that you require for this is important
+00:15:58.800 but it's going to complicate the code a
+00:16:00.600 lot so I'll just leave that for now in
+00:16:03.300 case there's a problem in which we face
+00:16:05.040 this this constraint of space that's
+00:16:07.800 where we can actually Implement that
+00:16:09.899 going to the parent and
+00:16:12.060 deleting the child node because it's
+00:16:14.339 going to complicate the code over here
+00:16:15.959 in the try node
+00:16:17.760 where you'll be needing to have parent
+00:16:19.440 pointer and you'll also need to have
+00:16:21.120 which child of the parent pointer just
+00:16:23.880 you know called its delete function so
+00:16:25.980 it's going to get a little complicated
+00:16:27.300 so we'll just avoid it now
+00:16:29.339 okay we have a fully functioning try
+00:16:31.019 right now
+00:16:32.040 what do we we need to check that by
+00:16:37.680 creating it
+00:16:39.480 okay and this is our new trial
+00:16:43.259 that's it that's all it needs
+00:16:45.959 so what I'm going to do is I'm going to
+00:16:47.699 insert each string so this set of
+00:16:51.060 strings
+00:16:52.019 I'm going to be inserting string
+00:16:55.560 into this tract
+00:17:01.019 okay
+00:17:03.360 fine
+00:17:04.740 and once all the strings are inserted
+00:17:06.660 actually I have constructed this tray
+00:17:08.400 entirely so I would like to query for
+00:17:10.799 the count of pqrs which should return me
+00:17:14.339 two
+00:17:15.900 right
+00:17:17.819 try
+00:17:19.740 not true try Dot
+00:17:23.280 query yes so smart intelligent
+00:17:26.520 uh pqrs yes this is the string that I
+00:17:29.520 want pqrs yeah
+00:17:31.860 and you know what we'll also be trying a
+00:17:34.980 string which doesn't exist ABC
+00:17:37.320 and we'll also be trying a string which
+00:17:40.559 does exist but just once and let's
+00:17:43.200 comment these out so that let's just
+00:17:45.660 take that if it even works
+00:17:48.240 okay we're running this
+00:17:51.179 let's assuming a little bit more
+00:17:57.240 okay there's a lot of compiling going on
+00:17:58.860 right now so
+00:18:00.660 complicated piece of code is on the
+00:18:02.280 track
+00:18:03.780 it took about what 70 lines to write oh
+00:18:06.000 my God so complicated
+00:18:07.799 what's it really doing it's building for
+00:18:10.020 so long yeah I think it's done
+00:18:11.520 compilation done successfully and we
+00:18:13.380 have an exception at 912.
+00:18:17.880 112 oh yeah 43 yeah at index exception
+00:18:21.600 so I is going out of bounds is it no the
+00:18:27.179 try notes oh okay so here's the issue
+00:18:30.720 when we have a string
+00:18:33.780 it's a set of characters and small a
+00:18:38.580 is actually equal to 97
+00:18:41.400 in the Sky Value so what we need to do
+00:18:43.559 is wherever we are actually uh
+00:18:46.380 accessing the try notes this this array
+00:18:48.960 we need to be subtracting with small a
+00:18:51.539 because that's what we are doing I mean
+00:18:54.179 that's a logical uh addition we need to
+00:18:57.000 this problem so
+00:18:58.919 it's one place two places three places
+00:19:00.960 here this these are only places where
+00:19:03.179 we're actually using them cool
+00:19:08.340 right so that's it let's run it again
+00:19:16.559 I highly louder will work this time but
+00:19:20.220 you never know
+00:19:22.980 two oh wow superb it actually worked
+00:19:27.059 but let's confirm that
+00:19:31.020 this is this is the genuine smile you
+00:19:32.820 get when your code is working
+00:19:34.620 two zero and one I can't believe it no
+00:19:37.140 okay not too fast now let's delete
+00:19:40.080 something let's delete tsst and then
+00:19:43.500 search for it okay so try dot delete oh
+00:19:47.940 God that poor string TS St
+00:19:51.299 all it did was whisper
+00:19:53.940 stuff
+00:19:55.620 right so these guys are useless I know
+00:19:57.900 what they are they're two zero and one
+00:19:59.880 where we are interested in deleting the
+00:20:02.160 string and then finding out what's
+00:20:03.120 account
+00:20:06.600 yeah man genius actually
+00:20:09.299 printed out the string
+00:20:11.820 PSS is the uh okay
+00:20:18.539 this time it should work if the delete
+00:20:21.240 is working properly
+00:20:23.400 zero yeah so after deleting PS SST I'm
+00:20:26.640 sorry psst
+00:20:29.820 it says that there's there's no more of
+00:20:31.980 that string remaining now if I try to
+00:20:33.600 delete it again it should access for an
+00:20:34.980 exception so
+00:20:36.960 of course at this point I think I'm
+00:20:38.400 showing off but yeah this also takes
+00:20:40.260 care of the other scenarios that's fjord
+00:20:43.679 let's go to delete function
+00:20:45.780 if current is null okay current is never
+00:20:49.080 null
+00:20:50.100 so string doesn't exist yeah
+00:20:54.539 that's fine that's fine so string
+00:20:56.460 doesn't exist
+00:20:58.160 is possible
+00:21:00.780 but what we really should do is actually
+00:21:02.700 return 0 here
+00:21:04.919 you know or or rather not do anything
+00:21:06.660 you should just return from this point
+00:21:08.460 because uh it's a little unnatural
+00:21:11.400 Behavior if you are if you have already
+00:21:13.320 created this string and you delete it
+00:21:14.700 and then you query for it
+00:21:18.059 then there's no exception no if you
+00:21:20.460 already create the string and delete it
+00:21:21.780 and delete it again
+00:21:24.240 what really happens
+00:21:26.460 I think what I'm doing is I'm making it
+00:21:28.020 minus one
+00:21:29.940 yeah
+00:21:32.640 let's let's uh confirm that yeah I have
+00:21:35.940 a strong suspicion I'm making a minus
+00:21:37.440 one
+00:21:38.220 so that shouldn't happen
+00:21:40.320 because once you have deleted once it
+00:21:42.059 hit zero you know even if you deleted
+00:21:44.640 ten thousand times after that a single
+00:21:46.260 insertion should make it sound one so
+00:21:47.940 yeah it's coming to minus one so there's
+00:21:49.799 a logical error here and what we need to
+00:21:52.020 do is we need to check actually that if
+00:21:56.400 the current count for all terminating
+00:21:59.820 nodes at this point is zero
+00:22:01.980 then we shouldn't decrement
+00:22:08.460 as for if it doesn't exist
+00:22:13.980 well if it was Zero
+00:22:17.100 then what we can do is we can throw an
+00:22:18.600 exception
+00:22:20.880 because that string did not exist
+00:22:22.260 technically and you try to delete it so
+00:22:26.039 in most coding contests of course you
+00:22:27.539 won't want this but I'm just doing this
+00:22:29.640 to make sure that uh
+00:22:31.799 you know everything is clear
+00:22:33.720 so yeah now it should throw an exception
+00:22:35.520 because it will try to delete a string
+00:22:37.200 which doesn't exist yes that's the
+00:22:39.059 runtime exception on the delete function
+00:22:40.679 at this point
+00:22:41.760 because although the nodes did exist we
+00:22:44.400 saw that the count is zero and therefore
+00:22:47.880 we just deleted that string we tried to
+00:22:50.340 but we couldn't
+00:22:51.419 it gave us an exception
+00:22:53.460 now insert delete everything works fine
+00:22:56.520 in fact that's it for the try thing we
+00:22:59.280 could also try to update psst
+00:23:05.400 you know what we are going to do is we
+00:23:07.380 have been very harsh with psst so we are
+00:23:09.240 going to be updating Cube QRS to psst
+00:23:12.720 and we won't be deleting this fellow
+00:23:16.440 so initially
+00:23:18.059 the answer that you should get for psst
+00:23:21.179 is one and when we update qqrs to psst
+00:23:26.340 the answer for PS psst is 2 and qqrs
+00:23:31.980 should be zero okay let's just confirm
+00:23:35.280 that
+00:23:42.179 I don't know if you can actually see
+00:23:43.679 this I've been like Overjoyed I haven't
+00:23:45.539 actually zoomed into the output yeah so
+00:23:49.020 you see here the first one the first
+00:23:51.419 result was psst's count which was one
+00:23:53.880 that's fine initially count one then
+00:23:56.900 qqrs after the update
+00:24:00.600 you know this this string was deleted so
+00:24:03.120 it became zero and yeah
+00:24:05.580 then when you call it for psst because
+00:24:07.559 there's an insertion of psst basically
+00:24:09.240 qqrs has been converted to psst we get
+00:24:12.179 the count as two so this code seems to
+00:24:14.280 be working like
+00:24:15.419 quite good uh so before we go into the
+00:24:18.120 time complexity I'll just provide you
+00:24:19.679 with a sample question uh chef and
+00:24:23.159 string is one of the questions that you
+00:24:24.600 can try it's from June 2015 and
+00:24:28.080 well the question could be solved using
+00:24:30.299 price but not efficiently enough and
+00:24:32.039 we'll see why but yeah using price you
+00:24:36.179 can solve this question and
+00:24:38.340 you can see that over here I have made
+00:24:41.640 numerous attempts using tries and at the
+00:24:44.400 end I had to use a completely different
+00:24:45.840 approach which actually got the right
+00:24:48.840 answer so for 100 points I had to use a
+00:24:51.299 different approach using price I could
+00:24:53.280 get 30 points and in fact let's just
+00:24:55.559 look at the solution
+00:24:57.480 so there's a lot of focus focus that's
+00:24:59.220 happened here and the code is dirty but
+00:25:01.200 the important thing to notice is that
+00:25:02.460 for large
+00:25:03.960 test everything was timing out and had
+00:25:06.120 actually made sure that it's correct but
+00:25:08.940 it wasn't optimal so
+00:25:11.340 what is surprising me was that tries our
+00:25:14.159 particular time complexity and let's
+00:25:15.659 just look into that
+00:25:17.460 right now if you look at this try data
+00:25:19.559 structure you'll see it looks very
+00:25:21.299 innocent because it just contains one
+00:25:23.039 character and then there is B and then
+00:25:26.039 there is maybe another a over here
+00:25:28.500 and then p and this has
+00:25:31.380 p q r
+00:25:34.559 so this looks simple right
+00:25:36.600 one node each node having you know one
+00:25:39.360 character but we saw that in the
+00:25:41.100 implementation you don't need the
+00:25:42.779 characters as such what you really need
+00:25:45.480 is whatever properties you want for that
+00:25:48.000 particular node so those are that's
+00:25:50.700 all the data that you need apart from
+00:25:52.740 that you need a set of pointers also
+00:25:55.679 okay and here's where things usually get
+00:25:57.539 very expensive because price they don't
+00:25:59.460 store too much information but the
+00:26:01.260 overhead of maintaining the pointers
+00:26:02.820 about 26 pointers that we did is very
+00:26:06.179 large
+00:26:07.140 okay and each of these pointers on the
+00:26:09.120 other hand could potentially
+00:26:11.220 go on to 26 more pointers
+00:26:14.100 of course you are still storing the
+00:26:15.960 string efficiently but the number of
+00:26:18.419 pointers are really getting into the
+00:26:20.159 constant factor that you have so the
+00:26:21.900 space complexity order
+00:26:23.820 L into n this is the worst case
+00:26:27.419 also has a very big constant factor
+00:26:29.580 which we usually ignore because of the
+00:26:31.919 order analysis that's where we ignore it
+00:26:33.480 but here we really shouldn't we should
+00:26:35.400 think about maybe the space complexity
+00:26:37.380 is
+00:26:39.120 L into n into C
+00:26:41.159 because this constant each node is
+00:26:43.380 taking a lot of space
+00:26:45.840 mainly because of these pointers
+00:26:48.120 okay and what ends up happening is that
+00:26:50.640 even if you create a small trial it
+00:26:52.679 might take a lot of time
+00:26:54.840 to Traverse it to actually construct it
+00:26:57.539 to keep it in memory
+00:26:59.640 these things these things are something
+00:27:01.080 that you need to take into consideration
+00:27:02.340 and that's
+00:27:04.500 primarily the only reason why that the
+00:27:06.720 code wasn't working because if you see
+00:27:08.760 this trial what is the order complexity
+00:27:11.100 for this
+00:27:12.179 when I want an element when I want to
+00:27:14.340 match a string to any string in this
+00:27:16.919 triangle so let's say the string length
+00:27:18.659 is l
+00:27:20.400 string with the larger length so that is
+00:27:22.620 L it's called capital n
+00:27:25.679 at the absolute worst case I'll have to
+00:27:28.020 Traverse this try for capital L nodes
+00:27:30.840 till I see that there is no
+00:27:33.539 a string which is matching or there is a
+00:27:35.640 string matching so capital L so order l
+00:27:39.900 operations per query
+00:27:42.240 how many inserts do you need order L how
+00:27:44.640 many deletes do you need I mean how many
+00:27:47.340 how many competitions you need for an
+00:27:48.779 insert Auto l
+00:27:51.480 how many for a delete
+00:27:55.500 order L again and a query is order n now
+00:27:59.100 of course update is just to insert and
+00:28:01.260 delete so
+00:28:03.240 that's Auto L2
+00:28:05.640 okay so you see that everything is very
+00:28:07.380 efficient for n strings
+00:28:10.200 when we are matching with n strings this
+00:28:12.240 is giving us an order
+00:28:13.740 l
+00:28:15.120 operation so if you have q queries then
+00:28:18.059 this is Q into L which is actually
+00:28:20.159 extremely good in terms of time
+00:28:21.659 complexity but because of these constant
+00:28:23.760 factors
+00:28:25.100 are very often not feasible
+00:28:28.679 you can't you can't use them for these
+00:28:30.659 operations over here
+00:28:32.880 so what else can we use there's
+00:28:35.100 something called suffix arrays okay and
+00:28:37.320 I'm not going to be going into that
+00:28:38.940 because that requires a separate video
+00:28:43.440 but suffix arrays are the practical
+00:28:46.260 versions using which you can you can
+00:28:48.299 actually play with streets
+00:28:50.340 suffix arrays essentially they just
+00:28:52.500 contain all the suffixes that you can so
+00:28:54.539 you can have a look at that but the
+00:28:56.760 important thing is tries are interesting
+00:28:58.200 they might work for cases where the
+00:29:01.140 character set is really small so where
+00:29:03.659 the constant factor is really small
+00:29:05.039 usually that means a binary trial
+00:29:11.220 okay and the binator is just
+00:29:13.740 a try with alphabet size 2 which is
+00:29:16.020 zeros or ones that's all
+00:29:18.000 that's all so a binary try if the
+00:29:20.279 question requires that
+00:29:21.960 you could think about it you could you
+00:29:23.399 could have go with it
+00:29:25.200 because it's just a binary but if it
+00:29:27.720 requires lots and lots of characters you
+00:29:30.120 seriously need to consider this constant
+00:29:32.279 Factor also
+00:29:33.840 and the easiest way to just check it out
+00:29:36.600 is actually write down the code and then
+00:29:38.220 post it as long as it's a long contest
+00:29:39.840 because uh
+00:29:41.580 price are very easy to implement like we
+00:29:43.919 saw it didn't take even 100 lines
+00:29:46.559 yeah and that completes tries so I'll
+00:29:48.779 just share the code for uh chef and
+00:29:51.360 stream the try version and the not try
+00:29:53.700 version also but for that you need to
+00:29:55.559 have a look at something slightly
+00:29:57.659 different uh it's called the Z function
+00:30:00.480 or something yeah
+00:30:01.679 who knows there's another algorithm
+00:30:03.419 which is quite interesting which is
+00:30:06.000 something like that I really can't spell
+00:30:08.100 this so I wanted to tell the scientists
+00:30:09.539 but this algorithm lets you count the
+00:30:12.480 number of occurrences of a strain in
+00:30:14.340 text and very efficiently but I'm not
+00:30:17.340 sure if I can just you know get to that
+00:30:20.039 on the very next thing because there's
+00:30:21.600 there's a list of stuff which I need to
+00:30:24.000 do which you can of course suggest me to
+00:30:27.240 do so I have this entire list and it's
+00:30:29.399 so huge
+00:30:31.080 I'm getting rid of problems one by one
+00:30:33.120 but you know the speed at which I'm
+00:30:35.039 actually completing the problems is
+00:30:36.779 slower than the the speed of the list
+00:30:39.419 increasing
+00:30:40.799 so but of course your suggestions are
+00:30:42.899 welcome and I'll love to add them to
+00:30:44.760 this endless list uh yeah so and if you
+00:30:48.240 want any notifications for when I do
+00:30:50.100 complete those problems then you can
+00:30:51.299 subscribe
+00:30:52.320 yeah apart from that we can see the
+00:30:54.059 price are all done and I'll see you next
+00:30:55.919 time

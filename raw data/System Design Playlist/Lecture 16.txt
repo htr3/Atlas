@@ -1,0 +1,415 @@
+# tactiq.io free youtube transcript
+# Designing INSTAGRAM: System Design of News Feed
+# https://www.youtube.com/watch/QmX2NPkJTKg
+
+00:00:00.260 Hey guys, this is GKCS!
+00:00:01.601 It's been a long time since we have madea system design video and today we'll
+00:00:05.001 be talking about designing Instagram.
+00:00:10.570 An obvious thing about Instagram isthat you can store and get images.
+00:00:14.130 So that feature we can assume to always be
+00:00:20.130 in an Instagram interview. Now,any other feature is not obvious,
+00:00:25.370 so don't jump to what you'll be buildingbefore your interview actually mentions
+00:00:29.151 it. You might have used Instagram,you might know what it does. However,
+00:00:32.650 the interview might beexpecting something and they,
+00:00:34.979 they might know that the time constraintsdoesn't allow you to dig deep into all
+00:00:38.191 of these features. So betterask them, what do you expect?
+00:00:42.450 So the interviewer might mentionthat you want to provide a like
+00:00:47.510 plus comment facility for an image,
+00:00:53.470 right? You can also sharean image in Facebook.
+00:00:55.290 I'm not very sure about Instagram,
+00:00:56.351 but let's keep it simplelike and comment on posts.
+00:01:01.810 The third thing is you canactually follow someone.
+00:01:07.150 So every Instagram account is thatof a user. That's my expectation.
+00:01:11.310 In Facebook, again,
+00:01:12.131 you have a bigger complication thatpages can actually be followed.
+00:01:17.790 And the fourth thingis you need to publish
+00:01:23.890 a newsfeed. Alright?
+00:01:27.891 These are the four key featuresthat we have of Instagram.
+00:01:31.590 It may not be the most selling thing, butof course as a system design engineer,
+00:01:35.131 these are the things whichare difficult to design,
+00:01:37.110 or at least these are the basicsthat we should know when we are doing
+00:01:39.570 Instagram. So amongst these,
+00:01:42.650 storing and getting images is somethingthat we already done in our Tinder
+00:01:46.251 video. Tinder video it's in acard floating up there somewhere.
+00:01:51.230 So the key things over here isthat you want cheaper storage.
+00:01:55.750 So you probably go for a file system,
+00:01:57.710 you create a C D N over itso that things are fast.
+00:02:00.451 And just have a lookat the Tinder you know,
+00:02:04.090 video to get a better understanding here.
+00:02:06.030 The second thing is likingand commenting on images.
+00:02:09.030 Now images are nothing but posts
+00:02:12.070 and the concept of a postis pretty interesting.
+00:02:16.070 Can you comment on a comment? Is aquestion to ask. So is this recursive?
+00:02:22.720 This is a question. Canyou like a comment? Now,
+00:02:25.771 Instagram does provide you thefacility to like a comment.
+00:02:28.400 Instagram does not provide you thefacility to comment on a comment on a
+00:02:33.011 comment. You know, it gives you onelayer. So if there is a comment over here,
+00:02:39.150 You can actually reply to that,but you can't reply to reply.
+00:02:44.070 So through this, it keeps the levelof complexity constraint. Yeah,
+00:02:49.050 there's just one level ofcomment and then reply. However,
+00:02:53.360 there's nothing really stopping the systemmathematically from making a reply to
+00:02:56.531 a reply. But this is a interview.
+00:03:01.201 So we'll keep things simple and we'llsay that you can't even reply on a
+00:03:04.761 comment. There's a single comment youcan do. Okay? So no complexities here.
+00:03:09.060 You can like a comment though,I'll give you that. You can like
+00:03:13.760 a comment.
+00:03:15.710 So if you think in terms ofthe ER diagram of this feature,
+00:03:19.150 single feature of liking and commenting,
+00:03:21.510 we will have the like stable beingrepresented as the post, which was liked,
+00:03:26.270 who liked it, the user id, the timestamp.
+00:03:29.030 At what time did theyactually like the post?
+00:03:31.310 And is the like still active is onething or you can just delete it. Yeah,
+00:03:35.730 it shouldn't be too much of an issue,but I will just call it active or not.
+00:03:40.310 Now, we just said that likes canactually be on comments also.
+00:03:44.230 So the post ID could be useful,
+00:03:46.310 it could tell us the post inwhich the comment existed.
+00:03:49.430 But a better way torepresent this would be,
+00:03:52.890 I mean the only way to represent this,
+00:03:54.550 so to speak is parent id,
+00:03:59.510 parent ID could be eithera comment or a post.
+00:04:02.110 So how do I figure out looking at a, likewhether it's from a comment or a post?
+00:04:07.190 One of the things you can do is you can,
+00:04:08.550 in the parent ID itself mentionedcomment underscore 1, 2, 3, and 1, 2,
+00:04:13.210 3 could be the comment ID here.Okay? But this is pretty poor design.
+00:04:18.480 Instead, what you cankeep is a type field.
+00:04:24.750 So this type is going to be either comment
+00:04:28.710 or it's going to be a post.And using this, using the type,
+00:04:32.710 you can tell what typeof parent do I have,
+00:04:36.220 which tells you where to query in caseyou want to know what is the original
+00:04:39.771 thing, which is liked by the user. Okay?
+00:04:43.470 So these are the kind of things thatwe can do with just the like table.
+00:04:48.279 What if you need to find the numberof likes for a particular post,
+00:04:53.089 you can do a select star,
+00:04:57.390 I mean select count star rather.
+00:05:02.650 And if you're finding any ofthis complicated, you know,
+00:05:05.071 just have a look at the othersystem design videos. In fact,
+00:05:07.711 you shouldn't be finding thiscomplicated. It's an ER diagram. So yeah,
+00:05:11.170 in case you're finding it complicated,
+00:05:12.500 I'll mention a link in thedescription below. It's on databases.
+00:05:15.870 You can have a look atthat count star from likes
+00:05:21.630 where
+00:05:24.970 Post ID equal to some user parameter.So if you're passing in the post id,
+00:05:29.741 I can tell you the number oflikes in that post. However,
+00:05:33.800 we should be flexible and we should bethinking about things which are going to
+00:05:37.021 happen in the future. You need tobe able to generate a newsfeed.
+00:05:40.240 And a newsfeed is goingto have a lot of images,
+00:05:42.220 a lot of posts that will firea lot of select star queries.
+00:05:47.800 So this is one way it's gonna be timeslow. We are going to ignore this way
+00:05:53.930 here.
+00:05:54.221 What you could do is adda column called likes.
+00:06:01.740 And whenever there's a likeadded for a particular parent id,
+00:06:04.721 if that parent ID exists in post,then you increment this likes column.
+00:06:09.820 If the parent ID exists, Imean is is a type comment,
+00:06:13.110 then you increment thelikes column over here.
+00:06:19.200 However.
+00:06:19.310 This is pretty bad design because youhave something which is not really
+00:06:24.320 relevant to this table kept here.
+00:06:26.990 It's an aggregation information which isbeing stored in the original table for
+00:06:31.560 convenience. Okay? So again,
+00:06:33.761 we are going to be changing our designa little bit and saying we are not gonna
+00:06:37.001 be storing likes here. Main reasonbeing that it doesn't belong there.
+00:06:41.300 If you have a comment being pulledout, you also have a number of likes.
+00:06:44.240 So there could be useful, could maybe not.
+00:06:46.790 Instead you can have an activity table.
+00:06:54.380 And this is going to bedefining the number of likes
+00:06:59.460 for a particular parentid. So I'll just call it
+00:07:04.120 activity id and it's gonna be activity
+00:07:08.940 id and it can store the type two.
+00:07:13.800 But do we really need to,no, it's just aggregation.
+00:07:16.440 So you don't need to store the type.You could, but you don't need to.
+00:07:22.450 What else do we need? Well, thecomment is going to have an ID itself.
+00:07:26.450 It's going to be having
+00:07:29.370 something called textualinformation. Yeah,
+00:07:33.310 could a comment have an image? Itcould, you need an image all then,
+00:07:36.800 but right now comments can'thave images. And you let,
+00:07:40.301 let's try to figure outthere's a timestamp, whichis always going to be there.
+00:07:45.650 Anything else we have actually missedout something on the likes here.
+00:07:52.590 By putting a comment id, what I shoulddo is I should also put a, like ID
+00:07:57.690 and nearly all tables have IDs.
+00:08:00.240 This row is going to be definedusing this id, okay? A u u Id maybe
+00:08:07.210 Uniquely identifies this role.
+00:08:08.550 So uniquely identifies this action wherethere was a like done by this user on
+00:08:12.971 this activity at this time, andso on and so forth. Okay? Now,
+00:08:16.450 whenever your system is queried on,
+00:08:19.820 let's say find me the numberof likes on this post,
+00:08:24.780 it can just go and query this tablewhenever there's a question on find me all
+00:08:29.721 the comments for this particularpost queries, this table, find me,
+00:08:33.659 all the people who have liked this postcomes on this table. And the queries,
+00:08:38.870 I'll mention them in the descriptionbelow. I'll just, you know,
+00:08:41.961 because the queries aremainly database queries.
+00:08:44.081 But what we can understand here is thatwe have designed the system such that
+00:08:47.081 the information is availablein a nice way. Okay?
+00:08:50.001 So this is our original ER diagram. Andof course if you need the post itself,
+00:08:54.740 you have the post ID righthere. Ah, interesting.
+00:08:59.970 Get me all the posts for this useris something that we might do.
+00:09:04.610 So the post is going tobe having a user ID too.
+00:09:09.710 Okay, who has made this post?Alright, so as you can see,
+00:09:15.290 making an year diagram is noteasy. It's a lot of you know,
+00:09:20.590 changing your tables,
+00:09:21.711 understanding how you will be showingthat information or retrieving that
+00:09:25.191 information. But keepyour diagram flexible.
+00:09:29.300 Make sure that you are keeping everythingwhich is in future and current in
+00:09:33.351 mind. Sometimes you can't, you don'tthink about the future too much.
+00:09:36.929 So in that case, just try to keepyour tables as simple as possible.
+00:09:40.250 So feature number one and two are done.
+00:09:45.480 The third feature is actually very easy.
+00:09:47.120 All it does is a userfollowing another user.
+00:09:50.400 So there's two kind ofquestions you can ask.
+00:09:52.240 The first one being that who follows me?
+00:09:54.240 And the second one being whoare the people who I follow?
+00:09:57.760 So with those two questions, both of themcan be answered using a single table.
+00:10:02.880 We have the follower user id, theperson who is following someone,
+00:10:06.240 the followee user ID is going to bethe person who is being followed that
+00:10:10.341 person's user ID and the timeat which they start following.
+00:10:13.720 So this takes care of the wholething. Let's say 
+00:10:18.600 follows Stephen Hawking.
+00:10:22.929 Alright at timestamped, let's say today,
+00:10:27.870 now there's gonna be lots of otherusers who follow Stephen Hawking.
+00:10:32.590 So whenever I need to find the peoplewho are following Stephen Hawking,
+00:10:35.611 I just come to this column,
+00:10:37.370 put a equals condition saying thatHawking and give me all the followers.
+00:10:41.750 So it gives you all thefollowers as a list. Similarly,
+00:10:44.371 who are the people who got followers?Gotta probably follows a lot more people.
+00:10:48.280 There's Bill Gates. So these kind of guys,
+00:10:51.760 when I can actually get their userIDs using just a single equals
+00:10:56.550 on this column, that takes care of
+00:11:01.040 Requirement number three.
+00:11:02.790 One of the questions I'm oftenasked is that during an interview,
+00:11:05.309 if you know the answer to a question,
+00:11:07.190 should you build the answer slowly orshould you just directly give the answer?
+00:11:11.410 I believe you shoulddirectly give the answer.
+00:11:12.830 It saves a lot of time forthe interviewer and for you.
+00:11:16.000 It's also something that Ireally appreciate because it,
+00:11:19.291 it shows that the personhas prepared. Well.
+00:11:21.309 Two things which are for this pointare that the interviewer is probably
+00:11:24.679 expecting to ask you morequestions. So this is a simple one.
+00:11:27.451 If you answer it quickly, they'll askyou the next one. The second thing is,
+00:11:30.891 if you answer this quickly,
+00:11:32.640 they can get into the advanced topicsthat they really wanna talk about.
+00:11:35.679 That is the approach we'retaking in this video too.
+00:11:38.150 We are not going forextremely simple answers.
+00:11:39.611 We are going for slightlyadvanced system design concepts.
+00:11:42.720 I'll be explaining this design usinganimations because that would be clearer.
+00:11:46.110 If at any point you find something toocomplicated or if at any point you see
+00:11:49.611 something that you don't understand,
+00:11:50.531 you can always fall back onthe system design videos,
+00:11:52.620 especially at the systemdesign for Tinder video,
+00:11:54.961 because there's a lot of things likethe proxy and routing that we talk about
+00:11:59.201 over there.
+00:12:02.940 Since Instagram is a mobile application,
+00:12:05.150 it needs a way to connectto our server side.
+00:12:07.830 I'm going to be assuming that there'sa gateway which is going to be
+00:12:10.370 encapsulating a lot of things.
+00:12:11.590 The reverse proxy is also the gatewayfor me because it's going to be deciding
+00:12:16.211 where to send the request to.
+00:12:17.960 It's going to be encapsulating somesecurity mechanisms like authentication
+00:12:21.171 tokens and so on and so forth.
+00:12:23.630 One important thing that the gateway cando is it can take external protocols.
+00:12:26.651 Well-Known public protocols likeS T P or sending messages or web
+00:12:31.371 sockets is through X M P P.
+00:12:32.891 Usually these protocols can be convertedto a protocol that we understand
+00:12:37.091 internally. We might be talkingover some other protocol.
+00:12:42.030 Now this is just added security so thatno one knows how to hit your server
+00:12:45.380 using the language that you understand.And that can be done using the gateway.
+00:12:50.750 Now, when a simple requestlike get user feed comes in,
+00:12:53.211 which takes a parameter of user id, it'llcome to one of our internal services.
+00:12:57.950 I'm assuming there's a servicecalled User feed service.
+00:13:01.640 This service providesthe user feed for a user.
+00:13:04.710 So that is the top 20 poststhat the user needs to look at.
+00:13:08.020 It'll be like a newsfeed to makethe service resilient and also to
+00:13:12.891 scale, we need multiple serversrunning the same server.
+00:13:16.110 If you bring in multiple servers,
+00:13:17.630 you bring the question of how do I routea request from the user's cell phone to
+00:13:22.610 a server in my server site? Thiscan be done using a load balancer.
+00:13:27.830 Now it's too expensive to ask the loadbalancer every time where to route the
+00:13:31.131 request.
+00:13:31.910 So what we can do is we can storesnapshots of the entire system.
+00:13:36.750 The load ban will be maintainingthe state of the entire system.
+00:13:39.520 It's like a snapshot of all the servicesand where they exist in which boxes and
+00:13:43.651 how do I connect to them.
+00:13:44.520 That kind of information is stored onthe load ban and it keeps coordinating
+00:13:49.251 with the gateways and every other servicein the system making sure that they
+00:13:53.011 know how to send a requestto the correct area.
+00:13:55.429 So the load ban sends this informationto the gateway as a snapshot.
+00:13:59.290 This snapshot will be periodicallyupdated, let's say every 10 seconds.
+00:14:02.710 So when the gateway getsthis user feed request,
+00:14:06.309 it reads from the snapshot where itshould send the request to which user feed
+00:14:10.131 service box should it send the requestto, and then forwards that request.
+00:14:15.350 I'm assuming that the load isbalanced using consistent hashing.
+00:14:18.150 So just by hashing the user id,
+00:14:19.851 you can find the box where youshould send the request. Importantly,
+00:14:24.731 the user feed service isdependent on two other services,
+00:14:28.270 the posts service and the follow service.
+00:14:33.190 The post service,
+00:14:33.870 as you can think of it juststores information aboutthe posts that a user has
+00:14:37.930 been made.
+00:14:38.230 So it'll be giving you the posts forevery user ID or maybe post for a
+00:14:42.851 particular day and so on and so forth.Those are the APIs that you'll expose.
+00:14:45.971 The follow service tells you the twoimportant questions answer to the two
+00:14:49.571 important questions of who are the peopleI follow and who are the people who
+00:14:53.121 follow me. Apart from this, of course,
+00:14:56.321 there's a lot of services that I'm justgoing to be skipping because we have
+00:14:59.761 either already spoken about them orthey're not called to this particular
+00:15:03.121 application and we'll be speaking aboutthem in future. So just to name a few.
+00:15:06.940 One would be the image service.There's also the activity service,
+00:15:10.241 which you have explained.There's the chat module.
+00:15:14.080 I would say it's noteven a single service,
+00:15:15.470 it's a entire set of services and theprofile service which is gonna be storing
+00:15:20.321 user information like the profilepicture sessions management
+00:15:25.260 and so on and so forth.
+00:15:26.540 So there's a lot of things that weare going to be keeping hidden for
+00:15:31.361 now so that we understand the importantfeatures that we need to build
+00:15:34.750 currently.
+00:15:36.190 Now getting back to the question of howdo I find the user feed for a particular
+00:15:39.371 user id, the simple way would beto get all the people who I follow.
+00:15:43.270 So get users followed by and you passin a user ID that returns the people
+00:15:48.790 who are followed by this particularuser id. So if I pass in my user id,
+00:15:52.770 I get all the users who I'm following.Once I have this set of users,
+00:15:58.320 I can get the posts madeby these users. For that,
+00:16:02.481 I'll need to query the postsservice. Once I run this,
+00:16:05.500 get posts by user in a fall loop,
+00:16:07.560 I mean basically I'm going to be findingthe posts by every user who I follow.
+00:16:11.900 So that'll be, let's say ifI have 10 users who I follow,
+00:16:14.580 I'm going to be making 10requests to the post service.
+00:16:17.740 I'm going to be then condensingall that information.
+00:16:19.660 I'm going to be converting into a singleset and then returning to the mobile
+00:16:24.041 application through the gateway. Now,
+00:16:26.641 there's a lot of wasteful competitionover here. You can expose an A P I,
+00:16:30.410 which is guest get posts by users,
+00:16:33.420 and you pass in a set of user IDs andyou get all the posts in just one go.
+00:16:37.760 So that would be oneoptimization that we can do.
+00:16:42.121 The second optimization would be justto limit the number of posts that we are
+00:16:46.001 calling out of this post service becausethat would reduce the load on the
+00:16:50.160 database that it's using internally andreduce the load on the service also,
+00:16:53.081 so the network load will reduce.
+00:16:54.820 And of course when we aresending back to the client,
+00:16:57.801 that would also reduce the load. However,
+00:17:01.270 this is not going to scale if for everyuser feed request we have to recompute
+00:17:06.500 all the posts that this person wantsto see. It's going to be too expensive,
+00:17:10.481 especially on the post service.
+00:17:12.641 It's going to get bombarded and thosecomplex queries that the post service has
+00:17:16.921 to do. In fact,
+00:17:17.840 most likely you'll be ending up doingsome joins on the post requests on that
+00:17:22.880 database. So it'sdefinitely not gonna scale.
+00:17:26.540 The correct solution in this caseis to pre-compute the user feed.
+00:17:30.480 Anytime a user feed request comes in,
+00:17:32.380 we just return the user feed in oneshot because we have pre-computer it.
+00:17:38.100 The only question which remains is howdo we pre-compute what is the user feed?
+00:17:44.270 It's a set of posts that I wantto see. What are those posts?
+00:17:48.920 I I want to see the posts madeby people who I follow. Okay,
+00:17:53.240 breaking down this problem,
+00:17:54.300 it comes to every time a person who Ifollow posts something on Instagram,
+00:17:59.980 we need to update my user feed.
+00:18:03.060 So whenever there's a post requestfrom a user, it goes to a post service,
+00:18:08.270 gets persistent on the database,
+00:18:09.980 and the post service should actuallysend a notification to the user feed
+00:18:14.841 service saying that, Hey, here is a post.
+00:18:18.619 You should update yourpre-computer user feed depending on
+00:18:23.561 who are the people who follow theperson who has made this post.
+00:18:28.920 Alright?
+00:18:29.220 So what that is allowing is that there'sa small incremental update on the user
+00:18:33.609 feeds of people who followthis particular user.
+00:18:36.340 So if I imagine a few lists of posts,
+00:18:38.441 which is nothing but the user feedof user ID one, two, and three,
+00:18:42.180 all I need to do is find the user IDof the person who has just made a post,
+00:18:47.100 get their followers,
+00:18:48.940 and then add to each one sku.
+00:18:53.810 Since the size of the SKU is at most 20,
+00:18:56.710 this is a pretty efficientway to store the user feed.
+00:19:00.540 Now since we are talking about storage,where should we store this data?
+00:19:04.100 Should it be on the database orshould it be on the cache? Personally,
+00:19:07.760 I would prefer using the cache.
+00:19:09.660 The reason for this is because it'sgoing to be separating a lot of the logic
+00:19:14.109 that we have on this user feed service.Anytime we lose any kind of data,
+00:19:17.721 we can recompute it using the previousbrute force formula that we had.
+00:19:22.201 Basically finding all the people whoI follow and then getting their posts.
+00:19:26.380 So that would be a one time thingin case there is a problem with
+00:19:31.580 the memory. So when can there bea problem with the memory? Well,
+00:19:35.100 if the service crashes, that's fine.It's stateless, it can again be compute.
+00:19:39.390 Also one thing that could happen is youdon't have infinite memory, you know,
+00:19:42.761 in cache.
+00:19:43.260 So what you're gonna be doing is themost recently used users will be the ones
+00:19:48.201 who will have the userfeed served by cache.
+00:19:49.881 If there's a person who'slogging in infrequently,
+00:19:52.201 there's no use wasting memoryfor them. When they do log in,
+00:19:56.150 then we can recompute the userfeed for them and then, you know,
+00:20:00.100 the cash management policies are goingto take care of the user feeds for that
+00:20:02.921 user. So this is a really nice way,
+00:20:05.359 I think what we can do is we can usecaches to store the user feeds and it's
+00:20:09.961 going to get to the users very quickly.
+00:20:13.140 One interesting thing with this userfeed service is that every time it gets a
+00:20:16.960 new post which it has toshow to the relevant users,
+00:20:20.700 it can actually send notificationsto the relevant users.
+00:20:26.180 So if there are two peoplewho are following User X,
+00:20:29.350 then the user feed service will notifythose two users. Also, of course,
+00:20:33.321 for this,
+00:20:33.700 you need either polling from thecell phones every 10 seconds,
+00:20:38.641 they keep polling that, is thereanything new in my user feed?
+00:20:40.921 And so on and so forth. That'sa slightly expensive operation,
+00:20:43.841 depends on your use case of course,
+00:20:45.940 but you can imagine the cell phone takingmore bandwidth and more battery for
+00:20:50.350 this kind of stuff.
+00:20:51.900 You can push notifications fromthe server using multiple ways.
+00:20:56.500 My favorite is web sockets. But yeah,
+00:20:59.201 you can use long pollingand so on and so forth.
+00:21:03.160 An interesting thing is how do you routethese requests back to the cell phones?
+00:21:08.460 And especially when there's just onerequest coming from the server side and it
+00:21:11.761 has to be routed to let's say 50 or60 users who are following this user.
+00:21:15.700 So we'll be discussing that in thenext video, which is a chat service.
+00:21:21.100 In fact,
+00:21:21.520 I think I have already discussed a littlebit about this in the Tinder video,
+00:21:24.859 so you can get an idea over there and youcan look for a detailed description in
+00:21:28.081 the next video.
+00:21:29.619 The final use case is that what if acelebrity makes a post a person with
+00:21:34.561 millions of followers? In this case,
+00:21:36.950 what would happen is if the user feedservice behaves in the normal way,
+00:21:41.321 it's going to be sending outnotifications to a million users,
+00:21:44.500 and that is going to crash the systemmore likely because sending a million
+00:21:48.241 requests is, is too heavy atask to be done immediately.
+00:21:52.281 There's two approaches to solvingthis. One is batch processing,
+00:21:55.690 where you send notifications ina batch of 1000 people. So every,
+00:21:59.930 let's say 10 seconds,
+00:22:00.980 you send a notification to ahundred people the next 10 seconds,
+00:22:05.200 a hundred people,
+00:22:05.760 and basically you are rate limitingthe number of requests you're sending
+00:22:08.241 outside. And the other approach,which is very interesting,
+00:22:11.601 is that you don't sendnotifications to the users.
+00:22:15.180 You wait for them to pullnotifications from you.
+00:22:19.020 Now you've seen thesegreen boxes over here,
+00:22:20.761 maybe they're fans of this particularcelebrity. What they'll be doing,
+00:22:24.150 what the applications will be doing isthat periodically they'll be pulling the
+00:22:28.321 server for requests.
+00:22:30.180 So this is a pull model that wehave instead of a push model.
+00:22:33.060 The push model always has a problem offanning out where there's millions of
+00:22:36.441 requests you need tosign and it goes crazy.
+00:22:39.340 The pull model has advantage that youcan do this slowly because there's a lot
+00:22:42.681 of users who are not going to be pullingat the same time. The push model,
+00:22:46.300 of course, has the advantagethat it's very seamless.
+00:22:49.340 The moment there's a request,
+00:22:50.619 you give that notification back to theusers and they feel like it's happening
+00:22:53.961 all in real time. So in thisdebate of pull versus push,
+00:22:59.230 what you're really looking for is a hybridmodel. Whenever there's a celebrity,
+00:23:03.270 what you want to do is you want to gofor the pull model because there's too
+00:23:05.841 many requests to send. Andwhenever there's a normal user,
+00:23:09.300 you can go for the push model. So thatthe thing is seamless. In general,
+00:23:13.961 this architecture is excellent.When you're looking for a newsfeed,
+00:23:16.869 there's a lot of applications which hasthis Facebook, Twitter, Cora Instagram,
+00:23:21.641 like we have spoken about.
+00:23:22.900 All these applications requiresome sort of queue or list
+00:23:27.900 in which you are going to be maintaininga size of X number of posts that a
+00:23:31.681 person has made, and then yousend it to all their followers.
+00:23:35.030 With this architecture,user feed services are done,
+00:23:39.420 so that takes care of the fourthfeature, which is the user feed service.
+00:23:42.980 Of course, in a real interview,they can get into anything.
+00:23:45.040 They can get into the profileservice, maybe the chat module,
+00:23:48.241 which I've not talked about.
+00:23:49.460 You know Instagram does provide directmessaging or they can talk about
+00:23:53.401 something like while using the H T Pprotocol or web sockets and et cetera,
+00:23:57.160 et cetera.
+00:23:58.020 But if you can actually come up withthese kind of justifications and arguments
+00:24:02.721 for the things that you're building,
+00:24:04.340 it shows that you understandthe system at a good level.
+00:24:06.630 Feel free to leave any doubts orsuggestions that you have below.
+00:24:09.360 If you like the video,then hit the like button.
+00:24:11.420 And if you want notifications forfurther videos, hit the subscribe button.
+00:24:14.550 I'll see you next time.

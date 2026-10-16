@@ -1,0 +1,2404 @@
+# tactiq.io free youtube transcript
+# Low-Level System Design of an Inventory Management System like Amazon or Zepto
+# https://www.youtube.com/watch/T-9s9U28KJM
+
+00:00:01.700 hey folks we are live today at uh on
+00:00:05.520 Wednesday 7 pm today the agenda is again
+00:00:08.519 a lower design of a system which is an
+00:00:11.940 inventory management system and if you
+00:00:14.880 know about Amazon warehouses or if you
+00:00:16.800 know about even you know uh shops what
+00:00:19.920 happens is people can buy products and
+00:00:22.380 you have to manage this inventory so
+00:00:24.600 simply put you have to manage the state
+00:00:26.760 of a product whether it's purchased or
+00:00:29.039 not purchased where is it how many of
+00:00:31.619 them do you have and do you need to
+00:00:33.840 order more based on that maybe a
+00:00:35.280 notification so this is the job of
+00:00:37.440 inventory management system and the low
+00:00:39.600 level design of that which means the
+00:00:41.940 software design and the code will be
+00:00:43.920 taken care of
+00:00:45.539 by us today
+00:00:47.100 okay so with us we have Arun goyal Arun
+00:00:49.860 is uh SC2 at atlassian uh I don't like
+00:00:54.480 to say a few more words about yourself
+00:00:56.640 or are you very humble and shy or what
+00:00:58.980 is it like uh of course I'm humble and
+00:01:01.859 shy but let me give a few words
+00:01:04.819 so hey everyone you must have seen our
+00:01:07.380 previous video I gave my introduction
+00:01:09.000 there also my name is aren't good uh
+00:01:31.259 I'll try my best yeah okay so
+00:01:36.060 um
+00:01:36.960 let's let's start this way uh firstly
+00:01:39.659 guys if you have any questions please
+00:01:41.659 send them on slido so right now I'll
+00:01:46.140 just share the link for slido
+00:01:49.140 you know um give me a second
+00:01:51.960 sorry I have not opened YouTube at the
+00:01:54.060 same time because
+00:01:56.820 the sound becomes an echo
+00:01:59.100 yeah okay so let's go to it's in the
+00:02:02.040 description the video description
+00:02:04.020 oh in fact we don't have a slider Link
+00:02:06.479 in the video description
+00:02:07.920 yeah okay okay let me just create one uh
+00:02:11.280 guys thank you so much for your patience
+00:02:13.020 and uh
+00:02:14.400 no thank you for me for
+00:02:16.620 you know forgetting to do this I should
+00:02:18.780 have taken a slider link and kept it out
+00:02:21.420 there
+00:02:22.560 just give me one minute
+00:02:24.120 okay
+00:02:26.340 okay
+00:02:27.680 in the meantime I can take a few
+00:02:30.060 questions yeah which are coming on track
+00:02:32.160 because okay
+00:02:34.080 so
+00:02:37.260 uh there's relationship saying can you
+00:02:39.060 list down a sort of rainbow to tackle
+00:02:41.340 similar questions uh yes uh in the last
+00:02:45.060 video if you have seen uh we came up
+00:02:47.280 with the idea how do we generally
+00:02:49.440 proceed uh we can go ahead with a use
+00:02:52.860 case diagram uh wherein you can list on
+00:02:55.319 the requirements and based on that you
+00:02:56.700 can make a use case diagram using the
+00:02:58.860 use case diagram you can go ahead and
+00:03:00.420 create the class diagram
+00:03:02.099 and probably after you make after you
+00:03:04.739 make the class diagram you can go ahead
+00:03:06.180 and write the code uh for reference you
+00:03:08.760 can refer to the previous video which is
+00:03:10.800 on make my trip uh you'll be able to
+00:03:12.720 have a good idea about it
+00:03:20.280 so Lakshmi is saying hi to you gaurav
+00:03:23.040 please reply hello how's everything
+00:03:25.500 going
+00:03:28.860 I'm taking a poll also at the same time
+00:03:31.140 which will launch the school and at the
+00:03:33.540 same time I'll just come over here and
+00:03:35.280 please use this link to send us your
+00:03:38.340 questions or ask any doubts or even if
+00:03:40.860 you have suggestions please let us know
+00:03:42.420 here I have taken a poll uh on you know
+00:03:45.239 what is your experience level so that we
+00:03:47.159 have a rough understanding of who's the
+00:03:49.500 uh who's viewing this video and based on
+00:03:51.959 that we can tailor the experience
+00:03:54.060 right so okay three of you have voted
+00:03:56.819 three to eight years experiences where
+00:03:59.640 we are at till now okay I just share my
+00:04:02.280 screen
+00:04:08.879 if that's okay with you
+00:04:10.680 yeah yeah go ahead
+00:04:12.420 okay I'll just share my screen uh
+00:04:19.680 okay so this is the poll that we are
+00:04:21.298 taking uh the slider link is
+00:04:23.880 in the chat
+00:04:25.979 again I'll just share this
+00:04:29.040 holes
+00:04:32.940 any resources for extreme beginners
+00:04:35.160 Amazon for SD one level generally they
+00:04:38.699 do ask relevant questions for SD ones as
+00:04:41.340 well
+00:04:43.080 Arun would you like to take this like if
+00:04:45.180 there is a person who's just starting
+00:04:46.440 off with a design
+00:04:47.940 it has absolutely no idea maybe has done
+00:04:50.040 only corporate programming or you know
+00:04:51.900 small projects or maybe has worked only
+00:04:54.960 on machine learning and is looking to
+00:04:57.540 switch to software engineering how do
+00:04:59.699 you how do you make them start just for
+00:05:02.699 the first time they are not in an
+00:05:04.080 internship also so extreme beginner I
+00:05:06.000 think it would be that yeah
+00:05:07.740 okay uh so my recommendation to them
+00:05:10.320 would be uh first start with problem
+00:05:12.360 solving basic problem solving uh then
+00:05:14.940 you should go for oops concepts are very
+00:05:18.180 much needed in uh deciding design
+00:05:20.400 patterns and whatnot then after you are
+00:05:23.220 done with uh you have few experience in
+00:05:25.620 solving problems you have learned a few
+00:05:28.199 algorithms and you're very much familiar
+00:05:30.240 with loops then you can go ahead and
+00:05:31.919 start designing systems you can uh start
+00:05:34.380 with very easy systems also uh let's
+00:05:36.900 take the let's take an example of car
+00:05:39.120 parking let's say you take that and you
+00:05:41.639 start designing that and then you can
+00:05:43.680 straighten like this you can move on to
+00:05:45.600 the complex systems
+00:05:48.300 okay okay so and would you say they need
+00:05:51.780 to learn anything beforehand any design
+00:05:53.880 patterns or you know should they work on
+00:05:56.160 their own project before what would you
+00:05:58.860 suggest would be so
+00:06:00.840 so my recommendation would be after you
+00:06:02.699 learn oh uh definitely any design
+00:06:05.520 pattern you will be very easily able to
+00:06:07.560 understand right uh so what my
+00:06:09.600 recommendation would be first start
+00:06:11.280 build your own uh for example let's take
+00:06:13.919 car parking only car parking is not that
+00:06:15.960 easy it's it's quite difficult actually
+00:06:17.880 but you first write your own then you
+00:06:20.039 will be able to see what all issues are
+00:06:21.840 there go see a few design patterns and
+00:06:24.000 how you can improve your code this way
+00:06:25.680 you'll be able to learn more design
+00:06:27.000 patterns and your code would become
+00:06:29.940 greater great great great as you move
+00:06:32.160 ahead
+00:06:33.360 and this way this is the best way to
+00:06:35.160 learn design patterns also I feel
+00:06:38.160 okay
+00:06:39.780 that's true practice makes perfect
+00:06:42.300 uh okay let's take a couple of more
+00:06:46.740 questions uh there are a few you know
+00:06:49.199 comments that please post the slider
+00:06:51.419 link on LinkedIn also
+00:06:53.039 um I have posted on LinkedIn guys do let
+00:06:54.780 me know if it's working and uh please
+00:06:56.940 feel free to
+00:06:58.259 you know send us your questions over
+00:07:00.120 here in Q a or just let us know
+00:07:03.599 where you're lying at in terms of
+00:07:05.400 experience level I think this is one way
+00:07:07.259 in which we can judge people very
+00:07:08.639 quickly uh not accurately but quickly
+00:07:11.220 that you know okay you have an
+00:07:12.840 experience level of eight plus years
+00:07:14.039 probably you are an expert uh you're a
+00:07:16.080 college undergrad means you are not you
+00:07:18.720 haven't started with global design so
+00:07:20.039 like I said it's not accurate but it's a
+00:07:22.080 quick way
+00:07:26.880 okay there's one more question Priya
+00:07:28.740 bansal is asking
+00:07:30.240 okay
+00:07:31.400 lld round tends to be become machine
+00:07:34.440 coding around
+00:07:36.720 how to analyze how much depth we need to
+00:07:38.759 cover during these interview times okay
+00:07:41.580 uh Arun do you want to take this
+00:07:44.340 yeah uh so uh first of all uh how much
+00:07:48.000 depth is just decided in within the
+00:07:49.860 interview if the interviewer wants you
+00:07:52.319 to go into the depth of it or he just
+00:07:54.720 ask you to be superficial so and how's
+00:07:56.879 that decided uh when you start with
+00:07:59.340 jotting down the points system
+00:08:01.020 requirements that's the first thing like
+00:08:03.060 we uh like you must have seen in the
+00:08:05.280 last video also we jot down the system
+00:08:07.199 requirements and then we started moving
+00:08:09.360 into the use case diagram now what
+00:08:11.400 happens in our interview is the
+00:08:12.660 interview can go in any direction
+00:08:13.979 whatever uh interviewer is not convinced
+00:08:16.979 whether he can go into depth of it so
+00:08:19.199 you just by the interview link you might
+00:08:21.780 not be able to get uh how much depth you
+00:08:24.419 need to cover uh but yeah most of the
+00:08:27.300 things are understood uh in this when
+00:08:30.660 you start writing down the requirements
+00:08:32.279 if the interviewer is not convinced with
+00:08:34.080 the requirements they would uh question
+00:08:36.360 you there and then but once you have jot
+00:08:38.760 down all the requirements once you both
+00:08:40.200 have agreed you and your interviewer
+00:08:41.940 that you will be designing system on the
+00:08:44.039 base of these few requirements then I
+00:08:46.560 don't think he'll be he'll have any
+00:08:48.480 other questions going forward
+00:08:52.740 okay okay so that's
+00:08:55.620 that makes sense yeah
+00:08:59.120 also if you're worried about the machine
+00:09:01.500 coding around like Arun said as they
+00:09:03.779 keep going deeper and deeper they start
+00:09:05.580 asking more on the engineering side of
+00:09:07.320 things
+00:09:08.580 in which case maybe
+00:09:10.680 depending on your experience level if
+00:09:12.540 you are looking for a
+00:09:14.640 sd2 or sd3 role then they will be asking
+00:09:17.580 you stuff like concurrency uh you know
+00:09:19.680 locks how do you how do you keep low
+00:09:22.380 latency how do you so low latency for
+00:09:24.899 example you know you don't want a thread
+00:09:26.580 to be blocked that's that's the level
+00:09:28.620 that we can go to in an interview we
+00:09:30.180 can't do like uh a lot of optimizations
+00:09:33.240 but yeah no latency is one thing maybe
+00:09:35.459 using the right data structure okay it
+00:09:37.920 won't be as difficult as
+00:09:39.959 and I'll go around but they'll ask you
+00:09:42.120 something simple like are you going to
+00:09:43.860 use a hash map here are you going to be
+00:09:45.420 using a
+00:09:47.339 a list over here why would you use that
+00:09:49.980 basic things
+00:09:52.200 okay
+00:09:53.519 this is interesting are you comfortable
+00:09:55.140 with LED rounds 19 people have voted at
+00:09:58.080 20 now and we are seeing most of
+00:10:01.740 most of the votes are on one so they are
+00:10:04.680 not comfortable with LED
+00:10:06.420 uh yeah very interesting so
+00:10:09.360 what's driving that is it that you know
+00:10:11.940 you haven't given an LED round or you
+00:10:14.160 have given it and it didn't work out
+00:10:16.140 uh that could be one thing maybe you can
+00:10:17.820 let us know in the in the Q a
+00:10:20.339 okay uh there's a couple of questions
+00:10:21.899 that we have over here let's take
+00:10:23.760 questions for four more minutes before
+00:10:25.260 we start
+00:10:27.839 so the highest voted question is do we
+00:10:29.760 need to learn each and every design
+00:10:31.320 pattern
+00:10:32.339 if not what is common and
+00:10:34.920 important ones that we must
+00:10:37.620 that everyone must know
+00:10:39.899 do we need to learn each and every
+00:10:41.579 design pattern I mean if you know it
+00:10:43.680 it's kind of useful only but if if not
+00:10:46.920 what are common and important ones that
+00:10:48.420 everyone should know so if you had to
+00:10:50.579 rank order design patterns or if you had
+00:10:52.260 to say the three most or five most
+00:10:55.019 important design patterns which ones
+00:10:56.700 would you choose
+00:10:57.899 uh so uh to this let me ask the answer
+00:11:02.160 the first question uh do we need to
+00:11:04.140 learn each and every design pattern so
+00:11:06.060 to this my answer would be uh nobody can
+00:11:08.579 actually learn all the design patterns
+00:11:10.140 right uh it uh you would get better and
+00:11:13.860 better in deciding with practice first
+00:11:15.839 of all second uh if not what are the
+00:11:18.779 formulas so there are frequently used
+00:11:20.760 design patterns for example facade
+00:11:22.500 pattern is one uh which is most
+00:11:24.480 frequently used uh Singleton pattern is
+00:11:27.060 one which is very uh commonly used uh
+00:11:29.880 publisher subscriber pattern is one
+00:11:31.560 which is very much used for example in
+00:11:34.019 social media you can use it or like
+00:11:37.019 social media apps with one such example
+00:11:38.880 and it covers a whole whole lot of
+00:11:41.100 systems like Twitter Facebook Instagram
+00:11:43.820 uh YouTube also now nowadays they also
+00:11:47.100 send notifications uh to the subscribers
+00:11:49.680 uh publisher subscribers fourth I would
+00:11:52.260 recommend uh then decorator pattern is
+00:11:54.480 one which I would recommend that you
+00:11:57.000 must know it's quite watching yeah I
+00:11:59.760 guess really website that you would
+00:12:01.680 suggest people to go and just read the
+00:12:03.600 theory like I find this one pretty
+00:12:05.760 useful refactoring Guru
+00:12:07.920 okay
+00:12:09.600 um
+00:12:10.380 like this is a lot of this is useful
+00:12:14.760 um design patterns let's just go to
+00:12:16.620 design pattern let's say creational
+00:12:19.079 there's quite a few I think factories
+00:12:20.399 like
+00:12:21.180 Ultra common Builder is super common
+00:12:23.700 Singleton again very common
+00:12:25.860 yeah okay uh
+00:12:28.680 there's another interesting uh question
+00:12:30.540 which has come up which is
+00:12:35.060 any idea
+00:12:37.639 okay
+00:12:39.420 so would you like to say no let's let's
+00:12:43.139 keep it in stealth uh it's not stealth
+00:12:45.600 actually we are working on lnd course
+00:12:47.100 Akash thanks for the question uh and uh
+00:12:49.740 it's it uses these things like design
+00:12:53.459 patterns some some basic understanding
+00:12:55.380 of course we explain what the design
+00:12:57.060 pattern is also and how it works in this
+00:13:00.240 particular question but if you just want
+00:13:02.399 to use design patterns or if you want a
+00:13:04.620 textual summary of what design patterns
+00:13:06.779 are I would strongly suggest you try
+00:13:08.519 this website I've been saying it for a
+00:13:10.800 while now nobody goes when I say high
+00:13:13.500 level design please go for uh Martin
+00:13:15.480 klapman's book
+00:13:17.040 designing data intensive applications I
+00:13:19.320 don't know how many people have read it
+00:13:20.639 but it's a really good book this website
+00:13:22.980 is also really good it gives you a good
+00:13:25.380 gist okay uh if you want to see them
+00:13:27.899 happening in practice Yeah we have at
+00:13:30.060 interview ready high level design
+00:13:31.139 questions and for lower level design we
+00:13:33.959 are creating a course so that it helps
+00:13:35.220 you
+00:13:36.000 primarily for an interview preparation
+00:13:37.560 and upskilling
+00:13:38.760 but the theory is already covered so we
+00:13:40.620 don't want to cover it again and again
+00:13:42.060 uh
+00:13:43.500 we'll cover it only for the questions
+00:13:44.880 that we are doing okay so the second
+00:13:47.040 part of the question which are the
+00:13:48.839 important ones Factory method or factory
+00:13:51.300 pattern
+00:13:52.800 um Builder Singleton in my opinion uh
+00:13:56.839 structural ones I would say
+00:14:02.040 I've heard a lot of adapter and all that
+00:14:03.959 but I've never really used it decorator
+00:14:05.519 is very common so simple that in fact I
+00:14:07.320 I don't even think this is the design
+00:14:08.699 pattern it's like Common Sense uh
+00:14:13.560 I don't know about this one I get
+00:14:14.880 composite uh flying weight I guess I
+00:14:17.399 have never really used these much
+00:14:19.680 facade like you said uh this is also
+00:14:22.199 yeah
+00:14:23.279 this is also a thing
+00:14:24.980 in behavioral there is
+00:14:28.079 chain of responsibility
+00:14:30.600 I had seen in one project State and
+00:14:32.760 strategy being used together and that
+00:14:34.920 code never went to plot so oh we can
+00:14:38.240 yeah people read design patterns and
+00:14:41.160 they just go and they're like yeah okay
+00:14:42.720 but State pattern I think is is actually
+00:14:45.660 quite common uh depending on the state
+00:14:48.060 of this object
+00:14:49.260 treated in a different way strategy
+00:14:54.420 I mean it can be used usually there's a
+00:14:57.000 Code repack there's not so much this
+00:14:59.220 thing has to be done in a different way
+00:15:00.540 okay and visited again I had seen this
+00:15:03.779 nonsense one uh in some cases it must be
+00:15:07.380 useful let me tell you in the same
+00:15:08.760 company in the same project that I
+00:15:10.019 worked for they first tried visitor
+00:15:12.899 pattern then they tried State and
+00:15:14.639 strategy together none of that code
+00:15:17.339 ever had any impact on anything
+00:15:19.740 okay so sometimes you might be
+00:15:22.920 trying something for the sake of trying
+00:15:24.420 it don't do that uh important ones may
+00:15:27.000 be chain of responsibility uh state
+00:15:30.240 in structural facade adapter yeah and in
+00:15:34.440 creational Factory Builder and Singleton
+00:15:37.079 creational is more often a design
+00:15:39.240 pattern problem because dependencies is
+00:15:40.860 a problem
+00:15:41.820 and when dependencies are complex or
+00:15:45.180 creating objects is complex that time
+00:15:46.800 you want to use certain patterns which
+00:15:48.180 are well known in the industry this is a
+00:15:49.920 place to go I haven't shared it uh is it
+00:15:52.259 I haven't shared this link I'll just
+00:15:53.459 share it here
+00:16:00.000 refactoring Guru place you can Google
+00:16:01.800 this also
+00:16:03.120 and when you are Googling it uh maybe
+00:16:05.040 you also want to get some
+00:16:08.339 advice on where to launch system design
+00:16:10.560 which is a pretty decent website
+00:16:12.060 interview ready
+00:16:15.060 okay yes
+00:16:22.800 but man
+00:16:24.540 computer researcher this is the book
+00:16:26.040 that I'm talking about
+00:16:27.839 you can buy it on Amazon or I think
+00:16:29.759 O'Reilly also sells it
+00:16:32.459 okay
+00:16:35.579 okay I think we have taken a few
+00:16:37.380 questions uh
+00:16:43.019 this I think was the most important
+00:16:44.639 question that we had
+00:16:46.139 what would you recommend for Learning
+00:16:47.940 System design that's taken care of
+00:16:49.199 that's great uh High gaurav when we
+00:16:51.120 start lld course yes we are we are
+00:16:54.360 working on it I have never given
+00:16:55.740 anything yes
+00:16:58.740 uh I have a Amazon SD one interview soon
+00:17:01.680 any advice regarding LED now to watch
+00:17:03.660 this interview
+00:17:05.039 uh watch this mock interview and let's
+00:17:07.020 see if that helps you out how to buy
+00:17:09.539 time while thinking about requirements
+00:17:11.280 don't try to uh be too fast also keep
+00:17:15.000 the interviewer in the loop talk to them
+00:17:16.740 don't try to buy time involve them in
+00:17:19.319 the discussion
+00:17:20.459 okay uh can you please tell about the
+00:17:22.500 time planning for the little round I
+00:17:23.819 mean how much time for discussing
+00:17:24.720 question requirements designed I'll go
+00:17:26.220 I'll go for question there is no set
+00:17:28.860 pattern the faster you complete a
+00:17:30.720 question the more impressive it is
+00:17:31.919 simply and so I and Arun are working on
+00:17:35.160 a method to do this the fastest way
+00:17:38.400 possible okay as you'll see today
+00:17:42.780 is it required to write algorithmic
+00:17:44.340 logic in lld for example I got a job
+00:17:46.020 scheduling algorithm should I write
+00:17:47.100 different types of scheduling algorithms
+00:17:48.480 or do you want to take this we'll take
+00:17:50.280 this
+00:17:51.840 uh should need not to write a different
+00:17:54.380 algorithms uh just you uh so there a
+00:17:58.020 person is not looking uh at the most
+00:18:00.360 optimized algorithm actually personally
+00:18:02.700 is looking at the interviewer is looking
+00:18:04.559 at the most optimized code
+00:18:07.799 so uh so do not think uh you might not
+00:18:10.980 have to write the full full uh uh
+00:18:13.500 function definition also you can just
+00:18:15.600 give a signature of it and that would be
+00:18:17.580 great
+00:18:18.299 so in interview anyways time is very
+00:18:20.520 very less they just want uh to see how
+00:18:22.980 the activity flow how you how you
+00:18:25.320 operate the system which functions are
+00:18:27.120 called when are they called how do you
+00:18:29.039 exit what is the overall activity flow
+00:18:31.260 uh what all classes will you make how
+00:18:33.480 will you interact how the customer will
+00:18:35.640 interact with the system all of that
+00:18:39.919 different different types of algorithms
+00:18:43.500 makes total sense in fact if you write
+00:18:47.160 the algorithm in the LED round also then
+00:18:49.200 I mean I don't know uh
+00:18:51.120 there are libraries which take care of
+00:18:52.740 some of these things uh one question
+00:18:54.539 which is kind of off topic so I removed
+00:18:56.520 it which is basically uh I have a
+00:18:59.100 startup that I'm working on an idea and
+00:19:01.140 I've been doing algorithms and should I
+00:19:02.940 make everything extensible from the
+00:19:04.380 start my advice will be no just first
+00:19:06.960 look at what the customer wants they
+00:19:08.700 don't care about your algorithm as long
+00:19:10.080 as the problem is being solved
+00:19:11.820 they don't even care about tech like
+00:19:13.500 Arun is also a startup founder and uh is
+00:19:17.700 is that okay I don't know if I put it
+00:19:19.500 out yeah
+00:19:20.400 yeah
+00:19:21.720 Arun doesn't just like me I don't does
+00:19:24.179 not uh have a fascination with
+00:19:27.780 technology
+00:19:29.520 for the sake of Technology we just solve
+00:19:32.039 problems and if tech is necessary to use
+00:19:34.919 Tech okay
+00:19:37.559 so lower level design uh
+00:19:40.980 offer
+00:19:43.400 management system
+00:19:46.740 okay Inventory management
+00:19:49.679 system
+00:19:50.520 so
+00:19:51.780 okay I don't you want to want to design
+00:19:53.760 an inventory management system I'll uh
+00:19:56.280 I'll walk through some of the
+00:19:57.419 requirements that you can tell me if
+00:19:59.460 they are what is expected of an
+00:20:01.620 inventory management system
+00:20:03.299 sure
+00:20:04.679 okay
+00:20:05.820 so the first thing I can see is
+00:20:08.400 um
+00:20:10.440 add products
+00:20:13.679 this would be something even in a small
+00:20:15.539 shop we would need a type of product
+00:20:17.940 okay this will help our onboarding you
+00:20:20.100 can say Okay product on boarding
+00:20:27.000 okay
+00:20:29.220 um another thing would be
+00:20:32.520 I mean a dating product value
+00:20:35.520 yeah
+00:20:37.200 so I'll make this more explicit I will
+00:20:40.860 say
+00:20:41.880 add product units
+00:20:45.299 and remove product units
+00:20:48.659 would that make sense like if I've
+00:20:50.220 gotten if a customer purchases something
+00:20:51.900 I remove that product from my
+00:20:54.539 uh total list yeah and when I get a
+00:20:57.900 truck in the morning
+00:20:59.220 it fills the uh you know stop that's
+00:21:02.760 when I'm adding
+00:21:04.200 okay so in this way I'm able to manage
+00:21:06.059 to some extent and I can add product
+00:21:07.500 types also okay uh
+00:21:11.880 okay
+00:21:15.840 is there anything uh else that I need to
+00:21:18.720 do uh I need to manage
+00:21:20.820 the price of the product but is that in
+00:21:22.799 product onboarding
+00:21:24.840 uh so uh like you said uh in the last 10
+00:21:27.539 product uh change product values so in
+00:21:29.940 that you can change the quantity also in
+00:21:31.620 the price also the values could be both
+00:21:34.440 of them and replacement also uh shelf
+00:21:38.460 actually where is that place because in
+00:21:41.100 Amazon generally uh they have robots to
+00:21:44.039 pick up the uh product it gets packaged
+00:21:47.820 itself so they have a proper shelf Place
+00:21:49.679 uh where that product is
+00:21:51.900 okay so uh
+00:21:54.000 so this is going to be a product
+00:21:57.419 location
+00:21:58.919 uh at this point we are now starting to
+00:22:00.900 get complex because in a small shop I
+00:22:02.940 can manually go and just put the
+00:22:05.039 products in the right place in a
+00:22:06.720 warehouse I need uh I need information
+00:22:10.380 like in this product onboarding I need
+00:22:12.539 what is the volume of that product
+00:22:14.520 because if it's too big then I can't
+00:22:16.740 place it in the place and also how heavy
+00:22:19.260 is the product maybe based on that I
+00:22:20.580 want to put it in the ground the lowest
+00:22:22.559 tier and take it so the weight so this
+00:22:27.299 this should actually capture that I need
+00:22:29.880 weight and volume
+00:22:32.340 Dimensions it will be even more accurate
+00:22:35.700 so you can have three sort shells for
+00:22:38.460 for to keep to simplify it let's make it
+00:22:41.340 small medium big that's it three types
+00:22:43.679 of shells
+00:22:44.820 okay okay small
+00:22:47.820 medium
+00:22:52.140 okay I'll just make it s m and L
+00:22:57.240 you've spoken like a true Problem Solver
+00:22:59.159 yeah small medium for now let's just
+00:23:01.980 start with the simple basic thing bucket
+00:23:03.840 them okay we can update product prices
+00:23:06.360 we can tell where it is located so a
+00:23:09.059 particular shelf a particular location
+00:23:10.919 we can add units
+00:23:14.700 I mean adding units like even if I say
+00:23:16.679 10 units then yeah it has to be assigned
+00:23:18.600 particular shelf uh slots also okay
+00:23:21.840 remove from some slots
+00:23:25.200 um it's almost like Hotel cooking right
+00:23:27.299 like this
+00:23:29.039 uh no something some things would be
+00:23:31.440 there uh yeah some things might not have
+00:23:33.900 anything
+00:23:34.740 right right because humans come and book
+00:23:37.260 one one of them uh you can't put them
+00:23:39.840 anywhere you like they might be choosing
+00:23:41.340 the seat also okay yes
+00:23:44.159 um I can't think of any other
+00:23:46.200 requirements uh
+00:23:48.419 are there any other requirements like uh
+00:23:51.000 is there a discount offer that I want
+00:23:52.559 what about a sale should I take that
+00:23:55.140 also into consideration or should I have
+00:23:56.580 a that has nothing to do with inventory
+00:23:58.860 uh yeah no that has nothing to do with
+00:24:01.500 inventory what we can think of here is a
+00:24:04.559 package a product in inventory uh some
+00:24:08.820 of the products packaged are placed and
+00:24:10.980 they would be out for delivery after
+00:24:12.240 some time so you can take care of that
+00:24:14.100 as well
+00:24:15.059 okay okay okay so the the status of unit
+00:24:20.700 uh so whether it is uh
+00:24:24.419 uh available
+00:24:27.179 packaged
+00:24:29.640 already
+00:24:32.159 I mean uh
+00:24:34.200 in transit
+00:24:40.020 in a warehouse I just care about if it
+00:24:42.360 is available
+00:24:43.980 or it has to be picked up
+00:24:46.679 uh okay so now now if it is available
+00:24:49.679 that's okay otherwise it is booked
+00:24:52.140 uh then it is
+00:24:53.750 [Music]
+00:24:57.120 a Bad Robot let's say then it is
+00:24:59.340 packaged and it is ready
+00:25:01.500 for delivery yeah so maybe
+00:25:04.220 yeah so what I'm what I'm seeing is
+00:25:07.080 there are multiple states that
+00:25:10.020 a product can have a unit can happen
+00:25:12.919 if you have a practical product okay
+00:25:17.880 okay okay
+00:25:21.299 let me actually imagine as a customer
+00:25:23.340 what happens or and then let me try to
+00:25:25.260 imagine how the robot what's happening
+00:25:26.400 so as a customer I walk into the shop I
+00:25:28.740 look at the
+00:25:30.240 product that I want to buy I just pick
+00:25:32.700 it up I go to the billing counter
+00:25:35.400 um yeah now at the billing counter what
+00:25:37.320 should happen is when I purchase the
+00:25:39.120 product I leave so for me it's actually
+00:25:40.980 extremely simple for the shopkeeper they
+00:25:44.100 need to know
+00:25:45.299 which product was picked so maybe the
+00:25:47.820 barcode when they swipe that barcode
+00:25:50.100 that product is uh you know noted uh one
+00:25:54.360 unit of that is subtracted
+00:25:57.539 and the bill is generated the bill
+00:25:59.820 generation is a separate thing we don't
+00:26:01.440 care about that yeah it's just they have
+00:26:03.600 to subtract it by one so that is easy
+00:26:06.179 okay so there's one more thing that
+00:26:08.100 happens in the warehouse uh so whatever
+00:26:10.679 is finished now so every day we have to
+00:26:13.260 purchase orders also right so the water
+00:26:16.740 shelves are able to we have to have
+00:26:19.080 those lists that okay these products are
+00:26:21.000 finished we need to buy them
+00:26:23.580 so our warehouse should have that list
+00:26:25.799 as well
+00:26:26.940 okay so how many uh were booked today is
+00:26:31.080 that something that we want
+00:26:33.059 or what is for example
+00:26:36.419 uh you're having Mouse oh let's say
+00:26:38.820 keyboard okay so so 10 keyboard are
+00:26:41.460 there in your shelf let's say now today
+00:26:44.460 all the 10 are finished now
+00:26:46.860 so obviously you would want to buy 10
+00:26:49.080 keyboards at the very next day right
+00:26:52.559 yeah you should be able to know okay the
+00:26:54.419 keyboards are finished now and I need to
+00:26:56.340 buy them so that you can sell them ahead
+00:26:58.980 so that would come to know from the
+00:27:00.779 warehouse already
+00:27:02.159 right so uh maybe maybe some sort of a
+00:27:06.000 do you think a small report
+00:27:09.480 yes end of day right yes yes so let's
+00:27:13.980 put a reports of finished finished
+00:27:16.080 products
+00:27:17.700 like the products which are finished in
+00:27:19.320 the warehouse
+00:27:20.640 and
+00:27:22.440 uh this is one thing and the next thing
+00:27:24.480 which you can have is uh what was the
+00:27:26.880 sale which you did probably that can
+00:27:29.700 also be there and I think we'll be good
+00:27:31.500 to go
+00:27:32.580 yeah I think
+00:27:35.700 correct I guess reports and analytics
+00:27:38.220 can be uh we should note those events
+00:27:40.500 that when a person is purchasing
+00:27:41.820 something or something at the time we
+00:27:44.159 take those and separately we can
+00:27:45.960 generate a report out of it that 13
+00:27:47.760 keyboards were sold in total we have 15
+00:27:50.640 keyboards so you know
+00:27:53.940 probably get 13 more keyboards tomorrow
+00:27:55.679 so okay
+00:27:57.720 okay so this is great this looks great
+00:28:00.600 okay then then I'll just uh
+00:28:03.659 go ahead with the user
+00:28:12.539 also guys I'm using lucidchart you can
+00:28:14.940 use any software that you like
+00:28:17.340 always I mean I should have checked with
+00:28:20.399 Arun first is this okay if I use the
+00:28:22.440 software
+00:28:23.360 right so in interview it's not but yeah
+00:28:26.820 for now it is
+00:28:28.740 I mean why would you not allow it in an
+00:28:30.600 interview
+00:28:31.679 okay so I would allow in an interview
+00:28:33.539 actually but it depends uh really on the
+00:28:36.240 interviewer right you're right actually
+00:28:38.820 that's that's one thing like you would
+00:28:40.140 allow it because I guess you are
+00:28:41.880 reasonable yeah I I mean to say like uh
+00:28:46.320 always ask the interviewer if possible
+00:28:48.059 can I can I use this tool because it
+00:28:51.659 simplifies
+00:28:53.220 some of the things that you're trying to
+00:28:54.720 do like drawing
+00:28:56.340 writing neatly uh these are things that
+00:28:58.799 I see
+00:28:59.880 many candidates are not able to do and
+00:29:01.679 for no fault of their own
+00:29:03.899 sometimes it is their fault they haven't
+00:29:05.279 even asked but sometimes yeah like if
+00:29:08.880 the interviewer is adamant that's their
+00:29:10.860 fault not yours if you don't ask you
+00:29:13.679 will they'll never say yes
+00:29:15.720 so use as many tools as you possibly can
+00:29:18.059 to make your interviewing process easy
+00:29:20.700 it's going to be a tough interview
+00:29:22.679 anyway so it's best to have all the
+00:29:25.200 tools that you possibly can we use an
+00:29:26.520 IDE if you can use an ID nothing like it
+00:29:28.799 if they are going to force you for
+00:29:30.299 Google Docs then okay we'll handle it
+00:29:32.399 when we need to
+00:29:35.159 okay so these are seven requirements
+00:29:37.620 that we have
+00:29:39.179 um
+00:29:42.179 add and remove is largely update product
+00:29:44.460 unit
+00:29:45.899 yeah
+00:29:48.240 I would say we have roughly six
+00:29:51.299 requirements only
+00:29:52.919 product units the count has to be
+00:29:54.720 updated
+00:29:55.620 we need to onboard products the products
+00:29:59.399 have a particular weight and
+00:30:01.919 size uh the product price can be updated
+00:30:06.720 is this part of the inventory management
+00:30:08.640 system yes
+00:30:10.620 okay okay I am I'm seeing this is so we
+00:30:14.820 can have it for now
+00:30:17.460 yeah I think these two will be strongly
+00:30:19.380 coupled so maybe we'll make it a single
+00:30:20.940 requirement early yeah
+00:30:23.039 yeah okay and then we have product
+00:30:24.899 location where is it being stored okay
+00:30:27.720 that's dependent on the weight end
+00:30:29.820 size
+00:30:31.320 so one two three four and five yeah
+00:30:33.720 report an analytics of how many sales
+00:30:36.480 have been made how many products have
+00:30:38.340 been sold which products have been sold
+00:30:40.440 so on uh and the status of each unit is
+00:30:43.500 it packaged is it
+00:30:45.299 yeah is it cooked and everything okay so
+00:30:48.179 this this took us some time this took us
+00:30:50.340 10 minutes uh now the proof is in the
+00:30:53.460 pudding let's see if this actually
+00:30:54.539 speeds up our thinking so I'll now uh
+00:30:57.240 before going ahead do you really think
+00:30:59.159 these are the requirements of the user
+00:31:02.220 yeah for the user uh who's
+00:31:05.220 using the inventory management system
+00:31:09.120 they just
+00:31:11.039 care about
+00:31:13.320 updating Product Company
+00:31:15.899 yeah yeah
+00:31:17.640 so just this
+00:31:19.980 product yeah they care about this also
+00:31:22.440 okay this is manual let's say this is
+00:31:24.600 manual
+00:31:25.740 product price let's say
+00:31:34.019 yeah okay let's let's put it here
+00:31:36.960 these are two things that the user cares
+00:31:38.940 about that they do manually yes yes
+00:31:42.840 so
+00:31:45.120 okay and reports analytics they view it
+00:31:47.519 themselves but they don't say this is
+00:31:49.799 generated by System yeah this is
+00:31:51.779 generated by the system yeah yes maybe
+00:31:54.240 they can get it on the email also so
+00:31:55.679 whether they view it or not is like talk
+00:31:58.320 to us
+00:32:00.299 okay
+00:32:01.500 status is handled and product location
+00:32:03.539 is handled by the system yeah I think
+00:32:07.320 you're right just reports and analytics
+00:32:09.720 is the requirement of the system I feel
+00:32:12.299 yeah
+00:32:14.059 still let's see if we get a
+00:32:25.740 okay
+00:32:27.600 AWS is really good I concerned
+00:32:36.779 okay uh so this
+00:32:40.500 these are the requirements of a system
+00:32:42.840 not
+00:32:44.399 not the user okay yeah
+00:32:48.240 okay so then we have two actors in the
+00:32:50.340 system one of them can uh add products
+00:32:54.600 and update product counts one of them
+00:32:57.659 handles the location of the product and
+00:33:01.019 the
+00:33:02.159 reporting and analytics generation and
+00:33:04.740 also the status of every product
+00:33:06.720 okay users
+00:33:09.179 yeah this this guy doesn't do it and
+00:33:10.799 that's a that's some input to the system
+00:33:12.360 that means purchase something so
+00:33:19.580 just to clarify a user is a shopkeeper
+00:33:23.100 is that or a warehouse manager
+00:33:25.799 yeah user could be a shopkeeper also you
+00:33:29.220 warehouse manager also or some employee
+00:33:32.460 also so there could be different uh
+00:33:34.679 people actually so in people also you
+00:33:36.659 can have levels so you can have a worker
+00:33:39.179 you can have a admin you can have a
+00:33:41.399 manager
+00:33:42.720 so but for this interview let's leave it
+00:33:47.279 let's just talk about admin
+00:33:49.919 okay then
+00:33:52.860 that's good
+00:33:55.940 okay
+00:33:58.460 I am thinking that you know
+00:34:01.620 update product count
+00:34:03.860 is something that an admin sometimes
+00:34:06.360 needs to do
+00:34:07.679 a user sometimes needs to do but most of
+00:34:10.320 the times all we need is yeah so exactly
+00:34:15.659 but price is something that a user does
+00:34:18.960 yeah so so updating uh could be both of
+00:34:22.619 them's responsibility here
+00:34:31.440 okay I I agree uh maybe both of them do
+00:34:35.460 it sometimes yeah yeah
+00:34:37.980 okay product onboarding is something
+00:34:39.599 that a user only does product location
+00:34:42.839 this is a system reports and analytics I
+00:34:45.659 I guess they create it and then they are
+00:34:48.239 viewed by
+00:34:50.040 uh the user
+00:34:52.679 yeah
+00:34:55.079 okay
+00:34:58.680 okay
+00:35:00.300 I don't know if this is strictly uml but
+00:35:02.520 uh roughly I think the requirements are
+00:35:05.160 here anything else that you would like
+00:35:07.140 uh me to look into
+00:35:09.420 uh no I think this should be good
+00:35:12.599 okay
+00:35:14.040 let me uh now try to
+00:35:18.180 convert this into a class diagram
+00:35:20.760 sure but the idea that doing this is
+00:35:23.460 going to speed up the code later on
+00:35:26.099 yeah
+00:35:27.780 so okay I'll take the first class which
+00:35:29.820 is user
+00:35:34.020 okay and uh
+00:35:36.599 let me in fact
+00:35:46.079 I just draw using this class diagram as
+00:35:48.599 my reference
+00:35:57.300 user can do product onboarding uh and
+00:36:00.900 update box
+00:36:02.040 unit counts okay so one thing I I'm
+00:36:05.640 going to do is I'm not going to assume
+00:36:08.760 registration of a user and all that I'm
+00:36:11.040 just skipping for now if that's okay
+00:36:12.540 yeah yeah that is okay
+00:36:15.420 okay
+00:36:19.500 so user okay a user uh
+00:36:23.700 I'm assuming all users are admin is that
+00:36:25.619 also all right but they have full access
+00:36:28.079 okay yes for now
+00:36:31.200 all right
+00:36:35.220 so they can onboard a product means add
+00:36:38.339 product
+00:36:50.700 okay and the product details will be
+00:36:53.579 passed in as a as a parameter here
+00:36:56.760 they can update for our account so
+00:36:58.920 update
+00:37:01.800 account and they pass in the product ID
+00:37:03.720 and the count reduces okay so in case
+00:37:07.079 you are getting rid of products uh there
+00:37:08.820 is one problem if I have some products
+00:37:11.579 in shelves let's say a product Type A
+00:37:15.240 is there on the shelf and now I say
+00:37:17.460 product type a equal to zero I update
+00:37:19.200 the count then that shelf also what
+00:37:22.020 happens to that shelf
+00:37:23.579 that becomes empty
+00:37:25.560 that becomes you can imagine yeah
+00:37:28.940 the problem is okay yeah that's that's a
+00:37:32.820 admin is specifically saying remove this
+00:37:35.099 product or remove this unit then those
+00:37:37.560 shelves become empty okay so this is a
+00:37:40.020 rare admin action
+00:37:42.060 foreign
+00:37:43.920 let's also look at what the server can
+00:37:45.780 do
+00:37:46.500 or the system can do it can
+00:37:49.020 generate reports and analytics so
+00:38:00.240 generate reports
+00:38:04.619 okay it can also set
+00:38:07.920 or get a product's location so manage
+00:38:10.200 product location
+00:38:19.500 and then set
+00:38:21.420 product
+00:38:24.119 location
+00:38:27.599 okay uh
+00:38:29.520 also it can
+00:38:32.640 see the status of a unit so manage the
+00:38:34.920 status of a unit as available
+00:38:39.599 update
+00:38:42.720 status and in this it passes product
+00:38:46.920 yeah okay
+00:38:53.520 yeah this is we have talked about
+00:38:55.260 product a lot would you mind creating
+00:38:57.839 products also yes yes uh absolutely
+00:39:03.839 so there is a object called Product
+00:39:07.920 it has an ID it has let's say a price
+00:39:12.420 at this point I'm not assuming any
+00:39:13.859 offers or coupons or discounts
+00:39:16.200 um okay it has a description
+00:39:20.760 it has a like we said I'll just Define
+00:39:23.700 over here the product
+00:39:25.920 we mentioned as a price has a weight and
+00:39:29.280 a size
+00:39:30.720 yeah so
+00:39:34.619 wait
+00:39:38.280 that's nice I guess what we are trying
+00:39:40.079 to do is either Amazon warehouse or even
+00:39:41.820 zepto or
+00:39:43.560 um
+00:39:44.359 so big basket Grocers
+00:39:50.220 or not just e-commerce store a normal
+00:39:52.500 Mall also as an inventory right any Hall
+00:39:56.099 which you go that also has an inventory
+00:39:59.220 that's true
+00:40:00.540 that's true yeah okay so
+00:40:03.480 we talked about product here uh product
+00:40:05.700 count is being updated we have uh
+00:40:08.220 reports so maybe report object can be
+00:40:10.319 created but we'll first look at this
+00:40:12.000 thing location which is actually the
+00:40:14.640 next video
+00:40:17.300 so actually this is the product It's
+00:40:19.440 also two things that I have to remember
+00:40:21.119 is unit
+00:40:24.060 uh we are mentioning this in the
+00:40:27.240 in the use case diagram products have
+00:40:28.859 units so it's of a particular product ID
+00:40:36.060 a unit has this so should I say a unit
+00:40:38.760 has size and weight or should I have it
+00:40:41.819 in product is a question I'm thinking
+00:40:43.500 right now uh how do I
+00:40:47.099 so uh so what you can do is like we have
+00:40:50.220 discussed in the requirements that the
+00:40:52.260 shelves would be of three types small
+00:40:54.359 medium
+00:40:55.680 right so you can define a product type
+00:40:58.319 also that if it is small it can be put
+00:41:00.900 in uh its location could be small medium
+00:41:04.079 and big all three locations could be
+00:41:05.640 there if it is medium so it could be put
+00:41:08.040 in medium and large only and if it is of
+00:41:10.440 type large then it would only be put
+00:41:12.480 into large height last time which means
+00:41:14.819 you will have to create a class shelf
+00:41:16.980 also now sure okay okay so I've kept
+00:41:20.400 location as that class
+00:41:22.440 which says that there is a okay type
+00:41:25.619 small medium and large and so shelf
+00:41:28.800 actually doesn't have anything else
+00:41:31.020 except an ID location
+00:41:33.480 uh yeah so a unit is of a particular
+00:41:37.319 product
+00:41:38.400 and it is stored in a particular
+00:41:39.900 location
+00:41:40.859 a unit also has an ID let's say
+00:41:45.480 and it it needs a status a unit needs a
+00:41:48.540 status
+00:41:49.980 is it sold
+00:41:52.560 is it uh booked right now I mean is it
+00:41:55.619 available
+00:41:56.880 what is it like
+00:41:58.440 so you can have two status for now uh
+00:42:02.160 uh in the uh so inventory means it is
+00:42:05.460 not sold
+00:42:06.420 uh in the transit means it is getting
+00:42:08.760 packaged and delivered means it is ready
+00:42:12.359 for delivery so you can have an enum
+00:42:14.520 let's check
+00:42:15.599 off State okay
+00:42:17.099 I mean number Status where inventory
+00:42:18.920 Transit Transit
+00:42:21.300 and the delivery
+00:42:27.619 yeah okay so
+00:42:31.140 every product has a location so if it is
+00:42:33.720 in transit does it have a location uh in
+00:42:36.000 the sense
+00:42:37.260 it's been removed from the location I
+00:42:39.000 think I mean that location will come now
+00:42:42.000 yeah it's been removed
+00:42:43.980 okay so it's removed from the location
+00:42:46.020 and yeah
+00:42:48.720 should I okay so I think this will come
+00:42:51.060 a little later uh maybe when I'm writing
+00:42:53.400 the code but I'm just thinking that
+00:42:54.780 should a location also have a Boolean
+00:42:56.819 value or a unit ID which is occupying it
+00:43:00.480 so we have a one-way mapping where unit
+00:43:02.700 is pointing to a location this so I'll
+00:43:05.520 just mark it in a separate column this
+00:43:07.079 is pointing to this
+00:43:09.240 and this is pointing to this
+00:43:13.140 but should a location
+00:43:15.780 also say if it is occupied that you know
+00:43:18.900 the unit is this one maybe I can take
+00:43:20.880 care of that separately maybe I can
+00:43:24.420 yeah maybe that can be taken care of
+00:43:26.280 separately
+00:43:29.160 one unit can only occupy one location
+00:43:32.160 one location can have different units
+00:43:34.319 Depending on time
+00:43:36.359 yes yes
+00:43:38.339 okay
+00:43:39.920 so you're
+00:43:42.240 so you're you're having ID right which
+00:43:44.880 is a unique thing right yeah what is the
+00:43:48.599 unit yes
+00:43:50.700 okay so okay uh we have in a user what
+00:43:56.280 about a user user has almost no State
+00:43:59.280 because
+00:44:01.140 we are not handling permissions or any
+00:44:03.300 kind of uh
+00:44:04.800 yeah everyone has the same permission so
+00:44:07.140 it has no State system also does not
+00:44:09.240 have any state
+00:44:11.460 uh
+00:44:13.500 okay
+00:44:14.880 uh what about the data members
+00:44:18.540 we have talked about it will have list
+00:44:21.000 of products right system will have list
+00:44:23.160 of products
+00:44:25.500 yeah system has a list of products yes
+00:44:27.480 yes yes and the system also has a
+00:44:30.420 location that's the list of units
+00:44:34.800 okay so yes that's true so in fact let
+00:44:38.460 me pull this up again and say what are
+00:44:41.280 the things that a system needs the
+00:44:43.140 system has
+00:44:46.980 list of products yes we need that
+00:44:51.300 also location was being managed by
+00:44:53.280 System
+00:44:54.300 yes
+00:44:55.619 so system will have list of all the
+00:44:57.540 shells availability right yes
+00:45:01.020 some something has to take care of this
+00:45:02.760 so
+00:45:03.780 uh get
+00:45:06.180 list
+00:45:07.859 or let me make it an even simpler uh
+00:45:10.619 thing get product
+00:45:14.220 if you pass in the ID you get the
+00:45:15.720 product uh add product
+00:45:19.260 okay
+00:45:20.940 I guess that's taken care of
+00:45:23.160 by this user
+00:45:25.940 get product also is taken care of now
+00:45:30.480 yeah Place product Maybe
+00:45:36.119 so it sees some location which is free I
+00:45:40.440 think right now the first location which
+00:45:42.359 it finds which is and uh or adequate
+00:45:45.119 size it just fills it so this is going
+00:45:47.640 to use an algorithm
+00:45:49.500 so
+00:45:53.280 and finally uh
+00:45:57.300 I mean products can have expiry also
+00:45:59.220 right
+00:46:00.540 for now that
+00:46:02.900 issue here yes
+00:46:06.240 for now let's keep it aside but it is a
+00:46:08.220 thing so we will if we can then we'll
+00:46:11.160 see if we can manage this there is a
+00:46:13.319 place product
+00:46:14.579 uh algorithm and then there is basically
+00:46:17.579 uh get
+00:46:19.380 list
+00:46:22.740 product list okay uh so yeah get unit
+00:46:26.280 Place unit I would say is the right term
+00:46:29.099 in our vocabulary
+00:46:35.160 or getting the whole product list you
+00:46:36.720 mean give me all the list of products
+00:46:38.040 that are available so that a user can
+00:46:39.960 purchase
+00:46:40.980 yes
+00:46:42.180 product list as well as of course uh
+00:46:44.640 where will a system so if for example
+00:46:46.800 you want to see the status of all the
+00:46:48.420 shells in an inventory it happens right
+00:46:50.819 a user goes and sees all the shells so
+00:46:53.460 correct
+00:46:54.960 product list and get shell status so you
+00:46:58.800 can so basically it will have a list of
+00:47:00.720 all the shells also now
+00:47:02.880 okay get shelves
+00:47:05.880 status let's say
+00:47:07.740 and then this is the capability of the
+00:47:09.960 system that we have
+00:47:11.339 yeah
+00:47:14.099 okay
+00:47:15.420 walking back again uh for every unit you
+00:47:19.079 can get and place a unit
+00:47:21.079 and if you get a unit I guess you can uh
+00:47:26.520 sort of get unit it's
+00:47:29.520 retrieved the unit or remove unit
+00:47:35.880 okay so you can explain me three flows
+00:47:37.980 here now using this class diagram one
+00:47:41.160 first flow you need to extremely is
+00:47:43.980 when a product comes
+00:47:46.859 so suppose the warehouse have bought off
+00:47:49.260 got the truck of products so how would
+00:47:52.260 that be placed in the proper shell so
+00:47:54.599 one is product onboarding which you need
+00:47:56.700 to explain me second is
+00:47:59.160 second is how even up when somebody has
+00:48:02.220 purchased the product
+00:48:03.780 so from Shelf till the delivery what
+00:48:07.559 what would be the activity diagram for
+00:48:09.300 that and the third one should be at last
+00:48:12.420 at the end of the day you need to show
+00:48:14.099 me the report also
+00:48:15.839 so okay that means so please tell me all
+00:48:18.540 the details now so in the first part
+00:48:21.780 where uh a set of products come in uh
+00:48:25.740 and they need to be added to the system
+00:48:27.260 uh at this point we are going to be I
+00:48:30.900 think as a user I also need to be able
+00:48:32.520 to add unit
+00:48:33.839 basically
+00:48:36.900 so I can do that as well
+00:48:39.359 Okay add add product uh is adding a
+00:48:42.240 product type in my mind so maybe I'll
+00:48:45.180 uh this this adds like a new type of
+00:48:47.940 biscuit has come in so okay I'm typing
+00:48:50.760 the I'm adding the type of product so
+00:48:53.160 that is this
+00:48:55.319 this part
+00:48:56.700 this is a all the metadata for the
+00:48:59.520 product a unit is one instance of that
+00:49:01.980 product
+00:49:02.880 okay so once a truck comes in maybe with
+00:49:05.819 200 units I uh I'm going to call this
+00:49:09.480 place unit function 200 times with okay
+00:49:12.859 units
+00:49:14.520 okay uh then uh This Place unit is going
+00:49:18.300 to use its algorithm to put them in the
+00:49:20.579 right locations and now my warehouse is
+00:49:23.339 full
+00:49:24.300 okay let us let us now assume that
+00:49:26.460 orders come in a person wants to
+00:49:28.319 purchase
+00:49:29.460 so they mentioned
+00:49:32.339 the type of product that they want to
+00:49:34.020 buy and they say give me one instance or
+00:49:36.720 three instances of it so right I will uh
+00:49:40.619 I think I need to have some sort of
+00:49:42.480 concept of an order also
+00:49:46.020 a very basic concept I don't have money
+00:49:47.940 or anything involved in this or the
+00:49:49.200 status of an order I just have a clear
+00:49:51.540 order which says
+00:49:54.420 unit
+00:49:55.740 uh
+00:50:00.660 stuff unit I'll call this count
+00:50:07.980 okay I'll take one step back actually
+00:50:12.240 an order has n number of products
+00:50:15.960 with each of them having different types
+00:50:18.540 of units different number of units
+00:50:21.780 so three million two boxes of chocolates
+00:50:25.319 One keyboard
+00:50:26.760 okay
+00:50:27.960 so this this is a map
+00:50:30.780 of
+00:50:33.380 a product
+00:50:36.059 to count
+00:50:40.500 that is an order for me
+00:50:42.480 okay so uh
+00:50:45.240 so suppose uh some order has been placed
+00:50:48.660 right
+00:50:49.559 a system has to check if that product is
+00:50:52.859 available or not right
+00:50:54.839 yeah yeah so so now in this
+00:50:59.099 so can't we make it something like this
+00:51:01.440 a product we have said product
+00:51:04.740 how many units are there you have
+00:51:06.839 already taken care of yeah so in product
+00:51:10.440 only trying to uh have a list of
+00:51:14.480 units where it is placed
+00:51:19.140 Okay the reason I'm not keeping that
+00:51:22.800 here
+00:51:25.040 is because I thought I'll keep it in
+00:51:27.180 some other object like over here
+00:51:30.119 in system okay okay that should be great
+00:51:34.380 okay so if we then go to system and we
+00:51:37.980 ask
+00:51:39.599 can this order be fulfilled so for this
+00:51:42.300 product where are the places that it is
+00:51:44.099 being stored and filter out by status
+00:51:46.980 equal to inventory so then I'll get a
+00:51:49.800 count and I'll see can I satisfy the
+00:51:51.359 sorter otherwise
+00:51:53.160 gold
+00:51:54.720 okay
+00:51:55.920 okay
+00:51:57.180 um now at this point I know that I can
+00:51:59.460 satisfy so I have to take a lock on this
+00:52:01.800 because there might be a parallel order
+00:52:03.240 also working on the same thing so okay
+00:52:05.540 uh the products that I'm
+00:52:08.819 touching somehow I need some sort of a
+00:52:10.920 lock on all of them
+00:52:12.859 or I can make it sequential that per
+00:52:15.900 order I go through sequentially so okay
+00:52:18.660 and there is no way that you know two
+00:52:21.300 concurrent orders will
+00:52:22.800 come together right
+00:52:25.680 I would
+00:52:28.680 prefer if that were the case everything
+00:52:31.800 is being taken sequently in a warehouse
+00:52:34.020 also I mean it's I don't know if Amazon
+00:52:36.300 can handle this kind of week
+00:52:39.500 just everything happening sequentially
+00:52:42.839 they are going to multi-thread it
+00:52:45.059 um
+00:52:47.160 I could also take locks on every object
+00:52:49.619 here
+00:52:50.400 it could create it but now you can
+00:52:51.960 imagine for now you can imagine that uh
+00:52:55.319 the orders would be taken sequentially
+00:52:56.880 okay okay that is great so if that
+00:52:59.640 happens then I'm going to take it
+00:53:00.720 sequentially I'm going to find whether
+00:53:02.760 it is possible or not I will then uh
+00:53:05.700 update the account I'll also change the
+00:53:08.040 statuses yes
+00:53:10.319 and uh based on that then finally I will
+00:53:13.020 go to the location I'll mark them as
+00:53:16.740 once the robot goes and picks it up some
+00:53:19.380 sort of
+00:53:20.280 event has to come and somebody has to
+00:53:23.160 come and do this cleaning task of
+00:53:24.720 putting them in in transit or delivery
+00:53:28.200 status and the robot has to basically
+00:53:30.720 set the location IDs to
+00:53:34.099 though the map that we have here that
+00:53:36.359 which unit is being stored in
+00:53:39.359 which location this has to change to
+00:53:42.000 null
+00:53:48.599 okay so when the product be purchased
+00:53:51.660 when a unit has been picked up by the
+00:53:53.940 robot
+00:53:54.780 yeah there is no difference
+00:53:58.520 yeah it's done no no it's done
+00:54:01.260 it's done there is one small difference
+00:54:03.180 though if a product is
+00:54:05.900 purchased
+00:54:07.440 um and is no longer available that is
+00:54:09.359 okay but it is in transit I cannot if a
+00:54:11.940 truck comes right then and tries to add
+00:54:14.280 units I shouldn't pick this location ID
+00:54:16.619 so if the location ID is in
+00:54:19.500 is in any unit then we should not
+00:54:22.380 pick it up okay that's one Edge case
+00:54:26.940 okay
+00:54:28.319 this uh
+00:54:29.819 so this is the overall flow of the
+00:54:31.740 system you can now come and add products
+00:54:33.720 you can now come and purchase uh and I
+00:54:36.780 think arunia mentioned one final thing
+00:54:39.420 what is the third
+00:54:41.520 floor third was our reports at the night
+00:54:45.119 or maybe the end of the day
+00:54:47.040 yeah I guess that won't be too hard for
+00:54:49.440 me to do because I'll I'll take these
+00:54:51.480 events each of these events and keep
+00:54:52.859 pushing them to a queue and the system
+00:54:55.079 which is looking at this queue is going
+00:54:56.579 to take these events and give it as a
+00:54:58.380 report so cool I can create a report uh
+00:55:03.720 object
+00:55:07.020 but this is going to be let's say
+00:55:10.559 it's going to be generated on a
+00:55:12.540 particular date and that's it rest of it
+00:55:15.599 I'll use it as metadata
+00:55:17.579 um the reporting service can take care
+00:55:18.960 of this okay okay yeah
+00:55:21.480 okay so I think this should be good yeah
+00:55:24.500 okay so at this point I think we can
+00:55:27.359 take a couple of questions
+00:55:29.280 yeah
+00:55:30.359 on uh
+00:55:32.700 how we are doing if it's bad then please
+00:55:35.099 let us know
+00:55:38.460 I can't ask Arun directly because
+00:55:41.240 that way so
+00:55:47.760 someone is asking will it be a report of
+00:55:49.619 completely sold out product
+00:55:52.319 or we decide account where we say that
+00:55:54.420 we are learning loan inventory for a
+00:55:56.460 particular product so is it a report or
+00:55:59.400 is it an alerting system
+00:56:02.160 so it depends basically on the question
+00:56:04.559 actually that's why if you remember uh
+00:56:07.079 in the system requirements I said it
+00:56:09.000 could be a general report but I just
+00:56:10.859 want to see if your system is able to
+00:56:12.540 generate a report or not uh if I want
+00:56:15.180 how much sale I have done in a day you
+00:56:17.400 can very easily tell me right uh how
+00:56:20.400 what are things are finished you can
+00:56:22.500 very easily tell me because you have
+00:56:23.700 product list or you can iterate over the
+00:56:25.740 product list and then you can tell me
+00:56:27.059 okay all of these are finished so you
+00:56:29.220 can very uh it depends on system Pro
+00:56:31.079 System but what I want to see as an
+00:56:33.480 interviewer is if your if your system is
+00:56:35.339 able to generate a report on the daily
+00:56:37.200 basis or not
+00:56:39.660 okay so you are mainly concerned about
+00:56:42.299 can this system generate reports yeah
+00:56:45.240 got it okay
+00:56:47.819 okay
+00:56:49.140 um
+00:56:49.980 Rahul is asking how would you return a
+00:56:52.140 list of products in the inventory by
+00:56:53.579 given date
+00:56:55.859 how would you store the products data in
+00:56:58.440 the DB products data in the DP I guess
+00:57:01.319 we can store it by just mapping this
+00:57:03.180 class
+00:57:04.140 the first question is how would you
+00:57:06.119 return a list of products in the
+00:57:08.220 inventory
+00:57:09.180 list of products in the inventory
+00:57:14.700 for that you would be having by a given
+00:57:17.700 date what do you mean by buy a given
+00:57:19.260 date I didn't get that I guess if he
+00:57:21.780 gives you a timestamp or gives me a
+00:57:23.819 timestamp I should be able to tell him
+00:57:25.200 that these many products are there in
+00:57:27.240 transit in uh in the inventory
+00:57:30.000 being delivered but
+00:57:31.680 what is it how would that help but how
+00:57:34.260 would that help
+00:57:36.780 yeah maybe Rahul you can you can uh you
+00:57:39.900 know add some more to that question it
+00:57:42.059 will really help us
+00:57:47.940 where are we storing this is it no SQL
+00:57:50.040 or SQL
+00:57:52.200 today I was seeing this video of zeroda
+00:57:54.119 where they are using postgres to
+00:57:56.880 Triangle uh
+00:57:59.220 I think a few trillion data records so
+00:58:02.220 oh
+00:58:03.420 yeah
+00:58:04.619 just simple postgres here
+00:58:10.220 sorry yeah so actually deciding the
+00:58:14.220 databases I feel it's a high level
+00:58:16.799 design question
+00:58:17.940 yeah it is and in fact don't go for a
+00:58:22.380 nosql database unless you really really
+00:58:24.540 need to I don't see one thing in this
+00:58:26.819 not one which requires a high level
+00:58:30.119 like a like a write heavy database like
+00:58:32.640 a new SQL or something you don't need to
+00:58:34.400 inbuilt sharding and all that I don't
+00:58:36.480 see it happening here so okay how do we
+00:58:39.540 generate historical reports since events
+00:58:41.160 are consumed okay we will look into that
+00:58:42.960 where are you seeing Zero the video
+00:58:44.819 where were you seeing Zero the video
+00:58:46.740 just go to Twitter
+00:58:48.180 I've shared the link over there can we
+00:58:51.059 add product category also so unit
+00:58:52.619 placing on the basis of category I think
+00:58:54.180 a lot of these questions will be
+00:58:55.260 handling in the
+00:58:56.940 in the code so now it's eight o'clock
+00:58:59.220 let's start writing some code
+00:59:13.440 also uh generic question
+00:59:16.440 do you how long do you think a low level
+00:59:18.839 design now goes for
+00:59:21.119 so it generally goes for one to one and
+00:59:23.339 a half hours uh not more than that and I
+00:59:26.579 would like to tell people uh
+00:59:29.220 that right now we are explaining the
+00:59:31.619 question also we are taking your
+00:59:33.180 questions also we are explaining the
+00:59:35.040 answers also and I'm asking too many
+00:59:37.140 questions from gaurav just so that uh
+00:59:39.240 everything is clear to our audience uh
+00:59:41.700 generally these many questions are not
+00:59:43.740 there most of the things are clarified
+00:59:45.960 in the system when while you are noting
+00:59:48.180 down the system requirements only or
+00:59:49.859 when you're making the uh use case
+00:59:51.720 diagram generally database choosing the
+00:59:55.079 database all of these things are not
+00:59:57.000 generally discussed in the low level
+00:59:58.319 design and what an interviewer uh
+01:00:02.339 generally sees is
+01:00:04.740 he would pick broad broad things and
+01:00:07.680 probably he can go in any direction in
+01:00:09.599 an interview you should know this uh
+01:00:11.579 interview can go in any direction so the
+01:00:14.220 main thing is to convince the
+01:00:16.140 interviewer that you are right first of
+01:00:18.299 all this actually is the case even if
+01:00:21.359 you are wrong if you are able to make
+01:00:22.440 him understand he'll give you a good
+01:00:23.640 baby uh second is of course you should
+01:00:25.920 be right so
+01:00:28.079 discuss about stuff like the gaurav had
+01:00:30.359 discussed with me now he got an approval
+01:00:32.760 at every instant from me right so if he
+01:00:36.059 will do anything later on I cannot Point
+01:00:39.000 him out
+01:00:40.740 so try to involve the interviewer while
+01:00:43.980 you are making stuff be it use case
+01:00:46.020 diagram be it writing down the system
+01:00:47.520 requirements be it making the class
+01:00:49.140 diagram
+01:00:50.700 yeah okay yeah that's a brilliant point
+01:00:53.700 I think a lot of us have this thing that
+01:00:56.220 when we are coding we don't or when we
+01:00:58.980 are doing the interview we think uh the
+01:01:00.960 interviewer might get Disturbed and we
+01:01:02.880 say okay fine let's do it quietly uh
+01:01:05.339 while important parts you should get the
+01:01:08.099 integral involved if there is something
+01:01:09.540 important please confirm with them and
+01:01:11.280 clarify with them
+01:01:12.720 okay
+01:01:14.339 um so I'll be looking at the
+01:01:16.859 class diagram which we have done with so
+01:01:19.020 much effort to
+01:01:22.500 set this up
+01:01:23.880 there is a class user uh
+01:01:26.940 they are they are important but okay and
+01:01:29.280 there is a class order also
+01:01:33.119 but let me start with the core class
+01:01:34.680 which is basically the inventory system
+01:01:36.119 the system over here
+01:01:37.920 uh
+01:01:39.839 and let me then
+01:01:41.520 say what are the problems that we have
+01:01:44.760 so first method is
+01:01:49.740 initially a truck comes and fills up the
+01:01:52.559 warehouse so add product is
+01:01:56.700 the thing so add
+01:01:59.640 product and I'll return void which means
+01:02:01.920 if it is successful then nothing happens
+01:02:03.720 otherwise it throws an exception
+01:02:05.700 so yeah
+01:02:07.520 another thing is exception handling if
+01:02:10.440 your interviewer wants to know about
+01:02:11.819 this then yeah I can get into details
+01:02:14.039 but to start off with nothing for now
+01:02:17.819 okay so when it comes to add product
+01:02:19.619 there is a
+01:02:22.440 product
+01:02:23.760 that we can add
+01:02:26.299 important to Define that class
+01:02:34.500 okay
+01:02:37.859 product ID location an ID a price
+01:02:42.000 description weight and size
+01:02:53.160 okay
+01:02:58.220 this is a description here
+01:03:05.339 wait I'll take us double and let us
+01:03:08.940 assume metric units kg
+01:03:16.380 size is
+01:03:17.880 [Music]
+01:03:28.980 okay
+01:03:34.980 foreign
+01:03:42.060 [Music]
+01:03:44.760 okay now uh when I'm adding a product
+01:03:47.460 all I need to do is I need to add it to
+01:03:49.500 my list of products so
+01:03:51.660 it is a I'm starting off simple and when
+01:03:54.660 required I might turn it into a map of
+01:03:56.099 product or something
+01:03:57.240 but yeah
+01:03:58.740 so let's talk
+01:04:03.299 okay
+01:04:09.380 I'm using an ID as you can see this is
+01:04:12.780 really really helpful if I am not using
+01:04:15.780 an ID I would need to remember
+01:04:18.319 the syntax I would need to remember a
+01:04:20.760 lot of things
+01:04:22.140 but that's no longer the case here
+01:04:31.680 okay and now add it to my product list
+01:04:35.160 uh
+01:04:36.660 now what I do is also add a bunch of
+01:04:39.000 units so the truck has come I say that
+01:04:41.460 tell me the different types of products
+01:04:43.140 and now
+01:04:45.900 also Place unit so
+01:05:00.420 okay unit has to be defined so I'll take
+01:05:02.819 that class
+01:05:07.740 a unit has a product ID a location ID
+01:05:11.700 and ID itself and the status
+01:05:27.180 uh
+01:05:31.319 is this is actually interesting uh
+01:05:34.440 I don't would you suggest that I keep a
+01:05:37.260 product ID or do you want me to keep a
+01:05:39.119 reference for product
+01:05:42.420 okay uh so now here could be a good
+01:05:45.180 discussion actually uh keeping up a
+01:05:48.900 full-fledged product will take a lot of
+01:05:51.180 space actually right so yeah add value
+01:05:57.859 one of the trade-offs that I can see
+01:06:00.059 when keeping a product full product is
+01:06:02.160 it will take more space it might have
+01:06:04.740 used the speeds which are relevant only
+01:06:06.180 to product uh
+01:06:09.240 certain things if something is updated
+01:06:12.180 in our memory and we have this unit
+01:06:14.640 stored in a cache uh it's possible that
+01:06:17.940 if I don't make it a Singleton if I
+01:06:20.160 don't make each product class Singleton
+01:06:21.780 then this will become single
+01:06:24.059 um right and I'll have to manage a cash
+01:06:27.119 management and that memory uh these are
+01:06:29.400 the drawbacks the benefit is whenever I
+01:06:32.280 want to get any details about this
+01:06:33.599 product I don't need to keep a mapping
+01:06:35.520 between product ID and product in the
+01:06:37.799 system I can just jump to that
+01:06:40.079 right so I would uh prefer to actually
+01:06:43.680 have a product ID in the system
+01:06:46.140 just a just a mapping of
+01:06:49.079 uh per unit what is the product ID
+01:06:52.140 is that is that okay or would you prefer
+01:06:55.079 me to
+01:06:56.640 no product ID is fine uh because I think
+01:06:59.819 we can iterate on the list of products
+01:07:01.500 to get the information
+01:07:03.119 okay so then I'll keep on mapping off
+01:07:05.700 uh actually I'll convert this to a map
+01:07:08.700 say for a string
+01:07:12.240 uh
+01:07:15.720 I have a new hash mark
+01:07:17.940 yeah
+01:07:21.359 and I'm not making it a conquer and hash
+01:07:23.400 my problem is keeping it simple
+01:07:24.960 okay papers
+01:07:27.240 location ID okay location ID something
+01:07:29.700 else that I need so I need a location
+01:07:31.200 but before that in status I think
+01:07:34.559 you are mentioned inventory is one
+01:07:36.299 Transit
+01:07:37.559 is another and delivery is another
+01:07:41.220 okay another class called location
+01:07:47.240 has only type and ID Okay so
+01:07:51.180 string ID and
+01:08:05.940 naming this class location type because
+01:08:08.220 type is a very common word so I don't
+01:08:10.740 want to mess
+01:08:16.259 okay um
+01:08:23.819 I don't get it so what is Type
+01:08:26.399 small large medium okay so that is
+01:08:28.620 already taken care of sorry for that and
+01:08:31.020 this is size is here
+01:08:37.979 size of the location is being mentioned
+01:08:40.679 over here
+01:08:43.140 okay now
+01:08:46.259 when someone asks us to place a
+01:08:55.738 to place a unit I am going to be using
+01:08:57.658 an algorithm to find which location is
+01:09:01.140 best suited for this
+01:09:04.759 okay so right now
+01:09:08.040 yeah we can skip it we can skip it for
+01:09:10.500 now I've understood that we'll use an
+01:09:12.479 algorithm uh
+01:09:14.399 okay
+01:09:16.679 let us assume that uh I I don't have
+01:09:18.779 that taken care of I mean let us assume
+01:09:22.140 some algorithm is doing this location ID
+01:09:24.359 setting okay yeah so Place unit is
+01:09:27.299 something that we have
+01:09:36.960 okay okay so we can place units we can
+01:09:40.620 add products we can get product get
+01:09:42.658 product is not different all I need to
+01:09:44.819 do is just this
+01:09:46.259 uh
+01:09:47.819 very simple
+01:09:55.170 [Music]
+01:09:57.179 and let's get these methods moving
+01:09:59.520 forward because it's just get a set of
+01:10:01.199 methods yeah
+01:10:03.239 string
+01:10:08.640 okay
+01:10:10.380 get product list again this is I just
+01:10:12.780 need to pass in the
+01:10:14.520 I have to just return product list Dot
+01:10:18.420 yes
+01:10:19.560 that I think
+01:10:24.300 but Keys that's all I have to do all
+01:10:27.239 values
+01:10:29.600 get shelves status okay get me all the
+01:10:34.020 uh
+01:10:36.120 units basically or another get me all
+01:10:38.699 the locations and their statuses okay I
+01:10:41.520 can I can do that uh
+01:10:43.739 get me all the locations
+01:10:46.320 so I can keep a map of locations here
+01:10:48.900 yes
+01:10:51.659 so
+01:10:53.219 if there is a screen which is location
+01:10:55.080 ID uh
+01:10:57.719 tell me the whether it is failed or not
+01:11:00.060 or which product exists which unit
+01:11:02.760 exists there okay so yes
+01:11:20.400 I mean there are a set number of
+01:11:21.960 locations only so I'm keeping them all
+01:11:23.340 in memory uh and the unit is here
+01:11:27.900 location map public
+01:11:57.780 this is what I'm returning now comes
+01:12:00.840 manipulating this location map can we
+01:12:03.420 generate reports okay we can look at
+01:12:05.280 that get product location
+01:12:08.280 set a product location okay so I guess
+01:12:10.739 this is set unit location
+01:12:13.860 this is yes okay so get a unit's
+01:12:16.980 location or set a unit location get unit
+01:12:18.840 location is very simple we just need to
+01:12:20.580 go to the unit and say what is your
+01:12:21.960 location ID yes yes set unit location is
+01:12:25.260 what we are looking at which is
+01:12:27.060 basically Place unit so I think we have
+01:12:29.340 uh I have done it twice
+01:12:33.360 so this is more accurate update status
+01:12:37.260 means of a product
+01:12:39.840 what does this mean uh
+01:12:42.060 great status
+01:12:44.820 that is this update status again will
+01:12:46.860 come for a unit so that is also another
+01:12:49.080 thing that I've done incorrectly
+01:12:52.260 Arsenal unit
+01:12:55.080 [Music]
+01:12:59.699 okay
+01:13:14.480 and uh
+01:13:23.960 okay this takes care of that
+01:13:33.600 order has a map of
+01:13:37.140 product
+01:13:38.340 to increase your thumb
+01:13:46.380 okay this is what we have and user can
+01:13:52.560 add a product or they can remove things
+01:13:54.840 but they are using the system methods
+01:13:56.219 only
+01:13:57.000 yes
+01:13:58.140 so okay so if a user can
+01:14:07.620 so a user will have a instance of system
+01:14:11.159 it's like
+01:14:12.900 so uh
+01:14:17.280 can I make this static so that it
+01:14:20.760 becomes important
+01:14:21.900 yes
+01:14:31.920 okay I have to make all the methods also
+01:14:33.600 static so that you can access this
+01:14:45.540 okay so the whole uh inventory system is
+01:14:49.860 filled with static methods and so this
+01:14:52.140 is a Singleton now
+01:14:53.580 yes and without creating an instance I
+01:14:55.739 can just use its methods so
+01:15:00.380 [Music]
+01:15:05.820 I need to pass in product details
+01:15:18.780 you can have an empty Constructor for
+01:15:20.460 now
+01:15:21.719 yeah
+01:15:23.460 yeah I'll just uh
+01:15:27.239 it must be something here that no
+01:15:30.120 shortcut nothing no
+01:15:32.100 okay
+01:15:34.380 generate in that Constructor yeah okay
+01:15:37.320 that's perfect
+01:15:38.640 yeah
+01:15:41.520 okay uh
+01:15:43.920 let's say ID
+01:15:45.780 so this is this is of course
+01:15:48.659 something that will be passed in here as
+01:15:50.340 a parameter by the user yes so I can
+01:15:52.920 just skip this
+01:16:05.040 now this is taken care of
+01:16:10.620 there is only one or two things that we
+01:16:12.960 need to do one is placing units that is
+01:16:16.100 algorithmically something and the other
+01:16:18.960 thing that we need to do is we need to
+01:16:20.520 make sure that when our order is
+01:16:22.199 actually placed uh we can
+01:16:25.980 uh that the unit is picked up
+01:16:29.460 yes and system automatically updates the
+01:16:33.420 location also status also
+01:16:36.719 right
+01:16:38.040 so you remove unit is not something I
+01:16:39.840 have taken care of so uh
+01:16:42.000 sorry for that again
+01:16:47.400 okay
+01:16:49.140 yeah these are two things which are
+01:16:51.060 remaining everything else seems to be
+01:16:52.739 smooth
+01:16:54.060 uh
+01:16:55.380 Place unit
+01:16:57.000 okay and remove unit Okay so
+01:17:09.719 how does the system know which unit
+01:17:12.300 should be removed when there is an order
+01:17:13.860 placed
+01:17:15.000 mm-hmm
+01:17:18.840 so how this will happen is
+01:17:21.420 yeah in the front end let's look at the
+01:17:24.300 front end part of it okay now
+01:17:26.460 so now uh so just imagine our Amazon UI
+01:17:30.540 okay so you click on a product you see
+01:17:33.179 the product details and then you see add
+01:17:35.159 to cart button when you click on add to
+01:17:37.380 cart button the product moves to the
+01:17:39.000 card so this Complete product is moving
+01:17:40.800 to the plot now
+01:17:42.239 now what will happen next when you place
+01:17:45.960 an order so product name would come to
+01:17:48.060 you right your product details would
+01:17:50.159 come to you so what you can do is you
+01:17:52.080 can from the list of products or from
+01:17:54.780 the map of the products you can check if
+01:17:57.719 there is product availability or not
+01:18:00.480 yes yes
+01:18:12.080 so users are doing one thing which is
+01:18:14.520 adding products or executing orders like
+01:18:16.920 you mentioned uh in the order there's
+01:18:19.320 going to be some details which will
+01:18:21.179 result in the status of the products or
+01:18:24.540 the units changing Okay so
+01:18:27.960 Execute order is going to be
+01:18:30.960 order
+01:18:35.159 now inventory system
+01:18:37.860 Dot
+01:18:39.900 remove unit
+01:18:41.400 and this is going to happen for every
+01:18:45.179 in order
+01:18:47.580 at product count
+01:18:51.420 increase set
+01:19:05.159 okay
+01:19:07.020 um
+01:19:09.679 I'm just basically iterating over every
+01:19:12.239 single entry in the product account so
+01:19:15.420 to make cartons three that that will
+01:19:17.940 come over here so I will now take that
+01:19:22.080 each entry
+01:19:23.820 and then I need to do something I need
+01:19:25.500 to remove units for every everyone
+01:19:34.199 on this integer item Dot
+01:19:38.699 get valued I'll be removing results
+01:19:44.340 move unit of this product right
+01:19:49.199 item
+01:19:50.540 dot get key
+01:19:54.360 so when you remove it I cannot save for
+01:19:57.000 a particular unit
+01:20:01.460 can I explain people something you know
+01:20:05.120 there was a question which was asked by
+01:20:07.500 someone I don't remember who uh his name
+01:20:10.199 but he asked uh will there be many
+01:20:13.199 different sort of optimizations or what
+01:20:15.900 not something of this WordPress question
+01:20:18.120 was so if you uh can you scroll down a
+01:20:21.719 little bit where you implemented that
+01:20:23.040 function where you search whereas yes so
+01:20:25.620 now if you see I want to explain that
+01:20:27.540 Ryan to everyone in the audience that
+01:20:29.820 every time if you I trade and you will
+01:20:32.460 find the product
+01:20:34.260 don't you think it has taken too much
+01:20:36.000 time here it is taking too much time
+01:20:38.040 order of end time complexity would be
+01:20:39.840 there yes but but I want to explain or I
+01:20:44.400 want to tell to everyone
+01:20:45.719 of course uh if an interviewer wants to
+01:20:48.540 ask about it he can but he generally he
+01:20:51.659 wouldn't
+01:20:52.440 ask about it why Point number one uh you
+01:20:56.580 have already discussed with me the
+01:20:58.020 requirements of everything that is why
+01:21:00.000 so he knows that this is the only way to
+01:21:02.820 now generate second
+01:21:04.880 optimization I'm not looking at your
+01:21:07.139 code like I'm not looking at your
+01:21:09.239 algorithm I'm looking at how your system
+01:21:11.340 interacts different data members could
+01:21:13.800 be used uh different data success could
+01:21:15.900 be used and that has been checked in
+01:21:18.480 your DS and algorithms
+01:21:20.880 that if you are able to solve the
+01:21:22.500 problem or not
+01:21:24.300 right now I just want to see how you are
+01:21:26.940 able to build the system how will your
+01:21:28.980 front end interact how will your backend
+01:21:30.900 handle stuff how will your user handle
+01:21:33.659 it
+01:21:34.500 that's it so that is why
+01:21:36.900 I just just explaining to people yeah
+01:21:39.600 absolutely
+01:21:40.500 um
+01:21:41.460 makes total sense this
+01:21:43.679 this is a simple iteration of the whole
+01:21:46.260 thing when it comes to executing an
+01:21:48.239 order uh our algorithm when it comes to
+01:21:53.400 when it comes to uh you know placing a
+01:21:56.040 product is probably not optimal also you
+01:21:58.199 can probably place it better but for now
+01:22:00.179 we are using a very simple algorithm if
+01:22:01.920 we want to change the algorithm we can
+01:22:03.540 we can see maybe here is a place for
+01:22:05.340 strategy pattern so
+01:22:07.800 I'll try to implement the strategy
+01:22:09.360 pattern here in the simplest possible
+01:22:10.800 way let's see if that works so I have
+01:22:13.980 two strategies one is uh simple
+01:22:17.880 scrap you see
+01:22:21.239 so that's one class and another one is
+01:22:26.760 smart strategy so the benefit of me
+01:22:29.580 doing it this way is I can actually
+01:22:30.960 write test cases with simple strategy
+01:22:32.639 knowing that this is exactly how things
+01:22:34.020 will work and I can write test cases for
+01:22:35.880 smart strategy expecting it to behave as
+01:22:38.280 good if not better than simple strategy
+01:22:40.380 always
+01:22:41.340 so this is this is something that we can
+01:22:44.219 do
+01:22:46.620 okay
+01:22:48.239 now let me try to place the units using
+01:22:52.020 some method so
+01:22:55.800 um first thing I'll do is I will try to
+01:22:57.840 get a location which is free lock that
+01:23:00.000 location and then set this unit's
+01:23:02.820 location ID to that and then I'll unlock
+01:23:04.620 that location so okay I'll
+01:23:07.620 we go for firstly I need to go to uh
+01:23:10.860 location
+01:23:12.719 right yeah
+01:23:14.940 but now I am I can optimize this but I'm
+01:23:19.560 not I'm just iterating over the
+01:23:21.719 locations
+01:23:22.679 yeah
+01:23:25.560 uh keys
+01:23:33.840 so
+01:23:34.380 [Music]
+01:23:53.100 okay
+01:24:01.380 if this location
+01:24:05.639 is free so I have to
+01:24:10.679 have to see in the location map with
+01:24:12.239 this location is free
+01:24:25.340 but what is the location I'm storing
+01:24:27.719 unit okay
+01:24:33.060 if this location is empty and I have to
+01:24:35.760 pass in
+01:24:37.080 uh type of location
+01:24:45.960 you know that is not possible that makes
+01:24:47.400 no sense because if I've picked it up
+01:24:48.900 from location key set then it can't be
+01:24:50.820 empty so if location uh is null
+01:25:04.440 okay a lot of syntax that is going on
+01:25:06.120 sorry for that no worries and I think
+01:25:09.060 you can skip it also
+01:25:10.860 okay I'm I'm just trying to use the uh
+01:25:14.280 algorithm
+01:25:15.840 because that is the only thing which is
+01:25:17.699 remaining entry Dot
+01:25:27.540 get me the value if this is not equal to
+01:25:30.540 null then I
+01:25:33.239 if this is equal to none other then I
+01:25:35.100 can place something here
+01:25:46.800 so I'll take a lock on the location so a
+01:25:50.280 location
+01:26:10.440 yes
+01:26:13.560 okay and then once this is done
+01:26:16.679 release lock yes and that's it
+01:26:21.900 okay so now I've set up the location as
+01:26:25.020 this
+01:26:31.920 okay
+01:26:34.860 so this is this is one way one algorithm
+01:26:38.540 I actually
+01:26:40.860 should be checking before that only that
+01:26:42.780 if the yes size is big enough yeah yeah
+01:26:46.679 that I think your algorithm would do
+01:26:49.800 right right so you can skip it
+01:26:53.940 strategy works
+01:26:57.600 yeah I think I'll just I'll just skip
+01:26:59.219 this but it's something that algorithm
+01:27:01.199 has to do yes okay uh
+01:27:04.199 running pretty fast we have remove unit
+01:27:08.580 which is for a particular product I will
+01:27:10.620 just iterate over the location and units
+01:27:13.980 again this is the simple I'll go the
+01:27:16.080 basic one it will pick up the first unit
+01:27:19.320 of that product type
+01:27:22.440 yes then it will just return that as a
+01:27:26.480 for that unit so if I say remove this
+01:27:29.460 remove one unit of this product
+01:27:31.380 iterate over all locations just like we
+01:27:33.300 have done over here
+01:27:34.560 uh if you get
+01:27:39.120 a place where it is not null then check
+01:27:41.340 if the unit
+01:27:44.820 will take up the product Dot
+01:27:47.280 ID matches the
+01:27:50.179 product ID of the
+01:27:53.880 definitely
+01:27:55.980 to get value
+01:27:58.080 Dot
+01:27:59.760 start writing yeah
+01:28:02.100 this this has to match so actually this
+01:28:05.040 will be in the if statement
+01:28:14.100 and
+01:28:15.620 remove yourself
+01:28:19.500 this is basically a map
+01:28:25.080 got removed
+01:28:27.840 uh this location
+01:28:38.460 we removed the
+01:28:40.080 entry for this location yeah great again
+01:28:43.860 I'm releasing the lock
+01:28:45.840 yeah only when uh you know after taking
+01:28:48.000 a lock here so the next person to come
+01:28:50.159 with a lock will see that this entry uh
+01:28:52.679 values
+01:28:53.940 is no longer none
+01:29:03.719 yeah that's that's the so I have not
+01:29:05.760 used any uh design pattern here but we
+01:29:08.699 can use a strategy design pattern to
+01:29:10.199 make this better
+01:29:11.760 foreign
+01:29:24.179 okay uh any
+01:29:26.940 any suggestions uh from you or from the
+01:29:31.080 audience
+01:29:31.980 I think Robert has a future yeah
+01:29:35.639 we can go on the questions uh sure
+01:29:43.739 are you reading at all yeah I'll just uh
+01:29:47.520 take a few from
+01:29:49.739 the audience uh here also unit in
+01:29:52.260 products
+01:29:58.739 okay uh let me see if there's any
+01:30:00.840 interesting question
+01:30:06.420 how do you handle when user ad
+01:30:09.659 for another one but in the meanwhile
+01:30:11.280 added product got out of order
+01:30:14.639 okay that's a good question it's a
+01:30:18.120 so um in the start Manish we had we had
+01:30:21.120 said that every order that we are going
+01:30:22.739 through is going to be going uh is going
+01:30:24.960 to be sequential uh
+01:30:27.960 in this case I we haven't done that okay
+01:30:31.860 if you make all orders go sequentially
+01:30:34.020 then there is no way that you know
+01:30:35.900 concurrently somebody will come and pick
+01:30:37.920 it up so that takes care of it but even
+01:30:40.500 then
+01:30:42.000 in this uh I'm taking a lock on the on
+01:30:46.320 the unit on the location
+01:30:49.139 and by taking a lock I'm making sure
+01:30:51.480 that nobody else can come and pick up
+01:30:52.860 this order
+01:30:54.239 at the same time okay uh what could
+01:30:57.179 happen here
+01:30:58.380 well there could be a deadlock there
+01:31:01.080 could be something like
+01:31:02.820 Arun says there is an order for milk
+01:31:05.340 cartons too
+01:31:07.020 and I say there's an order for milk
+01:31:08.340 cartons too
+01:31:10.260 the total number of milk cartons are two
+01:31:11.940 Arun goes and while iterating picks up
+01:31:14.219 one milk carton
+01:31:15.659 at the same time my code also runs whose
+01:31:18.000 picks up milk one milk carton and now we
+01:31:19.860 are waiting on each other we are locked
+01:31:21.360 forever
+01:31:22.139 I'm waiting on the other uh one till you
+01:31:25.199 know the lock is released that would be
+01:31:26.760 a deadlock uh sometimes both orders
+01:31:28.800 would fail
+01:31:30.420 that would be one way of just reverting
+01:31:32.460 the transaction let's say so those are
+01:31:35.580 ways in which you can handle this
+01:31:37.560 problem if you make everything
+01:31:39.000 sequential nothing like it but if you
+01:31:41.040 can't make things sequential then you
+01:31:42.300 need a way in which you have to lock
+01:31:45.900 the items concurrently
+01:31:49.199 a set of items concurrently this is not
+01:31:51.179 easy
+01:31:52.320 and the probably the way you're going to
+01:31:54.900 go about doing this is basically trying
+01:31:56.760 to acquire all locks if you fail to
+01:31:58.739 acquire all the locks within a certain
+01:31:59.940 period of time you have to time up
+01:32:02.340 so it will be a time lock
+01:32:04.560 so on
+01:32:06.719 are we allowed to use Frameworks in hld
+01:32:09.679 I don't think let's take another
+01:32:11.699 question uh Rahul says let's say you
+01:32:15.060 have an inventory of groceries the
+01:32:16.560 inventory manager is required to throw
+01:32:18.179 out the expired items and update the
+01:32:19.739 inventory okay this is our item expiring
+01:32:21.600 so suppose an external committee wants
+01:32:24.060 to show you do not have expired products
+01:32:25.679 in the inventory how do you implement
+01:32:27.179 this would you prefer creating a new
+01:32:29.400 record for each product per day
+01:32:38.600 so uh I what I can think of right now
+01:32:42.840 just after looking at the question okay
+01:32:44.280 this is what happens in an interview
+01:32:47.100 um so what we can do is in the product
+01:32:49.020 itself in the product itself uh we can
+01:32:51.780 have a show in the product class which
+01:32:54.000 whatever has made we can have a expiry
+01:32:56.340 date also there only okay now every day
+01:33:00.480 every day in the morning the system can
+01:33:02.820 generate a report uh wherein they can
+01:33:05.580 tell me the list of all the units who
+01:33:07.380 are expired
+01:33:08.580 and then probably we can clean up or
+01:33:11.820 whatever so this way we can get a list
+01:33:14.460 of all the expired products
+01:33:17.400 yeah like when we are deducting or
+01:33:19.980 something removing products like we can
+01:33:21.960 manually also go and you know maybe the
+01:33:23.520 machine went and crush the product by
+01:33:24.960 mistake or something happened some cat
+01:33:26.639 ate it or there's a snake inside I mean
+01:33:29.040 anything can happen so you might want to
+01:33:32.639 manually also remove that product so and
+01:33:35.400 then go and update the count over there
+01:33:37.080 in the system so you can do it for
+01:33:39.360 expired products also your machine can
+01:33:41.159 go automatically pick those products up
+01:33:42.600 it's as good as making an order actually
+01:33:44.639 in the morning when it goes to expiry uh
+01:33:48.420 take all the products which are expired
+01:33:50.940 go to those locations ask the machine to
+01:33:53.040 pick and throw it and send them as set
+01:33:56.880 them as available
+01:33:59.580 okay folks if you have questions you can
+01:34:02.040 post them here I think I haven't
+01:34:03.719 mentioned it for a while it's on slido I
+01:34:07.020 will also just share the question which
+01:34:09.060 is already there
+01:34:13.260 okay most of us feel
+01:34:16.440 like uh
+01:34:18.360 less confident when it comes to LED
+01:34:20.159 interviews
+01:34:21.540 we feel reasonably confident 30 uh and
+01:34:24.360 uh four and five percent uh four and
+01:34:26.460 five star is really low 14 percent is on
+01:34:29.100 two star
+01:34:32.100 okay q a
+01:34:35.699 I think three of them we have handled
+01:34:37.920 already
+01:34:39.060 okay how do you handle concurrency if
+01:34:40.860 you have to maybe you can just share
+01:34:41.880 your thoughts at Uber level
+01:34:44.699 I guess we spoke about you know ordering
+01:34:47.100 and uh
+01:34:48.780 taking locks we also talked about
+01:34:51.420 whether there can be a deadlock or
+01:34:52.920 something so this I think we have
+01:34:54.540 answered to some extent
+01:34:56.400 we're going to be answering more of this
+01:34:58.080 in the in the course that we are coming
+01:35:00.239 up with so if you want to subscribe for
+01:35:03.239 that one of the things you can do is
+01:35:04.380 just go to interview ready and just sign
+01:35:06.420 in if you sign in then we'll at least
+01:35:08.460 have a email ID through which we can
+01:35:10.440 connect with you and the current course
+01:35:12.239 also has machine coding and eyelid
+01:35:15.239 design and you know
+01:35:17.040 when it comes to system design it's a
+01:35:18.960 it's a full course so you can purchase
+01:35:21.060 that also the low level design problems
+01:35:22.920 like this we are taking next
+01:35:26.400 do we have to draw
+01:35:28.619 like do we have to draw the LED
+01:35:30.540 interview I mean we can just write the
+01:35:32.280 class if roughly on ID for discussion
+01:35:35.040 only okay
+01:35:37.560 yeah uh so uh you can whatever suits you
+01:35:41.340 actually whatever suits you whatever uh
+01:35:43.679 makes think clear to you and to your
+01:35:45.300 interviewer you can go ahead with that
+01:35:49.440 make sense okay I would suggest drawing
+01:35:52.560 because although you saw that it took us
+01:35:55.560 one and a half hours uh to do this whole
+01:35:58.679 thing
+01:35:59.820 it's not just about so one is our speed
+01:36:02.760 was actually higher than it would
+01:36:04.080 otherwise
+01:36:05.360 I I truly believe had we tried to just
+01:36:07.860 go and code
+01:36:09.239 the amount of discussion we would go
+01:36:10.860 through we would not have been able to
+01:36:12.420 do 50 of what we did right now
+01:36:14.639 okay uh you can try it at home and see
+01:36:17.100 which one works better
+01:36:18.960 like by uh it's as good as coding
+01:36:21.960 without having reviews just code and
+01:36:25.020 then see oh wait requirement or
+01:36:26.760 something else so you come back and so
+01:36:28.320 there is back and forth there is lots of
+01:36:29.639 time very objectively also this is far
+01:36:32.100 better as a method second thing is
+01:36:35.699 the interviews the interview is not
+01:36:38.219 about
+01:36:39.119 you writing as much code as possible the
+01:36:41.760 interview is about your interviewer
+01:36:43.320 understanding what you have done and
+01:36:45.540 it's the same with Team discussions and
+01:36:47.820 design discussions and everything
+01:36:49.400 engineering you have to communicate your
+01:36:51.719 thoughts so communicating them is
+01:36:53.520 effective when you draw things
+01:36:55.320 if you just write code it is okay
+01:36:59.219 but it's not good
+01:37:01.260 it is okay it is acceptable but it is
+01:37:03.119 not good or great
+01:37:05.820 so okay
+01:37:09.420 detailed view of the entire system okay
+01:37:11.280 does the actual LED interview go into
+01:37:13.199 the detailed view of the entire system
+01:37:14.639 or just a few flows are discussed Arun I
+01:37:16.860 think you have mentioned that it can go
+01:37:18.119 anywhere it's best to in a in a YouTube
+01:37:21.300 video to talk about all of them but
+01:37:23.400 in a real interview they'll be like okay
+01:37:25.020 yeah let's keep going ahead uh
+01:37:27.000 it will be fast
+01:37:28.500 how do you scale when map becomes huge
+01:37:31.199 uh this you can use a cache and it is
+01:37:34.920 cache if required in the real world of
+01:37:37.800 course we'll have these libraries and
+01:37:39.000 tools over here we just have you know
+01:37:41.219 the language we have should we not have
+01:37:43.920 a sale table installer report I think
+01:37:45.360 there will be more that will be more
+01:37:46.679 helpful
+01:37:49.500 okay
+01:37:50.840 for that we can have an order stable I
+01:37:53.520 think sale table orders table the one
+01:37:55.560 the same thing uh
+01:37:58.320 of course that can help and there could
+01:38:00.420 be a number of more ways that can help
+01:38:02.639 but that was not in the scope of the
+01:38:05.460 interview which we
+01:38:08.340 yeah I guess
+01:38:11.639 okay uh finally guys we would like your
+01:38:14.639 feedback for this
+01:38:17.460 video how did you find it just let us
+01:38:20.460 know again I'm sharing the link of slido
+01:38:23.760 over here
+01:38:26.520 how did you like the video did you like
+01:38:28.920 it did you
+01:38:30.300 did you not like it be very Frank be
+01:38:32.340 very honest Arun and I basically the
+01:38:34.920 reason why we are doing this is so that
+01:38:36.840 you understand how local design
+01:38:38.100 interviews work if it's if it needs to
+01:38:40.560 be changed it's best to tell us it's
+01:38:42.600 totally Anonymous also like who cares
+01:38:44.460 right okay so
+01:38:48.659 you can give us a rating over here okay
+01:38:54.119 the ratings have started coming in I'll
+01:38:56.400 I'll reveal them in five minutes till
+01:38:59.340 then uh we can take a couple of
+01:39:00.960 questions but please feel free to give
+01:39:02.880 us your rating
+01:39:05.760 if you really liked it of course you can
+01:39:07.500 hit the YouTube uh you know like button
+01:39:09.780 or LinkedIn like button also
+01:39:18.360 why are we not using persistent storage
+01:39:20.960 has this question I think to some extent
+01:39:24.000 we have answered this we are doing a low
+01:39:25.920 level design so high level design will
+01:39:28.440 talk about persistent storage
+01:39:31.080 uh do we have to show the diagram
+01:39:34.619 okay this is
+01:39:37.800 foreign
+01:39:51.080 manager I have not upscured myself in
+01:39:53.460 low level design is it required for
+01:39:55.199 managers as well
+01:40:03.380 generally the job of an engineering
+01:40:05.880 manager is to get things done from the
+01:40:08.100 Developers
+01:40:09.360 beat anyhow
+01:40:13.580 so I don't think but of course uh having
+01:40:17.820 knowledge of LED would be great uh
+01:40:20.400 engineering Managers generally don't
+01:40:21.780 review the pr or they are not the one
+01:40:23.940 responsible
+01:40:25.440 uh but yeah having a skill is always
+01:40:28.020 good
+01:40:29.880 okay okay yeah I totally agree uh I
+01:40:34.440 don't know whether it will be relevant
+01:40:35.820 for you
+01:40:36.659 as an engineering manager I don't think
+01:40:38.639 it will be if you know it it's good you
+01:40:41.159 can talk to them like an engineer but
+01:40:43.260 the fact is you're not going to be using
+01:40:45.360 it so it's okay
+01:40:47.820 it's like does a product manager need to
+01:40:50.100 so another question then is what about
+01:40:52.560 product managers what about uh ppms
+01:40:56.219 technical program managers do they need
+01:40:58.500 to know about low level design they do
+01:41:00.540 need to know a little bit about high
+01:41:01.679 level design they do talk about it
+01:41:03.060 devops also but lower design
+01:41:05.940 uh so again the the job profile or the
+01:41:10.500 work that a product manager has to do is
+01:41:12.719 to get features and then ask the
+01:41:15.900 engineering teams to work on this
+01:41:18.540 right if they can help in Engineering
+01:41:21.540 also that is great but
+01:41:24.300 I don't think uh product manager needs
+01:41:26.820 to learn or he does coding I don't think
+01:41:29.580 he does coding
+01:41:31.440 okay
+01:41:33.480 your view on this
+01:41:35.699 yeah see not at all no need to go for
+01:41:40.560 Led uh you know Design Round if you want
+01:41:44.100 to see then yeah otherwise not at all
+01:41:46.800 you don't need
+01:41:53.420 paying us money is always we are more
+01:41:56.219 than happy to accept it but then
+01:41:58.260 it won't help you so yeah if you want to
+01:42:01.199 pay just like that then I'll send you my
+01:42:03.119 uh PayPal or my paytm number like
+01:42:07.139 but if you want if you if you want to
+01:42:09.719 invest in a course for yourself as a PM
+01:42:12.060 probably somewhere else makes more sense
+01:42:14.159 uh who would it make sense for engineers
+01:42:16.860 makes a lot of sense
+01:42:20.400 throughout your career like from zero to
+01:42:26.400 um
+01:42:30.500 Architects also
+01:42:32.520 Architects also they review code so
+01:42:34.440 there is that yes so that's why I don't
+01:42:36.900 know up till which point we want to see
+01:42:38.400 but at least till 15 years I guess it
+01:42:40.800 makes a lot of sense
+01:42:42.179 because uh
+01:42:43.800 the yeah the senior Engineers also have
+01:42:46.380 seen they sometimes do write code
+01:42:49.940 yeah
+01:42:51.560 so actually their their task is so
+01:42:54.179 suppose a new uh thing has been made or
+01:42:56.639 a new product you're building which
+01:42:58.320 means a completely new repository a
+01:43:00.600 completely new uh description for
+01:43:03.239 requirements and then you so of course
+01:43:06.239 uh as in when the new Engineers come we
+01:43:08.580 also want to interact or write in the
+01:43:10.619 same report which becomes more and more
+01:43:12.300 complex going day by day so this is how
+01:43:14.639 the design pattern helps right
+01:43:16.980 uh you can have different different
+01:43:18.980 directories inside that repo and
+01:43:21.300 directory scan up files
+01:43:23.219 and later on different directories
+01:43:25.500 interact so how does the code is
+01:43:28.020 understandable to other Engineers how is
+01:43:30.360 the code able to interact amongst
+01:43:31.800 themselves or how is no it's not complex
+01:43:34.199 that much yeah of course everything is
+01:43:36.780 low level design everything is low level
+01:43:38.820 design
+01:43:40.139 right
+01:43:41.219 so uh 15 years or anybody who is writing
+01:43:44.820 code or who is building stuff
+01:43:46.860 needs to learn needs to know about low
+01:43:49.139 level design and it would be good to
+01:43:50.699 have
+01:43:52.199 so would you say that you know I'm not
+01:43:54.540 preparing for my interviews I just want
+01:43:56.940 to be a better software engineer do you
+01:43:58.380 think this is kind of video will be
+01:44:00.659 relevant to
+01:44:02.219 somebody's
+01:44:03.900 so uh right now this video was just
+01:44:07.619 about an interview
+01:44:09.840 okay so we would have missed a lot of
+01:44:13.080 things we would have covered a few
+01:44:14.880 things or we would have covered a lot of
+01:44:17.100 things also okay uh
+01:44:20.100 but what I am saying is lonely low level
+01:44:23.639 design knowing design patterns how to
+01:44:25.739 implement them
+01:44:26.940 would be great so
+01:44:29.580 learning that would be great this video
+01:44:31.800 specifically will that help of course it
+01:44:33.960 will give them a very really good idea
+01:44:35.760 how uh you know our discussions how we
+01:44:38.340 went ahead how architecting or making
+01:44:40.800 stuff would help because in real world
+01:44:43.320 also product manager would come up with
+01:44:45.480 a set of requirements you would list
+01:44:47.340 them all down then you would go ahead
+01:44:49.139 with making the use case diagram then of
+01:44:51.239 course you'll meet the class diagram all
+01:44:52.860 of that flow would really help so yes it
+01:44:55.860 will be valuable to you know watch it
+01:44:57.960 also it would be valuable to someone who
+01:45:00.060 is preparing for the interviews also
+01:45:02.699 but if you want to think that it would
+01:45:05.460 give you a full complete uh you know
+01:45:08.340 understanding of how low level design
+01:45:10.320 Works uh no this video will not fail but
+01:45:13.139 yeah our course mode
+01:45:16.100 nice one nice plug
+01:45:18.840 I I could expect that okay uh Arun how
+01:45:21.780 would you rate how much would you rate
+01:45:23.040 this
+01:45:24.540 uh so of course I would rate it more
+01:45:28.380 than four and nothing is perfect so less
+01:45:30.600 than five
+01:45:32.040 okay somewhere over here let's say four
+01:45:34.020 then some place some some improvement is
+01:45:36.780 possible okay so that's one vote
+01:45:38.880 for from outside the Skin So on average
+01:45:42.619 uh the video has been rated 3.8 Stars so
+01:45:46.739 there is some improvement that we can do
+01:45:50.060 and 3.8 stars is like on zomato maybe
+01:45:55.639 just like okay maybe there's a
+01:45:57.719 particular dish that I really like so uh
+01:46:00.300 thank you for giving us this feedback
+01:46:02.219 guys uh there's one person who found it
+01:46:05.400 to be a two star video one person who
+01:46:07.679 founded to be a three star video seven
+01:46:09.780 founded to be four stars including us
+01:46:12.480 and one person found it to be a
+01:46:14.100 five-star video so that is actually
+01:46:17.280 interesting which means there is scope
+01:46:19.739 for improvement uh and that is really
+01:46:22.139 good I think with someone else also it
+01:46:25.199 became 73
+01:46:26.760 what is the average rating
+01:46:30.119 do we do a weighted this is
+01:46:32.280 accurate 3.4 it doesn't make sense
+01:46:36.420 yeah it's less than four
+01:46:38.100 it's less than four unless someone else
+01:46:39.780 modes it five star then it's not gonna
+01:46:41.520 go to but anyway that's
+01:46:44.520 it's good it's a place that we can
+01:46:46.739 improve on uh if you have any doubts or
+01:46:49.380 suggestions you can let us know in the
+01:46:50.760 comments below uh you can connect with
+01:46:53.400 us on LinkedIn or you can you know
+01:46:55.139 connect with us directly on YouTube
+01:46:56.940 through the comments
+01:46:58.739 um all the best thank you everyone for
+01:47:00.780 coming uh someone removed their three
+01:47:02.699 star right now so our rating went up yay
+01:47:06.900 okay thank you so much for making this
+01:47:09.239 possible I will let's catch up next time
+01:47:12.239 and uh any any last words
+01:47:14.760 famous or not famous
+01:47:20.659 not able to think so you can grow up
+01:47:23.760 with your short line which you say every
+01:47:26.460 time okay yeah guys if you like the
+01:47:28.679 video do uh hit the like button if you
+01:47:31.380 want to get notifications for further
+01:47:33.480 videos like this hit the Subscribe
+01:47:35.100 button we'll see you next time take care
+01:47:36.960 bye
+01:47:38.699 bye guys

@@ -1,0 +1,407 @@
+# tactiq.io free youtube transcript
+# Dynamic Programming with Bitmasks
+# https://www.youtube.com/watch/bjucBkxrMBs
+
+00:00:00.359 and we are back there's this interesting
+00:00:02.399 problem on COD Chef called ccam and this
+00:00:04.799 is what the problem says you have a
+00:00:06.960 graph almost connected graph so all the
+00:00:10.759 nodes are connected to each other except
+00:00:13.120 for 1 to six in this example what that
+00:00:16.119 means is had this graph been directed 1
+00:00:18.680 to 6 would not have existed in the edge
+00:00:20.439 or 6 to 1 would be an edge which didn't
+00:00:23.119 exist in this graph okay and our job is
+00:00:26.080 to find all valid permutations of this
+00:00:28.199 graph so
+00:00:30.480 permutations of a graph are just taking
+00:00:32.320 the nodes in any order and you know
+00:00:35.000 laying them down so 2
+00:00:37.360 3 4 615 is is a valid permutation if
+00:00:42.039 every node has an edge to the next node
+00:00:45.320 in that permutation okay so 2: 3 is this
+00:00:49.199 yeah that that seems valid 3: 4 is this
+00:00:53.320 node yeah we can get there 4: 6 is over
+00:00:56.160 here that's nice and 6:1 does not exist
+00:00:59.719 okay this Violet Edge this dotted Edge
+00:01:01.680 does not exist so in fact I can just
+00:01:03.559 remove that but this is just to make
+00:01:05.040 things obvious that this Edge does not
+00:01:08.000 exist so this permutation itself is
+00:01:11.400 invalid okay that's what the problem
+00:01:14.040 defines the other thing is look at this
+00:01:16.439 permutation 2 to 3 3: 4 4 to 6 just the
+00:01:20.040 same as earlier so we are at 6 now and 6
+00:01:22.400 to 5 so 6 to 5 does exist and 5 to 1
+00:01:26.320 also exists which makes this
+00:01:28.520 permutation valid
+00:01:31.079 okay our job is to calculate the number
+00:01:33.000 of valid permutations now because we
+00:01:35.399 have an almost complete graph what that
+00:01:38.159 means is that if you know if this graph
+00:01:40.320 is complete then we would have n
+00:01:42.600 factorial permutations which would be
+00:01:45.360 valid you could lay the the graph nodes
+00:01:48.880 in any way that you wanted they are n in
+00:01:51.399 number so n factorial would have been
+00:01:52.680 the answer what we need to find is the
+00:01:55.280 number of valid permutations which is n
+00:01:59.240 factorial
+00:02:01.200 the number of
+00:02:02.520 invalid
+00:02:06.880 permutations invalid permutations are
+00:02:08.878 stuff like this okay we need to count
+00:02:10.878 them and then we need to Output the
+00:02:12.640 answer like this in fact it doesn't
+00:02:14.280 really matter because n factori is
+00:02:16.480 something we can calculate very easily
+00:02:18.160 so we are mainly interested in finding
+00:02:19.519 the invalid permutations in this graph
+00:02:22.120 one of the ways you can solve this
+00:02:23.120 problem is by using the inclusion
+00:02:24.879 Exclusion Principle okay uh take all
+00:02:27.760 valid permutations assuming that the
+00:02:29.519 entire graph is valid so that is n
+00:02:32.080 factorial then subtract from all
+00:02:35.800 permutations those permutations which
+00:02:37.720 have the edge 1 to six in
+00:02:39.879 them okay 1 to six is illegal so you
+00:02:42.480 don't want that so you subtract all
+00:02:44.200 those permutations you also subtract all
+00:02:47.040 the permutations having six to one in
+00:02:49.319 them okay that's that's another thing
+00:02:51.319 that you do so now these are gone but
+00:02:54.000 there's one problem what about those
+00:02:56.280 permutations which had 1 to six and 6
+00:02:58.200 to1 both okay technically this won't
+00:03:00.920 happen in our graph but if you have
+00:03:03.120 multiple
+00:03:04.519 edges missing multiple uh edges missing
+00:03:08.799 yes of course uh then what's going to
+00:03:10.760 happen is you will have stuff like 3 to
+00:03:13.599 four also and 4 to three so this is one
+00:03:17.680 scenario which can
+00:03:19.080 occur The Edge 6:1 and The Edge 3 to 4
+00:03:22.599 have been used in the permutation which
+00:03:23.879 are both illegal and you have already
+00:03:26.440 subtracted for each of them so what you
+00:03:27.920 want to do is you want to add now okay
+00:03:30.040 simple inclusion exclusion you can read
+00:03:32.200 up about this in the description below
+00:03:33.680 it's uh there's there's a link over
+00:03:35.080 there and using this principle you can
+00:03:38.040 solve this problem reasonably
+00:03:39.959 efficiently okay it will pass the time
+00:03:41.920 limit but ASM totically uh the solution
+00:03:45.439 that we have going to be talking about
+00:03:46.439 is better and it
+00:03:49.040 uses dynamic programming with bit mask
+00:03:52.840 okay so let's understand how to do that
+00:03:54.400 another way to solve this problem is to
+00:03:55.840 look at the edges the edges which are
+00:03:58.519 missing and then see see the nodes which
+00:04:00.400 are being affected by them so one and I
+00:04:03.640 added another missing Edge which is 1 to
+00:04:05.680 5 that doesn't exist anymore so 1 five
+00:04:08.200 and six are the nodes which are having
+00:04:11.640 issues we can call them bad nodes
+00:04:15.160 okay what's the other thing that we
+00:04:16.959 should look at 1 five and six are bad
+00:04:19.160 nodes we should find out at what
+00:04:21.639 relative ordering do they have issues
+00:04:24.400 for example we have three nodes which
+00:04:26.560 means there six possible combinations we
+00:04:28.160 can have for those nodes six possible
+00:04:30.240 Arrangements 156 that's one Arrangement
+00:04:33.240 1 to5 has an issue so this is not
+00:04:37.120 allowed but 5 to 6 which is over here 5
+00:04:41.360 to 6 is allowed so the way that we can
+00:04:45.800 fix this
+00:04:46.759 Arrangement is to actually put a node
+00:04:49.080 over here between 1 and five that will
+00:04:52.320 make this part of the permutation
+00:04:54.320 valid okay similarly 1 to six I mean one
+00:04:57.160 has an issue with everyone so 1 to six
+00:05:00.039 there's an issue over here we need to
+00:05:01.840 push in one node and this Arrangement
+00:05:05.039 will be legal then
+00:05:08.199 165 5 to 1 issue we need to push a node
+00:05:12.440 here 1 to 6 again issue so over here we
+00:05:15.240 need to push in two nodes to make the
+00:05:17.320 arrangement valid all right and you see
+00:05:20.080 how that goes on so for any possible
+00:05:22.560 permutation of the bad
+00:05:24.840 nodes so we permute the bad nodes
+00:05:31.120 and what's happening is every time
+00:05:32.680 you're permitting the bad noes you're
+00:05:33.759 trying to figure out how many nodes do
+00:05:35.479 you need to stuff in
+00:05:38.280 so let's write this a little neatly
+00:05:40.639 let's just
+00:05:42.759 permute the bad
+00:05:44.759 nodes
+00:05:47.479 find stuffed nodes number of nodes which
+00:05:50.800 you need to stuff let's call this x
+00:05:53.000 let's call this B which is bad nodes and
+00:05:56.360 total number of nodes are n so how now
+00:05:59.720 look at this you have B bad nodes which
+00:06:03.400 means you have n minus B good nodes
+00:06:06.599 right these guys don't have any
+00:06:08.960 issues so n minus B those good nodes can
+00:06:12.639 be arranged in any way that you like it
+00:06:15.080 does not affect the
+00:06:16.759 permutation okay n minus B in any way
+00:06:19.000 that you like so that clearly gives us n
+00:06:21.280 minus B
+00:06:22.599 factorial arrangements for the good
+00:06:25.039 nodes this is one factor which will come
+00:06:27.080 in your answer now here's the
+00:06:28.560 interesting part
+00:06:30.599 what you need is to take this
+00:06:32.039 arrangement with the stuffed nodes and
+00:06:35.039 mix them with the remaining nodes okay
+00:06:37.880 the remaining nodes of course is total
+00:06:39.759 number of nodes n minus the number of
+00:06:41.919 bad nodes you had minus the number of
+00:06:43.880 nodes you tied down so these are the
+00:06:46.560 remaining nodes that is let's say a
+00:06:51.400 string okay that's one string with these
+00:06:54.520 many characters the second string that
+00:06:56.960 you have is this Arrangement itself
+00:07:00.039 okay it has an ordering and the number
+00:07:02.400 of characters you have in this of course
+00:07:03.759 is B plus X this is the second
+00:07:08.800 string but now what you need to do is
+00:07:11.960 merge these two strings so when you you
+00:07:14.680 are merging two strings and keeping the
+00:07:16.240 relative ordering with them uh if the
+00:07:19.199 first string is of length a and the
+00:07:20.680 second string is of length B then this
+00:07:22.759 is the formula for the number of
+00:07:24.479 Arrangements you can have in the two
+00:07:26.199 strings keeping the relative ordering
+00:07:27.879 the same a plus b factorial upon a
+00:07:31.479 factorial by B factorial this is
+00:07:33.479 basically because you have a string of
+00:07:35.479 length a plus b and you're fixing a
+00:07:37.919 positions in
+00:07:39.199 this so that is just uh a plus b c a you
+00:07:44.280 fixed a positions or you fix B positions
+00:07:46.280 both of them are symmetrical once you do
+00:07:48.599 that this is the formula you get okay
+00:07:50.759 because your the relative ordering is
+00:07:52.400 still the
+00:07:53.599 same so that this is the formula for
+00:07:56.120 merging two strings but there's an issue
+00:07:58.440 here B plus X is not the number of
+00:08:02.080 positions that you have in the string
+00:08:04.159 actually because these positions are
+00:08:06.240 fixed you can't take these characters
+00:08:08.599 and move them around they have to be
+00:08:10.360 right here just in front of six or just
+00:08:13.159 behind one whichever way you like to
+00:08:15.639 look at it so these positions are fixed
+00:08:18.360 which means that this string is offering
+00:08:20.919 you just B positions not B plus X to
+00:08:24.840 make it valid we used up expositions of
+00:08:26.639 this
+00:08:27.639 string okay
+00:08:30.400 so you have strings of lengths n - b - x
+00:08:34.479 and B you need to merge them together
+00:08:37.559 what you get using this formula A + B is
+00:08:42.559 n - b - x +
+00:08:47.440 B factorial upon B
+00:08:51.440 factorial N - b - x factorial so minus B
+00:08:56.680 and plus b cancel out
+00:08:59.880 we have n- X in the
+00:09:02.000 numerator okay and this is just the
+00:09:03.800 second term that we need the first term
+00:09:05.959 over here is going to be multiplied by
+00:09:07.880 this
+00:09:12.040 term which is p
+00:09:14.680 factorial nus b - x factorial take your
+00:09:18.399 time to understand this this is because
+00:09:20.480 we have two strings and this string is
+00:09:23.880 not offering as many positions as it
+00:09:25.399 should so that's why we have this kind
+00:09:27.040 of a formula we are taking two strings
+00:09:28.920 merging them together trying to find out
+00:09:30.760 all inter leavings of the string common
+00:09:32.640 formula so we see that this is
+00:09:34.399 completely INF feasible because you have
+00:09:36.399 S hes which means at most 14 bad nodes
+00:09:39.480 and that means you have 14 factorial
+00:09:41.600 permutations to work with in the worst
+00:09:43.160 case and this is about 10 days to^ 11 so
+00:09:46.320 this is too large what we can do is
+00:09:49.000 something similar to traveling salesman
+00:09:50.399 using dynamic programming okay in that
+00:09:52.600 what happens is you look at your current
+00:09:54.880 city you see the number of cities you
+00:09:56.839 already visited and if there is any
+00:09:59.440 other way to get to the same city with
+00:10:01.040 the same cities visited uh at a lower
+00:10:04.160 cost then you uh then you discard this
+00:10:06.760 tour okay there's no point actually
+00:10:08.560 looking forward because you came here
+00:10:10.200 with cheaper cost and having visited the
+00:10:12.360 same number of cities or more number of
+00:10:14.079 cities whatever you
+00:10:15.800 like so uh this is the principle of
+00:10:18.760 traveling salesman using dynamic
+00:10:20.519 programming we are going to be applying
+00:10:22.360 the same thing over
+00:10:23.720 here what we need is the set of bad
+00:10:26.480 nodes we have already visited all right
+00:10:28.959 so one of the things that we need is set
+00:10:32.360 of bad
+00:10:34.279 nodes right that will be a state a part
+00:10:36.959 of the state in our di programming
+00:10:38.320 solution what's the second thing well
+00:10:41.079 which city we are at currently so I'm
+00:10:42.959 thinking about tsp but which node are we
+00:10:45.000 at current Fe so that is
+00:10:48.160 current node okay these two exist in tsp
+00:10:51.959 also and in fact it's defining our state
+00:10:54.320 quite well what's the other final thing
+00:10:56.600 that we need
+00:10:59.440 the number of nodes that we have tied to
+00:11:01.320 this position so I'll write that in blue
+00:11:03.519 because it's important number
+00:11:06.079 of
+00:11:07.639 nodes
+00:11:09.440 tied up to this position because What's
+00:11:12.639 Happening Here in our permutations is
+00:11:14.360 that there is a
+00:11:16.120 possibility that 1 2 3 has one node tied
+00:11:19.560 but 1 2 4 has two nodes tied because 2
+00:11:22.120 to 4 has an issue okay 2 to 3 didn't
+00:11:24.040 have an issue over here you have two
+00:11:25.519 nodes tied up to this point and over
+00:11:27.519 here you have one node tied up to this
+00:11:29.079 point
+00:11:29.920 yeah well the number of the set of bad
+00:11:31.399 nodes will change here but you can you
+00:11:32.880 can imagine an example where uh the set
+00:11:35.440 of bad nodes is the same the current
+00:11:36.680 node is the same but the number of nodes
+00:11:38.240 died are different okay so these
+00:11:41.839 three
+00:11:43.440 parameters clearly Define a state in the
+00:11:46.720 DP that we
+00:11:48.399 need have a look at the
+00:11:50.800 first permutation which is 1 2 3
+00:11:55.000 4 the second permutation is 1 2 4 3 and
+00:11:58.639 let's say one to have a problem between
+00:12:00.399 them so uh you need to stop one city
+00:12:02.480 here and stop one city
+00:12:04.720 here you come all the way down and you
+00:12:07.200 look at this state 2 1 3 4 one and two
+00:12:11.720 have a problem so we stop one city here
+00:12:14.440 and once you come to three this note
+00:12:17.079 three you see that you have already hit
+00:12:20.399 this state
+00:12:21.800 earlier how well one and two had a
+00:12:24.279 problem so there was one city tied down
+00:12:27.639 just number of cities tied
+00:12:30.040 the second thing was the current node
+00:12:32.000 was three at one point over
+00:12:34.279 here okay so that's being visited so
+00:12:37.760 current node was three and the set of
+00:12:40.279 bad nodes that you had already hit was 1
+00:12:43.199 2 3 1 2 3 so 1 2 3 was the set of bad
+00:12:49.440 nodes you would hit so this is your
+00:12:51.560 state of the
+00:12:52.600 DP in fact to to keep it consistent with
+00:12:55.279 that I'll just put this as 31 so
+00:12:59.360 this is something you already visited
+00:13:01.199 you already computed for this node and
+00:13:04.160 therefore you can directly get the
+00:13:05.600 answer over here okay so uh you don't
+00:13:09.399 need to compute it again you don't need
+00:13:10.760 to go up to four you can return from
+00:13:12.560 here itself and in fact this will go on
+00:13:14.839 happening quite a few times instead of
+00:13:16.920 14 factorial which we were looking at
+00:13:20.000 this state has the set of bad nodes
+00:13:22.079 which is 2^ 14 in
+00:13:25.480 number right either you take the node or
+00:13:28.440 you don't so there are 14 in most so 2^
+00:13:31.399 14 the current node so that's
+00:13:35.199 well 14 in number because uh 14 nodes
+00:13:40.040 yeah and number of nodes di well that's
+00:13:42.959 again
+00:13:44.680 14 so this is what you have you
+00:13:47.760 have 14 squ into 2^ 14 as your overall
+00:13:53.199 time complexity so if you take this to
+00:13:56.399 be M as defined in the question you have
+00:13:59.160 have
+00:14:00.000 n² into
+00:14:03.920 2^ 2 m as the overall time
+00:14:08.759 complexity this is the complexity that
+00:14:10.680 you require if the DP works if the DP
+00:14:13.759 still hasn't been stored like in this
+00:14:15.199 state over here U then what you need to
+00:14:18.079 do is you need to go to the remaining
+00:14:19.880 branches remaining cities from this so
+00:14:22.800 from three you can go to only four but
+00:14:24.720 from two as you can see you can go to
+00:14:26.320 three or four and similarly from you can
+00:14:29.399 go to 2 3 or four so that is at most m
+00:14:32.399 in number so overall time complexity for
+00:14:35.519 this will be order
+00:14:38.399 M that's M over here into
+00:14:41.320 2^ 2
+00:14:43.199 m this is the overall time complexity
+00:14:45.800 and let's just briefly go over have a
+00:14:48.560 revision of what we just did we took all
+00:14:51.079 the nodes we found out the permutations
+00:14:53.199 of those faulty nodes we found out a
+00:14:55.440 formula to actually calculate for every
+00:14:57.279 permutation what is its contribution to
+00:15:00.120 the overall number of permutations that
+00:15:01.639 you can have okay using this formula
+00:15:04.399 then what we did is we saw that it's too
+00:15:05.800 expensive 14 factorial so we went for a
+00:15:08.720 dynamic programming approach very
+00:15:10.120 similar to
+00:15:11.680 tsp okay and we said that the number of
+00:15:14.480 states the number of states or rather
+00:15:17.440 the parameters in the states that we
+00:15:19.000 need are the set of the bad nodes that
+00:15:20.839 we have at that point the current node
+00:15:23.079 that we are at right now and the number
+00:15:25.040 of nodes that we have stuffed in in
+00:15:27.399 between okay with these three things we
+00:15:29.680 can Define the state so in case this has
+00:15:32.920 not been computed if DP of this has not
+00:15:34.639 been computed we move forward by doing
+00:15:38.079 this from one we go to two we change the
+00:15:41.519 current node to two we change the
+00:15:42.920 current node to three we change the
+00:15:44.040 current node to four and so on and so
+00:15:45.360 forth okay we try every node and set
+00:15:49.240 that as the current node okay whichever
+00:15:51.800 node we are going to now 2 34 whatever
+00:15:53.800 and finally if you have the set of bad
+00:15:55.519 nodes completely filled up meaning that
+00:15:57.440 your permutation is complete then you
+00:15:59.240 use this formula to find that
+00:16:00.959 permutation contribution to the total
+00:16:03.319 sum okay so base condition done
+00:16:07.240 recurrence done because the recurrence
+00:16:10.079 is just from one state from the current
+00:16:12.759 state you move on to the next states
+00:16:15.240 which are possible all right so this
+00:16:18.360 kind of approach is not very easy to
+00:16:19.519 come up with especially during a contest
+00:16:21.480 but bit Mark and DP comes up very often
+00:16:23.800 and you might want to have a look at the
+00:16:25.199 previous video I made for um the
+00:16:27.759 standard bit mask and DP problem I'll be
+00:16:29.880 sharing the code for this and in case
+00:16:31.440 you have any doubts suggestions please
+00:16:32.600 leave in the comments um next is DP with
+00:16:37.279 graphs so if you want any notification
+00:16:39.720 for that of course you can subscribe
+00:16:41.319 until next time then see you

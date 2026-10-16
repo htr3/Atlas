@@ -1,0 +1,477 @@
+# 2.4.1 Masters Theorem in Algorithms for Dividing Function #1
+
+# https://www.youtube.com/watch/OynWkEj0S-s
+
+
+
+00:00:00.030 hi let us look at masters theorem for
+
+00:00:03.780 dividing function so the master theorem
+
+00:00:07.649 we take a recurrence relation in general
+
+00:00:10.349 form so the general form of recurrence
+
+00:00:12.450 relation is P n is equals to a D and by
+
+00:00:19.080 B plus F of N and we assume that it is
+
+00:00:28.740 greater than or equal to 1 means at
+
+00:00:31.289 least it must be 1 and B is greater than
+
+00:00:33.870 1 and F of and we say that it is of the
+
+00:00:38.430 form theta and power K log n whole to
+
+00:00:44.760 the power of P we assume this the
+
+00:00:48.480 general form now from this we will find
+
+00:00:51.600 out two values Firsters log a base B and
+
+00:00:59.219 the second is ke ke that is power of n
+
+00:01:05.900 see there are different methods here
+
+00:01:08.090 sometimes we take a and B power K first
+
+00:01:12.600 values a and the next values B power K I
+
+00:01:15.299 am taking log a base B and and this will
+
+00:01:18.330 be more easy now based on these two
+
+00:01:24.210 values there are three cases case 1 if
+
+00:01:33.320 log a base B is greater than K then
+
+00:01:39.329 answer is Theta off and bar log a base B
+
+00:01:45.960 so we get the answer in theta otherwise
+
+00:01:53.100 you can take Big O also this is first
+
+00:01:56.909 case k is 2
+
+00:02:00.530 if log a base B is equals to K these two
+
+00:02:08.369 are same that is log a base B and power
+
+00:02:12.450 of n
+
+00:02:13.450 in function and whatever the power of an
+
+00:02:15.520 in function and both are same equal then
+
+00:02:18.970 again it has three cases if P is greater
+
+00:02:25.390 than minus one means P is not a negative
+
+00:02:30.540 then answer is and poverty and log of P
+
+00:02:40.420 plus one and so whatever the p-value is
+
+00:02:44.880 it is raised for one more time means
+
+00:02:48.400 that whole thing is multiplied by log n
+
+00:02:51.310 I am just writing the condition so that
+
+00:02:53.680 mostly you find these conditions and
+
+00:02:55.690 text book so I am writing the conditions
+
+00:02:57.489 then I will take the examples and I'll
+
+00:02:59.860 show you if P is equal to minus 1 then
+
+00:03:08.560 this is heat of embark a log of log N
+
+00:03:14.350 and if P is less than minus 1 then this
+
+00:03:22.030 is Theta of just n power K we will
+
+00:03:26.350 discard log n so there are these sub
+
+00:03:29.440 cases in case two if these two are equal
+
+00:03:31.870 during the sufferings of cases then case
+
+00:03:35.440 three if log a base B is less than K and
+
+00:03:44.940 this n power K is greater
+
+00:03:49.769 again there are two cases here if P is
+
+00:03:55.209 greater than or equal to zero then
+
+00:03:59.799 answer is Theta off and power K log n
+
+00:04:04.540 power P means as it is same thing and if
+
+00:04:09.670 P is less than zero then it is because
+
+00:04:15.459 and power K just we will take n power K
+
+00:04:20.769 and discard log N
+
+00:04:24.750 that's it now let me take some examples
+
+00:04:27.660 and show you I'll make it more simple
+
+00:04:29.940 for understanding this one through
+
+00:04:32.460 examples so let us solve few examples
+
+00:04:36.830 let us take some recurrence relation
+
+00:04:39.330 that are satisfying case 1 so T n is
+
+00:04:44.880 equals to 2 P n by 2 plus 1 what is a
+
+00:04:54.690 here is 2 what is B here that is true
+
+00:04:58.290 what is F of n this is Kate of 1
+
+00:05:02.610 what is this theta of 1 T cos 1 is n bar
+
+00:05:06.810 a 0 is there any login
+
+00:05:09.780 no there is no login so for that also I
+
+00:05:13.140 will take log powerlessly to see this
+
+00:05:17.520 one is n bar 0 and a log and power 0
+
+00:05:21.060 also both are 0 now from this I'll find
+
+00:05:28.950 out log a base B and n power K so what
+
+00:05:33.060 is a K here K is 0 so K is 0 and P is
+
+00:05:36.960 also 0 so what is log in base B log to
+
+00:05:41.010 base 2 is 1 and K is 0 C log amazed me
+
+00:05:46.800 is greater than K this satisfies first
+
+00:05:49.830 condition K is 1
+
+00:05:51.870 what's that answer I have to write the
+
+00:05:54.990 answer I have to write as theta off and
+
+00:05:59.330 power log a base B log a' base B is what
+
+00:06:02.400 1 so n power that's it sick example TN
+
+00:06:11.760 is equals to 4 T and by 2 plus and now
+
+00:06:18.860 so directly I will find out these 2 log
+
+00:06:22.790 4 base 2's what to log a minus B I found
+
+00:06:29.400 out directly instead of finding out a
+
+00:06:31.140 and B and then P I have directly form of
+
+00:06:34.260 this one so what is the K
+
+00:06:36.080 and power is what one what is the P that
+
+00:06:39.259 is zero so this satisfies which case
+
+00:06:42.020 this is two greater than one so it comes
+
+00:06:45.919 under case one so theta of n power log a
+
+00:06:49.220 base B so theta of n power
+
+00:06:59.349 the third example for the same case one
+
+00:07:02.409 T n is equals to a - t TN by 2 + n
+
+00:07:16.610 log eight days - as three and power K is
+
+00:07:23.000 case 1 so 3 is greater heat off and
+
+00:07:28.250 power 3 that's it 8 base 2 is 3 and this
+
+00:07:33.590 is fun only now look at this if the
+
+00:07:37.370 recurrence relation is t + 8 TN by 2
+
+00:07:40.520 plus n square so k is a 2 there is no P
+
+00:07:44.450 here P is 0 there is no log in here so
+
+00:07:48.050 in simple words you find out this and
+
+00:07:50.420 this and find out log and power of and
+
+00:07:54.200 you see power of n you see so power of n
+
+00:07:58.520 is 2 this is 3 so still this is a great
+
+00:08:01.790 app so on citizen power 3
+
+00:08:06.310 let me change T M is equals to 9 TN by 3
+
+00:08:11.510 + 1 what is log 9 B is 3 this is 2 what
+
+00:08:18.830 is the K this is what and power 0 this
+
+00:08:22.640 is n power 0 K is 0 so this is greater
+
+00:08:27.400 this is greater so the answer is Theta
+
+00:08:30.890 of n power this one - if this is n n
+
+00:08:41.150 power 1 power 1 this is greater so again
+
+00:08:45.740 n square only if this is 2 then this is
+
+00:08:49.850 2 so this is not greater they are equal
+
+00:08:52.700 so they come under case - so as long as
+
+00:08:56.090 this is greater whatever the result you
+
+00:08:57.920 are getting directly put it here let us
+
+00:09:00.740 quickly look at some examples suppose
+
+00:09:03.020 this is so n by 2 and this is n what is
+
+00:09:09.200 this for base to log for ways to 2 and
+
+00:09:12.530 this is 1 so answer will be theta of n
+
+00:09:15.830 square only right if this is eight eight
+
+00:09:21.770 ways to cube this is one
+
+00:09:23.910 so this will be Q if you have ate here
+
+00:09:32.580 and here it is and login so just we see
+
+00:09:38.910 power of n and power K ka you check so
+
+00:09:42.180 this is one this is a base two three so
+
+00:09:46.350 this is greater
+
+00:09:47.310 as long as log a base B is greater than
+
+00:09:51.660 power of n power of n in function f of n
+
+00:09:55.980 we take log base B only alright next
+
+00:10:02.160 we'll look at second case T and is
+
+00:10:05.940 equals to 2 mu T and by 2 plus M log to
+
+00:10:14.490 base 2 is 1 and K is 1 so this is they
+
+00:10:21.180 are equal then what is a P here there is
+
+00:10:24.210 no log n so P is 0 P is 0 right so this
+
+00:10:29.820 is P is greater than minus 1 so what it
+
+00:10:32.610 should be n power K and the log of P
+
+00:10:36.120 plus 1 so whatever in this n log n so P
+
+00:10:42.630 was 0 so I made it as much but in simple
+
+00:10:48.120 terms I'll explain you just watch this
+
+00:10:49.920 don't look at this one right
+
+00:10:52.110 later you can look at you can pause and
+
+00:10:54.240 rewind and you can go through this one
+
+00:10:56.580 so simply I will explain this look at
+
+00:10:59.310 this two ways 2 is 1 and power is 1 so
+
+00:11:03.510 whatever F of n is multiplied by log
+
+00:11:07.490 simple dude of P right this is what we
+
+00:11:11.700 found in the book so unless I show this
+
+00:11:13.920 you may not feel that I am showing mass
+
+00:11:15.720 just here that is the reason I have
+
+00:11:17.700 written it okay it can be minute more
+
+00:11:21.750 simple so was this one now if this is
+
+00:11:25.589 by 2 + n square this is 4 by 2 is what
+
+00:11:29.369 to case how much 2 both are same so what
+
+00:11:33.539 I should do N squared log n this is the
+
+00:11:37.379 answer if suppose already I have log n
+
+00:11:44.309 so again you multiplied by log n so log
+
+00:11:47.609 square n and Square log in so multiplied
+
+00:11:50.879 by n square lock and again it's supposed
+
+00:11:53.579 already this is N squared log n so make
+
+00:11:55.349 it as law the cube so it means when
+
+00:12:00.809 these two are equal log a base me and n
+
+00:12:03.599 power not log and power is same then
+
+00:12:07.109 take this as it is multiplied by log n
+
+00:12:11.119 right take this as it is and multiplied
+
+00:12:14.189 by log n suppose this is log power 5
+
+00:12:16.949 make it six
+
+00:12:20.419 now right few more see eight log base
+
+00:12:26.759 two and and Q so what is this eight ways
+
+00:12:31.619 to use what three what is in power K and
+
+00:12:34.949 power KK is what three both are equal
+
+00:12:38.009 three three both are equal so the answer
+
+00:12:40.109 is what and power three log in take that
+
+00:12:47.129 and power three whatever F of n is
+
+00:12:49.139 multiplied by log and that's it this is
+
+00:12:53.879 case two in that first one I have shown
+
+00:12:56.579 you now I suppose the recurrence
+
+00:12:59.549 relation is like this 2t n by 2 plus and
+
+00:13:06.769 by log n then all the to bail is to is 1
+
+00:13:13.529 K power power of n s 1 K is 1 but what
+
+00:13:21.059 is a p-value P is this is in denominator
+
+00:13:24.059 so it is minus 1 then what I should do I
+
+00:13:27.269 told you that if these two are equal
+
+00:13:29.609 they are same this is 1 this is 1 that
+
+00:13:32.339 directly take F of N and multiply
+
+00:13:34.170 well again if I do that the noggin the
+
+00:13:36.570 logon gets canceled no don't do that
+
+00:13:38.580 here the method is little different so
+
+00:13:41.010 take it as he calls and as it is instead
+
+00:13:45.660 of login make it as log of log in and
+
+00:13:51.300 it's done so this what this method says
+
+00:13:53.250 if it is equal to minus 1 so P is minus
+
+00:13:56.280 1 so this I can write it as into log
+
+00:13:59.210 minus 1 n so this one and even in the
+
+00:14:08.460 same situation if this is denominator is
+
+00:14:12.630 log square n then this will be into log
+
+00:14:19.580 minus 2 n so this will be too small this
+
+00:14:23.130 is were too small - to write then in
+
+00:14:27.300 this case it is less than minus 1 less
+
+00:14:30.990 than minus 1 so in that case don't take
+
+00:14:33.480 this log of log in also don't take log
+
+00:14:39.360 in log of log and also it is power to
+
+00:14:42.540 power 3 something then ignore it just
+
+00:14:45.090 take this one that's all right
+
+00:14:49.710 these are the 3 sub cases in case 2 the
+
+00:14:53.150 third case I will show you TM is equals
+
+00:14:57.090 to T and by 2 plus and square what is a
+
+00:15:06.900 base B log 1 base 2 is 0 and K is a 2 so
+
+00:15:12.900 this is smaller than this one this is
+
+00:15:14.670 greater so this is heat off and square
+
+00:15:18.500 gate off and square right
+
+00:15:25.850 if this is to base to the base 2 is 1
+
+00:15:29.810 still this is greater answer is n square
+
+00:15:34.480 and if suppose this is having log n then
+
+00:15:38.630 take log in as the keys if you're having
+
+00:15:42.350 loud Square and big log square and a
+
+00:15:44.390 sities whatever it is you take this one
+
+00:15:46.250 power of n is greater than this log M is
+
+00:15:48.650 B so take directly a for fan it is very
+
+00:15:51.320 simple take f of n this is often only
+
+00:15:55.390 power of K is greater than directly take
+
+00:15:58.550 it okay and square log square and that
+
+00:16:05.300 that is already and directly have taken
+
+00:16:07.400 it okay then if this is supposed
+
+00:16:12.830 fullen by 2 and this is a 3 so this is a
+
+00:16:17.960 2 you see and this is a 3 so the answer
+
+00:16:20.690 is and Q that is greater so whatever it
+
+00:16:26.150 is along with that if you have log also
+
+00:16:27.830 you take it but one thing if that is
+
+00:16:31.760 having log in the denominator but this
+
+00:16:35.780 is greater so don't take the denominator
+
+00:16:37.910 just take n power 3 I said all right
+
+00:16:43.880 these are the cases and I have shown
+
+00:16:47.480 with some examples

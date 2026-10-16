@@ -1,0 +1,541 @@
+# 3. Greedy Method -  Introduction
+
+# https://www.youtube.com/watch/ARvQcqJ_-NY
+
+
+
+00:00:00.560 hi next topic is greedy
+
+00:00:03.120 method this is one of the strategy for
+
+00:00:06.040 solving
+
+00:00:08.119 problems just like divide and conquer
+
+00:00:10.920 and the other strategies greedy method
+
+00:00:13.120 is also one of the
+
+00:00:15.240 approach for solving a problem or a
+
+00:00:19.000 design which you can adopt for solving
+
+00:00:21.960 similar problem the problems which fits
+
+00:00:24.240 into this one you can solve all of them
+
+00:00:26.720 let us understand what this method says
+
+00:00:28.880 what is this method about
+
+00:00:31.679 this method is used for solving
+
+00:00:34.760 optimization
+
+00:00:36.360 problem what are optimization problems
+
+00:00:39.680 are problems which demands or which
+
+00:00:42.600 requires either minimum result or
+
+00:00:46.760 maximum result so for this let us know
+
+00:00:50.160 few terms I'll explain it through an
+
+00:00:52.120 example suppose there's a problem p and
+
+00:00:55.480 that problem is I want to travel from
+
+00:00:58.280 one location a to location
+
+00:01:01.000 B I have to cover this journey that is
+
+00:01:03.800 my problem for any problem I'm taking
+
+00:01:07.080 one example it can be any problem
+
+00:01:09.400 similar type now for this problem there
+
+00:01:13.799 may be more than one Solutions let us
+
+00:01:16.360 say I can travel this by walk Solution
+
+00:01:19.159 One or I can take a bike solution two I
+
+00:01:22.040 can take a car solution three I can go
+
+00:01:24.600 by train solution four and I can go by
+
+00:01:27.320 flight solution five and there may be
+
+00:01:30.079 more
+
+00:01:31.640 solutions it can give me more
+
+00:01:34.320 solutions so my problem is to travel
+
+00:01:36.680 from location a to location B and there
+
+00:01:38.360 are many solution you go like this or
+
+00:01:40.159 take this take this and go there but
+
+00:01:43.439 there is a constraint in a problem I say
+
+00:01:45.719 that I have to cover this journey within
+
+00:01:48.799 12
+
+00:01:51.040 hours this is a condition
+
+00:01:54.040 constrain so suppose I cannot cover it
+
+00:01:57.079 if I go by walk or by car and so I can
+
+00:02:00.399 cover it only if I go by train or
+
+00:02:04.520 flight now for a problem there are many
+
+00:02:07.800 solutions but these Solutions which are
+
+00:02:10.280 satisfying the condition given in the
+
+00:02:12.280 problem then these type of solution
+
+00:02:16.680 becomes feasible
+
+00:02:19.940 [Music]
+
+00:02:21.400 Solutions that's the meaning of feasible
+
+00:02:23.720 solution a solution which is satisfying
+
+00:02:27.000 the condition given in the problem is
+
+00:02:29.360 feasible solution though for a given
+
+00:02:32.120 problem there may be many
+
+00:02:33.879 solutions this is feasible solution
+
+00:02:36.160 satisfying the constraint commonly we
+
+00:02:37.800 use the term Is it feasible or not
+
+00:02:39.360 feasible in the sense what satisfying
+
+00:02:41.560 our constraints or not limitations or
+
+00:02:44.120 not next if I say that I want to cover
+
+00:02:48.400 this journey in minimum
+
+00:02:53.680 cost minimum cost I want to spend as
+
+00:02:58.000 much as less possible then this becomes
+
+00:03:01.760 a minimization problem so now as the
+
+00:03:04.959 problem Demands a result should be
+
+00:03:07.480 minimum then it is a minimization
+
+00:03:11.120 problem right then out of these two
+
+00:03:14.799 solution one of the solution may be
+
+00:03:17.760 taking minimum cost suppose by train if
+
+00:03:20.720 I go this is minimum cost then this is
+
+00:03:23.519 called as
+
+00:03:31.400 optimal
+
+00:03:33.519 solution a solution which is already
+
+00:03:36.519 feasible and also giving me minimum cost
+
+00:03:40.840 that is best results that is best for me
+
+00:03:43.560 minimum is best for me then that
+
+00:03:46.400 solution is called as optimal solution
+
+00:03:48.799 and definitely for any problem there can
+
+00:03:51.400 be only one optimal solution there
+
+00:03:54.000 cannot be multiple Optimal
+
+00:03:56.840 Solutions that means there can be only
+
+00:03:59.200 one minim minum cost minimum can be only
+
+00:04:02.480 one there can be more than one Solutions
+
+00:04:05.239 there can be more than one feasible
+
+00:04:06.720 solution but there will be definitely
+
+00:04:08.560 only one optimal solution this problem
+
+00:04:11.640 requires minimum result some other
+
+00:04:14.000 problems may require maximum result so
+
+00:04:17.839 if a problem requires either minimum or
+
+00:04:21.639 maximum results then we call that type
+
+00:04:24.440 of problem as
+
+00:04:30.479 optimization
+
+00:04:33.160 problem optimization problem is one
+
+00:04:36.199 which requires either minimum result or
+
+00:04:39.199 maximum
+
+00:04:40.639 result so let us briefly look at the
+
+00:04:43.360 terms once again feasible solution means
+
+00:04:45.400 a solution which is satisfying some
+
+00:04:47.039 constraint optimal solution means which
+
+00:04:49.360 is achieving the objective of a problem
+
+00:04:52.720 satisfying the objective of a problem
+
+00:04:54.919 that is either minimum result or maximum
+
+00:04:56.759 result a problem which requires a
+
+00:05:00.000 minimum or maximum result is a
+
+00:05:02.400 optimization
+
+00:05:07.560 problem so greedy method is used for
+
+00:05:11.479 solving optimization
+
+00:05:15.000 problems these are the strategies used
+
+00:05:17.960 for solving optimization problems
+
+00:05:25.860 [Music]
+
+00:05:33.199 these three methods are for solving
+
+00:05:36.080 optimization problem the approach is
+
+00:05:39.280 different and every problem whichever
+
+00:05:41.639 requires optimal results some may be
+
+00:05:44.560 suitable here some may be suitable here
+
+00:05:47.199 this strategy can apply on it or some
+
+00:05:50.160 this strategy can be applied or some for
+
+00:05:52.680 some problems all three strategies can
+
+00:05:54.960 be applied on them so we will learn all
+
+00:05:58.199 these strategies through problems one by
+
+00:06:01.240 one now we are going to cover this
+
+00:06:03.639 greedy method so we will start with
+
+00:06:05.400 greedy method we will understand what
+
+00:06:07.199 greedy method says what is the approach
+
+00:06:09.639 so next I will tell you about greedy
+
+00:06:11.720 method what is its
+
+00:06:14.280 approach here is the general method of
+
+00:06:16.800 greedy I have written an algorithm now
+
+00:06:20.639 see greedy method says that a problem
+
+00:06:24.280 should be solved in
+
+00:06:26.680 stages in each stage we will consider
+
+00:06:29.880 one input from a given problem and if
+
+00:06:32.960 that input is feasible then we will
+
+00:06:36.280 include it in the solution so by
+
+00:06:39.199 including all those feasible in inputs
+
+00:06:42.440 we will get a optimal solution so in
+
+00:06:45.560 stages we will each time we'll pick up
+
+00:06:47.639 our input and we consider it and if it
+
+00:06:50.479 is feasible we will include it and like
+
+00:06:53.360 this if we follow this procedure we will
+
+00:06:55.680 get the optimal
+
+00:06:57.080 solution so here uh method is given if a
+
+00:07:01.440 problem is given and that problem is
+
+00:07:03.879 having a input of some size and N is the
+
+00:07:07.039 size and it is having some data some
+
+00:07:09.639 values input values now it will go
+
+00:07:12.720 through all those input values from 1 to
+
+00:07:14.759 n and each time it will select something
+
+00:07:17.639 from a and call it as X if that X is
+
+00:07:21.360 feasible that is one input one by one it
+
+00:07:23.800 will pick up the input and that input if
+
+00:07:25.960 it is feasible it will include in the
+
+00:07:28.520 solution if it is feasible it is
+
+00:07:30.720 included in solution so this comes under
+
+00:07:34.039 if this is the general method now I will
+
+00:07:37.120 explain you through example the approach
+
+00:07:39.680 of gritty method is
+
+00:07:42.680 that suppose if you have to buy a best
+
+00:07:48.120 car best car best car in the sense in
+
+00:07:52.319 terms of features you want a best car
+
+00:07:54.960 optimal optimal okay the cost will be
+
+00:07:57.720 maximum definitely so but you optimal
+
+00:08:00.159 optimal in the sense for in terms of
+
+00:08:02.159 features now how do you choose a best
+
+00:08:04.599 car how do you choose a best car so one
+
+00:08:07.800 method is you should look at all the
+
+00:08:10.400 brands and all the models of cars
+
+00:08:13.560 available in the world or at least in
+
+00:08:16.560 your city then you can say that I have
+
+00:08:19.120 checked all the cars then I have
+
+00:08:21.159 selected the best
+
+00:08:22.919 car this is one approach for solving a
+
+00:08:25.759 problem the problem is to buy a
+
+00:08:28.440 car this one method this will be very
+
+00:08:31.199 much time consuming you have to check
+
+00:08:33.080 each and every brand and every model see
+
+00:08:35.760 the cost may not be a thing sometimes a
+
+00:08:38.599 car may be better than costlier car so
+
+00:08:42.640 checking with the features and you are
+
+00:08:44.399 deciding that this is the best car so
+
+00:08:46.760 but actually what is the method we
+
+00:08:48.080 follow we first of all sort out the
+
+00:08:50.880 brands and we say that we don't want in
+
+00:08:53.240 this this we want let us say you are
+
+00:08:55.120 selecting a brand that is Toyota or
+
+00:08:57.959 Hyundai right okay you are saying that
+
+00:09:00.320 these are the best brands for you and in
+
+00:09:03.360 these Brands then again you will select
+
+00:09:06.000 the top
+
+00:09:07.079 models right so you are you are not
+
+00:09:09.839 looking at the lower models so again you
+
+00:09:12.160 have sort out then again you say that in
+
+00:09:14.920 this Top Model the latest release car or
+
+00:09:17.920 the well-known car well tested car
+
+00:09:20.560 you're picking up that one and you're
+
+00:09:21.839 saying that is the best one is it really
+
+00:09:24.040 the best one out of all the cars in the
+
+00:09:26.040 market for you it's the best one so what
+
+00:09:28.480 is the approach you adopted you have
+
+00:09:30.560 adopted a greedy approach so you have
+
+00:09:35.079 your own method of selection and based
+
+00:09:37.880 on that selection method you got some
+
+00:09:39.920 result and you are seeing that is the
+
+00:09:41.440 best result that's how it is greedy and
+
+00:09:44.000 definitely when you do this you will be
+
+00:09:45.839 pick up a best car so you don't have to
+
+00:09:48.760 waste time in checking all the cars in
+
+00:09:50.959 the available in the city available in
+
+00:09:52.680 the market so that's it so without
+
+00:09:55.240 checking all of them you say that you
+
+00:09:57.000 select few and say this is the best car
+
+00:09:59.839 no doubt that's the best car but the
+
+00:10:02.440 approach you adopted is
+
+00:10:04.360 greedy I'll give you one more example
+
+00:10:07.079 suppose you are running a company and
+
+00:10:09.040 you want to hire some people so when you
+
+00:10:11.120 have given an ad some thousand people
+
+00:10:13.200 came to for the interview now you'll
+
+00:10:15.360 conduct some type of test like you first
+
+00:10:17.680 you conduct return return test and then
+
+00:10:19.320 you have a technical test or group
+
+00:10:21.160 discussion like that you will have
+
+00:10:22.800 various phases of test and you'll filter
+
+00:10:25.000 the people and finally you select one
+
+00:10:27.200 person and you say that this is the best
+
+00:10:28.920 person on out of those thousand is he
+
+00:10:31.000 really a best person yes according to
+
+00:10:33.120 your procedures it's a best person what
+
+00:10:35.760 was your selection procedure based on
+
+00:10:38.000 the selection procedure he is the best
+
+00:10:40.600 person and yes you have got the optimal
+
+00:10:44.720 solution so the approach is greedy many
+
+00:10:47.839 student complain that I was better than
+
+00:10:49.720 him and he got selected they think like
+
+00:10:52.440 that but really the person who got
+
+00:10:54.000 selected is the best one definitely so
+
+00:10:56.800 the approach that you're are adopting
+
+00:10:58.800 now I'll tell you if you selecting one
+
+00:11:01.320 person out of thousand then for all you
+
+00:11:03.760 should give a chance for return return
+
+00:11:05.600 test for all you should give a chance
+
+00:11:07.120 for group discussion for all you should
+
+00:11:09.200 you should give a chance for technical
+
+00:11:11.120 interview and HR interview then pick up
+
+00:11:13.040 the best one this will be very timec
+
+00:11:15.000 consuming and costly process we don't do
+
+00:11:17.200 that we simply filter the people and
+
+00:11:19.480 select the best one this approach is
+
+00:11:21.680 called as greedy approach so we have our
+
+00:11:24.680 own methods of selection and we follow
+
+00:11:27.480 blindly we follow those methods because
+
+00:11:29.399 those are the known methods when you
+
+00:11:31.440 follow known methods of solving a
+
+00:11:33.600 problem and you quickly solve it that
+
+00:11:36.200 approach is called as grey so I have
+
+00:11:38.800 given you enough idea about the greedy
+
+00:11:40.480 method now you will come across through
+
+00:11:42.680 the problems one by one I will pick up
+
+00:11:45.000 and I will solve them so in while
+
+00:11:47.160 discussing the problem also I'll show
+
+00:11:49.040 you what the approach GD is following so
+
+00:11:51.639 that if you type find any similar type
+
+00:11:53.720 of problem you can follow the same
+
+00:11:55.920 approach and solve
+
+00:11:57.760 it that's it the introduction for gy
+
+00:12:00.760 method

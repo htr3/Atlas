@@ -1,0 +1,11 @@
+Lecture 1	https://www.youtube.com/watch?v=gktZsX9Z8Kw	Design Tic Tac Toe: Low Level Design Coding Interview Question
+Lecture 2	https://www.youtube.com/watch?v=tzbX4ix2RjI	Low-Level System Design of a Cache - Mock Interview
+Lecture 3	https://www.youtube.com/watch?v=I-iZbOVXwxg	System Design of Chess: Low-Level Design
+Lecture 4	https://www.youtube.com/watch?v=T-9s9U28KJM	Low-Level System Design of an Inventory Management System like Amazon or Zepto
+Lecture 5	https://www.youtube.com/watch?v=pnkd8mVyTNQ	Low Level System Design: MakeMyTrip Booking Management System with Arun Goel
+Lecture 6	https://www.youtube.com/watch?v=FKA2KgkkcqY	Google low level system design question - Part 1 - Implement a logger
+Lecture 7	https://www.youtube.com/watch?v=bPkXQszkkpY	Low level System Design of a Logger Part 2: Solving for concurrency and locking
+Lecture 8	https://www.youtube.com/watch?v=Ku6xVU2lM38	Low-Level System Design of Amazon Inventory Lockers
+Lecture 9	https://www.youtube.com/watch?v=Eg5uH5sU3zw	Rate Limiter: Low Level System Design
+Lecture 10	https://www.youtube.com/watch?v=YM_dEeXmnuY	Load Balancers: Algorithms and Design
+Lecture 11	https://www.youtube.com/watch?v=VdwkFAhLEHo	Low-Level Design: Interview Questions and Tips

@@ -1,0 +1,513 @@
+# tactiq.io free youtube transcript
+# 20 Whitepapers that changed the world [For Senior Software Engineers]
+# https://www.youtube.com/watch/WWGM4hY34pI
+
+00:00:00.000 hi everyone this is gkcs in this video
+00:00:02.280 we'll be talking about 20 white papers
+00:00:04.200 that you must know as a back-end
+00:00:05.880 engineer especially if you are in a
+00:00:07.560 senior engineering position or staff
+00:00:09.300 level position the benefit of reading a
+00:00:11.099 white paper is that you get to know the
+00:00:12.780 implementation details and the Practical
+00:00:15.059 aspects of Building Systems so most of
+00:00:18.359 the trade-offs that are chosen when
+00:00:20.160 building a system come from the product
+00:00:22.320 requirements of the system in the case
+00:00:24.000 of these white papers the product
+00:00:25.859 requirements are being decided by other
+00:00:27.599 Engineers who will be using that system
+00:00:29.099 for example you have the system at meta
+00:00:31.080 which is called memcached like it's an
+00:00:33.300 open source software which Facebook has
+00:00:35.100 modified for their own use one of the
+00:00:37.320 problems they're facing was scaling so
+00:00:39.239 they need to deploy many nodes of map
+00:00:41.340 cache
+00:00:42.540 challenges of routing routing one thing
+00:00:44.520 which came up was should you choose
+00:00:46.820 sharding over redundancy sharding
+00:00:49.980 basically means you have a key space and
+00:00:51.600 that key space is divided into sets each
+00:00:54.899 set is given to a set of servers and
+00:00:56.699 redundancy means that you have the same
+00:00:58.739 key space being handled by multiple
+00:01:00.899 servers simultaneously the problem here
+00:01:03.539 with multiple servers is that they may
+00:01:05.580 be eventually consistent and also the
+00:01:07.140 cost of managing multiple servers for a
+00:01:08.700 small key space as you see this problem
+00:01:11.400 is not as big as the other problem of
+00:01:13.860 starting for Facebook because they had a
+00:01:16.500 concept of aggregate queries so when a
+00:01:18.720 client request would come for let's say
+00:01:20.520 the profile the profile also had friend
+00:01:22.560 connections it also had likes on a post
+00:01:25.200 a news feed so it was a complex query
+00:01:27.840 hitting multiple shards and so splitting
+00:01:30.720 the key space would have only made
+00:01:32.100 things worse for them so this is an
+00:01:34.020 example of one trade-off each of the
+00:01:35.700 papers that I'm really talking about are
+00:01:37.680 really interesting and you should have a
+00:01:39.119 look so let's start number 20 monolith
+00:01:42.000 this is a real-time recommendation
+00:01:44.040 system white paper this is from Tick
+00:01:46.920 Tock their Engineers have found a way to
+00:01:49.860 give recommendations to millions of
+00:01:52.259 users in real time so one of the
+00:01:54.119 problems with any recommendation
+00:01:55.799 algorithm is you have a set of users you
+00:01:58.200 have a real-time component to it and a
+00:01:59.759 batch component to it but the
+00:02:01.079 recommendations in the real-time section
+00:02:02.640 are not very good model that found a way
+00:02:04.619 to embed features of users right the
+00:02:06.840 basic idea here would be that gaurav
+00:02:08.580 likes to watch let's say chess videos
+00:02:10.800 and a person who likes to watch chess
+00:02:13.080 videos may also like to program so an
+00:02:16.020 embedding can be thought of as a point
+00:02:17.819 in a n-dimensional space gaurav has a
+00:02:21.720 particular age so that is the x-axis
+00:02:23.640 gaurav is a male that's a y-axis gaurav
+00:02:26.760 is from India that's on the z-axis like
+00:02:29.340 I said he likes watching chess videos so
+00:02:31.020 probably you're watching chess video
+00:02:32.400 maybe a alpha axis and so on you have n
+00:02:35.099 dimensions in this gaurav is a point and
+00:02:38.520 people who are close to him usually tend
+00:02:40.500 to watch the same things how do you
+00:02:42.360 efficiently embed gaurav in a space and
+00:02:44.819 also give him recommendations is a
+00:02:46.440 serious problem in many of these useless
+00:02:48.660 news feed
+00:02:50.300 applications so as an engineer it makes
+00:02:53.459 sense to look at the kind of scale that
+00:02:55.500 you're dealing with 19 flexi raft this
+00:02:58.319 is a paper by meta it's a very
+00:03:00.060 interesting paper because when you look
+00:03:01.620 at the raft algorithm you have this
+00:03:03.420 concept of Quorum where a majority of
+00:03:05.760 the nodes agree on a particular value
+00:03:07.560 the problem with this is scalability if
+00:03:09.540 you you add more and more nodes a
+00:03:12.420 majority of those nodes have to agree on
+00:03:15.060 a value it's not easy to do and also it
+00:03:17.280 doesn't make sense when you have a
+00:03:18.720 globally distributed system the Indian
+00:03:20.340 servers have to agree to the U.S
+00:03:22.019 server's value maybe the Europe servers
+00:03:24.180 also have to come in so a global system
+00:03:27.120 of Quorum is not what you're looking for
+00:03:29.280 you're looking for a tree like structure
+00:03:30.959 where the Indian surgery on a particular
+00:03:32.640 value and they have a leader who talks
+00:03:34.560 to the leader of the US who talks to the
+00:03:36.300 leader of Europe this tree hierarchy
+00:03:38.459 also needs to be roughly consistent so
+00:03:40.799 Facebook has come up with this algorithm
+00:03:42.180 called flexi raft it's really
+00:03:43.500 interesting to look at I think it will
+00:03:45.120 also give you an idea of how raft Works
+00:03:46.920 internally or if you are really into it
+00:03:49.379 paxos we have discussed that in
+00:03:50.879 interview ready also pretty useful to
+00:03:52.560 know how this good consensus Works
+00:03:54.000 number 18 is spanner spanner is also
+00:03:57.000 around dispute consensus but it's around
+00:03:59.220 how a database can work how it can give
+00:04:02.700 you strong consistency guarantees how it
+00:04:04.980 can offer transactions and spanner is a
+00:04:07.560 very popular example for a Geo
+00:04:09.900 distributed database which is strongly
+00:04:11.879 consistent and also highly available
+00:04:13.260 Google has spent millions of dollars
+00:04:15.000 making sure that their clocks are all in
+00:04:17.459 sync and it's a feat of engineering
+00:04:19.380 which is worth looking at spanner is
+00:04:21.298 expected to survive the worst of faults
+00:04:23.940 even if things are on fire there's an
+00:04:25.680 expectation that spanner is going to be
+00:04:27.419 up so it's good to look at what kind of
+00:04:29.160 fault all mechanisms Google has employed
+00:04:30.960 number 17 Minesweeper Minesweeper is
+00:04:34.199 again meta it's a root cause analysis
+00:04:36.360 system you can imagine this to be
+00:04:38.280 something which identifies what caused a
+00:04:41.100 problem so you have anomaly detection if
+00:04:43.139 you have any kind of a smooth graph if
+00:04:45.060 it's a straight line one differentiation
+00:04:46.560 will make it flat if it's a parabola two
+00:04:49.020 differentiations will make it flat but
+00:04:50.940 if it's not if it's a very complex graph
+00:04:53.400 with anomalies three differentiations
+00:04:55.380 will show you all the problem points
+00:04:57.180 okay and you can catch them and say that
+00:04:59.400 these are economies once you have
+00:05:01.259 detected these anomalies how do you
+00:05:03.000 identify what caused the anomaly you are
+00:05:05.160 probably going to look at factors which
+00:05:06.300 are highly correlated to the graph that
+00:05:08.160 you're looking at a change in the
+00:05:09.360 contributing factor is probably what has
+00:05:11.699 caused the final change that you're
+00:05:13.500 seeing in your business Matrix if you
+00:05:15.419 see sales are low but actually what has
+00:05:17.280 really happened is Landings on the
+00:05:18.479 website alone then you should probably
+00:05:19.680 focus on The Landings instead of trying
+00:05:21.360 to fix
+00:05:22.139 Minesweeper is an automated system it's
+00:05:24.600 really interesting to think about how
+00:05:26.699 much automation can help you for a
+00:05:28.380 startup of course it doesn't really make
+00:05:29.580 sense because you can do this manually
+00:05:30.900 but in medium to large organizations it
+00:05:33.539 makes a lot of sense number 16 Cassandra
+00:05:36.060 Cassandra is an extremely popular
+00:05:37.800 database it talks about how the database
+00:05:40.800 uses the cluster architecture the gossip
+00:05:42.780 protocol how it chooses certain
+00:05:45.060 trade-offs like consistency or
+00:05:46.380 availability however Frankly Speaking
+00:05:48.120 did give me Vibes that you know it's an
+00:05:49.979 open source clone of Amazon dynamodb
+00:05:52.740 it's totally fine I mean I totally
+00:05:54.300 understand open source Technologies are
+00:05:55.680 very important it's important to have
+00:05:57.720 these possible solutions for us small
+00:06:00.840 companies to leverage but as a white
+00:06:03.000 paper yes it probably is not the world's
+00:06:06.060 best white paper having said that as an
+00:06:07.860 engineer it's worth reading number 15
+00:06:09.780 Foundation DP Foundation DB is really
+00:06:13.020 interesting because the kind of testing
+00:06:14.699 techniques that they have employed to
+00:06:16.199 make sure that their transactions work
+00:06:18.060 in this nosql database are novel right
+00:06:20.520 the stocks also on Foundation DB other
+00:06:22.680 thing is that it's a key value data
+00:06:24.120 store so that's the most popular kind of
+00:06:25.740 data store when it comes to you know SQL
+00:06:27.360 databases and it's worth the read when
+00:06:29.160 it comes to highly consistent systems
+00:06:30.900 which are also scalable and it's a paper
+00:06:32.639 by Apple so there's some diversity in
+00:06:35.160 these white papers number 14 Amazon
+00:06:37.440 Aruba Aurora is more like an
+00:06:40.080 architecture pattern that Amazon uses
+00:06:42.060 when it comes to managing databases so
+00:06:45.300 the key factors here are scale Amazon
+00:06:48.419 wants to scale enormously and they also
+00:06:51.539 want to give you very high availability
+00:06:53.160 so how do they ensure that how do they
+00:06:55.199 add and remove nodes seamlessly how do
+00:06:57.780 they also hide the complexity of Aurora
+00:07:01.080 from their clients you want to give some
+00:07:03.360 sort of customizability but you also
+00:07:04.919 don't want startups to break their heads
+00:07:06.539 while using your system so it's an
+00:07:07.919 interesting set of trade-offs that they
+00:07:09.300 have picked up in this paper and it's
+00:07:10.860 definitely worth reading number 13
+00:07:12.560 tackle brackle is a system by Google
+00:07:15.539 this is a graph processing system it's
+00:07:19.259 not necessarily maintaining graphs but
+00:07:21.360 finding patch atoms in graphs so page
+00:07:24.120 ranking algorithms finding out
+00:07:26.099 interesting websites ranking those
+00:07:27.780 websites all of this is usually done in
+00:07:29.699 batch it's a very old system by Google
+00:07:31.560 which gives a good idea of how it
+00:07:34.259 probably works behind the scenes once
+00:07:36.360 you know this you might have a decent
+00:07:38.340 idea of how SEO works for Google in fact
+00:07:40.440 some of the aspects for the pregnant
+00:07:41.940 people are very practical so it makes
+00:07:43.979 sense as an engineer to read this quite
+00:07:45.720 well number 12 Apple Dapper is another
+00:07:48.660 system by Google it's a tracing system
+00:07:51.240 if you have a request which is going
+00:07:53.220 through possibly hundreds of services
+00:07:54.960 then it's very difficult to trace that
+00:07:57.180 request to find out what happened at
+00:07:59.699 what point in time Dapper is probably
+00:08:01.919 the first step when it comes to root
+00:08:03.479 cause analysis for example you probably
+00:08:05.400 can't take all requests you want to do
+00:08:07.139 some sort of sampling of requests you
+00:08:09.060 don't want to log every line of the
+00:08:11.160 request you want some points which when
+00:08:13.620 reached trigger an event and say that
+00:08:15.539 okay this thing happened to this request
+00:08:17.460 okay especially at scale it doesn't make
+00:08:19.319 sense to log everything one interesting
+00:08:21.360 thing about Dapper is that whenever a
+00:08:23.520 system tries to integrate this service
+00:08:26.280 engineers at Depot check whether you are
+00:08:29.220 hitting it the right way because you
+00:08:30.840 shouldn't be impacting the rest of the
+00:08:32.039 services at Google so it's not just code
+00:08:33.779 reviews now it's actually inter-system
+00:08:35.880 code reviews number 11 chubby chubby is
+00:08:39.360 a system very similar to Apache
+00:08:41.159 zookeeper Google came up with this
+00:08:42.779 system for disputed locks and that's a
+00:08:45.600 fundamental component of any kind of
+00:08:47.640 transaction or any kind of leader
+00:08:49.860 election that you have internally it
+00:08:51.480 employs paxos
+00:08:52.920 paper doesn't talk about paxos anymore
+00:08:54.420 instead it focuses on the Practical as
+00:08:57.000 of implementing such a large scale
+00:08:59.220 distributed Locking System for example
+00:09:00.779 what do you do you probably use a file
+00:09:02.880 system to manage the logs you need some
+00:09:04.860 sort of notifications to be sent
+00:09:06.060 whenever a lock is held or released if
+00:09:08.880 you want a high level understanding of
+00:09:10.200 paxos interview ready has a lesson on
+00:09:12.240 that 10. mega store mega store is a data
+00:09:15.720 store at Google which provides
+00:09:17.519 relational database semantics so Google
+00:09:20.640 usually goes for nosql but Megastore is
+00:09:24.180 a highly scalable highly reliable system
+00:09:26.700 which gives you asset transactions and
+00:09:28.740 also an rdbms like feel it's interesting
+00:09:31.080 to look at what kind of trade-offs they
+00:09:32.940 have made here again and also how
+00:09:34.680 they've tested the system how they make
+00:09:36.540 sure that what they have built actually
+00:09:38.279 works in such a large environment what I
+00:09:40.980 found interesting was that internally
+00:09:42.600 Megastore uses big table which is a
+00:09:45.000 nosql data store how do you map rdbms to
+00:09:48.180 a nosql data store makes you feel like
+00:09:50.160 how databases actually work you have a
+00:09:53.220 very simple let's say Hardware system or
+00:09:55.800 a file system which is back all of your
+00:09:57.779 data even in the database so how do you
+00:09:59.940 build relational data on top of
+00:10:01.200 something which doesn't provide you that
+00:10:02.399 right how do you build indexes so
+00:10:03.899 Megastore is definitely worth it number
+00:10:05.820 nine big table big table is a
+00:10:08.580 fundamental database solution for Google
+00:10:10.800 it's a nosql data store it's actually
+00:10:13.800 something which Powers many of the
+00:10:15.300 systems in Google including I think the
+00:10:17.040 search engine you have multiple versions
+00:10:18.540 of the data that can be stored so if you
+00:10:20.220 have an older version of a page and then
+00:10:21.899 you have a newer version of the page you
+00:10:23.220 can have all of that in one data store
+00:10:25.260 called bigtable many of the principles
+00:10:26.820 of bigtable like hot shots and keeping
+00:10:29.459 multiple shards consistent is now
+00:10:31.560 considered common practice but when it
+00:10:33.660 was made it was a really big deal and of
+00:10:36.480 course the ideas are very intelligent
+00:10:37.980 it's a very practical database solution
+00:10:39.959 that Google came up with at a time when
+00:10:42.240 nosql was not a very common solution
+00:10:43.920 number eight map reduce the map reduce
+00:10:46.500 architecture is one of the most
+00:10:48.660 important core architecture pieces that
+00:10:51.839 any data engineer or software engineer
+00:10:53.760 can look at as the system scale you have
+00:10:56.519 very Services storing data and this data
+00:10:59.760 needs to be processed for analytics
+00:11:02.339 reasons recommendations sometimes just
+00:11:04.440 for storage archival how do you do this
+00:11:06.480 efficiently with commodity Hardware more
+00:11:09.060 than a decade ago when Google came up
+00:11:10.800 with a solution of mapreduce it was
+00:11:12.420 extremely normal and very intelligent in
+00:11:14.459 fact immediately open source Solutions
+00:11:16.560 started coming out using this kind of an
+00:11:18.600 architecture which is absolutely amazing
+00:11:20.160 if you have seen Apache spark or Apache
+00:11:22.500 Hadoop they end up using mapreduce or
+00:11:24.660 some variation of it internally it's a
+00:11:26.579 must tweet for engineers who should know
+00:11:28.140 about this architecture because some of
+00:11:29.760 the concepts are in fact now used also
+00:11:31.380 in programming languages Java has this
+00:11:33.300 concept of mapping filtering reducing
+00:11:35.100 and at interview ready we have explained
+00:11:37.079 this architecture in detail number eight
+00:11:39.300 Google file system this is probably the
+00:11:41.279 world's most popular technical white
+00:11:42.899 paper when it comes to software
+00:11:44.399 Engineers Google file system is a way in
+00:11:46.980 which Google stores data it doesn't
+00:11:49.320 necessarily need to be file data
+00:11:50.640 bigtable for example uses Google file
+00:11:52.500 system so it forms a basic layer on top
+00:11:55.260 of other high level system and for
+00:11:57.779 Google I'm sure it makes a lot of sense
+00:11:59.279 to build their own file system how do
+00:12:01.019 file system is something you might have
+00:12:02.160 heard of there are tremendous
+00:12:03.360 similarities when it comes to Hadoop and
+00:12:05.339 Google Google came out first and I think
+00:12:07.560 Hadoop has taken inspiration again which
+00:12:09.540 is totally again like I said fine you
+00:12:11.220 you need open source Alternatives and
+00:12:13.200 solutions for your own systems but the
+00:12:15.120 original paper is very well written uh
+00:12:16.980 it's very easily understandable and the
+00:12:19.140 trade-offs which are made to ensure that
+00:12:21.120 this file system is consistent and
+00:12:23.100 performant makes a lot of sense it's a
+00:12:25.019 must read for engineers number six Tau
+00:12:27.779 t-a-l or Tau from meta is a very
+00:12:31.260 interesting system which is basically an
+00:12:33.180 in-memory graph database for meta it
+00:12:35.459 makes a lot of sense to have an
+00:12:36.720 in-memory graph database because they
+00:12:38.459 have the social network that they want
+00:12:39.839 to pass to map this information you
+00:12:42.959 could use relational databases you could
+00:12:45.000 use nosql databases you can try to hack
+00:12:47.519 your way through through adjacency lists
+00:12:49.200 but none of them really work at scale so
+00:12:51.240 instead they have a dedicated in-memory
+00:12:53.279 graph database called Tau and some of
+00:12:55.320 the Practical considerations when it
+00:12:57.180 comes to keeping this data consistent
+00:12:59.160 and highly available are absolutely
+00:13:01.320 amazing tau is I think an engineering
+00:13:03.420 Marvel like you should as an engineer
+00:13:05.040 definitely read up on it number five
+00:13:07.519 memcached memcached is an amazing
+00:13:11.040 Solution by Facebook the best part about
+00:13:13.079 this is the practicality of their
+00:13:15.180 decisions I think we touched on this
+00:13:17.399 earlier but there's a ton of of
+00:13:19.200 trade-offs and a ton of optimizations
+00:13:21.839 that Facebook has made on memcache
+00:13:23.760 should you use TCP or UDP well it
+00:13:25.800 depends on the situation should you go
+00:13:27.240 for sharding or application like we said
+00:13:29.339 it depends on the situation here they
+00:13:30.839 chose the application so there's a ton
+00:13:32.579 of trade-offs a ton of practical
+00:13:33.959 applications that memcache at Facebook
+00:13:36.720 has and the white paper is definitely
+00:13:38.700 worth the review it's probably the top
+00:13:40.200 five papers that you can look at number
+00:13:42.899 four Monarch Google Monarch is a Time
+00:13:45.300 series database the reason why I'm
+00:13:47.339 mentioning this so high up is because
+00:13:49.320 Monarch is again a very practical
+00:13:51.540 database
+00:13:52.620 something that Google uses at scale with
+00:13:56.160 very high reliability to monitor their
+00:13:58.320 systems Monarch is expected to run even
+00:14:01.139 if all the other systems have gone down
+00:14:03.600 including their database if the database
+00:14:05.579 is down Monarch is supposed to say hey
+00:14:06.959 the database has gone down now how do
+00:14:08.399 you do that right because to some extent
+00:14:10.380 you are going to be tracking your
+00:14:11.940 patterns and anomalies through database
+00:14:13.980 graphs so you have to keep everything in
+00:14:16.200 memory and as a Time series database at
+00:14:18.480 Google scale that's a ton of memory
+00:14:20.399 that's in petabytes the byte paper is
+00:14:22.740 absolutely amazing it's definitely worth
+00:14:24.420 the read number three gorilla DB gorilla
+00:14:27.540 DB is not a database it's an in-memory
+00:14:29.880 database you can call it a cache and
+00:14:31.920 it's a Time series database Facebook
+00:14:34.019 again does something similar to in fact
+00:14:36.300 you'll see them come up with the same
+00:14:38.040 logical conclusions both companies
+00:14:40.500 Google and Facebook created their own
+00:14:42.660 time series database Monarch and gorilla
+00:14:44.639 and then eventually they say that we are
+00:14:46.560 going to be doing something different so
+00:14:47.760 Facebook says the recently timed events
+00:14:50.940 are the most important ones and Google
+00:14:52.560 says I'm not going to make that
+00:14:54.240 assumption and because of that they have
+00:14:55.740 trade-offs they make architectural
+00:14:57.300 decisions which are different right but
+00:14:58.860 Facebook for me I I find them really
+00:15:00.959 interesting in the sense that they they
+00:15:02.399 choose performance very often they
+00:15:03.600 choose practicality very often for a
+00:15:05.220 startup it makes more sense or they
+00:15:07.920 resonate more with me so their white
+00:15:09.360 paper was a personal preference I think
+00:15:11.040 Monarch is of course engineering by is
+00:15:13.440 more of a marble I would say but yeah
+00:15:14.880 gorilla is definitely both leading
+00:15:16.560 behind the scenes it uses open tsdp so
+00:15:18.540 it kind of cheats on the persistence
+00:15:20.040 side and it's in the top three papers
+00:15:21.779 that I would go for number two Amazon
+00:15:23.699 dynamodb this is a very popular database
+00:15:26.339 Solution by Amazon in fact I think it
+00:15:28.620 propelled their engineering Fields
+00:15:30.779 complex algorithms like resource level
+00:15:32.519 algorithms so when it comes to Mercury
+00:15:33.899 to make sure that data is moved from one
+00:15:35.940 place to another consistent hashing and
+00:15:38.399 all of this actually implemented
+00:15:39.540 dynamodb has extremely high levels of
+00:15:42.000 availability it's very performant its
+00:15:44.699 consistency is also pretty amazing and
+00:15:46.560 it's a solution that is offered by AWS
+00:15:48.000 to everybody in the world it's one of
+00:15:49.560 the most impactful papers in the world
+00:15:50.820 so it's worth looking into number one
+00:15:52.500 what Zanzibar this is a system by Google
+00:15:55.500 it's been open source now the reason I'm
+00:15:57.600 mentioning Zanzibar on top as the best
+00:16:00.060 paper probably that you can read there
+00:16:01.920 are so many practical optimizations made
+00:16:04.680 by Google to make sure that their
+00:16:06.839 authentication system runs efficiently
+00:16:09.240 the algorithm for authentication you
+00:16:11.220 know the the data schema or the apis is
+00:16:13.680 just hardly one page that's the idea
+00:16:15.660 that this concept then comes
+00:16:16.920 optimization or optimization or
+00:16:18.420 optimization and I'm like really
+00:16:20.220 impressed by Google that they made this
+00:16:21.600 open source that you can actually use
+00:16:23.160 this 90 you probably either won't need
+00:16:26.459 it or you can just go to gcp which
+00:16:28.800 probably uses it internally you don't
+00:16:30.240 really need to build it but the aspects
+00:16:32.639 around rate limiting the aspects around
+00:16:34.380 fault tolerance when it comes to
+00:16:36.240 Zanzibar are absolutely mind-blowing
+00:16:39.060 some of these Concepts I had explained
+00:16:41.279 at interview ready in the rate limiting
+00:16:42.899 chapter the first one and then I got to
+00:16:44.579 see that Zanzibar is implementing them
+00:16:46.259 in reality and at scale right so it's
+00:16:49.019 interesting to see how Theory meets
+00:16:51.600 practicality but but when you are at
+00:16:53.940 let's say a billion users making
+00:16:55.500 billions of requests per day it's
+00:16:57.660 definitely worth the read for every
+00:16:59.160 engineer do check it out so that's all I
+00:17:01.259 have for the white papers that you
+00:17:02.459 should read as a software engineer the
+00:17:04.260 papers are neatly organized and put in
+00:17:06.299 one blog post the link is in the
+00:17:07.799 description do check it out let me know
+00:17:09.480 what white papers you like with a short
+00:17:11.819 description of why you like it maybe you
+00:17:14.280 know it talks about trade-offs
+00:17:15.359 practicality the scale the ease of
+00:17:17.520 understanding the paper and if you found
+00:17:19.260 something particularly interesting we
+00:17:20.760 can actually have a discussion on them
+00:17:21.780 in the comments below until next time
+00:17:23.280 I'll see you bye

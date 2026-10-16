@@ -1,0 +1,481 @@
+# 2.1.1 Recurrence Relation (T(n)= T(n-1) + 1) #1
+
+# https://www.youtube.com/watch/4V30R3I1vLI
+
+
+
+00:00:00.030 hi in this video we'll learn how to
+
+00:00:03.870 trace the recursive function and how to
+
+00:00:07.440 write a recurrence relation and how to
+
+00:00:10.260 solve a recurrence relation so I am
+
+00:00:12.450 taking one of the example then in the
+
+00:00:14.639 other videos you can find following
+
+00:00:16.619 examples more examples will come in
+
+00:00:18.690 other videos let us start already I have
+
+00:00:22.830 an algorithm our function here or C
+
+00:00:24.990 language function I have written you
+
+00:00:26.460 call it as algorithm also test is a
+
+00:00:29.670 function which is taking n as input and
+
+00:00:31.980 if n is greater than 0 it is printing
+
+00:00:34.710 the value and then it is calling itself
+
+00:00:37.380 for n minus 1 so I will take some sample
+
+00:00:40.770 value and test it suppose I am calling
+
+00:00:44.789 this function by passing 3 let us see
+
+00:00:48.780 what happens if I pass 3 test 3 3 is
+
+00:00:58.320 greater than 0 yes 3 is greater than 0
+
+00:01:01.590 print 3 so it will print 3 then call
+
+00:01:07.320 itself 4 3 minus 1 that is true so call
+
+00:01:10.500 test 2 then for 2 again it's a recursive
+
+00:01:19.020 call so for this call it will print 2
+
+00:01:22.680 and call itself for 1 1 is greater than
+
+00:01:28.799 0 so it's very gutsy call again for this
+
+00:01:32.100 one as it is greater than 0 it will
+
+00:01:34.170 print 1 and call itself for test 0 now
+
+00:01:42.420 when it is 0 0 is not greater than 0 so
+
+00:01:45.180 it will not call itself and it will stop
+
+00:01:49.579 doesn't go further so this is a tracing
+
+00:01:53.549 tree for this particular function or
+
+00:01:56.189 recursive function I have passed a 3 so
+
+00:02:01.829 what is the time taken by this one so
+
+00:02:04.590 let us see what it is doing and this
+
+00:02:06.960 call it is printing a value then calling
+
+00:02:10.530 again
+
+00:02:11.020 printing a value and calling again
+
+00:02:13.390 printing a value and calling again so
+
+00:02:16.720 the amount of work done is just printing
+
+00:02:20.140 value how many times it is printing this
+
+00:02:22.540 is the major work done by this function
+
+00:02:25.200 printing a value how many times it is
+
+00:02:28.270 doing three times it is doing as I have
+
+00:02:30.790 passed a three how many times it is
+
+00:02:33.610 calling itself as I have given three it
+
+00:02:36.160 is calling itself four four times now
+
+00:02:40.180 what is the time taken for printf it is
+
+00:02:43.090 just one unit of time just a single
+
+00:02:45.520 statement and simple statement it is
+
+00:02:47.710 taking one unit of time if I say one
+
+00:02:50.140 unit of time then in each call it is
+
+00:02:52.840 spending one unit of time that is
+
+00:02:54.520 printing and then calling so one unit of
+
+00:02:56.830 time one unit of time so total how much
+
+00:03:00.070 time it has taken three if I take number
+
+00:03:05.080 of calls then there are four that is
+
+00:03:07.720 three plus one it means if I pass five
+
+00:03:13.480 then it will be five plus one calls and
+
+00:03:16.330 five is the number of time it is will it
+
+00:03:19.870 will print so if I pass n that total how
+
+00:03:24.370 many calls it will make it will make n
+
+00:03:26.920 plus 1 calls n plus 1 cons and how many
+
+00:03:31.630 times printf is executed and dimes if I
+
+00:03:36.040 approximate the amount of work done
+
+00:03:38.430 depends on the number of calls if I say
+
+00:03:41.410 like in the last call it is not printing
+
+00:03:44.050 just ignore that and say that for every
+
+00:03:46.420 call it is printing so the time depends
+
+00:03:48.880 on what it depends on the number of
+
+00:03:50.530 calls so how many calls it will make for
+
+00:03:52.870 any n it will make n plus 1 calls
+
+00:03:55.870 so the time function if I write F of n
+
+00:03:59.010 then it is n plus 1 then what is the
+
+00:04:02.560 time complexity in notations its order
+
+00:04:05.830 of n I can use Big O of n theta of N or
+
+00:04:10.120 Omega often anything I can write there
+
+00:04:12.610 this we have already discussed in
+
+00:04:14.709 previous videos so that's it by a
+
+00:04:18.670 tracing tree I have found the
+
+00:04:22.420 complexity of this one you can also call
+
+00:04:26.110 it as a recursive tree or a tracing tree
+
+00:04:29.560 or a recursive tree I have used now let
+
+00:04:33.340 us find out how to prepare a recurrence
+
+00:04:35.710 relation for this function and how to
+
+00:04:37.690 solve that recurrence relation now if
+
+00:04:40.150 any function or an algorithm is given to
+
+00:04:42.640 you you can prepare a recurrence
+
+00:04:44.590 relation as follows like this I'm
+
+00:04:46.480 showing you assume that the time taken
+
+00:04:49.450 by this is f of n no usually for
+
+00:04:53.860 recurrence relation function name is a T
+
+00:04:57.160 that is T often su so I'll use the same
+
+00:04:59.800 thing so instead of F of n I'll call it
+
+00:05:02.740 as T of n time taken by this algorithm
+
+00:05:06.520 st and/or this function is T n then that
+
+00:05:10.120 TN will be equal to what the total
+
+00:05:12.010 amount of time taken by this one
+
+00:05:14.050 so let us observe what is happening
+
+00:05:15.970 inside condition is checked that a
+
+00:05:18.850 signal condition inside that printf is
+
+00:05:22.000 there one it will take one unit of time
+
+00:05:25.590 the next what is the next one it's a
+
+00:05:28.930 recursive call it's the same thing
+
+00:05:31.300 how much time we mentioned for this T
+
+00:05:33.580 and then what will be the time for this
+
+00:05:35.500 one T and minus one right now that's it
+
+00:05:46.570 so what is the total time TN I said that
+
+00:05:49.510 the total time taken by this part of an
+
+00:05:51.670 algorithm so that TN is equal to TN
+
+00:05:55.600 minus 1 plus 1 now you can ask me why
+
+00:06:06.040 you have ignored condition say if I
+
+00:06:09.850 consider that condition also for one
+
+00:06:13.000 time then it is just one condition so
+
+00:06:15.610 one time then I will get 2 here if I
+
+00:06:18.340 take 2 also then the result of this
+
+00:06:21.040 result of this expression will be same
+
+00:06:23.170 only for the recurrence relation I will
+
+00:06:25.030 get the same answer so if you have any
+
+00:06:26.920 constant value you can simply make it as
+
+00:06:28.930 1 and
+
+00:06:29.700 or if you can write it as see also and
+
+00:06:33.360 use it constant or some a as a constant
+
+00:06:35.880 some constant also you can write and use
+
+00:06:37.500 it so I prefer taking it as one so if
+
+00:06:41.370 you have more than one then you can
+
+00:06:43.470 round it up to one only all right this
+
+00:06:48.420 is the way we write a recurrence
+
+00:06:49.830 relation now let us write a recurrence
+
+00:06:54.480 relation T n is equals 2t n minus 1 plus
+
+00:07:03.630 1 this one when when n is greater than 0
+
+00:07:07.560 yes when n is greater than 0 this is the
+
+00:07:09.960 time
+
+00:07:10.910 what happens if n is equals to 0 it's
+
+00:07:14.550 not doing anything if n is equals to 0
+
+00:07:16.650 so if n is equals to 0 it is not doing
+
+00:07:19.260 anything shall I write 0 here no the
+
+00:07:22.440 time we don't write it 0 if it is 0 also
+
+00:07:25.470 it is a constant so we write it as 1 so
+
+00:07:28.020 I will take it as 1 or else you can make
+
+00:07:30.570 it as C or a or K anything some constant
+
+00:07:34.080 you can write there now let us solve
+
+00:07:37.440 this recurrence relation now let us
+
+00:07:40.500 solve this recurrence relation by a
+
+00:07:42.360 substitution method back substitution we
+
+00:07:44.790 will follow let us take this this is T
+
+00:07:48.810 and is equals to T n minus 1 plus 1 we
+
+00:07:54.510 will solve this one that is already
+
+00:07:57.390 solved it is 1 we have to solve this one
+
+00:08:00.500 now for solving this I can know the
+
+00:08:04.410 answer for TN if I know what is TN minus
+
+00:08:07.500 1 so what is TN minus 1 what is this if
+
+00:08:15.180 I know I will use it here so I don't
+
+00:08:19.140 know TN minus 1 but I know what is the
+
+00:08:21.510 TN TN is equals to T n minus 1 plus 1
+
+00:08:26.490 yes this is the 1 then what will be TN
+
+00:08:29.610 minus 1 so if this is n by N and
+
+00:08:33.110 change to n minus 1 so this also n minus
+
+00:08:35.269 1 so this becomes n minus 1 minus 1 and
+
+00:08:38.049 minus 2 plus 1 okay since this is T n
+
+00:08:43.130 therefore TN minus 1 is this one now
+
+00:08:51.970 substitute TN minus 1 in this equation
+
+00:08:55.990 so T n is equals to n bracket I'll write
+
+00:09:01.310 this TN minus 1 so what I got T n minus
+
+00:09:04.700 2 plus 1 and plus 1 so this part I have
+
+00:09:10.070 substituted here at this place so I got
+
+00:09:14.089 this funny that this is T n is equals to
+
+00:09:19.579 T n minus 2 plus 2 1 plus 1 2 if I
+
+00:09:29.120 substitute again
+
+00:09:30.589 then T n is equals to what will be T n
+
+00:09:34.790 minus 2 T n minus 3 plus 1 see this T n
+
+00:09:41.180 minus 2 will be equal to e and minus 3
+
+00:09:45.110 plus 1 yes I have substituted this
+
+00:09:48.740 portion here right at this place so I
+
+00:09:53.720 have written this then plus 2 is as it
+
+00:09:55.519 is now if I solve this one again then T
+
+00:09:58.459 n is equals to T n minus 3 plus 3 that's
+
+00:10:08.240 what I got so how many times I should do
+
+00:10:11.449 this see when I got two times that is
+
+00:10:14.990 sufficient you can continue further and
+
+00:10:17.149 I say that I am going to continue this
+
+00:10:19.610 how long for K times continue for K
+
+00:10:23.660 times
+
+00:10:31.530 if I continue 4k times what I get see if
+
+00:10:35.440 you observe when I did for one time it
+
+00:10:37.900 was - next time it was three then it
+
+00:10:40.510 goes on so it will be K so this will be
+
+00:10:44.080 T n is equals to T n minus k plus K so
+
+00:10:52.840 this is the important one for me now
+
+00:10:57.120 I'll continue here what is the equation
+
+00:11:00.160 I got T M is equals to T and minus k
+
+00:11:07.180 plus key see it was T n minus 1 plus 1
+
+00:11:13.890 substituted I got TN minus 2 plus 2
+
+00:11:17.010 substituted I got TN minus 3 plus 3
+
+00:11:20.070 continued up to K so D and minus k plus
+
+00:11:23.380 K this one so I said that I will stop at
+
+00:11:28.120 K came in some some steps after some
+
+00:11:31.000 steps I will stop after K steps k
+
+00:11:33.760 substitutions I will stop now what is
+
+00:11:39.220 the smaller value I know I know n is
+
+00:11:42.760 equals to 0 if n is equals to 0 I know
+
+00:11:45.850 but it's 1 answer is 1 so here and the
+
+00:11:49.990 minus 1 was there so minus 2 then 3 then
+
+00:11:52.600 4 if you go on subtracting like this at
+
+00:11:54.940 one point it should become 0 so the my
+
+00:11:57.400 purpose was to substitute on substitute
+
+00:12:00.130 and we still n equal to 0 so I assume
+
+00:12:03.880 that I have reached at 0 so I assumed
+
+00:12:07.750 this and minus K is 0 not even this
+
+00:12:14.770 means I have reached till there when I
+
+00:12:16.900 say anything minus K is equals to 0
+
+00:12:19.210 therefore n is equals to K then what
+
+00:12:23.830 this will be this will be T n is equals
+
+00:12:27.490 to e and minus n plus n then TN is
+
+00:12:34.060 equals to what is this
+
+00:12:36.520 t 0 plus n so this is what is it easy to
+
+00:12:41.580 easy to be already know and it is 1 plus
+
+00:12:45.130 n that's it
+
+00:12:48.040 it is solved what the answer I got you
+
+00:12:51.220 see 1 plus n is the time so just now I
+
+00:12:54.730 have shown you how we can prepare a
+
+00:12:57.220 recursive tree and find the time for
+
+00:12:59.649 that algorithm I actually made a tracing
+
+00:13:01.690 as well as along with that recursive
+
+00:13:03.850 tree so there also a garden bliss phone
+
+00:13:06.130 calls here also I am getting the answer
+
+00:13:08.529 as in plus 1 so I have prepared a
+
+00:13:11.260 recurrence relation solve that
+
+00:13:12.940 recurrence relation and I got this
+
+00:13:14.740 answer and this is again order of n see
+
+00:13:19.330 actually this belongs to a class linear
+
+00:13:22.240 class order of n that is n so I can call
+
+00:13:25.300 it as theta of n that's it this is the
+
+00:13:30.339 first week of installation so I will
+
+00:13:32.050 show you more and more recurrence
+
+00:13:33.430 relation so I'll take the program I will
+
+00:13:35.770 prepare the recurrence relation and I
+
+00:13:37.839 will solve it so continue watching rest
+
+00:13:41.230 of the videos

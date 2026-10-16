@@ -1,0 +1,615 @@
+# 3.1 Knapsack Problem - Greedy Method
+
+# https://www.youtube.com/watch/oTTzNMHM05I
+
+
+
+00:00:00.030 hi a knapsack problem there's a van loan
+
+00:00:05.069 problem first of all we will know about
+
+00:00:07.350 the problem then we will see how it can
+
+00:00:09.360 be solved and then it'll also understand
+
+00:00:11.309 how grading method is applicable here
+
+00:00:14.130 and it is following reading method let
+
+00:00:16.740 us understand this problem see here some
+
+00:00:20.609 objects are given one two seven objects
+
+00:00:23.279 are given every object is having some
+
+00:00:27.359 profit associated with it and every
+
+00:00:30.929 object is having some weight so objects
+
+00:00:35.430 are there every object is having some
+
+00:00:36.960 profit and every object is having weight
+
+00:00:39.030 okay wait we understand what is this
+
+00:00:41.100 profit see there is a bag a given here
+
+00:00:44.820 that bag is called as knapsack the bag
+
+00:00:47.670 capacity is 15 these are seven objects
+
+00:00:50.340 bag capacity is 15 there is a path whose
+
+00:00:57.000 capacity is 15 let us say kg okay it can
+
+00:01:02.039 be cage is also pawn also it can be
+
+00:01:05.459 anything so I am assuming it as kg now
+
+00:01:09.720 what we have to do is we have to fill
+
+00:01:12.090 this bag with these objects and we will
+
+00:01:17.939 carry this back to a different place and
+
+00:01:20.520 we will celebrate these objects we get
+
+00:01:23.520 that profit so that profit is the gain
+
+00:01:26.700 that you get by transferring these
+
+00:01:28.950 objects to some location so for
+
+00:01:31.650 transferring you have to carry them in
+
+00:01:33.450 this container or bag so I can also call
+
+00:01:37.770 this knapsack as container this is a bag
+
+00:01:40.680 or knapsack I can also call it as
+
+00:01:42.659 container so the problem is a container
+
+00:01:45.119 loading problem so we find this type of
+
+00:01:48.869 problems in daily life lot of goods are
+
+00:01:51.570 transported daily from one place to
+
+00:01:53.939 another place now the problem is about
+
+00:01:56.210 filling of that container with the
+
+00:01:59.460 objects when it becomes a problem if you
+
+00:02:03.119 have the objects whose total weight is
+
+00:02:06.090 more than the capacity of the container
+
+00:02:08.949 back if you have less all can fit in
+
+00:02:12.430 than no problem at all if you have the
+
+00:02:15.010 objects more in number the way it is
+
+00:02:17.380 greater than the capacity for that then
+
+00:02:20.890 it is a problem so already we have some
+
+00:02:23.950 objects here so I have to fill this back
+
+00:02:26.110 these objects such that the profit is
+
+00:02:29.550 maximized profit is maximized so this is
+
+00:02:35.019 a optimization problem and it is a
+
+00:02:37.660 maximization problem maximization
+
+00:02:40.900 problem can we follow greedy method yes
+
+00:02:43.600 we can follow grading method an
+
+00:02:45.190 optimization problem if it is suitable
+
+00:02:47.819 next thing what is the constraint here
+
+00:02:52.530 the total objects included here in the
+
+00:02:55.900 bag the total weight should be less than
+
+00:02:57.970 or equal to 15 kg this is a constraint
+
+00:03:01.170 so I can give various solution I can say
+
+00:03:04.780 that just put only one object and take
+
+00:03:06.670 it it's not maximum I will say all on
+
+00:03:09.880 cannot fit in it's not feasible so it
+
+00:03:12.190 cannot be optimal so there can be many
+
+00:03:14.799 solutions you can say take this that and
+
+00:03:17.019 all and fill this one but we want
+
+00:03:19.420 maximum result that's it for a problem
+
+00:03:22.690 there can be many solutions but those
+
+00:03:24.790 solutions which are giving the solution
+
+00:03:26.500 which is giving maximum result is an
+
+00:03:29.200 optimal solution let us see how to solve
+
+00:03:31.660 this one see what I am going to do is
+
+00:03:33.820 for these objects I am going to include
+
+00:03:36.250 them so I will write down whether the
+
+00:03:38.350 object is going to be included or not
+
+00:03:40.510 included or how much it is included I
+
+00:03:43.299 will write down here X values so here I
+
+00:03:45.940 will be writing X 1 or X 2 or X 3 right
+
+00:03:49.239 X values I will be writing so this x
+
+00:03:51.940 value can be either 0 to 1 this X can be
+
+00:03:57.370 from 0 to 1 so it means I can also take
+
+00:04:02.620 fractions yes
+
+00:04:04.870 so now listen one thing very carefully
+
+00:04:07.170 this knapsack problem is for those
+
+00:04:10.139 objects which are divisible I have
+
+00:04:14.319 something of 5kg means I need not take
+
+00:04:17.798 all five kage
+
+00:04:18.950 I can just take 2 kg also 1 kg also so
+
+00:04:24.080 these objects can be divided so what
+
+00:04:27.380 type of objects if I take an example
+
+00:04:29.150 these may be vegetables 7 kg of potatoes
+
+00:04:32.720 fight edges of tomatoes something so
+
+00:04:35.720 instead of taking 5 kg I can take 2 kg
+
+00:04:38.180 also it can be divided yes so this is
+
+00:04:42.620 not about those objects which are
+
+00:04:44.030 indivisible let us say 5 kg grinder
+
+00:04:48.860 mixer 7 kg washing machine
+
+00:04:51.980 it cannot be divided it cannot take half
+
+00:04:54.380 of that washing machine so I have to
+
+00:04:56.150 take the full one so here I can take the
+
+00:04:59.210 fraction of an object also so that's how
+
+00:05:02.180 whatever I am including that can be a
+
+00:05:05.030 fraction starting from 0 to 1 now let us
+
+00:05:08.360 see how to include these objects in the
+
+00:05:11.180 back what should be my criteria method
+
+00:05:14.170 for including them in the bath you may
+
+00:05:18.740 be saying that this is giving highest
+
+00:05:21.080 profit take that one first yes that is
+
+00:05:25.190 giving highest profit take that one
+
+00:05:26.690 first but I can say that first fill the
+
+00:05:32.930 back with smaller things so that I can
+
+00:05:35.720 get more and more things in the bag
+
+00:05:38.030 and I can make more profit more things
+
+00:05:40.970 you carry more will be the profit so I
+
+00:05:43.520 prefer take this objects first with 1 1
+
+00:05:47.360 kg weight or smaller weights so your
+
+00:05:50.930 idea is also good take the maximum
+
+00:05:53.510 profit 1 and my idea is also good take
+
+00:05:56.480 the smaller weights 1 so that I can have
+
+00:05:58.820 more objects but what is the right
+
+00:06:01.160 method I should select the objects which
+
+00:06:04.670 is having highest profit by weight is 18
+
+00:06:08.150 is the profit so I say that 18 bucks is
+
+00:06:11.390 the profit then that profit is 4 for kg
+
+00:06:15.460 it's not for 1 kg for 4 kg so per kg how
+
+00:06:19.520 much so that's it we should select the
+
+00:06:22.370 objects who are having highest profit by
+
+00:06:25.460 weight but a kg whoever is highest that
+
+00:06:28.430 I should take so I should calculate
+
+00:06:30.590 one so I will calculate profit by weight
+
+00:06:33.380 for all these objects so this is 5 and
+
+00:06:37.310 this is 1.3 and this will be 3 this is 1
+
+00:06:43.310 and this is 6 and 18 by 4 is 4.5 and
+
+00:06:48.230 this is 3 now I have these profits and
+
+00:06:53.180 weights of all those objects yes
+
+00:06:58.820 this is the right selection procedure
+
+00:07:02.120 for the object so the object should be
+
+00:07:04.520 selected based on their profit by weight
+
+00:07:07.340 so the one who is having higher highest
+
+00:07:09.470 profit by weight that I should fit put
+
+00:07:11.600 it in the back first all right now this
+
+00:07:16.670 is the greedy net heard let us see what
+
+00:07:19.040 the grading method is doing I was
+
+00:07:20.990 explaining it a problem so far then I
+
+00:07:23.240 said on what basis I should select this
+
+00:07:24.980 now he decided that we will select
+
+00:07:27.050 object based on their profit by weight
+
+00:07:29.210 this is our procedure now greedy method
+
+00:07:32.120 says that first you decide how you are
+
+00:07:33.740 going to select the input then go on
+
+00:07:35.960 selecting the input 1 megohm so we
+
+00:07:38.210 already selected the method we are going
+
+00:07:40.340 to select them by profit by weight now
+
+00:07:42.560 we will be going on including them one
+
+00:07:44.510 by one so which object I should include
+
+00:07:46.430 first in the bag the highest profit by
+
+00:07:48.830 me that is 5th object so I will include
+
+00:07:50.930 this whole thing so now this is this is
+
+00:07:54.470 15 kg right so 15 - how many kg this
+
+00:07:57.770 profit this object is 1 so no remaining
+
+00:08:01.970 14 kgs I have so I have included that
+
+00:08:04.700 sixth of fifth object in the back and I
+
+00:08:07.970 got the full profit - 6
+
+00:08:09.680 now who is next this one I will select
+
+00:08:12.680 this one also this whole all 2 cases I
+
+00:08:15.170 will take so this is 14 minus 2 kgs now
+
+00:08:18.320 I have 12 kgs remaining in the back now
+
+00:08:22.910 which is the next object so I deserve
+
+00:08:24.680 the highest then this is the next
+
+00:08:26.000 highest this is the third is I will
+
+00:08:27.620 select this object also completely full
+
+00:08:29.840 so full runs all four cases I will
+
+00:08:32.030 include this is fate four cases have an
+
+00:08:34.309 include so this is - 1 - 4 is 8 kg 8 kg
+
+00:08:40.760 having
+
+00:08:41.440 right so 8 kg 8 kgs are remaining now
+
+00:08:46.509 this is the next one so I have three
+
+00:08:48.220 three these are two I can pick up any
+
+00:08:50.529 one so I will select this object so this
+
+00:08:53.379 is how many kgs now this is five cases
+
+00:08:55.750 don't look at the weight don't look at
+
+00:08:57.610 the weight I am selecting this one this
+
+00:08:59.470 is giving profit by weight so this is
+
+00:09:02.410 five kg and I will be getting 15 profit
+
+00:09:04.870 so the profit is same only for both of
+
+00:09:06.699 them it is same so I will select this so
+
+00:09:09.279 how many cases are gone 5 kg so 8 minus
+
+00:09:11.290 5 I am left with just 3 kgs in the back
+
+00:09:14.920 now next is which one this one so I will
+
+00:09:18.250 take this whole thing so how many kg 1
+
+00:09:20.470 kg so 3 kgs are there minus 1 now I'm
+
+00:09:22.990 left with 2 kg now that's the next one
+
+00:09:25.629 giving the profit so this one this one
+
+00:09:29.019 so I will include this but this is how
+
+00:09:32.019 many kg 3 kg how much I have there I
+
+00:09:35.740 have only 2 kgs remaining so can I
+
+00:09:39.490 include all these 3 cases there no I
+
+00:09:42.250 will be including only 2 kg there so
+
+00:09:45.100 this is 2 minus 2 0 it will become but
+
+00:09:48.579 from this one I am NOT taking the full
+
+00:09:50.380 object I am just taking 2 kg or 2 3 so
+
+00:09:53.350 this is 2 by 3 2 by 3 so I am taking the
+
+00:09:58.540 fraction of this object you said already
+
+00:10:01.029 I told you that these objects are
+
+00:10:02.740 divisible so I am taking 2 kgs out of
+
+00:10:04.899 that and what about this this is not
+
+00:10:07.420 included so I have a solution for this
+
+00:10:09.910 problem and this is the solution this
+
+00:10:11.680 shows how I am going to include objects
+
+00:10:14.110 which objects I should include so that I
+
+00:10:16.180 get the maximum profit now I have to
+
+00:10:18.519 calculate the profit and find out how
+
+00:10:20.829 much it is I have just written here the
+
+00:10:23.199 values from 0 to 1 now I will see total
+
+00:10:26.860 how much profit I get and I will also
+
+00:10:28.899 verify the weight that I am getting 15
+
+00:10:31.750 kg only or not error right these values
+
+00:10:35.019 one with weight 1 into 2 plus 2 by 3
+
+00:10:40.860 into this weight 3 plus 1 into 5 plus 0
+
+00:10:47.910 into 7 plus 1 into 1
+
+00:10:54.839 plus 1 into 4 kg plus 1 into 1 kg if I
+
+00:11:04.720 take this this is 2 plus this is 2 plus
+
+00:11:12.160 5 plus 0 plus 1 plus 4 plus 1 so this is
+
+00:11:18.490 9 10 14 plus 1 15
+
+00:11:21.970 so yes the total weight is 15 only see
+
+00:11:25.510 these X so these are the X values this
+
+00:11:27.550 is either from 0 to 1 so that I am
+
+00:11:29.709 multiplying it abates so what is this
+
+00:11:31.750 sum of the X I in two-way time and that
+
+00:11:36.370 is less than equal to 15 so I have found
+
+00:11:38.920 out the total weight I was just
+
+00:11:40.389 subtracting now I'm just verifying it
+
+00:11:42.490 now let me know the profit so for profit
+
+00:11:45.370 also what I will do is 1 into 10 1 into
+
+00:11:50.320 10 plus 2 by 3 into 5 2 by 3 into 5 plus
+
+00:11:57.070 1 into 15 plus 0 into 7 I will avoid
+
+00:12:04.899 writing it then 1 into 6 1 into 6 plus 1
+
+00:12:10.660 into 18 1 into 18 plus 1 into 3 1 into 3
+
+00:12:18.630 this is the profit so there's nothing
+
+00:12:20.769 but summation of X I into P I every x
+
+00:12:25.660 value is multiplied with profit so this
+
+00:12:27.819 is showing how much quantity I am taking
+
+00:12:29.529 X now what is this totally equal to this
+
+00:12:32.769 is 10 plus is 2 into 1 point 3 plus 15
+
+00:12:38.230 plus 6 plus 18 plus 3 so this is 54
+
+00:12:44.740 point 6 so that's it our total profit is
+
+00:12:49.870 fifty four point six and that total
+
+00:12:52.269 weight is 15 once again I will show you
+
+00:12:56.079 something here see these objects are
+
+00:12:58.269 given then what is the constraint given
+
+00:13:00.819 in the problem
+
+00:13:01.570 the constraint is what some wealthy
+
+00:13:07.149 weights of the objects included in the
+
+00:13:10.420 back should be less than equal to
+
+00:13:12.009 capacity of the back yes we have done it
+
+00:13:15.850 see total weight should be less than
+
+00:13:18.160 equal to 15 and this is satisfied this
+
+00:13:20.860 is the constraint given in the problem
+
+00:13:22.240 so we have taken that solution which is
+
+00:13:24.699 satisfying the constraint yes the
+
+00:13:26.139 solution is satisfying so this is
+
+00:13:27.910 feasible and objective is what
+
+00:13:33.660 Objectivists sum of the weights profits
+
+00:13:39.220 of the objects that are included should
+
+00:13:42.040 be maximum this is the objective of a
+
+00:13:46.690 problem and we have achieved both now
+
+00:13:50.259 quickly I will explain you how we have
+
+00:13:52.089 followed the greedy method once again I
+
+00:13:53.889 am explaining you see the objects are
+
+00:13:55.899 given and the PAC is given we have to
+
+00:13:58.000 include these objects in the back such
+
+00:13:59.920 that the profit is maximum but the total
+
+00:14:02.290 weight should not exceed that one so we
+
+00:14:04.810 have to select some objects such that we
+
+00:14:06.790 guarantee that we are getting maximum
+
+00:14:08.829 profit so we have decided the criteria
+
+00:14:12.130 of selection have we tried this object
+
+00:14:15.130 No without trying how you can say that
+
+00:14:17.980 that is the best one because the method
+
+00:14:20.380 we followed is best one the method we
+
+00:14:23.560 followed is best one that we selected
+
+00:14:25.660 those objects whose profit by weight is
+
+00:14:27.850 higher and definitely whose whoever para
+
+00:14:30.639 kg values greater that will give you the
+
+00:14:33.100 maximum profit so that's all about
+
+00:14:36.060 knapsack problem there is one more
+
+00:14:38.829 problem called zero-one knapsack problem
+
+00:14:41.350 that is different from this one how it
+
+00:14:43.870 is different here fraction of an object
+
+00:14:46.689 is allowed but they indivisible objects
+
+00:14:50.199 fractions are not allowed so this is
+
+00:14:53.079 container loading with vegetables or
+
+00:14:55.569 fruits like this which are divisible
+
+00:14:58.120 things anything that is divisible and 0
+
+00:15:01.600 on knapsack problem will be contained
+
+00:15:03.399 and loading but indivisible thing either
+
+00:15:06.069 you include that whole thing or it don't
+
+00:15:08.350 include at all
+
+00:15:09.189 so you cannot take
+
+00:15:10.100 part of it so that's all so I'll be
+
+00:15:13.490 making videos for all the topics that
+
+00:15:16.370 are there in greedy and then I will move
+
+00:15:18.649 on to dynamic programming and so on so I
+
+00:15:22.009 will be covering the entire syllabus
+
+00:15:23.569 what all the topics are there in the
+
+00:15:25.610 syllabus okay thank you for watching

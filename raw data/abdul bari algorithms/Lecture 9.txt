@@ -1,0 +1,113 @@
+# 1.6 Classes of functions
+
+# https://www.youtube.com/watch/w7t4_JUUTeg
+
+
+
+00:00:00.000 now next let us look at the types of
+
+00:00:02.370 pipe functions that we have called the
+
+00:00:04.560 time complexities that we have obtained
+
+00:00:06.330 so far we have got the type of insidious
+
+00:00:09.090 order of 1 so this we call it as
+
+00:00:12.080 constant if the time complexity of any
+
+00:00:17.640 function that veneers Cortana's 2 then
+
+00:00:21.060 this constant if it is 5 then also its
+
+00:00:25.740 constant if it is 5000 then also it is
+
+00:00:30.990 constant so actually that doesn't mean
+
+00:00:33.719 the value that is showing that the value
+
+00:00:36.390 is constant a type it's not dependent on
+
+00:00:39.180 size of the input it's not order of n
+
+00:00:42.050 any of the cytokine process not depended
+
+00:00:45.059 on n then the mix when we got was log n
+
+00:00:49.789 log n base to base 3 whatever the base
+
+00:00:53.010 of long maybe this is logarithmic the
+
+00:01:01.170 time complexity is long term it then
+
+00:01:04.159 order of n V God so this is linear
+
+00:01:09.380 now same way if you have the function f
+
+00:01:12.390 of n is equal to 2 n plus 3 then it is
+
+00:01:16.229 order of n even if you have a for n is
+
+00:01:19.950 equal to 500 and plus 700 then also a
+
+00:01:24.930 squatter of n if you have F of n equal
+
+00:01:28.170 to and by 5000 plus 6 then of your sort
+
+00:01:33.960 of n see we are trying to say that their
+
+00:01:38.460 degree these are all polynomials that
+
+00:01:40.409 degree of a polynomial is a button that
+
+00:01:42.869 is unpowered fun so we write n now we
+
+00:01:46.890 don't write the degree we write the term
+
+00:01:48.270 itself is part of n now or sometime
+
+00:01:52.290 algorithms we go to time complexity ask
+
+00:01:54.780 and square so this is quadratic
+
+00:02:01.130 and for Sunland Gorgons regarded as and
+
+00:02:04.189 Q matrix multiplication cubed and this
+
+00:02:09.258 was matrix addition
+
+00:02:10.818 then for summer Gurgaon swimming at the
+
+00:02:13.310 time as to war and also so this will be
+
+00:02:20.230 exponential we haven't seen these thick
+
+00:02:23.360 film gardens but we may come across
+
+00:02:25.250 later on in coming videos this is
+
+00:02:28.780 exponential it may be 2 for length or it
+
+00:02:31.970 may be 3 pod and or it may be and the
+
+00:02:35.480 power n it may be ^ anything so to power
+
+00:02:41.510 3 power n so I always have classes of
+
+00:02:47.890 functions are the types of time
+
+00:02:51.800 functions are also classes of functions
+
+00:02:54.410 of categories whatever you want you can
+
+00:02:56.720 name this alright so this is the
+
+00:02:59.660 different type of function so we have
+
+00:03:01.220 good class air that is lenient class or
+
+00:03:03.860 logarithmic class or quadratic class or
+
+00:03:07.190 a cubic class so we have two classes
+
+00:03:08.870 ever

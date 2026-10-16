@@ -1,0 +1,345 @@
+# 2.3.3 Recurrence Relation [ T(n)= 2T(n/2) +n]  #3
+
+# https://www.youtube.com/watch/1K9ebQJosvo
+
+
+
+00:00:00.030 I have written a little God let us find
+
+00:00:02.909 out recurrence relation for this one and
+
+00:00:05.190 we will solve the current relation this
+
+00:00:10.769 is TN and inside this there is a loop so
+
+00:00:17.970 the statement inside this loop takes n
+
+00:00:20.010 time test N and n by 2 so test is TN so
+
+00:00:26.640 this is T n by 2 and this is also T and
+
+00:00:31.949 by do what is the recurrence relation
+
+00:00:37.770 that TN is equals to sum of all these so
+
+00:00:41.360 TN is equals to 2 times a TN by 2 it is
+
+00:00:46.230 calling itself two times algorithm is
+
+00:00:48.239 calling itself two times 2t and by 2
+
+00:00:51.980 plus this n now if I write recurrence
+
+00:00:59.820 relation T n is equals to 2 TN by 2 plus
+
+00:01:06.840 n when n is greater than 1 when n is
+
+00:01:12.210 equals to 1 it is some constant or just
+
+00:01:15.509 take one see here if you observe I have
+
+00:01:21.390 taken n greater than 1 because this is a
+
+00:01:23.729 dividing function so the smallest value
+
+00:01:26.340 of the division is 1 we get 1 so that is
+
+00:01:29.520 the reason I am taking it as 1 in the
+
+00:01:32.159 decreasing functions we were always
+
+00:01:34.110 taking it as 0 here also I can take 0
+
+00:01:37.350 but solving a recurrence relation will
+
+00:01:39.479 be difficult when we reach till 0 then
+
+00:01:43.439 everything may become 0 that's the
+
+00:01:45.090 reason we stopped at 1 that is the
+
+00:01:47.159 reason we are taking it as 1 if it is
+
+00:01:49.140 not 1 also if it is 0 also you can make
+
+00:01:51.840 it as 1 and prepare a recurrence
+
+00:01:53.430 relation and this can be solved if this
+
+00:01:56.130 is made as one and of n is 1 this
+
+00:02:01.560 recurrence relation is very important
+
+00:02:03.960 time complexity of some of the
+
+00:02:06.030 algorithms can be represented by using
+
+00:02:08.910 this record
+
+00:02:10.288 halation this is very important I will
+
+00:02:14.459 solve it using dream at her trekkers
+
+00:02:16.950 country met her TN this is calling
+
+00:02:23.640 itself two times and then n so okay and
+
+00:02:27.629 I will write it and this is two times it
+
+00:02:30.209 is calling itself so this is P and by
+
+00:02:33.689 two as well as T and by two to make it
+
+00:02:40.859 simple what we do is see this is TN T
+
+00:02:44.459 and three steps are there so what is the
+
+00:02:46.139 time of T and T and the plus B's so
+
+00:02:49.799 instead of writing kN
+
+00:02:51.000 what we do is first step is and then
+
+00:02:58.889 whatever the time we get in and by 2 and
+
+00:03:01.709 the time taken in my two so I am
+
+00:03:04.530 avoiding writing function TN completely
+
+00:03:07.200 just n then n by 2 and N by 2 then what
+
+00:03:11.099 this again it will call itself 2 times n
+
+00:03:13.470 by 2 square and n by 2 square and this
+
+00:03:17.010 is also n by 2 square and by 2 square
+
+00:03:23.690 then this will call itself 4 n by 2 cube
+
+00:03:27.329 and n by 2 cube and this also n by 2
+
+00:03:31.530 cube and by 2 cube this is n by 2 cube
+
+00:03:36.810 and by so on how long this will continue
+
+00:03:47.879 until they become 1 they become 1 so how
+
+00:03:53.489 long we do this we say that this we will
+
+00:03:55.709 do it for 2 power K times K times and by
+
+00:04:03.329 2 power K times so this we will repeat
+
+00:04:06.060 for K times this will repeat for n by 2
+
+00:04:13.259 power K times
+
+00:04:16.459 so total how many steps are there k
+
+00:04:19.279 steps are they K steps are there and in
+
+00:04:24.710 each step how much time it is taking and
+
+00:04:26.720 and this is how much and by the blessing
+
+00:04:29.479 Bible and only this is sent and this is
+
+00:04:32.690 also and how much time this is taking
+
+00:04:34.970 and by 4n by 4n by 4n word for four
+
+00:04:38.539 times it is n only and by eight and by
+
+00:04:43.490 eight eight times so this is also n and
+
+00:04:47.810 so this is all n how many times and in
+
+00:04:53.330 do K times so what is this K see we
+
+00:04:58.130 assume that and by 2 power K is equals
+
+00:05:05.090 to 1.so and is equals to 2 power K and K
+
+00:05:09.500 is equals to log n yes therefore this is
+
+00:05:13.310 n log n so the time for this is or drove
+
+00:05:20.720 and the log n so the time taken by this
+
+00:05:29.419 algorithm is and log n so this is
+
+00:05:33.349 another way you can prove it using tree
+
+00:05:35.449 method this is the first time I am
+
+00:05:36.800 writing it like this every time I was
+
+00:05:38.570 using T and you can watch previous
+
+00:05:40.699 videos other videos also I am just
+
+00:05:43.310 writing the time and so function I am
+
+00:05:46.010 just writing the time so this will be
+
+00:05:48.199 done for K times so every time the total
+
+00:05:51.530 in this level total is n total is n so
+
+00:05:54.860 that will be K and time and K is loaded
+
+00:05:57.729 next I will solve it using sebat
+
+00:06:00.560 substitution method I will remove
+
+00:06:02.449 everything and I will solve this
+
+00:06:04.099 recurrence relation using back
+
+00:06:05.750 substitution method now let us solve
+
+00:06:08.870 this recurrence relation by substitution
+
+00:06:10.729 and a third I did this recurrence
+
+00:06:13.490 relation T and Z equals to 2 T n by 2
+
+00:06:19.610 plus and then I get more answer if I
+
+00:06:25.099 know TN by 2 what is the P and
+
+00:06:29.730 - since we know T M is 2 T M by 2 + n
+
+00:06:38.720 then an N by T 2 in place of this if I
+
+00:06:41.940 write n by 2 T this will be an NP - so N
+
+00:06:45.660 by 2 again by Doom's so this becomes
+
+00:06:48.960 square plus n by 2 so that's it this we
+
+00:06:54.540 will subsidy you would hear so this
+
+00:06:57.180 becomes what - what is this - TN by 2
+
+00:07:02.760 squared plus n by 2 so 2 as it is at
+
+00:07:08.970 this place we have substituted this one
+
+00:07:12.590 personalities this was our first
+
+00:07:15.930 equation remember this if I open this -
+
+00:07:19.350 square e n by 2 square plus 2 gets
+
+00:07:25.740 cancelled and n plus M so this is the
+
+00:07:31.230 second equation here even I can write 2
+
+00:07:36.000 well so and I have written it this is C
+
+00:07:39.810 and now I have to find out this one and
+
+00:07:43.770 sub security here let us see what is T
+
+00:07:45.930 and Y 2 square so here I write it t my 2
+
+00:07:50.190 square so in place often and by 2 square
+
+00:07:54.300 so 2i as it is at T and Y 2 square so n
+
+00:07:58.590 by 2 square but one motive is this 2q
+
+00:08:02.010 plus n by 2 square this one has to be
+
+00:08:08.250 substituted here so what this will be
+
+00:08:11.220 true Square and that part - t n by 2
+
+00:08:20.520 cube plus and by 2 square after this - n
+
+00:08:26.700 - n so only this portion I have
+
+00:08:30.000 substituted so this became the same
+
+00:08:32.490 bracket open is fun so this will be 2
+
+00:08:38.010 square into 2 - 2 T and by
+
+00:08:42.030 q plus 2 squared 2 squared scans also M
+
+00:08:46.850 already twin is there so this will be 3
+
+00:08:50.010 and third iteration let us say 2 times I
+
+00:08:58.500 have substituted each or if I continue
+
+00:09:00.870 this for K times and I say that I repeat
+
+00:09:03.030 this 40 times I'll continue editing here
+
+00:09:07.040 this is continued for K times that and
+
+00:09:10.380 this will be T and 2 part K 2 power K P
+
+00:09:17.340 and when you odd K + y - 4 key this is
+
+00:09:23.340 cube DISA cube addresses 3 n so plus K
+
+00:09:27.300 and and we assume that this has became e
+
+00:09:32.430 of n by 2 power K has became even so
+
+00:09:39.270 therefore my through pod K is equals to
+
+00:09:42.150 1 and n is equals to 2 power K and K is
+
+00:09:46.080 equals to law and this is our resolution
+
+00:09:54.050 know what this is equal to en to our K
+
+00:09:58.890 what is a k2 pod K okay let it be - for
+
+00:10:02.520 kill me then what is this e 1 plus K n
+
+00:10:07.220 now you know what is - Paula came to
+
+00:10:09.690 party is and T power T of 1 is what 1
+
+00:10:13.650 minus and as it is what is K log in now
+
+00:10:22.680 TN is n plus n log n but the highest
+
+00:10:26.250 term is this one so it is Big O of n log
+
+00:10:29.970 N or teed off and login also you can say
+
+00:10:33.830 that's it this is the recurrence
+
+00:10:36.720 relation solution of recurrence relation
+
+00:10:39.420 is n log n this is a very important
+
+00:10:43.410 recurrence relation again I'm telling
+
+00:10:45.240 you you should know do TN by 2 plus and
+
+00:10:49.230 if you have then this will be result
+
+00:10:54.470 that's all we will end recurrence
+
+00:10:57.140 relations here next I will show you
+
+00:10:59.600 masters theorem for dividing functions
+
+00:11:03.580 the functions in which this is getting
+
+00:11:06.320 divided and let us see how we can
+
+00:11:09.650 directly give the answer by looking at a
+
+00:11:12.170 recurrence relation so for that we will
+
+00:11:14.450 look at masters theorem so next video is
+
+00:11:18.530 one masters here

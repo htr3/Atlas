@@ -86,19 +86,18 @@ button { color: inherit; }
 
 .course-switch {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 6px;
-  max-height: 190px;
-  overflow-y: auto;
-  padding: 0 18px 4px;
-  scrollbar-width: thin;
-  scrollbar-color: #303944 transparent;
+  padding: 0 18px 8px;
 }
 .course-switch button {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 8px 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  min-height: 42px;
+  padding: 6px 8px;
   border: 1px solid var(--line);
   border-radius: 5px;
   color: #8d99a6;
@@ -106,6 +105,7 @@ button { color: inherit; }
   cursor: pointer;
   font-size: 11px;
   font-weight: 700;
+  line-height: 1.2;
   text-align: left;
 }
 .course-switch button small {

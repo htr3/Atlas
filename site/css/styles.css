@@ -622,9 +622,31 @@ kbd {
 }
 .theory-section:last-child { padding-bottom: 0; }
 .theory-section h3 { margin: 0 0 12px; color: #dce2e8; font-size: 16px; }
-.theory-section p { margin: 0; color: #8b97a4; font-size: 12px; line-height: 1.8; }
+.theory-section p, .theory-section .theory-body { margin: 0; color: #8b97a4; font-size: 12px; line-height: 1.8; }
 .theory-section b { color: #d4dae1; font-weight: 600; }
 .theory-section code { padding: 2px 4px; color: #ff9777; background: rgba(255,106,61,.08); font: 11px var(--mono); }
+.theory-section .complexity {
+  display: block;
+  margin-top: 12px;
+  color: #d4dae1;
+  font: 500 11px/1.6 var(--mono);
+}
+.theory-section pre {
+  max-height: 460px;
+  margin: 16px 0 0;
+  padding: 16px;
+  overflow: auto;
+  border: 1px solid #252e38;
+  border-radius: 8px;
+  background: #080d12;
+}
+.theory-section pre code {
+  padding: 0;
+  color: #b9c4cf;
+  background: none;
+  font: 11px/1.65 var(--mono);
+  white-space: pre;
+}
 .theory-section ul, .interview-card ul {
   margin: 14px 0 0;
   padding: 0;

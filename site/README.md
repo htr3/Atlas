@@ -11,6 +11,7 @@ An interactive 2D study companion with separate visual courses:
 - **Abdul Bari Algorithms** — 77 available lessons from the 84-entry playlist in `data/abdul-bari/`
 - **Piyush Garg** — 15 separate system design lessons (event sourcing, CQRS, rate limiting, UPI, WebRTC, queues, patterns, Kafka) in `data/piyush-garg/`
 - **SD Roadmap** — 40 Java/Spring-oriented lessons covering the missing networking, data, reliability, security, cloud, operations, advanced, and case-study topics in `data/sd-roadmap/`
+- **Striver Sheet** — 229 Java DSA problems across 17 modules, generated from `raw data/Striver-180-Java-Notes.pdf`
 
 ## Open it
 

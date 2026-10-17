@@ -28,7 +28,8 @@ const courses = [
   { id: "competitive", label: "Competitive", note: "CP algorithms" },
   { id: "abdul-bari", label: "Abdul Bari", note: "77 algorithm lessons" },
   { id: "piyush-garg", label: "Piyush Garg", note: "15 system design lessons" },
-  { id: "sd-roadmap", label: "SD Roadmap", note: "40 missing-topic lessons" }
+  { id: "sd-roadmap", label: "SD Roadmap", note: "40 missing-topic lessons" },
+  { id: "striver", label: "Striver Sheet", note: "229 Java problems" }
 ];
 const categoryOrder = [
   "Fundamentals", "Building Blocks", "Data & Storage", "Communication",
@@ -40,7 +41,11 @@ const categoryOrder = [
   "Roadmap Foundations", "Networking", "Data Modeling", "Caching and Scale",
   "Messaging", "Distributed Systems", "Reliability and Security",
   "Cloud and Architecture", "Operations", "Advanced Systems",
-  "Design Principles", "Interview Method", "Roadmap Case Studies"
+  "Design Principles", "Interview Method", "Roadmap Case Studies",
+  "Arrays", "Hashing", "Binary Search", "Sliding Window and Two Pointers",
+  "Recursion and Backtracking", "Linked List", "Stack and Queues", "Greedy",
+  "Heaps", "Binary Trees", "Binary Search Trees", "Graphs",
+  "Dynamic Programming", "Tries", "Strings", "Bit Manipulation", "Mathematics"
 ];
 const $ = (selector) => document.querySelector(selector);
 const el = {
@@ -169,7 +174,7 @@ function renderTheory(lecture) {
   el.sections.innerHTML = lecture.theory.map((section, index) => `
     <section class="theory-section" data-index="${String(index + 1).padStart(2, "0")}">
       <h3>${escapeHtml(section.heading)}</h3>
-      <p>${section.body}</p>
+      <div class="theory-body">${section.body}</div>
       ${section.bullets?.length ? `<ul>${section.bullets.map((bullet) => `<li>${bullet}</li>`).join("")}</ul>` : ""}
     </section>
   `).join("");
